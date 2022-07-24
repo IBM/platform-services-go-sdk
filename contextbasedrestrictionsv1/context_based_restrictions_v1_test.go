@@ -1638,11 +1638,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := new(contextbasedrestrictionsv1.CreateRuleOptions)
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.Operations = newRuleOperationsModel
 				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1702,7 +1711,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully with retries`, func() {
@@ -1740,11 +1749,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := new(contextbasedrestrictionsv1.CreateRuleOptions)
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.Operations = newRuleOperationsModel
 				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1807,7 +1825,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
@@ -1850,11 +1868,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := new(contextbasedrestrictionsv1.CreateRuleOptions)
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.Operations = newRuleOperationsModel
 				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1901,11 +1928,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := new(contextbasedrestrictionsv1.CreateRuleOptions)
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.Operations = newRuleOperationsModel
 				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1966,11 +2002,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := new(contextbasedrestrictionsv1.CreateRuleOptions)
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.Operations = newRuleOperationsModel
 				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -2090,7 +2135,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully with retries`, func() {
@@ -2169,7 +2214,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
@@ -2370,7 +2415,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully with retries`, func() {
@@ -2430,7 +2475,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
@@ -2587,6 +2632,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the ReplaceRuleOptions model
 				replaceRuleOptionsModel := new(contextbasedrestrictionsv1.ReplaceRuleOptions)
 				replaceRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -2594,6 +2647,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.Operations = newRuleOperationsModel
 				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -2655,7 +2709,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully with retries`, func() {
@@ -2693,6 +2747,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the ReplaceRuleOptions model
 				replaceRuleOptionsModel := new(contextbasedrestrictionsv1.ReplaceRuleOptions)
 				replaceRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -2700,6 +2762,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.Operations = newRuleOperationsModel
 				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -2764,7 +2827,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "operations": {"api_types": [{"api_type_id": "APITypeID"}]}, "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
@@ -2807,6 +2870,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the ReplaceRuleOptions model
 				replaceRuleOptionsModel := new(contextbasedrestrictionsv1.ReplaceRuleOptions)
 				replaceRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -2814,6 +2885,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.Operations = newRuleOperationsModel
 				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -2860,6 +2932,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the ReplaceRuleOptions model
 				replaceRuleOptionsModel := new(contextbasedrestrictionsv1.ReplaceRuleOptions)
 				replaceRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -2867,6 +2947,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.Operations = newRuleOperationsModel
 				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -2934,6 +3015,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				resourceModel.Attributes = []contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}
 				resourceModel.Tags = []contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+
 				// Construct an instance of the ReplaceRuleOptions model
 				replaceRuleOptionsModel := new(contextbasedrestrictionsv1.ReplaceRuleOptions)
 				replaceRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -2941,6 +3030,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.Operations = newRuleOperationsModel
 				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
@@ -3269,6 +3359,243 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
+	Describe(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions) - Operation response error`, func() {
+		listAvailableServiceOperationsPath := "/v1/operations"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceOperationsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAvailableServiceOperations with error: Operation response processing error`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				contextBasedRestrictionsService.EnableRetries(0, 0)
+				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+		listAvailableServiceOperationsPath := "/v1/operations"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceOperationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
+				}))
+			})
+			It(`Invoke ListAvailableServiceOperations successfully with retries`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+				contextBasedRestrictionsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperationsWithContext(ctx, listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				contextBasedRestrictionsService.DisableRetries()
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = contextBasedRestrictionsService.ListAvailableServiceOperationsWithContext(ctx, listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceOperationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
+				}))
+			})
+			It(`Invoke ListAvailableServiceOperations successfully`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAvailableServiceOperations with error: Operation validation and request error`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := contextBasedRestrictionsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListAvailableServiceOperationsOptions model with no property values
+				listAvailableServiceOperationsOptionsModelNew := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAvailableServiceOperations successfully`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			contextBasedRestrictionsService, _ := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
@@ -3318,11 +3645,24 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(resourceModel.Attributes).To(Equal([]contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}))
 				Expect(resourceModel.Tags).To(Equal([]contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}))
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				Expect(newRuleOperationsAPITypesItemModel).ToNot(BeNil())
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+				Expect(newRuleOperationsAPITypesItemModel.APITypeID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				Expect(newRuleOperationsModel).ToNot(BeNil())
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+				Expect(newRuleOperationsModel.APITypes).To(Equal([]contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}))
+
 				// Construct an instance of the CreateRuleOptions model
 				createRuleOptionsModel := contextBasedRestrictionsService.NewCreateRuleOptions()
 				createRuleOptionsModel.SetDescription("this is an example of rule")
 				createRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				createRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				createRuleOptionsModel.SetOperations(newRuleOperationsModel)
 				createRuleOptionsModel.SetEnforcementMode("enabled")
 				createRuleOptionsModel.SetXCorrelationID("testString")
 				createRuleOptionsModel.SetTransactionID("testString")
@@ -3331,6 +3671,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(createRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(createRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(createRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(createRuleOptionsModel.Operations).To(Equal(newRuleOperationsModel))
 				Expect(createRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("enabled")))
 				Expect(createRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
@@ -3435,6 +3776,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(getZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListAvailableServiceOperationsOptions successfully`, func() {
+				// Construct an instance of the ListAvailableServiceOperationsOptions model
+				serviceName := "testString"
+				listAvailableServiceOperationsOptionsModel := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions(serviceName)
+				listAvailableServiceOperationsOptionsModel.SetServiceName("testString")
+				listAvailableServiceOperationsOptionsModel.SetXCorrelationID("testString")
+				listAvailableServiceOperationsOptionsModel.SetTransactionID("testString")
+				listAvailableServiceOperationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAvailableServiceOperationsOptionsModel).ToNot(BeNil())
+				Expect(listAvailableServiceOperationsOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListAvailableServicerefTargetsOptions successfully`, func() {
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := contextBasedRestrictionsService.NewListAvailableServicerefTargetsOptions()
@@ -3498,6 +3853,18 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(listZonesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listZonesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewNewRuleOperations successfully`, func() {
+				apiTypes := []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{}
+				_model, err := contextBasedRestrictionsService.NewNewRuleOperations(apiTypes)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewNewRuleOperationsAPITypesItem successfully`, func() {
+				apiTypeID := "testString"
+				_model, err := contextBasedRestrictionsService.NewNewRuleOperationsAPITypesItem(apiTypeID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewReplaceRuleOptions successfully`, func() {
 				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
@@ -3541,6 +3908,18 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(resourceModel.Attributes).To(Equal([]contextbasedrestrictionsv1.ResourceAttribute{*resourceAttributeModel}))
 				Expect(resourceModel.Tags).To(Equal([]contextbasedrestrictionsv1.ResourceTagAttribute{*resourceTagAttributeModel}))
 
+				// Construct an instance of the NewRuleOperationsAPITypesItem model
+				newRuleOperationsAPITypesItemModel := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+				Expect(newRuleOperationsAPITypesItemModel).ToNot(BeNil())
+				newRuleOperationsAPITypesItemModel.APITypeID = core.StringPtr("testString")
+				Expect(newRuleOperationsAPITypesItemModel.APITypeID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the NewRuleOperations model
+				newRuleOperationsModel := new(contextbasedrestrictionsv1.NewRuleOperations)
+				Expect(newRuleOperationsModel).ToNot(BeNil())
+				newRuleOperationsModel.APITypes = []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}
+				Expect(newRuleOperationsModel.APITypes).To(Equal([]contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{*newRuleOperationsAPITypesItemModel}))
+
 				// Construct an instance of the ReplaceRuleOptions model
 				ruleID := "testString"
 				ifMatch := "testString"
@@ -3550,6 +3929,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.SetDescription("this is an example of rule")
 				replaceRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				replaceRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				replaceRuleOptionsModel.SetOperations(newRuleOperationsModel)
 				replaceRuleOptionsModel.SetEnforcementMode("disabled")
 				replaceRuleOptionsModel.SetXCorrelationID("testString")
 				replaceRuleOptionsModel.SetTransactionID("testString")
@@ -3560,6 +3940,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(replaceRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(replaceRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(replaceRuleOptionsModel.Operations).To(Equal(newRuleOperationsModel))
 				Expect(replaceRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("disabled")))
 				Expect(replaceRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))

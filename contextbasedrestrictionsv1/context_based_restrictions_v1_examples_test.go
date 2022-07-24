@@ -426,6 +426,28 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 
 		})
 
+		It(`ListAvailableServiceOperations request example`, func() {
+			fmt.Println("\nListAvailableServiceOperations() result:")
+			// begin-list_available_service_operations
+
+			listAvailableServiceOperationsOptions := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions(
+				"containers-kubernetes",
+			)
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(operationsList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_available_service_operations
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
+		})
+
 		It(`DeleteRule request example`, func() {
 			// begin-delete_rule
 
