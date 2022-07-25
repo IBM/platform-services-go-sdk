@@ -67,7 +67,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resource-controller.test.cloud.ibm.com",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
 			}
 
@@ -120,7 +120,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resource-controller.test.cloud.ibm.com",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
 			}
 
