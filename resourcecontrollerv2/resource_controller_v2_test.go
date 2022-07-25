@@ -4646,7 +4646,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				fmt.Println(createResourceAliasOptionsModel.Source)
 				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
