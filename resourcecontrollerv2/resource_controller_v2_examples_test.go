@@ -390,6 +390,10 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
 			fmt.Println(string(b))
 
+			if resourceBinding.Credentials.Redacted != nil && (*resourceKey.Credentials.Redacted == "REDACTED" || *resourceKey.Credentials.Redacted == "REDACTED_EXPLICIT") {
+				fmt.Println("Credentials are redacted with code:", *resourceKey.Credentials.Redacted, "The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
+			}
+
 			// end-get_resource_binding
 
 			Expect(err).To(BeNil())
@@ -504,6 +508,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if resourceKey.Credentials.Redacted != nil && (*resourceKey.Credentials.Redacted == "REDACTED" || *resourceKey.Credentials.Redacted == "REDACTED_EXPLICIT") {
 				fmt.Println("Credentials are redacted with code:", *resourceKey.Credentials.Redacted, "The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
 			}
+
 			// end-get_resource_key
 
 			Expect(err).To(BeNil())
