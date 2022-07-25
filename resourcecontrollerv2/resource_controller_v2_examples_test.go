@@ -501,7 +501,9 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
 			fmt.Println(string(b))
-
+			if resourceKey.Credentials.Redacted != nil && (*resourceKey.Credentials.Redacted == "REDACTED" || *resourceKey.Credentials.Redacted == "REDACTED_EXPLICIT") {
+				fmt.Println("Credentials are redacted, The User doesn't have the correct access to view the credentials")
+			}
 			// end-get_resource_key
 
 			Expect(err).To(BeNil())

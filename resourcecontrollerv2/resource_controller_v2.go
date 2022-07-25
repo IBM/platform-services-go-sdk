@@ -2266,6 +2266,12 @@ func (options *CreateResourceKeyOptions) SetHeaders(param map[string]string) *Cr
 
 // Credentials : The credentials for a resource.
 type Credentials struct {
+	// If present, the user doesn't have the correct access to view the credentials and the details are redacted.  The
+	// string value identifies the level of access that's required to view the credential. For additional information, see
+	// [viewing a
+	// credential](https://cloud.ibm.com/docs/account?topic=account-service_credentials&interface=ui#viewing-credentials-ui).
+	Redacted *string `json:"REDACTED,omitempty"`
+
 	// The API key for the credentials.
 	Apikey *string `json:"apikey,omitempty"`
 
@@ -2311,6 +2317,9 @@ func (o *Credentials) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
+	if o.Redacted != nil {
+		m["REDACTED"] = o.Redacted
+	}
 	if o.Apikey != nil {
 		m["apikey"] = o.Apikey
 	}
@@ -2333,6 +2342,12 @@ func (o *Credentials) MarshalJSON() (buffer []byte, err error) {
 // UnmarshalCredentials unmarshals an instance of Credentials from the specified map of raw messages.
 func UnmarshalCredentials(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Credentials)
+	err = core.UnmarshalPrimitive(m, "REDACTED", &obj.Redacted)
+	if err != nil {
+		return
+	}
+	delete(m, "REDACTED")
+
 	err = core.UnmarshalPrimitive(m, "apikey", &obj.Apikey)
 	if err != nil {
 		return
