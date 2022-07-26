@@ -44,7 +44,7 @@ type ResourceControllerV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://resource-controller.test.cloud.ibm.com"
+const DefaultServiceURL = "https://resource-controller.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "resource_controller"
