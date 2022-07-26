@@ -391,7 +391,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			if resourceBinding.Credentials.Redacted != nil && (*resourceBinding.Credentials.Redacted == "REDACTED" || *resourceBinding.Credentials.Redacted == "REDACTED_EXPLICIT") {
-				fmt.Println("Credentials are redacted with code:", *resourceKey.Credentials.Redacted, ".The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
+				fmt.Println("Credentials are redacted with code:", *resourceBinding.Credentials.Redacted, ".The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
 			}
 
 			// end-get_resource_binding
