@@ -586,11 +586,11 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("12 - Create Resource Binding", func() {
 			shouldSkipTest()
 
-			Expect(testAliasGUID).ToNot(BeEmpty())
+			Expect(testAliasCRN).ToNot(BeEmpty())
 
 			target := "crn:v1:staging:public:bluemix:us-south:s/" + testSpaceGUID + "::cf-application:" + testAppGUID
 			bindTargetCRN = "crn:v1:staging:public:cf:us-south:s/" + testSpaceGUID + "::cf-application:" + testAppGUID
-			options := service.NewCreateResourceBindingOptions(testAliasGUID, target)
+			options := service.NewCreateResourceBindingOptions(testAliasCRN, target)
 			options.SetName(bindingNames["name"])
 
 			parameters := &resourcecontrollerv2.ResourceBindingPostParameters{}
@@ -774,10 +774,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			It(`17a - List Resource Bindings For Alias`, func() {
 				shouldSkipTest()
 
-				Expect(testAliasGUID).ToNot(BeEmpty())
+				Expect(testAliasCRN).ToNot(BeEmpty())
 
 				listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID:    &testAliasGUID,
+					ID:    &testAliasCRN,
 					Limit: core.Int64Ptr(resultsPerPage),
 				}
 
@@ -1023,7 +1023,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("24 - Create Resource Key For Alias", func() {
 			shouldSkipTest()
 
-			options := service.NewCreateResourceKeyOptions(keyNames["name2"], testAliasGUID)
+			options := service.NewCreateResourceKeyOptions(keyNames["name2"], testAliasCRN)
 			headers := map[string]string{
 				"Transaction-ID": "rc-sdk-go-test24-" + transactionID,
 			}
@@ -1179,7 +1179,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("30 - Delete A Resource Alias With Dependencies - Fail", func() {
 			shouldSkipTest()
 
-			options := service.NewDeleteResourceAliasOptions(testAliasGUID)
+			options := service.NewDeleteResourceAliasOptions(testAliasCRN)
 			headers := map[string]string{
 				"Transaction-ID": "rc-sdk-go-test30-" + transactionID,
 			}
@@ -1299,9 +1299,9 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("36 - Delete A Resource Alias", func() {
 			shouldSkipTest()
 
-			Expect(testAliasGUID).ToNot(BeEmpty())
+			Expect(testAliasCRN).ToNot(BeEmpty())
 
-			options := service.NewDeleteResourceAliasOptions(testAliasGUID)
+			options := service.NewDeleteResourceAliasOptions(testAliasCRN)
 			headers := map[string]string{
 				"Transaction-ID": "rc-sdk-go-test36-" + transactionID,
 			}
@@ -1315,9 +1315,9 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("37 - Verify Resource Alias Was Deleted", func() {
 			shouldSkipTest()
 
-			Expect(testAliasGUID).ToNot(BeEmpty())
+			Expect(testAliasCRN).ToNot(BeEmpty())
 
-			options := service.NewGetResourceAliasOptions(testAliasGUID)
+			options := service.NewGetResourceAliasOptions(testAliasCRN)
 			headers := map[string]string{
 				"Transaction-ID": "rc-sdk-go-test37-" + transactionID,
 			}
@@ -1375,7 +1375,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			_, resp, err := service.UpdateResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
-			Expect(resp.StatusCode).To(Equal(400))
+			Expect(resp.StatusCode).To(Equal(422))
 		})
 
 		It("40 - Delete A Locked Resource Instance - Fail", func() {
@@ -1391,7 +1391,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
-			Expect(resp.StatusCode).To(Equal(400))
+			Expect(resp.StatusCode).To(Equal(422))
 		})
 
 		It("41 - Unlock A Resource Instance", func() {
@@ -1707,6 +1707,26 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			//wait for reclamation object to be created
 			time.Sleep(20 * time.Second)
+		})
+
+		Describe(`CancelLastopResourceInstance - Cancel the in progress last operation of the resource instance`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`53 - CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions)`, func() {
+				Expect(testInstanceGUID).ToNot(BeEmpty())
+				cancelLastopResourceInstanceOptions := &resourcecontrollerv2.CancelLastopResourceInstanceOptions{
+					ID: &testInstanceGUID,
+				}
+
+				resourceInstance, response, err := service.CancelLastopResourceInstance(cancelLastopResourceInstanceOptions)
+				// Expect(err).To(BeNil())
+				// Expect(response.StatusCode).To(Equal(200))
+				// Expect(resourceInstance).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("The instance is not cancelable."))
+				Expect(response.StatusCode).To(Equal(422))
+				Expect(resourceInstance).To(BeNil())
+			})
 		})
 
 		// Commented because redis timeouts cause intermittent failure
