@@ -199,12 +199,28 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			listResourceInstancesOptions := resourceControllerService.NewListResourceInstancesOptions()
 			listResourceInstancesOptions = listResourceInstancesOptions.SetName(resourceInstanceName)
+			listResourceInstancesOptions = listResourceInstancesOptions.SetLimit(2) // Setting the limit to 2 as a caution to not fetch all paginated records
 
+			resources := make([]resourcecontrollerv2.ResourceInstance, 0)
 			resourceInstancesList, response, err := resourceControllerService.ListResourceInstances(listResourceInstancesOptions)
+			loopCounter := 0
+			for err == nil && resourceInstancesList.NextURL != nil && *resourceInstancesList.NextURL != "" && loopCounter < 3 {
+				resourceInstancesList, response, err = resourceControllerService.ListResourceInstances(listResourceInstancesOptions)
+				resources = append(resources, resourceInstancesList.Resources...)
+				startString, err2 := core.GetQueryParam(resourceInstancesList.NextURL, "start")
+				if err2 != nil || startString == nil {
+					fmt.Println("Error in fetching start value from next_url:", err2)
+					break
+				}
+				listResourceInstancesOptions.SetStart(*startString)
+				loopCounter = loopCounter + 1 // Adding the loopCounter as a caution to not fetch all paginated records
+			}
 			if err != nil {
 				panic(err)
+			} else {
+				resources = append(resources, resourceInstancesList.Resources...)
 			}
-			b, _ := json.MarshalIndent(resourceInstancesList, "", "  ")
+			b, _ := json.MarshalIndent(resources, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_resource_instances
@@ -745,6 +761,33 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			// Wait for reclamation object to be created.
 			time.Sleep(20 * time.Second)
+		})
+		It(`CancelLastopResourceInstance request example`, func() {
+			fmt.Println("\nCancelLastopResourceInstance() result:")
+			// begin-cancel_lastop_resource_instance
+
+			cancelLastopResourceInstanceOptions := resourceControllerService.NewCancelLastopResourceInstanceOptions(
+				instanceGUID,
+			)
+
+			resourceInstance, response, err := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptions)
+			if err != nil {
+				fmt.Println("The instance is not cancelable.")
+			} else {
+				b, _ := json.MarshalIndent(resourceInstance, "", "  ")
+				fmt.Println(string(b))
+			}
+
+			// end-cancel_lastop_resource_instance
+			if err != nil {
+				Expect(err.Error()).To(Equal("The instance is not cancelable."))
+				Expect(response.StatusCode).To(Equal(422))
+				Expect(resourceInstance).To(BeNil())
+			} else {
+				Expect(err).To(BeNil())
+				Expect(resourceInstance).ToNot(BeNil())
+			}
+
 		})
 	})
 })

@@ -1709,6 +1709,26 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			time.Sleep(20 * time.Second)
 		})
 
+		Describe(`CancelLastopResourceInstance - Cancel the in progress last operation of the resource instance`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`53 - CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions)`, func() {
+				Expect(testInstanceGUID).ToNot(BeEmpty())
+				cancelLastopResourceInstanceOptions := &resourcecontrollerv2.CancelLastopResourceInstanceOptions{
+					ID: &testInstanceGUID,
+				}
+
+				resourceInstance, response, err := service.CancelLastopResourceInstance(cancelLastopResourceInstanceOptions)
+				// Expect(err).To(BeNil())
+				// Expect(response.StatusCode).To(Equal(200))
+				// Expect(resourceInstance).ToNot(BeNil())
+				Expect(err.Error()).To(Equal("The instance is not cancelable."))
+				Expect(response.StatusCode).To(Equal(422))
+				Expect(resourceInstance).To(BeNil())
+			})
+		})
+
 		// Commented because redis timeouts cause intermittent failure
 
 		// It("53 - Verify The Resource Instance Is Reclaimed", func() {

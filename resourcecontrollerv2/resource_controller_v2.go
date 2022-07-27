@@ -790,6 +790,67 @@ func (resourceController *ResourceControllerV2) UnlockResourceInstanceWithContex
 	return
 }
 
+// CancelLastopResourceInstance : Cancel the in progress last operation of the resource instance
+// Cancel the in progress last operation of the resource instance. After successful cancellation, the resource instance
+// is removed.
+func (resourceController *ResourceControllerV2) CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.CancelLastopResourceInstanceWithContext(context.Background(), cancelLastopResourceInstanceOptions)
+}
+
+// CancelLastopResourceInstanceWithContext is an alternate form of the CancelLastopResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) CancelLastopResourceInstanceWithContext(ctx context.Context, cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(cancelLastopResourceInstanceOptions, "cancelLastopResourceInstanceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(cancelLastopResourceInstanceOptions, "cancelLastopResourceInstanceOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *cancelLastopResourceInstanceOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/last_operation`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range cancelLastopResourceInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_controller", "V2", "CancelLastopResourceInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceController.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceInstance)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListResourceKeys : Get a list of all of the resource keys
 // View all of the resource keys that exist for all of your resource instances.
 func (resourceController *ResourceControllerV2) ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
@@ -1991,6 +2052,34 @@ func (resourceController *ResourceControllerV2) RunReclamationActionWithContext(
 	}
 
 	return
+}
+
+// CancelLastopResourceInstanceOptions : The CancelLastopResourceInstance options.
+type CancelLastopResourceInstanceOptions struct {
+	// The resource instance URL-encoded CRN or GUID.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCancelLastopResourceInstanceOptions : Instantiate CancelLastopResourceInstanceOptions
+func (*ResourceControllerV2) NewCancelLastopResourceInstanceOptions(id string) *CancelLastopResourceInstanceOptions {
+	return &CancelLastopResourceInstanceOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *CancelLastopResourceInstanceOptions) SetID(id string) *CancelLastopResourceInstanceOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CancelLastopResourceInstanceOptions) SetHeaders(param map[string]string) *CancelLastopResourceInstanceOptions {
+	options.Headers = param
+	return options
 }
 
 // CreateResourceAliasOptions : The CreateResourceAlias options.
@@ -4180,6 +4269,175 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
 		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceInstanceLastOperation : The status of the last operation requested on the instance.
+type ResourceInstanceLastOperation struct {
+	// The last operation type of the resource instance.
+	Type *string `json:"type" validate:"required"`
+
+	// The last operation state of the resoure instance. This indicates if the resource's last operation is in progress,
+	// succeeded or failed.
+	State *string `json:"state" validate:"required"`
+
+	// The last operation sub type of the resoure instance.
+	SubType *string `json:"sub_type,omitempty"`
+
+	// A boolean that indicates if the resource is provisioned asynchronously or not.
+	Async *bool `json:"async" validate:"required"`
+
+	// The description of the status of last operation.
+	Description *string `json:"description" validate:"required"`
+
+	// Optional string that states the reason code for the last operation state change.
+	ReasonCode *string `json:"reason_code,omitempty"`
+
+	// A field which indicates the time after which the instance's last operation is to be polled.
+	PollAfter *float64 `json:"poll_after,omitempty"`
+
+	// A boolean that indicates if the resource's last operation is cancelable or not.
+	Cancelable *bool `json:"cancelable" validate:"required"`
+
+	// A boolean that indicates if the resource broker's last operation can be polled or not.
+	Poll *bool `json:"poll" validate:"required"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
+}
+
+// Constants associated with the ResourceInstanceLastOperation.State property.
+// The last operation state of the resoure instance. This indicates if the resource's last operation is in progress,
+// succeeded or failed.
+const (
+	ResourceInstanceLastOperationStateFailedConst     = "failed"
+	ResourceInstanceLastOperationStateInProgressConst = "in progress"
+	ResourceInstanceLastOperationStateSucceededConst  = "succeeded"
+)
+
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceInstanceLastOperation
+func (o *ResourceInstanceLastOperation) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceInstanceLastOperation
+func (o *ResourceInstanceLastOperation) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceInstanceLastOperation
+func (o *ResourceInstanceLastOperation) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceInstanceLastOperation
+func (o *ResourceInstanceLastOperation) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of ResourceInstanceLastOperation
+func (o *ResourceInstanceLastOperation) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.Type != nil {
+		m["type"] = o.Type
+	}
+	if o.State != nil {
+		m["state"] = o.State
+	}
+	if o.SubType != nil {
+		m["sub_type"] = o.SubType
+	}
+	if o.Async != nil {
+		m["async"] = o.Async
+	}
+	if o.Description != nil {
+		m["description"] = o.Description
+	}
+	if o.ReasonCode != nil {
+		m["reason_code"] = o.ReasonCode
+	}
+	if o.PollAfter != nil {
+		m["poll_after"] = o.PollAfter
+	}
+	if o.Cancelable != nil {
+		m["cancelable"] = o.Cancelable
+	}
+	if o.Poll != nil {
+		m["poll"] = o.Poll
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalResourceInstanceLastOperation unmarshals an instance of ResourceInstanceLastOperation from the specified map of raw messages.
+func UnmarshalResourceInstanceLastOperation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceInstanceLastOperation)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	delete(m, "type")
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	delete(m, "state")
+	err = core.UnmarshalPrimitive(m, "sub_type", &obj.SubType)
+	if err != nil {
+		return
+	}
+	delete(m, "sub_type")
+	err = core.UnmarshalPrimitive(m, "async", &obj.Async)
+	if err != nil {
+		return
+	}
+	delete(m, "async")
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	delete(m, "description")
+	err = core.UnmarshalPrimitive(m, "reason_code", &obj.ReasonCode)
+	if err != nil {
+		return
+	}
+	delete(m, "reason_code")
+	err = core.UnmarshalPrimitive(m, "poll_after", &obj.PollAfter)
+	if err != nil {
+		return
+	}
+	delete(m, "poll_after")
+	err = core.UnmarshalPrimitive(m, "cancelable", &obj.Cancelable)
+	if err != nil {
+		return
+	}
+	delete(m, "cancelable")
+	err = core.UnmarshalPrimitive(m, "poll", &obj.Poll)
+	if err != nil {
+		return
+	}
+	delete(m, "poll")
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
