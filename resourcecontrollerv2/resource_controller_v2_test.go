@@ -67,14 +67,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +102,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
@@ -122,13 +120,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL":       "https://resource-controller.test.cloud.ibm.com",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-			})
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(resourceControllerService).To(BeNil())
@@ -139,7 +136,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE":   "NOAuth",
+				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2161,6 +2158,218 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Invoke operation
 				result, response, operationErr := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions) - Operation response error`, func() {
+		cancelLastopResourceInstancePath := "/v2/resource_instances/testString/last_operation"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance with error: Operation response processing error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				resourceControllerService.EnableRetries(0, 0)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions)`, func() {
+		cancelLastopResourceInstancePath := "/v2/resource_instances/testString/last_operation"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CancelLastopResourceInstanceWithContext(ctx, cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CancelLastopResourceInstanceWithContext(ctx, cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CancelLastopResourceInstance with error: Operation validation and request error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := resourceControllerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CancelLastopResourceInstanceOptions model with no property values
+				cancelLastopResourceInstanceOptionsModelNew := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
