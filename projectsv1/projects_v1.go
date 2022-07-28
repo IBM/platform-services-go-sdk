@@ -3557,7 +3557,7 @@ type ProjectStatus struct {
 
 	Credentials *ProjectStatusCredentials `json:"credentials,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+	Configs []StatusConfigs `json:"configs,omitempty"`
 
 	Dashboard *ProjectStatusDashboard `json:"dashboard,omitempty"`
 
@@ -3633,7 +3633,7 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalStatusConfigs)
 	if err != nil {
 		return
 	}
@@ -3875,6 +3875,89 @@ func UnmarshalServiceInfoToolchain(m map[string]json.RawMessage, result interfac
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// StatusConfigs : StatusConfigs struct
+type StatusConfigs struct {
+	Name *string `json:"name" validate:"required"`
+
+	PullRequest *string `json:"pull_request,omitempty"`
+
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	OfferingID *string `json:"offering_id,omitempty"`
+
+	OfferingKindID *string `json:"offering_kind_id,omitempty"`
+
+	VersionID *string `json:"version_id,omitempty"`
+
+	// Version of the catalog offer.
+	OfferingVersion *string `json:"offering_version,omitempty"`
+
+	OfferingFulfilmentKind *string `json:"offering_fulfilment_kind,omitempty"`
+
+	CartOrderID *string `json:"cart_order_id,omitempty"`
+
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	WorkspaceID *string `json:"workspace_id,omitempty"`
+
+	CartItemName *string `json:"cart_item_name,omitempty"`
+}
+
+// Constants associated with the StatusConfigs.OfferingFulfilmentKind property.
+const (
+	StatusConfigs_OfferingFulfilmentKind_Terraform = "terraform"
+)
+
+// UnmarshalStatusConfigs unmarshals an instance of StatusConfigs from the specified map of raw messages.
+func UnmarshalStatusConfigs(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(StatusConfigs)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pull_request", &obj.PullRequest)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_id", &obj.OfferingID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_kind_id", &obj.OfferingKindID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version_id", &obj.VersionID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_version", &obj.OfferingVersion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_fulfilment_kind", &obj.OfferingFulfilmentKind)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cart_order_id", &obj.CartOrderID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "workspace_id", &obj.WorkspaceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cart_item_name", &obj.CartItemName)
 	if err != nil {
 		return
 	}
