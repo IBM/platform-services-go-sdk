@@ -2670,6 +2670,9 @@ type ServiceRefTarget struct {
 
 	// The type of the service.
 	ServiceType *string `json:"service_type,omitempty"`
+
+	// The locations the service is available.
+	Locations []ServiceRefTargetLocationsItem `json:"locations,omitempty"`
 }
 
 // UnmarshalServiceRefTarget unmarshals an instance of ServiceRefTarget from the specified map of raw messages.
@@ -2680,6 +2683,10 @@ func UnmarshalServiceRefTarget(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_type", &obj.ServiceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "locations", &obj.Locations, UnmarshalServiceRefTargetLocationsItem)
 	if err != nil {
 		return
 	}
@@ -2704,6 +2711,23 @@ func UnmarshalServiceRefTargetList(m map[string]json.RawMessage, result interfac
 		return
 	}
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalServiceRefTarget)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceRefTargetLocationsItem : ServiceRefTargetLocationsItem struct
+type ServiceRefTargetLocationsItem struct {
+	// The location name.
+	Name *string `json:"name" validate:"required"`
+}
+
+// UnmarshalServiceRefTargetLocationsItem unmarshals an instance of ServiceRefTargetLocationsItem from the specified map of raw messages.
+func UnmarshalServiceRefTargetLocationsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceRefTargetLocationsItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}

@@ -127,16 +127,27 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateZone(createZoneOptions *CreateZoneOptions)`, func() {
-			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+			ipAddressModel := &contextbasedrestrictionsv1.AddressIPAddress{
 				Type:  core.StringPtr("ipAddress"),
 				Value: core.StringPtr("169.23.56.234"),
 			}
+			serviceRefAddressModel := &contextbasedrestrictionsv1.AddressServiceRef{
+				Type: core.StringPtr(contextbasedrestrictionsv1.AddressServiceRefTypeServicerefConst),
+				Ref: &contextbasedrestrictionsv1.ServiceRefValue{
+					AccountID:   core.StringPtr(testAccountID),
+					ServiceName: core.StringPtr("containers-kubernetes"),
+					Location:    core.StringPtr("us-south"),
+				},
+			}
 
 			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
-				Name:          core.StringPtr("an example of zone"),
-				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("this is an example of zone"),
-				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				Name:        core.StringPtr("an example of zone"),
+				AccountID:   core.StringPtr(testAccountID),
+				Description: core.StringPtr("this is an example of zone"),
+				Addresses: []contextbasedrestrictionsv1.AddressIntf{
+					ipAddressModel,
+					serviceRefAddressModel,
+				},
 				TransactionID: getTransactionID(),
 			}
 
@@ -504,6 +515,67 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(rule).ToNot(BeNil())
 			ruleID = *rule.ID
+		})
+	})
+
+	Describe(`CreateRule - Create a rule with an API type`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRule(createRuleOptions *CreateRuleOptions)`, func() {
+			ruleContextAttributeModel := &contextbasedrestrictionsv1.RuleContextAttribute{
+				Name:  core.StringPtr("networkZoneId"),
+				Value: core.StringPtr(zoneID),
+			}
+
+			ruleContextModel := &contextbasedrestrictionsv1.RuleContext{
+				Attributes: []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel},
+			}
+
+			resourceModel := &contextbasedrestrictionsv1.Resource{
+				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
+					{
+						Name:  core.StringPtr("accountId"),
+						Value: core.StringPtr(testAccountID),
+					},
+					{
+						Name:  core.StringPtr("serviceName"),
+						Value: core.StringPtr("containers-kubernetes"),
+					},
+				},
+			}
+
+			operationsModel := &contextbasedrestrictionsv1.NewRuleOperations{
+				APITypes: []contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem{
+					{APITypeID: core.StringPtr("crn:v1:bluemix:public:containers-kubernetes::::api-type:management")},
+				},
+			}
+
+			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				Operations:      operationsModel,
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeEnabledConst),
+				TransactionID:   getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(rule).ToNot(BeNil())
+
+			// cleanup
+			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
+				RuleID:        rule.ID,
+				TransactionID: getTransactionID(),
+			}
+
+			response, err = contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
@@ -902,6 +974,23 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
 			Expect(accountSettings).To(BeNil())
+		})
+	})
+
+	Describe(`ListAvailableServiceOperations - List available service operations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceName:   core.StringPtr("containers-kubernetes"),
+				TransactionID: getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
 		})
 	})
 

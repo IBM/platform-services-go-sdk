@@ -1429,7 +1429,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"name": "Name"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
@@ -1490,7 +1490,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"name": "Name"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
