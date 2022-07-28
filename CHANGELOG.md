@@ -1,3 +1,10 @@
+## [0.28.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.0...v0.28.1) (2022-07-28)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent API changes ([#198](https://github.com/IBM/platform-services-go-sdk/issues/198)) ([ab1c086](https://github.com/IBM/platform-services-go-sdk/commit/ab1c086598fd99e7c8549840eaa0341a4b5d14e3))
+
 # [0.28.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.27.0...v0.28.0) (2022-07-28)
 
 
