@@ -1,3 +1,10 @@
+# [0.27.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.1...v0.27.0) (2022-07-27)
+
+
+### Features
+
+* **Resource Controller:** regen to add new method ([#196](https://github.com/IBM/platform-services-go-sdk/issues/196)) ([5272cdc](https://github.com/IBM/platform-services-go-sdk/commit/5272cdcb64def689e28a389ec38e282b9889fc6d))
+
 ## [0.26.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.0...v0.26.1) (2022-06-27)
 
 
