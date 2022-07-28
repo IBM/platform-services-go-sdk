@@ -43,9 +43,9 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 	const externalConfigFile = "../atracker_v2.env"
 
-	const notFoundTargetID = "deadbeef-2222-2222-2222-222222222222"
+	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
 
-	const notFoundRouteID = "deadbeef-2222-2222-2222-222222222222"
+	const notFoundRouteID =  "ffffffff-2222-2222-2222-222222222222"
 
 	const badTargetType = "bad_target_type"
 
