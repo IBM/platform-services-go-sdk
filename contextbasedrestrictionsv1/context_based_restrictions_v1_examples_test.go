@@ -39,6 +39,7 @@ import (
 // CONTEXT_BASED_RESTRICTIONS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 // CONTEXT_BASED_RESTRICTIONS_TEST_ACCOUNT_ID=<the id of the account under which test CBR zones and rules are created>
 // CONTEXT_BASED_RESTRICTIONS_TEST_SERVICE_NAME=<the name of the service to be associated with the test CBR rules>
+// CONTEXT_BASED_RESTRICTIONS_TEST_VPC_CRN=<the CRN of the vpc instance to be associated with the test CBR rules>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
@@ -54,6 +55,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 		configLoaded                    bool = false
 		accountID                       string
 		serviceName                     string
+		vpcCRN                          string
 		zoneID                          string
 		zoneRev                         string
 		ruleID                          string
@@ -89,6 +91,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			serviceName = config["TEST_SERVICE_NAME"]
 			if serviceName == "" {
 				Skip("Unable to load TEST_SERVICE_NAME configuration property, skipping tests")
+			}
+
+			vpcCRN = config["TEST_VPC_CRN"]
+			if vpcCRN == "" {
+				Skip("Unable to load TEST_VPC_CRN configuration property, skipping tests")
 			}
 
 			if len(config) == 0 {
@@ -130,16 +137,40 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			fmt.Println("\nCreateZone() result:")
 			// begin-create_zone
 
-			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+			ipAddressModel := &contextbasedrestrictionsv1.AddressIPAddress{
 				Type:  core.StringPtr("ipAddress"),
 				Value: core.StringPtr("169.23.56.234"),
+			}
+			ipRangeAddressModel := &contextbasedrestrictionsv1.AddressIPAddressRange{
+				Type:  core.StringPtr("ipRange"),
+				Value: core.StringPtr("169.23.22.0-169.23.22.255"),
+			}
+			subnetAddressModel := &contextbasedrestrictionsv1.AddressSubnet{
+				Type:  core.StringPtr("subnet"),
+				Value: core.StringPtr("192.0.2.0/24"),
+			}
+			vpcAddressModel := &contextbasedrestrictionsv1.AddressVPC{
+				Type:  core.StringPtr("vpc"),
+				Value: core.StringPtr(vpcCRN),
+			}
+			serviceRefAddressModel := &contextbasedrestrictionsv1.AddressServiceRef{
+				Type: core.StringPtr("serviceRef"),
+				Ref: &contextbasedrestrictionsv1.ServiceRefValue{
+					AccountID:   core.StringPtr(accountID),
+					ServiceName: core.StringPtr("cloud-object-storage"),
+				},
+			}
+			excludedIPAddressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.22.127"),
 			}
 
 			createZoneOptions := contextBasedRestrictionsService.NewCreateZoneOptions()
 			createZoneOptions.SetName("an example of zone")
 			createZoneOptions.SetAccountID(accountID)
 			createZoneOptions.SetDescription("this is an example of zone")
-			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
+			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{ipAddressModel, ipRangeAddressModel, subnetAddressModel, vpcAddressModel, serviceRefAddressModel})
+			createZoneOptions.SetExcluded([]contextbasedrestrictionsv1.AddressIntf{excludedIPAddressModel})
 
 			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
 			if err != nil {
