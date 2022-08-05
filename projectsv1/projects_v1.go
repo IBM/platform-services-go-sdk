@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.52.0-8345f809-20220627-220000
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
