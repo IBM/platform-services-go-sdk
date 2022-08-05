@@ -3051,6 +3051,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
 				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.Target = projectPrototypeModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -3150,6 +3151,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
 				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.Target = projectPrototypeModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3257,6 +3259,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
 				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.Target = projectPrototypeModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3309,6 +3312,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
 				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.Target = projectPrototypeModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3382,6 +3386,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
 				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.Target = projectPrototypeModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6208,7 +6213,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
 				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
 				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore = projectPrototypeModel
 				updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter = projectPrototypeModel
 				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
 				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6260,7 +6264,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
 				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
 				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore = projectPrototypeModel
 				updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter = projectPrototypeModel
 				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
 				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6358,11 +6361,13 @@ var _ = Describe(`ProjectsV1`, func() {
 				configChangesOptionsModel := projectsService.NewConfigChangesOptions(id, configChangesOptionsSource)
 				configChangesOptionsModel.SetID("234234324-3444-4556-224232432")
 				configChangesOptionsModel.SetSource(projectPrototypeModel)
+				configChangesOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
 				configChangesOptionsModel.SetTarget(projectPrototypeModel)
 				configChangesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(configChangesOptionsModel).ToNot(BeNil())
 				Expect(configChangesOptionsModel.ID).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
 				Expect(configChangesOptionsModel.Source).To(Equal(projectPrototypeModel))
+				Expect(configChangesOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
 				Expect(configChangesOptionsModel.Target).To(Equal(projectPrototypeModel))
 				Expect(configChangesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -7017,14 +7022,12 @@ var _ = Describe(`ProjectsV1`, func() {
 				updatePullRequestConfigsOptionsModel := projectsService.NewUpdatePullRequestConfigsOptions(id, updatePullRequestConfigsOptionsPullRequest)
 				updatePullRequestConfigsOptionsModel.SetID("testString")
 				updatePullRequestConfigsOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.SetProjectDefinitionBefore(projectPrototypeModel)
 				updatePullRequestConfigsOptionsModel.SetProjectDefinitionAfter(projectPrototypeModel)
 				updatePullRequestConfigsOptionsModel.SetState("merge")
 				updatePullRequestConfigsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updatePullRequestConfigsOptionsModel).ToNot(BeNil())
 				Expect(updatePullRequestConfigsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updatePullRequestConfigsOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
-				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore).To(Equal(projectPrototypeModel))
 				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter).To(Equal(projectPrototypeModel))
 				Expect(updatePullRequestConfigsOptionsModel.State).To(Equal(core.StringPtr("merge")))
 				Expect(updatePullRequestConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))

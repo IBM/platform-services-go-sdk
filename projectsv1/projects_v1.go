@@ -1018,6 +1018,9 @@ func (projects *ProjectsV1) ConfigChangesWithContext(ctx context.Context, config
 	if configChangesOptions.Source != nil {
 		body["source"] = configChangesOptions.Source
 	}
+	if configChangesOptions.PullRequest != nil {
+		body["pull_request"] = configChangesOptions.PullRequest
+	}
 	if configChangesOptions.Target != nil {
 		body["target"] = configChangesOptions.Target
 	}
@@ -1925,9 +1928,6 @@ func (projects *ProjectsV1) UpdatePullRequestConfigsWithContext(ctx context.Cont
 	if updatePullRequestConfigsOptions.PullRequest != nil {
 		body["pull_request"] = updatePullRequestConfigsOptions.PullRequest
 	}
-	if updatePullRequestConfigsOptions.ProjectDefinitionBefore != nil {
-		body["project_definition_before"] = updatePullRequestConfigsOptions.ProjectDefinitionBefore
-	}
 	if updatePullRequestConfigsOptions.ProjectDefinitionAfter != nil {
 		body["project_definition_after"] = updatePullRequestConfigsOptions.ProjectDefinitionAfter
 	}
@@ -2012,6 +2012,8 @@ type ConfigChangesOptions struct {
 
 	Source *ProjectPrototype `json:"source" validate:"required"`
 
+	PullRequest *string `json:"pull_request,omitempty"`
+
 	Target *ProjectPrototype `json:"target,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2035,6 +2037,12 @@ func (_options *ConfigChangesOptions) SetID(id string) *ConfigChangesOptions {
 // SetSource : Allow user to set Source
 func (_options *ConfigChangesOptions) SetSource(source *ProjectPrototype) *ConfigChangesOptions {
 	_options.Source = source
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *ConfigChangesOptions) SetPullRequest(pullRequest string) *ConfigChangesOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
 	return _options
 }
 
@@ -4374,8 +4382,6 @@ type UpdatePullRequestConfigsOptions struct {
 
 	PullRequest *string `json:"pull_request" validate:"required"`
 
-	ProjectDefinitionBefore *ProjectPrototype `json:"project_definition_before,omitempty"`
-
 	ProjectDefinitionAfter *ProjectPrototype `json:"project_definition_after,omitempty"`
 
 	// The state of the PR.
@@ -4409,12 +4415,6 @@ func (_options *UpdatePullRequestConfigsOptions) SetID(id string) *UpdatePullReq
 // SetPullRequest : Allow user to set PullRequest
 func (_options *UpdatePullRequestConfigsOptions) SetPullRequest(pullRequest string) *UpdatePullRequestConfigsOptions {
 	_options.PullRequest = core.StringPtr(pullRequest)
-	return _options
-}
-
-// SetProjectDefinitionBefore : Allow user to set ProjectDefinitionBefore
-func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinitionBefore(projectDefinitionBefore *ProjectPrototype) *UpdatePullRequestConfigsOptions {
-	_options.ProjectDefinitionBefore = projectDefinitionBefore
 	return _options
 }
 
