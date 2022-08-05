@@ -1,3 +1,33 @@
+## [0.28.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.1...v0.28.2) (2022-08-02)
+
+
+### Bug Fixes
+
+* bump core version to avoid vulnerability ([#199](https://github.com/IBM/platform-services-go-sdk/issues/199)) ([8be2e1d](https://github.com/IBM/platform-services-go-sdk/commit/8be2e1defa7abb40980d3a19978b0beaa9f0d369))
+
+## [0.28.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.0...v0.28.1) (2022-07-28)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent API changes ([#198](https://github.com/IBM/platform-services-go-sdk/issues/198)) ([ab1c086](https://github.com/IBM/platform-services-go-sdk/commit/ab1c086598fd99e7c8549840eaa0341a4b5d14e3))
+
+# [0.28.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.27.0...v0.28.0) (2022-07-28)
+
+
+### Features
+
+* **Context-based Restrictions:** add enforcement_mode query param ([6b8440b](https://github.com/IBM/platform-services-go-sdk/commit/6b8440b8479fc1bc5cf7e923a3c7f04512793670))
+* **Context-based Restrictions:** add rule API type support ([27770ae](https://github.com/IBM/platform-services-go-sdk/commit/27770ae0b05d203e32e8dc50422912d586a933c9))
+* **Context-based Restrictions:** add service ref address location support ([3d79112](https://github.com/IBM/platform-services-go-sdk/commit/3d791122374bf1d72cd448e5432c5d5b4c67062c))
+
+# [0.27.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.1...v0.27.0) (2022-07-27)
+
+
+### Features
+
+* **Resource Controller:** regen to add new method ([#196](https://github.com/IBM/platform-services-go-sdk/issues/196)) ([5272cdc](https://github.com/IBM/platform-services-go-sdk/commit/5272cdcb64def689e28a389ec38e282b9889fc6d))
+
 ## [0.26.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.0...v0.26.1) (2022-06-27)
 
 
