@@ -500,203 +500,6 @@ func (projects *ProjectsV1) DeleteProjectWithContext(ctx context.Context, delete
 	return
 }
 
-// PlanProject : Run a plan job on one or more configurations in project
-// Run a plan job on one or more configurations in project.
-func (projects *ProjectsV1) PlanProject(planProjectOptions *PlanProjectOptions) (result *PlanProjectResponse, response *core.DetailedResponse, err error) {
-	return projects.PlanProjectWithContext(context.Background(), planProjectOptions)
-}
-
-// PlanProjectWithContext is an alternate form of the PlanProject method which supports a Context parameter
-func (projects *ProjectsV1) PlanProjectWithContext(ctx context.Context, planProjectOptions *PlanProjectOptions) (result *PlanProjectResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(planProjectOptions, "planProjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(planProjectOptions, "planProjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *planProjectOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/plan`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range planProjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanProject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if planProjectOptions.ConfigNames != nil {
-		body["config_names"] = planProjectOptions.ConfigNames
-	}
-	if planProjectOptions.ProjectDefinition != nil {
-		body["project_definition"] = planProjectOptions.ProjectDefinition
-	}
-	if planProjectOptions.Pipeline != nil {
-		body["pipeline"] = planProjectOptions.Pipeline
-	}
-	if planProjectOptions.PullRequest != nil {
-		body["pull_request"] = planProjectOptions.PullRequest
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPlanProjectResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// InstallProject : Install Project
-// Install one or more project's configurations. It is an asynchronous operation that can be tracked using the project
-// status api.
-func (projects *ProjectsV1) InstallProject(installProjectOptions *InstallProjectOptions) (response *core.DetailedResponse, err error) {
-	return projects.InstallProjectWithContext(context.Background(), installProjectOptions)
-}
-
-// InstallProjectWithContext is an alternate form of the InstallProject method which supports a Context parameter
-func (projects *ProjectsV1) InstallProjectWithContext(ctx context.Context, installProjectOptions *InstallProjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(installProjectOptions, "installProjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(installProjectOptions, "installProjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *installProjectOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/install`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range installProjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InstallProject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if installProjectOptions.ConfigNames != nil {
-		body["config_names"] = installProjectOptions.ConfigNames
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// UninstallProject : Uninstall Project
-// Uninstall one or more project's configurations. The operation uninstall all the resources deployed with the given
-// configurations. You can track it by using the project status api.
-func (projects *ProjectsV1) UninstallProject(uninstallProjectOptions *UninstallProjectOptions) (response *core.DetailedResponse, err error) {
-	return projects.UninstallProjectWithContext(context.Background(), uninstallProjectOptions)
-}
-
-// UninstallProjectWithContext is an alternate form of the UninstallProject method which supports a Context parameter
-func (projects *ProjectsV1) UninstallProjectWithContext(ctx context.Context, uninstallProjectOptions *UninstallProjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(uninstallProjectOptions, "uninstallProjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(uninstallProjectOptions, "uninstallProjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *uninstallProjectOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/uninstall`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range uninstallProjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UninstallProject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if uninstallProjectOptions.ConfigNames != nil {
-		body["config_names"] = uninstallProjectOptions.ConfigNames
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
 // CheckProject : Check Project
 // Check one or more project's configurations. The operation verifies that all the config resources are installed, and
 // compliant to the configured security postures. You can track the operation and view the results using the project
@@ -1880,9 +1683,9 @@ func (projects *ProjectsV1) DeregisterPullRequestWithContext(ctx context.Context
 	return
 }
 
-// UpdatePullRequestConfigs : Updates configs associated to the given pull request
-// Updates configs referenced by a pull request. Dereference the pull request from the configs if the pull request is
-// merged. Otherwise remove the configs from the project status document.
+// UpdatePullRequestConfigs : Update configs associated to the given pull request
+// Updates configs referenced by a pull request. Dereference the pull request from the configs if they are newly added.
+// Otherwise update or remove the configs from the project status document wrt the pull request changes.
 func (projects *ProjectsV1) UpdatePullRequestConfigs(updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions) (response *core.DetailedResponse, err error) {
 	return projects.UpdatePullRequestConfigsWithContext(context.Background(), updatePullRequestConfigsOptions)
 }
@@ -1928,8 +1731,252 @@ func (projects *ProjectsV1) UpdatePullRequestConfigsWithContext(ctx context.Cont
 	if updatePullRequestConfigsOptions.PullRequest != nil {
 		body["pull_request"] = updatePullRequestConfigsOptions.PullRequest
 	}
-	if updatePullRequestConfigsOptions.ProjectDefinitionAfter != nil {
-		body["project_definition_after"] = updatePullRequestConfigsOptions.ProjectDefinitionAfter
+	if updatePullRequestConfigsOptions.ProjectDefinition != nil {
+		body["project_definition"] = updatePullRequestConfigsOptions.ProjectDefinition
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// PlanPullRequestConfigs : Trigger a plan job for the added or updated configs in a given pull request
+// Trigger a plan job for all newly added or updated configs found in a pull request. If a config is new, the config
+// will be added to the status document with a reference to the pull request.
+func (projects *ProjectsV1) PlanPullRequestConfigs(planPullRequestConfigsOptions *PlanPullRequestConfigsOptions) (result *PlanPullRequestConfigsResponse, response *core.DetailedResponse, err error) {
+	return projects.PlanPullRequestConfigsWithContext(context.Background(), planPullRequestConfigsOptions)
+}
+
+// PlanPullRequestConfigsWithContext is an alternate form of the PlanPullRequestConfigs method which supports a Context parameter
+func (projects *ProjectsV1) PlanPullRequestConfigsWithContext(ctx context.Context, planPullRequestConfigsOptions *PlanPullRequestConfigsOptions) (result *PlanPullRequestConfigsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(planPullRequestConfigsOptions, "planPullRequestConfigsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(planPullRequestConfigsOptions, "planPullRequestConfigsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *planPullRequestConfigsOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/pullrequest/configs/plan`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range planPullRequestConfigsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanPullRequestConfigs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if planPullRequestConfigsOptions.PullRequest != nil {
+		body["pull_request"] = planPullRequestConfigsOptions.PullRequest
+	}
+	if planPullRequestConfigsOptions.ProjectDefinition != nil {
+		body["project_definition"] = planPullRequestConfigsOptions.ProjectDefinition
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPlanPullRequestConfigsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// PlanConfig : Run a plan job on a given configuration in project
+// Run a plan job on a given configuration in project.
+func (projects *ProjectsV1) PlanConfig(planConfigOptions *PlanConfigOptions) (result *PlanConfigResponse, response *core.DetailedResponse, err error) {
+	return projects.PlanConfigWithContext(context.Background(), planConfigOptions)
+}
+
+// PlanConfigWithContext is an alternate form of the PlanConfig method which supports a Context parameter
+func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfigOptions *PlanConfigOptions) (result *PlanConfigResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(planConfigOptions, "planConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(planConfigOptions, "planConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *planConfigOptions.ID,
+		"config_name": *planConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/plan`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range planConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPlanConfigResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// InstallConfig : Install a Config
+// Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api.
+func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+	return projects.InstallConfigWithContext(context.Background(), installConfigOptions)
+}
+
+// InstallConfigWithContext is an alternate form of the InstallConfig method which supports a Context parameter
+func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(installConfigOptions, "installConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(installConfigOptions, "installConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *installConfigOptions.ID,
+		"config_name": *installConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/install`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range installConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InstallConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// UninstallConfig : Uninstall a Config
+// Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
+// You can track it by using the project status api.
+func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+	return projects.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
+}
+
+// UninstallConfigWithContext is an alternate form of the UninstallConfig method which supports a Context parameter
+func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(uninstallConfigOptions, "uninstallConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(uninstallConfigOptions, "uninstallConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *uninstallConfigOptions.ID,
+		"config_name": *uninstallConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/uninstall`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range uninstallConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UninstallConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if uninstallConfigOptions.ConfigNames != nil {
+		body["config_names"] = uninstallConfigOptions.ConfigNames
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2669,39 +2716,40 @@ func UnmarshalInputVariable(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// InstallProjectOptions : The InstallProject options.
-type InstallProjectOptions struct {
+// InstallConfigOptions : The InstallConfig options.
+type InstallConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The configs to install. Leave the array empty to install all the configs.
-	ConfigNames []string `json:"config_names,omitempty"`
+	// The name of the config to install.
+	ConfigName *string `json:"config_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewInstallProjectOptions : Instantiate InstallProjectOptions
-func (*ProjectsV1) NewInstallProjectOptions(id string) *InstallProjectOptions {
-	return &InstallProjectOptions{
+// NewInstallConfigOptions : Instantiate InstallConfigOptions
+func (*ProjectsV1) NewInstallConfigOptions(id string, configName string) *InstallConfigOptions {
+	return &InstallConfigOptions{
 		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
 	}
 }
 
 // SetID : Allow user to set ID
-func (_options *InstallProjectOptions) SetID(id string) *InstallProjectOptions {
+func (_options *InstallConfigOptions) SetID(id string) *InstallConfigOptions {
 	_options.ID = core.StringPtr(id)
 	return _options
 }
 
-// SetConfigNames : Allow user to set ConfigNames
-func (_options *InstallProjectOptions) SetConfigNames(configNames []string) *InstallProjectOptions {
-	_options.ConfigNames = configNames
+// SetConfigName : Allow user to set ConfigName
+func (_options *InstallConfigOptions) SetConfigName(configName string) *InstallConfigOptions {
+	_options.ConfigName = core.StringPtr(configName)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *InstallProjectOptions) SetHeaders(param map[string]string) *InstallProjectOptions {
+func (options *InstallConfigOptions) SetHeaders(param map[string]string) *InstallConfigOptions {
 	options.Headers = param
 	return options
 }
@@ -2986,90 +3034,46 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// PlanProjectOptions : The PlanProject options.
-type PlanProjectOptions struct {
+// PlanConfigOptions : The PlanConfig options.
+type PlanConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The configs to run a plan. If omit or empty, a plan will run on all the configs.
-	ConfigNames []string `json:"config_names,omitempty"`
-
-	ProjectDefinition *ProjectPrototype `json:"project_definition,omitempty"`
-
-	Pipeline *string `json:"pipeline,omitempty"`
-
-	PullRequest *string `json:"pull_request,omitempty"`
+	// The name of the config to trigger a plan.
+	ConfigName *string `json:"config_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// Constants associated with the PlanProjectOptions.Pipeline property.
-const (
-	PlanProjectOptions_Pipeline_Check = "check"
-)
-
-// NewPlanProjectOptions : Instantiate PlanProjectOptions
-func (*ProjectsV1) NewPlanProjectOptions(id string) *PlanProjectOptions {
-	return &PlanProjectOptions{
+// NewPlanConfigOptions : Instantiate PlanConfigOptions
+func (*ProjectsV1) NewPlanConfigOptions(id string, configName string) *PlanConfigOptions {
+	return &PlanConfigOptions{
 		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
 	}
 }
 
 // SetID : Allow user to set ID
-func (_options *PlanProjectOptions) SetID(id string) *PlanProjectOptions {
+func (_options *PlanConfigOptions) SetID(id string) *PlanConfigOptions {
 	_options.ID = core.StringPtr(id)
 	return _options
 }
 
-// SetConfigNames : Allow user to set ConfigNames
-func (_options *PlanProjectOptions) SetConfigNames(configNames []string) *PlanProjectOptions {
-	_options.ConfigNames = configNames
-	return _options
-}
-
-// SetProjectDefinition : Allow user to set ProjectDefinition
-func (_options *PlanProjectOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *PlanProjectOptions {
-	_options.ProjectDefinition = projectDefinition
-	return _options
-}
-
-// SetPipeline : Allow user to set Pipeline
-func (_options *PlanProjectOptions) SetPipeline(pipeline string) *PlanProjectOptions {
-	_options.Pipeline = core.StringPtr(pipeline)
-	return _options
-}
-
-// SetPullRequest : Allow user to set PullRequest
-func (_options *PlanProjectOptions) SetPullRequest(pullRequest string) *PlanProjectOptions {
-	_options.PullRequest = core.StringPtr(pullRequest)
+// SetConfigName : Allow user to set ConfigName
+func (_options *PlanConfigOptions) SetConfigName(configName string) *PlanConfigOptions {
+	_options.ConfigName = core.StringPtr(configName)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *PlanProjectOptions) SetHeaders(param map[string]string) *PlanProjectOptions {
+func (options *PlanConfigOptions) SetHeaders(param map[string]string) *PlanConfigOptions {
 	options.Headers = param
 	return options
 }
 
-// PlanProjectResponse : PlanProjectResponse struct
-type PlanProjectResponse struct {
-	Configs []PlanProjectResponseConfigsItem `json:"configs,omitempty"`
-}
-
-// UnmarshalPlanProjectResponse unmarshals an instance of PlanProjectResponse from the specified map of raw messages.
-func UnmarshalPlanProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PlanProjectResponse)
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalPlanProjectResponseConfigsItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PlanProjectResponseConfigsItem : PlanProjectResponseConfigsItem struct
-type PlanProjectResponseConfigsItem struct {
+// PlanConfigResponse : PlanConfigResponse struct
+type PlanConfigResponse struct {
 	Name *string `json:"name,omitempty"`
 
 	Job *string `json:"job,omitempty"`
@@ -3091,9 +3095,9 @@ type PlanProjectResponseConfigsItem struct {
 	SchematicsStatusCode *int64 `json:"schematics_status_code,omitempty"`
 }
 
-// UnmarshalPlanProjectResponseConfigsItem unmarshals an instance of PlanProjectResponseConfigsItem from the specified map of raw messages.
-func UnmarshalPlanProjectResponseConfigsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PlanProjectResponseConfigsItem)
+// UnmarshalPlanConfigResponse unmarshals an instance of PlanConfigResponse from the specified map of raw messages.
+func UnmarshalPlanConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanConfigResponse)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -3123,6 +3127,68 @@ func UnmarshalPlanProjectResponseConfigsItem(m map[string]json.RawMessage, resul
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "schematics_status_code", &obj.SchematicsStatusCode)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PlanPullRequestConfigsOptions : The PlanPullRequestConfigs options.
+type PlanPullRequestConfigsOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	PullRequest *string `json:"pull_request" validate:"required"`
+
+	ProjectDefinition *ProjectPrototype `json:"project_definition" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPlanPullRequestConfigsOptions : Instantiate PlanPullRequestConfigsOptions
+func (*ProjectsV1) NewPlanPullRequestConfigsOptions(id string, pullRequest string, projectDefinition *ProjectPrototype) *PlanPullRequestConfigsOptions {
+	return &PlanPullRequestConfigsOptions{
+		ID: core.StringPtr(id),
+		PullRequest: core.StringPtr(pullRequest),
+		ProjectDefinition: projectDefinition,
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *PlanPullRequestConfigsOptions) SetID(id string) *PlanPullRequestConfigsOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *PlanPullRequestConfigsOptions) SetPullRequest(pullRequest string) *PlanPullRequestConfigsOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
+	return _options
+}
+
+// SetProjectDefinition : Allow user to set ProjectDefinition
+func (_options *PlanPullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *PlanPullRequestConfigsOptions {
+	_options.ProjectDefinition = projectDefinition
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PlanPullRequestConfigsOptions) SetHeaders(param map[string]string) *PlanPullRequestConfigsOptions {
+	options.Headers = param
+	return options
+}
+
+// PlanPullRequestConfigsResponse : PlanPullRequestConfigsResponse struct
+type PlanPullRequestConfigsResponse struct {
+	Configs []PlanConfigResponse `json:"configs,omitempty"`
+}
+
+// UnmarshalPlanPullRequestConfigsResponse unmarshals an instance of PlanPullRequestConfigsResponse from the specified map of raw messages.
+func UnmarshalPlanPullRequestConfigsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanPullRequestConfigsResponse)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalPlanConfigResponse)
 	if err != nil {
 		return
 	}
@@ -3999,10 +4065,13 @@ func UnmarshalTerraformTemplate(m map[string]json.RawMessage, result interface{}
 	return
 }
 
-// UninstallProjectOptions : The UninstallProject options.
-type UninstallProjectOptions struct {
+// UninstallConfigOptions : The UninstallConfig options.
+type UninstallConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the config to uninstall.
+	ConfigName *string `json:"config_name" validate:"required,ne="`
 
 	// The configs to uninstall. Leave the array empty to install all the configs.
 	ConfigNames []string `json:"config_names,omitempty"`
@@ -4011,27 +4080,34 @@ type UninstallProjectOptions struct {
 	Headers map[string]string
 }
 
-// NewUninstallProjectOptions : Instantiate UninstallProjectOptions
-func (*ProjectsV1) NewUninstallProjectOptions(id string) *UninstallProjectOptions {
-	return &UninstallProjectOptions{
+// NewUninstallConfigOptions : Instantiate UninstallConfigOptions
+func (*ProjectsV1) NewUninstallConfigOptions(id string, configName string) *UninstallConfigOptions {
+	return &UninstallConfigOptions{
 		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
 	}
 }
 
 // SetID : Allow user to set ID
-func (_options *UninstallProjectOptions) SetID(id string) *UninstallProjectOptions {
+func (_options *UninstallConfigOptions) SetID(id string) *UninstallConfigOptions {
 	_options.ID = core.StringPtr(id)
 	return _options
 }
 
+// SetConfigName : Allow user to set ConfigName
+func (_options *UninstallConfigOptions) SetConfigName(configName string) *UninstallConfigOptions {
+	_options.ConfigName = core.StringPtr(configName)
+	return _options
+}
+
 // SetConfigNames : Allow user to set ConfigNames
-func (_options *UninstallProjectOptions) SetConfigNames(configNames []string) *UninstallProjectOptions {
+func (_options *UninstallConfigOptions) SetConfigNames(configNames []string) *UninstallConfigOptions {
 	_options.ConfigNames = configNames
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UninstallProjectOptions) SetHeaders(param map[string]string) *UninstallProjectOptions {
+func (options *UninstallConfigOptions) SetHeaders(param map[string]string) *UninstallConfigOptions {
 	options.Headers = param
 	return options
 }
@@ -4382,7 +4458,7 @@ type UpdatePullRequestConfigsOptions struct {
 
 	PullRequest *string `json:"pull_request" validate:"required"`
 
-	ProjectDefinitionAfter *ProjectPrototype `json:"project_definition_after,omitempty"`
+	ProjectDefinition *ProjectPrototype `json:"project_definition,omitempty"`
 
 	// The state of the PR.
 	State *string `json:"state,omitempty"`
@@ -4418,9 +4494,9 @@ func (_options *UpdatePullRequestConfigsOptions) SetPullRequest(pullRequest stri
 	return _options
 }
 
-// SetProjectDefinitionAfter : Allow user to set ProjectDefinitionAfter
-func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinitionAfter(projectDefinitionAfter *ProjectPrototype) *UpdatePullRequestConfigsOptions {
-	_options.ProjectDefinitionAfter = projectDefinitionAfter
+// SetProjectDefinition : Allow user to set ProjectDefinition
+func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *UpdatePullRequestConfigsOptions {
+	_options.ProjectDefinition = projectDefinition
 	return _options
 }
 
