@@ -6564,6 +6564,13 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(configChangesOptionsModel.Target).To(Equal(projectPrototypeModel))
 				Expect(configChangesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewConfigSettingItem successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := projectsService.NewConfigSettingItem(name, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)

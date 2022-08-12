@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.54.0-af6d2126-20220803-151219
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -2105,6 +2105,38 @@ func (options *ConfigChangesOptions) SetHeaders(param map[string]string) *Config
 	return options
 }
 
+// ConfigSettingItem : ConfigSettingItem struct
+type ConfigSettingItem struct {
+	Name *string `json:"name" validate:"required"`
+
+	Value *string `json:"value" validate:"required"`
+}
+
+// NewConfigSettingItem : Instantiate ConfigSettingItem (Generic Model Constructor)
+func (*ProjectsV1) NewConfigSettingItem(name string, value string) (_model *ConfigSettingItem, err error) {
+	_model = &ConfigSettingItem{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalConfigSettingItem unmarshals an instance of ConfigSettingItem from the specified map of raw messages.
+func UnmarshalConfigSettingItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigSettingItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateProjectOptions : The CreateProject options.
 type CreateProjectOptions struct {
 	// The project name.
@@ -3245,6 +3277,9 @@ type ProjectConfig struct {
 
 	Input []InputVariable `json:"input,omitempty"`
 
+	// Optional setting object we can pass to the cart api.
+	Setting []ConfigSettingItem `json:"setting,omitempty"`
+
 	// A Terraform blueprint to use for provisioning a set of project resources.
 	Template *TerraformTemplate `json:"template,omitempty"`
 
@@ -3292,6 +3327,10 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
 	if err != nil {
 		return
 	}
@@ -4749,6 +4788,9 @@ type ProjectConfigTerraformTemplateProperty struct {
 
 	Input []InputVariable `json:"input,omitempty"`
 
+	// Optional setting object we can pass to the cart api.
+	Setting []ConfigSettingItem `json:"setting,omitempty"`
+
 	// A Terraform blueprint to use for provisioning a set of project resources.
 	Template *TerraformTemplate `json:"template" validate:"required"`
 }
@@ -4797,6 +4839,10 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 		return
 	}
 	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
 	if err != nil {
 		return
 	}
