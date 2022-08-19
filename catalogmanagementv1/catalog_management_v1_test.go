@@ -21,7 +21,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -8514,7 +8513,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
-				buffer, operationErr := ioutil.ReadAll(result)
+				buffer, operationErr := io.ReadAll(result)
 				Expect(operationErr).To(BeNil())
 				Expect(buffer).ToNot(BeNil())
 				Expect(len(buffer)).To(Equal(0))
@@ -19635,7 +19634,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {
