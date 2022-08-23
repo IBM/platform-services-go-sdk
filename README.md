@@ -62,6 +62,7 @@ Service Name | Package name
 [IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management?code=go) | iampolicymanagementv1
 [IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
+[Partner Center Sell](https://cloud.ibm.com/apidocs/partner-center-sell?code=go) | partnercentersellv1
 [Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture?code=go) | posturemanagementv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
