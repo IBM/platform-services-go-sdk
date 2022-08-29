@@ -5810,7 +5810,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}]}`)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
 				}))
 			})
 			It(`Invoke PlanPullRequestConfigs successfully with retries`, func() {
@@ -5912,7 +5912,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}]}`)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
 				}))
 			})
 			It(`Invoke PlanPullRequestConfigs successfully`, func() {
@@ -6167,7 +6167,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
 				}))
 			})
 			It(`Invoke PlanConfig successfully with retries`, func() {
@@ -6222,7 +6222,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
 				}))
 			})
 			It(`Invoke PlanConfig successfully`, func() {
@@ -6321,8 +6321,112 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`InstallConfig(installConfigOptions *InstallConfigOptions) - Operation response error`, func() {
+		installConfigPath := "/v1/projects/testString/configs/testString/install"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke InstallConfig with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InstallConfigOptions model
+				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
+				installConfigOptionsModel.ID = core.StringPtr("testString")
+				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`InstallConfig(installConfigOptions *InstallConfigOptions)`, func() {
 		installConfigPath := "/v1/projects/testString/configs/testString/install"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
+				}))
+			})
+			It(`Invoke InstallConfig successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the InstallConfigOptions model
+				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
+				installConfigOptionsModel.ID = core.StringPtr("testString")
+				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.InstallConfigWithContext(ctx, installConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.InstallConfigWithContext(ctx, installConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -6332,7 +6436,10 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					res.WriteHeader(204)
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
 				}))
 			})
 			It(`Invoke InstallConfig successfully`, func() {
@@ -6344,9 +6451,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.InstallConfig(nil)
+				result, response, operationErr := projectsService.InstallConfig(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the InstallConfigOptions model
 				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
@@ -6355,9 +6463,11 @@ var _ = Describe(`ProjectsV1`, func() {
 				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
+				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
 			})
 			It(`Invoke InstallConfig with error: Operation validation and request error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -6375,16 +6485,53 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
+				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the InstallConfigOptions model with no property values
 				installConfigOptionsModelNew := new(projectsv1.InstallConfigOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.InstallConfig(installConfigOptionsModelNew)
+				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke InstallConfig successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InstallConfigOptions model
+				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
+				installConfigOptionsModel.ID = core.StringPtr("testString")
+				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -6471,6 +6618,317 @@ var _ = Describe(`ProjectsV1`, func() {
 				uninstallConfigOptionsModelNew := new(projectsv1.UninstallConfigOptions)
 				// Invoke operation with invalid model (negative test)
 				response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) - Operation response error`, func() {
+		getSchematicsJobPath := "/v1/projects/testString/configs/testString/plan/job"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSchematicsJobPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["since"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["pull_request"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetSchematicsJob with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetSchematicsJobOptions model
+				getSchematicsJobOptionsModel := new(projectsv1.GetSchematicsJobOptions)
+				getSchematicsJobOptionsModel.ID = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.ConfigName = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Action = core.StringPtr("plan")
+				getSchematicsJobOptionsModel.Since = core.Int64Ptr(int64(38))
+				getSchematicsJobOptionsModel.PullRequest = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions)`, func() {
+		getSchematicsJobPath := "/v1/projects/testString/configs/testString/plan/job"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSchematicsJobPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["since"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["pull_request"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID"}`)
+				}))
+			})
+			It(`Invoke GetSchematicsJob successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetSchematicsJobOptions model
+				getSchematicsJobOptionsModel := new(projectsv1.GetSchematicsJobOptions)
+				getSchematicsJobOptionsModel.ID = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.ConfigName = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Action = core.StringPtr("plan")
+				getSchematicsJobOptionsModel.Since = core.Int64Ptr(int64(38))
+				getSchematicsJobOptionsModel.PullRequest = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetSchematicsJobWithContext(ctx, getSchematicsJobOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetSchematicsJobWithContext(ctx, getSchematicsJobOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSchematicsJobPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["since"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["pull_request"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID"}`)
+				}))
+			})
+			It(`Invoke GetSchematicsJob successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetSchematicsJob(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetSchematicsJobOptions model
+				getSchematicsJobOptionsModel := new(projectsv1.GetSchematicsJobOptions)
+				getSchematicsJobOptionsModel.ID = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.ConfigName = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Action = core.StringPtr("plan")
+				getSchematicsJobOptionsModel.Since = core.Int64Ptr(int64(38))
+				getSchematicsJobOptionsModel.PullRequest = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetSchematicsJob with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetSchematicsJobOptions model
+				getSchematicsJobOptionsModel := new(projectsv1.GetSchematicsJobOptions)
+				getSchematicsJobOptionsModel.ID = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.ConfigName = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Action = core.StringPtr("plan")
+				getSchematicsJobOptionsModel.Since = core.Int64Ptr(int64(38))
+				getSchematicsJobOptionsModel.PullRequest = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetSchematicsJobOptions model with no property values
+				getSchematicsJobOptionsModelNew := new(projectsv1.GetSchematicsJobOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetSchematicsJob(getSchematicsJobOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSchematicsJob successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetSchematicsJobOptions model
+				getSchematicsJobOptionsModel := new(projectsv1.GetSchematicsJobOptions)
+				getSchematicsJobOptionsModel.ID = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.ConfigName = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Action = core.StringPtr("plan")
+				getSchematicsJobOptionsModel.Since = core.Int64Ptr(int64(38))
+				getSchematicsJobOptionsModel.PullRequest = core.StringPtr("testString")
+				getSchematicsJobOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetSchematicsJob(getSchematicsJobOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions)`, func() {
+		getCostEstimatePath := "/v1/projects/testString/configs/testString/cost_estimate"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCostEstimatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["pull_request"]).To(Equal([]string{"testString"}))
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetCostEstimate successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.GetCostEstimate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the GetCostEstimateOptions model
+				getCostEstimateOptionsModel := new(projectsv1.GetCostEstimateOptions)
+				getCostEstimateOptionsModel.ID = core.StringPtr("testString")
+				getCostEstimateOptionsModel.ConfigName = core.StringPtr("testString")
+				getCostEstimateOptionsModel.PullRequest = core.StringPtr("testString")
+				getCostEstimateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.GetCostEstimate(getCostEstimateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke GetCostEstimate with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetCostEstimateOptions model
+				getCostEstimateOptionsModel := new(projectsv1.GetCostEstimateOptions)
+				getCostEstimateOptionsModel.ID = core.StringPtr("testString")
+				getCostEstimateOptionsModel.ConfigName = core.StringPtr("testString")
+				getCostEstimateOptionsModel.PullRequest = core.StringPtr("testString")
+				getCostEstimateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.GetCostEstimate(getCostEstimateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the GetCostEstimateOptions model with no property values
+				getCostEstimateOptionsModelNew := new(projectsv1.GetCostEstimateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.GetCostEstimate(getCostEstimateOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -6656,6 +7114,21 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(deregisterPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetCostEstimateOptions successfully`, func() {
+				// Construct an instance of the GetCostEstimateOptions model
+				id := "testString"
+				configName := "testString"
+				getCostEstimateOptionsModel := projectsService.NewGetCostEstimateOptions(id, configName)
+				getCostEstimateOptionsModel.SetID("testString")
+				getCostEstimateOptionsModel.SetConfigName("testString")
+				getCostEstimateOptionsModel.SetPullRequest("testString")
+				getCostEstimateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getCostEstimateOptionsModel).ToNot(BeNil())
+				Expect(getCostEstimateOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getCostEstimateOptionsModel.ConfigName).To(Equal(core.StringPtr("testString")))
+				Expect(getCostEstimateOptionsModel.PullRequest).To(Equal(core.StringPtr("testString")))
+				Expect(getCostEstimateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetHealthOptions successfully`, func() {
 				// Construct an instance of the GetHealthOptions model
 				getHealthOptionsModel := projectsService.NewGetHealthOptions()
@@ -6728,6 +7201,26 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(getProjectStatusOptionsModel).ToNot(BeNil())
 				Expect(getProjectStatusOptionsModel.ID).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
 				Expect(getProjectStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetSchematicsJobOptions successfully`, func() {
+				// Construct an instance of the GetSchematicsJobOptions model
+				id := "testString"
+				configName := "testString"
+				action := "plan"
+				getSchematicsJobOptionsModel := projectsService.NewGetSchematicsJobOptions(id, configName, action)
+				getSchematicsJobOptionsModel.SetID("testString")
+				getSchematicsJobOptionsModel.SetConfigName("testString")
+				getSchematicsJobOptionsModel.SetAction("plan")
+				getSchematicsJobOptionsModel.SetSince(int64(38))
+				getSchematicsJobOptionsModel.SetPullRequest("testString")
+				getSchematicsJobOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getSchematicsJobOptionsModel).ToNot(BeNil())
+				Expect(getSchematicsJobOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getSchematicsJobOptionsModel.ConfigName).To(Equal(core.StringPtr("testString")))
+				Expect(getSchematicsJobOptionsModel.Action).To(Equal(core.StringPtr("plan")))
+				Expect(getSchematicsJobOptionsModel.Since).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getSchematicsJobOptionsModel.PullRequest).To(Equal(core.StringPtr("testString")))
+				Expect(getSchematicsJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewInitProjectConfigOptions successfully`, func() {
 				// Construct an instance of the InitProjectConfigOptions model

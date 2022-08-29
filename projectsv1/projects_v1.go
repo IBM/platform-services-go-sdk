@@ -1825,12 +1825,12 @@ func (projects *ProjectsV1) PlanPullRequestConfigsWithContext(ctx context.Contex
 
 // PlanConfig : Run a plan job on a given configuration in project
 // Run a plan job on a given configuration in project.
-func (projects *ProjectsV1) PlanConfig(planConfigOptions *PlanConfigOptions) (result *PlanConfigResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) PlanConfig(planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	return projects.PlanConfigWithContext(context.Background(), planConfigOptions)
 }
 
 // PlanConfigWithContext is an alternate form of the PlanConfig method which supports a Context parameter
-func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfigOptions *PlanConfigOptions) (result *PlanConfigResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(planConfigOptions, "planConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -1874,7 +1874,7 @@ func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfi
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPlanConfigResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
 		if err != nil {
 			return
 		}
@@ -1886,12 +1886,12 @@ func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfi
 
 // InstallConfig : Install a Config
 // Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api.
-func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	return projects.InstallConfigWithContext(context.Background(), installConfigOptions)
 }
 
 // InstallConfigWithContext is an alternate form of the InstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(installConfigOptions, "installConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -1922,13 +1922,25 @@ func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, instal
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	response, err = projects.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -1981,6 +1993,129 @@ func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, unin
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// GetSchematicsJob : Fetch and find the latest schematics job corresponds to a given config action
+// Fetch and find the latest schematics job corresponds to a plan, install or uninstall action.
+func (projects *ProjectsV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+	return projects.GetSchematicsJobWithContext(context.Background(), getSchematicsJobOptions)
+}
+
+// GetSchematicsJobWithContext is an alternate form of the GetSchematicsJob method which supports a Context parameter
+func (projects *ProjectsV1) GetSchematicsJobWithContext(ctx context.Context, getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getSchematicsJobOptions, "getSchematicsJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getSchematicsJobOptions, "getSchematicsJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getSchematicsJobOptions.ID,
+		"config_name": *getSchematicsJobOptions.ConfigName,
+		"action": *getSchematicsJobOptions.Action,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/{action}/job`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getSchematicsJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetSchematicsJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getSchematicsJobOptions.Since != nil {
+		builder.AddQuery("since", fmt.Sprint(*getSchematicsJobOptions.Since))
+	}
+	if getSchematicsJobOptions.PullRequest != nil {
+		builder.AddQuery("pull_request", fmt.Sprint(*getSchematicsJobOptions.PullRequest))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetActionJobResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetCostEstimate : Fetch the cost estimate for a given configuraton
+// Fetch the cost estimate for a given configuraton.
+func (projects *ProjectsV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
+	return projects.GetCostEstimateWithContext(context.Background(), getCostEstimateOptions)
+}
+
+// GetCostEstimateWithContext is an alternate form of the GetCostEstimate method which supports a Context parameter
+func (projects *ProjectsV1) GetCostEstimateWithContext(ctx context.Context, getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getCostEstimateOptions, "getCostEstimateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getCostEstimateOptions, "getCostEstimateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getCostEstimateOptions.ID,
+		"config_name": *getCostEstimateOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/cost_estimate`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCostEstimateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetCostEstimate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getCostEstimateOptions.PullRequest != nil {
+		builder.AddQuery("pull_request", fmt.Sprint(*getCostEstimateOptions.PullRequest))
 	}
 
 	request, err := builder.Build()
@@ -2103,6 +2238,75 @@ func (_options *ConfigChangesOptions) SetTarget(target *ProjectPrototype) *Confi
 func (options *ConfigChangesOptions) SetHeaders(param map[string]string) *ConfigChangesOptions {
 	options.Headers = param
 	return options
+}
+
+// ConfigJobResponse : ConfigJobResponse struct
+type ConfigJobResponse struct {
+	Name *string `json:"name,omitempty"`
+
+	Job *string `json:"job,omitempty"`
+
+	Workspace *string `json:"workspace,omitempty"`
+
+	CartOrder *string `json:"cart_order,omitempty"`
+
+	// The error returned by fetching catalog.
+	CatalogError *string `json:"catalog_error,omitempty"`
+
+	// The error status code returned by fetching catalog.
+	CatalogStatusCode *int64 `json:"catalog_status_code,omitempty"`
+
+	// The error returned by schematics.
+	SchematicsError *string `json:"schematics_error,omitempty"`
+
+	// The error status code returned by schematics.
+	SchematicsStatusCode *int64 `json:"schematics_status_code,omitempty"`
+
+	// The timestamp of when the plan job was submitted.
+	SchematicsSubmittedAt *int64 `json:"schematics_submitted_at,omitempty"`
+}
+
+// UnmarshalConfigJobResponse unmarshals an instance of ConfigJobResponse from the specified map of raw messages.
+func UnmarshalConfigJobResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConfigJobResponse)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "job", &obj.Job)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "workspace", &obj.Workspace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cart_order", &obj.CartOrder)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_error", &obj.CatalogError)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_status_code", &obj.CatalogStatusCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_error", &obj.SchematicsError)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_status_code", &obj.SchematicsStatusCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_submitted_at", &obj.SchematicsSubmittedAt)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // ConfigSettingItem : ConfigSettingItem struct
@@ -2285,6 +2489,69 @@ func (_options *DeregisterPullRequestOptions) SetURL(url string) *DeregisterPull
 
 // SetHeaders : Allow user to set Headers
 func (options *DeregisterPullRequestOptions) SetHeaders(param map[string]string) *DeregisterPullRequestOptions {
+	options.Headers = param
+	return options
+}
+
+// GetActionJobResponse : GetActionJobResponse struct
+type GetActionJobResponse struct {
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalGetActionJobResponse unmarshals an instance of GetActionJobResponse from the specified map of raw messages.
+func UnmarshalGetActionJobResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetActionJobResponse)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetCostEstimateOptions : The GetCostEstimate options.
+type GetCostEstimateOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the config that triggered the action.
+	ConfigName *string `json:"config_name" validate:"required,ne="`
+
+	// The pull request url associated to where the action was triggered.
+	PullRequest *string `json:"pull_request,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCostEstimateOptions : Instantiate GetCostEstimateOptions
+func (*ProjectsV1) NewGetCostEstimateOptions(id string, configName string) *GetCostEstimateOptions {
+	return &GetCostEstimateOptions{
+		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetCostEstimateOptions) SetID(id string) *GetCostEstimateOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetConfigName : Allow user to set ConfigName
+func (_options *GetCostEstimateOptions) SetConfigName(configName string) *GetCostEstimateOptions {
+	_options.ConfigName = core.StringPtr(configName)
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *GetCostEstimateOptions) SetPullRequest(pullRequest string) *GetCostEstimateOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCostEstimateOptions) SetHeaders(param map[string]string) *GetCostEstimateOptions {
 	options.Headers = param
 	return options
 }
@@ -2552,6 +2819,80 @@ func (_options *GetProjectStatusOptions) SetID(id string) *GetProjectStatusOptio
 
 // SetHeaders : Allow user to set Headers
 func (options *GetProjectStatusOptions) SetHeaders(param map[string]string) *GetProjectStatusOptions {
+	options.Headers = param
+	return options
+}
+
+// GetSchematicsJobOptions : The GetSchematicsJob options.
+type GetSchematicsJobOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the config that triggered the action.
+	ConfigName *string `json:"config_name" validate:"required,ne="`
+
+	// The triggered action.
+	Action *string `json:"action" validate:"required,ne="`
+
+	// The timestamp of when the action was triggered.
+	Since *int64 `json:"since,omitempty"`
+
+	// The pull request url associated to where the action was triggered.
+	PullRequest *string `json:"pull_request,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the GetSchematicsJobOptions.Action property.
+// The triggered action.
+const (
+	GetSchematicsJobOptions_Action_Install = "install"
+	GetSchematicsJobOptions_Action_Plan = "plan"
+	GetSchematicsJobOptions_Action_Uninstall = "uninstall"
+)
+
+// NewGetSchematicsJobOptions : Instantiate GetSchematicsJobOptions
+func (*ProjectsV1) NewGetSchematicsJobOptions(id string, configName string, action string) *GetSchematicsJobOptions {
+	return &GetSchematicsJobOptions{
+		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
+		Action: core.StringPtr(action),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetSchematicsJobOptions) SetID(id string) *GetSchematicsJobOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetConfigName : Allow user to set ConfigName
+func (_options *GetSchematicsJobOptions) SetConfigName(configName string) *GetSchematicsJobOptions {
+	_options.ConfigName = core.StringPtr(configName)
+	return _options
+}
+
+// SetAction : Allow user to set Action
+func (_options *GetSchematicsJobOptions) SetAction(action string) *GetSchematicsJobOptions {
+	_options.Action = core.StringPtr(action)
+	return _options
+}
+
+// SetSince : Allow user to set Since
+func (_options *GetSchematicsJobOptions) SetSince(since int64) *GetSchematicsJobOptions {
+	_options.Since = core.Int64Ptr(since)
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *GetSchematicsJobOptions) SetPullRequest(pullRequest string) *GetSchematicsJobOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetSchematicsJobOptions) SetHeaders(param map[string]string) *GetSchematicsJobOptions {
 	options.Headers = param
 	return options
 }
@@ -3104,68 +3445,6 @@ func (options *PlanConfigOptions) SetHeaders(param map[string]string) *PlanConfi
 	return options
 }
 
-// PlanConfigResponse : PlanConfigResponse struct
-type PlanConfigResponse struct {
-	Name *string `json:"name,omitempty"`
-
-	Job *string `json:"job,omitempty"`
-
-	Workspace *string `json:"workspace,omitempty"`
-
-	CartOrder *string `json:"cart_order,omitempty"`
-
-	// The error returned by fetching catalog.
-	CatalogError *string `json:"catalog_error,omitempty"`
-
-	// The error status code returned by fetching catalog.
-	CatalogStatusCode *int64 `json:"catalog_status_code,omitempty"`
-
-	// The error returned by schematics.
-	SchematicsError *string `json:"schematics_error,omitempty"`
-
-	// The error status code returned by schematics.
-	SchematicsStatusCode *int64 `json:"schematics_status_code,omitempty"`
-}
-
-// UnmarshalPlanConfigResponse unmarshals an instance of PlanConfigResponse from the specified map of raw messages.
-func UnmarshalPlanConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PlanConfigResponse)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "job", &obj.Job)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "workspace", &obj.Workspace)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cart_order", &obj.CartOrder)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_error", &obj.CatalogError)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_status_code", &obj.CatalogStatusCode)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "schematics_error", &obj.SchematicsError)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "schematics_status_code", &obj.SchematicsStatusCode)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PlanPullRequestConfigsOptions : The PlanPullRequestConfigs options.
 type PlanPullRequestConfigsOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -3214,13 +3493,13 @@ func (options *PlanPullRequestConfigsOptions) SetHeaders(param map[string]string
 
 // PlanPullRequestConfigsResponse : PlanPullRequestConfigsResponse struct
 type PlanPullRequestConfigsResponse struct {
-	Configs []PlanConfigResponse `json:"configs,omitempty"`
+	Configs []ConfigJobResponse `json:"configs,omitempty"`
 }
 
 // UnmarshalPlanPullRequestConfigsResponse unmarshals an instance of PlanPullRequestConfigsResponse from the specified map of raw messages.
 func UnmarshalPlanPullRequestConfigsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PlanPullRequestConfigsResponse)
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalPlanConfigResponse)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalConfigJobResponse)
 	if err != nil {
 		return
 	}
