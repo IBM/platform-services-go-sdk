@@ -6538,8 +6538,112 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) - Operation response error`, func() {
+		uninstallConfigPath := "/v1/projects/testString/configs/testString/uninstall"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UninstallConfig with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UninstallConfigOptions model
+				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
+				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
+				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`UninstallConfig(uninstallConfigOptions *UninstallConfigOptions)`, func() {
 		uninstallConfigPath := "/v1/projects/testString/configs/testString/uninstall"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
+				}))
+			})
+			It(`Invoke UninstallConfig successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the UninstallConfigOptions model
+				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
+				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
+				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.UninstallConfigWithContext(ctx, uninstallConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.UninstallConfigWithContext(ctx, uninstallConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -6549,23 +6653,10 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					res.WriteHeader(204)
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
 				}))
 			})
 			It(`Invoke UninstallConfig successfully`, func() {
@@ -6577,21 +6668,23 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.UninstallConfig(nil)
+				result, response, operationErr := projectsService.UninstallConfig(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the UninstallConfigOptions model
 				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
 				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
 				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				uninstallConfigOptionsModel.ConfigNames = []string{"testString"}
 				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
 			})
 			It(`Invoke UninstallConfig with error: Operation validation and request error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -6605,21 +6698,57 @@ var _ = Describe(`ProjectsV1`, func() {
 				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
 				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
 				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				uninstallConfigOptionsModel.ConfigNames = []string{"testString"}
 				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the UninstallConfigOptions model with no property values
 				uninstallConfigOptionsModelNew := new(projectsv1.UninstallConfigOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModelNew)
+				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke UninstallConfig successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UninstallConfigOptions model
+				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
+				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
+				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
+				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -7478,12 +7607,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				uninstallConfigOptionsModel := projectsService.NewUninstallConfigOptions(id, configName)
 				uninstallConfigOptionsModel.SetID("testString")
 				uninstallConfigOptionsModel.SetConfigName("testString")
-				uninstallConfigOptionsModel.SetConfigNames([]string{"testString"})
 				uninstallConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(uninstallConfigOptionsModel).ToNot(BeNil())
 				Expect(uninstallConfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(uninstallConfigOptionsModel.ConfigName).To(Equal(core.StringPtr("testString")))
-				Expect(uninstallConfigOptionsModel.ConfigNames).To(Equal([]string{"testString"}))
 				Expect(uninstallConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateProjectComputedStatusOptions successfully`, func() {

@@ -1948,12 +1948,12 @@ func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, instal
 // UninstallConfig : Uninstall a Config
 // Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
 // You can track it by using the project status api.
-func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	return projects.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
 }
 
 // UninstallConfigWithContext is an alternate form of the UninstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(uninstallConfigOptions, "uninstallConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -1984,23 +1984,25 @@ func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, unin
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if uninstallConfigOptions.ConfigNames != nil {
-		body["config_names"] = uninstallConfigOptions.ConfigNames
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
+	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	response, err = projects.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -4391,9 +4393,6 @@ type UninstallConfigOptions struct {
 	// The name of the config to uninstall.
 	ConfigName *string `json:"config_name" validate:"required,ne="`
 
-	// The configs to uninstall. Leave the array empty to install all the configs.
-	ConfigNames []string `json:"config_names,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4415,12 +4414,6 @@ func (_options *UninstallConfigOptions) SetID(id string) *UninstallConfigOptions
 // SetConfigName : Allow user to set ConfigName
 func (_options *UninstallConfigOptions) SetConfigName(configName string) *UninstallConfigOptions {
 	_options.ConfigName = core.StringPtr(configName)
-	return _options
-}
-
-// SetConfigNames : Allow user to set ConfigNames
-func (_options *UninstallConfigOptions) SetConfigNames(configNames []string) *UninstallConfigOptions {
-	_options.ConfigNames = configNames
 	return _options
 }
 
