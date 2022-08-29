@@ -375,12 +375,12 @@ func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjec
 
 // UpdateProject : Update a project by id
 // Update a project.
-func (projects *ProjectsV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *PullRequest, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
 	return projects.UpdateProjectWithContext(context.Background(), updateProjectOptions)
 }
 
 // UpdateProjectWithContext is an alternate form of the UpdateProject method which supports a Context parameter
-func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *PullRequest, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateProjectOptions, "updateProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -442,7 +442,7 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPullRequest)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUpdateResponsePullRequest)
 		if err != nil {
 			return
 		}
@@ -4084,29 +4084,6 @@ func UnmarshalProjectStatusDashboard(m map[string]json.RawMessage, result interf
 	return
 }
 
-// PullRequest : PullRequest struct
-type PullRequest struct {
-	// The name of the branch.
-	Branch *string `json:"branch,omitempty"`
-
-	URL *string `json:"url,omitempty"`
-}
-
-// UnmarshalPullRequest unmarshals an instance of PullRequest from the specified map of raw messages.
-func UnmarshalPullRequest(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PullRequest)
-	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // RegisterPullRequestOptions : The RegisterPullRequest options.
 type RegisterPullRequestOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -4821,6 +4798,29 @@ func (_options *UpdatePullRequestConfigsOptions) SetState(state string) *UpdateP
 func (options *UpdatePullRequestConfigsOptions) SetHeaders(param map[string]string) *UpdatePullRequestConfigsOptions {
 	options.Headers = param
 	return options
+}
+
+// UpdateResponsePullRequest : UpdateResponsePullRequest struct
+type UpdateResponsePullRequest struct {
+	// The name of the branch.
+	Branch *string `json:"branch,omitempty"`
+
+	PrURL *string `json:"pr_url,omitempty"`
+}
+
+// UnmarshalUpdateResponsePullRequest unmarshals an instance of UpdateResponsePullRequest from the specified map of raw messages.
+func UnmarshalUpdateResponsePullRequest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateResponsePullRequest)
+	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pr_url", &obj.PrURL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // ValidateProjectOptions : The ValidateProject options.

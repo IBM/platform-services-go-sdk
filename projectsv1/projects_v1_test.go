@@ -1206,7 +1206,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"branch": "Branch", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"branch": "Branch", "pr_url": "PrURL"}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully with retries`, func() {
@@ -1303,7 +1303,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"branch": "Branch", "url": "URL"}`)
+					fmt.Fprintf(res, "%s", `{"branch": "Branch", "pr_url": "PrURL"}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully`, func() {
