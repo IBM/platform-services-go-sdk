@@ -23,7 +23,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -449,7 +449,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				catalogEntryID,
 				"artifact.txt",
 			)
-			uploadArtifactOptions.SetArtifact(ioutil.NopCloser(strings.NewReader(artifactContents)))
+			uploadArtifactOptions.SetArtifact(io.NopCloser(strings.NewReader(artifactContents)))
 			uploadArtifactOptions.SetContentType("text/plain")
 
 			response, err := globalCatalogService.UploadArtifact(uploadArtifactOptions)

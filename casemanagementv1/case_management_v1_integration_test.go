@@ -22,7 +22,7 @@ package casemanagementv1_test
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -376,7 +376,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		It("Successfully uploaded file", func() {
 			shouldSkipTest()
-			fileInput, _ := service.NewFileWithMetadata(ioutil.NopCloser(strings.NewReader("hello world")))
+			fileInput, _ := service.NewFileWithMetadata(io.NopCloser(strings.NewReader("hello world")))
 			fileInput.Filename = core.StringPtr("GO SDK test file.png")
 			fileInput.ContentType = core.StringPtr("application/octet-stream")
 
