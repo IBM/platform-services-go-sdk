@@ -426,7 +426,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			}
 
 			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
-				ID:             &targetIDLink2,
+				ID:             &targetIDLink3,
 				Name:           core.StringPtr("my-ies-target-modified"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
