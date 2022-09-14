@@ -195,7 +195,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(target).ToNot(BeNil())
 
-			targetIDLink2 = *target.ID
+			targetIDLink3 = *target.ID
 			fmt.Fprintf(GinkgoWriter, "Saved event streams targetIDLink value: %v\n", targetIDLink)
 		})
 
