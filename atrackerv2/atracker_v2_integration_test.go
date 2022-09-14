@@ -174,6 +174,31 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved logdna targetIDLink value: %v\n", targetIDLink)
 		})
 
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
+
+			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic: core.StringPtr("my-test-topic"),
+				Brokers: []string{"kafka-x:9094"},
+				Password: core.StringPtr("xxxxxxxxxxx"),
+			}
+
+			createTargetOptions := &atrackerv2.CreateTargetOptions{
+				Name:           core.StringPtr("my-ies-target"),
+				TargetType:     core.StringPtr("event_streams"),
+				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.CreateTarget(createTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(target).ToNot(BeNil())
+
+			targetIDLink2 = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved event streams targetIDLink value: %v\n", targetIDLink)
+		})
+
 		It(`Returns 400 when backend input validation fails`, func() {
 			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
 				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
@@ -390,6 +415,28 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
 		})
+
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for event streams type of target`, func() {
+
+			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic: core.StringPtr("my-test-topic"),
+				Brokers: []string{"kafka-x:9094"},
+				Password: core.StringPtr("xxxxxxxxxxxxx"),
+			}
+
+			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
+				ID:             &targetIDLink2,
+				Name:           core.StringPtr("my-ies-target-modified"),
+				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
 
 		It(`Returns 404 when target id is not found`, func() {
 
