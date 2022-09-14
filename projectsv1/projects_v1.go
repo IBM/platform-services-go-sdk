@@ -413,6 +413,10 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
+	if updateProjectOptions.Branch != nil {
+		builder.AddQuery("branch", fmt.Sprint(*updateProjectOptions.Branch))
+	}
+
 	body := make(map[string]interface{})
 	if updateProjectOptions.Name != nil {
 		body["name"] = updateProjectOptions.Name
@@ -1886,12 +1890,12 @@ func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfi
 
 // InstallConfig : Install a Config
 // Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api.
-func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
 	return projects.InstallConfigWithContext(context.Background(), installConfigOptions)
 }
 
 // InstallConfigWithContext is an alternate form of the InstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(installConfigOptions, "installConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -1922,25 +1926,13 @@ func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, instal
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
+	response, err = projects.Service.Request(request, nil)
 
 	return
 }
@@ -1948,12 +1940,12 @@ func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, instal
 // UninstallConfig : Uninstall a Config
 // Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
 // You can track it by using the project status api.
-func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
 	return projects.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
 }
 
 // UninstallConfigWithContext is an alternate form of the UninstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(uninstallConfigOptions, "uninstallConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -1984,25 +1976,13 @@ func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, unin
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
+	response, err = projects.Service.Request(request, nil)
 
 	return
 }
@@ -2130,6 +2110,60 @@ func (projects *ProjectsV1) GetCostEstimateWithContext(ctx context.Context, getC
 	return
 }
 
+// GetCatalog : Get the catalog metadata stored within the broker
+func (projects *ProjectsV1) GetCatalog(getCatalogOptions *GetCatalogOptions) (result *CatalogResponse, response *core.DetailedResponse, err error) {
+	return projects.GetCatalogWithContext(context.Background(), getCatalogOptions)
+}
+
+// GetCatalogWithContext is an alternate form of the GetCatalog method which supports a Context parameter
+func (projects *ProjectsV1) GetCatalogWithContext(ctx context.Context, getCatalogOptions *GetCatalogOptions) (result *CatalogResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getCatalogOptions, "getCatalogOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v2/catalog`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCatalogOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetCatalog")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getCatalogOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*getCatalogOptions.XBrokerApiVersion))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ActivePR : Info about an active pull request (source branch and url).
 type ActivePR struct {
 	Branch *string `json:"branch,omitempty"`
@@ -2145,6 +2179,222 @@ func UnmarshalActivePR(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CatalogResponse : CatalogResponse struct
+type CatalogResponse struct {
+	Services []CatalogResponseServicesItem `json:"services,omitempty"`
+}
+
+// UnmarshalCatalogResponse unmarshals an instance of CatalogResponse from the specified map of raw messages.
+func UnmarshalCatalogResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogResponse)
+	err = core.UnmarshalModel(m, "services", &obj.Services, UnmarshalCatalogResponseServicesItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CatalogResponseServicesItem : CatalogResponseServicesItem struct
+type CatalogResponseServicesItem struct {
+	// Specifies whether or not your service can be bound to applications in IBM Cloud. If bindable, it must be able to
+	// return API endpoints and credentials to your service consumers.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// A short description of the service. It MUST be a non-empty string. Note that this description is not displayed by
+	// the the IBM Cloud console or IBM Cloud CLI.
+	Description *string `json:"description,omitempty"`
+
+	// An identifier used to correlate this service in future requests to the broker. This MUST be globally unique within
+	// the IBM Cloud platform. It MUST be a non-empty string, and using a GUID is recommended. Recommended: If you define
+	// your service in the RMC, the RMC will generate a globally unique GUID service ID that you can use in your service
+	// broker.
+	ID *string `json:"id,omitempty"`
+
+	Metadata *CatalogResponseServicesItemMetadata `json:"metadata,omitempty"`
+
+	// The service name is not your display name. Your service name must follow the follow these rules: It must be all
+	// lowercase. It can't include spaces but may include hyphens (-). It must be less than 32 characters. Your service
+	// name should include your company name. If your company has more then one offering your service name should include
+	// both company and offering as part of the name. For example, the Compose company has offerings for Redis and
+	// Elasticsearch. Sample service names on IBM Cloud for these offerings would be compose-redis and
+	// compose-elasticsearch. Each of these service names have associated display names that are shown in the IBM Cloud
+	// catalog: Compose Redis and Compose Elasticsearch. Another company (e.g. FastJetMail) may only have the single
+	// JetMail offering, in which case the service name should be fastjetmail. Recommended: If you define your service in
+	// RMC, you can export a catalog.json that will include the service name you defined within the RMC.
+	Name *string `json:"name,omitempty"`
+
+	// The Default is false. This specifices whether or not you support plan changes for provisioned instances. If your
+	// offering supports multiple plans, and you want users to be able to change plans for a provisioned instance, you will
+	// need to enable the ability for users to update their service instance by using /v2/service_instances/{instance_id}
+	// PATCH.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
+	Tags []string `json:"tags,omitempty"`
+
+	// A list of plans for this service that must contain at least one plan.
+	Plans []CatalogResponseServicesItemPlansItem `json:"plans,omitempty"`
+}
+
+// UnmarshalCatalogResponseServicesItem unmarshals an instance of CatalogResponseServicesItem from the specified map of raw messages.
+func UnmarshalCatalogResponseServicesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogResponseServicesItem)
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalCatalogResponseServicesItemMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "plans", &obj.Plans, UnmarshalCatalogResponseServicesItemPlansItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CatalogResponseServicesItemMetadata : CatalogResponseServicesItemMetadata struct
+type CatalogResponseServicesItemMetadata struct {
+	DisplayName *string `json:"display_name,omitempty"`
+
+	DocumentationURL *string `json:"documentation_url,omitempty"`
+
+	ImageURL *string `json:"image_url,omitempty"`
+
+	InstructionsURL *string `json:"instructions_url,omitempty"`
+
+	LongDescription *string `json:"long_description,omitempty"`
+
+	ProviderDisplayName *string `json:"provider_display_name,omitempty"`
+
+	SupportURL *string `json:"support_url,omitempty"`
+
+	TermsURL *string `json:"terms_url,omitempty"`
+}
+
+// UnmarshalCatalogResponseServicesItemMetadata unmarshals an instance of CatalogResponseServicesItemMetadata from the specified map of raw messages.
+func UnmarshalCatalogResponseServicesItemMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogResponseServicesItemMetadata)
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "documentation_url", &obj.DocumentationURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "image_url", &obj.ImageURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "instructions_url", &obj.InstructionsURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "long_description", &obj.LongDescription)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "provider_display_name", &obj.ProviderDisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "support_url", &obj.SupportURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "terms_url", &obj.TermsURL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CatalogResponseServicesItemPlansItem : CatalogResponseServicesItemPlansItem struct
+type CatalogResponseServicesItemPlansItem struct {
+	Description *string `json:"description,omitempty"`
+
+	Free *bool `json:"free,omitempty"`
+
+	ID *string `json:"id,omitempty"`
+
+	Metadata *CatalogResponseServicesItemPlansItemMetadata `json:"metadata,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalCatalogResponseServicesItemPlansItem unmarshals an instance of CatalogResponseServicesItemPlansItem from the specified map of raw messages.
+func UnmarshalCatalogResponseServicesItemPlansItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogResponseServicesItemPlansItem)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "free", &obj.Free)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalCatalogResponseServicesItemPlansItemMetadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CatalogResponseServicesItemPlansItemMetadata : CatalogResponseServicesItemPlansItemMetadata struct
+type CatalogResponseServicesItemPlansItemMetadata struct {
+	Bullets []string `json:"bullets,omitempty"`
+
+	DisplayName *string `json:"display_name,omitempty"`
+}
+
+// UnmarshalCatalogResponseServicesItemPlansItemMetadata unmarshals an instance of CatalogResponseServicesItemPlansItemMetadata from the specified map of raw messages.
+func UnmarshalCatalogResponseServicesItemPlansItemMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogResponseServicesItemPlansItemMetadata)
+	err = core.UnmarshalPrimitive(m, "bullets", &obj.Bullets)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
 		return
 	}
@@ -2509,6 +2759,32 @@ func UnmarshalGetActionJobResponse(m map[string]json.RawMessage, result interfac
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// GetCatalogOptions : The GetCatalog options.
+type GetCatalogOptions struct {
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCatalogOptions : Instantiate GetCatalogOptions
+func (*ProjectsV1) NewGetCatalogOptions() *GetCatalogOptions {
+	return &GetCatalogOptions{}
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *GetCatalogOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *GetCatalogOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCatalogOptions) SetHeaders(param map[string]string) *GetCatalogOptions {
+	options.Headers = param
+	return options
 }
 
 // GetCostEstimateOptions : The GetCostEstimate options.
@@ -3785,6 +4061,9 @@ type ProjectListResponse struct {
 
 	ID *string `json:"id,omitempty"`
 
+	// The branch name of the PR that is created.
+	PrBranch *string `json:"pr_branch,omitempty"`
+
 	Definition *GetProjectResponse `json:"definition,omitempty"`
 
 	State *string `json:"state,omitempty"`
@@ -3807,6 +4086,10 @@ func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pr_branch", &obj.PrBranch)
 	if err != nil {
 		return
 	}
@@ -3899,6 +4182,9 @@ type ProjectResponse struct {
 
 	ID *string `json:"id,omitempty"`
 
+	// The branch name of the PR that is created.
+	PrBranch *string `json:"pr_branch,omitempty"`
+
 	Definition *GetProjectResponse `json:"definition,omitempty"`
 }
 
@@ -3910,6 +4196,10 @@ func UnmarshalProjectResponse(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pr_branch", &obj.PrBranch)
 	if err != nil {
 		return
 	}
@@ -4232,20 +4522,13 @@ func UnmarshalServiceInfoSchematics(m map[string]json.RawMessage, result interfa
 
 // ServiceInfoToolchain : Project plumbing service info.
 type ServiceInfoToolchain struct {
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	Guid *string `json:"guid,omitempty"`
+	ID *string `json:"id,omitempty"`
 }
 
 // UnmarshalServiceInfoToolchain unmarshals an instance of ServiceInfoToolchain from the specified map of raw messages.
 func UnmarshalServiceInfoToolchain(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ServiceInfoToolchain)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -4609,6 +4892,9 @@ type UpdateProjectOptions struct {
 
 	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
 
+	// Set this parameter if you want to update the project definition of a specific branch.
+	Branch *string `json:"branch,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4648,6 +4934,12 @@ func (_options *UpdateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *U
 // SetDashboard : Allow user to set Dashboard
 func (_options *UpdateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *UpdateProjectOptions {
 	_options.Dashboard = dashboard
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *UpdateProjectOptions) SetBranch(branch string) *UpdateProjectOptions {
+	_options.Branch = core.StringPtr(branch)
 	return _options
 }
 

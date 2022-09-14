@@ -284,7 +284,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -390,7 +390,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -643,7 +643,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -700,7 +700,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -825,9 +825,9 @@ var _ = Describe(`ProjectsV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","id":"ID","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","id":"ID","pr_branch":"PrBranch","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","id":"ID","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","id":"ID","pr_branch":"PrBranch","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1111,6 +1111,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateProjectPath))
 					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1154,6 +1155,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				updateProjectOptionsModel.Branch = core.StringPtr("testString")
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
@@ -1200,6 +1202,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1248,6 +1251,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				updateProjectOptionsModel.Branch = core.StringPtr("testString")
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1300,6 +1304,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1350,6 +1355,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				updateProjectOptionsModel.Branch = core.StringPtr("testString")
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1397,6 +1403,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				updateProjectOptionsModel.Branch = core.StringPtr("testString")
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -1465,6 +1472,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				updateProjectOptionsModel.Branch = core.StringPtr("testString")
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1739,7 +1747,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully with retries`, func() {
@@ -1836,7 +1844,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully`, func() {
@@ -2879,7 +2887,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully with retries`, func() {
@@ -2933,7 +2941,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully`, func() {
@@ -3066,8 +3074,7 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
@@ -3135,7 +3142,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
@@ -3161,8 +3168,7 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
@@ -3233,7 +3239,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully`, func() {
@@ -3264,8 +3270,7 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
@@ -3312,8 +3317,7 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
@@ -3381,8 +3385,7 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
@@ -6321,112 +6324,8 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
-	Describe(`InstallConfig(installConfigOptions *InstallConfigOptions) - Operation response error`, func() {
-		installConfigPath := "/v1/projects/testString/configs/testString/install"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke InstallConfig with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the InstallConfigOptions model
-				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
-				installConfigOptionsModel.ID = core.StringPtr("testString")
-				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`InstallConfig(installConfigOptions *InstallConfigOptions)`, func() {
 		installConfigPath := "/v1/projects/testString/configs/testString/install"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
-				}))
-			})
-			It(`Invoke InstallConfig successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the InstallConfigOptions model
-				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
-				installConfigOptionsModel.ID = core.StringPtr("testString")
-				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.InstallConfigWithContext(ctx, installConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.InstallConfigWithContext(ctx, installConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -6436,10 +6335,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(installConfigPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
+					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke InstallConfig successfully`, func() {
@@ -6451,10 +6347,9 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.InstallConfig(nil)
+				response, operationErr := projectsService.InstallConfig(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the InstallConfigOptions model
 				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
@@ -6463,11 +6358,9 @@ var _ = Describe(`ProjectsV1`, func() {
 				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
+				response, operationErr = projectsService.InstallConfig(installConfigOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
 			})
 			It(`Invoke InstallConfig with error: Operation validation and request error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -6485,99 +6378,16 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
+				response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the InstallConfigOptions model with no property values
 				installConfigOptionsModelNew := new(projectsv1.InstallConfigOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.InstallConfig(installConfigOptionsModelNew)
+				response, operationErr = projectsService.InstallConfig(installConfigOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke InstallConfig successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the InstallConfigOptions model
-				installConfigOptionsModel := new(projectsv1.InstallConfigOptions)
-				installConfigOptionsModel.ID = core.StringPtr("testString")
-				installConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				installConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.InstallConfig(installConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) - Operation response error`, func() {
-		uninstallConfigPath := "/v1/projects/testString/configs/testString/uninstall"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UninstallConfig with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UninstallConfigOptions model
-				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
-				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
-				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -6586,64 +6396,6 @@ var _ = Describe(`ProjectsV1`, func() {
 	})
 	Describe(`UninstallConfig(uninstallConfigOptions *UninstallConfigOptions)`, func() {
 		uninstallConfigPath := "/v1/projects/testString/configs/testString/uninstall"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
-				}))
-			})
-			It(`Invoke UninstallConfig successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the UninstallConfigOptions model
-				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
-				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
-				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.UninstallConfigWithContext(ctx, uninstallConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.UninstallConfigWithContext(ctx, uninstallConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -6653,10 +6405,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(uninstallConfigPath))
 					Expect(req.Method).To(Equal("POST"))
 
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}`)
+					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke UninstallConfig successfully`, func() {
@@ -6668,10 +6417,9 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UninstallConfig(nil)
+				response, operationErr := projectsService.UninstallConfig(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the UninstallConfigOptions model
 				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
@@ -6680,11 +6428,9 @@ var _ = Describe(`ProjectsV1`, func() {
 				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
 			})
 			It(`Invoke UninstallConfig with error: Operation validation and request error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -6702,53 +6448,16 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
+				response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the UninstallConfigOptions model with no property values
 				uninstallConfigOptionsModelNew := new(projectsv1.UninstallConfigOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModelNew)
+				response, operationErr = projectsService.UninstallConfig(uninstallConfigOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke UninstallConfig successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UninstallConfigOptions model
-				uninstallConfigOptionsModel := new(projectsv1.UninstallConfigOptions)
-				uninstallConfigOptionsModel.ID = core.StringPtr("testString")
-				uninstallConfigOptionsModel.ConfigName = core.StringPtr("testString")
-				uninstallConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.UninstallConfig(uninstallConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -7066,6 +6775,217 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`GetCatalog(getCatalogOptions *GetCatalogOptions) - Operation response error`, func() {
+		getCatalogPath := "/v2/catalog"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCatalogPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetCatalog with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(projectsv1.GetCatalogOptions)
+				getCatalogOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetCatalog(getCatalogOptions *GetCatalogOptions)`, func() {
+		getCatalogPath := "/v2/catalog"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCatalogPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"services": [{"bindable": true, "description": "Description", "id": "ID", "metadata": {"display_name": "DisplayName", "documentation_url": "DocumentationURL", "image_url": "ImageURL", "instructions_url": "InstructionsURL", "long_description": "LongDescription", "provider_display_name": "ProviderDisplayName", "support_url": "SupportURL", "terms_url": "TermsURL"}, "name": "Name", "plan_updateable": true, "tags": ["Tags"], "plans": [{"description": "Description", "free": true, "id": "ID", "metadata": {"bullets": ["Bullets"], "display_name": "DisplayName"}, "name": "Name"}]}]}`)
+				}))
+			})
+			It(`Invoke GetCatalog successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(projectsv1.GetCatalogOptions)
+				getCatalogOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetCatalogWithContext(ctx, getCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetCatalogWithContext(ctx, getCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCatalogPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"services": [{"bindable": true, "description": "Description", "id": "ID", "metadata": {"display_name": "DisplayName", "documentation_url": "DocumentationURL", "image_url": "ImageURL", "instructions_url": "InstructionsURL", "long_description": "LongDescription", "provider_display_name": "ProviderDisplayName", "support_url": "SupportURL", "terms_url": "TermsURL"}, "name": "Name", "plan_updateable": true, "tags": ["Tags"], "plans": [{"description": "Description", "free": true, "id": "ID", "metadata": {"bullets": ["Bullets"], "display_name": "DisplayName"}, "name": "Name"}]}]}`)
+				}))
+			})
+			It(`Invoke GetCatalog successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetCatalog(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(projectsv1.GetCatalogOptions)
+				getCatalogOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetCatalog with error: Operation request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(projectsv1.GetCatalogOptions)
+				getCatalogOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetCatalog successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(projectsv1.GetCatalogOptions)
+				getCatalogOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetCatalog(getCatalogOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			projectsService, _ := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -7242,6 +7162,15 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(deregisterPullRequestOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(deregisterPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetCatalogOptions successfully`, func() {
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := projectsService.NewGetCatalogOptions()
+				getCatalogOptionsModel.SetXBrokerApiVersion("1")
+				getCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getCatalogOptionsModel).ToNot(BeNil())
+				Expect(getCatalogOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(getCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCostEstimateOptions successfully`, func() {
 				// Construct an instance of the GetCostEstimateOptions model
@@ -7731,6 +7660,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
 				updateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
 				updateProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
+				updateProjectOptionsModel.SetBranch("testString")
 				updateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateProjectOptionsModel).ToNot(BeNil())
 				Expect(updateProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
@@ -7738,6 +7668,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
 				Expect(updateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
 				Expect(updateProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				Expect(updateProjectOptionsModel.Branch).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateProjectStatusOptions successfully`, func() {
@@ -7764,10 +7695,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the ServiceInfoToolchain model
 				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
 				Expect(serviceInfoToolchainModel).ToNot(BeNil())
-				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
-				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
-				Expect(serviceInfoToolchainModel.Crn).To(Equal(core.StringPtr("testString")))
-				Expect(serviceInfoToolchainModel.Guid).To(Equal(core.StringPtr("testString")))
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+				Expect(serviceInfoToolchainModel.ID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ServiceInfoSchematics model
 				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
