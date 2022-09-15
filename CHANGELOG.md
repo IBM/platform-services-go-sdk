@@ -1,3 +1,10 @@
+## [0.28.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.2...v0.28.3) (2022-09-15)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** add support for event streams targets in Atracker v2 API ([#206](https://github.com/IBM/platform-services-go-sdk/issues/206)) ([cc063b3](https://github.com/IBM/platform-services-go-sdk/commit/cc063b3e4a5fb0aff1a2f19de8dd54bd2ed747c3))
+
 ## [0.28.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.1...v0.28.2) (2022-08-02)
 
 
