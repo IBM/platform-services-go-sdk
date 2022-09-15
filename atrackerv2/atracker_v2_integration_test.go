@@ -61,6 +61,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		routeIDLink   string
 		targetIDLink  string
 		targetIDLink2 string
+		targetIDLink3 string
 	)
 
 	var shouldSkipTest = func() {
@@ -846,6 +847,16 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink2,
+			}
+
+			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+
+			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
+				ID: &targetIDLink3,
 			}
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
