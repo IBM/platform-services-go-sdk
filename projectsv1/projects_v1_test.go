@@ -174,8 +174,6 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createProjectPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Prefer"]).ToNot(BeNil())
 					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
@@ -222,7 +220,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
@@ -272,8 +269,6 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Prefer"]).ToNot(BeNil())
 					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
@@ -325,7 +320,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
@@ -381,8 +375,6 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Prefer"]).ToNot(BeNil())
 					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
@@ -436,7 +428,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
@@ -486,7 +477,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
@@ -557,7 +547,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
@@ -1548,92 +1537,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteProjectOptionsModelNew := new(projectsv1.DeleteProjectOptions)
 				// Invoke operation with invalid model (negative test)
 				response, operationErr = projectsService.DeleteProject(deleteProjectOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CheckProject(checkProjectOptions *CheckProjectOptions)`, func() {
-		checkProjectPath := "/v1/projects/testString/check"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(checkProjectPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke CheckProject successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.CheckProject(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the CheckProjectOptions model
-				checkProjectOptionsModel := new(projectsv1.CheckProjectOptions)
-				checkProjectOptionsModel.ID = core.StringPtr("testString")
-				checkProjectOptionsModel.ConfigNames = []string{"testString"}
-				checkProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.CheckProject(checkProjectOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke CheckProject with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the CheckProjectOptions model
-				checkProjectOptionsModel := new(projectsv1.CheckProjectOptions)
-				checkProjectOptionsModel.ID = core.StringPtr("testString")
-				checkProjectOptionsModel.ConfigNames = []string{"testString"}
-				checkProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectsService.CheckProject(checkProjectOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the CheckProjectOptions model with no property values
-				checkProjectOptionsModelNew := new(projectsv1.CheckProjectOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.CheckProject(checkProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -6992,18 +6895,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				URL:           "http://projectsv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewCheckProjectOptions successfully`, func() {
-				// Construct an instance of the CheckProjectOptions model
-				id := "testString"
-				checkProjectOptionsModel := projectsService.NewCheckProjectOptions(id)
-				checkProjectOptionsModel.SetID("testString")
-				checkProjectOptionsModel.SetConfigNames([]string{"testString"})
-				checkProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(checkProjectOptionsModel).ToNot(BeNil())
-				Expect(checkProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(checkProjectOptionsModel.ConfigNames).To(Equal([]string{"testString"}))
-				Expect(checkProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewConfigChangesOptions successfully`, func() {
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
@@ -7124,7 +7015,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
 				createProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
-				createProjectOptionsModel.SetXIamApi("testString")
 				createProjectOptionsModel.SetPrefer("return=minimal")
 				createProjectOptionsModel.SetResourceGroup("Default")
 				createProjectOptionsModel.SetLocation("us-south")
@@ -7134,7 +7024,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
 				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
 				Expect(createProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
-				Expect(createProjectOptionsModel.XIamApi).To(Equal(core.StringPtr("testString")))
 				Expect(createProjectOptionsModel.Prefer).To(Equal(core.StringPtr("return=minimal")))
 				Expect(createProjectOptionsModel.ResourceGroup).To(Equal(core.StringPtr("Default")))
 				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))

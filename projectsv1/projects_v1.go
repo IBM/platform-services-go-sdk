@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.54.0-af6d2126-20220803-151219
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -197,9 +197,6 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createProjectOptions.XIamApi != nil {
-		builder.AddHeader("X-Iam-Api", fmt.Sprint(*createProjectOptions.XIamApi))
-	}
 	if createProjectOptions.Prefer != nil {
 		builder.AddHeader("prefer", fmt.Sprint(*createProjectOptions.Prefer))
 	}
@@ -492,66 +489,6 @@ func (projects *ProjectsV1) DeleteProjectWithContext(ctx context.Context, delete
 	sdkHeaders := common.GetSdkHeaders("projects", "V1", "DeleteProject")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// CheckProject : Check Project
-// Check one or more project's configurations. The operation verifies that all the config resources are installed, and
-// compliant to the configured security postures. You can track the operation and view the results using the project
-// status api.
-func (projects *ProjectsV1) CheckProject(checkProjectOptions *CheckProjectOptions) (response *core.DetailedResponse, err error) {
-	return projects.CheckProjectWithContext(context.Background(), checkProjectOptions)
-}
-
-// CheckProjectWithContext is an alternate form of the CheckProject method which supports a Context parameter
-func (projects *ProjectsV1) CheckProjectWithContext(ctx context.Context, checkProjectOptions *CheckProjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(checkProjectOptions, "checkProjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(checkProjectOptions, "checkProjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *checkProjectOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/check`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range checkProjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "CheckProject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if checkProjectOptions.ConfigNames != nil {
-		body["config_names"] = checkProjectOptions.ConfigNames
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
 	}
 
 	request, err := builder.Build()
@@ -2402,43 +2339,6 @@ func UnmarshalCatalogResponseServicesItemPlansItemMetadata(m map[string]json.Raw
 	return
 }
 
-// CheckProjectOptions : The CheckProject options.
-type CheckProjectOptions struct {
-	// The id of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
-
-	// The configs to check. Leave the array empty to check all the configs.
-	ConfigNames []string `json:"config_names,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewCheckProjectOptions : Instantiate CheckProjectOptions
-func (*ProjectsV1) NewCheckProjectOptions(id string) *CheckProjectOptions {
-	return &CheckProjectOptions{
-		ID: core.StringPtr(id),
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *CheckProjectOptions) SetID(id string) *CheckProjectOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetConfigNames : Allow user to set ConfigNames
-func (_options *CheckProjectOptions) SetConfigNames(configNames []string) *CheckProjectOptions {
-	_options.ConfigNames = configNames
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *CheckProjectOptions) SetHeaders(param map[string]string) *CheckProjectOptions {
-	options.Headers = param
-	return options
-}
-
 // ConfigChangesOptions : The ConfigChanges options.
 type ConfigChangesOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -2605,8 +2505,6 @@ type CreateProjectOptions struct {
 
 	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
 
-	XIamApi *string `json:"X-Iam-Api,omitempty"`
-
 	// Specifying the optional "return=representation" includes the original input payload in the successful response.
 	Prefer *string `json:"prefer,omitempty"`
 
@@ -2646,12 +2544,6 @@ func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *C
 // SetDashboard : Allow user to set Dashboard
 func (_options *CreateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *CreateProjectOptions {
 	_options.Dashboard = dashboard
-	return _options
-}
-
-// SetXIamApi : Allow user to set XIamApi
-func (_options *CreateProjectOptions) SetXIamApi(xIamApi string) *CreateProjectOptions {
-	_options.XIamApi = core.StringPtr(xIamApi)
 	return _options
 }
 
