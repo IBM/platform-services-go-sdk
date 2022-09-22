@@ -6678,6 +6678,507 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`PostNotification(postNotificationOptions *PostNotificationOptions) - Operation response error`, func() {
+		postNotificationPath := "/v1/projects/testString/event"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postNotificationPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke PostNotification with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+
+				// Construct an instance of the PostNotificationOptions model
+				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
+				postNotificationOptionsModel.ID = core.StringPtr("testString")
+				postNotificationOptionsModel.Notifications = []projectsv1.NotificationEvent{*notificationEventModel}
+				postNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PostNotification(postNotificationOptions *PostNotificationOptions)`, func() {
+		postNotificationPath := "/v1/projects/testString/event"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postNotificationPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL", "status": "Status", "reason": {"anyKey": "anyValue"}}]}`)
+				}))
+			})
+			It(`Invoke PostNotification successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+
+				// Construct an instance of the PostNotificationOptions model
+				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
+				postNotificationOptionsModel.ID = core.StringPtr("testString")
+				postNotificationOptionsModel.Notifications = []projectsv1.NotificationEvent{*notificationEventModel}
+				postNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.PostNotificationWithContext(ctx, postNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.PostNotificationWithContext(ctx, postNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postNotificationPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL", "status": "Status", "reason": {"anyKey": "anyValue"}}]}`)
+				}))
+			})
+			It(`Invoke PostNotification successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.PostNotification(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+
+				// Construct an instance of the PostNotificationOptions model
+				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
+				postNotificationOptionsModel.ID = core.StringPtr("testString")
+				postNotificationOptionsModel.Notifications = []projectsv1.NotificationEvent{*notificationEventModel}
+				postNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke PostNotification with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+
+				// Construct an instance of the PostNotificationOptions model
+				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
+				postNotificationOptionsModel.ID = core.StringPtr("testString")
+				postNotificationOptionsModel.Notifications = []projectsv1.NotificationEvent{*notificationEventModel}
+				postNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the PostNotificationOptions model with no property values
+				postNotificationOptionsModelNew := new(projectsv1.PostNotificationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.PostNotification(postNotificationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke PostNotification successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+
+				// Construct an instance of the PostNotificationOptions model
+				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
+				postNotificationOptionsModel.ID = core.StringPtr("testString")
+				postNotificationOptionsModel.Notifications = []projectsv1.NotificationEvent{*notificationEventModel}
+				postNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.PostNotification(postNotificationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetNotifications(getNotificationsOptions *GetNotificationsOptions) - Operation response error`, func() {
+		getNotificationsPath := "/v1/projects/testString/event"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetNotifications with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetNotificationsOptions model
+				getNotificationsOptionsModel := new(projectsv1.GetNotificationsOptions)
+				getNotificationsOptionsModel.ID = core.StringPtr("testString")
+				getNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetNotifications(getNotificationsOptions *GetNotificationsOptions)`, func() {
+		getNotificationsPath := "/v1/projects/testString/event"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `[{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL"}]`)
+				}))
+			})
+			It(`Invoke GetNotifications successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetNotificationsOptions model
+				getNotificationsOptionsModel := new(projectsv1.GetNotificationsOptions)
+				getNotificationsOptionsModel.ID = core.StringPtr("testString")
+				getNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetNotificationsWithContext(ctx, getNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetNotificationsWithContext(ctx, getNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getNotificationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `[{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL"}]`)
+				}))
+			})
+			It(`Invoke GetNotifications successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetNotifications(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetNotificationsOptions model
+				getNotificationsOptionsModel := new(projectsv1.GetNotificationsOptions)
+				getNotificationsOptionsModel.ID = core.StringPtr("testString")
+				getNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetNotifications with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetNotificationsOptions model
+				getNotificationsOptionsModel := new(projectsv1.GetNotificationsOptions)
+				getNotificationsOptionsModel.ID = core.StringPtr("testString")
+				getNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetNotificationsOptions model with no property values
+				getNotificationsOptionsModelNew := new(projectsv1.GetNotificationsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetNotifications(getNotificationsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetNotifications successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetNotificationsOptions model
+				getNotificationsOptionsModel := new(projectsv1.GetNotificationsOptions)
+				getNotificationsOptionsModel.ID = core.StringPtr("testString")
+				getNotificationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetCatalog(getCatalogOptions *GetCatalogOptions) - Operation response error`, func() {
 		getCatalogPath := "/v2/catalog"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -7085,6 +7586,16 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(getHealthOptionsModel.Info).To(Equal(core.BoolPtr(false)))
 				Expect(getHealthOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetNotificationsOptions successfully`, func() {
+				// Construct an instance of the GetNotificationsOptions model
+				id := "testString"
+				getNotificationsOptionsModel := projectsService.NewGetNotificationsOptions(id)
+				getNotificationsOptionsModel.SetID("testString")
+				getNotificationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getNotificationsOptionsModel).ToNot(BeNil())
+				Expect(getNotificationsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getNotificationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetProjectComputedStatusOptions successfully`, func() {
 				// Construct an instance of the GetProjectComputedStatusOptions model
 				id := "234234324-3444-4556-224232432"
@@ -7284,6 +7795,13 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(mergeProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
 				Expect(mergeProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewNotificationEvent successfully`, func() {
+				event := "testString"
+				identifier := "testString"
+				_model, err := projectsService.NewNotificationEvent(event, identifier)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewNotifyOptions successfully`, func() {
 				// Construct an instance of the NotifyOptions model
 				notifyOptionsID := "bccbb195-fff4-4d7e-9078-61b06adc02ab"
@@ -7378,6 +7896,32 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(planPullRequestConfigsOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
 				Expect(planPullRequestConfigsOptionsModel.ProjectDefinition).To(Equal(projectPrototypeModel))
 				Expect(planPullRequestConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewPostNotificationOptions successfully`, func() {
+				// Construct an instance of the NotificationEvent model
+				notificationEventModel := new(projectsv1.NotificationEvent)
+				Expect(notificationEventModel).ToNot(BeNil())
+				notificationEventModel.Event = core.StringPtr("project.create.failed")
+				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.ActionURL = core.StringPtr("testString")
+				Expect(notificationEventModel.Event).To(Equal(core.StringPtr("project.create.failed")))
+				Expect(notificationEventModel.Identifier).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
+				Expect(notificationEventModel.Source).To(Equal(core.StringPtr("id.of.project.service.instance")))
+				Expect(notificationEventModel.SourceURL).To(Equal(core.StringPtr("url.for.project.documentation")))
+				Expect(notificationEventModel.ActionURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the PostNotificationOptions model
+				id := "testString"
+				postNotificationOptionsModel := projectsService.NewPostNotificationOptions(id)
+				postNotificationOptionsModel.SetID("testString")
+				postNotificationOptionsModel.SetNotifications([]projectsv1.NotificationEvent{*notificationEventModel})
+				postNotificationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(postNotificationOptionsModel).ToNot(BeNil())
+				Expect(postNotificationOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(postNotificationOptionsModel.Notifications).To(Equal([]projectsv1.NotificationEvent{*notificationEventModel}))
+				Expect(postNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewProjectPrototype successfully`, func() {
 				name := "testString"

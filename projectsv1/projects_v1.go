@@ -2047,6 +2047,136 @@ func (projects *ProjectsV1) GetCostEstimateWithContext(ctx context.Context, getC
 	return
 }
 
+// PostNotification : Add some notifications
+// Creates a notification event to be stored on the project definition.
+func (projects *ProjectsV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+	return projects.PostNotificationWithContext(context.Background(), postNotificationOptions)
+}
+
+// PostNotificationWithContext is an alternate form of the PostNotification method which supports a Context parameter
+func (projects *ProjectsV1) PostNotificationWithContext(ctx context.Context, postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(postNotificationOptions, "postNotificationOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(postNotificationOptions, "postNotificationOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *postNotificationOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range postNotificationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PostNotification")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if postNotificationOptions.Notifications != nil {
+		body["notifications"] = postNotificationOptions.Notifications
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostNotificationsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetNotifications : Get events by project id
+// Get all the notification events from a specific project id.
+func (projects *ProjectsV1) GetNotifications(getNotificationsOptions *GetNotificationsOptions) (result []NotificationEvent, response *core.DetailedResponse, err error) {
+	return projects.GetNotificationsWithContext(context.Background(), getNotificationsOptions)
+}
+
+// GetNotificationsWithContext is an alternate form of the GetNotifications method which supports a Context parameter
+func (projects *ProjectsV1) GetNotificationsWithContext(ctx context.Context, getNotificationsOptions *GetNotificationsOptions) (result []NotificationEvent, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getNotificationsOptions, "getNotificationsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getNotificationsOptions, "getNotificationsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getNotificationsOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getNotificationsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetNotifications")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse []json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationEvent)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetCatalog : Get the catalog metadata stored within the broker
 func (projects *ProjectsV1) GetCatalog(getCatalogOptions *GetCatalogOptions) (result *CatalogResponse, response *core.DetailedResponse, err error) {
 	return projects.GetCatalogWithContext(context.Background(), getCatalogOptions)
@@ -2748,6 +2878,34 @@ func (_options *GetHealthOptions) SetInfo(info bool) *GetHealthOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *GetHealthOptions) SetHeaders(param map[string]string) *GetHealthOptions {
+	options.Headers = param
+	return options
+}
+
+// GetNotificationsOptions : The GetNotifications options.
+type GetNotificationsOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetNotificationsOptions : Instantiate GetNotificationsOptions
+func (*ProjectsV1) NewGetNotificationsOptions(id string) *GetNotificationsOptions {
+	return &GetNotificationsOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetNotificationsOptions) SetID(id string) *GetNotificationsOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetNotificationsOptions) SetHeaders(param map[string]string) *GetNotificationsOptions {
 	options.Headers = param
 	return options
 }
@@ -3487,6 +3645,118 @@ func (options *MergeProjectOptions) SetHeaders(param map[string]string) *MergePr
 	return options
 }
 
+// NotificationEvent : NotificationEvent struct
+type NotificationEvent struct {
+	// Type of event.
+	Event *string `json:"event" validate:"required"`
+
+	Identifier *string `json:"identifier" validate:"required"`
+
+	// The id of the event producer.
+	Source *string `json:"source,omitempty"`
+
+	// The URL of the event producer.
+	SourceURL *string `json:"source_url,omitempty"`
+
+	// The URL you can go to as next steps.
+	ActionURL *string `json:"action_url,omitempty"`
+}
+
+// NewNotificationEvent : Instantiate NotificationEvent (Generic Model Constructor)
+func (*ProjectsV1) NewNotificationEvent(event string, identifier string) (_model *NotificationEvent, err error) {
+	_model = &NotificationEvent{
+		Event: core.StringPtr(event),
+		Identifier: core.StringPtr(identifier),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalNotificationEvent unmarshals an instance of NotificationEvent from the specified map of raw messages.
+func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationEvent)
+	err = core.UnmarshalPrimitive(m, "event", &obj.Event)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "identifier", &obj.Identifier)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationEventWithStatus : NotificationEventWithStatus struct
+type NotificationEventWithStatus struct {
+	// Type of event.
+	Event *string `json:"event" validate:"required"`
+
+	Identifier *string `json:"identifier" validate:"required"`
+
+	// The id of the event producer.
+	Source *string `json:"source,omitempty"`
+
+	// The URL of the event producer.
+	SourceURL *string `json:"source_url,omitempty"`
+
+	// The URL you can go to as next steps.
+	ActionURL *string `json:"action_url,omitempty"`
+
+	// whether or not the event successfully posted.
+	Status *string `json:"status,omitempty"`
+
+	// rationale to why a event did not post.
+	Reason interface{} `json:"reason,omitempty"`
+}
+
+// UnmarshalNotificationEventWithStatus unmarshals an instance of NotificationEventWithStatus from the specified map of raw messages.
+func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationEventWithStatus)
+	err = core.UnmarshalPrimitive(m, "event", &obj.Event)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "identifier", &obj.Identifier)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // NotifyOptions : The Notify options.
 type NotifyOptions struct {
 	// The project id.
@@ -3670,6 +3940,58 @@ type PlanPullRequestConfigsResponse struct {
 func UnmarshalPlanPullRequestConfigsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PlanPullRequestConfigsResponse)
 	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalConfigJobResponse)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PostNotificationOptions : The PostNotification options.
+type PostNotificationOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	Notifications []NotificationEvent `json:"notifications,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPostNotificationOptions : Instantiate PostNotificationOptions
+func (*ProjectsV1) NewPostNotificationOptions(id string) *PostNotificationOptions {
+	return &PostNotificationOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *PostNotificationOptions) SetID(id string) *PostNotificationOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetNotifications : Allow user to set Notifications
+func (_options *PostNotificationOptions) SetNotifications(notifications []NotificationEvent) *PostNotificationOptions {
+	_options.Notifications = notifications
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PostNotificationOptions) SetHeaders(param map[string]string) *PostNotificationOptions {
+	options.Headers = param
+	return options
+}
+
+// PostNotificationsResponse : The result of a notification post.
+type PostNotificationsResponse struct {
+	Notifications []NotificationEventWithStatus `json:"notifications,omitempty"`
+}
+
+// UnmarshalPostNotificationsResponse unmarshals an instance of PostNotificationsResponse from the specified map of raw messages.
+func UnmarshalPostNotificationsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PostNotificationsResponse)
+	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithStatus)
 	if err != nil {
 		return
 	}
