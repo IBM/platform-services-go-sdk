@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.51.0-5b8b699d-20220613-200818
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -5634,7 +5634,7 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 
 //
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
-// 
+//
 type ProjectsPager struct {
 	hasNext bool
 	options *ListProjectsOptions
