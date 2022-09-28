@@ -197,6 +197,54 @@ var _ = Describe(`AtrackerV2`, func() {
 			Expect(url).To(Equal("https://private.au-syd.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
+			url, err = atrackerv2.GetServiceURLForRegion("ca-tor")
+			Expect(url).To(Equal("https://us-east.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.ca-tor")
+			Expect(url).To(Equal("https://private.us-east.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("br-sao")
+			Expect(url).To(Equal("https://us-south.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.br-sao")
+			Expect(url).To(Equal("https://private.us-south.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("eu-fr2")
+			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.eu-fr2")
+			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("jp-tok")
+			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.jp-tok")
+			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("jp-osa")
+			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.jp-osa")
+			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("in-che")
+			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.in-che")
+			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
 			url, err = atrackerv2.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())

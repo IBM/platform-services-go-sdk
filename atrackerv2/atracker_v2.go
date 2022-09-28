@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.55.1-b24c7487-20220831-201343
+ * IBM OpenAPI SDK Code Generator Version: 3.57.1-4c556507-20220928-143422
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -123,6 +123,18 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
 		"au-syd": "https://au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"ca-tor": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
+		"private.ca-tor": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
+		"br-sao": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
+		"private.br-sao": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
+		"eu-fr2": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
+		"private.eu-fr2": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
+		"jp-tok": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
+		"private.jp-tok": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
+		"jp-osa": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
+		"private.jp-osa": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
+		"in-che": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
+		"private.in-che": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -1265,7 +1277,7 @@ type CreateTargetOptions struct {
 	// Property values for a LogDNA Endpoint in requests.
 	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
 
-	// Property values for a Event Streams Endpoint in requests.
+	// Property values for an Event Streams Endpoint in requests.
 	EventstreamsEndpoint *EventstreamsEndpointPrototype `json:"eventstreams_endpoint,omitempty"`
 
 	// Include this optional field if you want to create a target in a different region other than the one you are
@@ -1391,18 +1403,18 @@ func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteT
 	return options
 }
 
-// EventstreamsEndpoint : Property values for a Event Streams Endpoint in responses.
+// EventstreamsEndpoint : Property values for the Event Streams Endpoint in responses.
 type EventstreamsEndpoint struct {
-	// The CRN of the event streams instance.
+	// The CRN of the Event Streams instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
 
-	// list of broker endpoints.
+	// List of broker endpoints.
 	Brokers []string `json:"brokers" validate:"required"`
 
-	// The messsage hub topic defined in the event streams instance.
+	// The messsage hub topic defined in the Event Streams instance.
 	Topic *string `json:"topic" validate:"required"`
 
-	// The messsage hub topic's user password specified in the event streams instance (the apikey).
+	// The user password (api key) for the message hub topic in the Event Streams instance.
 	Password *string `json:"password" validate:"required"`
 }
 
@@ -1429,18 +1441,18 @@ func UnmarshalEventstreamsEndpoint(m map[string]json.RawMessage, result interfac
 	return
 }
 
-// EventstreamsEndpointPrototype : Property values for a Event Streams Endpoint in requests.
+// EventstreamsEndpointPrototype : Property values for an Event Streams Endpoint in requests.
 type EventstreamsEndpointPrototype struct {
-	// The CRN of the event streams instance.
+	// The CRN of the Event Streams instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
 
-	// list of broker endpoints.
+	// List of broker endpoints.
 	Brokers []string `json:"brokers" validate:"required"`
 
-	// The messsage hub topic defined in the event streams instance.
+	// The messsage hub topic defined in the Event Streams instance.
 	Topic *string `json:"topic" validate:"required"`
 
-	// The messsage hub topic's user password specified in the event streams instance (the apikey).
+	// The user password (api key) for the message hub topic in the Event Streams instance.
 	Password *string `json:"password" validate:"required"`
 }
 
@@ -1928,7 +1940,7 @@ type ReplaceTargetOptions struct {
 	// Property values for a LogDNA Endpoint in requests.
 	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
 
-	// Property values for a Event Streams Endpoint in requests.
+	// Property values for an Event Streams Endpoint in requests.
 	EventstreamsEndpoint *EventstreamsEndpointPrototype `json:"eventstreams_endpoint,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2208,7 +2220,7 @@ type Target struct {
 	// Property values for a LogDNA Endpoint in responses.
 	LogdnaEndpoint *LogdnaEndpoint `json:"logdna_endpoint,omitempty"`
 
-	// Property values for a Event Streams Endpoint in responses.
+	// Property values for the Event Streams Endpoint in responses.
 	EventstreamsEndpoint *EventstreamsEndpoint `json:"eventstreams_endpoint,omitempty"`
 
 	// The status of the write attempt to the target with the provided endpoint parameters.
