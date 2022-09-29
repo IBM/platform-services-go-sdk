@@ -1,3 +1,10 @@
+## [0.28.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.4...v0.28.5) (2022-09-29)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** add remapping to other regions ([#207](https://github.com/IBM/platform-services-go-sdk/issues/207)) ([6674728](https://github.com/IBM/platform-services-go-sdk/commit/6674728e1e20285e2f0bea2534b899bc50540925))
+
 ## [0.28.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.3...v0.28.4) (2022-09-21)
 
 
