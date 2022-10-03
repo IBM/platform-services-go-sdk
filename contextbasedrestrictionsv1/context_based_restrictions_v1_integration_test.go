@@ -122,7 +122,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateZone - Create a zone`, func() {
+	Describe(`CreateZone - Create a network zone`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -643,6 +643,75 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(ruleList).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListRule - List a rule with a valid service_group_id`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		//create rule with service_group_id
+		It(`CreateRule(createRuleOptions *CreateRuleOptions) with a valid service_group_id (201)`, func() {
+			ruleContextAttributeModel := &contextbasedrestrictionsv1.RuleContextAttribute{
+				Name:  core.StringPtr("networkZoneId"),
+				Value: core.StringPtr(zoneID),
+			}
+
+			ruleContextModel := &contextbasedrestrictionsv1.RuleContext{
+				Attributes: []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel},
+			}
+
+			resourceModel := &contextbasedrestrictionsv1.Resource{
+				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
+					{
+						Name:  core.StringPtr("accountId"),
+						Value: core.StringPtr(testAccountID),
+					},
+					{
+						Name:  core.StringPtr("service_group_id"),
+						Value: core.StringPtr("IAM"),
+					},
+				},
+			}
+
+			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeEnabledConst),
+				TransactionID:   getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(rule).ToNot(BeNil())
+
+		//list rule with service_group_id
+		It(`ListRules(listRulesOptions *ListRulesOptions) with service_group_id (201)`, func() {
+			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
+				AccountID:     core.StringPtr(InvalidID),
+				TransactionID: getTransactionID(),
+			}
+
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(ruleList).To(BeNil())
+		})
+
+			// cleanup
+			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
+				RuleID:        rule.ID,
+				TransactionID: getTransactionID(),
+			}
+
+			response, err = contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 

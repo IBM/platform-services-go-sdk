@@ -521,7 +521,6 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 	})
 })
