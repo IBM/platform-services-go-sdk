@@ -675,7 +675,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
-				Description:     core.StringPtr("this is an example of rule"),
+				Description:     core.StringPtr("this is an example of rule with a service_group_id"),
 				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
 				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
 				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeEnabledConst),
