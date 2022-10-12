@@ -688,19 +688,21 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(rule).ToNot(BeNil())
 
-		//list rule with service_group_id
-		It(`ListRules(listRulesOptions *ListRulesOptions) with service_group_id (200)`, func() {
-			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
-				AccountID:     core.StringPtr(InvalidID),
-				TransactionID: getTransactionID(),
-			}
+			//list rule with service_group_id
+			It(`ListRules(listRulesOptions *ListRulesOptions) with service_group_id (200)`, func() {
+				listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
+					AccountID:        core.StringPtr(testAccountID),
+					service_group_id: core.StringPtr("IAM"),
+					TransactionID:    getTransactionID(),
+				}
 
-			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+				ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(ruleList).ToNot(BeNil())
-		})
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(ruleList.Count).To(Equal(1))
+				Expect(ruleList.Rules[0].ID).To(Equal(rule.ID))
+			})
 
 			// cleanup
 			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
