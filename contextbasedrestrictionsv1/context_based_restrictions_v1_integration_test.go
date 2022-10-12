@@ -692,7 +692,6 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			It(`ListRules(listRulesOptions *ListRulesOptions) with service_group_id (200)`, func() {
 				listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
 					AccountID:        core.StringPtr(testAccountID),
-					service_group_id: core.StringPtr("IAM"),
 					TransactionID:    getTransactionID(),
 				}
 
