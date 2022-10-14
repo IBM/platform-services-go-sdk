@@ -1,3 +1,10 @@
+## [0.28.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.5...v0.28.6) (2022-10-14)
+
+
+### Bug Fixes
+
+* **Context Based Restrictions:** add list rule with service_group_id test ([#208](https://github.com/IBM/platform-services-go-sdk/issues/208)) ([e3b7581](https://github.com/IBM/platform-services-go-sdk/commit/e3b758138cbe45bfba7d698fef39d34e40136498))
+
 ## [0.28.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.4...v0.28.5) (2022-09-29)
 
 
