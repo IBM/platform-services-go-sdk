@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,14 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_URL":       "https://casemanagementv1/api",
+				"CASE_MANAGEMENT_URL": "https://casemanagementv1/api",
 				"CASE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
+				})
 				Expect(caseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
+				})
 				err := caseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_URL":       "https://casemanagementv1/api",
+				"CASE_MANAGEMENT_URL": "https://casemanagementv1/api",
 				"CASE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
+			caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(caseManagementService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"CASE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -162,7 +165,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 	})
 	Describe(`GetCases(getCasesOptions *GetCasesOptions) - Operation response error`, func() {
 		getCasesPath := "/cases"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -171,16 +174,12 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getCasesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"number"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetCases with error: Operation response processing error`, func() {
@@ -194,7 +193,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the GetCasesOptions model
 				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
 				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getCasesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getCasesOptionsModel.Search = core.StringPtr("testString")
 				getCasesOptionsModel.Sort = core.StringPtr("number")
 				getCasesOptionsModel.Status = []string{"new"}
@@ -218,7 +217,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetCases(getCasesOptions *GetCasesOptions)`, func() {
 		getCasesPath := "/cases"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -231,13 +229,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"number"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -259,7 +253,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the GetCasesOptions model
 				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
 				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getCasesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getCasesOptionsModel.Search = core.StringPtr("testString")
 				getCasesOptionsModel.Sort = core.StringPtr("number")
 				getCasesOptionsModel.Status = []string{"new"}
@@ -301,13 +295,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"number"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -331,7 +321,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the GetCasesOptions model
 				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
 				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getCasesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getCasesOptionsModel.Search = core.StringPtr("testString")
 				getCasesOptionsModel.Sort = core.StringPtr("number")
 				getCasesOptionsModel.Status = []string{"new"}
@@ -356,7 +346,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the GetCasesOptions model
 				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
 				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getCasesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getCasesOptionsModel.Search = core.StringPtr("testString")
 				getCasesOptionsModel.Sort = core.StringPtr("number")
 				getCasesOptionsModel.Status = []string{"new"}
@@ -375,10 +365,166 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetCases successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetCasesOptions model
+				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
+				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(10))
+				getCasesOptionsModel.Search = core.StringPtr("testString")
+				getCasesOptionsModel.Sort = core.StringPtr("number")
+				getCasesOptionsModel.Status = []string{"new"}
+				getCasesOptionsModel.Fields = []string{"number"}
+				getCasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.GetCases(getCasesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(casemanagementv1.CaseList)
+				nextObject := new(casemanagementv1.PaginationLink)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(casemanagementv1.CaseList)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(casemanagementv1.CaseList)
+				nextObject := new(casemanagementv1.PaginationLink)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(casemanagementv1.CaseList)
+				nextObject := new(casemanagementv1.PaginationLink)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCasesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"cases":[{"number":"Number","short_description":"ShortDescription","description":"Description","created_at":"CreatedAt","created_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"updated_at":"UpdatedAt","updated_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"contact_type":"Cloud Support Center","contact":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"status":"Status","severity":8,"support_tier":"Free","resolution":"Resolution","close_notes":"CloseNotes","eu":{"support":false,"data_center":"DataCenter"},"watchlist":[{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"}],"attachments":[{"id":"ID","filename":"Filename","size_in_bytes":11,"created_at":"CreatedAt","url":"URL"}],"offering":{"name":"Name","type":{"group":"crn_service_name","key":"Key","kind":"Kind","id":"ID"}},"resources":[{"crn":"CRN","name":"Name","type":"Type","url":"URL","note":"Note"}],"comments":[{"value":"Value","added_at":"AddedAt","added_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"}}]}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"cases":[{"number":"Number","short_description":"ShortDescription","description":"Description","created_at":"CreatedAt","created_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"updated_at":"UpdatedAt","updated_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"contact_type":"Cloud Support Center","contact":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"},"status":"Status","severity":8,"support_tier":"Free","resolution":"Resolution","close_notes":"CloseNotes","eu":{"support":false,"data_center":"DataCenter"},"watchlist":[{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"}],"attachments":[{"id":"ID","filename":"Filename","size_in_bytes":11,"created_at":"CreatedAt","url":"URL"}],"offering":{"name":"Name","type":{"group":"crn_service_name","key":"Key","kind":"Kind","id":"ID"}},"resources":[{"crn":"CRN","name":"Name","type":"Type","url":"URL","note":"Note"}],"comments":[{"value":"Value","added_at":"AddedAt","added_by":{"name":"Name","realm":"IBMid","user_id":"abc@ibm.com"}}]}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetCasesPager.GetNext successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				getCasesOptionsModel := &casemanagementv1.GetCasesOptions{
+					Limit: core.Int64Ptr(int64(10)),
+					Search: core.StringPtr("testString"),
+					Sort: core.StringPtr("number"),
+					Status: []string{"new"},
+					Fields: []string{"number"},
+				}
+
+				pager, err := caseManagementService.NewGetCasesPager(getCasesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []casemanagementv1.Case
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetCasesPager.GetAll successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				getCasesOptionsModel := &casemanagementv1.GetCasesOptions{
+					Limit: core.Int64Ptr(int64(10)),
+					Search: core.StringPtr("testString"),
+					Sort: core.StringPtr("number"),
+					Status: []string{"new"},
+					Fields: []string{"number"},
+				}
+
+				pager, err := caseManagementService.NewGetCasesPager(getCasesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`CreateCase(createCaseOptions *CreateCaseOptions) - Operation response error`, func() {
 		createCasePath := "/cases"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -388,7 +534,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateCase with error: Operation response processing error`, func() {
@@ -439,7 +585,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(false)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := caseManagementService.CreateCase(createCaseOptionsModel)
@@ -459,7 +605,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateCase(createCaseOptions *CreateCaseOptions)`, func() {
 		createCasePath := "/cases"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -545,7 +690,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(false)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -658,7 +803,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(false)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -716,7 +861,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(false)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := caseManagementService.SetServiceURL("")
@@ -738,10 +883,82 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CreateCase successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the CasePayloadEu model
+				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
+				casePayloadEuModel.Supported = core.BoolPtr(true)
+				casePayloadEuModel.DataCenter = core.Int64Ptr(int64(38))
+
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
+
+				// Construct an instance of the ResourcePayload model
+				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
+				resourcePayloadModel.CRN = core.StringPtr("testString")
+				resourcePayloadModel.Type = core.StringPtr("testString")
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
+				resourcePayloadModel.Note = core.StringPtr("testString")
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the CreateCaseOptions model
+				createCaseOptionsModel := new(casemanagementv1.CreateCaseOptions)
+				createCaseOptionsModel.Type = core.StringPtr("technical")
+				createCaseOptionsModel.Subject = core.StringPtr("testString")
+				createCaseOptionsModel.Description = core.StringPtr("testString")
+				createCaseOptionsModel.Severity = core.Int64Ptr(int64(1))
+				createCaseOptionsModel.Eu = casePayloadEuModel
+				createCaseOptionsModel.Offering = offeringModel
+				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
+				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(false)
+				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.CreateCase(createCaseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetCase(getCaseOptions *GetCaseOptions) - Operation response error`, func() {
 		getCasePath := "/cases/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -751,7 +968,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetCase with error: Operation response processing error`, func() {
@@ -785,7 +1002,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetCase(getCaseOptions *GetCaseOptions)`, func() {
 		getCasePath := "/cases/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -921,10 +1137,45 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetCase successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetCaseOptions model
+				getCaseOptionsModel := new(casemanagementv1.GetCaseOptions)
+				getCaseOptionsModel.CaseNumber = core.StringPtr("testString")
+				getCaseOptionsModel.Fields = []string{"number"}
+				getCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.GetCase(getCaseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateCaseStatus(updateCaseStatusOptions *UpdateCaseStatusOptions) - Operation response error`, func() {
 		updateCaseStatusPath := "/cases/testString/status"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -934,7 +1185,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateCaseStatus with error: Operation response processing error`, func() {
@@ -974,7 +1225,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateCaseStatus(updateCaseStatusOptions *UpdateCaseStatusOptions)`, func() {
 		updateCaseStatusPath := "/cases/testString/status"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1160,10 +1410,51 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateCaseStatus successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
+				statusPayloadModel.Action = core.StringPtr("resolve")
+				statusPayloadModel.Comment = core.StringPtr("It was actually a mistake")
+				statusPayloadModel.ResolutionCode = core.Int64Ptr(int64(1))
+
+				// Construct an instance of the UpdateCaseStatusOptions model
+				updateCaseStatusOptionsModel := new(casemanagementv1.UpdateCaseStatusOptions)
+				updateCaseStatusOptionsModel.CaseNumber = core.StringPtr("testString")
+				updateCaseStatusOptionsModel.StatusPayload = statusPayloadModel
+				updateCaseStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.UpdateCaseStatus(updateCaseStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`AddComment(addCommentOptions *AddCommentOptions) - Operation response error`, func() {
 		addCommentPath := "/cases/testString/comments"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1173,7 +1464,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddComment with error: Operation response processing error`, func() {
@@ -1207,7 +1498,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`AddComment(addCommentOptions *AddCommentOptions)`, func() {
 		addCommentPath := "/cases/testString/comments"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1375,10 +1665,45 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke AddComment successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AddCommentOptions model
+				addCommentOptionsModel := new(casemanagementv1.AddCommentOptions)
+				addCommentOptionsModel.CaseNumber = core.StringPtr("testString")
+				addCommentOptionsModel.Comment = core.StringPtr("This is a test comment")
+				addCommentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.AddComment(addCommentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`AddWatchlist(addWatchlistOptions *AddWatchlistOptions) - Operation response error`, func() {
 		addWatchlistPath := "/cases/testString/watchlist"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1388,7 +1713,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddWatchlist with error: Operation response processing error`, func() {
@@ -1427,7 +1752,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`AddWatchlist(addWatchlistOptions *AddWatchlistOptions)`, func() {
 		addWatchlistPath := "/cases/testString/watchlist"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1610,10 +1934,50 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke AddWatchlist successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the AddWatchlistOptions model
+				addWatchlistOptionsModel := new(casemanagementv1.AddWatchlistOptions)
+				addWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
+				addWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				addWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.AddWatchlist(addWatchlistOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions) - Operation response error`, func() {
 		removeWatchlistPath := "/cases/testString/watchlist"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1623,7 +1987,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke RemoveWatchlist with error: Operation response processing error`, func() {
@@ -1662,7 +2026,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions)`, func() {
 		removeWatchlistPath := "/cases/testString/watchlist"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1845,10 +2208,50 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke RemoveWatchlist successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the RemoveWatchlistOptions model
+				removeWatchlistOptionsModel := new(casemanagementv1.RemoveWatchlistOptions)
+				removeWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
+				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				removeWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.RemoveWatchlist(removeWatchlistOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`AddResource(addResourceOptions *AddResourceOptions) - Operation response error`, func() {
 		addResourcePath := "/cases/testString/resources"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1858,7 +2261,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddResource with error: Operation response processing error`, func() {
@@ -1895,7 +2298,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`AddResource(addResourceOptions *AddResourceOptions)`, func() {
 		addResourcePath := "/cases/testString/resources"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2072,10 +2474,48 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke AddResource successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the AddResourceOptions model
+				addResourceOptionsModel := new(casemanagementv1.AddResourceOptions)
+				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
+				addResourceOptionsModel.CRN = core.StringPtr("testString")
+				addResourceOptionsModel.Type = core.StringPtr("testString")
+				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
+				addResourceOptionsModel.Note = core.StringPtr("testString")
+				addResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.AddResource(addResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UploadFile(uploadFileOptions *UploadFileOptions) - Operation response error`, func() {
 		uploadFilePath := "/cases/testString/attachments"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2085,7 +2525,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UploadFile with error: Operation response processing error`, func() {
@@ -2099,7 +2539,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := caseManagementService.UploadFile(uploadFileOptionsModel)
@@ -2119,7 +2559,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UploadFile(uploadFileOptions *UploadFileOptions)`, func() {
 		uploadFilePath := "/cases/testString/attachments"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2152,7 +2591,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2212,7 +2651,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2233,7 +2672,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := caseManagementService.SetServiceURL("")
@@ -2255,8 +2694,42 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UploadFile successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UploadFileOptions model
+				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
+				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
+				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.UploadFile(uploadFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DownloadFile(downloadFileOptions *DownloadFileOptions)`, func() {
 		downloadFilePath := "/cases/testString/attachments/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2392,10 +2865,50 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DownloadFile successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DownloadFileOptions model
+				downloadFileOptionsModel := new(casemanagementv1.DownloadFileOptions)
+				downloadFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				downloadFileOptionsModel.FileID = core.StringPtr("testString")
+				downloadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.DownloadFile(downloadFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+
+				// Verify empty byte buffer.
+				Expect(result).ToNot(BeNil())
+				buffer, operationErr := io.ReadAll(result)
+				Expect(operationErr).To(BeNil())
+				Expect(buffer).ToNot(BeNil())
+				Expect(len(buffer)).To(Equal(0))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`DeleteFile(deleteFileOptions *DeleteFileOptions) - Operation response error`, func() {
 		deleteFilePath := "/cases/testString/attachments/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2405,7 +2918,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke DeleteFile with error: Operation response processing error`, func() {
@@ -2439,7 +2952,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`DeleteFile(deleteFileOptions *DeleteFileOptions)`, func() {
 		deleteFilePath := "/cases/testString/attachments/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2575,6 +3087,41 @@ var _ = Describe(`CaseManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteFile successfully`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteFileOptions model
+				deleteFileOptionsModel := new(casemanagementv1.DeleteFileOptions)
+				deleteFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				deleteFileOptionsModel.FileID = core.StringPtr("testString")
+				deleteFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := caseManagementService.DeleteFile(deleteFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -2696,7 +3243,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.SetResources([]casemanagementv1.ResourcePayload{*resourcePayloadModel})
 				createCaseOptionsModel.SetWatchlist([]casemanagementv1.User{*userModel})
 				createCaseOptionsModel.SetInvoiceNumber("testString")
-				createCaseOptionsModel.SetSLACreditRequest(true)
+				createCaseOptionsModel.SetSLACreditRequest(false)
 				createCaseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCaseOptionsModel).ToNot(BeNil())
 				Expect(createCaseOptionsModel.Type).To(Equal(core.StringPtr("technical")))
@@ -2708,7 +3255,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(createCaseOptionsModel.Resources).To(Equal([]casemanagementv1.ResourcePayload{*resourcePayloadModel}))
 				Expect(createCaseOptionsModel.Watchlist).To(Equal([]casemanagementv1.User{*userModel}))
 				Expect(createCaseOptionsModel.InvoiceNumber).To(Equal(core.StringPtr("testString")))
-				Expect(createCaseOptionsModel.SLACreditRequest).To(Equal(core.BoolPtr(true)))
+				Expect(createCaseOptionsModel.SLACreditRequest).To(Equal(core.BoolPtr(false)))
 				Expect(createCaseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteFileOptions successfully`, func() {
@@ -2739,8 +3286,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 			It(`Invoke NewFileWithMetadata successfully`, func() {
 				data := CreateMockReader("This is a mock file.")
-				model, err := caseManagementService.NewFileWithMetadata(data)
-				Expect(model).ToNot(BeNil())
+				_model, err := caseManagementService.NewFileWithMetadata(data)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewGetCaseOptions successfully`, func() {
@@ -2759,7 +3306,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the GetCasesOptions model
 				getCasesOptionsModel := caseManagementService.NewGetCasesOptions()
 				getCasesOptionsModel.SetOffset(int64(38))
-				getCasesOptionsModel.SetLimit(int64(38))
+				getCasesOptionsModel.SetLimit(int64(10))
 				getCasesOptionsModel.SetSearch("testString")
 				getCasesOptionsModel.SetSort("number")
 				getCasesOptionsModel.SetStatus([]string{"new"})
@@ -2767,7 +3314,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				getCasesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getCasesOptionsModel).ToNot(BeNil())
 				Expect(getCasesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(getCasesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getCasesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(getCasesOptionsModel.Search).To(Equal(core.StringPtr("testString")))
 				Expect(getCasesOptionsModel.Sort).To(Equal(core.StringPtr("number")))
 				Expect(getCasesOptionsModel.Status).To(Equal([]string{"new"}))
@@ -2783,8 +3330,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 			It(`Invoke NewOfferingType successfully`, func() {
 				group := "crn_service_name"
 				key := "testString"
-				model, err := caseManagementService.NewOfferingType(group, key)
-				Expect(model).ToNot(BeNil())
+				_model, err := caseManagementService.NewOfferingType(group, key)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewRemoveWatchlistOptions successfully`, func() {
@@ -2846,32 +3393,38 @@ var _ = Describe(`CaseManagementV1`, func() {
 				file := []casemanagementv1.FileWithMetadata{}
 				uploadFileOptionsModel := caseManagementService.NewUploadFileOptions(caseNumber, file)
 				uploadFileOptionsModel.SetCaseNumber("testString")
-				uploadFileOptionsModel.SetFile([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}})
+				uploadFileOptionsModel.SetFile([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }})
 				uploadFileOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(uploadFileOptionsModel).ToNot(BeNil())
 				Expect(uploadFileOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(uploadFileOptionsModel.File).To(Equal([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}))
+				Expect(uploadFileOptionsModel.File).To(Equal([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}))
 				Expect(uploadFileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUser successfully`, func() {
 				realm := "IBMid"
 				userID := "abc@ibm.com"
-				model, err := caseManagementService.NewUser(realm, userID)
-				Expect(model).ToNot(BeNil())
+				_model, err := caseManagementService.NewUser(realm, userID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewAcceptPayload successfully`, func() {
+				action := "accept"
+				_model, err := caseManagementService.NewAcceptPayload(action)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewResolvePayload successfully`, func() {
 				action := "resolve"
 				resolutionCode := int64(1)
-				model, err := caseManagementService.NewResolvePayload(action, resolutionCode)
-				Expect(model).ToNot(BeNil())
+				_model, err := caseManagementService.NewResolvePayload(action, resolutionCode)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUnresolvePayload successfully`, func() {
 				action := "unresolve"
 				comment := "testString"
-				model, err := caseManagementService.NewUnresolvePayload(action, comment)
-				Expect(model).ToNot(BeNil())
+				_model, err := caseManagementService.NewUnresolvePayload(action, comment)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 		})
@@ -2890,11 +3443,11 @@ var _ = Describe(`CaseManagementV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -2919,13 +3472,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 

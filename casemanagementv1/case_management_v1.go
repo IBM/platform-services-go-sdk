@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8916ec9f-20210207-213231
+ * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
  */
 
 // Package casemanagementv1 : Operations and models for the CaseManagementV1 service
@@ -28,6 +28,7 @@ import (
 	"io"
 	"net/http"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -38,7 +39,7 @@ import (
 // CaseManagementV1 : Case management API for creating cases, getting case statuses, adding comments to a case, adding
 // and removing users from a case watchlist, downloading and adding attachments, and more.
 //
-// Version: 1.0.0
+// API Version: 1.0.0
 type CaseManagementV1 struct {
 	Service *core.BaseService
 }
@@ -163,7 +164,7 @@ func (caseManagement *CaseManagementV1) DisableRetries() {
 }
 
 // GetCases : Get cases in account
-// Get cases in the account which is specified by the content of the IAM token.
+// Get cases in the account that are specified by the content of the IAM token.
 func (caseManagement *CaseManagementV1) GetCases(getCasesOptions *GetCasesOptions) (result *CaseList, response *core.DetailedResponse, err error) {
 	return caseManagement.GetCasesWithContext(context.Background(), getCasesOptions)
 }
@@ -222,17 +223,19 @@ func (caseManagement *CaseManagementV1) GetCasesWithContext(ctx context.Context,
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCaseList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCaseList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // CreateCase : Create a case
-// Create a case in the account.
+// Create a support case to resolve issues in your account.
 func (caseManagement *CaseManagementV1) CreateCase(createCaseOptions *CreateCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
 	return caseManagement.CreateCaseWithContext(context.Background(), createCaseOptions)
 }
@@ -313,17 +316,19 @@ func (caseManagement *CaseManagementV1) CreateCaseWithContext(ctx context.Contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // GetCase : Get a case in account
-// Get a case in the account that is specified by the case number.
+// View a case in the account that is specified by the case number.
 func (caseManagement *CaseManagementV1) GetCase(getCaseOptions *GetCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
 	return caseManagement.GetCaseWithContext(context.Background(), getCaseOptions)
 }
@@ -375,11 +380,13 @@ func (caseManagement *CaseManagementV1) GetCaseWithContext(ctx context.Context, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -439,17 +446,19 @@ func (caseManagement *CaseManagementV1) UpdateCaseStatusWithContext(ctx context.
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCase)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // AddComment : Add comment to case
-// Add a comment to a case.
+// Add a comment to a case to be viewed by a support engineer.
 func (caseManagement *CaseManagementV1) AddComment(addCommentOptions *AddCommentOptions) (result *Comment, response *core.DetailedResponse, err error) {
 	return caseManagement.AddCommentWithContext(context.Background(), addCommentOptions)
 }
@@ -507,11 +516,13 @@ func (caseManagement *CaseManagementV1) AddCommentWithContext(ctx context.Contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalComment)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalComment)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -577,17 +588,20 @@ func (caseManagement *CaseManagementV1) AddWatchlistWithContext(ctx context.Cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWatchlistAddResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWatchlistAddResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // RemoveWatchlist : Remove users from watchlist of case
-// Remove users from the watchlist of a case.
+// Remove users from the watchlist of a case if you don't want them to view the case, receive updates, or make updates
+// to the case.
 func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions) (result *Watchlist, response *core.DetailedResponse, err error) {
 	return caseManagement.RemoveWatchlistWithContext(context.Background(), removeWatchlistOptions)
 }
@@ -645,11 +659,13 @@ func (caseManagement *CaseManagementV1) RemoveWatchlistWithContext(ctx context.C
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWatchlist)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWatchlist)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -723,16 +739,18 @@ func (caseManagement *CaseManagementV1) AddResourceWithContext(ctx context.Conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResource)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResource)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// UploadFile : Add attachment(s) to case
+// UploadFile : Add attachments to a support case
 // You can add attachments to a case to provide more information for the support team about the issue that you're
 // experiencing.
 func (caseManagement *CaseManagementV1) UploadFile(uploadFileOptions *UploadFileOptions) (result *Attachment, response *core.DetailedResponse, err error) {
@@ -786,11 +804,13 @@ func (caseManagement *CaseManagementV1) UploadFileWithContext(ctx context.Contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAttachment)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAttachment)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -895,11 +915,13 @@ func (caseManagement *CaseManagementV1) DeleteFileWithContext(ctx context.Contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAttachmentList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAttachmentList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -907,10 +929,10 @@ func (caseManagement *CaseManagementV1) DeleteFileWithContext(ctx context.Contex
 // AddCommentOptions : The AddComment options.
 type AddCommentOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Comment to add to the case.
-	Comment *string `validate:"required"`
+	Comment *string `json:"comment" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -925,15 +947,15 @@ func (*CaseManagementV1) NewAddCommentOptions(caseNumber string, comment string)
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *AddCommentOptions) SetCaseNumber(caseNumber string) *AddCommentOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *AddCommentOptions) SetCaseNumber(caseNumber string) *AddCommentOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetComment : Allow user to set Comment
-func (options *AddCommentOptions) SetComment(comment string) *AddCommentOptions {
-	options.Comment = core.StringPtr(comment)
-	return options
+func (_options *AddCommentOptions) SetComment(comment string) *AddCommentOptions {
+	_options.Comment = core.StringPtr(comment)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -945,20 +967,21 @@ func (options *AddCommentOptions) SetHeaders(param map[string]string) *AddCommen
 // AddResourceOptions : The AddResource options.
 type AddResourceOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Cloud Resource Name of the resource.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
-	// Only used to attach Classic IaaS devices which have no CRN.
-	Type *string
+	// Only used to attach Classic IaaS devices that have no CRN.
+	Type *string `json:"type,omitempty"`
 
-	// Only used to attach Classic IaaS devices which have no CRN. Id of Classic IaaS device. This is deprecated in favor
-	// of the crn field.
-	ID *float64
+	// Only used to attach Classic IaaS devices that have no CRN. Id of Classic IaaS device. This is deprecated in favor of
+	// the crn field.
+	// Deprecated: this field is deprecated and may be removed in a future release.
+	ID *float64 `json:"id,omitempty"`
 
 	// A note about this resource.
-	Note *string
+	Note *string `json:"note,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -972,33 +995,34 @@ func (*CaseManagementV1) NewAddResourceOptions(caseNumber string) *AddResourceOp
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *AddResourceOptions) SetCaseNumber(caseNumber string) *AddResourceOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *AddResourceOptions) SetCaseNumber(caseNumber string) *AddResourceOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *AddResourceOptions) SetCRN(crn string) *AddResourceOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *AddResourceOptions) SetCRN(crn string) *AddResourceOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *AddResourceOptions) SetType(typeVar string) *AddResourceOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *AddResourceOptions) SetType(typeVar string) *AddResourceOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *AddResourceOptions) SetID(id float64) *AddResourceOptions {
-	options.ID = core.Float64Ptr(id)
-	return options
+// Deprecated: this method is deprecated and may be removed in a future release.
+func (_options *AddResourceOptions) SetID(id float64) *AddResourceOptions {
+	_options.ID = core.Float64Ptr(id)
+	return _options
 }
 
 // SetNote : Allow user to set Note
-func (options *AddResourceOptions) SetNote(note string) *AddResourceOptions {
-	options.Note = core.StringPtr(note)
-	return options
+func (_options *AddResourceOptions) SetNote(note string) *AddResourceOptions {
+	_options.Note = core.StringPtr(note)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1010,10 +1034,10 @@ func (options *AddResourceOptions) SetHeaders(param map[string]string) *AddResou
 // AddWatchlistOptions : The AddWatchlist options.
 type AddWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Array of user ID objects.
-	Watchlist []User
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1027,15 +1051,15 @@ func (*CaseManagementV1) NewAddWatchlistOptions(caseNumber string) *AddWatchlist
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *AddWatchlistOptions) SetCaseNumber(caseNumber string) *AddWatchlistOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *AddWatchlistOptions) SetCaseNumber(caseNumber string) *AddWatchlistOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *AddWatchlistOptions) SetWatchlist(watchlist []User) *AddWatchlistOptions {
-	options.Watchlist = watchlist
-	return options
+func (_options *AddWatchlistOptions) SetWatchlist(watchlist []User) *AddWatchlistOptions {
+	_options.Watchlist = watchlist
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1108,22 +1132,22 @@ func UnmarshalAttachmentList(m map[string]json.RawMessage, result interface{}) (
 
 // Case : The support case.
 type Case struct {
-	// Number/ID of the case.
+	// Identifying number of a created case.
 	Number *string `json:"number,omitempty"`
 
-	// A short description of what the case is about.
+	// Short description of what the case is about.
 	ShortDescription *string `json:"short_description,omitempty"`
 
-	// A full description of what the case is about.
+	// Full description of what the case is about.
 	Description *string `json:"description,omitempty"`
 
-	// Date time of case creation in UTC.
+	// Date and time of case creation in UTC.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// User info in a case.
 	CreatedBy *User `json:"created_by,omitempty"`
 
-	// Date time of the last update on the case in UTC.
+	// Date and time of the last update on the case in UTC.
 	UpdatedAt *string `json:"updated_at,omitempty"`
 
 	// User info in a case.
@@ -1135,10 +1159,10 @@ type Case struct {
 	// User info in a case.
 	Contact *User `json:"contact,omitempty"`
 
-	// Status of the case.
+	// Status type of the case.
 	Status *string `json:"status,omitempty"`
 
-	// The severity of the case.
+	// Severity level of the case.
 	Severity *float64 `json:"severity,omitempty"`
 
 	// Support tier of the account.
@@ -1156,7 +1180,7 @@ type Case struct {
 	// List of users in the case watchlist.
 	Watchlist []User `json:"watchlist,omitempty"`
 
-	// List of attachments/files of the case.
+	// List of files that are attached to the case.
 	Attachments []Attachment `json:"attachments,omitempty"`
 
 	// Offering details.
@@ -1165,7 +1189,7 @@ type Case struct {
 	// List of attached resources.
 	Resources []Resource `json:"resources,omitempty"`
 
-	// List of comments/updates sorted in chronological order.
+	// List of comments and updates that are sorted in chronological order.
 	Comments []Comment `json:"comments,omitempty"`
 }
 
@@ -1298,7 +1322,7 @@ func UnmarshalCaseEu(m map[string]json.RawMessage, result interface{}) (err erro
 
 // CaseList : Response of a GET /cases request.
 type CaseList struct {
-	// Total number of cases satisfying the query.
+	// Total number of cases that satisfy the query.
 	TotalCount *int64 `json:"total_count,omitempty"`
 
 	// Container for URL pointer to related pages of cases.
@@ -1348,13 +1372,30 @@ func UnmarshalCaseList(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *CaseList) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
 // CasePayloadEu : Specify if the case should be treated as EU regulated. Only one of the following properties is required. Call EU
 // support utility endpoint to determine which property must be specified for your account.
 type CasePayloadEu struct {
 	// indicating whether the case is EU supported.
 	Supported *bool `json:"supported,omitempty"`
 
-	// If EU supported utility endpoint specifies datacenter then pass the datacenter id to mark a case as EU supported.
+	// If EU supported utility endpoint specifies data center, then pass the data center id to mark a case as EU supported.
 	DataCenter *int64 `json:"data_center,omitempty"`
 }
 
@@ -1407,37 +1448,37 @@ func UnmarshalComment(m map[string]json.RawMessage, result interface{}) (err err
 // CreateCaseOptions : The CreateCase options.
 type CreateCaseOptions struct {
 	// Case type.
-	Type *string `validate:"required"`
+	Type *string `json:"type" validate:"required"`
 
-	// Subject of the case.
-	Subject *string `validate:"required"`
+	// Short description used to identify the case.
+	Subject *string `json:"subject" validate:"required"`
 
 	// Detailed description of the issue.
-	Description *string `validate:"required"`
+	Description *string `json:"description" validate:"required"`
 
 	// Severity of the case. Smaller values mean higher severity.
-	Severity *int64
+	Severity *int64 `json:"severity,omitempty"`
 
 	// Specify if the case should be treated as EU regulated. Only one of the following properties is required. Call EU
 	// support utility endpoint to determine which property must be specified for your account.
-	Eu *CasePayloadEu
+	Eu *CasePayloadEu `json:"eu,omitempty"`
 
 	// Offering details.
-	Offering *Offering
+	Offering *Offering `json:"offering,omitempty"`
 
-	// List of resources to attach to case. If attaching Classic IaaS devices use type and id fields if Cloud Resource Name
-	// (CRN) is unavialable. Otherwise pass the resource CRN. The resource list must be consistent with the value selected
-	// for the resource offering.
-	Resources []ResourcePayload
+	// List of resources to attach to case. If you attach Classic IaaS devices, use the type and id fields if the Cloud
+	// Resource Name (CRN) is unavailable. Otherwise, pass the resource CRN. The resource list must be consistent with the
+	// value that is selected for the resource offering.
+	Resources []ResourcePayload `json:"resources,omitempty"`
 
 	// Array of user IDs to add to the watchlist.
-	Watchlist []User
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Invoice number of "Billing and Invoice" case type.
-	InvoiceNumber *string
+	InvoiceNumber *string `json:"invoice_number,omitempty"`
 
 	// Flag to indicate if case is for an Service Level Agreement (SLA) credit request.
-	SLACreditRequest *bool
+	SLACreditRequest *bool `json:"sla_credit_request,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1462,63 +1503,63 @@ func (*CaseManagementV1) NewCreateCaseOptions(typeVar string, subject string, de
 }
 
 // SetType : Allow user to set Type
-func (options *CreateCaseOptions) SetType(typeVar string) *CreateCaseOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *CreateCaseOptions) SetType(typeVar string) *CreateCaseOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetSubject : Allow user to set Subject
-func (options *CreateCaseOptions) SetSubject(subject string) *CreateCaseOptions {
-	options.Subject = core.StringPtr(subject)
-	return options
+func (_options *CreateCaseOptions) SetSubject(subject string) *CreateCaseOptions {
+	_options.Subject = core.StringPtr(subject)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateCaseOptions) SetDescription(description string) *CreateCaseOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreateCaseOptions) SetDescription(description string) *CreateCaseOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetSeverity : Allow user to set Severity
-func (options *CreateCaseOptions) SetSeverity(severity int64) *CreateCaseOptions {
-	options.Severity = core.Int64Ptr(severity)
-	return options
+func (_options *CreateCaseOptions) SetSeverity(severity int64) *CreateCaseOptions {
+	_options.Severity = core.Int64Ptr(severity)
+	return _options
 }
 
 // SetEu : Allow user to set Eu
-func (options *CreateCaseOptions) SetEu(eu *CasePayloadEu) *CreateCaseOptions {
-	options.Eu = eu
-	return options
+func (_options *CreateCaseOptions) SetEu(eu *CasePayloadEu) *CreateCaseOptions {
+	_options.Eu = eu
+	return _options
 }
 
 // SetOffering : Allow user to set Offering
-func (options *CreateCaseOptions) SetOffering(offering *Offering) *CreateCaseOptions {
-	options.Offering = offering
-	return options
+func (_options *CreateCaseOptions) SetOffering(offering *Offering) *CreateCaseOptions {
+	_options.Offering = offering
+	return _options
 }
 
 // SetResources : Allow user to set Resources
-func (options *CreateCaseOptions) SetResources(resources []ResourcePayload) *CreateCaseOptions {
-	options.Resources = resources
-	return options
+func (_options *CreateCaseOptions) SetResources(resources []ResourcePayload) *CreateCaseOptions {
+	_options.Resources = resources
+	return _options
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *CreateCaseOptions) SetWatchlist(watchlist []User) *CreateCaseOptions {
-	options.Watchlist = watchlist
-	return options
+func (_options *CreateCaseOptions) SetWatchlist(watchlist []User) *CreateCaseOptions {
+	_options.Watchlist = watchlist
+	return _options
 }
 
 // SetInvoiceNumber : Allow user to set InvoiceNumber
-func (options *CreateCaseOptions) SetInvoiceNumber(invoiceNumber string) *CreateCaseOptions {
-	options.InvoiceNumber = core.StringPtr(invoiceNumber)
-	return options
+func (_options *CreateCaseOptions) SetInvoiceNumber(invoiceNumber string) *CreateCaseOptions {
+	_options.InvoiceNumber = core.StringPtr(invoiceNumber)
+	return _options
 }
 
 // SetSLACreditRequest : Allow user to set SLACreditRequest
-func (options *CreateCaseOptions) SetSLACreditRequest(slaCreditRequest bool) *CreateCaseOptions {
-	options.SLACreditRequest = core.BoolPtr(slaCreditRequest)
-	return options
+func (_options *CreateCaseOptions) SetSLACreditRequest(slaCreditRequest bool) *CreateCaseOptions {
+	_options.SLACreditRequest = core.BoolPtr(slaCreditRequest)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1530,10 +1571,10 @@ func (options *CreateCaseOptions) SetHeaders(param map[string]string) *CreateCas
 // DeleteFileOptions : The DeleteFile options.
 type DeleteFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `validate:"required,ne="`
+	FileID *string `json:"file_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1548,15 +1589,15 @@ func (*CaseManagementV1) NewDeleteFileOptions(caseNumber string, fileID string) 
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *DeleteFileOptions) SetCaseNumber(caseNumber string) *DeleteFileOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *DeleteFileOptions) SetCaseNumber(caseNumber string) *DeleteFileOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetFileID : Allow user to set FileID
-func (options *DeleteFileOptions) SetFileID(fileID string) *DeleteFileOptions {
-	options.FileID = core.StringPtr(fileID)
-	return options
+func (_options *DeleteFileOptions) SetFileID(fileID string) *DeleteFileOptions {
+	_options.FileID = core.StringPtr(fileID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1568,10 +1609,10 @@ func (options *DeleteFileOptions) SetHeaders(param map[string]string) *DeleteFil
 // DownloadFileOptions : The DownloadFile options.
 type DownloadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `validate:"required,ne="`
+	FileID *string `json:"file_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1586,15 +1627,15 @@ func (*CaseManagementV1) NewDownloadFileOptions(caseNumber string, fileID string
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *DownloadFileOptions) SetCaseNumber(caseNumber string) *DownloadFileOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *DownloadFileOptions) SetCaseNumber(caseNumber string) *DownloadFileOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetFileID : Allow user to set FileID
-func (options *DownloadFileOptions) SetFileID(fileID string) *DownloadFileOptions {
-	options.FileID = core.StringPtr(fileID)
-	return options
+func (_options *DownloadFileOptions) SetFileID(fileID string) *DownloadFileOptions {
+	_options.FileID = core.StringPtr(fileID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1616,40 +1657,37 @@ type FileWithMetadata struct {
 }
 
 // NewFileWithMetadata : Instantiate FileWithMetadata (Generic Model Constructor)
-func (*CaseManagementV1) NewFileWithMetadata(data io.ReadCloser) (model *FileWithMetadata, err error) {
-	model = &FileWithMetadata{
+func (*CaseManagementV1) NewFileWithMetadata(data io.ReadCloser) (_model *FileWithMetadata, err error) {
+	_model = &FileWithMetadata{
 		Data: data,
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
 // UnmarshalFileWithMetadata unmarshals an instance of FileWithMetadata from the specified map of raw messages.
 func UnmarshalFileWithMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(FileWithMetadata)
-	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	obj := new(core.FileWithMetadata)
+	err = core.UnmarshalFileWithMetadata(m, &obj)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "filename", &obj.Filename)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "content_type", &obj.ContentType)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+
+	// do a simple conversion from the core type to the service type
+	// they have identical fields
+	convertedModel := FileWithMetadata(*obj)
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(&convertedModel))
+
 	return
 }
 
 // GetCaseOptions : The GetCase options.
 type GetCaseOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
-	// Seleted fields of interest instead of the entire case information.
-	Fields []string
+	// Selected fields of interest instead of all of the case information.
+	Fields []string `json:"fields,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1689,15 +1727,15 @@ func (*CaseManagementV1) NewGetCaseOptions(caseNumber string) *GetCaseOptions {
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *GetCaseOptions) SetCaseNumber(caseNumber string) *GetCaseOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *GetCaseOptions) SetCaseNumber(caseNumber string) *GetCaseOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetFields : Allow user to set Fields
-func (options *GetCaseOptions) SetFields(fields []string) *GetCaseOptions {
-	options.Fields = fields
-	return options
+func (_options *GetCaseOptions) SetFields(fields []string) *GetCaseOptions {
+	_options.Fields = fields
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1708,24 +1746,24 @@ func (options *GetCaseOptions) SetHeaders(param map[string]string) *GetCaseOptio
 
 // GetCasesOptions : The GetCases options.
 type GetCasesOptions struct {
-	// Number of cases should be skipped.
-	Offset *int64
+	// Number of cases that are skipped.
+	Offset *int64 `json:"offset,omitempty"`
 
-	// Number of cases should be returned.
-	Limit *int64
+	// Number of cases that are returned.
+	Limit *int64 `json:"limit,omitempty"`
 
 	// String that a case might contain.
-	Search *string
+	Search *string `json:"search,omitempty"`
 
 	// Sort field and direction. If omitted, default to descending of updated date. Prefix "~" signifies sort in
 	// descending.
-	Sort *string
+	Sort *string `json:"sort,omitempty"`
 
 	// Case status filter.
-	Status []string
+	Status []string `json:"status,omitempty"`
 
-	// Seleted fields of interest instead of the entire case information.
-	Fields []string
+	// Selected fields of interest instead of all of the case information.
+	Fields []string `json:"fields,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1773,39 +1811,39 @@ func (*CaseManagementV1) NewGetCasesOptions() *GetCasesOptions {
 }
 
 // SetOffset : Allow user to set Offset
-func (options *GetCasesOptions) SetOffset(offset int64) *GetCasesOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *GetCasesOptions) SetOffset(offset int64) *GetCasesOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetCasesOptions) SetLimit(limit int64) *GetCasesOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetCasesOptions) SetLimit(limit int64) *GetCasesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetSearch : Allow user to set Search
-func (options *GetCasesOptions) SetSearch(search string) *GetCasesOptions {
-	options.Search = core.StringPtr(search)
-	return options
+func (_options *GetCasesOptions) SetSearch(search string) *GetCasesOptions {
+	_options.Search = core.StringPtr(search)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *GetCasesOptions) SetSort(sort string) *GetCasesOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *GetCasesOptions) SetSort(sort string) *GetCasesOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetStatus : Allow user to set Status
-func (options *GetCasesOptions) SetStatus(status []string) *GetCasesOptions {
-	options.Status = status
-	return options
+func (_options *GetCasesOptions) SetStatus(status []string) *GetCasesOptions {
+	_options.Status = status
+	return _options
 }
 
 // SetFields : Allow user to set Fields
-func (options *GetCasesOptions) SetFields(fields []string) *GetCasesOptions {
-	options.Fields = fields
-	return options
+func (_options *GetCasesOptions) SetFields(fields []string) *GetCasesOptions {
+	_options.Fields = fields
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1824,12 +1862,12 @@ type Offering struct {
 }
 
 // NewOffering : Instantiate Offering (Generic Model Constructor)
-func (*CaseManagementV1) NewOffering(name string, typeVar *OfferingType) (model *Offering, err error) {
-	model = &Offering{
+func (*CaseManagementV1) NewOffering(name string, typeVar *OfferingType) (_model *Offering, err error) {
+	_model = &Offering{
 		Name: core.StringPtr(name),
 		Type: typeVar,
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1850,8 +1888,8 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 
 // OfferingType : Offering type.
 type OfferingType struct {
-	// Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
-	// deprecated in the future.
+	// Offering type group. "crn_service_name" is preferred over "category" as the latter is legacy and will be deprecated
+	// in the future.
 	Group *string `json:"group" validate:"required"`
 
 	// CRN service name of the offering.
@@ -1865,20 +1903,20 @@ type OfferingType struct {
 }
 
 // Constants associated with the OfferingType.Group property.
-// Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
-// deprecated in the future.
+// Offering type group. "crn_service_name" is preferred over "category" as the latter is legacy and will be deprecated
+// in the future.
 const (
 	OfferingTypeGroupCRNServiceNameConst = "crn_service_name"
 	OfferingTypeGroupCategoryConst       = "category"
 )
 
 // NewOfferingType : Instantiate OfferingType (Generic Model Constructor)
-func (*CaseManagementV1) NewOfferingType(group string, key string) (model *OfferingType, err error) {
-	model = &OfferingType{
+func (*CaseManagementV1) NewOfferingType(group string, key string) (_model *OfferingType, err error) {
+	_model = &OfferingType{
 		Group: core.StringPtr(group),
 		Key:   core.StringPtr(key),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1925,10 +1963,10 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 // RemoveWatchlistOptions : The RemoveWatchlist options.
 type RemoveWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Array of user ID objects.
-	Watchlist []User
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1942,15 +1980,15 @@ func (*CaseManagementV1) NewRemoveWatchlistOptions(caseNumber string) *RemoveWat
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *RemoveWatchlistOptions) SetCaseNumber(caseNumber string) *RemoveWatchlistOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *RemoveWatchlistOptions) SetCaseNumber(caseNumber string) *RemoveWatchlistOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *RemoveWatchlistOptions) SetWatchlist(watchlist []User) *RemoveWatchlistOptions {
-	options.Watchlist = watchlist
-	return options
+func (_options *RemoveWatchlistOptions) SetWatchlist(watchlist []User) *RemoveWatchlistOptions {
+	_options.Watchlist = watchlist
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2009,11 +2047,12 @@ type ResourcePayload struct {
 	// Cloud Resource Name of the resource.
 	CRN *string `json:"crn,omitempty"`
 
-	// Only used to attach Classic IaaS devices which have no CRN.
+	// Only used to attach Classic IaaS devices that have no CRN.
 	Type *string `json:"type,omitempty"`
 
-	// Only used to attach Classic IaaS devices which have no CRN. Id of Classic IaaS device. This is deprecated in favor
-	// of the crn field.
+	// Only used to attach Classic IaaS devices that have no CRN. Id of Classic IaaS device. This is deprecated in favor of
+	// the crn field.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	ID *float64 `json:"id,omitempty"`
 
 	// A note about this resource.
@@ -2058,7 +2097,7 @@ type StatusPayload struct {
 	// * 1: Client error
 	// * 2: Defect found with Component/Service
 	// * 3: Documentation Error
-	// * 4: Sollution found in forums
+	// * 4: Solution found in forums
 	// * 5: Solution found in public Documentation
 	// * 6: Solution no longer required
 	// * 7: Solution provided by IBM outside of support case
@@ -2110,10 +2149,10 @@ func UnmarshalStatusPayload(m map[string]json.RawMessage, result interface{}) (e
 // UpdateCaseStatusOptions : The UpdateCaseStatus options.
 type UpdateCaseStatusOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Payload to update status of the case.
-	StatusPayload StatusPayloadIntf `validate:"required"`
+	StatusPayload StatusPayloadIntf `json:"StatusPayload" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2128,15 +2167,15 @@ func (*CaseManagementV1) NewUpdateCaseStatusOptions(caseNumber string, statusPay
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *UpdateCaseStatusOptions) SetCaseNumber(caseNumber string) *UpdateCaseStatusOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *UpdateCaseStatusOptions) SetCaseNumber(caseNumber string) *UpdateCaseStatusOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetStatusPayload : Allow user to set StatusPayload
-func (options *UpdateCaseStatusOptions) SetStatusPayload(statusPayload StatusPayloadIntf) *UpdateCaseStatusOptions {
-	options.StatusPayload = statusPayload
-	return options
+func (_options *UpdateCaseStatusOptions) SetStatusPayload(statusPayload StatusPayloadIntf) *UpdateCaseStatusOptions {
+	_options.StatusPayload = statusPayload
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2148,10 +2187,10 @@ func (options *UpdateCaseStatusOptions) SetHeaders(param map[string]string) *Upd
 // UploadFileOptions : The UploadFile options.
 type UploadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `validate:"required,ne="`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// file of supported types, 8MB in size limit.
-	File []FileWithMetadata `validate:"required"`
+	File []FileWithMetadata `json:"file" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2166,15 +2205,15 @@ func (*CaseManagementV1) NewUploadFileOptions(caseNumber string, file []FileWith
 }
 
 // SetCaseNumber : Allow user to set CaseNumber
-func (options *UploadFileOptions) SetCaseNumber(caseNumber string) *UploadFileOptions {
-	options.CaseNumber = core.StringPtr(caseNumber)
-	return options
+func (_options *UploadFileOptions) SetCaseNumber(caseNumber string) *UploadFileOptions {
+	_options.CaseNumber = core.StringPtr(caseNumber)
+	return _options
 }
 
 // SetFile : Allow user to set File
-func (options *UploadFileOptions) SetFile(file []FileWithMetadata) *UploadFileOptions {
-	options.File = file
-	return options
+func (_options *UploadFileOptions) SetFile(file []FileWithMetadata) *UploadFileOptions {
+	_options.File = file
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2204,12 +2243,12 @@ const (
 )
 
 // NewUser : Instantiate User (Generic Model Constructor)
-func (*CaseManagementV1) NewUser(realm string, userID string) (model *User, err error) {
-	model = &User{
+func (*CaseManagementV1) NewUser(realm string, userID string) (_model *User, err error) {
+	_model = &User{
 		Realm:  core.StringPtr(realm),
 		UserID: core.StringPtr(userID),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -2249,7 +2288,7 @@ func UnmarshalWatchlist(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// WatchlistAddResponse : Response of a request adding to watchlist.
+// WatchlistAddResponse : Response of a request when adding to watchlist.
 type WatchlistAddResponse struct {
 	// List of added user.
 	Added []User `json:"added,omitempty"`
@@ -2291,6 +2330,15 @@ const (
 	AcceptPayloadActionUnresolveConst = "unresolve"
 )
 
+// NewAcceptPayload : Instantiate AcceptPayload (Generic Model Constructor)
+func (*CaseManagementV1) NewAcceptPayload(action string) (_model *AcceptPayload, err error) {
+	_model = &AcceptPayload{
+		Action: core.StringPtr(action),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
 func (*AcceptPayload) isaStatusPayload() bool {
 	return true
 }
@@ -2322,7 +2370,7 @@ type ResolvePayload struct {
 	// * 1: Client error
 	// * 2: Defect found with Component/Service
 	// * 3: Documentation Error
-	// * 4: Sollution found in forums
+	// * 4: Solution found in forums
 	// * 5: Solution found in public Documentation
 	// * 6: Solution no longer required
 	// * 7: Solution provided by IBM outside of support case
@@ -2339,12 +2387,12 @@ const (
 )
 
 // NewResolvePayload : Instantiate ResolvePayload (Generic Model Constructor)
-func (*CaseManagementV1) NewResolvePayload(action string, resolutionCode int64) (model *ResolvePayload, err error) {
-	model = &ResolvePayload{
+func (*CaseManagementV1) NewResolvePayload(action string, resolutionCode int64) (_model *ResolvePayload, err error) {
+	_model = &ResolvePayload{
 		Action:         core.StringPtr(action),
 		ResolutionCode: core.Int64Ptr(resolutionCode),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -2390,12 +2438,12 @@ const (
 )
 
 // NewUnresolvePayload : Instantiate UnresolvePayload (Generic Model Constructor)
-func (*CaseManagementV1) NewUnresolvePayload(action string, comment string) (model *UnresolvePayload, err error) {
-	model = &UnresolvePayload{
+func (*CaseManagementV1) NewUnresolvePayload(action string, comment string) (_model *UnresolvePayload, err error) {
+	_model = &UnresolvePayload{
 		Action:  core.StringPtr(action),
 		Comment: core.StringPtr(comment),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -2416,4 +2464,91 @@ func UnmarshalUnresolvePayload(m map[string]json.RawMessage, result interface{})
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// GetCasesPager can be used to simplify the use of the "GetCases" method.
+//
+type GetCasesPager struct {
+	hasNext     bool
+	options     *GetCasesOptions
+	client      *CaseManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewGetCasesPager returns a new GetCasesPager instance.
+func (caseManagement *CaseManagementV1) NewGetCasesPager(options *GetCasesOptions) (pager *GetCasesPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy GetCasesOptions = *options
+	pager = &GetCasesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  caseManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetCasesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetCasesPager) GetNextWithContext(ctx context.Context) (page []Case, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.GetCasesWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next.Href, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Cases
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetCasesPager) GetAllWithContext(ctx context.Context) (allItems []Case, err error) {
+	for pager.HasNext() {
+		var nextPage []Case
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetCasesPager) GetNext() (page []Case, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetCasesPager) GetAll() (allItems []Case, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
