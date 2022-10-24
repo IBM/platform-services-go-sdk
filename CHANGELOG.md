@@ -1,3 +1,10 @@
+## [0.28.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.6...v0.28.7) (2022-10-24)
+
+
+### Bug Fixes
+
+* **Case Management:** regen service to add Pager ([#210](https://github.com/IBM/platform-services-go-sdk/issues/210)) ([82c3482](https://github.com/IBM/platform-services-go-sdk/commit/82c348214ea53d19f8474f1c3863747e8690ed59))
+
 ## [0.28.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.5...v0.28.6) (2022-10-14)
 
 
