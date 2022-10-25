@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -108,7 +109,7 @@ var _ = Describe(`EnterpriseUsageReportsV1 Integration Tests`, func() {
 			Expect(enterpriseUsageReportsService).ToNot(BeNil())
 			Expect(enterpriseUsageReportsService.Service.Options.URL).To(Equal(serviceURL))
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelError, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			enterpriseUsageReportsService.EnableRetries(3, 30*time.Second)
 		})
 	})
@@ -233,6 +234,37 @@ var _ = Describe(`EnterpriseUsageReportsV1 Integration Tests`, func() {
 
 			// Make sure we got back a non-empty set of results.
 			Expect(results).ToNot(BeEmpty())
+		})
+		It(`Using Account ID with pager`, func() {
+			getResourceUsageReportOptions := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
+				AccountGroupID: &accountGroupID,
+				Month:          &billingMonth,
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []enterpriseusagereportsv1.ResourceUsageReport
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
 })

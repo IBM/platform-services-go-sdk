@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,14 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+				})
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+				})
 				err := enterpriseUsageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
+			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseUsageReportsService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "NOAuth",
+				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -162,7 +165,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 	})
 	Describe(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) - Operation response error`, func() {
 		getResourceUsageReportPath := "/v1/resource-usage-reports"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -171,24 +174,16 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageReportPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"abc12340d4bf4e36b0423d209b286f24"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"def456a237b94b9a9238ef024e204c9f"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"987abcba31834216b8c726a7dd9eb8d6"}))
-
 					// TODO: Add check for children query parameter
-
 					Expect(req.URL.Query()["month"]).To(Equal([]string{"2019-06"}))
-
 					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceUsageReport with error: Operation response processing error`, func() {
@@ -228,13 +223,10 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions)`, func() {
 		getResourceUsageReportPath := "/v1/resource-usage-reports"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -243,24 +235,85 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"abc12340d4bf4e36b0423d209b286f24"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"def456a237b94b9a9238ef024e204c9f"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"987abcba31834216b8c726a7dd9eb8d6"}))
-
 					// TODO: Add check for children query parameter
-
 					Expect(req.URL.Query()["month"]).To(Equal([]string{"2019-06"}))
-
 					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href"}, "reports": [{"entity_id": "de129b787b86403db7d3a14be2ae5f76", "entity_type": "enterprise", "entity_crn": "crn:v1:bluemix:public:enterprise::a/e9a57260546c4b4aa9ebfa316a82e56e::enterprise:de129b787b86403db7d3a14be2ae5f76", "entity_name": "Platform-Services", "billing_unit_id": "65719a07280a4022a9efa2f6ff4c3369", "billing_unit_crn": "crn:v1:bluemix:public:billing::a/3f99f8accbc848ea96f3c61a0ae22c44::billing-unit:65719a07280a4022a9efa2f6ff4c3369", "billing_unit_name": "Operations", "country_code": "USA", "currency_code": "USD", "month": "2017-08", "billable_cost": 12, "non_billable_cost": 15, "billable_rated_cost": 17, "non_billable_rated_cost": 20, "resources": [{"resource_id": "ResourceID", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "unit": "HOURS", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130, "price": [{"anyKey": "anyValue"}]}]}]}]}]}`)
+				}))
+			})
+			It(`Invoke GetResourceUsageReport successfully with retries`, func() {
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseUsageReportsService).ToNot(BeNil())
+				enterpriseUsageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetResourceUsageReportOptions model
+				getResourceUsageReportOptionsModel := new(enterpriseusagereportsv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel.EnterpriseID = core.StringPtr("abc12340d4bf4e36b0423d209b286f24")
+				getResourceUsageReportOptionsModel.AccountGroupID = core.StringPtr("def456a237b94b9a9238ef024e204c9f")
+				getResourceUsageReportOptionsModel.AccountID = core.StringPtr("987abcba31834216b8c726a7dd9eb8d6")
+				getResourceUsageReportOptionsModel.Children = core.BoolPtr(true)
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2019-06")
+				getResourceUsageReportOptionsModel.BillingUnitID = core.StringPtr("testString")
+				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
+				getResourceUsageReportOptionsModel.Offset = core.StringPtr("testString")
+				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseUsageReportsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseUsageReportsService.DisableRetries()
+				result, response, operationErr := enterpriseUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseUsageReportsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageReportPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"abc12340d4bf4e36b0423d209b286f24"}))
+					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"def456a237b94b9a9238ef024e204c9f"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"987abcba31834216b8c726a7dd9eb8d6"}))
+					// TODO: Add check for children query parameter
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2019-06"}))
+					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -274,7 +327,6 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
-				enterpriseUsageReportsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseUsageReportsService.GetResourceUsageReport(nil)
@@ -300,30 +352,6 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseUsageReportsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseUsageReportsService.DisableRetries()
-				result, response, operationErr = enterpriseUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseUsageReportsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResourceUsageReport with error: Operation request error`, func() {
 				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
@@ -355,6 +383,158 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceUsageReport successfully`, func() {
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseUsageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceUsageReportOptions model
+				getResourceUsageReportOptionsModel := new(enterpriseusagereportsv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel.EnterpriseID = core.StringPtr("abc12340d4bf4e36b0423d209b286f24")
+				getResourceUsageReportOptionsModel.AccountGroupID = core.StringPtr("def456a237b94b9a9238ef024e204c9f")
+				getResourceUsageReportOptionsModel.AccountID = core.StringPtr("987abcba31834216b8c726a7dd9eb8d6")
+				getResourceUsageReportOptionsModel.Children = core.BoolPtr(true)
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2019-06")
+				getResourceUsageReportOptionsModel.BillingUnitID = core.StringPtr("testString")
+				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
+				getResourceUsageReportOptionsModel.Offset = core.StringPtr("testString")
+				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := enterpriseUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(enterpriseusagereportsv1.Reports)
+				nextObject := new(enterpriseusagereportsv1.Link)
+				nextObject.Href = core.StringPtr("ibm.com?offset=abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(enterpriseusagereportsv1.Reports)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(enterpriseusagereportsv1.Reports)
+				nextObject := new(enterpriseusagereportsv1.Link)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageReportPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"reports":[{"entity_id":"de129b787b86403db7d3a14be2ae5f76","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/e9a57260546c4b4aa9ebfa316a82e56e::enterprise:de129b787b86403db7d3a14be2ae5f76","entity_name":"Platform-Services","billing_unit_id":"65719a07280a4022a9efa2f6ff4c3369","billing_unit_crn":"crn:v1:bluemix:public:billing::a/3f99f8accbc848ea96f3c61a0ae22c44::billing-unit:65719a07280a4022a9efa2f6ff4c3369","billing_unit_name":"Operations","country_code":"USA","currency_code":"USD","month":"2017-08","billable_cost":12,"non_billable_cost":15,"billable_rated_cost":17,"non_billable_rated_cost":20,"resources":[{"resource_id":"ResourceID","billable_cost":12,"billable_rated_cost":17,"non_billable_cost":15,"non_billable_rated_cost":20,"plans":[{"plan_id":"PlanID","pricing_region":"PricingRegion","pricing_plan_id":"PricingPlanID","billable":true,"cost":4,"rated_cost":9,"usage":[{"metric":"UP-TIME","unit":"HOURS","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"reports":[{"entity_id":"de129b787b86403db7d3a14be2ae5f76","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/e9a57260546c4b4aa9ebfa316a82e56e::enterprise:de129b787b86403db7d3a14be2ae5f76","entity_name":"Platform-Services","billing_unit_id":"65719a07280a4022a9efa2f6ff4c3369","billing_unit_crn":"crn:v1:bluemix:public:billing::a/3f99f8accbc848ea96f3c61a0ae22c44::billing-unit:65719a07280a4022a9efa2f6ff4c3369","billing_unit_name":"Operations","country_code":"USA","currency_code":"USD","month":"2017-08","billable_cost":12,"non_billable_cost":15,"billable_rated_cost":17,"non_billable_rated_cost":20,"resources":[{"resource_id":"ResourceID","billable_cost":12,"billable_rated_cost":17,"non_billable_cost":15,"non_billable_rated_cost":20,"plans":[{"plan_id":"PlanID","pricing_region":"PricingRegion","pricing_plan_id":"PricingPlanID","billable":true,"cost":4,"rated_cost":9,"usage":[{"metric":"UP-TIME","unit":"HOURS","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetResourceUsageReportPager.GetNext successfully`, func() {
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseUsageReportsService).ToNot(BeNil())
+
+				getResourceUsageReportOptionsModel := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
+					EnterpriseID: core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
+					AccountGroupID: core.StringPtr("def456a237b94b9a9238ef024e204c9f"),
+					AccountID: core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
+					Children: core.BoolPtr(true),
+					Month: core.StringPtr("2019-06"),
+					BillingUnitID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []enterpriseusagereportsv1.ResourceUsageReport
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetResourceUsageReportPager.GetAll successfully`, func() {
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseUsageReportsService).ToNot(BeNil())
+
+				getResourceUsageReportOptionsModel := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
+					EnterpriseID: core.StringPtr("abc12340d4bf4e36b0423d209b286f24"),
+					AccountGroupID: core.StringPtr("def456a237b94b9a9238ef024e204c9f"),
+					AccountID: core.StringPtr("987abcba31834216b8c726a7dd9eb8d6"),
+					Children: core.BoolPtr(true),
+					Month: core.StringPtr("2019-06"),
+					BillingUnitID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -403,11 +583,11 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -432,13 +612,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
