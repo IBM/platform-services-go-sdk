@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -192,24 +193,26 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 		It(`ListAccessGroups request example`, func() {
 			fmt.Println("\nListAccessGroups() result:")
 			// begin-list_access_groups
+			listAccessGroupsOptions := &iamaccessgroupsv2.ListAccessGroupsOptions{
+				AccountID: &testAccountID,
+			}
 
-			listAccessGroupsOptions := iamAccessGroupsService.NewListAccessGroupsOptions(
-				testAccountID,
-			)
-
-			groupsList, response, err := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptions)
+			pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(groupsList, "", "  ")
+
+			var allResults []iamaccessgroupsv2.Group
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_access_groups
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(groupsList).ToNot(BeNil())
-
 		})
 		It(`AddMembersToAccessGroup request example`, func() {
 			fmt.Println("\nAddMembersToAccessGroup() result:")
@@ -274,24 +277,26 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 		It(`ListAccessGroupMembers request example`, func() {
 			fmt.Println("\nListAccessGroupMembers() result:")
 			// begin-list_access_group_members
+			listAccessGroupMembersOptions := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
+				AccessGroupID: &accessGroupIDLink,
+			}
 
-			listAccessGroupMembersOptions := iamAccessGroupsService.NewListAccessGroupMembersOptions(
-				accessGroupIDLink,
-			)
-
-			groupMembersList, response, err := iamAccessGroupsService.ListAccessGroupMembers(listAccessGroupMembersOptions)
+			pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(groupMembersList, "", "  ")
+
+			var allResults []iamaccessgroupsv2.ListGroupMembersResponseMember
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_access_group_members
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(groupMembersList).ToNot(BeNil())
-
 		})
 		It(`RemoveMemberFromAccessGroup request example`, func() {
 			// begin-remove_member_from_access_group
@@ -421,7 +426,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			addAccessGroupRuleOptions := iamAccessGroupsService.NewAddAccessGroupRuleOptions(
 				accessGroupIDLink,
 				int64(12),
-				"https://idp.example.org/SAML2",
+				"https://idp.example.org/SAML2a",
 				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
 			)
 			addAccessGroupRuleOptions.SetName("Manager group rule")
@@ -587,6 +592,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(accountSettings).ToNot(BeNil())
 
 		})
+
 		It(`DeleteAccessGroup request example`, func() {
 			// begin-delete_access_group
 
