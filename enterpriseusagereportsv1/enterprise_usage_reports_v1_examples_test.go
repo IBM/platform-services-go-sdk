@@ -1,7 +1,8 @@
+//go:build examples
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,24 +126,27 @@ var _ = Describe(`EnterpriseUsageReportsV1 Examples Tests`, func() {
 		It(`GetResourceUsageReport request example`, func() {
 			fmt.Println("\nGetResourceUsageReport() result:")
 			// begin-get_resource_usage_report
+			getResourceUsageReportOptions := &enterpriseusagereportsv1.GetResourceUsageReportOptions{
+				EnterpriseID: &enterpriseID,
+				Month:        &billingMonth,
+			}
 
-			getResourceUsageReportOptions := enterpriseUsageReportsService.NewGetResourceUsageReportOptions()
-			getResourceUsageReportOptions.SetEnterpriseID(enterpriseID)
-			getResourceUsageReportOptions.SetMonth(billingMonth)
-
-			reports, response, err := enterpriseUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+			pager, err := enterpriseUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(reports, "", "  ")
+
+			var allResults []enterpriseusagereportsv1.ResourceUsageReport
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-get_resource_usage_report
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(reports).ToNot(BeNil())
-
 		})
 	})
 })
