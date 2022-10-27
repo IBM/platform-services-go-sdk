@@ -705,7 +705,7 @@ type AccountSummary struct {
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The month in which usages were incurred. Represented in yyyy-mm format.
-	BillingMonth *string `json:"billing_month" validate:"required"`
+	Month *string `json:"month" validate:"required"`
 
 	// Country.
 	BillingCountryCode *string `json:"billing_country_code" validate:"required"`
