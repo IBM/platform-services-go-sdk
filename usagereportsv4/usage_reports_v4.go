@@ -178,7 +178,7 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountSummaryOptions.AccountID,
+		"account_id":   *getAccountSummaryOptions.AccountID,
 		"billingmonth": *getAccountSummaryOptions.Billingmonth,
 	}
 
@@ -240,7 +240,7 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountUsageOptions.AccountID,
+		"account_id":   *getAccountUsageOptions.AccountID,
 		"billingmonth": *getAccountUsageOptions.Billingmonth,
 	}
 
@@ -309,9 +309,9 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceGroupUsageOptions.AccountID,
+		"account_id":        *getResourceGroupUsageOptions.AccountID,
 		"resource_group_id": *getResourceGroupUsageOptions.ResourceGroupID,
-		"billingmonth": *getResourceGroupUsageOptions.Billingmonth,
+		"billingmonth":      *getResourceGroupUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -379,7 +379,7 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageAccountOptions.AccountID,
+		"account_id":   *getResourceUsageAccountOptions.AccountID,
 		"billingmonth": *getResourceUsageAccountOptions.Billingmonth,
 	}
 
@@ -472,9 +472,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageResourceGroupOptions.AccountID,
+		"account_id":        *getResourceUsageResourceGroupOptions.AccountID,
 		"resource_group_id": *getResourceUsageResourceGroupOptions.ResourceGroupID,
-		"billingmonth": *getResourceUsageResourceGroupOptions.Billingmonth,
+		"billingmonth":      *getResourceUsageResourceGroupOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -560,9 +560,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageOrgOptions.AccountID,
+		"account_id":      *getResourceUsageOrgOptions.AccountID,
 		"organization_id": *getResourceUsageOrgOptions.OrganizationID,
-		"billingmonth": *getResourceUsageOrgOptions.Billingmonth,
+		"billingmonth":    *getResourceUsageOrgOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -648,9 +648,9 @@ func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getOrgUsageOptions.AccountID,
+		"account_id":      *getOrgUsageOptions.AccountID,
 		"organization_id": *getOrgUsageOptions.OrganizationID,
-		"billingmonth": *getOrgUsageOptions.Billingmonth,
+		"billingmonth":    *getOrgUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -733,7 +733,7 @@ func UnmarshalAccountSummary(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "billing_month", &obj.BillingMonth)
+	err = core.UnmarshalPrimitive(m, "month", &obj.Month)
 	if err != nil {
 		return
 	}
@@ -863,7 +863,7 @@ type GetAccountSummaryOptions struct {
 // NewGetAccountSummaryOptions : Instantiate GetAccountSummaryOptions
 func (*UsageReportsV4) NewGetAccountSummaryOptions(accountID string, billingmonth string) *GetAccountSummaryOptions {
 	return &GetAccountSummaryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -907,7 +907,7 @@ type GetAccountUsageOptions struct {
 // NewGetAccountUsageOptions : Instantiate GetAccountUsageOptions
 func (*UsageReportsV4) NewGetAccountUsageOptions(accountID string, billingmonth string) *GetAccountUsageOptions {
 	return &GetAccountUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -966,9 +966,9 @@ type GetOrgUsageOptions struct {
 // NewGetOrgUsageOptions : Instantiate GetOrgUsageOptions
 func (*UsageReportsV4) NewGetOrgUsageOptions(accountID string, organizationID string, billingmonth string) *GetOrgUsageOptions {
 	return &GetOrgUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1032,9 +1032,9 @@ type GetResourceGroupUsageOptions struct {
 // NewGetResourceGroupUsageOptions : Instantiate GetResourceGroupUsageOptions
 func (*UsageReportsV4) NewGetResourceGroupUsageOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceGroupUsageOptions {
 	return &GetResourceGroupUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -1119,7 +1119,7 @@ type GetResourceUsageAccountOptions struct {
 // NewGetResourceUsageAccountOptions : Instantiate GetResourceUsageAccountOptions
 func (*UsageReportsV4) NewGetResourceUsageAccountOptions(accountID string, billingmonth string) *GetResourceUsageAccountOptions {
 	return &GetResourceUsageAccountOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -1244,9 +1244,9 @@ type GetResourceUsageOrgOptions struct {
 // NewGetResourceUsageOrgOptions : Instantiate GetResourceUsageOrgOptions
 func (*UsageReportsV4) NewGetResourceUsageOrgOptions(accountID string, organizationID string, billingmonth string) *GetResourceUsageOrgOptions {
 	return &GetResourceUsageOrgOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1364,9 +1364,9 @@ type GetResourceUsageResourceGroupOptions struct {
 // NewGetResourceUsageResourceGroupOptions : Instantiate GetResourceUsageResourceGroupOptions
 func (*UsageReportsV4) NewGetResourceUsageResourceGroupOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceUsageResourceGroupOptions {
 	return &GetResourceUsageResourceGroupOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
