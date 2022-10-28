@@ -1,3 +1,10 @@
+# [0.29.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.8...v0.29.0) (2022-10-28)
+
+
+### Features
+
+* remove scc-related services from project ([#215](https://github.com/IBM/platform-services-go-sdk/issues/215)) ([6a2c910](https://github.com/IBM/platform-services-go-sdk/commit/6a2c91005aae8f568993b1f78047a1b8fab94b27))
+
 ## [0.28.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.7...v0.28.8) (2022-10-26)
 
 
