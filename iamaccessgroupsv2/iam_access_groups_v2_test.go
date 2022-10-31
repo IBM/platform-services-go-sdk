@@ -250,7 +250,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully with retries`, func() {
@@ -326,7 +326,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully`, func() {
@@ -446,7 +446,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
@@ -470,7 +470,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
@@ -510,7 +510,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
@@ -521,7 +521,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully with retries`, func() {
@@ -539,7 +539,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
@@ -585,7 +585,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
@@ -593,7 +593,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully`, func() {
@@ -616,7 +616,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
@@ -644,7 +644,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
@@ -693,7 +693,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
 				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
@@ -712,45 +712,129 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
-
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccessGroupsPath))
+					Expect(req.Method).To(Equal("GET"))
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"groups":[{"id":"ID","name":"Name","description":"Description","account_id":"AccountID","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID","href":"Href","is_federated":false}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use AccessGroupsPager.GetNext successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
+					AccountID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					IamID: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Sort: core.StringPtr("name"),
+					ShowFederated: core.BoolPtr(false),
+					HidePublicAccess: core.BoolPtr(false),
+				}
+
+				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iamaccessgroupsv2.Group
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use AccessGroupsPager.GetAll successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
+					AccountID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					IamID: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Sort: core.StringPtr("name"),
+					ShowFederated: core.BoolPtr(false),
+					HidePublicAccess: core.BoolPtr(false),
+				}
+
+				pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
 		})
-	})
 	})
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) - Operation response error`, func() {
 		getAccessGroupPath := "/v2/groups/testString"
@@ -822,7 +906,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully with retries`, func() {
@@ -881,7 +965,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully`, func() {
@@ -1073,7 +1157,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully with retries`, func() {
@@ -1151,7 +1235,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully`, func() {
@@ -1706,7 +1790,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for verbose query parameter
@@ -1729,7 +1813,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
@@ -1767,7 +1851,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for verbose query parameter
@@ -1795,7 +1879,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
@@ -1839,7 +1923,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for verbose query parameter
@@ -1869,7 +1953,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
@@ -1896,7 +1980,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
@@ -1944,7 +2028,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
-				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
@@ -1963,45 +2047,127 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
-
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccessGroupMembersPath))
+					Expect(req.Method).To(Equal("GET"))
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"members":[{"iam_id":"IamID","type":"Type","membership_type":"MembershipType","name":"Name","email":"Email","description":"Description","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID"}],"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"members":[{"iam_id":"IamID","type":"Type","membership_type":"MembershipType","name":"Name","email":"Email","description":"Description","href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID"}],"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use AccessGroupMembersPager.GetNext successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
+					AccessGroupID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Type: core.StringPtr("testString"),
+					Verbose: core.BoolPtr(false),
+					Sort: core.StringPtr("testString"),
+				}
+
+				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iamaccessgroupsv2.ListGroupMembersResponseMember
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use AccessGroupMembersPager.GetAll successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
+					AccessGroupID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Type: core.StringPtr("testString"),
+					Verbose: core.BoolPtr(false),
+					Sort: core.StringPtr("testString"),
+				}
+
+				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
 		})
-	})
 	})
 	Describe(`RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions)`, func() {
 		removeMemberFromAccessGroupPath := "/v2/groups/testString/members/testString"
@@ -4662,7 +4828,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.SetAccessGroupID("testString")
 				listAccessGroupMembersOptionsModel.SetTransactionID("testString")
 				listAccessGroupMembersOptionsModel.SetMembershipType("static")
-				listAccessGroupMembersOptionsModel.SetLimit(int64(38))
+				listAccessGroupMembersOptionsModel.SetLimit(int64(10))
 				listAccessGroupMembersOptionsModel.SetOffset(int64(38))
 				listAccessGroupMembersOptionsModel.SetType("testString")
 				listAccessGroupMembersOptionsModel.SetVerbose(false)
@@ -4672,7 +4838,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupMembersOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.MembershipType).To(Equal(core.StringPtr("static")))
-				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.Verbose).To(Equal(core.BoolPtr(false)))
@@ -4699,7 +4865,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetTransactionID("testString")
 				listAccessGroupsOptionsModel.SetIamID("testString")
 				listAccessGroupsOptionsModel.SetMembershipType("static")
-				listAccessGroupsOptionsModel.SetLimit(int64(38))
+				listAccessGroupsOptionsModel.SetLimit(int64(10))
 				listAccessGroupsOptionsModel.SetOffset(int64(38))
 				listAccessGroupsOptionsModel.SetSort("name")
 				listAccessGroupsOptionsModel.SetShowFederated(false)
@@ -4710,7 +4876,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.MembershipType).To(Equal(core.StringPtr("static")))
-				Expect(listAccessGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listAccessGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listAccessGroupsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("name")))
 				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))

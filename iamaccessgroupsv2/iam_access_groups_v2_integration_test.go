@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 package iamaccessgroupsv2_test
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -37,10 +38,10 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 	const externalConfigFile = "../iam_access_groups_v2.env"
 
 	var (
-		service      *iamaccessgroupsv2.IamAccessGroupsV2
-		err          error
-		config       map[string]string
-		configLoaded bool = false
+		iamAccessGroupsService *iamaccessgroupsv2.IamAccessGroupsV2
+		err                    error
+		config                 map[string]string
+		configLoaded           bool = false
 
 		testAccountID        string
 		testGroupName        string = "SDK Test Group - Golang"
@@ -83,15 +84,15 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 	It(`Successfully created IamAccessGroupsV2 service instance`, func() {
 		shouldSkipTest()
 
-		service, err = iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(
+		iamAccessGroupsService, err = iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(
 			&iamaccessgroupsv2.IamAccessGroupsV2Options{},
 		)
 
 		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
+		Expect(iamAccessGroupsService).ToNot(BeNil())
 
 		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
-		service.EnableRetries(4, 30*time.Second)
+		iamAccessGroupsService.EnableRetries(4, 30*time.Second)
 	})
 
 	Describe("Create an access group", func() {
@@ -99,8 +100,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully created an access group", func() {
 			shouldSkipTest()
 
-			options := service.NewCreateAccessGroupOptions(testAccountID, testGroupName)
-			result, detailedResponse, err := service.CreateAccessGroup(options)
+			options := iamAccessGroupsService.NewCreateAccessGroupOptions(testAccountID, testGroupName)
+			result, detailedResponse, err := iamAccessGroupsService.CreateAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
 			Expect(*result.AccountID).To(Equal(testAccountID))
@@ -115,8 +116,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully retrieved an access group", func() {
 			shouldSkipTest()
 
-			options := service.NewGetAccessGroupOptions(testGroupID)
-			result, detailedResponse, err := service.GetAccessGroup(options)
+			options := iamAccessGroupsService.NewGetAccessGroupOptions(testGroupID)
+			result, detailedResponse, err := iamAccessGroupsService.GetAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.AccountID).To(Equal(testAccountID))
@@ -133,9 +134,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully updated an access group description", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateAccessGroupOptions(testGroupID, testGroupEtag)
+			options := iamAccessGroupsService.NewUpdateAccessGroupOptions(testGroupID, testGroupEtag)
 			options.SetDescription(testGroupDescription)
-			result, detailedResponse, err := service.UpdateAccessGroup(options)
+			result, detailedResponse, err := iamAccessGroupsService.UpdateAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.AccountID).To(Equal(testAccountID))
@@ -150,15 +151,56 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully listed the account's access groups", func() {
 			shouldSkipTest()
 
-			options := service.NewListAccessGroupsOptions(testAccountID)
+			options := iamAccessGroupsService.NewListAccessGroupsOptions(testAccountID)
 			options.SetHidePublicAccess(true)
-			result, detailedResponse, err := service.ListAccessGroups(options)
+			result, detailedResponse, err := iamAccessGroupsService.ListAccessGroups(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 
 			// confirm the test group is present
 			testGroupPresent := false
 			for _, group := range result.Groups {
+				if *group.ID == testGroupID {
+					testGroupPresent = true
+				}
+			}
+			Expect(testGroupPresent).To(BeTrue())
+		})
+
+		It(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions) using AccessGroupsPager`, func() {
+			listAccessGroupsOptions := &iamaccessgroupsv2.ListAccessGroupsOptions{
+				AccountID:        &testAccountID,
+				HidePublicAccess: core.BoolPtr(true),
+			}
+
+			// Test GetNext().
+			pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iamaccessgroupsv2.Group
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListAccessGroups() returned a total of %d item(s) using AccessGroupsPager.\n", len(allResults))
+
+			// confirm the test group is present
+			testGroupPresent := false
+			for _, group := range allResults {
 				if *group.ID == testGroupID {
 					testGroupPresent = true
 				}
@@ -172,12 +214,12 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully added members to an access group", func() {
 			shouldSkipTest()
 
-			addMemberItem, err := service.NewAddGroupMembersRequestMembersItem(testUserID, userType)
+			addMemberItem, err := iamAccessGroupsService.NewAddGroupMembersRequestMembersItem(testUserID, userType)
 			Expect(err).To(BeNil())
 
-			options := service.NewAddMembersToAccessGroupOptions(testGroupID)
+			options := iamAccessGroupsService.NewAddMembersToAccessGroupOptions(testGroupID)
 			options.Members = append(options.Members, *addMemberItem)
-			result, detailedResponse, err := service.AddMembersToAccessGroup(options)
+			result, detailedResponse, err := iamAccessGroupsService.AddMembersToAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(207))
 
@@ -197,10 +239,10 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully added member to multiple access groups", func() {
 			shouldSkipTest()
 
-			options := service.NewAddMemberToMultipleAccessGroupsOptions(testAccountID, testUserID)
+			options := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(testAccountID, testUserID)
 			options.SetType(userType)
 			options.Groups = append(options.Groups, testGroupID)
-			result, detailedResponse, err := service.AddMemberToMultipleAccessGroups(options)
+			result, detailedResponse, err := iamAccessGroupsService.AddMemberToMultipleAccessGroups(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(207))
 
@@ -222,8 +264,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully checked the membership", func() {
 			shouldSkipTest()
 
-			options := service.NewIsMemberOfAccessGroupOptions(testGroupID, testUserID)
-			detailedResponse, err := service.IsMemberOfAccessGroup(options)
+			options := iamAccessGroupsService.NewIsMemberOfAccessGroupOptions(testGroupID, testUserID)
+			detailedResponse, err := iamAccessGroupsService.IsMemberOfAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
@@ -234,8 +276,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully listed the memberships", func() {
 			shouldSkipTest()
 
-			options := service.NewListAccessGroupMembersOptions(testGroupID)
-			result, detailedResponse, err := service.ListAccessGroupMembers(options)
+			options := iamAccessGroupsService.NewListAccessGroupMembersOptions(testGroupID)
+			result, detailedResponse, err := iamAccessGroupsService.ListAccessGroupMembers(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 
@@ -255,8 +297,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully deleted the membership", func() {
 			shouldSkipTest()
 
-			options := service.NewRemoveMemberFromAccessGroupOptions(testGroupID, testUserID)
-			detailedResponse, err := service.RemoveMemberFromAccessGroup(options)
+			options := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(testGroupID, testUserID)
+			detailedResponse, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
@@ -267,8 +309,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Returned that the membership was not found", func() {
 			shouldSkipTest()
 
-			options := service.NewRemoveMemberFromAllAccessGroupsOptions(testAccountID, testUserID)
-			result, detailedResponse, err := service.RemoveMemberFromAllAccessGroups(options)
+			options := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(testAccountID, testUserID)
+			result, detailedResponse, err := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(options)
 			Expect(err).To(Not(BeNil()))
 			Expect(result).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(404))
@@ -280,9 +322,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Returned that the membership was not found", func() {
 			shouldSkipTest()
 
-			options := service.NewRemoveMembersFromAccessGroupOptions(testGroupID)
+			options := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(testGroupID)
 			options.Members = append(options.Members, testUserID)
-			result, detailedResponse, err := service.RemoveMembersFromAccessGroup(options)
+			result, detailedResponse, err := iamAccessGroupsService.RemoveMembersFromAccessGroup(options)
 			Expect(err).To(Not(BeNil()))
 			Expect(result).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(404))
@@ -295,12 +337,12 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 			shouldSkipTest()
 
 			testExpiration := int64(24)
-			condition, err := service.NewRuleConditions("test claim", "EQUALS", "1")
+			condition, err := iamAccessGroupsService.NewRuleConditions("test claim", "EQUALS", "1")
 			Expect(err).To(BeNil())
 
-			options := service.NewAddAccessGroupRuleOptions(testGroupID, testExpiration, "test realm name", []iamaccessgroupsv2.RuleConditions{*condition})
+			options := iamAccessGroupsService.NewAddAccessGroupRuleOptions(testGroupID, testExpiration, "test realm name", []iamaccessgroupsv2.RuleConditions{*condition})
 
-			result, detailedResponse, err := service.AddAccessGroupRule(options)
+			result, detailedResponse, err := iamAccessGroupsService.AddAccessGroupRule(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
 			Expect(*result.AccessGroupID).To(Equal(testGroupID))
@@ -316,8 +358,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully retrieved the rule", func() {
 			shouldSkipTest()
 
-			options := service.NewGetAccessGroupRuleOptions(testGroupID, testClaimRuleID)
-			result, detailedResponse, err := service.GetAccessGroupRule(options)
+			options := iamAccessGroupsService.NewGetAccessGroupRuleOptions(testGroupID, testClaimRuleID)
+			result, detailedResponse, err := iamAccessGroupsService.GetAccessGroupRule(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testClaimRuleID))
@@ -333,8 +375,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully listed the rules", func() {
 			shouldSkipTest()
 
-			options := service.NewListAccessGroupRulesOptions(testGroupID)
-			result, detailedResponse, err := service.ListAccessGroupRules(options)
+			options := iamAccessGroupsService.NewListAccessGroupRulesOptions(testGroupID)
+			result, detailedResponse, err := iamAccessGroupsService.ListAccessGroupRules(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 
@@ -355,12 +397,12 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 			shouldSkipTest()
 
 			testExpiration := int64(24)
-			condition, err := service.NewRuleConditions("test claim", "EQUALS", "1")
+			condition, err := iamAccessGroupsService.NewRuleConditions("test claim", "EQUALS", "1")
 			Expect(err).To(BeNil())
 
-			options := service.NewReplaceAccessGroupRuleOptions(testGroupID, testClaimRuleID, testClaimRuleEtag, testExpiration, "updated test realm name", []iamaccessgroupsv2.RuleConditions{*condition})
+			options := iamAccessGroupsService.NewReplaceAccessGroupRuleOptions(testGroupID, testClaimRuleID, testClaimRuleEtag, testExpiration, "updated test realm name", []iamaccessgroupsv2.RuleConditions{*condition})
 
-			result, detailedResponse, err := service.ReplaceAccessGroupRule(options)
+			result, detailedResponse, err := iamAccessGroupsService.ReplaceAccessGroupRule(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testClaimRuleID))
@@ -374,8 +416,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully deleted the rule", func() {
 			shouldSkipTest()
 
-			options := service.NewRemoveAccessGroupRuleOptions(testGroupID, testClaimRuleID)
-			detailedResponse, err := service.RemoveAccessGroupRule(options)
+			options := iamAccessGroupsService.NewRemoveAccessGroupRuleOptions(testGroupID, testClaimRuleID)
+			detailedResponse, err := iamAccessGroupsService.RemoveAccessGroupRule(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
@@ -386,8 +428,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully retrieved the settings", func() {
 			shouldSkipTest()
 
-			options := service.NewGetAccountSettingsOptions(testAccountID)
-			result, detailedResponse, err := service.GetAccountSettings(options)
+			options := iamAccessGroupsService.NewGetAccountSettingsOptions(testAccountID)
+			result, detailedResponse, err := iamAccessGroupsService.GetAccountSettings(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.AccountID).To(Equal(testAccountID))
@@ -401,9 +443,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		It("Successfully updated the settings", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateAccountSettingsOptions(testAccountID)
+			options := iamAccessGroupsService.NewUpdateAccountSettingsOptions(testAccountID)
 			options.SetPublicAccessEnabled(*testAccountSettings.PublicAccessEnabled)
-			result, detailedResponse, err := service.UpdateAccountSettings(options)
+			result, detailedResponse, err := iamAccessGroupsService.UpdateAccountSettings(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.AccountID).To(Equal(testAccountID))
@@ -418,9 +460,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		}
 
 		// list all groups in the account (minus the public access group)
-		options := service.NewListAccessGroupsOptions(testAccountID)
+		options := iamAccessGroupsService.NewListAccessGroupsOptions(testAccountID)
 		options.SetHidePublicAccess(true)
-		result, detailedResponse, err := service.ListAccessGroups(options)
+		result, detailedResponse, err := iamAccessGroupsService.ListAccessGroups(options)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 
@@ -434,9 +476,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 				fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
 
 				if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {
-					options := service.NewDeleteAccessGroupOptions(*group.ID)
+					options := iamAccessGroupsService.NewDeleteAccessGroupOptions(*group.ID)
 					options.SetForce(true)
-					detailedResponse, err := service.DeleteAccessGroup(options)
+					detailedResponse, err := iamAccessGroupsService.DeleteAccessGroup(options)
 					Expect(err).To(BeNil())
 					Expect(detailedResponse.StatusCode).To(Equal(204))
 				}
