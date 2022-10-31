@@ -1,3 +1,10 @@
+## [0.29.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.0...v0.29.1) (2022-10-31)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** regen service to get Pager ([#212](https://github.com/IBM/platform-services-go-sdk/issues/212)) ([f774345](https://github.com/IBM/platform-services-go-sdk/commit/f77434526e9bed6b162c722dde867d3bd490a10f))
+
 # [0.29.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.8...v0.29.0) (2022-10-28)
 
 
