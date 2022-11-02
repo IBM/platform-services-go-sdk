@@ -1415,7 +1415,7 @@ type EventstreamsEndpoint struct {
 	Topic *string `json:"topic" validate:"required"`
 
 	// The user password (api key) for the message hub topic in the Event Streams instance.
-	Password *string `json:"password" validate:"required"`
+	APIKey *string `json:"api_key" validate:"required"`
 }
 
 // UnmarshalEventstreamsEndpoint unmarshals an instance of EventstreamsEndpoint from the specified map of raw messages.
@@ -1433,7 +1433,7 @@ func UnmarshalEventstreamsEndpoint(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
+	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
 		return
 	}
@@ -1453,16 +1453,16 @@ type EventstreamsEndpointPrototype struct {
 	Topic *string `json:"topic" validate:"required"`
 
 	// The user password (api key) for the message hub topic in the Event Streams instance.
-	Password *string `json:"password" validate:"required"`
+	APIKey *string `json:"api_key" validate:"required"`
 }
 
 // NewEventstreamsEndpointPrototype : Instantiate EventstreamsEndpointPrototype (Generic Model Constructor)
-func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string, password string) (_model *EventstreamsEndpointPrototype, err error) {
+func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string, apiKey string) (_model *EventstreamsEndpointPrototype, err error) {
 	_model = &EventstreamsEndpointPrototype{
 		TargetCRN: core.StringPtr(targetCRN),
 		Brokers: brokers,
 		Topic: core.StringPtr(topic),
-		Password: core.StringPtr(password),
+		APIKey: core.StringPtr(apiKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -1483,7 +1483,7 @@ func UnmarshalEventstreamsEndpointPrototype(m map[string]json.RawMessage, result
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "password", &obj.Password)
+	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
 		return
 	}

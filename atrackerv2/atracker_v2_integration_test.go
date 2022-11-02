@@ -181,7 +181,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
 				Topic: core.StringPtr("my-test-topic"),
 				Brokers: []string{"kafka-x:9094"},
-				Password: core.StringPtr("xxxxxxxxxxx"),
+				APIKey: core.StringPtr("xxxxxxxxxxx"),
 			}
 
 			createTargetOptions := &atrackerv2.CreateTargetOptions{
@@ -423,7 +423,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
 				Topic: core.StringPtr("my-test-topic"),
 				Brokers: []string{"kafka-x:9094"},
-				Password: core.StringPtr("xxxxxxxxxxxxx"),
+				APIKey: core.StringPtr("xxxxxxxxxxxxx"),
 			}
 
 			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
