@@ -1,3 +1,10 @@
+## [0.29.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.1...v0.29.2) (2022-11-02)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** change password field name to api_key ([#217](https://github.com/IBM/platform-services-go-sdk/issues/217)) ([39d2d43](https://github.com/IBM/platform-services-go-sdk/commit/39d2d4369dd69b398b41c1f8bc001cab431197f6))
+
 ## [0.29.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.0...v0.29.1) (2022-10-31)
 
 
