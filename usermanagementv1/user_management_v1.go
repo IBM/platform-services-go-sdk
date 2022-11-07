@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7b3ab37f-20210218-191409
+ * IBM OpenAPI SDK Code Generator Version: 3.60.2-95dc7721-20221102-203229
  */
 
 // Package usermanagementv1 : Operations and models for the UserManagementV1 service
@@ -35,7 +35,7 @@ import (
 
 // UserManagementV1 : Manage the lifecycle of your users using User Management APIs.
 //
-// Version: 1.0
+// API Version: 1.0
 type UserManagementV1 struct {
 	Service *core.BaseService
 }
@@ -204,14 +204,14 @@ func (userManagement *UserManagementV1) ListUsersWithContext(ctx context.Context
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listUsersOptions.State != nil {
-		builder.AddQuery("state", fmt.Sprint(*listUsersOptions.State))
-	}
 	if listUsersOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listUsersOptions.Limit))
 	}
 	if listUsersOptions.Start != nil {
 		builder.AddQuery("_start", fmt.Sprint(*listUsersOptions.Start))
+	}
+	if listUsersOptions.UserID != nil {
+		builder.AddQuery("user_id", fmt.Sprint(*listUsersOptions.UserID))
 	}
 
 	request, err := builder.Build()
@@ -224,11 +224,13 @@ func (userManagement *UserManagementV1) ListUsersWithContext(ctx context.Context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -306,11 +308,13 @@ func (userManagement *UserManagementV1) InviteUsersWithContext(ctx context.Conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInvitedUserList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInvitedUserList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -336,7 +340,7 @@ func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Co
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserProfileOptions.AccountID,
-		"iam_id":     *getUserProfileOptions.IamID,
+		"iam_id": *getUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -357,6 +361,10 @@ func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Co
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if getUserProfileOptions.IncludeActivity != nil {
+		builder.AddQuery("include_activity", fmt.Sprint(*getUserProfileOptions.IncludeActivity))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -367,11 +375,13 @@ func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserProfile)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserProfile)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -400,7 +410,7 @@ func (userManagement *UserManagementV1) UpdateUserProfileWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserProfileOptions.AccountID,
-		"iam_id":     *updateUserProfileOptions.IamID,
+		"iam_id": *updateUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -420,6 +430,10 @@ func (userManagement *UserManagementV1) UpdateUserProfileWithContext(ctx context
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
+
+	if updateUserProfileOptions.IncludeActivity != nil {
+		builder.AddQuery("include_activity", fmt.Sprint(*updateUserProfileOptions.IncludeActivity))
+	}
 
 	body := make(map[string]interface{})
 	if updateUserProfileOptions.Firstname != nil {
@@ -480,7 +494,7 @@ func (userManagement *UserManagementV1) RemoveUserWithContext(ctx context.Contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *removeUserOptions.AccountID,
-		"iam_id":     *removeUserOptions.IamID,
+		"iam_id": *removeUserOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -496,6 +510,115 @@ func (userManagement *UserManagementV1) RemoveUserWithContext(ctx context.Contex
 	}
 
 	sdkHeaders := common.GetSdkHeaders("user_management", "V1", "RemoveUser")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if removeUserOptions.IncludeActivity != nil {
+		builder.AddQuery("include_activity", fmt.Sprint(*removeUserOptions.IncludeActivity))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = userManagement.Service.Request(request, nil)
+
+	return
+}
+
+// Accept : Accept an invitation
+// Accept a user invitation to an account. You can use the user's token for authorization. To use this method, the
+// requesting user must provide the account ID for the account that they are accepting an invitation for. If the user
+// already accepted the invitation request, it returns 204 with no response body.
+func (userManagement *UserManagementV1) Accept(acceptOptions *AcceptOptions) (response *core.DetailedResponse, err error) {
+	return userManagement.AcceptWithContext(context.Background(), acceptOptions)
+}
+
+// AcceptWithContext is an alternate form of the Accept method which supports a Context parameter
+func (userManagement *UserManagementV1) AcceptWithContext(ctx context.Context, acceptOptions *AcceptOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(acceptOptions, "acceptOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/users/accept`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range acceptOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("user_management", "V1", "Accept")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if acceptOptions.AccountID != nil {
+		body["account_id"] = acceptOptions.AccountID
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = userManagement.Service.Request(request, nil)
+
+	return
+}
+
+// V3RemoveUser : Remove user from account (Asynchronous)
+// Remove users from an account by using the user's IAM ID. You must use a user token for authorization. Service IDs
+// can't remove users from an account. If removing the user fails it will set the user's state to ERROR_WHILE_DELETING.
+// To use this method, the requesting user must have the editor or administrator role on the User Management service.
+// For more information, see the [Removing users](https://cloud.ibm.com/docs/account?topic=account-remove)
+// documentation.
+func (userManagement *UserManagementV1) V3RemoveUser(v3RemoveUserOptions *V3RemoveUserOptions) (response *core.DetailedResponse, err error) {
+	return userManagement.V3RemoveUserWithContext(context.Background(), v3RemoveUserOptions)
+}
+
+// V3RemoveUserWithContext is an alternate form of the V3RemoveUser method which supports a Context parameter
+func (userManagement *UserManagementV1) V3RemoveUserWithContext(ctx context.Context, v3RemoveUserOptions *V3RemoveUserOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(v3RemoveUserOptions, "v3RemoveUserOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(v3RemoveUserOptions, "v3RemoveUserOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *v3RemoveUserOptions.AccountID,
+		"iam_id": *v3RemoveUserOptions.IamID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v3/accounts/{account_id}/users/{iam_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range v3RemoveUserOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("user_management", "V1", "V3RemoveUser")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -536,7 +659,7 @@ func (userManagement *UserManagementV1) GetUserSettingsWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserSettingsOptions.AccountID,
-		"iam_id":     *getUserSettingsOptions.IamID,
+		"iam_id": *getUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -567,11 +690,13 @@ func (userManagement *UserManagementV1) GetUserSettingsWithContext(ctx context.C
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserSettings)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserSettings)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -598,7 +723,7 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserSettingsOptions.AccountID,
-		"iam_id":     *updateUserSettingsOptions.IamID,
+		"iam_id": *updateUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -647,13 +772,42 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 	return
 }
 
+// AcceptOptions : The Accept options.
+type AcceptOptions struct {
+	// The account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewAcceptOptions : Instantiate AcceptOptions
+func (*UserManagementV1) NewAcceptOptions() *AcceptOptions {
+	return &AcceptOptions{}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *AcceptOptions) SetAccountID(accountID string) *AcceptOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *AcceptOptions) SetHeaders(param map[string]string) *AcceptOptions {
+	options.Headers = param
+	return options
+}
+
 // GetUserProfileOptions : The GetUserProfile options.
 type GetUserProfileOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
+
+	// Include activity information of the user, such as the last authentication timestamp.
+	IncludeActivity *string `json:"include_activity,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -663,20 +817,26 @@ type GetUserProfileOptions struct {
 func (*UserManagementV1) NewGetUserProfileOptions(accountID string, iamID string) *GetUserProfileOptions {
 	return &GetUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetUserProfileOptions) SetAccountID(accountID string) *GetUserProfileOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetUserProfileOptions) SetAccountID(accountID string) *GetUserProfileOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *GetUserProfileOptions) SetIamID(iamID string) *GetUserProfileOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *GetUserProfileOptions) SetIamID(iamID string) *GetUserProfileOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
+}
+
+// SetIncludeActivity : Allow user to set IncludeActivity
+func (_options *GetUserProfileOptions) SetIncludeActivity(includeActivity string) *GetUserProfileOptions {
+	_options.IncludeActivity = core.StringPtr(includeActivity)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -687,11 +847,11 @@ func (options *GetUserProfileOptions) SetHeaders(param map[string]string) *GetUs
 
 // GetUserSettingsOptions : The GetUserSettings options.
 type GetUserSettingsOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -701,20 +861,20 @@ type GetUserSettingsOptions struct {
 func (*UserManagementV1) NewGetUserSettingsOptions(accountID string, iamID string) *GetUserSettingsOptions {
 	return &GetUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetUserSettingsOptions) SetAccountID(accountID string) *GetUserSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetUserSettingsOptions) SetAccountID(accountID string) *GetUserSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *GetUserSettingsOptions) SetIamID(iamID string) *GetUserSettingsOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *GetUserSettingsOptions) SetIamID(iamID string) *GetUserSettingsOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -725,17 +885,17 @@ func (options *GetUserSettingsOptions) SetHeaders(param map[string]string) *GetU
 
 // InviteUsersOptions : The InviteUsers options.
 type InviteUsersOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// A list of users to be invited.
-	Users []InviteUser
+	Users []InviteUser `json:"users,omitempty"`
 
 	// A list of IAM policies.
-	IamPolicy []InviteUserIamPolicy
+	IamPolicy []InviteUserIamPolicy `json:"iam_policy,omitempty"`
 
 	// A list of access groups.
-	AccessGroups []string
+	AccessGroups []string `json:"access_groups,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -749,27 +909,27 @@ func (*UserManagementV1) NewInviteUsersOptions(accountID string) *InviteUsersOpt
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *InviteUsersOptions) SetAccountID(accountID string) *InviteUsersOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *InviteUsersOptions) SetAccountID(accountID string) *InviteUsersOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetUsers : Allow user to set Users
-func (options *InviteUsersOptions) SetUsers(users []InviteUser) *InviteUsersOptions {
-	options.Users = users
-	return options
+func (_options *InviteUsersOptions) SetUsers(users []InviteUser) *InviteUsersOptions {
+	_options.Users = users
+	return _options
 }
 
 // SetIamPolicy : Allow user to set IamPolicy
-func (options *InviteUsersOptions) SetIamPolicy(iamPolicy []InviteUserIamPolicy) *InviteUsersOptions {
-	options.IamPolicy = iamPolicy
-	return options
+func (_options *InviteUsersOptions) SetIamPolicy(iamPolicy []InviteUserIamPolicy) *InviteUsersOptions {
+	_options.IamPolicy = iamPolicy
+	return _options
 }
 
 // SetAccessGroups : Allow user to set AccessGroups
-func (options *InviteUsersOptions) SetAccessGroups(accessGroups []string) *InviteUsersOptions {
-	options.AccessGroups = accessGroups
-	return options
+func (_options *InviteUsersOptions) SetAccessGroups(accessGroups []string) *InviteUsersOptions {
+	_options.AccessGroups = accessGroups
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -828,18 +988,18 @@ func UnmarshalInvitedUserList(m map[string]json.RawMessage, result interface{}) 
 
 // ListUsersOptions : The ListUsers options.
 type ListUsersOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
-
-	// The state of the user.
-	State *string
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The number of results to be returned.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
 	// results is returned. This value is obtained from the 'next_url' field of the operation response.
-	Start *string
+	Start *string `json:"_start,omitempty"`
+
+	// Filter users based on their user ID.
+	UserID *string `json:"user_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -853,27 +1013,27 @@ func (*UserManagementV1) NewListUsersOptions(accountID string) *ListUsersOptions
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListUsersOptions) SetAccountID(accountID string) *ListUsersOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
-}
-
-// SetState : Allow user to set State
-func (options *ListUsersOptions) SetState(state string) *ListUsersOptions {
-	options.State = core.StringPtr(state)
-	return options
+func (_options *ListUsersOptions) SetAccountID(accountID string) *ListUsersOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListUsersOptions) SetLimit(limit int64) *ListUsersOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListUsersOptions) SetLimit(limit int64) *ListUsersOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetStart : Allow user to set Start
-func (options *ListUsersOptions) SetStart(start string) *ListUsersOptions {
-	options.Start = core.StringPtr(start)
-	return options
+func (_options *ListUsersOptions) SetStart(start string) *ListUsersOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetUserID : Allow user to set UserID
+func (_options *ListUsersOptions) SetUserID(userID string) *ListUsersOptions {
+	_options.UserID = core.StringPtr(userID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -884,11 +1044,14 @@ func (options *ListUsersOptions) SetHeaders(param map[string]string) *ListUsersO
 
 // RemoveUserOptions : The RemoveUser options.
 type RemoveUserOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
+
+	// Include activity information of the user, such as the last authentication timestamp.
+	IncludeActivity *string `json:"include_activity,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -898,20 +1061,26 @@ type RemoveUserOptions struct {
 func (*UserManagementV1) NewRemoveUserOptions(accountID string, iamID string) *RemoveUserOptions {
 	return &RemoveUserOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *RemoveUserOptions) SetAccountID(accountID string) *RemoveUserOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *RemoveUserOptions) SetAccountID(accountID string) *RemoveUserOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *RemoveUserOptions) SetIamID(iamID string) *RemoveUserOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *RemoveUserOptions) SetIamID(iamID string) *RemoveUserOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
+}
+
+// SetIncludeActivity : Allow user to set IncludeActivity
+func (_options *RemoveUserOptions) SetIncludeActivity(includeActivity string) *RemoveUserOptions {
+	_options.IncludeActivity = core.StringPtr(includeActivity)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -922,33 +1091,36 @@ func (options *RemoveUserOptions) SetHeaders(param map[string]string) *RemoveUse
 
 // UpdateUserProfileOptions : The UpdateUserProfile options.
 type UpdateUserProfileOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// The first name of the user.
-	Firstname *string
+	Firstname *string `json:"firstname,omitempty"`
 
 	// The last name of the user.
-	Lastname *string
+	Lastname *string `json:"lastname,omitempty"`
 
 	// The state of the user. Possible values are `PROCESSING`, `PENDING`, `ACTIVE`, `DISABLED_CLASSIC_INFRASTRUCTURE`, and
 	// `VPN_ONLY`.
-	State *string
+	State *string `json:"state,omitempty"`
 
 	// The email address of the user.
-	Email *string
+	Email *string `json:"email,omitempty"`
 
 	// The phone number of the user.
-	Phonenumber *string
+	Phonenumber *string `json:"phonenumber,omitempty"`
 
 	// The alternative phone number of the user.
-	Altphonenumber *string
+	Altphonenumber *string `json:"altphonenumber,omitempty"`
 
 	// A link to a photo of the user.
-	Photo *string
+	Photo *string `json:"photo,omitempty"`
+
+	// Include activity information of the user, such as the last authentication timestamp.
+	IncludeActivity *string `json:"include_activity,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -958,62 +1130,68 @@ type UpdateUserProfileOptions struct {
 func (*UserManagementV1) NewUpdateUserProfileOptions(accountID string, iamID string) *UpdateUserProfileOptions {
 	return &UpdateUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *UpdateUserProfileOptions) SetAccountID(accountID string) *UpdateUserProfileOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *UpdateUserProfileOptions) SetAccountID(accountID string) *UpdateUserProfileOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *UpdateUserProfileOptions) SetIamID(iamID string) *UpdateUserProfileOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *UpdateUserProfileOptions) SetIamID(iamID string) *UpdateUserProfileOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetFirstname : Allow user to set Firstname
-func (options *UpdateUserProfileOptions) SetFirstname(firstname string) *UpdateUserProfileOptions {
-	options.Firstname = core.StringPtr(firstname)
-	return options
+func (_options *UpdateUserProfileOptions) SetFirstname(firstname string) *UpdateUserProfileOptions {
+	_options.Firstname = core.StringPtr(firstname)
+	return _options
 }
 
 // SetLastname : Allow user to set Lastname
-func (options *UpdateUserProfileOptions) SetLastname(lastname string) *UpdateUserProfileOptions {
-	options.Lastname = core.StringPtr(lastname)
-	return options
+func (_options *UpdateUserProfileOptions) SetLastname(lastname string) *UpdateUserProfileOptions {
+	_options.Lastname = core.StringPtr(lastname)
+	return _options
 }
 
 // SetState : Allow user to set State
-func (options *UpdateUserProfileOptions) SetState(state string) *UpdateUserProfileOptions {
-	options.State = core.StringPtr(state)
-	return options
+func (_options *UpdateUserProfileOptions) SetState(state string) *UpdateUserProfileOptions {
+	_options.State = core.StringPtr(state)
+	return _options
 }
 
 // SetEmail : Allow user to set Email
-func (options *UpdateUserProfileOptions) SetEmail(email string) *UpdateUserProfileOptions {
-	options.Email = core.StringPtr(email)
-	return options
+func (_options *UpdateUserProfileOptions) SetEmail(email string) *UpdateUserProfileOptions {
+	_options.Email = core.StringPtr(email)
+	return _options
 }
 
 // SetPhonenumber : Allow user to set Phonenumber
-func (options *UpdateUserProfileOptions) SetPhonenumber(phonenumber string) *UpdateUserProfileOptions {
-	options.Phonenumber = core.StringPtr(phonenumber)
-	return options
+func (_options *UpdateUserProfileOptions) SetPhonenumber(phonenumber string) *UpdateUserProfileOptions {
+	_options.Phonenumber = core.StringPtr(phonenumber)
+	return _options
 }
 
 // SetAltphonenumber : Allow user to set Altphonenumber
-func (options *UpdateUserProfileOptions) SetAltphonenumber(altphonenumber string) *UpdateUserProfileOptions {
-	options.Altphonenumber = core.StringPtr(altphonenumber)
-	return options
+func (_options *UpdateUserProfileOptions) SetAltphonenumber(altphonenumber string) *UpdateUserProfileOptions {
+	_options.Altphonenumber = core.StringPtr(altphonenumber)
+	return _options
 }
 
 // SetPhoto : Allow user to set Photo
-func (options *UpdateUserProfileOptions) SetPhoto(photo string) *UpdateUserProfileOptions {
-	options.Photo = core.StringPtr(photo)
-	return options
+func (_options *UpdateUserProfileOptions) SetPhoto(photo string) *UpdateUserProfileOptions {
+	_options.Photo = core.StringPtr(photo)
+	return _options
+}
+
+// SetIncludeActivity : Allow user to set IncludeActivity
+func (_options *UpdateUserProfileOptions) SetIncludeActivity(includeActivity string) *UpdateUserProfileOptions {
+	_options.IncludeActivity = core.StringPtr(includeActivity)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1024,23 +1202,23 @@ func (options *UpdateUserProfileOptions) SetHeaders(param map[string]string) *Up
 
 // UpdateUserSettingsOptions : The UpdateUserSettings options.
 type UpdateUserSettingsOptions struct {
-	// The account ID.
-	AccountID *string `validate:"required,ne="`
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// The console UI language. By default, this field is empty.
-	Language *string
+	Language *string `json:"language,omitempty"`
 
 	// The language for email and phone notifications. By default, this field is empty.
-	NotificationLanguage *string
+	NotificationLanguage *string `json:"notification_language,omitempty"`
 
 	// A comma-separated list of IP addresses.
-	AllowedIPAddresses *string
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
 
 	// Whether user managed login is enabled. The default value is `false`.
-	SelfManage *bool
+	SelfManage *bool `json:"self_manage,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1050,44 +1228,44 @@ type UpdateUserSettingsOptions struct {
 func (*UserManagementV1) NewUpdateUserSettingsOptions(accountID string, iamID string) *UpdateUserSettingsOptions {
 	return &UpdateUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *UpdateUserSettingsOptions) SetAccountID(accountID string) *UpdateUserSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *UpdateUserSettingsOptions) SetAccountID(accountID string) *UpdateUserSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *UpdateUserSettingsOptions) SetIamID(iamID string) *UpdateUserSettingsOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *UpdateUserSettingsOptions) SetIamID(iamID string) *UpdateUserSettingsOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetLanguage : Allow user to set Language
-func (options *UpdateUserSettingsOptions) SetLanguage(language string) *UpdateUserSettingsOptions {
-	options.Language = core.StringPtr(language)
-	return options
+func (_options *UpdateUserSettingsOptions) SetLanguage(language string) *UpdateUserSettingsOptions {
+	_options.Language = core.StringPtr(language)
+	return _options
 }
 
 // SetNotificationLanguage : Allow user to set NotificationLanguage
-func (options *UpdateUserSettingsOptions) SetNotificationLanguage(notificationLanguage string) *UpdateUserSettingsOptions {
-	options.NotificationLanguage = core.StringPtr(notificationLanguage)
-	return options
+func (_options *UpdateUserSettingsOptions) SetNotificationLanguage(notificationLanguage string) *UpdateUserSettingsOptions {
+	_options.NotificationLanguage = core.StringPtr(notificationLanguage)
+	return _options
 }
 
 // SetAllowedIPAddresses : Allow user to set AllowedIPAddresses
-func (options *UpdateUserSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateUserSettingsOptions {
-	options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
-	return options
+func (_options *UpdateUserSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateUserSettingsOptions {
+	_options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
+	return _options
 }
 
 // SetSelfManage : Allow user to set SelfManage
-func (options *UpdateUserSettingsOptions) SetSelfManage(selfManage bool) *UpdateUserSettingsOptions {
-	options.SelfManage = core.BoolPtr(selfManage)
-	return options
+func (_options *UpdateUserSettingsOptions) SetSelfManage(selfManage bool) *UpdateUserSettingsOptions {
+	_options.SelfManage = core.BoolPtr(selfManage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1141,6 +1319,18 @@ func UnmarshalUserList(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *UserList) GetNextStart() (*string, error) {
+	if core.IsNil(resp.NextURL) {
+		return nil, nil
+	}
+	_start, err := core.GetQueryParam(resp.NextURL, "_start")
+	if err != nil || _start == nil {
+		return nil, err
+	}
+	return _start, nil
+}
+
 // UserProfile : Returned the user profile.
 type UserProfile struct {
 	// An alphanumeric value identifying the user profile.
@@ -1179,6 +1369,9 @@ type UserProfile struct {
 
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
+
+	// The timestamp for when the user was added to the account.
+	AddedOn *string `json:"added_on,omitempty"`
 }
 
 // UnmarshalUserProfile unmarshals an instance of UserProfile from the specified map of raw messages.
@@ -1232,6 +1425,10 @@ func UnmarshalUserProfile(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "added_on", &obj.AddedOn)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1272,6 +1469,44 @@ func UnmarshalUserSettings(m map[string]json.RawMessage, result interface{}) (er
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// V3RemoveUserOptions : The V3RemoveUser options.
+type V3RemoveUserOptions struct {
+	// The account ID of the specified user.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// The user's IAM ID.
+	IamID *string `json:"iam_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewV3RemoveUserOptions : Instantiate V3RemoveUserOptions
+func (*UserManagementV1) NewV3RemoveUserOptions(accountID string, iamID string) *V3RemoveUserOptions {
+	return &V3RemoveUserOptions{
+		AccountID: core.StringPtr(accountID),
+		IamID: core.StringPtr(iamID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *V3RemoveUserOptions) SetAccountID(accountID string) *V3RemoveUserOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIamID : Allow user to set IamID
+func (_options *V3RemoveUserOptions) SetIamID(iamID string) *V3RemoveUserOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *V3RemoveUserOptions) SetHeaders(param map[string]string) *V3RemoveUserOptions {
+	options.Headers = param
+	return options
 }
 
 // Attribute : An attribute/value pair.
@@ -1335,11 +1570,11 @@ type InviteUserIamPolicy struct {
 }
 
 // NewInviteUserIamPolicy : Instantiate InviteUserIamPolicy (Generic Model Constructor)
-func (*UserManagementV1) NewInviteUserIamPolicy(typeVar string) (model *InviteUserIamPolicy, err error) {
-	model = &InviteUserIamPolicy{
+func (*UserManagementV1) NewInviteUserIamPolicy(typeVar string) (_model *InviteUserIamPolicy, err error) {
+	_model = &InviteUserIamPolicy{
 		Type: core.StringPtr(typeVar),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1394,4 +1629,91 @@ func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// UsersPager can be used to simplify the use of the "ListUsers" method.
+//
+type UsersPager struct {
+	hasNext bool
+	options *ListUsersOptions
+	client  *UserManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewUsersPager returns a new UsersPager instance.
+func (userManagement *UserManagementV1) NewUsersPager(options *ListUsersOptions) (pager *UsersPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListUsersOptions = *options
+	pager = &UsersPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  userManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *UsersPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *UsersPager) GetNextWithContext(ctx context.Context) (page []UserProfile, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListUsersWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.NextURL != nil {
+		var _start *string
+		_start, err = core.GetQueryParam(result.NextURL, "_start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving '_start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
+			return
+		}
+		next = _start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *UsersPager) GetAllWithContext(ctx context.Context) (allItems []UserProfile, err error) {
+	for pager.HasNext() {
+		var nextPage []UserProfile
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *UsersPager) GetNext() (page []UserProfile, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *UsersPager) GetAll() (allItems []UserProfile, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
