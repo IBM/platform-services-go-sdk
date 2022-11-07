@@ -1,3 +1,10 @@
+## [0.29.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.4...v0.29.5) (2022-11-07)
+
+
+### Bug Fixes
+
+* **User Management:** re-gen service to get new Pagers ([#219](https://github.com/IBM/platform-services-go-sdk/issues/219)) ([fc4128f](https://github.com/IBM/platform-services-go-sdk/commit/fc4128f84f8933b8f1e81dbf76557933368f089a))
+
 ## [0.29.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.3...v0.29.4) (2022-11-04)
 
 
