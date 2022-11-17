@@ -324,6 +324,190 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
+		It(`V2CreatePolicy request example`, func() {
+			fmt.Println("\nCreatePolicy() result:")
+			// begin-v2_create_policy
+
+			subjectAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:  core.StringPtr("iam_id"),
+				Operator: core.StringPtr("stringEquals"),
+				Value: &exampleUserID,
+			}
+			policySubject := &iampolicymanagementv1.V2PolicyBaseSubject{
+				Attributes: []iampolicymanagementv1.V2PolicyAttribute{*subjectAttribute},
+			}
+			policyRole := &iampolicymanagementv1.PolicyRole{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
+			}
+			v2PolicyGrant := &iampolicymanagementv1.V2PolicyBaseControlGrant{
+				Roles: []iampolicymanagementv1.PolicyRole{*policyRole},
+			}
+			v2PolicyControl := &iampolicymanagementv1.V2PolicyBaseControl{
+				Grant: v2PolicyGrant,
+			}
+			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:     core.StringPtr("accountId"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr(exampleAccountID),
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:     core.StringPtr("serviceType"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("service"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyBaseResource{
+				Attributes: []iampolicymanagementv1.V2PolicyAttribute{
+					*accountIDResourceAttribute, *serviceNameResourceAttribute},
+			}
+
+			options := iamPolicyManagementService.NewV2CreatePolicyOptions(
+				"access",
+				v2PolicyControl,
+			)
+			options.SetSubject(policySubject)
+			options.SetResource(policyResource)
+
+			policy, response, err := iamPolicyManagementService.V2CreatePolicy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policy).ToNot(BeNil())
+
+			examplePolicyID = *policy.ID
+		})
+		It(`V2GetPolicy request example`, func() {
+			fmt.Println("\nGetPolicy() result:")
+			// begin-get_policy
+
+			options := iamPolicyManagementService.NewV2GetPolicyOptions(
+				examplePolicyID,
+			)
+
+			policy, response, err := iamPolicyManagementService.V2GetPolicy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+
+			examplePolicyETag = response.GetHeaders().Get("ETag")
+		})
+		It(`V2UpdatePolicy request example`, func() {
+			fmt.Println("\nUpdatePolicy() result:")
+			// begin-update_policy
+
+			subjectAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:  core.StringPtr("iam_id"),
+				Operator: core.StringPtr("stringEquals"),
+				Value: &exampleUserID,
+			}
+			policySubject := &iampolicymanagementv1.V2PolicyBaseSubject{
+				Attributes: []iampolicymanagementv1.V2PolicyAttribute{*subjectAttribute},
+			}
+			updatedPolicyRole := &iampolicymanagementv1.PolicyRole{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
+			}
+			v2PolicyGrant := &iampolicymanagementv1.V2PolicyBaseControlGrant{
+				Roles: []iampolicymanagementv1.PolicyRole{*updatedPolicyRole},
+			}
+			v2PolicyControl := &iampolicymanagementv1.V2PolicyBaseControl{
+				Grant: v2PolicyGrant,
+			}
+			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:     core.StringPtr("accountId"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr(exampleAccountID),
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+				Key:     core.StringPtr("serviceType"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("service"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyBaseResource{
+				Attributes: []iampolicymanagementv1.V2PolicyAttribute{
+					*accountIDResourceAttribute, *serviceNameResourceAttribute},
+			}
+
+			options := iamPolicyManagementService.NewV2UpdatePolicyOptions(
+				examplePolicyID,
+				examplePolicyETag,
+				"access",
+				v2PolicyControl,
+			)
+			options.SetSubject(policySubject)
+			options.SetResource(policyResource)
+
+
+			policy, response, err := iamPolicyManagementService.V2UpdatePolicy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+
+			examplePolicyETag = response.GetHeaders().Get("ETag")
+		})
+		It(`V2ListPolicies request example`, func() {
+			fmt.Println("\nListPolicies() result:")
+			// begin-list_policies
+
+			options := iamPolicyManagementService.NewV2ListPoliciesOptions(
+				exampleAccountID,
+			)
+			options.SetIamID(exampleUserID)
+			options.SetFormat("include_last_permit")
+
+			policyList, response, err := iamPolicyManagementService.V2ListPolicies(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_policies
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyList).ToNot(BeNil())
+
+		})
+		It(`V2DeletePolicy request example`, func() {
+			// begin-delete_policy
+
+			options := iamPolicyManagementService.NewV2DeletePolicyOptions(
+				examplePolicyID,
+			)
+
+			response, err := iamPolicyManagementService.V2DeletePolicy(options)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_policy
+			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
 		It(`CreateRole request example`, func() {
 			fmt.Println("\nCreateRole() result:")
 			// begin-create_role
