@@ -1,3 +1,10 @@
+# [0.30.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.5...v0.30.0) (2022-11-17)
+
+
+### Features
+
+* **IAM Policy Management:** add support for v2/policies API from IAM ([#220](https://github.com/IBM/platform-services-go-sdk/issues/220)) ([23d81fd](https://github.com/IBM/platform-services-go-sdk/commit/23d81fdd775cdc736c02b95f29916693a68fdc68))
+
 ## [0.29.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.4...v0.29.5) (2022-11-07)
 
 
