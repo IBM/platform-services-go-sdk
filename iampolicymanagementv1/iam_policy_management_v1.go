@@ -1124,9 +1124,38 @@ func (iamPolicyManagement *IamPolicyManagementV1) V2ListPoliciesWithContext(ctx 
 // **`resourceGroupId`** or **`service_group_id`** attribute and the **`accountId`** attribute.` The rule field can
 // either specify single **`key`**, **`value`**, and **`operator`** or be set of **`conditions`** with a combination
 // **`operator`**.  The possible combination operator are **`and`** and **`or`**. The rule field has a maximum of 2
-// levels of nested **`conditions`**. The IAM Services group (`IAM`) is a subset of account management services that
-// includes the IAM platform services IAM Identity, IAM Access Management, IAM Users Management, IAM Groups, and future
-// IAM services. If the subject is a locked service-id, the request will fail.
+// levels of nested **`conditions`**. The operator for a rule can be used to specify a time based restriction (e.g.,
+// access only during business hours, during the Monday-Friday work week). For example, a policy can grant access
+// Monday-Friday, 9:00am-5:00pm using the following rule:
+// ```json
+//   "rule": {
+//     "operator": "and",
+//     "conditions": [{
+//       "key": "{{environment.attributes.day_of_week}}",
+//       "operator": "dayOfWeekAnyOf",
+//       "value": [1, 2, 3, 4, 5]
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeGreaterThanOrEquals",
+//       "value": "09:00:00+00:00"
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeLessThanOrEquals",
+//       "value": "17:00:00+00:00"
+//     }]
+//   }
+// ``` Rules and conditions allow the following operators with **`key`**, **`value`** :
+// ```
+//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//   'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//   'monthEquals', 'monthAnyOf',
+//   'dayOfMonthEquals', 'dayOfMonthAnyOf'
+// ``` The pattern field can be coupled with a rule that matches the pattern. For the business hour rule example above,
+// the **`pattern`** is **`"time-based-restrictions:weekly"`**. The IAM Services group (`IAM`) is a subset of account
+// management services that includes the IAM platform services IAM Identity, IAM Access Management, IAM Users
+// Management, IAM Groups, and future IAM services. If the subject is a locked service-id, the request will fail.
 //
 // ### Attribute Operators
 //
@@ -1237,7 +1266,37 @@ func (iamPolicyManagement *IamPolicyManagementV1) V2CreatePolicyWithContext(ctx 
 // or **`resourceGroupId`** attribute and the **`accountId`** attribute.` The rule field can either specify single
 // **`key`**, **`value`**, and **`operator`** or be set of **`conditions`** with a combination **`operator`**.  The
 // possible combination operator are **`and`** and **`or`**. The rule field has a maximum of 2 levels of nested
-// **`conditions`**. If the subject is a locked service-id, the request will fail.
+// **`conditions`**. The operator for a rule can be used to specify a time based restriction (e.g., access only during
+// business hours, during the Monday-Friday work week). For example, a policy can grant access Monday-Friday,
+// 9:00am-5:00pm using the following rule:
+// ```json
+//   "rule": {
+//     "operator": "and",
+//     "conditions": [{
+//       "key": "{{environment.attributes.day_of_week}}",
+//       "operator": "dayOfWeekAnyOf",
+//       "value": [1, 2, 3, 4, 5]
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeGreaterThanOrEquals",
+//       "value": "09:00:00+00:00"
+//     },
+//       "key": "{{environment.attributes.current_time}}",
+//       "operator": "timeLessThanOrEquals",
+//       "value": "17:00:00+00:00"
+//     }]
+//   }
+// ``` Rules and conditions allow the following operators with **`key`**, **`value`** :
+// ```
+//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//   'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//   'monthEquals', 'monthAnyOf',
+//   'dayOfMonthEquals', 'dayOfMonthAnyOf'
+// ``` The pattern field can be coupled with a rule that matches the pattern. For the business hour rule example above,
+// the **`pattern`** is **`"time-based-restrictions:weekly"`**. If the subject is a locked service-id, the request will
+// fail.
 //
 // ### Attribute Operators
 //
