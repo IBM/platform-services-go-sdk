@@ -62,6 +62,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		profileName   string = "Example-Profile"
 		accountID     string
 		iamID         string
+		iamIDMember   string
 		iamAPIKey     string
 
 		apikeyID   string
@@ -112,6 +113,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
+
+			iamIDMember = config["IAM_ID_MEMBER"]
+			Expect(iamIDMember).ToNot(BeEmpty())
 
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
@@ -757,6 +761,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-updateAccountSettings
 
+			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
+			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
+			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+
 			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
 				accountSettingEtag,
 				accountID,
@@ -764,8 +772,11 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
 			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
 			updateAccountSettingsOptions.SetMfa("NONE")
+			updateAccountSettingsOptions.SetUserMfa([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA})
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetSystemAccessTokenExpirationInSeconds("3600")
+			updateAccountSettingsOptions.SetSystemRefreshTokenExpirationInSeconds("2592000")
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
 			if err != nil {
