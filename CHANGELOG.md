@@ -1,3 +1,10 @@
+# [0.31.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.30.0...v0.31.0) (2022-11-23)
+
+
+### Features
+
+* **IAM Identity:** adding userExpm list and token lifetime ([#221](https://github.com/IBM/platform-services-go-sdk/issues/221)) ([c9d55a8](https://github.com/IBM/platform-services-go-sdk/commit/c9d55a8d93f32a3195986b946a9c9f883103e086))
+
 # [0.30.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.5...v0.30.0) (2022-11-17)
 
 
