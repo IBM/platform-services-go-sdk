@@ -52,6 +52,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		profileName2  string = "Go-SDK-IT-Profile-2"
 		accountID     string
 		iamID         string
+		iamIDMember   string
 		iamAPIKey     string
 		claimRuleType string = "Profile-SAML"
 		realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
@@ -111,6 +112,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
+
+			iamIDMember = config["IAM_ID_MEMBER"]
+			Expect(iamIDMember).ToNot(BeEmpty())
 
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
@@ -1303,7 +1307,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.SystemRefreshTokenExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.Mfa).ToNot(BeNil())
+			Expect(accountSettingsResponse.UserMfa).ToNot(BeNil())
 
 			accountSettingEtag = response.GetHeaders().Get("Etag")
 			Expect(accountSettingEtag).ToNot(BeEmpty())
@@ -1316,16 +1323,23 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
+			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
+			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
+			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+
 			accountSettingsRequestOptions := &iamidentityv1.UpdateAccountSettingsOptions{
 				IfMatch:                      core.StringPtr(accountSettingEtag),
 				AccountID:                    core.StringPtr(accountID),
 				RestrictCreateServiceID:      core.StringPtr("NOT_RESTRICTED"),
 				RestrictCreatePlatformApikey: core.StringPtr("NOT_RESTRICTED"),
-				//AllowedIPAddresses:           core.StringPtr("testString"),
-				Mfa:                          core.StringPtr("NONE"),
-				SessionExpirationInSeconds:   core.StringPtr("86400"),
-				SessionInvalidationInSeconds: core.StringPtr("7200"),
-				MaxSessionsPerIdentity:       core.StringPtr("10"),
+				//AllowedIPAddresses:                  core.StringPtr("testString"),
+				Mfa:                                   core.StringPtr("NONE"),
+				UserMfa:                               []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA},
+				SessionExpirationInSeconds:            core.StringPtr("86400"),
+				SessionInvalidationInSeconds:          core.StringPtr("7200"),
+				MaxSessionsPerIdentity:                core.StringPtr("10"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("2592000"),
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
@@ -1336,11 +1350,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
 			Expect(accountSettingsResponse.EntityTag).ToNot(Equal(accountSettingEtag))
 			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
+			Expect(accountSettingsResponse.UserMfa).To(Equal(accountSettingsRequestOptions.UserMfa))
 			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
 			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).To(Equal(accountSettingsRequestOptions.RestrictCreatePlatformApikey))
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
+			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemAccessTokenExpirationInSeconds))
+			Expect(accountSettingsResponse.SystemRefreshTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemRefreshTokenExpirationInSeconds))
 			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
 		})
 	})
