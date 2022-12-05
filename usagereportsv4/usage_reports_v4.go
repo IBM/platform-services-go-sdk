@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.36.0-6f5b0381-20210716-180747
+ * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -36,7 +36,7 @@ import (
 
 // UsageReportsV4 : Usage reports for IBM Cloud accounts
 //
-// Version: 4.0.6
+// API Version: 4.0.6
 type UsageReportsV4 struct {
 	Service *core.BaseService
 }
@@ -705,7 +705,7 @@ type AccountSummary struct {
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The month in which usages were incurred. Represented in yyyy-mm format.
-	BillingMonth *string `json:"billing_month" validate:"required"`
+	Month *string `json:"month" validate:"required"`
 
 	// Country.
 	BillingCountryCode *string `json:"billing_country_code" validate:"required"`
@@ -733,7 +733,7 @@ func UnmarshalAccountSummary(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "billing_month", &obj.BillingMonth)
+	err = core.UnmarshalPrimitive(m, "month", &obj.Month)
 	if err != nil {
 		return
 	}
@@ -851,10 +851,10 @@ func UnmarshalDiscount(m map[string]json.RawMessage, result interface{}) (err er
 // GetAccountSummaryOptions : The GetAccountSummary options.
 type GetAccountSummaryOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -889,16 +889,16 @@ func (options *GetAccountSummaryOptions) SetHeaders(param map[string]string) *Ge
 // GetAccountUsageOptions : The GetAccountUsage options.
 type GetAccountUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -945,19 +945,19 @@ func (options *GetAccountUsageOptions) SetHeaders(param map[string]string) *GetA
 // GetOrgUsageOptions : The GetOrgUsage options.
 type GetOrgUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// ID of the organization.
-	OrganizationID *string `validate:"required,ne="`
+	OrganizationID *string `json:"organization_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1011,19 +1011,19 @@ func (options *GetOrgUsageOptions) SetHeaders(param map[string]string) *GetOrgUs
 // GetResourceGroupUsageOptions : The GetResourceGroupUsage options.
 type GetResourceGroupUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Resource group for which the usage report is requested.
-	ResourceGroupID *string `validate:"required,ne="`
+	ResourceGroupID *string `json:"resource_group_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1077,40 +1077,40 @@ func (options *GetResourceGroupUsageOptions) SetHeaders(param map[string]string)
 // GetResourceUsageAccountOptions : The GetResourceUsageAccount options.
 type GetResourceUsageAccountOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64
+	// Number of usage records returned. The default value is 30. Maximum value is 200.
+	Limit *int64 `json:"_limit,omitempty"`
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string
+	Start *string `json:"_start,omitempty"`
 
 	// Filter by resource group.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// Filter by organization_id.
-	OrganizationID *string
+	OrganizationID *string `json:"organization_id,omitempty"`
 
 	// Filter by resource instance_id.
-	ResourceInstanceID *string
+	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
 
 	// Filter by resource_id.
-	ResourceID *string
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// Filter by plan_id.
-	PlanID *string
+	PlanID *string `json:"plan_id,omitempty"`
 
 	// Region in which the resource instance is provisioned.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1205,37 +1205,37 @@ func (options *GetResourceUsageAccountOptions) SetHeaders(param map[string]strin
 // GetResourceUsageOrgOptions : The GetResourceUsageOrg options.
 type GetResourceUsageOrgOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// ID of the organization.
-	OrganizationID *string `validate:"required,ne="`
+	OrganizationID *string `json:"organization_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64
+	// Number of usage records returned. The default value is 30. Maximum value is 200.
+	Limit *int64 `json:"_limit,omitempty"`
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string
+	Start *string `json:"_start,omitempty"`
 
 	// Filter by resource instance id.
-	ResourceInstanceID *string
+	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
 
 	// Filter by resource_id.
-	ResourceID *string
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// Filter by plan_id.
-	PlanID *string
+	PlanID *string `json:"plan_id,omitempty"`
 
 	// Region in which the resource instance is provisioned.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1325,37 +1325,37 @@ func (options *GetResourceUsageOrgOptions) SetHeaders(param map[string]string) *
 // GetResourceUsageResourceGroupOptions : The GetResourceUsageResourceGroup options.
 type GetResourceUsageResourceGroupOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Resource group for which the usage report is requested.
-	ResourceGroupID *string `validate:"required,ne="`
+	ResourceGroupID *string `json:"resource_group_id" validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `validate:"required,ne="`
+	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool
+	Names *bool `json:"_names,omitempty"`
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64
+	// Number of usage records returned. The default value is 30. Maximum value is 200.
+	Limit *int64 `json:"_limit,omitempty"`
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string
+	Start *string `json:"_start,omitempty"`
 
 	// Filter by resource instance id.
-	ResourceInstanceID *string
+	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
 
 	// Filter by resource_id.
-	ResourceID *string
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// Filter by plan_id.
-	PlanID *string
+	PlanID *string `json:"plan_id,omitempty"`
 
 	// Region in which the resource instance is provisioned.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1683,6 +1683,18 @@ func UnmarshalInstancesUsage(m map[string]json.RawMessage, result interface{}) (
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *InstancesUsage) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	_start, err := core.GetQueryParam(resp.Next.Href, "_start")
+	if err != nil || _start == nil {
+		return nil, err
+	}
+	return _start, nil
 }
 
 // Metric : Information about a metric.
@@ -2317,4 +2329,265 @@ func UnmarshalSupportSummary(m map[string]json.RawMessage, result interface{}) (
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// GetResourceUsageAccountPager can be used to simplify the use of the "GetResourceUsageAccount" method.
+//
+type GetResourceUsageAccountPager struct {
+	hasNext bool
+	options *GetResourceUsageAccountOptions
+	client  *UsageReportsV4
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewGetResourceUsageAccountPager returns a new GetResourceUsageAccountPager instance.
+func (usageReports *UsageReportsV4) NewGetResourceUsageAccountPager(options *GetResourceUsageAccountOptions) (pager *GetResourceUsageAccountPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy GetResourceUsageAccountOptions = *options
+	pager = &GetResourceUsageAccountPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  usageReports,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetResourceUsageAccountPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetResourceUsageAccountPager) GetNextWithContext(ctx context.Context) (page []InstanceUsage, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.GetResourceUsageAccountWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		var _start *string
+		_start, err = core.GetQueryParam(result.Next.Href, "_start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving '_start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = _start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetResourceUsageAccountPager) GetAllWithContext(ctx context.Context) (allItems []InstanceUsage, err error) {
+	for pager.HasNext() {
+		var nextPage []InstanceUsage
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageAccountPager) GetNext() (page []InstanceUsage, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageAccountPager) GetAll() (allItems []InstanceUsage, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// GetResourceUsageResourceGroupPager can be used to simplify the use of the "GetResourceUsageResourceGroup" method.
+//
+type GetResourceUsageResourceGroupPager struct {
+	hasNext bool
+	options *GetResourceUsageResourceGroupOptions
+	client  *UsageReportsV4
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewGetResourceUsageResourceGroupPager returns a new GetResourceUsageResourceGroupPager instance.
+func (usageReports *UsageReportsV4) NewGetResourceUsageResourceGroupPager(options *GetResourceUsageResourceGroupOptions) (pager *GetResourceUsageResourceGroupPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy GetResourceUsageResourceGroupOptions = *options
+	pager = &GetResourceUsageResourceGroupPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  usageReports,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetResourceUsageResourceGroupPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetResourceUsageResourceGroupPager) GetNextWithContext(ctx context.Context) (page []InstanceUsage, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.GetResourceUsageResourceGroupWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		var _start *string
+		_start, err = core.GetQueryParam(result.Next.Href, "_start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving '_start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = _start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetResourceUsageResourceGroupPager) GetAllWithContext(ctx context.Context) (allItems []InstanceUsage, err error) {
+	for pager.HasNext() {
+		var nextPage []InstanceUsage
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageResourceGroupPager) GetNext() (page []InstanceUsage, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageResourceGroupPager) GetAll() (allItems []InstanceUsage, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// GetResourceUsageOrgPager can be used to simplify the use of the "GetResourceUsageOrg" method.
+//
+type GetResourceUsageOrgPager struct {
+	hasNext bool
+	options *GetResourceUsageOrgOptions
+	client  *UsageReportsV4
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewGetResourceUsageOrgPager returns a new GetResourceUsageOrgPager instance.
+func (usageReports *UsageReportsV4) NewGetResourceUsageOrgPager(options *GetResourceUsageOrgOptions) (pager *GetResourceUsageOrgPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy GetResourceUsageOrgOptions = *options
+	pager = &GetResourceUsageOrgPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  usageReports,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetResourceUsageOrgPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetResourceUsageOrgPager) GetNextWithContext(ctx context.Context) (page []InstanceUsage, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.GetResourceUsageOrgWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		var _start *string
+		_start, err = core.GetQueryParam(result.Next.Href, "_start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving '_start' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = _start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetResourceUsageOrgPager) GetAllWithContext(ctx context.Context) (allItems []InstanceUsage, err error) {
+	for pager.HasNext() {
+		var nextPage []InstanceUsage
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageOrgPager) GetNext() (page []InstanceUsage, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageOrgPager) GetAll() (allItems []InstanceUsage, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
