@@ -1,3 +1,10 @@
+## [0.31.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.0...v0.31.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **Usage Reports:** rename Account_Summary billing_month property ([#222](https://github.com/IBM/platform-services-go-sdk/issues/222)) ([8d3a404](https://github.com/IBM/platform-services-go-sdk/commit/8d3a404f3283533302324cea3217ebf703ae2d15))
+
 # [0.31.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.30.0...v0.31.0) (2022-11-23)
 
 
