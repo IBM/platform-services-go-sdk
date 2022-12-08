@@ -1214,7 +1214,8 @@ type InclusionFilter struct {
 	// support upto 20 values in the array.
 	Operator *string `json:"operator" validate:"required"`
 
-	// The provided values of the in operand to be compared with. This can be string or array of string.
+	// The provided values of the operand to be compared with. With 'is' operator, a single string is also supported with
+	// minLength 2 and maxLength 100.
 	Value interface{} `json:"value" validate:"required"`
 }
 

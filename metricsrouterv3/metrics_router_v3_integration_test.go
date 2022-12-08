@@ -202,6 +202,150 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink1)
 		})
 
+		It(`CreateRoute fails when multiple values used with 'is' filter operator`, func() {
+			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+				Operand:  core.StringPtr("location"),
+				Operator: core.StringPtr("is"),
+				Value:    []string{"us-south", "us-east"},
+			}
+			rulePrototypeModel := &metricsrouterv3.RulePrototype{
+				TargetIds:        []string{targetIDLink},
+				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+			}
+			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
+				Name:  core.StringPtr("my-route-with-multiple-value-is-operator"),
+				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
+			}
+
+			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(route).To(BeNil())
+		})
+
+		It(`CreateRoute fails when string type passed to filter value with 'in' filter operator`, func() {
+			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+				Operand:  core.StringPtr("location"),
+				Operator: core.StringPtr("in"),
+				Value:    core.StringPtr("teststring"),
+			}
+			rulePrototypeModel := &metricsrouterv3.RulePrototype{
+				TargetIds:        []string{targetIDLink},
+				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+			}
+			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
+				Name:  core.StringPtr("my-route-with-string-value-in-operator"),
+				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
+			}
+
+			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(route).To(BeNil())
+		})
+
+		It(`CreateRoute fails when filter value length greater than limit`, func() {
+			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+				Operand:  core.StringPtr("location"),
+				Operator: core.StringPtr("in"),
+				Value:    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v"},
+			}
+			rulePrototypeModel := &metricsrouterv3.RulePrototype{
+				TargetIds:        []string{targetIDLink},
+				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+			}
+			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
+				Name:  core.StringPtr("my-route-with-filter-length-more-than-limit"),
+				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
+			}
+
+			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(route).To(BeNil())
+		})
+
+		It(`CreateRoute fails when filter value length equal to zero`, func() {
+			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+				Operand:  core.StringPtr("location"),
+				Operator: core.StringPtr("in"),
+				Value:    []string{""},
+			}
+			rulePrototypeModel := &metricsrouterv3.RulePrototype{
+				TargetIds:        []string{targetIDLink},
+				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+			}
+			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
+				Name:  core.StringPtr("my-route-with-zero-length-value"),
+				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
+			}
+
+			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(route).To(BeNil())
+		})
+
+		It(`CreateRoute fails when filter length exceeded the limit`, func() {
+
+			inclusionFilterModelArray := []metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"us-south"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"us-east"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"au-syd"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"eu-de"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"eu-gb"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"us-south"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"us-south"},
+				},
+				metricsrouterv3.InclusionFilter{
+					Operand:  core.StringPtr("location"),
+					Operator: core.StringPtr("in"),
+					Value:    []string{"us-south"},
+				},
+			}
+
+			rulePrototypeModel := &metricsrouterv3.RulePrototype{
+				TargetIds:        []string{targetIDLink},
+				InclusionFilters: inclusionFilterModelArray,
+			}
+			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
+				Name:  core.StringPtr("my-route-with-more-filter-length"),
+				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
+			}
+
+			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(route).To(BeNil())
+		})
+
 		It(`Returns 403 when user is not authorized`, func() {
 			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
 				Operand:  core.StringPtr("location"),
@@ -561,6 +705,17 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(settings).ToNot(BeNil())
+		})
+
+		It(`DeleteTarget will fail when target is a default target added in settings`, func() {
+			deleteTargetOptions := &metricsrouterv3.DeleteTargetOptions{
+				ID: &targetIDLink,
+			}
+
+			warningReport, response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
+			Expect(err).NotTo(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(warningReport).To(BeNil())
 		})
 
 		It(`Removing default targets`, func() {

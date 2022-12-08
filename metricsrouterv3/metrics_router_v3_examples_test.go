@@ -137,11 +137,11 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"testString"},
+				Value:    []string{"teststring"},
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
+				TargetIds:        []string{targetIDLink},
 				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
 			}
 
@@ -297,11 +297,11 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"testString"},
+				Value:    core.StringPtr("teststring"),
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
+				TargetIds:        []string{targetIDLink},
 				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
 			}
 
@@ -403,8 +403,7 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			// end-delete_target
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(warningReport).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
