@@ -430,5 +430,27 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
+		It(`DeleteTarget request example`, func() {
+			fmt.Println("\nDeleteTarget() result:")
+			// begin-delete_target
+
+			deleteTargetOptions := atrackerService.NewDeleteTargetOptions(
+				targetIDLink,
+			)
+
+			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(warningReport, "", "  ")
+			fmt.Println(string(b))
+
+			// end-delete_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(warningReport).To(BeNil())
+
+		})
 	})
 })
