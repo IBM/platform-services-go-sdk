@@ -1,3 +1,10 @@
+## [0.31.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.1...v0.31.2) (2022-12-19)
+
+
+### Bug Fixes
+
+* **Activity Tracker v2:** add message field Settings struct ([#226](https://github.com/IBM/platform-services-go-sdk/issues/226)) ([ccf59a3](https://github.com/IBM/platform-services-go-sdk/commit/ccf59a35034e93852783cf7bf55ff14edfdeac4b))
+
 ## [0.31.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.0...v0.31.1) (2022-12-05)
 
 
