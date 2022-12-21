@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -176,11 +176,18 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke Search with error: Operation response processing error`, func() {
@@ -198,9 +205,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.IsDeleted = core.StringPtr("false")
+				searchOptionsModel.IsReclaimed = core.StringPtr("false")
+				searchOptionsModel.IsPublic = core.StringPtr("false")
+				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				searchOptionsModel.CanTag = core.StringPtr("false")
+				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalSearchService.Search(searchOptionsModel)
@@ -250,8 +264,15 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -277,9 +298,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.IsDeleted = core.StringPtr("false")
+				searchOptionsModel.IsReclaimed = core.StringPtr("false")
+				searchOptionsModel.IsPublic = core.StringPtr("false")
+				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				searchOptionsModel.CanTag = core.StringPtr("false")
+				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -335,8 +363,15 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_reclaimed"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
+					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -364,9 +399,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.IsDeleted = core.StringPtr("false")
+				searchOptionsModel.IsReclaimed = core.StringPtr("false")
+				searchOptionsModel.IsPublic = core.StringPtr("false")
+				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				searchOptionsModel.CanTag = core.StringPtr("false")
+				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -391,9 +433,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.IsDeleted = core.StringPtr("false")
+				searchOptionsModel.IsReclaimed = core.StringPtr("false")
+				searchOptionsModel.IsPublic = core.StringPtr("false")
+				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				searchOptionsModel.CanTag = core.StringPtr("false")
+				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalSearchService.SetServiceURL("")
@@ -432,9 +481,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.IsDeleted = core.StringPtr("false")
+				searchOptionsModel.IsReclaimed = core.StringPtr("false")
+				searchOptionsModel.IsPublic = core.StringPtr("false")
+				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				searchOptionsModel.CanTag = core.StringPtr("false")
+				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -462,7 +518,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetSupportedTypes with error: Operation response processing error`, func() {
@@ -671,9 +727,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SetSearchCursor("testString")
 				searchOptionsModel.SetTransactionID("testString")
 				searchOptionsModel.SetAccountID("testString")
+				searchOptionsModel.SetBoundary("global")
 				searchOptionsModel.SetLimit(int64(1))
 				searchOptionsModel.SetTimeout(int64(0))
 				searchOptionsModel.SetSort([]string{"testString"})
+				searchOptionsModel.SetIsDeleted("false")
+				searchOptionsModel.SetIsReclaimed("false")
+				searchOptionsModel.SetIsPublic("false")
+				searchOptionsModel.SetImpersonateUser("testString")
+				searchOptionsModel.SetCanTag("false")
+				searchOptionsModel.SetIsHidden("false")
 				searchOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(searchOptionsModel).ToNot(BeNil())
 				Expect(searchOptionsModel.Query).To(Equal(core.StringPtr("testString")))
@@ -681,9 +744,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(searchOptionsModel.SearchCursor).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(searchOptionsModel.Boundary).To(Equal(core.StringPtr("global")))
 				Expect(searchOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(searchOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(searchOptionsModel.Sort).To(Equal([]string{"testString"}))
+				Expect(searchOptionsModel.IsDeleted).To(Equal(core.StringPtr("false")))
+				Expect(searchOptionsModel.IsReclaimed).To(Equal(core.StringPtr("false")))
+				Expect(searchOptionsModel.IsPublic).To(Equal(core.StringPtr("false")))
+				Expect(searchOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
+				Expect(searchOptionsModel.CanTag).To(Equal(core.StringPtr("false")))
+				Expect(searchOptionsModel.IsHidden).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
