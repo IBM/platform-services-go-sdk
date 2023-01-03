@@ -66,14 +66,13 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv2/api",
+				"ATRACKER_URL":       "https://atrackerv2/api",
 				"ATRACKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-				})
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`AtrackerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-				})
+				atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 				err := atrackerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(atrackerService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv2/api",
+				"ATRACKER_URL":       "https://atrackerv2/api",
 				"ATRACKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{
-			})
+			atrackerService, serviceErr := atrackerv2.NewAtrackerV2UsingExternalConfig(&atrackerv2.AtrackerV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(atrackerService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`AtrackerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_AUTH_TYPE":   "NOAuth",
+				"ATRACKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2922,7 +2919,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully with retries`, func() {
@@ -2975,7 +2972,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully`, func() {
@@ -3143,7 +3140,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
 				}))
 			})
 			It(`Invoke PutSettings successfully with retries`, func() {
@@ -3217,7 +3214,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "eu-de", "private_api_endpoint_only": false, "api_version": 2, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
 				}))
 			})
 			It(`Invoke PutSettings successfully`, func() {

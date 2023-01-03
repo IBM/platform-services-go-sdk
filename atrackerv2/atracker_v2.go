@@ -113,28 +113,28 @@ func NewAtrackerV2(options *AtrackerV2Options) (service *AtrackerV2, err error) 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"us-south":         "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service in the us-south region.
 		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
-		"us-east": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"eu-de": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"eu-gb": "https://eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
-		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
-		"au-syd": "https://au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"ca-tor": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"private.ca-tor": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"br-sao": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"private.br-sao": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"eu-fr2": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
-		"private.eu-fr2": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
-		"jp-tok": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"private.jp-tok": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"jp-osa": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"private.jp-osa": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"in-che": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
-		"private.in-che": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
+		"us-east":          "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"private.us-east":  "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"eu-de":            "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"private.eu-de":    "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"eu-gb":            "https://eu-gb.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"au-syd":           "https://au-syd.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"private.au-syd":   "https://private.au-syd.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"ca-tor":           "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
+		"private.ca-tor":   "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
+		"br-sao":           "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
+		"private.br-sao":   "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
+		"eu-fr2":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
+		"private.eu-fr2":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
+		"jp-tok":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
+		"private.jp-tok":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
+		"jp-osa":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
+		"private.jp-osa":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
+		"in-che":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
+		"private.in-che":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -1187,9 +1187,9 @@ type CosEndpointPrototype struct {
 // NewCosEndpointPrototype : Instantiate CosEndpointPrototype (Generic Model Constructor)
 func (*AtrackerV2) NewCosEndpointPrototype(endpoint string, targetCRN string, bucket string) (_model *CosEndpointPrototype, err error) {
 	_model = &CosEndpointPrototype{
-		Endpoint: core.StringPtr(endpoint),
+		Endpoint:  core.StringPtr(endpoint),
 		TargetCRN: core.StringPtr(targetCRN),
-		Bucket: core.StringPtr(bucket),
+		Bucket:    core.StringPtr(bucket),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -1238,7 +1238,7 @@ type CreateRouteOptions struct {
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*AtrackerV2) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
 	return &CreateRouteOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1293,14 +1293,14 @@ type CreateTargetOptions struct {
 // cos_endpoint, logdna_endpoint or eventstreams_endpoint.
 const (
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	CreateTargetOptionsTargetTypeEventStreamsConst = "event_streams"
-	CreateTargetOptionsTargetTypeLogdnaConst = "logdna"
+	CreateTargetOptionsTargetTypeEventStreamsConst       = "event_streams"
+	CreateTargetOptionsTargetTypeLogdnaConst             = "logdna"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
 func (*AtrackerV2) NewCreateTargetOptions(name string, targetType string) *CreateTargetOptions {
 	return &CreateTargetOptions{
-		Name: core.StringPtr(name),
+		Name:       core.StringPtr(name),
 		TargetType: core.StringPtr(targetType),
 	}
 }
@@ -1460,9 +1460,9 @@ type EventstreamsEndpointPrototype struct {
 func (*AtrackerV2) NewEventstreamsEndpointPrototype(targetCRN string, brokers []string, topic string, apiKey string) (_model *EventstreamsEndpointPrototype, err error) {
 	_model = &EventstreamsEndpointPrototype{
 		TargetCRN: core.StringPtr(targetCRN),
-		Brokers: brokers,
-		Topic: core.StringPtr(topic),
-		APIKey: core.StringPtr(apiKey),
+		Brokers:   brokers,
+		Topic:     core.StringPtr(topic),
+		APIKey:    core.StringPtr(apiKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -1656,7 +1656,7 @@ type LogdnaEndpointPrototype struct {
 // NewLogdnaEndpointPrototype : Instantiate LogdnaEndpointPrototype (Generic Model Constructor)
 func (*AtrackerV2) NewLogdnaEndpointPrototype(targetCRN string, ingestionKey string) (_model *LogdnaEndpointPrototype, err error) {
 	_model = &LogdnaEndpointPrototype{
-		TargetCRN: core.StringPtr(targetCRN),
+		TargetCRN:    core.StringPtr(targetCRN),
 		IngestionKey: core.StringPtr(ingestionKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -1693,13 +1693,13 @@ type Migration struct {
 // Constants associated with the Migration.Status property.
 // The overall status of the migration.
 const (
-	MigrationStatusCanceledConst = "canceled"
-	MigrationStatusCompletedConst = "completed"
-	MigrationStatusFailedConst = "failed"
-	MigrationStatusInProgressConst = "in_progress"
+	MigrationStatusCanceledConst    = "canceled"
+	MigrationStatusCompletedConst   = "completed"
+	MigrationStatusFailedConst      = "failed"
+	MigrationStatusInProgressConst  = "in_progress"
 	MigrationStatusNotRequiredConst = "not_required"
-	MigrationStatusNotStartedConst = "not_started"
-	MigrationStatusPendingConst = "pending"
+	MigrationStatusNotStartedConst  = "not_started"
+	MigrationStatusPendingConst     = "pending"
 )
 
 // UnmarshalMigration unmarshals an instance of Migration from the specified map of raw messages.
@@ -1747,18 +1747,18 @@ type MigrationItem struct {
 // The type of the resource being migrated.
 const (
 	MigrationItemResourceTypePrivateEndpointConst = "private_endpoint"
-	MigrationItemResourceTypeRouteConst = "route"
-	MigrationItemResourceTypeTargetConst = "target"
+	MigrationItemResourceTypeRouteConst           = "route"
+	MigrationItemResourceTypeTargetConst          = "target"
 )
 
 // Constants associated with the MigrationItem.Status property.
 // The status of the migration for this resource.
 const (
-	MigrationItemStatusCompletedConst = "completed"
-	MigrationItemStatusFailedConst = "failed"
+	MigrationItemStatusCompletedConst  = "completed"
+	MigrationItemStatusFailedConst     = "failed"
 	MigrationItemStatusInProgressConst = "in_progress"
 	MigrationItemStatusNotStartedConst = "not_started"
-	MigrationItemStatusPendingConst = "pending"
+	MigrationItemStatusPendingConst    = "pending"
 )
 
 // UnmarshalMigrationItem unmarshals an instance of MigrationItem from the specified map of raw messages.
@@ -1835,7 +1835,7 @@ type PutSettingsOptions struct {
 // NewPutSettingsOptions : Instantiate PutSettingsOptions
 func (*AtrackerV2) NewPutSettingsOptions(metadataRegionPrimary string, privateAPIEndpointOnly bool) *PutSettingsOptions {
 	return &PutSettingsOptions{
-		MetadataRegionPrimary: core.StringPtr(metadataRegionPrimary),
+		MetadataRegionPrimary:  core.StringPtr(metadataRegionPrimary),
 		PrivateAPIEndpointOnly: core.BoolPtr(privateAPIEndpointOnly),
 	}
 }
@@ -1895,8 +1895,8 @@ type ReplaceRouteOptions struct {
 // NewReplaceRouteOptions : Instantiate ReplaceRouteOptions
 func (*AtrackerV2) NewReplaceRouteOptions(id string, name string, rules []RulePrototype) *ReplaceRouteOptions {
 	return &ReplaceRouteOptions{
-		ID: core.StringPtr(id),
-		Name: core.StringPtr(name),
+		ID:    core.StringPtr(id),
+		Name:  core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -2163,6 +2163,9 @@ type Settings struct {
 
 	// The lowest API version of targets or routes that customer might have under his or her account.
 	APIVersion *int64 `json:"api_version" validate:"required"`
+
+	// An optional message containing information about the audit log locations.
+	Message *string `json:"message,omitempty"`
 }
 
 // UnmarshalSettings unmarshals an instance of Settings from the specified map of raw messages.
@@ -2189,6 +2192,10 @@ func UnmarshalSettings(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
 		return
 	}
@@ -2243,7 +2250,7 @@ type Target struct {
 // The type of the target.
 const (
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	TargetTargetTypeLogdnaConst = "logdna"
+	TargetTargetTypeLogdnaConst             = "logdna"
 )
 
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
