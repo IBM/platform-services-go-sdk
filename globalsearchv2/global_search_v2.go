@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.2-e5d4c32b-20221214-193750
+ * IBM OpenAPI SDK Code Generator Version: 3.63.0-5dae26c1-20230111-193039
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -46,6 +46,9 @@ import (
 type GlobalSearchV2 struct {
 	Service *core.BaseService
 }
+
+// DefaultServiceURL is the default URL to make service requests to.
+const DefaultServiceURL = "https://api.global-search-tagging.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "global_search"
@@ -89,6 +92,7 @@ func NewGlobalSearchV2UsingExternalConfig(options *GlobalSearchV2Options) (globa
 // NewGlobalSearchV2 : constructs an instance of GlobalSearchV2 with passed in options.
 func NewGlobalSearchV2(options *GlobalSearchV2Options) (service *GlobalSearchV2, err error) {
 	serviceOptions := &core.ServiceOptions{
+		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
 	}
 
@@ -434,7 +438,7 @@ type ScanResult struct {
 	SearchCursor *string `json:"search_cursor,omitempty"`
 
 	// Value of the limit parameter specified by the user.
-	Limit *float64 `json:"limit" validate:"required"`
+	Limit *int64 `json:"limit" validate:"required"`
 
 	// The array of results. Each item represents a resource. An empty array signals the end of the result set, which means
 	// there are no more results to fetch.
