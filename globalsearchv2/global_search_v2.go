@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
+ * IBM OpenAPI SDK Code Generator Version: 3.63.0-5dae26c1-20230111-193039
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -34,15 +34,15 @@ import (
 	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
-// GlobalSearchV2 : Search for resources with the global and shared resource properties repository integrated in the IBM
-// Cloud platform. The search repository stores and searches cloud resources attributes, which categorize or classify
-// resources. A resource is a physical or logical component that can be created or reserved for an application or
-// service instance and is owned by resource providers, such as Cloud Foundry, IBM Kubernetes Service, or resource
+// GlobalSearchV2 : Search for resources with the global and shared resource properties repository that is integrated in
+// the IBM Cloud platform. The search repository stores and searches cloud resources attributes, which categorize or
+// classify resources. A resource is a physical or logical component that can be created or reserved for an application
+// or service instance. They are owned by resource providers, such as Cloud Foundry, IBM Kubernetes Service, or resource
 // controller in IBM Cloud. Resources are uniquely identified by a Cloud Resource Name (CRN)  or by an IMS ID. The
 // properties of a resource include tags and system properties. Both properties are defined in an IBM Cloud billing
 // account, and span across many regions.
 //
-// Version: 2.0.1
+// API Version: 2.0.1
 type GlobalSearchV2 struct {
 	Service *core.BaseService
 }
@@ -167,20 +167,19 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 }
 
 // Search : Find instances of resources (v3)
-// Find Cloud Foundry resources, IAM-enabled resources, or  storage and network resources running on classic
-// infrastructure in a  specific account ID. You can apply query strings if necessary.
+// Find Cloud Foundry resources, IAM-enabled resources, or storage and network resources that run on classic
+// infrastructure in a specific account ID. You can apply query strings if necessary.
 //
-// To filter results, you can insert a string using the Lucene syntax and the  query string is parsed into a series of
-// terms and operators. A term can be  a single word or a phrase, in which case the search is performed for all  the
-// words, in the same order. To filter for a specific value regardless of  the property that contains it, type the
-// search term without specifying a  field. Only resources that belong to the account ID and that are accessible  by the
-// client are returned.
+// To filter results, you can insert a string by using the Lucene syntax and the query string is parsed into a series of
+// terms and operators. A term can be a single word or a phrase, in which case the search is performed for all the
+// words, in the same order. To filter for a specific value regardless of the property that contains it, type the search
+// term without specifying a field. Only resources that belong to the account ID and that are accessible by the client
+// are returned.
 //
-// You must use `/v3/resources/search` when you need to fetch more than `10000`  resource items. The
-// `/v2/resources/search` prohibits paginating through such  a big number. On the first call, the operation returns a
-// live cursor on the  data that you must use on all the subsequent calls to get the next batch of  results until you
-// get the empty result set. By default, the fields returned  for every resource are "crn", "name", "family", "type",
-// and "account_id". You  can specify the subset of the fields you want in your request.
+// You must use `/v3/resources/search` when you need to fetch more than `10000` resource items. On the first call, the
+// operation returns a live cursor on the data that you must use on all the subsequent calls to get the next batch of
+// results until you get the empty result set. By default, the fields that are returned for every resource are "crn",
+// "name", "family", "type", and "account_id". You can specify the subset of the fields you want in your request.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	return globalSearch.SearchWithContext(context.Background(), searchOptions)
 }
@@ -221,6 +220,9 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	if searchOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*searchOptions.AccountID))
 	}
+	if searchOptions.Boundary != nil {
+		builder.AddQuery("boundary", fmt.Sprint(*searchOptions.Boundary))
+	}
 	if searchOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*searchOptions.Limit))
 	}
@@ -229,6 +231,24 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	}
 	if searchOptions.Sort != nil {
 		builder.AddQuery("sort", strings.Join(searchOptions.Sort, ","))
+	}
+	if searchOptions.IsDeleted != nil {
+		builder.AddQuery("is_deleted", fmt.Sprint(*searchOptions.IsDeleted))
+	}
+	if searchOptions.IsReclaimed != nil {
+		builder.AddQuery("is_reclaimed", fmt.Sprint(*searchOptions.IsReclaimed))
+	}
+	if searchOptions.IsPublic != nil {
+		builder.AddQuery("is_public", fmt.Sprint(*searchOptions.IsPublic))
+	}
+	if searchOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*searchOptions.ImpersonateUser))
+	}
+	if searchOptions.CanTag != nil {
+		builder.AddQuery("can_tag", fmt.Sprint(*searchOptions.CanTag))
+	}
+	if searchOptions.IsHidden != nil {
+		builder.AddQuery("is_hidden", fmt.Sprint(*searchOptions.IsHidden))
 	}
 
 	body := make(map[string]interface{})
@@ -267,14 +287,17 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	return
 }
 
-// GetSupportedTypes : DEPRECATED. Get all GhoST indices
-// Retrieves a list of all GhoST indices.
+// GetSupportedTypes : DEPRECATED. Get all GhoST indexes
+// Retrieves a list of all GhoST indexes.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
 	return globalSearch.GetSupportedTypesWithContext(context.Background(), getSupportedTypesOptions)
 }
 
 // GetSupportedTypesWithContext is an alternate form of the GetSupportedTypes method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (globalSearch *GlobalSearchV2) GetSupportedTypesWithContext(ctx context.Context, getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: GetSupportedTypes")
 	err = core.ValidateStruct(getSupportedTypesOptions, "getSupportedTypesOptions")
 	if err != nil {
 		return
@@ -337,10 +360,11 @@ func (options *GetSupportedTypesOptions) SetHeaders(param map[string]string) *Ge
 	return options
 }
 
-// ResultItem : A resource returned in a search result.
+// ResultItem : A resource returned in a search result, which is identified by its `crn`. It contains other properties that depend on
+// the resource type.
 type ResultItem struct {
 	// Resource identifier in CRN format.
-	CRN *string `json:"crn,omitempty"`
+	CRN *string `json:"crn" validate:"required"`
 
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]interface{}
@@ -352,6 +376,14 @@ func (o *ResultItem) SetProperty(key string, value interface{}) {
 		o.additionalProperties = make(map[string]interface{})
 	}
 	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResultItem
+func (o *ResultItem) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
 }
 
 // GetProperty allows the user to retrieve an arbitrary property from an instance of ResultItem
@@ -403,13 +435,13 @@ func UnmarshalResultItem(m map[string]json.RawMessage, result interface{}) (err 
 // ScanResult : The search scan response.
 type ScanResult struct {
 	// The search cursor to use on all calls after the first one.
-	SearchCursor *string `json:"search_cursor" validate:"required"`
+	SearchCursor *string `json:"search_cursor,omitempty"`
 
 	// Value of the limit parameter specified by the user.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit" validate:"required"`
 
-	// The array of results. Each item represents a resource. An empty array signals the end of the result set, there are
-	// no more hits to fetch.
+	// The array of results. Each item represents a resource. An empty array signals the end of the result set, which means
+	// there are no more results to fetch.
 	Items []ResultItem `json:"items" validate:"required"`
 }
 
@@ -435,34 +467,122 @@ func UnmarshalScanResult(m map[string]json.RawMessage, result interface{}) (err 
 // SearchOptions : The Search options.
 type SearchOptions struct {
 	// The Lucene-formatted query string. Default to '*' if not set.
-	Query *string
+	Query *string `json:"query,omitempty"`
 
-	// The list of the fields returned by the search. Defaults to all. `crn` is always returned.
-	Fields []string
+	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
+	// `family`, and `crn`. For all queries, `crn` is always returned.
+	Fields []string `json:"fields,omitempty"`
 
-	// An opaque search cursor that is returned on each operation call and that must be set on next call.
-	SearchCursor *string
+	// An opaque cursor that is returned on each call and that must be set on the subsequent call to get the next batch of
+	// items. If the search returns no items, then the search_cursor is not present in the response.
+	SearchCursor *string `json:"search_cursor,omitempty"`
 
-	// An aplhanumeric string that can be used to trace a request across services. If not specified it will be
-	// automatically generated with the prefix "gst-".
-	TransactionID *string
+	// An alphanumeric string that can be used to trace a request across services. If not specified, it automatically
+	// generated with the prefix "gst-".
+	TransactionID *string `json:"transaction-id,omitempty"`
 
 	// The account ID to filter resources.
-	AccountID *string
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The boundary where the search performs. This parameter must be set only for the cross-account searches.
+	Boundary *string `json:"boundary,omitempty"`
 
 	// The maximum number of hits to return. Defaults to 10.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
-	// A search timeout, bounding the search request to be executed within the specified time value and bail with the hits
-	// accumulated up to that point when expired. Defaults to the system defined timeout.
-	Timeout *int64
+	// A search timeout in milliseconds, bounding the search request to run within the specified time value and bail with
+	// the hits accumulated up to that point when expired. Defaults to the system defined timeout.
+	Timeout *int64 `json:"timeout,omitempty"`
 
-	// Comma separated properties names used for sorting.
-	Sort []string
+	// Comma separated properties names that are used for sorting.
+	Sort []string `json:"sort,omitempty"`
+
+	// Determines if deleted documents should be included in result set or not. Possible values are false (default), true
+	// or any. If false, only existing documents are returned; if true, only deleted documents are returned; If any, both
+	// existing and deleted documents are returned. (_for administrators only_).
+	IsDeleted *string `json:"is_deleted,omitempty"`
+
+	// Determines if reclaimed documents should be included in result set or not. Possible values are false (default), true
+	// or any. If false, only not reclaimed documents are returned; if true, only reclaimed documents are returned; If any,
+	// both reclaimed and not reclaimed documents are returned.
+	IsReclaimed *string `json:"is_reclaimed,omitempty"`
+
+	// Determines if public resources should be included in result set or not. Possible values are false (default), true or
+	// any. If false, do not search public resources; if true, search only public resources; If any, search also public
+	// resources.
+	IsPublic *string `json:"is_public,omitempty"`
+
+	// The user on whose behalf the search must be performed. Only a GhoST admin can impersonate a user, so be sure you set
+	// a GhoST admin IAM token in the Authorization header if you set this parameter. (_for administrators only_).
+	ImpersonateUser *string `json:"impersonate_user,omitempty"`
+
+	// Determines if the result set must return the resources that the user can tag or the resources that the user can view
+	// (only a GhoST admin can use this parameter). If false (default), only resources user can view are returned; if true,
+	// only resources that user has permissions for tagging are returned (_for administrators only_).
+	CanTag *string `json:"can_tag,omitempty"`
+
+	// Determines if the result set must return only the visible resources or not. If false (default), only visible
+	// resources are returned; if true, only hidden resources are returned; if any, all resources are returned.
+	IsHidden *string `json:"is_hidden,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the SearchOptions.Boundary property.
+// The boundary where the search performs. This parameter must be set only for the cross-account searches.
+const (
+	SearchOptionsBoundaryGlobalConst = "global"
+	SearchOptionsBoundaryUsRegulatedConst = "us-regulated"
+)
+
+// Constants associated with the SearchOptions.IsDeleted property.
+// Determines if deleted documents should be included in result set or not. Possible values are false (default), true or
+// any. If false, only existing documents are returned; if true, only deleted documents are returned; If any, both
+// existing and deleted documents are returned. (_for administrators only_).
+const (
+	SearchOptionsIsDeletedAnyConst = "any"
+	SearchOptionsIsDeletedFalseConst = "false"
+	SearchOptionsIsDeletedTrueConst = "true"
+)
+
+// Constants associated with the SearchOptions.IsReclaimed property.
+// Determines if reclaimed documents should be included in result set or not. Possible values are false (default), true
+// or any. If false, only not reclaimed documents are returned; if true, only reclaimed documents are returned; If any,
+// both reclaimed and not reclaimed documents are returned.
+const (
+	SearchOptionsIsReclaimedAnyConst = "any"
+	SearchOptionsIsReclaimedFalseConst = "false"
+	SearchOptionsIsReclaimedTrueConst = "true"
+)
+
+// Constants associated with the SearchOptions.IsPublic property.
+// Determines if public resources should be included in result set or not. Possible values are false (default), true or
+// any. If false, do not search public resources; if true, search only public resources; If any, search also public
+// resources.
+const (
+	SearchOptionsIsPublicAnyConst = "any"
+	SearchOptionsIsPublicFalseConst = "false"
+	SearchOptionsIsPublicTrueConst = "true"
+)
+
+// Constants associated with the SearchOptions.CanTag property.
+// Determines if the result set must return the resources that the user can tag or the resources that the user can view
+// (only a GhoST admin can use this parameter). If false (default), only resources user can view are returned; if true,
+// only resources that user has permissions for tagging are returned (_for administrators only_).
+const (
+	SearchOptionsCanTagFalseConst = "false"
+	SearchOptionsCanTagTrueConst = "true"
+)
+
+// Constants associated with the SearchOptions.IsHidden property.
+// Determines if the result set must return only the visible resources or not. If false (default), only visible
+// resources are returned; if true, only hidden resources are returned; if any, all resources are returned.
+const (
+	SearchOptionsIsHiddenAnyConst = "any"
+	SearchOptionsIsHiddenFalseConst = "false"
+	SearchOptionsIsHiddenTrueConst = "true"
+)
 
 // NewSearchOptions : Instantiate SearchOptions
 func (*GlobalSearchV2) NewSearchOptions() *SearchOptions {
@@ -499,6 +619,12 @@ func (_options *SearchOptions) SetAccountID(accountID string) *SearchOptions {
 	return _options
 }
 
+// SetBoundary : Allow user to set Boundary
+func (_options *SearchOptions) SetBoundary(boundary string) *SearchOptions {
+	_options.Boundary = core.StringPtr(boundary)
+	return _options
+}
+
 // SetLimit : Allow user to set Limit
 func (_options *SearchOptions) SetLimit(limit int64) *SearchOptions {
 	_options.Limit = core.Int64Ptr(limit)
@@ -517,15 +643,51 @@ func (_options *SearchOptions) SetSort(sort []string) *SearchOptions {
 	return _options
 }
 
+// SetIsDeleted : Allow user to set IsDeleted
+func (_options *SearchOptions) SetIsDeleted(isDeleted string) *SearchOptions {
+	_options.IsDeleted = core.StringPtr(isDeleted)
+	return _options
+}
+
+// SetIsReclaimed : Allow user to set IsReclaimed
+func (_options *SearchOptions) SetIsReclaimed(isReclaimed string) *SearchOptions {
+	_options.IsReclaimed = core.StringPtr(isReclaimed)
+	return _options
+}
+
+// SetIsPublic : Allow user to set IsPublic
+func (_options *SearchOptions) SetIsPublic(isPublic string) *SearchOptions {
+	_options.IsPublic = core.StringPtr(isPublic)
+	return _options
+}
+
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (_options *SearchOptions) SetImpersonateUser(impersonateUser string) *SearchOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
+}
+
+// SetCanTag : Allow user to set CanTag
+func (_options *SearchOptions) SetCanTag(canTag string) *SearchOptions {
+	_options.CanTag = core.StringPtr(canTag)
+	return _options
+}
+
+// SetIsHidden : Allow user to set IsHidden
+func (_options *SearchOptions) SetIsHidden(isHidden string) *SearchOptions {
+	_options.IsHidden = core.StringPtr(isHidden)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *SearchOptions) SetHeaders(param map[string]string) *SearchOptions {
 	options.Headers = param
 	return options
 }
 
-// SupportedTypesList : A list of all GhoST indices.
+// SupportedTypesList : A list of all GhoST indexes.
 type SupportedTypesList struct {
-	// A list of all GhoST indices.
+	// A list of all GhoST indexes.
 	SupportedTypes []string `json:"supported_types,omitempty"`
 }
 
