@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
  */
 
 // Package enterprisebillingunitsv1 : Operations and models for the EnterpriseBillingUnitsV1 service
@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -36,7 +37,7 @@ import (
 
 // EnterpriseBillingUnitsV1 : Billing units for IBM Cloud enterprises
 //
-// Version: 1.0.0
+// API Version: 1.0.0
 type EnterpriseBillingUnitsV1 struct {
 	Service *core.BaseService
 }
@@ -209,11 +210,13 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) GetBillingUnitWithContex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingUnit)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingUnit)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -259,6 +262,12 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) ListBillingUnitsWithCont
 	if listBillingUnitsOptions.AccountGroupID != nil {
 		builder.AddQuery("account_group_id", fmt.Sprint(*listBillingUnitsOptions.AccountGroupID))
 	}
+	if listBillingUnitsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listBillingUnitsOptions.Limit))
+	}
+	if listBillingUnitsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listBillingUnitsOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -270,11 +279,13 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) ListBillingUnitsWithCont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingUnitsList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingUnitsList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -316,6 +327,12 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) ListBillingOptionsWithCo
 	builder.AddHeader("Accept", "application/json")
 
 	builder.AddQuery("billing_unit_id", fmt.Sprint(*listBillingOptionsOptions.BillingUnitID))
+	if listBillingOptionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listBillingOptionsOptions.Limit))
+	}
+	if listBillingOptionsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listBillingOptionsOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -327,11 +344,13 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) ListBillingOptionsWithCo
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingOptionsList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBillingOptionsList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -380,6 +399,12 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) GetCreditPoolsWithContex
 	if getCreditPoolsOptions.Type != nil {
 		builder.AddQuery("type", fmt.Sprint(*getCreditPoolsOptions.Type))
 	}
+	if getCreditPoolsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*getCreditPoolsOptions.Limit))
+	}
+	if getCreditPoolsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*getCreditPoolsOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -391,11 +416,13 @@ func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) GetCreditPoolsWithContex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreditPoolsList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreditPoolsList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -446,15 +473,15 @@ type BillingOption struct {
 // Constants associated with the BillingOption.State property.
 // The state of the billing option. The valid values include `ACTIVE, `SUSPENDED`, and `CANCELED`.
 const (
-	BillingOptionStateActiveConst    = "ACTIVE"
-	BillingOptionStateCanceledConst  = "CANCELED"
+	BillingOptionStateActiveConst = "ACTIVE"
+	BillingOptionStateCanceledConst = "CANCELED"
 	BillingOptionStateSuspendedConst = "SUSPENDED"
 )
 
 // Constants associated with the BillingOption.Type property.
 // The type of billing option. The valid values are `SUBSCRIPTION` and `OFFER`.
 const (
-	BillingOptionTypeOfferConst        = "OFFER"
+	BillingOptionTypeOfferConst = "OFFER"
 	BillingOptionTypeSubscriptionConst = "SUBSCRIPTION"
 )
 
@@ -462,8 +489,8 @@ const (
 // The category of the billing option. The valid values are `PLATFORM`, `SERVICE`, and `SUPPORT`.
 const (
 	BillingOptionCategoryPlatformConst = "PLATFORM"
-	BillingOptionCategoryServiceConst  = "SERVICE"
-	BillingOptionCategorySupportConst  = "SUPPORT"
+	BillingOptionCategoryServiceConst = "SERVICE"
+	BillingOptionCategorySupportConst = "SUPPORT"
 )
 
 // UnmarshalBillingOption unmarshals an instance of BillingOption from the specified map of raw messages.
@@ -554,6 +581,23 @@ func UnmarshalBillingOptionsList(m map[string]json.RawMessage, result interface{
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *BillingOptionsList) GetNextStart() (*int64, error) {
+	if core.IsNil(resp.NextURL) {
+		return nil, nil
+	}
+	start, err := core.GetQueryParam(resp.NextURL, "start")
+	if err != nil || start == nil {
+		return nil, err
+	}
+	var startValue int64
+	startValue, err = strconv.ParseInt(*start, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(startValue), nil
 }
 
 // BillingUnit : Information about a billing unit.
@@ -653,6 +697,23 @@ func UnmarshalBillingUnitsList(m map[string]json.RawMessage, result interface{})
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *BillingUnitsList) GetNextStart() (*int64, error) {
+	if core.IsNil(resp.NextURL) {
+		return nil, nil
+	}
+	start, err := core.GetQueryParam(resp.NextURL, "start")
+	if err != nil || start == nil {
+		return nil, err
+	}
+	var startValue int64
+	startValue, err = strconv.ParseInt(*start, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(startValue), nil
+}
+
 // CreditPool : The credit pool for a billing unit.
 type CreditPool struct {
 	// The type of credit, either `PLATFORM` or `SUPPORT`.
@@ -676,7 +737,7 @@ type CreditPool struct {
 // The type of credit, either `PLATFORM` or `SUPPORT`.
 const (
 	CreditPoolTypePlatformConst = "PLATFORM"
-	CreditPoolTypeSupportConst  = "SUPPORT"
+	CreditPoolTypeSupportConst = "SUPPORT"
 )
 
 // UnmarshalCreditPool unmarshals an instance of CreditPool from the specified map of raw messages.
@@ -762,6 +823,23 @@ func UnmarshalCreditPoolsList(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *CreditPoolsList) GetNextStart() (*int64, error) {
+	if core.IsNil(resp.NextURL) {
+		return nil, nil
+	}
+	start, err := core.GetQueryParam(resp.NextURL, "start")
+	if err != nil || start == nil {
+		return nil, err
+	}
+	var startValue int64
+	startValue, err = strconv.ParseInt(*start, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(startValue), nil
+}
+
 // GetBillingUnitOptions : The GetBillingUnit options.
 type GetBillingUnitOptions struct {
 	// The ID of the requested billing unit.
@@ -779,9 +857,9 @@ func (*EnterpriseBillingUnitsV1) NewGetBillingUnitOptions(billingUnitID string) 
 }
 
 // SetBillingUnitID : Allow user to set BillingUnitID
-func (options *GetBillingUnitOptions) SetBillingUnitID(billingUnitID string) *GetBillingUnitOptions {
-	options.BillingUnitID = core.StringPtr(billingUnitID)
-	return options
+func (_options *GetBillingUnitOptions) SetBillingUnitID(billingUnitID string) *GetBillingUnitOptions {
+	_options.BillingUnitID = core.StringPtr(billingUnitID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -801,6 +879,12 @@ type GetCreditPoolsOptions struct {
 	// Filters the credit pool by type, either `PLATFORM` or `SUPPORT`.
 	Type *string `json:"type,omitempty"`
 
+	// Return results up to this limit. Valid values are between 0 and 100.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The pagination offset. This will be the index of the first returned result.
+	Start *int64 `json:"start,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -813,21 +897,33 @@ func (*EnterpriseBillingUnitsV1) NewGetCreditPoolsOptions(billingUnitID string) 
 }
 
 // SetBillingUnitID : Allow user to set BillingUnitID
-func (options *GetCreditPoolsOptions) SetBillingUnitID(billingUnitID string) *GetCreditPoolsOptions {
-	options.BillingUnitID = core.StringPtr(billingUnitID)
-	return options
+func (_options *GetCreditPoolsOptions) SetBillingUnitID(billingUnitID string) *GetCreditPoolsOptions {
+	_options.BillingUnitID = core.StringPtr(billingUnitID)
+	return _options
 }
 
 // SetDate : Allow user to set Date
-func (options *GetCreditPoolsOptions) SetDate(date string) *GetCreditPoolsOptions {
-	options.Date = core.StringPtr(date)
-	return options
+func (_options *GetCreditPoolsOptions) SetDate(date string) *GetCreditPoolsOptions {
+	_options.Date = core.StringPtr(date)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *GetCreditPoolsOptions) SetType(typeVar string) *GetCreditPoolsOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *GetCreditPoolsOptions) SetType(typeVar string) *GetCreditPoolsOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *GetCreditPoolsOptions) SetLimit(limit int64) *GetCreditPoolsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *GetCreditPoolsOptions) SetStart(start int64) *GetCreditPoolsOptions {
+	_options.Start = core.Int64Ptr(start)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -841,6 +937,12 @@ type ListBillingOptionsOptions struct {
 	// The billing unit ID.
 	BillingUnitID *string `json:"billing_unit_id" validate:"required"`
 
+	// Return results up to this limit. Valid values are between 0 and 100.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The pagination offset. This will be the index of the first returned result.
+	Start *int64 `json:"start,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -853,9 +955,21 @@ func (*EnterpriseBillingUnitsV1) NewListBillingOptionsOptions(billingUnitID stri
 }
 
 // SetBillingUnitID : Allow user to set BillingUnitID
-func (options *ListBillingOptionsOptions) SetBillingUnitID(billingUnitID string) *ListBillingOptionsOptions {
-	options.BillingUnitID = core.StringPtr(billingUnitID)
-	return options
+func (_options *ListBillingOptionsOptions) SetBillingUnitID(billingUnitID string) *ListBillingOptionsOptions {
+	_options.BillingUnitID = core.StringPtr(billingUnitID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListBillingOptionsOptions) SetLimit(limit int64) *ListBillingOptionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListBillingOptionsOptions) SetStart(start int64) *ListBillingOptionsOptions {
+	_options.Start = core.Int64Ptr(start)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -875,6 +989,12 @@ type ListBillingUnitsOptions struct {
 	// The account group ID.
 	AccountGroupID *string `json:"account_group_id,omitempty"`
 
+	// Return results up to this limit. Valid values are between 0 and 100.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The pagination offset. This will be the index of the first returned result.
+	Start *int64 `json:"start,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -885,21 +1005,33 @@ func (*EnterpriseBillingUnitsV1) NewListBillingUnitsOptions() *ListBillingUnitsO
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListBillingUnitsOptions) SetAccountID(accountID string) *ListBillingUnitsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListBillingUnitsOptions) SetAccountID(accountID string) *ListBillingUnitsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetEnterpriseID : Allow user to set EnterpriseID
-func (options *ListBillingUnitsOptions) SetEnterpriseID(enterpriseID string) *ListBillingUnitsOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
+func (_options *ListBillingUnitsOptions) SetEnterpriseID(enterpriseID string) *ListBillingUnitsOptions {
+	_options.EnterpriseID = core.StringPtr(enterpriseID)
+	return _options
 }
 
 // SetAccountGroupID : Allow user to set AccountGroupID
-func (options *ListBillingUnitsOptions) SetAccountGroupID(accountGroupID string) *ListBillingUnitsOptions {
-	options.AccountGroupID = core.StringPtr(accountGroupID)
-	return options
+func (_options *ListBillingUnitsOptions) SetAccountGroupID(accountGroupID string) *ListBillingUnitsOptions {
+	_options.AccountGroupID = core.StringPtr(accountGroupID)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListBillingUnitsOptions) SetLimit(limit int64) *ListBillingUnitsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *ListBillingUnitsOptions) SetStart(start int64) *ListBillingUnitsOptions {
+	_options.Start = core.Int64Ptr(start)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -943,10 +1075,10 @@ type TermCredits struct {
 // The category of the credit pool. The valid values are `PLATFORM`, `OFFER`, or `SERVICE` for platform credit and
 // `SUPPORT` for support credit.
 const (
-	TermCreditsCategoryOfferConst    = "OFFER"
+	TermCreditsCategoryOfferConst = "OFFER"
 	TermCreditsCategoryPlatformConst = "PLATFORM"
-	TermCreditsCategoryServiceConst  = "SERVICE"
-	TermCreditsCategorySupportConst  = "SUPPORT"
+	TermCreditsCategoryServiceConst = "SERVICE"
+	TermCreditsCategorySupportConst = "SUPPORT"
 )
 
 // UnmarshalTermCredits unmarshals an instance of TermCredits from the specified map of raw messages.
@@ -990,4 +1122,265 @@ func UnmarshalTermCredits(m map[string]json.RawMessage, result interface{}) (err
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// BillingUnitsPager can be used to simplify the use of the "ListBillingUnits" method.
+//
+type BillingUnitsPager struct {
+	hasNext bool
+	options *ListBillingUnitsOptions
+	client  *EnterpriseBillingUnitsV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewBillingUnitsPager returns a new BillingUnitsPager instance.
+func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewBillingUnitsPager(options *ListBillingUnitsOptions) (pager *BillingUnitsPager, err error) {
+	if options.Start != nil && *options.Start != 0 {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListBillingUnitsOptions = *options
+	pager = &BillingUnitsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  enterpriseBillingUnits,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *BillingUnitsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *BillingUnitsPager) GetNextWithContext(ctx context.Context) (page []BillingUnit, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListBillingUnitsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.NextURL != nil {
+		var start *int64
+		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
+			return
+		}
+		next = start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *BillingUnitsPager) GetAllWithContext(ctx context.Context) (allItems []BillingUnit, err error) {
+	for pager.HasNext() {
+		var nextPage []BillingUnit
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *BillingUnitsPager) GetNext() (page []BillingUnit, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *BillingUnitsPager) GetAll() (allItems []BillingUnit, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// BillingOptionsPager can be used to simplify the use of the "ListBillingOptions" method.
+//
+type BillingOptionsPager struct {
+	hasNext bool
+	options *ListBillingOptionsOptions
+	client  *EnterpriseBillingUnitsV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewBillingOptionsPager returns a new BillingOptionsPager instance.
+func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewBillingOptionsPager(options *ListBillingOptionsOptions) (pager *BillingOptionsPager, err error) {
+	if options.Start != nil && *options.Start != 0 {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListBillingOptionsOptions = *options
+	pager = &BillingOptionsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  enterpriseBillingUnits,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *BillingOptionsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *BillingOptionsPager) GetNextWithContext(ctx context.Context) (page []BillingOption, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListBillingOptionsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.NextURL != nil {
+		var start *int64
+		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
+			return
+		}
+		next = start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *BillingOptionsPager) GetAllWithContext(ctx context.Context) (allItems []BillingOption, err error) {
+	for pager.HasNext() {
+		var nextPage []BillingOption
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *BillingOptionsPager) GetNext() (page []BillingOption, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *BillingOptionsPager) GetAll() (allItems []BillingOption, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// GetCreditPoolsPager can be used to simplify the use of the "GetCreditPools" method.
+//
+type GetCreditPoolsPager struct {
+	hasNext bool
+	options *GetCreditPoolsOptions
+	client  *EnterpriseBillingUnitsV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewGetCreditPoolsPager returns a new GetCreditPoolsPager instance.
+func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewGetCreditPoolsPager(options *GetCreditPoolsOptions) (pager *GetCreditPoolsPager, err error) {
+	if options.Start != nil && *options.Start != 0 {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy GetCreditPoolsOptions = *options
+	pager = &GetCreditPoolsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  enterpriseBillingUnits,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetCreditPoolsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetCreditPoolsPager) GetNextWithContext(ctx context.Context) (page []CreditPool, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.GetCreditPoolsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.NextURL != nil {
+		var start *int64
+		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
+			return
+		}
+		next = start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetCreditPoolsPager) GetAllWithContext(ctx context.Context) (allItems []CreditPool, err error) {
+	for pager.HasNext() {
+		var nextPage []CreditPool
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetCreditPoolsPager) GetNext() (page []CreditPool, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetCreditPoolsPager) GetAll() (allItems []CreditPool, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
