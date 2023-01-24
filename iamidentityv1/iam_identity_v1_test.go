@@ -6095,7 +6095,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "2592000"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -6151,7 +6151,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "2592000"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -6275,6 +6275,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6283,9 +6288,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("2592000")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
@@ -6340,7 +6348,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "2592000"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully with retries`, func() {
@@ -6352,6 +6360,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(iamIdentityService).ToNot(BeNil())
 				iamIdentityService.EnableRetries(0, 0)
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6360,9 +6373,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("2592000")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6420,7 +6436,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "2592000"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully`, func() {
@@ -6437,6 +6453,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6445,9 +6466,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("2592000")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6465,6 +6489,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6473,9 +6502,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("2592000")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -6514,6 +6546,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6522,9 +6559,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("2592000")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6990,6 +7030,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 			iamIdentityService, _ := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
 				URL:           "http://iamidentityv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewAccountSettingsUserMfa successfully`, func() {
+				iamID := "testString"
+				mfa := "NONE"
+				_model, err := iamIdentityService.NewAccountSettingsUserMfa(iamID, mfa)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewAPIKeyInsideCreateServiceIDRequest successfully`, func() {
 				name := "testString"
@@ -7474,6 +7521,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(unlockServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAccountSettingsOptions successfully`, func() {
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				Expect(accountSettingsUserMfaModel).ToNot(BeNil())
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+				Expect(accountSettingsUserMfaModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsUserMfaModel.Mfa).To(Equal(core.StringPtr("NONE")))
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				ifMatch := "testString"
 				accountID := "testString"
@@ -7484,9 +7539,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.SetRestrictCreatePlatformApikey("RESTRICTED")
 				updateAccountSettingsOptionsModel.SetAllowedIPAddresses("testString")
 				updateAccountSettingsOptionsModel.SetMfa("NONE")
+				updateAccountSettingsOptionsModel.SetUserMfa([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel})
 				updateAccountSettingsOptionsModel.SetSessionExpirationInSeconds("86400")
 				updateAccountSettingsOptionsModel.SetSessionInvalidationInSeconds("7200")
 				updateAccountSettingsOptionsModel.SetMaxSessionsPerIdentity("testString")
+				updateAccountSettingsOptionsModel.SetSystemAccessTokenExpirationInSeconds("3600")
+				updateAccountSettingsOptionsModel.SetSystemRefreshTokenExpirationInSeconds("2592000")
 				updateAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAccountSettingsOptionsModel).ToNot(BeNil())
 				Expect(updateAccountSettingsOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
@@ -7495,9 +7553,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey).To(Equal(core.StringPtr("RESTRICTED")))
 				Expect(updateAccountSettingsOptionsModel.AllowedIPAddresses).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.Mfa).To(Equal(core.StringPtr("NONE")))
+				Expect(updateAccountSettingsOptionsModel.UserMfa).To(Equal([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}))
 				Expect(updateAccountSettingsOptionsModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("86400")))
 				Expect(updateAccountSettingsOptionsModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("7200")))
 				Expect(updateAccountSettingsOptionsModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
+				Expect(updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("2592000")))
 				Expect(updateAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAPIKeyOptions successfully`, func() {

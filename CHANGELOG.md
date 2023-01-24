@@ -1,3 +1,31 @@
+## [0.31.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.2...v0.31.3) (2023-01-17)
+
+
+### Bug Fixes
+
+* **Global Search & Tagging:** regen services with latest API definition ([#228](https://github.com/IBM/platform-services-go-sdk/issues/228)) ([a76ab70](https://github.com/IBM/platform-services-go-sdk/commit/a76ab709d33688c5b0f921695e1ba2a1e76eed10))
+
+## [0.31.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.1...v0.31.2) (2022-12-19)
+
+
+### Bug Fixes
+
+* **Activity Tracker v2:** add message field Settings struct ([#226](https://github.com/IBM/platform-services-go-sdk/issues/226)) ([ccf59a3](https://github.com/IBM/platform-services-go-sdk/commit/ccf59a35034e93852783cf7bf55ff14edfdeac4b))
+
+## [0.31.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.0...v0.31.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **Usage Reports:** rename Account_Summary billing_month property ([#222](https://github.com/IBM/platform-services-go-sdk/issues/222)) ([8d3a404](https://github.com/IBM/platform-services-go-sdk/commit/8d3a404f3283533302324cea3217ebf703ae2d15))
+
+# [0.31.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.30.0...v0.31.0) (2022-11-23)
+
+
+### Features
+
+* **IAM Identity:** adding userExpm list and token lifetime ([#221](https://github.com/IBM/platform-services-go-sdk/issues/221)) ([c9d55a8](https://github.com/IBM/platform-services-go-sdk/commit/c9d55a8d93f32a3195986b946a9c9f883103e086))
+
 # [0.30.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.5...v0.30.0) (2022-11-17)
 
 
