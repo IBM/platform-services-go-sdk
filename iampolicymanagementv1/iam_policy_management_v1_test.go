@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -886,15 +886,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdatePolicy(updatePolicyOptions *UpdatePolicyOptions) - Operation response error`, func() {
-		updatePolicyPath := "/v1/policies/testString"
+	Describe(`ReplacePolicy(replacePolicyOptions *ReplacePolicyOptions) - Operation response error`, func() {
+		replacePolicyPath := "/v1/policies/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replacePolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -903,7 +903,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke UpdatePolicy with error: Operation response processing error`, func() {
+			It(`Invoke ReplacePolicy with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -941,25 +941,25 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 				policyResourceModel.Tags = []iampolicymanagementv1.ResourceTag{*resourceTagModel}
 
-				// Construct an instance of the UpdatePolicyOptions model
-				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
-				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Description = core.StringPtr("testString")
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplacePolicyOptions model
+				replacePolicyOptionsModel := new(iampolicymanagementv1.ReplacePolicyOptions)
+				replacePolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				replacePolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replacePolicyOptionsModel.Type = core.StringPtr("testString")
+				replacePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				replacePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				replacePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
+				replacePolicyOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -969,15 +969,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdatePolicy(updatePolicyOptions *UpdatePolicyOptions)`, func() {
-		updatePolicyPath := "/v1/policies/testString"
+	Describe(`ReplacePolicy(replacePolicyOptions *ReplacePolicyOptions)`, func() {
+		replacePolicyPath := "/v1/policies/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replacePolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1007,7 +1007,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
 				}))
 			})
-			It(`Invoke UpdatePolicy successfully with retries`, func() {
+			It(`Invoke ReplacePolicy successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1046,27 +1046,27 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 				policyResourceModel.Tags = []iampolicymanagementv1.ResourceTag{*resourceTagModel}
 
-				// Construct an instance of the UpdatePolicyOptions model
-				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
-				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Description = core.StringPtr("testString")
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplacePolicyOptions model
+				replacePolicyOptionsModel := new(iampolicymanagementv1.ReplacePolicyOptions)
+				replacePolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				replacePolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replacePolicyOptionsModel.Type = core.StringPtr("testString")
+				replacePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				replacePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				replacePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
+				replacePolicyOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.UpdatePolicyWithContext(ctx, updatePolicyOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.ReplacePolicyWithContext(ctx, replacePolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1074,7 +1074,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.UpdatePolicyWithContext(ctx, updatePolicyOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.ReplacePolicyWithContext(ctx, replacePolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1088,7 +1088,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replacePolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1115,7 +1115,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
 				}))
 			})
-			It(`Invoke UpdatePolicy successfully`, func() {
+			It(`Invoke ReplacePolicy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1124,7 +1124,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(nil)
+				result, response, operationErr := iamPolicyManagementService.ReplacePolicy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1159,25 +1159,25 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 				policyResourceModel.Tags = []iampolicymanagementv1.ResourceTag{*resourceTagModel}
 
-				// Construct an instance of the UpdatePolicyOptions model
-				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
-				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Description = core.StringPtr("testString")
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplacePolicyOptions model
+				replacePolicyOptionsModel := new(iampolicymanagementv1.ReplacePolicyOptions)
+				replacePolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				replacePolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replacePolicyOptionsModel.Type = core.StringPtr("testString")
+				replacePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				replacePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				replacePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
+				replacePolicyOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke UpdatePolicy with error: Operation validation and request error`, func() {
+			It(`Invoke ReplacePolicy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1215,28 +1215,28 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 				policyResourceModel.Tags = []iampolicymanagementv1.ResourceTag{*resourceTagModel}
 
-				// Construct an instance of the UpdatePolicyOptions model
-				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
-				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Description = core.StringPtr("testString")
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplacePolicyOptions model
+				replacePolicyOptionsModel := new(iampolicymanagementv1.ReplacePolicyOptions)
+				replacePolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				replacePolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replacePolicyOptionsModel.Type = core.StringPtr("testString")
+				replacePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				replacePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				replacePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
+				replacePolicyOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdatePolicyOptions model with no property values
-				updatePolicyOptionsModelNew := new(iampolicymanagementv1.UpdatePolicyOptions)
+				// Construct a second instance of the ReplacePolicyOptions model with no property values
+				replacePolicyOptionsModelNew := new(iampolicymanagementv1.ReplacePolicyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1254,7 +1254,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke UpdatePolicy successfully`, func() {
+			It(`Invoke ReplacePolicy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1292,19 +1292,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 				policyResourceModel.Tags = []iampolicymanagementv1.ResourceTag{*resourceTagModel}
 
-				// Construct an instance of the UpdatePolicyOptions model
-				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
-				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Description = core.StringPtr("testString")
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplacePolicyOptions model
+				replacePolicyOptionsModel := new(iampolicymanagementv1.ReplacePolicyOptions)
+				replacePolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				replacePolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replacePolicyOptionsModel.Type = core.StringPtr("testString")
+				replacePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				replacePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				replacePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
+				replacePolicyOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplacePolicy(replacePolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1596,15 +1596,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`PatchPolicy(patchPolicyOptions *PatchPolicyOptions) - Operation response error`, func() {
-		patchPolicyPath := "/v1/policies/testString"
+	Describe(`UpdatePolicyState(updatePolicyStateOptions *UpdatePolicyStateOptions) - Operation response error`, func() {
+		updatePolicyStatePath := "/v1/policies/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyStatePath))
 					Expect(req.Method).To(Equal("PATCH"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1613,7 +1613,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke PatchPolicy with error: Operation response processing error`, func() {
+			It(`Invoke UpdatePolicyState with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1621,21 +1621,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the PatchPolicyOptions model
-				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
-				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				patchPolicyOptionsModel.State = core.StringPtr("active")
-				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdatePolicyStateOptions model
+				updatePolicyStateOptionsModel := new(iampolicymanagementv1.UpdatePolicyStateOptions)
+				updatePolicyStateOptionsModel.PolicyID = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.IfMatch = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.State = core.StringPtr("active")
+				updatePolicyStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1645,15 +1645,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`PatchPolicy(patchPolicyOptions *PatchPolicyOptions)`, func() {
-		patchPolicyPath := "/v1/policies/testString"
+	Describe(`UpdatePolicyState(updatePolicyStateOptions *UpdatePolicyStateOptions)`, func() {
+		updatePolicyStatePath := "/v1/policies/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyStatePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1683,7 +1683,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
 				}))
 			})
-			It(`Invoke PatchPolicy successfully with retries`, func() {
+			It(`Invoke UpdatePolicyState successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1692,23 +1692,23 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				iamPolicyManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the PatchPolicyOptions model
-				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
-				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				patchPolicyOptionsModel.State = core.StringPtr("active")
-				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdatePolicyStateOptions model
+				updatePolicyStateOptionsModel := new(iampolicymanagementv1.UpdatePolicyStateOptions)
+				updatePolicyStateOptionsModel.PolicyID = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.IfMatch = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.State = core.StringPtr("active")
+				updatePolicyStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.PatchPolicyWithContext(ctx, patchPolicyOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.UpdatePolicyStateWithContext(ctx, updatePolicyStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1716,7 +1716,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.PatchPolicyWithContext(ctx, patchPolicyOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.UpdatePolicyStateWithContext(ctx, updatePolicyStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1730,7 +1730,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyStatePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1757,7 +1757,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
 				}))
 			})
-			It(`Invoke PatchPolicy successfully`, func() {
+			It(`Invoke UpdatePolicyState successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1766,26 +1766,26 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.PatchPolicy(nil)
+				result, response, operationErr := iamPolicyManagementService.UpdatePolicyState(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the PatchPolicyOptions model
-				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
-				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				patchPolicyOptionsModel.State = core.StringPtr("active")
-				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdatePolicyStateOptions model
+				updatePolicyStateOptionsModel := new(iampolicymanagementv1.UpdatePolicyStateOptions)
+				updatePolicyStateOptionsModel.PolicyID = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.IfMatch = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.State = core.StringPtr("active")
+				updatePolicyStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke PatchPolicy with error: Operation validation and request error`, func() {
+			It(`Invoke UpdatePolicyState with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1793,24 +1793,24 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the PatchPolicyOptions model
-				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
-				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				patchPolicyOptionsModel.State = core.StringPtr("active")
-				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdatePolicyStateOptions model
+				updatePolicyStateOptionsModel := new(iampolicymanagementv1.UpdatePolicyStateOptions)
+				updatePolicyStateOptionsModel.PolicyID = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.IfMatch = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.State = core.StringPtr("active")
+				updatePolicyStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the PatchPolicyOptions model with no property values
-				patchPolicyOptionsModelNew := new(iampolicymanagementv1.PatchPolicyOptions)
+				// Construct a second instance of the UpdatePolicyStateOptions model with no property values
+				updatePolicyStateOptionsModelNew := new(iampolicymanagementv1.UpdatePolicyStateOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1828,7 +1828,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke PatchPolicy successfully`, func() {
+			It(`Invoke UpdatePolicyState successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1836,15 +1836,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the PatchPolicyOptions model
-				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
-				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				patchPolicyOptionsModel.State = core.StringPtr("active")
-				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdatePolicyStateOptions model
+				updatePolicyStateOptionsModel := new(iampolicymanagementv1.UpdatePolicyStateOptions)
+				updatePolicyStateOptionsModel.PolicyID = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.IfMatch = core.StringPtr("testString")
+				updatePolicyStateOptionsModel.State = core.StringPtr("active")
+				updatePolicyStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.UpdatePolicyState(updatePolicyStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2379,15 +2379,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdateRole(updateRoleOptions *UpdateRoleOptions) - Operation response error`, func() {
-		updateRolePath := "/v2/roles/testString"
+	Describe(`ReplaceRole(replaceRoleOptions *ReplaceRoleOptions) - Operation response error`, func() {
+		replaceRolePath := "/v2/roles/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateRolePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRolePath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -2396,7 +2396,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke UpdateRole with error: Operation response processing error`, func() {
+			It(`Invoke ReplaceRole with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2404,23 +2404,23 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the UpdateRoleOptions model
-				updateRoleOptionsModel := new(iampolicymanagementv1.UpdateRoleOptions)
-				updateRoleOptionsModel.RoleID = core.StringPtr("testString")
-				updateRoleOptionsModel.IfMatch = core.StringPtr("testString")
-				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				updateRoleOptionsModel.Description = core.StringPtr("testString")
-				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceRoleOptions model
+				replaceRoleOptionsModel := new(iampolicymanagementv1.ReplaceRoleOptions)
+				replaceRoleOptionsModel.RoleID = core.StringPtr("testString")
+				replaceRoleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				replaceRoleOptionsModel.Actions = []string{"testString"}
+				replaceRoleOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2430,15 +2430,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdateRole(updateRoleOptions *UpdateRoleOptions)`, func() {
-		updateRolePath := "/v2/roles/testString"
+	Describe(`ReplaceRole(replaceRoleOptions *ReplaceRoleOptions)`, func() {
+		replaceRolePath := "/v2/roles/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateRolePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRolePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -2468,7 +2468,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "CRN", "name": "Developer", "account_id": "AccountID", "service_name": "iam-groups", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
 				}))
 			})
-			It(`Invoke UpdateRole successfully with retries`, func() {
+			It(`Invoke ReplaceRole successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2477,25 +2477,25 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				iamPolicyManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the UpdateRoleOptions model
-				updateRoleOptionsModel := new(iampolicymanagementv1.UpdateRoleOptions)
-				updateRoleOptionsModel.RoleID = core.StringPtr("testString")
-				updateRoleOptionsModel.IfMatch = core.StringPtr("testString")
-				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				updateRoleOptionsModel.Description = core.StringPtr("testString")
-				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceRoleOptions model
+				replaceRoleOptionsModel := new(iampolicymanagementv1.ReplaceRoleOptions)
+				replaceRoleOptionsModel.RoleID = core.StringPtr("testString")
+				replaceRoleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				replaceRoleOptionsModel.Actions = []string{"testString"}
+				replaceRoleOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.UpdateRoleWithContext(ctx, updateRoleOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.ReplaceRoleWithContext(ctx, replaceRoleOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2503,7 +2503,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.UpdateRoleWithContext(ctx, updateRoleOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.ReplaceRoleWithContext(ctx, replaceRoleOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2517,7 +2517,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateRolePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceRolePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -2544,7 +2544,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "CRN", "name": "Developer", "account_id": "AccountID", "service_name": "iam-groups", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
 				}))
 			})
-			It(`Invoke UpdateRole successfully`, func() {
+			It(`Invoke ReplaceRole successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2553,28 +2553,28 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.UpdateRole(nil)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRole(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the UpdateRoleOptions model
-				updateRoleOptionsModel := new(iampolicymanagementv1.UpdateRoleOptions)
-				updateRoleOptionsModel.RoleID = core.StringPtr("testString")
-				updateRoleOptionsModel.IfMatch = core.StringPtr("testString")
-				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				updateRoleOptionsModel.Description = core.StringPtr("testString")
-				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceRoleOptions model
+				replaceRoleOptionsModel := new(iampolicymanagementv1.ReplaceRoleOptions)
+				replaceRoleOptionsModel.RoleID = core.StringPtr("testString")
+				replaceRoleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				replaceRoleOptionsModel.Actions = []string{"testString"}
+				replaceRoleOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke UpdateRole with error: Operation validation and request error`, func() {
+			It(`Invoke ReplaceRole with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2582,26 +2582,26 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the UpdateRoleOptions model
-				updateRoleOptionsModel := new(iampolicymanagementv1.UpdateRoleOptions)
-				updateRoleOptionsModel.RoleID = core.StringPtr("testString")
-				updateRoleOptionsModel.IfMatch = core.StringPtr("testString")
-				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				updateRoleOptionsModel.Description = core.StringPtr("testString")
-				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceRoleOptions model
+				replaceRoleOptionsModel := new(iampolicymanagementv1.ReplaceRoleOptions)
+				replaceRoleOptionsModel.RoleID = core.StringPtr("testString")
+				replaceRoleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				replaceRoleOptionsModel.Actions = []string{"testString"}
+				replaceRoleOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateRoleOptions model with no property values
-				updateRoleOptionsModelNew := new(iampolicymanagementv1.UpdateRoleOptions)
+				// Construct a second instance of the ReplaceRoleOptions model with no property values
+				replaceRoleOptionsModelNew := new(iampolicymanagementv1.ReplaceRoleOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.UpdateRole(updateRoleOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2619,7 +2619,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke UpdateRole successfully`, func() {
+			It(`Invoke ReplaceRole successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2627,17 +2627,17 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the UpdateRoleOptions model
-				updateRoleOptionsModel := new(iampolicymanagementv1.UpdateRoleOptions)
-				updateRoleOptionsModel.RoleID = core.StringPtr("testString")
-				updateRoleOptionsModel.IfMatch = core.StringPtr("testString")
-				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				updateRoleOptionsModel.Description = core.StringPtr("testString")
-				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceRoleOptions model
+				replaceRoleOptionsModel := new(iampolicymanagementv1.ReplaceRoleOptions)
+				replaceRoleOptionsModel.RoleID = core.StringPtr("testString")
+				replaceRoleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				replaceRoleOptionsModel.Actions = []string{"testString"}
+				replaceRoleOptionsModel.Description = core.StringPtr("testString")
+				replaceRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceRole(replaceRoleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2929,15 +2929,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2ListPolicies(v2ListPoliciesOptions *V2ListPoliciesOptions) - Operation response error`, func() {
-		v2ListPoliciesPath := "/v2/policies"
+	Describe(`ListV2Policies(listV2PoliciesOptions *ListV2PoliciesOptions) - Operation response error`, func() {
+		listV2PoliciesPath := "/v2/policies"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2ListPoliciesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listV2PoliciesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
@@ -2955,7 +2955,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke V2ListPolicies with error: Operation response processing error`, func() {
+			It(`Invoke ListV2Policies with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2963,28 +2963,28 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2ListPoliciesOptions model
-				v2ListPoliciesOptionsModel := new(iampolicymanagementv1.V2ListPoliciesOptions)
-				v2ListPoliciesOptionsModel.AccountID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2ListPoliciesOptionsModel.IamID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Type = core.StringPtr("access")
-				v2ListPoliciesOptionsModel.ServiceType = core.StringPtr("service")
-				v2ListPoliciesOptionsModel.ServiceName = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
-				v2ListPoliciesOptionsModel.State = core.StringPtr("active")
-				v2ListPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListV2PoliciesOptions model
+				listV2PoliciesOptionsModel := new(iampolicymanagementv1.ListV2PoliciesOptions)
+				listV2PoliciesOptionsModel.AccountID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listV2PoliciesOptionsModel.IamID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Type = core.StringPtr("access")
+				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
+				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
+				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2994,15 +2994,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2ListPolicies(v2ListPoliciesOptions *V2ListPoliciesOptions)`, func() {
-		v2ListPoliciesPath := "/v2/policies"
+	Describe(`ListV2Policies(listV2PoliciesOptions *ListV2PoliciesOptions)`, func() {
+		listV2PoliciesPath := "/v2/policies"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2ListPoliciesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listV2PoliciesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
@@ -3022,10 +3022,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}]}`)
 				}))
 			})
-			It(`Invoke V2ListPolicies successfully with retries`, func() {
+			It(`Invoke ListV2Policies successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3034,30 +3034,30 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				iamPolicyManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the V2ListPoliciesOptions model
-				v2ListPoliciesOptionsModel := new(iampolicymanagementv1.V2ListPoliciesOptions)
-				v2ListPoliciesOptionsModel.AccountID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2ListPoliciesOptionsModel.IamID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Type = core.StringPtr("access")
-				v2ListPoliciesOptionsModel.ServiceType = core.StringPtr("service")
-				v2ListPoliciesOptionsModel.ServiceName = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
-				v2ListPoliciesOptionsModel.State = core.StringPtr("active")
-				v2ListPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListV2PoliciesOptions model
+				listV2PoliciesOptionsModel := new(iampolicymanagementv1.ListV2PoliciesOptions)
+				listV2PoliciesOptionsModel.AccountID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listV2PoliciesOptionsModel.IamID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Type = core.StringPtr("access")
+				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
+				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
+				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.V2ListPoliciesWithContext(ctx, v2ListPoliciesOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.ListV2PoliciesWithContext(ctx, listV2PoliciesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -3065,7 +3065,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.V2ListPoliciesWithContext(ctx, v2ListPoliciesOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.ListV2PoliciesWithContext(ctx, listV2PoliciesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -3079,7 +3079,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2ListPoliciesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listV2PoliciesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
@@ -3096,10 +3096,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}]}`)
 				}))
 			})
-			It(`Invoke V2ListPolicies successfully`, func() {
+			It(`Invoke ListV2Policies successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3108,33 +3108,33 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.V2ListPolicies(nil)
+				result, response, operationErr := iamPolicyManagementService.ListV2Policies(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the V2ListPoliciesOptions model
-				v2ListPoliciesOptionsModel := new(iampolicymanagementv1.V2ListPoliciesOptions)
-				v2ListPoliciesOptionsModel.AccountID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2ListPoliciesOptionsModel.IamID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Type = core.StringPtr("access")
-				v2ListPoliciesOptionsModel.ServiceType = core.StringPtr("service")
-				v2ListPoliciesOptionsModel.ServiceName = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
-				v2ListPoliciesOptionsModel.State = core.StringPtr("active")
-				v2ListPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListV2PoliciesOptions model
+				listV2PoliciesOptionsModel := new(iampolicymanagementv1.ListV2PoliciesOptions)
+				listV2PoliciesOptionsModel.AccountID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listV2PoliciesOptionsModel.IamID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Type = core.StringPtr("access")
+				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
+				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
+				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke V2ListPolicies with error: Operation validation and request error`, func() {
+			It(`Invoke ListV2Policies with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3142,31 +3142,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2ListPoliciesOptions model
-				v2ListPoliciesOptionsModel := new(iampolicymanagementv1.V2ListPoliciesOptions)
-				v2ListPoliciesOptionsModel.AccountID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2ListPoliciesOptionsModel.IamID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Type = core.StringPtr("access")
-				v2ListPoliciesOptionsModel.ServiceType = core.StringPtr("service")
-				v2ListPoliciesOptionsModel.ServiceName = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
-				v2ListPoliciesOptionsModel.State = core.StringPtr("active")
-				v2ListPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListV2PoliciesOptions model
+				listV2PoliciesOptionsModel := new(iampolicymanagementv1.ListV2PoliciesOptions)
+				listV2PoliciesOptionsModel.AccountID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listV2PoliciesOptionsModel.IamID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Type = core.StringPtr("access")
+				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
+				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
+				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the V2ListPoliciesOptions model with no property values
-				v2ListPoliciesOptionsModelNew := new(iampolicymanagementv1.V2ListPoliciesOptions)
+				// Construct a second instance of the ListV2PoliciesOptions model with no property values
+				listV2PoliciesOptionsModelNew := new(iampolicymanagementv1.ListV2PoliciesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3184,7 +3184,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke V2ListPolicies successfully`, func() {
+			It(`Invoke ListV2Policies successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3192,22 +3192,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2ListPoliciesOptions model
-				v2ListPoliciesOptionsModel := new(iampolicymanagementv1.V2ListPoliciesOptions)
-				v2ListPoliciesOptionsModel.AccountID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2ListPoliciesOptionsModel.IamID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Type = core.StringPtr("access")
-				v2ListPoliciesOptionsModel.ServiceType = core.StringPtr("service")
-				v2ListPoliciesOptionsModel.ServiceName = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
-				v2ListPoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
-				v2ListPoliciesOptionsModel.State = core.StringPtr("active")
-				v2ListPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListV2PoliciesOptions model
+				listV2PoliciesOptionsModel := new(iampolicymanagementv1.ListV2PoliciesOptions)
+				listV2PoliciesOptionsModel.AccountID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listV2PoliciesOptionsModel.IamID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Type = core.StringPtr("access")
+				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
+				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
+				listV2PoliciesOptionsModel.State = core.StringPtr("active")
+				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.V2ListPolicies(v2ListPoliciesOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ListV2Policies(listV2PoliciesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3219,15 +3219,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2CreatePolicy(v2CreatePolicyOptions *V2CreatePolicyOptions) - Operation response error`, func() {
-		v2CreatePolicyPath := "/v2/policies"
+	Describe(`CreateV2Policy(createV2PolicyOptions *CreateV2PolicyOptions) - Operation response error`, func() {
+		createV2PolicyPath := "/v2/policies"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2CreatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createV2PolicyPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
@@ -3236,7 +3236,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke V2CreatePolicy with error: Operation response processing error`, func() {
+			It(`Invoke CreateV2Policy with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3248,54 +3248,67 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsModel := new(iampolicymanagementv1.V2CreatePolicyOptions)
-				v2CreatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2CreatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2CreatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2CreatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2CreatePolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2CreatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				createV2PolicyOptionsModel := new(iampolicymanagementv1.CreateV2PolicyOptions)
+				createV2PolicyOptionsModel.Control = controlModel
+				createV2PolicyOptionsModel.Type = core.StringPtr("access")
+				createV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				createV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				createV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				createV2PolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3305,129 +3318,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2CreatePolicy(v2CreatePolicyOptions *V2CreatePolicyOptions)`, func() {
-		v2CreatePolicyPath := "/v2/policies"
+	Describe(`CreateV2Policy(createV2PolicyOptions *CreateV2PolicyOptions)`, func() {
+		createV2PolicyPath := "/v2/policies"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2CreatePolicyPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
-					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
-				}))
-			})
-			It(`Invoke V2CreatePolicy successfully with retries`, func() {
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamPolicyManagementService).ToNot(BeNil())
-				iamPolicyManagementService.EnableRetries(0, 0)
-
-				// Construct an instance of the PolicyRole model
-				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
-				policyRoleModel.RoleID = core.StringPtr("testString")
-
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
-
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsModel := new(iampolicymanagementv1.V2CreatePolicyOptions)
-				v2CreatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2CreatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2CreatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2CreatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2CreatePolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2CreatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.V2CreatePolicyWithContext(ctx, v2CreatePolicyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.V2CreatePolicyWithContext(ctx, v2CreatePolicyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2CreatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createV2PolicyPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3448,13 +3347,140 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
-			It(`Invoke V2CreatePolicy successfully`, func() {
+			It(`Invoke CreateV2Policy successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
+
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
+
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
+
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
+
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				createV2PolicyOptionsModel := new(iampolicymanagementv1.CreateV2PolicyOptions)
+				createV2PolicyOptionsModel.Control = controlModel
+				createV2PolicyOptionsModel.Type = core.StringPtr("access")
+				createV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				createV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				createV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				createV2PolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.CreateV2PolicyWithContext(ctx, createV2PolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.CreateV2PolicyWithContext(ctx, createV2PolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createV2PolicyPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+				}))
+			})
+			It(`Invoke CreateV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3463,7 +3489,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.V2CreatePolicy(nil)
+				result, response, operationErr := iamPolicyManagementService.CreateV2Policy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3472,54 +3498,67 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsModel := new(iampolicymanagementv1.V2CreatePolicyOptions)
-				v2CreatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2CreatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2CreatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2CreatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2CreatePolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2CreatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				createV2PolicyOptionsModel := new(iampolicymanagementv1.CreateV2PolicyOptions)
+				createV2PolicyOptionsModel.Control = controlModel
+				createV2PolicyOptionsModel.Type = core.StringPtr("access")
+				createV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				createV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				createV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				createV2PolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke V2CreatePolicy with error: Operation validation and request error`, func() {
+			It(`Invoke CreateV2Policy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3531,57 +3570,70 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsModel := new(iampolicymanagementv1.V2CreatePolicyOptions)
-				v2CreatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2CreatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2CreatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2CreatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2CreatePolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2CreatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				createV2PolicyOptionsModel := new(iampolicymanagementv1.CreateV2PolicyOptions)
+				createV2PolicyOptionsModel.Control = controlModel
+				createV2PolicyOptionsModel.Type = core.StringPtr("access")
+				createV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				createV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				createV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				createV2PolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the V2CreatePolicyOptions model with no property values
-				v2CreatePolicyOptionsModelNew := new(iampolicymanagementv1.V2CreatePolicyOptions)
+				// Construct a second instance of the CreateV2PolicyOptions model with no property values
+				createV2PolicyOptionsModelNew := new(iampolicymanagementv1.CreateV2PolicyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3599,7 +3651,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke V2CreatePolicy successfully`, func() {
+			It(`Invoke CreateV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3611,48 +3663,61 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsModel := new(iampolicymanagementv1.V2CreatePolicyOptions)
-				v2CreatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2CreatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2CreatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2CreatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2CreatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2CreatePolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
-				v2CreatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				createV2PolicyOptionsModel := new(iampolicymanagementv1.CreateV2PolicyOptions)
+				createV2PolicyOptionsModel.Control = controlModel
+				createV2PolicyOptionsModel.Type = core.StringPtr("access")
+				createV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				createV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				createV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				createV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				createV2PolicyOptionsModel.AcceptLanguage = core.StringPtr("default")
+				createV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.V2CreatePolicy(v2CreatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.CreateV2Policy(createV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3664,15 +3729,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2UpdatePolicy(v2UpdatePolicyOptions *V2UpdatePolicyOptions) - Operation response error`, func() {
-		v2UpdatePolicyPath := "/v2/policies/testString"
+	Describe(`ReplaceV2Policy(replaceV2PolicyOptions *ReplaceV2PolicyOptions) - Operation response error`, func() {
+		replaceV2PolicyPath := "/v2/policies/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2UpdatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceV2PolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -3681,7 +3746,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke V2UpdatePolicy with error: Operation response processing error`, func() {
+			It(`Invoke ReplaceV2Policy with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3693,55 +3758,68 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2UpdatePolicyOptions model
-				v2UpdatePolicyOptionsModel := new(iampolicymanagementv1.V2UpdatePolicyOptions)
-				v2UpdatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2UpdatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2UpdatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2UpdatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2UpdatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				replaceV2PolicyOptionsModel := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+				replaceV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Control = controlModel
+				replaceV2PolicyOptionsModel.Type = core.StringPtr("access")
+				replaceV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				replaceV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				replaceV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				replaceV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3751,15 +3829,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2UpdatePolicy(v2UpdatePolicyOptions *V2UpdatePolicyOptions)`, func() {
-		v2UpdatePolicyPath := "/v2/policies/testString"
+	Describe(`ReplaceV2Policy(replaceV2PolicyOptions *ReplaceV2PolicyOptions)`, func() {
+		replaceV2PolicyPath := "/v2/policies/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2UpdatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceV2PolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3786,10 +3864,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
-			It(`Invoke V2UpdatePolicy successfully with retries`, func() {
+			It(`Invoke ReplaceV2Policy successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3802,57 +3880,70 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2UpdatePolicyOptions model
-				v2UpdatePolicyOptionsModel := new(iampolicymanagementv1.V2UpdatePolicyOptions)
-				v2UpdatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2UpdatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2UpdatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2UpdatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2UpdatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				replaceV2PolicyOptionsModel := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+				replaceV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Control = controlModel
+				replaceV2PolicyOptionsModel.Type = core.StringPtr("access")
+				replaceV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				replaceV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				replaceV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				replaceV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.V2UpdatePolicyWithContext(ctx, v2UpdatePolicyOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.ReplaceV2PolicyWithContext(ctx, replaceV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -3860,7 +3951,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.V2UpdatePolicyWithContext(ctx, v2UpdatePolicyOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.ReplaceV2PolicyWithContext(ctx, replaceV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -3874,7 +3965,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2UpdatePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceV2PolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3898,10 +3989,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "resource": {"attributes": [{"key": "Key", "operator": "Operator", "value": "anyValue"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "Operator", "value": "anyValue"}, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
-			It(`Invoke V2UpdatePolicy successfully`, func() {
+			It(`Invoke ReplaceV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3910,7 +4001,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.V2UpdatePolicy(nil)
+				result, response, operationErr := iamPolicyManagementService.ReplaceV2Policy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3919,55 +4010,68 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2UpdatePolicyOptions model
-				v2UpdatePolicyOptionsModel := new(iampolicymanagementv1.V2UpdatePolicyOptions)
-				v2UpdatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2UpdatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2UpdatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2UpdatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2UpdatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				replaceV2PolicyOptionsModel := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+				replaceV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Control = controlModel
+				replaceV2PolicyOptionsModel.Type = core.StringPtr("access")
+				replaceV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				replaceV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				replaceV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				replaceV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke V2UpdatePolicy with error: Operation validation and request error`, func() {
+			It(`Invoke ReplaceV2Policy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3979,58 +4083,71 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2UpdatePolicyOptions model
-				v2UpdatePolicyOptionsModel := new(iampolicymanagementv1.V2UpdatePolicyOptions)
-				v2UpdatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2UpdatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2UpdatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2UpdatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2UpdatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				replaceV2PolicyOptionsModel := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+				replaceV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Control = controlModel
+				replaceV2PolicyOptionsModel.Type = core.StringPtr("access")
+				replaceV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				replaceV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				replaceV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				replaceV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the V2UpdatePolicyOptions model with no property values
-				v2UpdatePolicyOptionsModelNew := new(iampolicymanagementv1.V2UpdatePolicyOptions)
+				// Construct a second instance of the ReplaceV2PolicyOptions model with no property values
+				replaceV2PolicyOptionsModelNew := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -4048,7 +4165,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke V2UpdatePolicy successfully`, func() {
+			It(`Invoke ReplaceV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4060,49 +4177,62 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				controlModel.Grant = v2PolicyGrantModel
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
 
-				// Construct an instance of the V2UpdatePolicyOptions model
-				v2UpdatePolicyOptionsModel := new(iampolicymanagementv1.V2UpdatePolicyOptions)
-				v2UpdatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Type = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Control = v2PolicyBaseControlModel
-				v2UpdatePolicyOptionsModel.Description = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Subject = v2PolicyBaseSubjectModel
-				v2UpdatePolicyOptionsModel.Resource = v2PolicyBaseResourceModel
-				v2UpdatePolicyOptionsModel.Pattern = core.StringPtr("testString")
-				v2UpdatePolicyOptionsModel.Rule = v2PolicyBaseRuleModel
-				v2UpdatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				replaceV2PolicyOptionsModel := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+				replaceV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Control = controlModel
+				replaceV2PolicyOptionsModel.Type = core.StringPtr("access")
+				replaceV2PolicyOptionsModel.Description = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Subject = v2PolicySubjectModel
+				replaceV2PolicyOptionsModel.Resource = v2PolicyResourceModel
+				replaceV2PolicyOptionsModel.Pattern = core.StringPtr("testString")
+				replaceV2PolicyOptionsModel.Rule = v2PolicyRuleModel
+				replaceV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.V2UpdatePolicy(v2UpdatePolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.ReplaceV2Policy(replaceV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -4114,22 +4244,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2GetPolicy(v2GetPolicyOptions *V2GetPolicyOptions) - Operation response error`, func() {
-		v2GetPolicyPath := "/v2/policies/testString"
+	Describe(`GetV2Policy(getV2PolicyOptions *GetV2PolicyOptions) - Operation response error`, func() {
+		getV2PolicyPath := "/v2/policies/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2GetPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getV2PolicyPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke V2GetPolicy with error: Operation response processing error`, func() {
+			It(`Invoke GetV2Policy with error: Operation response processing error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4137,19 +4267,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2GetPolicyOptions model
-				v2GetPolicyOptionsModel := new(iampolicymanagementv1.V2GetPolicyOptions)
-				v2GetPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2GetPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetV2PolicyOptions model
+				getV2PolicyOptionsModel := new(iampolicymanagementv1.GetV2PolicyOptions)
+				getV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				getV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				iamPolicyManagementService.EnableRetries(0, 0)
-				result, response, operationErr = iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -4159,15 +4289,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2GetPolicy(v2GetPolicyOptions *V2GetPolicyOptions)`, func() {
-		v2GetPolicyPath := "/v2/policies/testString"
+	Describe(`GetV2Policy(getV2PolicyOptions *GetV2PolicyOptions)`, func() {
+		getV2PolicyPath := "/v2/policies/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2GetPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getV2PolicyPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -4176,10 +4306,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
-			It(`Invoke V2GetPolicy successfully with retries`, func() {
+			It(`Invoke GetV2Policy successfully with retries`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4188,21 +4318,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				iamPolicyManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the V2GetPolicyOptions model
-				v2GetPolicyOptionsModel := new(iampolicymanagementv1.V2GetPolicyOptions)
-				v2GetPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2GetPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetV2PolicyOptions model
+				getV2PolicyOptionsModel := new(iampolicymanagementv1.GetV2PolicyOptions)
+				getV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				getV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := iamPolicyManagementService.V2GetPolicyWithContext(ctx, v2GetPolicyOptionsModel)
+				_, _, operationErr := iamPolicyManagementService.GetV2PolicyWithContext(ctx, getV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				iamPolicyManagementService.DisableRetries()
-				result, response, operationErr := iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -4210,7 +4340,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = iamPolicyManagementService.V2GetPolicyWithContext(ctx, v2GetPolicyOptionsModel)
+				_, _, operationErr = iamPolicyManagementService.GetV2PolicyWithContext(ctx, getV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -4224,16 +4354,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2GetPolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getV2PolicyPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active"}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
-			It(`Invoke V2GetPolicy successfully`, func() {
+			It(`Invoke GetV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4242,24 +4372,24 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamPolicyManagementService.V2GetPolicy(nil)
+				result, response, operationErr := iamPolicyManagementService.GetV2Policy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the V2GetPolicyOptions model
-				v2GetPolicyOptionsModel := new(iampolicymanagementv1.V2GetPolicyOptions)
-				v2GetPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2GetPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetV2PolicyOptions model
+				getV2PolicyOptionsModel := new(iampolicymanagementv1.GetV2PolicyOptions)
+				getV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				getV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr = iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke V2GetPolicy with error: Operation validation and request error`, func() {
+			It(`Invoke GetV2Policy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4267,22 +4397,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2GetPolicyOptions model
-				v2GetPolicyOptionsModel := new(iampolicymanagementv1.V2GetPolicyOptions)
-				v2GetPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2GetPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetV2PolicyOptions model
+				getV2PolicyOptionsModel := new(iampolicymanagementv1.GetV2PolicyOptions)
+				getV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				getV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the V2GetPolicyOptions model with no property values
-				v2GetPolicyOptionsModelNew := new(iampolicymanagementv1.V2GetPolicyOptions)
+				// Construct a second instance of the GetV2PolicyOptions model with no property values
+				getV2PolicyOptionsModelNew := new(iampolicymanagementv1.GetV2PolicyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModelNew)
+				result, response, operationErr = iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -4300,7 +4430,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke V2GetPolicy successfully`, func() {
+			It(`Invoke GetV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4308,13 +4438,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2GetPolicyOptions model
-				v2GetPolicyOptionsModel := new(iampolicymanagementv1.V2GetPolicyOptions)
-				v2GetPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2GetPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetV2PolicyOptions model
+				getV2PolicyOptionsModel := new(iampolicymanagementv1.GetV2PolicyOptions)
+				getV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				getV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := iamPolicyManagementService.V2GetPolicy(v2GetPolicyOptionsModel)
+				result, response, operationErr := iamPolicyManagementService.GetV2Policy(getV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -4326,21 +4456,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`V2DeletePolicy(v2DeletePolicyOptions *V2DeletePolicyOptions)`, func() {
-		v2DeletePolicyPath := "/v2/policies/testString"
+	Describe(`DeleteV2Policy(deleteV2PolicyOptions *DeleteV2PolicyOptions)`, func() {
+		deleteV2PolicyPath := "/v2/policies/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(v2DeletePolicyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteV2PolicyPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke V2DeletePolicy successfully`, func() {
+			It(`Invoke DeleteV2Policy successfully`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4349,21 +4479,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := iamPolicyManagementService.V2DeletePolicy(nil)
+				response, operationErr := iamPolicyManagementService.DeleteV2Policy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the V2DeletePolicyOptions model
-				v2DeletePolicyOptionsModel := new(iampolicymanagementv1.V2DeletePolicyOptions)
-				v2DeletePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2DeletePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteV2PolicyOptions model
+				deleteV2PolicyOptionsModel := new(iampolicymanagementv1.DeleteV2PolicyOptions)
+				deleteV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				deleteV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = iamPolicyManagementService.V2DeletePolicy(v2DeletePolicyOptionsModel)
+				response, operationErr = iamPolicyManagementService.DeleteV2Policy(deleteV2PolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke V2DeletePolicy with error: Operation validation and request error`, func() {
+			It(`Invoke DeleteV2Policy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -4371,21 +4501,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 
-				// Construct an instance of the V2DeletePolicyOptions model
-				v2DeletePolicyOptionsModel := new(iampolicymanagementv1.V2DeletePolicyOptions)
-				v2DeletePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				v2DeletePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteV2PolicyOptions model
+				deleteV2PolicyOptionsModel := new(iampolicymanagementv1.DeleteV2PolicyOptions)
+				deleteV2PolicyOptionsModel.ID = core.StringPtr("testString")
+				deleteV2PolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := iamPolicyManagementService.V2DeletePolicy(v2DeletePolicyOptionsModel)
+				response, operationErr := iamPolicyManagementService.DeleteV2Policy(deleteV2PolicyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the V2DeletePolicyOptions model with no property values
-				v2DeletePolicyOptionsModelNew := new(iampolicymanagementv1.V2DeletePolicyOptions)
+				// Construct a second instance of the DeleteV2PolicyOptions model with no property values
+				deleteV2PolicyOptionsModelNew := new(iampolicymanagementv1.DeleteV2PolicyOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = iamPolicyManagementService.V2DeletePolicy(v2DeletePolicyOptionsModelNew)
+				response, operationErr = iamPolicyManagementService.DeleteV2Policy(deleteV2PolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -4399,6 +4529,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			iamPolicyManagementService, _ := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 				URL:           "http://iampolicymanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewControl successfully`, func() {
+				var grant *iampolicymanagementv1.V2PolicyGrant = nil
+				_, err := iamPolicyManagementService.NewControl(grant)
+				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewCreatePolicyOptions successfully`, func() {
 				// Construct an instance of the SubjectAttribute model
@@ -4497,6 +4632,103 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(createRoleOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(createRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCreateV2PolicyOptions successfully`, func() {
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				Expect(policyRoleModel).ToNot(BeNil())
+				policyRoleModel.RoleID = core.StringPtr("testString")
+				Expect(policyRoleModel.RoleID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				Expect(v2PolicyGrantModel).ToNot(BeNil())
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				Expect(v2PolicyGrantModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
+
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				Expect(controlModel).ToNot(BeNil())
+				controlModel.Grant = v2PolicyGrantModel
+				Expect(controlModel.Grant).To(Equal(v2PolicyGrantModel))
+
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				Expect(v2PolicySubjectAttributeModel).ToNot(BeNil())
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
+				Expect(v2PolicySubjectAttributeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicySubjectAttributeModel.Operator).To(Equal(core.StringPtr("stringEquals")))
+				Expect(v2PolicySubjectAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				Expect(v2PolicySubjectModel).ToNot(BeNil())
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
+				Expect(v2PolicySubjectModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}))
+
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				Expect(v2PolicyResourceAttributeModel).ToNot(BeNil())
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
+				Expect(v2PolicyResourceAttributeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceAttributeModel.Operator).To(Equal(core.StringPtr("stringEquals")))
+				Expect(v2PolicyResourceAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				Expect(v2PolicyResourceTagModel).ToNot(BeNil())
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
+				Expect(v2PolicyResourceTagModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceTagModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceTagModel.Operator).To(Equal(core.StringPtr("stringEquals")))
+
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				Expect(v2PolicyResourceModel).ToNot(BeNil())
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+				Expect(v2PolicyResourceModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}))
+				Expect(v2PolicyResourceModel.Tags).To(Equal([]iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}))
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				Expect(v2PolicyRuleModel).ToNot(BeNil())
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateV2PolicyOptions model
+				var createV2PolicyOptionsControl *iampolicymanagementv1.Control = nil
+				createV2PolicyOptionsType := "access"
+				createV2PolicyOptionsModel := iamPolicyManagementService.NewCreateV2PolicyOptions(createV2PolicyOptionsControl, createV2PolicyOptionsType)
+				createV2PolicyOptionsModel.SetControl(controlModel)
+				createV2PolicyOptionsModel.SetType("access")
+				createV2PolicyOptionsModel.SetDescription("testString")
+				createV2PolicyOptionsModel.SetSubject(v2PolicySubjectModel)
+				createV2PolicyOptionsModel.SetResource(v2PolicyResourceModel)
+				createV2PolicyOptionsModel.SetPattern("testString")
+				createV2PolicyOptionsModel.SetRule(v2PolicyRuleModel)
+				createV2PolicyOptionsModel.SetAcceptLanguage("default")
+				createV2PolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createV2PolicyOptionsModel).ToNot(BeNil())
+				Expect(createV2PolicyOptionsModel.Control).To(Equal(controlModel))
+				Expect(createV2PolicyOptionsModel.Type).To(Equal(core.StringPtr("access")))
+				Expect(createV2PolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createV2PolicyOptionsModel.Subject).To(Equal(v2PolicySubjectModel))
+				Expect(createV2PolicyOptionsModel.Resource).To(Equal(v2PolicyResourceModel))
+				Expect(createV2PolicyOptionsModel.Pattern).To(Equal(core.StringPtr("testString")))
+				Expect(createV2PolicyOptionsModel.Rule).To(Equal(v2PolicyRuleModel))
+				Expect(createV2PolicyOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(createV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeletePolicyOptions successfully`, func() {
 				// Construct an instance of the DeletePolicyOptions model
 				policyID := "testString"
@@ -4517,6 +4749,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(deleteRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteV2PolicyOptions successfully`, func() {
+				// Construct an instance of the DeleteV2PolicyOptions model
+				id := "testString"
+				deleteV2PolicyOptionsModel := iamPolicyManagementService.NewDeleteV2PolicyOptions(id)
+				deleteV2PolicyOptionsModel.SetID("testString")
+				deleteV2PolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteV2PolicyOptionsModel).ToNot(BeNil())
+				Expect(deleteV2PolicyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetPolicyOptions successfully`, func() {
 				// Construct an instance of the GetPolicyOptions model
 				policyID := "testString"
@@ -4536,6 +4778,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(getRoleOptionsModel).ToNot(BeNil())
 				Expect(getRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(getRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetV2PolicyOptions successfully`, func() {
+				// Construct an instance of the GetV2PolicyOptions model
+				id := "testString"
+				getV2PolicyOptionsModel := iamPolicyManagementService.NewGetV2PolicyOptions(id)
+				getV2PolicyOptionsModel.SetID("testString")
+				getV2PolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getV2PolicyOptionsModel).ToNot(BeNil())
+				Expect(getV2PolicyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPoliciesOptions successfully`, func() {
 				// Construct an instance of the ListPoliciesOptions model
@@ -4584,22 +4836,41 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listRolesOptionsModel.PolicyType).To(Equal(core.StringPtr("authorization")))
 				Expect(listRolesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPatchPolicyOptions successfully`, func() {
-				// Construct an instance of the PatchPolicyOptions model
-				policyID := "testString"
-				ifMatch := "testString"
-				patchPolicyOptionsModel := iamPolicyManagementService.NewPatchPolicyOptions(policyID, ifMatch)
-				patchPolicyOptionsModel.SetPolicyID("testString")
-				patchPolicyOptionsModel.SetIfMatch("testString")
-				patchPolicyOptionsModel.SetState("active")
-				patchPolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(patchPolicyOptionsModel).ToNot(BeNil())
-				Expect(patchPolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
-				Expect(patchPolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(patchPolicyOptionsModel.State).To(Equal(core.StringPtr("active")))
-				Expect(patchPolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewListV2PoliciesOptions successfully`, func() {
+				// Construct an instance of the ListV2PoliciesOptions model
+				accountID := "testString"
+				listV2PoliciesOptionsModel := iamPolicyManagementService.NewListV2PoliciesOptions(accountID)
+				listV2PoliciesOptionsModel.SetAccountID("testString")
+				listV2PoliciesOptionsModel.SetAcceptLanguage("default")
+				listV2PoliciesOptionsModel.SetIamID("testString")
+				listV2PoliciesOptionsModel.SetAccessGroupID("testString")
+				listV2PoliciesOptionsModel.SetType("access")
+				listV2PoliciesOptionsModel.SetServiceType("service")
+				listV2PoliciesOptionsModel.SetServiceName("testString")
+				listV2PoliciesOptionsModel.SetServiceGroupID("testString")
+				listV2PoliciesOptionsModel.SetFormat("include_last_permit")
+				listV2PoliciesOptionsModel.SetState("active")
+				listV2PoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listV2PoliciesOptionsModel).ToNot(BeNil())
+				Expect(listV2PoliciesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listV2PoliciesOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.Type).To(Equal(core.StringPtr("access")))
+				Expect(listV2PoliciesOptionsModel.ServiceType).To(Equal(core.StringPtr("service")))
+				Expect(listV2PoliciesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
+				Expect(listV2PoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdatePolicyOptions successfully`, func() {
+			It(`Invoke NewPolicyRole successfully`, func() {
+				roleID := "testString"
+				_model, err := iamPolicyManagementService.NewPolicyRole(roleID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewReplacePolicyOptions successfully`, func() {
 				// Construct an instance of the SubjectAttribute model
 				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
 				Expect(subjectAttributeModel).ToNot(BeNil())
@@ -4648,267 +4919,216 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(policyResourceModel.Attributes).To(Equal([]iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}))
 				Expect(policyResourceModel.Tags).To(Equal([]iampolicymanagementv1.ResourceTag{*resourceTagModel}))
 
-				// Construct an instance of the UpdatePolicyOptions model
+				// Construct an instance of the ReplacePolicyOptions model
 				policyID := "testString"
 				ifMatch := "testString"
-				updatePolicyOptionsType := "testString"
-				updatePolicyOptionsSubjects := []iampolicymanagementv1.PolicySubject{}
-				updatePolicyOptionsRoles := []iampolicymanagementv1.PolicyRole{}
-				updatePolicyOptionsResources := []iampolicymanagementv1.PolicyResource{}
-				updatePolicyOptionsModel := iamPolicyManagementService.NewUpdatePolicyOptions(policyID, ifMatch, updatePolicyOptionsType, updatePolicyOptionsSubjects, updatePolicyOptionsRoles, updatePolicyOptionsResources)
-				updatePolicyOptionsModel.SetPolicyID("testString")
-				updatePolicyOptionsModel.SetIfMatch("testString")
-				updatePolicyOptionsModel.SetType("testString")
-				updatePolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicySubject{*policySubjectModel})
-				updatePolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRole{*policyRoleModel})
-				updatePolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyResource{*policyResourceModel})
-				updatePolicyOptionsModel.SetDescription("testString")
-				updatePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updatePolicyOptionsModel).ToNot(BeNil())
-				Expect(updatePolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
-				Expect(updatePolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(updatePolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(updatePolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicySubject{*policySubjectModel}))
-				Expect(updatePolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
-				Expect(updatePolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyResource{*policyResourceModel}))
-				Expect(updatePolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(updatePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				replacePolicyOptionsType := "testString"
+				replacePolicyOptionsSubjects := []iampolicymanagementv1.PolicySubject{}
+				replacePolicyOptionsRoles := []iampolicymanagementv1.PolicyRole{}
+				replacePolicyOptionsResources := []iampolicymanagementv1.PolicyResource{}
+				replacePolicyOptionsModel := iamPolicyManagementService.NewReplacePolicyOptions(policyID, ifMatch, replacePolicyOptionsType, replacePolicyOptionsSubjects, replacePolicyOptionsRoles, replacePolicyOptionsResources)
+				replacePolicyOptionsModel.SetPolicyID("testString")
+				replacePolicyOptionsModel.SetIfMatch("testString")
+				replacePolicyOptionsModel.SetType("testString")
+				replacePolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicySubject{*policySubjectModel})
+				replacePolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRole{*policyRoleModel})
+				replacePolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyResource{*policyResourceModel})
+				replacePolicyOptionsModel.SetDescription("testString")
+				replacePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replacePolicyOptionsModel).ToNot(BeNil())
+				Expect(replacePolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
+				Expect(replacePolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replacePolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(replacePolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicySubject{*policySubjectModel}))
+				Expect(replacePolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
+				Expect(replacePolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyResource{*policyResourceModel}))
+				Expect(replacePolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replacePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateRoleOptions successfully`, func() {
-				// Construct an instance of the UpdateRoleOptions model
+			It(`Invoke NewReplaceRoleOptions successfully`, func() {
+				// Construct an instance of the ReplaceRoleOptions model
 				roleID := "testString"
 				ifMatch := "testString"
-				updateRoleOptionsModel := iamPolicyManagementService.NewUpdateRoleOptions(roleID, ifMatch)
-				updateRoleOptionsModel.SetRoleID("testString")
-				updateRoleOptionsModel.SetIfMatch("testString")
-				updateRoleOptionsModel.SetDisplayName("testString")
-				updateRoleOptionsModel.SetDescription("testString")
-				updateRoleOptionsModel.SetActions([]string{"testString"})
-				updateRoleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateRoleOptionsModel).ToNot(BeNil())
-				Expect(updateRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
-				Expect(updateRoleOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(updateRoleOptionsModel.DisplayName).To(Equal(core.StringPtr("testString")))
-				Expect(updateRoleOptionsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(updateRoleOptionsModel.Actions).To(Equal([]string{"testString"}))
-				Expect(updateRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				replaceRoleOptionsDisplayName := "testString"
+				replaceRoleOptionsActions := []string{"testString"}
+				replaceRoleOptionsModel := iamPolicyManagementService.NewReplaceRoleOptions(roleID, ifMatch, replaceRoleOptionsDisplayName, replaceRoleOptionsActions)
+				replaceRoleOptionsModel.SetRoleID("testString")
+				replaceRoleOptionsModel.SetIfMatch("testString")
+				replaceRoleOptionsModel.SetDisplayName("testString")
+				replaceRoleOptionsModel.SetActions([]string{"testString"})
+				replaceRoleOptionsModel.SetDescription("testString")
+				replaceRoleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceRoleOptionsModel).ToNot(BeNil())
+				Expect(replaceRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleOptionsModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleOptionsModel.Actions).To(Equal([]string{"testString"}))
+				Expect(replaceRoleOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replaceRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewV2CreatePolicyOptions successfully`, func() {
+			It(`Invoke NewReplaceV2PolicyOptions successfully`, func() {
 				// Construct an instance of the PolicyRole model
 				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
 				Expect(policyRoleModel).ToNot(BeNil())
 				policyRoleModel.RoleID = core.StringPtr("testString")
 				Expect(policyRoleModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				Expect(v2PolicyBaseControlGrantModel).ToNot(BeNil())
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				Expect(v2PolicyBaseControlGrantModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
+				// Construct an instance of the V2PolicyGrant model
+				v2PolicyGrantModel := new(iampolicymanagementv1.V2PolicyGrant)
+				Expect(v2PolicyGrantModel).ToNot(BeNil())
+				v2PolicyGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				Expect(v2PolicyGrantModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
 
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				Expect(v2PolicyBaseControlModel).ToNot(BeNil())
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
-				Expect(v2PolicyBaseControlModel.Grant).To(Equal(v2PolicyBaseControlGrantModel))
+				// Construct an instance of the Control model
+				controlModel := new(iampolicymanagementv1.Control)
+				Expect(controlModel).ToNot(BeNil())
+				controlModel.Grant = v2PolicyGrantModel
+				Expect(controlModel.Grant).To(Equal(v2PolicyGrantModel))
 
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				Expect(v2PolicyAttributeModel).ToNot(BeNil())
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
-				Expect(v2PolicyAttributeModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the V2PolicySubjectAttribute model
+				v2PolicySubjectAttributeModel := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+				Expect(v2PolicySubjectAttributeModel).ToNot(BeNil())
+				v2PolicySubjectAttributeModel.Key = core.StringPtr("testString")
+				v2PolicySubjectAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicySubjectAttributeModel.Value = core.StringPtr("testString")
+				Expect(v2PolicySubjectAttributeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicySubjectAttributeModel.Operator).To(Equal(core.StringPtr("stringEquals")))
+				Expect(v2PolicySubjectAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				Expect(v2PolicyBaseSubjectModel).ToNot(BeNil())
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-				Expect(v2PolicyBaseSubjectModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}))
+				// Construct an instance of the V2PolicySubject model
+				v2PolicySubjectModel := new(iampolicymanagementv1.V2PolicySubject)
+				Expect(v2PolicySubjectModel).ToNot(BeNil())
+				v2PolicySubjectModel.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}
+				Expect(v2PolicySubjectModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel}))
 
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				Expect(v2PolicyBaseResourceModel).ToNot(BeNil())
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-				Expect(v2PolicyBaseResourceModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}))
+				// Construct an instance of the V2PolicyResourceAttribute model
+				v2PolicyResourceAttributeModel := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+				Expect(v2PolicyResourceAttributeModel).ToNot(BeNil())
+				v2PolicyResourceAttributeModel.Key = core.StringPtr("testString")
+				v2PolicyResourceAttributeModel.Operator = core.StringPtr("stringEquals")
+				v2PolicyResourceAttributeModel.Value = core.StringPtr("testString")
+				Expect(v2PolicyResourceAttributeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceAttributeModel.Operator).To(Equal(core.StringPtr("stringEquals")))
+				Expect(v2PolicyResourceAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				Expect(v2PolicyBaseRuleModel).ToNot(BeNil())
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
-				Expect(v2PolicyBaseRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyBaseRuleModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyBaseRuleModel.Value).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the V2PolicyResourceTag model
+				v2PolicyResourceTagModel := new(iampolicymanagementv1.V2PolicyResourceTag)
+				Expect(v2PolicyResourceTagModel).ToNot(BeNil())
+				v2PolicyResourceTagModel.Key = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Value = core.StringPtr("testString")
+				v2PolicyResourceTagModel.Operator = core.StringPtr("stringEquals")
+				Expect(v2PolicyResourceTagModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceTagModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyResourceTagModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 
-				// Construct an instance of the V2CreatePolicyOptions model
-				v2CreatePolicyOptionsType := "testString"
-				var v2CreatePolicyOptionsControl *iampolicymanagementv1.V2PolicyBaseControl = nil
-				v2CreatePolicyOptionsModel := iamPolicyManagementService.NewV2CreatePolicyOptions(v2CreatePolicyOptionsType, v2CreatePolicyOptionsControl)
-				v2CreatePolicyOptionsModel.SetType("testString")
-				v2CreatePolicyOptionsModel.SetControl(v2PolicyBaseControlModel)
-				v2CreatePolicyOptionsModel.SetDescription("testString")
-				v2CreatePolicyOptionsModel.SetSubject(v2PolicyBaseSubjectModel)
-				v2CreatePolicyOptionsModel.SetResource(v2PolicyBaseResourceModel)
-				v2CreatePolicyOptionsModel.SetPattern("testString")
-				v2CreatePolicyOptionsModel.SetRule(v2PolicyBaseRuleModel)
-				v2CreatePolicyOptionsModel.SetAcceptLanguage("default")
-				v2CreatePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(v2CreatePolicyOptionsModel).ToNot(BeNil())
-				Expect(v2CreatePolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(v2CreatePolicyOptionsModel.Control).To(Equal(v2PolicyBaseControlModel))
-				Expect(v2CreatePolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(v2CreatePolicyOptionsModel.Subject).To(Equal(v2PolicyBaseSubjectModel))
-				Expect(v2CreatePolicyOptionsModel.Resource).To(Equal(v2PolicyBaseResourceModel))
-				Expect(v2CreatePolicyOptionsModel.Pattern).To(Equal(core.StringPtr("testString")))
-				Expect(v2CreatePolicyOptionsModel.Rule).To(Equal(v2PolicyBaseRuleModel))
-				Expect(v2CreatePolicyOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
-				Expect(v2CreatePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				// Construct an instance of the V2PolicyResource model
+				v2PolicyResourceModel := new(iampolicymanagementv1.V2PolicyResource)
+				Expect(v2PolicyResourceModel).ToNot(BeNil())
+				v2PolicyResourceModel.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}
+				v2PolicyResourceModel.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}
+				Expect(v2PolicyResourceModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel}))
+				Expect(v2PolicyResourceModel.Tags).To(Equal([]iampolicymanagementv1.V2PolicyResourceTag{*v2PolicyResourceTagModel}))
+
+				// Construct an instance of the V2PolicyRuleRuleAttribute model
+				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
+				Expect(v2PolicyRuleModel).ToNot(BeNil())
+				v2PolicyRuleModel.Key = core.StringPtr("testString")
+				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Value = core.StringPtr("testString")
+				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ReplaceV2PolicyOptions model
+				id := "testString"
+				ifMatch := "testString"
+				var replaceV2PolicyOptionsControl *iampolicymanagementv1.Control = nil
+				replaceV2PolicyOptionsType := "access"
+				replaceV2PolicyOptionsModel := iamPolicyManagementService.NewReplaceV2PolicyOptions(id, ifMatch, replaceV2PolicyOptionsControl, replaceV2PolicyOptionsType)
+				replaceV2PolicyOptionsModel.SetID("testString")
+				replaceV2PolicyOptionsModel.SetIfMatch("testString")
+				replaceV2PolicyOptionsModel.SetControl(controlModel)
+				replaceV2PolicyOptionsModel.SetType("access")
+				replaceV2PolicyOptionsModel.SetDescription("testString")
+				replaceV2PolicyOptionsModel.SetSubject(v2PolicySubjectModel)
+				replaceV2PolicyOptionsModel.SetResource(v2PolicyResourceModel)
+				replaceV2PolicyOptionsModel.SetPattern("testString")
+				replaceV2PolicyOptionsModel.SetRule(v2PolicyRuleModel)
+				replaceV2PolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceV2PolicyOptionsModel).ToNot(BeNil())
+				Expect(replaceV2PolicyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceV2PolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceV2PolicyOptionsModel.Control).To(Equal(controlModel))
+				Expect(replaceV2PolicyOptionsModel.Type).To(Equal(core.StringPtr("access")))
+				Expect(replaceV2PolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replaceV2PolicyOptionsModel.Subject).To(Equal(v2PolicySubjectModel))
+				Expect(replaceV2PolicyOptionsModel.Resource).To(Equal(v2PolicyResourceModel))
+				Expect(replaceV2PolicyOptionsModel.Pattern).To(Equal(core.StringPtr("testString")))
+				Expect(replaceV2PolicyOptionsModel.Rule).To(Equal(v2PolicyRuleModel))
+				Expect(replaceV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewV2DeletePolicyOptions successfully`, func() {
-				// Construct an instance of the V2DeletePolicyOptions model
-				policyID := "testString"
-				v2DeletePolicyOptionsModel := iamPolicyManagementService.NewV2DeletePolicyOptions(policyID)
-				v2DeletePolicyOptionsModel.SetPolicyID("testString")
-				v2DeletePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(v2DeletePolicyOptionsModel).ToNot(BeNil())
-				Expect(v2DeletePolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
-				Expect(v2DeletePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewV2GetPolicyOptions successfully`, func() {
-				// Construct an instance of the V2GetPolicyOptions model
-				policyID := "testString"
-				v2GetPolicyOptionsModel := iamPolicyManagementService.NewV2GetPolicyOptions(policyID)
-				v2GetPolicyOptionsModel.SetPolicyID("testString")
-				v2GetPolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(v2GetPolicyOptionsModel).ToNot(BeNil())
-				Expect(v2GetPolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
-				Expect(v2GetPolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewV2ListPoliciesOptions successfully`, func() {
-				// Construct an instance of the V2ListPoliciesOptions model
-				accountID := "testString"
-				v2ListPoliciesOptionsModel := iamPolicyManagementService.NewV2ListPoliciesOptions(accountID)
-				v2ListPoliciesOptionsModel.SetAccountID("testString")
-				v2ListPoliciesOptionsModel.SetAcceptLanguage("default")
-				v2ListPoliciesOptionsModel.SetIamID("testString")
-				v2ListPoliciesOptionsModel.SetAccessGroupID("testString")
-				v2ListPoliciesOptionsModel.SetType("access")
-				v2ListPoliciesOptionsModel.SetServiceType("service")
-				v2ListPoliciesOptionsModel.SetServiceName("testString")
-				v2ListPoliciesOptionsModel.SetServiceGroupID("testString")
-				v2ListPoliciesOptionsModel.SetFormat("include_last_permit")
-				v2ListPoliciesOptionsModel.SetState("active")
-				v2ListPoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(v2ListPoliciesOptionsModel).ToNot(BeNil())
-				Expect(v2ListPoliciesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(v2ListPoliciesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
-				Expect(v2ListPoliciesOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(v2ListPoliciesOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(v2ListPoliciesOptionsModel.Type).To(Equal(core.StringPtr("access")))
-				Expect(v2ListPoliciesOptionsModel.ServiceType).To(Equal(core.StringPtr("service")))
-				Expect(v2ListPoliciesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
-				Expect(v2ListPoliciesOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(v2ListPoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
-				Expect(v2ListPoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
-				Expect(v2ListPoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewV2PolicyBaseControl successfully`, func() {
-				var grant *iampolicymanagementv1.V2PolicyBaseControlGrant = nil
-				_, err := iamPolicyManagementService.NewV2PolicyBaseControl(grant)
-				Expect(err).ToNot(BeNil())
-			})
-			It(`Invoke NewV2PolicyBaseControlGrant successfully`, func() {
-				roles := []iampolicymanagementv1.PolicyRole{}
-				_model, err := iamPolicyManagementService.NewV2PolicyBaseControlGrant(roles)
+			It(`Invoke NewRuleAttribute successfully`, func() {
+				key := "testString"
+				operator := "timeLessThan"
+				value := core.StringPtr("testString")
+				_model, err := iamPolicyManagementService.NewRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewV2UpdatePolicyOptions successfully`, func() {
-				// Construct an instance of the PolicyRole model
-				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
-				Expect(policyRoleModel).ToNot(BeNil())
-				policyRoleModel.RoleID = core.StringPtr("testString")
-				Expect(policyRoleModel.RoleID).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the V2PolicyBaseControlGrant model
-				v2PolicyBaseControlGrantModel := new(iampolicymanagementv1.V2PolicyBaseControlGrant)
-				Expect(v2PolicyBaseControlGrantModel).ToNot(BeNil())
-				v2PolicyBaseControlGrantModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
-				Expect(v2PolicyBaseControlGrantModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
-
-				// Construct an instance of the V2PolicyBaseControl model
-				v2PolicyBaseControlModel := new(iampolicymanagementv1.V2PolicyBaseControl)
-				Expect(v2PolicyBaseControlModel).ToNot(BeNil())
-				v2PolicyBaseControlModel.Grant = v2PolicyBaseControlGrantModel
-				Expect(v2PolicyBaseControlModel.Grant).To(Equal(v2PolicyBaseControlGrantModel))
-
-				// Construct an instance of the V2PolicyAttribute model
-				v2PolicyAttributeModel := new(iampolicymanagementv1.V2PolicyAttribute)
-				Expect(v2PolicyAttributeModel).ToNot(BeNil())
-				v2PolicyAttributeModel.Key = core.StringPtr("testString")
-				v2PolicyAttributeModel.Operator = core.StringPtr("testString")
-				v2PolicyAttributeModel.Value = core.StringPtr("testString")
-				Expect(v2PolicyAttributeModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyAttributeModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the V2PolicyBaseSubject model
-				v2PolicyBaseSubjectModel := new(iampolicymanagementv1.V2PolicyBaseSubject)
-				Expect(v2PolicyBaseSubjectModel).ToNot(BeNil())
-				v2PolicyBaseSubjectModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-				Expect(v2PolicyBaseSubjectModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}))
-
-				// Construct an instance of the V2PolicyBaseResource model
-				v2PolicyBaseResourceModel := new(iampolicymanagementv1.V2PolicyBaseResource)
-				Expect(v2PolicyBaseResourceModel).ToNot(BeNil())
-				v2PolicyBaseResourceModel.Attributes = []iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}
-				Expect(v2PolicyBaseResourceModel.Attributes).To(Equal([]iampolicymanagementv1.V2PolicyAttribute{*v2PolicyAttributeModel}))
-
-				// Construct an instance of the V2PolicyBaseRuleV2PolicyAttribute model
-				v2PolicyBaseRuleModel := new(iampolicymanagementv1.V2PolicyBaseRuleV2PolicyAttribute)
-				Expect(v2PolicyBaseRuleModel).ToNot(BeNil())
-				v2PolicyBaseRuleModel.Key = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Operator = core.StringPtr("testString")
-				v2PolicyBaseRuleModel.Value = core.StringPtr("testString")
-				Expect(v2PolicyBaseRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyBaseRuleModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyBaseRuleModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the V2UpdatePolicyOptions model
+			It(`Invoke NewUpdatePolicyStateOptions successfully`, func() {
+				// Construct an instance of the UpdatePolicyStateOptions model
 				policyID := "testString"
 				ifMatch := "testString"
-				v2UpdatePolicyOptionsType := "testString"
-				var v2UpdatePolicyOptionsControl *iampolicymanagementv1.V2PolicyBaseControl = nil
-				v2UpdatePolicyOptionsModel := iamPolicyManagementService.NewV2UpdatePolicyOptions(policyID, ifMatch, v2UpdatePolicyOptionsType, v2UpdatePolicyOptionsControl)
-				v2UpdatePolicyOptionsModel.SetPolicyID("testString")
-				v2UpdatePolicyOptionsModel.SetIfMatch("testString")
-				v2UpdatePolicyOptionsModel.SetType("testString")
-				v2UpdatePolicyOptionsModel.SetControl(v2PolicyBaseControlModel)
-				v2UpdatePolicyOptionsModel.SetDescription("testString")
-				v2UpdatePolicyOptionsModel.SetSubject(v2PolicyBaseSubjectModel)
-				v2UpdatePolicyOptionsModel.SetResource(v2PolicyBaseResourceModel)
-				v2UpdatePolicyOptionsModel.SetPattern("testString")
-				v2UpdatePolicyOptionsModel.SetRule(v2PolicyBaseRuleModel)
-				v2UpdatePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(v2UpdatePolicyOptionsModel).ToNot(BeNil())
-				Expect(v2UpdatePolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
-				Expect(v2UpdatePolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(v2UpdatePolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(v2UpdatePolicyOptionsModel.Control).To(Equal(v2PolicyBaseControlModel))
-				Expect(v2UpdatePolicyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(v2UpdatePolicyOptionsModel.Subject).To(Equal(v2PolicyBaseSubjectModel))
-				Expect(v2UpdatePolicyOptionsModel.Resource).To(Equal(v2PolicyBaseResourceModel))
-				Expect(v2UpdatePolicyOptionsModel.Pattern).To(Equal(core.StringPtr("testString")))
-				Expect(v2UpdatePolicyOptionsModel.Rule).To(Equal(v2PolicyBaseRuleModel))
-				Expect(v2UpdatePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				updatePolicyStateOptionsModel := iamPolicyManagementService.NewUpdatePolicyStateOptions(policyID, ifMatch)
+				updatePolicyStateOptionsModel.SetPolicyID("testString")
+				updatePolicyStateOptionsModel.SetIfMatch("testString")
+				updatePolicyStateOptionsModel.SetState("active")
+				updatePolicyStateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updatePolicyStateOptionsModel).ToNot(BeNil())
+				Expect(updatePolicyStateOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
+				Expect(updatePolicyStateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updatePolicyStateOptionsModel.State).To(Equal(core.StringPtr("active")))
+				Expect(updatePolicyStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPolicyRole successfully`, func() {
-				roleID := "testString"
-				_model, err := iamPolicyManagementService.NewPolicyRole(roleID)
+			It(`Invoke NewV2PolicyGrant successfully`, func() {
+				roles := []iampolicymanagementv1.PolicyRole{}
+				_model, err := iamPolicyManagementService.NewV2PolicyGrant(roles)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewV2PolicyResource successfully`, func() {
+				attributes := []iampolicymanagementv1.V2PolicyResourceAttribute{}
+				_model, err := iamPolicyManagementService.NewV2PolicyResource(attributes)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewV2PolicyResourceAttribute successfully`, func() {
+				key := "testString"
+				operator := "stringEquals"
+				value := core.StringPtr("testString")
+				_model, err := iamPolicyManagementService.NewV2PolicyResourceAttribute(key, operator, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewV2PolicyResourceTag successfully`, func() {
+				key := "testString"
+				value := "testString"
+				operator := "stringEquals"
+				_model, err := iamPolicyManagementService.NewV2PolicyResourceTag(key, value, operator)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewV2PolicySubject successfully`, func() {
+				attributes := []iampolicymanagementv1.V2PolicySubjectAttribute{}
+				_model, err := iamPolicyManagementService.NewV2PolicySubject(attributes)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewV2PolicySubjectAttribute successfully`, func() {
+				key := "testString"
+				operator := "stringEquals"
+				value := "testString"
+				_model, err := iamPolicyManagementService.NewV2PolicySubjectAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -4926,6 +5146,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewRole successfully`, func() {
+				displayName := "testString"
+				actions := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewRole(displayName, actions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewSubjectAttribute successfully`, func() {
 				name := "testString"
 				value := "testString"
@@ -4933,26 +5160,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewV2PolicyAttribute successfully`, func() {
+			It(`Invoke NewV2PolicyRuleRuleAttribute successfully`, func() {
 				key := "testString"
-				operator := "testString"
+				operator := "timeLessThan"
 				value := core.StringPtr("testString")
-				_model, err := iamPolicyManagementService.NewV2PolicyAttribute(key, operator, value)
+				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewV2PolicyBaseRuleV2PolicyAttribute successfully`, func() {
-				key := "testString"
-				operator := "testString"
-				value := core.StringPtr("testString")
-				_model, err := iamPolicyManagementService.NewV2PolicyBaseRuleV2PolicyAttribute(key, operator, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewV2PolicyBaseRuleV2RuleWithConditions successfully`, func() {
+			It(`Invoke NewV2PolicyRuleRuleWithConditions successfully`, func() {
 				operator := "and"
-				conditions := []iampolicymanagementv1.V2PolicyAttribute{}
-				_model, err := iamPolicyManagementService.NewV2PolicyBaseRuleV2RuleWithConditions(operator, conditions)
+				conditions := []iampolicymanagementv1.RuleAttribute{}
+				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleWithConditions(operator, conditions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

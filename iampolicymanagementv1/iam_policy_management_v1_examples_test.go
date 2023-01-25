@@ -198,9 +198,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
-		It(`UpdatePolicy request example`, func() {
-			fmt.Println("\nUpdatePolicy() result:")
-			// begin-update_policy
+		It(`ReplacePolicy request example`, func() {
+			fmt.Println("\nReplacePolicy() result:")
+			// begin-replace_policy
 
 			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
 				Name:  core.StringPtr("iam_id"),
@@ -233,7 +233,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
 			}
 
-			options := iamPolicyManagementService.NewUpdatePolicyOptions(
+			options := iamPolicyManagementService.NewReplacePolicyOptions(
 				examplePolicyID,
 				examplePolicyETag,
 				"access",
@@ -242,14 +242,14 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				[]iampolicymanagementv1.PolicyResource{*policyResources},
 			)
 
-			policy, response, err := iamPolicyManagementService.UpdatePolicy(options)
+			policy, response, err := iamPolicyManagementService.ReplacePolicy(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_policy
+			// end-replace_policy
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -257,25 +257,25 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
-		It(`PatchPolicy request example`, func() {
-			fmt.Println("\nPatchPolicy() result:")
-			// begin-patch_policy
+		It(`UpdatePolicy request example`, func() {
+			fmt.Println("\nUpdatePolicyState() result:")
+			// begin-update_policy_state
 
-			options := iamPolicyManagementService.NewPatchPolicyOptions(
+			options := iamPolicyManagementService.NewUpdatePolicyStateOptions(
 				examplePolicyID,
 				examplePolicyETag,
 			)
 
 			options.SetState("active")
 
-			policy, response, err := iamPolicyManagementService.PatchPolicy(options)
+			policy, response, err := iamPolicyManagementService.UpdatePolicyState(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
 			fmt.Println(string(b))
 
-			// end-patch_policy
+			// end-update_policy_state
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -324,57 +324,85 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
-		It(`V2CreatePolicy request example`, func() {
-			fmt.Println("\nCreatePolicy() result:")
-			// begin-v2_create_policy
+		It(`CreateV2Policy request example`, func() {
+			fmt.Println("\nCreateV2Policy() result:")
+			// begin-create_v2_policy
 
-			subjectAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			subjectAttribute := &iampolicymanagementv1.V2PolicySubjectAttribute{
 				Key:  core.StringPtr("iam_id"),
 				Operator: core.StringPtr("stringEquals"),
 				Value: &exampleUserID,
 			}
-			policySubject := &iampolicymanagementv1.V2PolicyBaseSubject{
-				Attributes: []iampolicymanagementv1.V2PolicyAttribute{*subjectAttribute},
+			policySubject := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute},
 			}
 			policyRole := &iampolicymanagementv1.PolicyRole{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
 			}
-			v2PolicyGrant := &iampolicymanagementv1.V2PolicyBaseControlGrant{
+			v2PolicyGrant := &iampolicymanagementv1.V2PolicyGrant{
 				Roles: []iampolicymanagementv1.PolicyRole{*policyRole},
 			}
-			v2PolicyControl := &iampolicymanagementv1.V2PolicyBaseControl{
+			v2PolicyControl := &iampolicymanagementv1.Control{
 				Grant: v2PolicyGrant,
 			}
-			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:     core.StringPtr("accountId"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr(exampleAccountID),
 			}
-			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:     core.StringPtr("serviceType"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr("service"),
 			}
-			policyResource := &iampolicymanagementv1.V2PolicyBaseResource{
-				Attributes: []iampolicymanagementv1.V2PolicyAttribute{
+			policyResourceTag := &iampolicymanagementv1.V2PolicyResourceTag{
+				Key:     core.StringPtr("project"),
+				Value:    core.StringPtr("prototype"),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
+				Tags: []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag},
+			}
+			weeklyConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
+				Key:     core.StringPtr("{{environment.attributes.day_of_week}}"),
+				Operator: core.StringPtr("dayOfWeekAnyOf"),
+				Value:    []string{"1+00:00","2+00:00","3+00:00","4+00:00","5+00:00"},
+			}
+			startConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
+				Key:     core.StringPtr("{{environment.attributes.current_time}}"),
+				Operator: core.StringPtr("timeGreaterThanOrEquals"),
+				Value:    core.StringPtr("09:00:00+00:00"),
+			}
+			endConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
+				Key:     core.StringPtr("{{environment.attributes.current_time}}"),
+				Operator: core.StringPtr("timeLessThanOrEquals"),
+				Value:    core.StringPtr("17:00:00+00:00"),
+			}
+			policyRule := &iampolicymanagementv1.V2PolicyRule{
+				Operator: core.StringPtr("and"),
+				Conditions: []iampolicymanagementv1.RuleAttribute{
+					*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute},
 			}
 
-			options := iamPolicyManagementService.NewV2CreatePolicyOptions(
-				"access",
+			options := iamPolicyManagementService.NewCreateV2PolicyOptions(
 				v2PolicyControl,
+				"access",
 			)
 			options.SetSubject(policySubject)
 			options.SetResource(policyResource)
+			options.SetRule(policyRule)
+			options.SetPattern(*core.StringPtr("time-based-conditions:weekly:custom-hours"))
 
-			policy, response, err := iamPolicyManagementService.V2CreatePolicy(options)
+			policy, response, err := iamPolicyManagementService.CreateV2Policy(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
 			fmt.Println(string(b))
 
-			// end-create_policy
+			// end-create_v2_policy
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -382,22 +410,22 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			examplePolicyID = *policy.ID
 		})
-		It(`V2GetPolicy request example`, func() {
-			fmt.Println("\nGetPolicy() result:")
-			// begin-get_policy
+		It(`GetV2Policy request example`, func() {
+			fmt.Println("\nGetV2Policy() result:")
+			// begin-get_v2_policy
 
-			options := iamPolicyManagementService.NewV2GetPolicyOptions(
+			options := iamPolicyManagementService.NewGetV2PolicyOptions(
 				examplePolicyID,
 			)
 
-			policy, response, err := iamPolicyManagementService.V2GetPolicy(options)
+			policy, response, err := iamPolicyManagementService.GetV2Policy(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_policy
+			// end-get_v2_policy
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -405,60 +433,60 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
-		It(`V2UpdatePolicy request example`, func() {
-			fmt.Println("\nUpdatePolicy() result:")
-			// begin-update_policy
+		It(`ReplaceV2Policy request example`, func() {
+			fmt.Println("\nReplaceV2Policy() result:")
+			// begin-replace_v2_policy
 
-			subjectAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			subjectAttribute := &iampolicymanagementv1.V2PolicySubjectAttribute{
 				Key:  core.StringPtr("iam_id"),
 				Operator: core.StringPtr("stringEquals"),
 				Value: &exampleUserID,
 			}
-			policySubject := &iampolicymanagementv1.V2PolicyBaseSubject{
-				Attributes: []iampolicymanagementv1.V2PolicyAttribute{*subjectAttribute},
+			policySubject := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute},
 			}
 			updatedPolicyRole := &iampolicymanagementv1.PolicyRole{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
 			}
-			v2PolicyGrant := &iampolicymanagementv1.V2PolicyBaseControlGrant{
+			v2PolicyGrant := &iampolicymanagementv1.V2PolicyGrant{
 				Roles: []iampolicymanagementv1.PolicyRole{*updatedPolicyRole},
 			}
-			v2PolicyControl := &iampolicymanagementv1.V2PolicyBaseControl{
+			v2PolicyControl := &iampolicymanagementv1.Control{
 				Grant: v2PolicyGrant,
 			}
-			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:     core.StringPtr("accountId"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr(exampleAccountID),
 			}
-			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyAttribute{
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:     core.StringPtr("serviceType"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr("service"),
 			}
-			policyResource := &iampolicymanagementv1.V2PolicyBaseResource{
-				Attributes: []iampolicymanagementv1.V2PolicyAttribute{
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 			}
 
-			options := iamPolicyManagementService.NewV2UpdatePolicyOptions(
+			options := iamPolicyManagementService.NewReplaceV2PolicyOptions(
 				examplePolicyID,
 				examplePolicyETag,
-				"access",
 				v2PolicyControl,
+				"access",
 			)
 			options.SetSubject(policySubject)
 			options.SetResource(policyResource)
 
 
-			policy, response, err := iamPolicyManagementService.V2UpdatePolicy(options)
+			policy, response, err := iamPolicyManagementService.ReplaceV2Policy(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_policy
+			// end-replace_v2_policy
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -466,44 +494,44 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
-		It(`V2ListPolicies request example`, func() {
-			fmt.Println("\nListPolicies() result:")
-			// begin-list_policies
+		It(`ListV2Policies request example`, func() {
+			fmt.Println("\nListV2Policies() result:")
+			// begin-list_v2_policies
 
-			options := iamPolicyManagementService.NewV2ListPoliciesOptions(
+			options := iamPolicyManagementService.NewListV2PoliciesOptions(
 				exampleAccountID,
 			)
 			options.SetIamID(exampleUserID)
 			options.SetFormat("include_last_permit")
 
-			policyList, response, err := iamPolicyManagementService.V2ListPolicies(options)
+			policyList, response, err := iamPolicyManagementService.ListV2Policies(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_policies
+			// end-list_v2_policies
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyList).ToNot(BeNil())
 
 		})
-		It(`V2DeletePolicy request example`, func() {
-			// begin-delete_policy
+		It(`DeleteV2Policy request example`, func() {
+			// begin-delete_v2_policy
 
-			options := iamPolicyManagementService.NewV2DeletePolicyOptions(
+			options := iamPolicyManagementService.NewDeleteV2PolicyOptions(
 				examplePolicyID,
 			)
 
-			response, err := iamPolicyManagementService.V2DeletePolicy(options)
+			response, err := iamPolicyManagementService.DeleteV2Policy(options)
 			if err != nil {
 				panic(err)
 			}
 
-			// end-delete_policy
-			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
+			// end-delete_delete_v2_policypolicy
+			fmt.Printf("\nDeleteV2Policy() response status code: %d\n", response.StatusCode)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
@@ -559,26 +587,27 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			exampleCustomRoleETag = response.Headers.Get("ETag")
 
 		})
-		It(`UpdateRole request example`, func() {
-			fmt.Println("\nUpdateRole() result:")
-			// begin-update_role
+		It(`ReplaceRole request example`, func() {
+			fmt.Println("\nReplaceRole() result:")
+			// begin-replace_role
 
 			updatedRoleActions := []string{"iam-groups.groups.read", "iam-groups.groups.list"}
 
-			options := iamPolicyManagementService.NewUpdateRoleOptions(
+			options := iamPolicyManagementService.NewReplaceRoleOptions(
 				exampleCustomRoleID,
 				exampleCustomRoleETag,
+				"ExampleRoleIAMGroups",
+				updatedRoleActions,
 			)
-			options.SetActions(updatedRoleActions)
 
-			customRole, response, err := iamPolicyManagementService.UpdateRole(options)
+			customRole, response, err := iamPolicyManagementService.ReplaceRole(options)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_role
+			// end-replace_role
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
