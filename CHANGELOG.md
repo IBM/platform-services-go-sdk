@@ -1,3 +1,10 @@
+## [0.31.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.3...v0.31.4) (2023-01-25)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update time-based condition example and pattern, ([#231](https://github.com/IBM/platform-services-go-sdk/issues/231)) ([92d5126](https://github.com/IBM/platform-services-go-sdk/commit/92d51260d7aed93924362f949d8e98c3cb60418d))
+
 ## [0.31.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.2...v0.31.3) (2023-01-17)
 
 
