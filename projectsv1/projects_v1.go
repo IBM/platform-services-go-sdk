@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -164,12 +164,12 @@ func (projects *ProjectsV1) DisableRetries() {
 // CreateProject : Create a Project
 // Create a new Project, which asynchronously setup the tools to manage it and creates the initial Pull Request on the
 // Project git repo. After approving the PR, the user can deploy the resources that the Project configures.
-func (projects *ProjectsV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	return projects.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
 
 // CreateProjectWithContext is an alternate form of the CreateProject method which supports a Context parameter
-func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createProjectOptions, "createProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -197,9 +197,6 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createProjectOptions.Prefer != nil {
-		builder.AddHeader("prefer", fmt.Sprint(*createProjectOptions.Prefer))
-	}
 
 	if createProjectOptions.ResourceGroup != nil {
 		builder.AddQuery("resource_group", fmt.Sprint(*createProjectOptions.ResourceGroup))
@@ -218,9 +215,6 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	if createProjectOptions.Configs != nil {
 		body["configs"] = createProjectOptions.Configs
 	}
-	if createProjectOptions.Dashboard != nil {
-		body["dashboard"] = createProjectOptions.Dashboard
-	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -237,7 +231,7 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetProjectResponse)
 		if err != nil {
 			return
 		}
@@ -249,12 +243,12 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 
 // ListProjects : List Projects
 // List existing Projects. Projects are sorted by id.
-func (projects *ProjectsV1) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ListProjectsResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectListResponseSchema, response *core.DetailedResponse, err error) {
 	return projects.ListProjectsWithContext(context.Background(), listProjectsOptions)
 }
 
 // ListProjectsWithContext is an alternate form of the ListProjects method which supports a Context parameter
-func (projects *ProjectsV1) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ListProjectsResponse, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ProjectListResponseSchema, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listProjectsOptions, "listProjectsOptions")
 	if err != nil {
 		return
@@ -296,7 +290,7 @@ func (projects *ProjectsV1) ListProjectsWithContext(ctx context.Context, listPro
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListProjectsResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectListResponseSchema)
 		if err != nil {
 			return
 		}
@@ -370,25 +364,25 @@ func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjec
 	return
 }
 
-// UpdateProject : Update a project by id
+// ReplaceProject : Update a project by id
 // Update a project.
-func (projects *ProjectsV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
-	return projects.UpdateProjectWithContext(context.Background(), updateProjectOptions)
+func (projects *ProjectsV1) ReplaceProject(replaceProjectOptions *ReplaceProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
+	return projects.ReplaceProjectWithContext(context.Background(), replaceProjectOptions)
 }
 
-// UpdateProjectWithContext is an alternate form of the UpdateProject method which supports a Context parameter
-func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateProjectOptions, "updateProjectOptions cannot be nil")
+// ReplaceProjectWithContext is an alternate form of the ReplaceProject method which supports a Context parameter
+func (projects *ProjectsV1) ReplaceProjectWithContext(ctx context.Context, replaceProjectOptions *ReplaceProjectOptions) (result *UpdateResponsePullRequest, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(replaceProjectOptions, "replaceProjectOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateProjectOptions, "updateProjectOptions")
+	err = core.ValidateStruct(replaceProjectOptions, "replaceProjectOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *updateProjectOptions.ID,
+		"id": *replaceProjectOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -399,33 +393,30 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 		return
 	}
 
-	for headerName, headerValue := range updateProjectOptions.Headers {
+	for headerName, headerValue := range replaceProjectOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UpdateProject")
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ReplaceProject")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if updateProjectOptions.Branch != nil {
-		builder.AddQuery("branch", fmt.Sprint(*updateProjectOptions.Branch))
+	if replaceProjectOptions.Branch != nil {
+		builder.AddQuery("branch", fmt.Sprint(*replaceProjectOptions.Branch))
 	}
 
 	body := make(map[string]interface{})
-	if updateProjectOptions.Name != nil {
-		body["name"] = updateProjectOptions.Name
+	if replaceProjectOptions.Name != nil {
+		body["name"] = replaceProjectOptions.Name
 	}
-	if updateProjectOptions.Description != nil {
-		body["description"] = updateProjectOptions.Description
+	if replaceProjectOptions.Description != nil {
+		body["description"] = replaceProjectOptions.Description
 	}
-	if updateProjectOptions.Configs != nil {
-		body["configs"] = updateProjectOptions.Configs
-	}
-	if updateProjectOptions.Dashboard != nil {
-		body["dashboard"] = updateProjectOptions.Dashboard
+	if replaceProjectOptions.Configs != nil {
+		body["configs"] = replaceProjectOptions.Configs
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -491,12 +482,70 @@ func (projects *ProjectsV1) DeleteProjectWithContext(ctx context.Context, delete
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if deleteProjectOptions.Branch != nil {
+		builder.AddQuery("branch", fmt.Sprint(*deleteProjectOptions.Branch))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
 	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// GetProjectFile : Get file from the project git repo
+// Get file from the project git repo as base64 content.
+func (projects *ProjectsV1) GetProjectFile(getProjectFileOptions *GetProjectFileOptions) (result *string, response *core.DetailedResponse, err error) {
+	return projects.GetProjectFileWithContext(context.Background(), getProjectFileOptions)
+}
+
+// GetProjectFileWithContext is an alternate form of the GetProjectFile method which supports a Context parameter
+func (projects *ProjectsV1) GetProjectFileWithContext(ctx context.Context, getProjectFileOptions *GetProjectFileOptions) (result *string, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getProjectFileOptions, "getProjectFileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getProjectFileOptions, "getProjectFileOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getProjectFileOptions.ID,
+		"file_path": *getProjectFileOptions.FilePath,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/files/{file_path}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getProjectFileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetProjectFile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "text/plain")
+
+	if getProjectFileOptions.Branch != nil {
+		builder.AddQuery("branch", fmt.Sprint(*getProjectFileOptions.Branch))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, &result)
 
 	return
 }
@@ -550,9 +599,6 @@ func (projects *ProjectsV1) MergeProjectWithContext(ctx context.Context, mergePr
 	}
 	if mergeProjectOptions.Configs != nil {
 		body["configs"] = mergeProjectOptions.Configs
-	}
-	if mergeProjectOptions.Dashboard != nil {
-		body["dashboard"] = mergeProjectOptions.Dashboard
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -625,9 +671,6 @@ func (projects *ProjectsV1) ValidateProjectWithContext(ctx context.Context, vali
 	if validateProjectOptions.Configs != nil {
 		body["configs"] = validateProjectOptions.Configs
 	}
-	if validateProjectOptions.Dashboard != nil {
-		body["dashboard"] = validateProjectOptions.Dashboard
-	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -639,81 +682,6 @@ func (projects *ProjectsV1) ValidateProjectWithContext(ctx context.Context, vali
 	}
 
 	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// InitProjectConfig : Initialize the configs from a catalog solution
-// Initialize the configs from a catalog solution.
-func (projects *ProjectsV1) InitProjectConfig(initProjectConfigOptions *InitProjectConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
-	return projects.InitProjectConfigWithContext(context.Background(), initProjectConfigOptions)
-}
-
-// InitProjectConfigWithContext is an alternate form of the InitProjectConfig method which supports a Context parameter
-func (projects *ProjectsV1) InitProjectConfigWithContext(ctx context.Context, initProjectConfigOptions *InitProjectConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(initProjectConfigOptions, "initProjectConfigOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(initProjectConfigOptions, "initProjectConfigOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/init_config`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range initProjectConfigOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InitProjectConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if initProjectConfigOptions.LocatorID != nil {
-		body["locator_id"] = initProjectConfigOptions.LocatorID
-	}
-	if initProjectConfigOptions.ConfigName != nil {
-		body["config_name"] = initProjectConfigOptions.ConfigName
-	}
-	if initProjectConfigOptions.Description != nil {
-		body["description"] = initProjectConfigOptions.Description
-	}
-	if initProjectConfigOptions.Labels != nil {
-		body["labels"] = initProjectConfigOptions.Labels
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
 
 	return
 }
@@ -790,6 +758,289 @@ func (projects *ProjectsV1) ConfigChangesWithContext(ctx context.Context, config
 		}
 		response.Result = result
 	}
+
+	return
+}
+
+// PlanConfig : Run a plan job on a given configuration in project
+// Run a plan job on a given configuration in project.
+func (projects *ProjectsV1) PlanConfig(planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+	return projects.PlanConfigWithContext(context.Background(), planConfigOptions)
+}
+
+// PlanConfigWithContext is an alternate form of the PlanConfig method which supports a Context parameter
+func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(planConfigOptions, "planConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(planConfigOptions, "planConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *planConfigOptions.ID,
+		"config_name": *planConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/plan`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range planConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// InstallConfig : Install a Config
+// Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api.
+func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+	return projects.InstallConfigWithContext(context.Background(), installConfigOptions)
+}
+
+// InstallConfigWithContext is an alternate form of the InstallConfig method which supports a Context parameter
+func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(installConfigOptions, "installConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(installConfigOptions, "installConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *installConfigOptions.ID,
+		"config_name": *installConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/install`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range installConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InstallConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// UninstallConfig : Uninstall a Config
+// Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
+// You can track it by using the project status api.
+func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+	return projects.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
+}
+
+// UninstallConfigWithContext is an alternate form of the UninstallConfig method which supports a Context parameter
+func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(uninstallConfigOptions, "uninstallConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(uninstallConfigOptions, "uninstallConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *uninstallConfigOptions.ID,
+		"config_name": *uninstallConfigOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/uninstall`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range uninstallConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UninstallConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// GetSchematicsJob : Fetch and find the latest schematics job corresponds to a given config action
+// Fetch and find the latest schematics job corresponds to a plan, install or uninstall action.
+func (projects *ProjectsV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+	return projects.GetSchematicsJobWithContext(context.Background(), getSchematicsJobOptions)
+}
+
+// GetSchematicsJobWithContext is an alternate form of the GetSchematicsJob method which supports a Context parameter
+func (projects *ProjectsV1) GetSchematicsJobWithContext(ctx context.Context, getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getSchematicsJobOptions, "getSchematicsJobOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getSchematicsJobOptions, "getSchematicsJobOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getSchematicsJobOptions.ID,
+		"config_name": *getSchematicsJobOptions.ConfigName,
+		"action": *getSchematicsJobOptions.Action,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/{action}/job`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getSchematicsJobOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetSchematicsJob")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getSchematicsJobOptions.Since != nil {
+		builder.AddQuery("since", fmt.Sprint(*getSchematicsJobOptions.Since))
+	}
+	if getSchematicsJobOptions.PullRequest != nil {
+		builder.AddQuery("pull_request", fmt.Sprint(*getSchematicsJobOptions.PullRequest))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetActionJobResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetCostEstimate : Fetch the cost estimate for a given configuraton
+// Fetch the cost estimate for a given configuraton.
+func (projects *ProjectsV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
+	return projects.GetCostEstimateWithContext(context.Background(), getCostEstimateOptions)
+}
+
+// GetCostEstimateWithContext is an alternate form of the GetCostEstimate method which supports a Context parameter
+func (projects *ProjectsV1) GetCostEstimateWithContext(ctx context.Context, getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getCostEstimateOptions, "getCostEstimateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getCostEstimateOptions, "getCostEstimateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getCostEstimateOptions.ID,
+		"config_name": *getCostEstimateOptions.ConfigName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/cost_estimate`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCostEstimateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetCostEstimate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getCostEstimateOptions.PullRequest != nil {
+		builder.AddQuery("pull_request", fmt.Sprint(*getCostEstimateOptions.PullRequest))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
 
 	return
 }
@@ -1093,7 +1344,7 @@ func (projects *ProjectsV1) ListProjectConfigStatusesWithContext(ctx context.Con
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/config_statuses`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/status`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1154,7 +1405,7 @@ func (projects *ProjectsV1) GetProjectConfigStatusWithContext(ctx context.Contex
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/config_statuses/{config_name}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/status`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1168,89 +1419,6 @@ func (projects *ProjectsV1) GetProjectConfigStatusWithContext(ctx context.Contex
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigStatus)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// UpdateProjectConfigStatus : Update project config status information
-// Update a config status and eventually the output values.
-func (projects *ProjectsV1) UpdateProjectConfigStatus(updateProjectConfigStatusOptions *UpdateProjectConfigStatusOptions) (result *ProjectConfigStatus, response *core.DetailedResponse, err error) {
-	return projects.UpdateProjectConfigStatusWithContext(context.Background(), updateProjectConfigStatusOptions)
-}
-
-// UpdateProjectConfigStatusWithContext is an alternate form of the UpdateProjectConfigStatus method which supports a Context parameter
-func (projects *ProjectsV1) UpdateProjectConfigStatusWithContext(ctx context.Context, updateProjectConfigStatusOptions *UpdateProjectConfigStatusOptions) (result *ProjectConfigStatus, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateProjectConfigStatusOptions, "updateProjectConfigStatusOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(updateProjectConfigStatusOptions, "updateProjectConfigStatusOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *updateProjectConfigStatusOptions.ID,
-		"config_name": *updateProjectConfigStatusOptions.ConfigName,
-	}
-
-	builder := core.NewRequestBuilder(core.PATCH)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/config_statuses/{config_name}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range updateProjectConfigStatusOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UpdateProjectConfigStatus")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if updateProjectConfigStatusOptions.Status != nil {
-		body["status"] = updateProjectConfigStatusOptions.Status
-	}
-	if updateProjectConfigStatusOptions.Messages != nil {
-		body["messages"] = updateProjectConfigStatusOptions.Messages
-	}
-	if updateProjectConfigStatusOptions.PipelineRun != nil {
-		body["pipeline_run"] = updateProjectConfigStatusOptions.PipelineRun
-	}
-	if updateProjectConfigStatusOptions.SchematicsResourceID != nil {
-		body["schematics_resource_id"] = updateProjectConfigStatusOptions.SchematicsResourceID
-	}
-	if updateProjectConfigStatusOptions.Output != nil {
-		body["output"] = updateProjectConfigStatusOptions.Output
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1399,6 +1567,290 @@ func (projects *ProjectsV1) UpdateProjectConfigComputedStatusWithContext(ctx con
 		}
 		response.Result = result
 	}
+
+	return
+}
+
+// PostNotification : Add some notifications
+// Creates a notification event to be stored on the project definition.
+func (projects *ProjectsV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+	return projects.PostNotificationWithContext(context.Background(), postNotificationOptions)
+}
+
+// PostNotificationWithContext is an alternate form of the PostNotification method which supports a Context parameter
+func (projects *ProjectsV1) PostNotificationWithContext(ctx context.Context, postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(postNotificationOptions, "postNotificationOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(postNotificationOptions, "postNotificationOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *postNotificationOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range postNotificationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PostNotification")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if postNotificationOptions.Notifications != nil {
+		body["notifications"] = postNotificationOptions.Notifications
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostNotificationsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetNotifications : Get events by project id
+// Get all the notification events from a specific project id.
+func (projects *ProjectsV1) GetNotifications(getNotificationsOptions *GetNotificationsOptions) (result *GetNotificationsResponse, response *core.DetailedResponse, err error) {
+	return projects.GetNotificationsWithContext(context.Background(), getNotificationsOptions)
+}
+
+// GetNotificationsWithContext is an alternate form of the GetNotifications method which supports a Context parameter
+func (projects *ProjectsV1) GetNotificationsWithContext(ctx context.Context, getNotificationsOptions *GetNotificationsOptions) (result *GetNotificationsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getNotificationsOptions, "getNotificationsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getNotificationsOptions, "getNotificationsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *getNotificationsOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getNotificationsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetNotifications")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetNotificationsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteNotification : Delete a notification from a project
+// Delete a project notification.
+func (projects *ProjectsV1) DeleteNotification(deleteNotificationOptions *DeleteNotificationOptions) (response *core.DetailedResponse, err error) {
+	return projects.DeleteNotificationWithContext(context.Background(), deleteNotificationOptions)
+}
+
+// DeleteNotificationWithContext is an alternate form of the DeleteNotification method which supports a Context parameter
+func (projects *ProjectsV1) DeleteNotificationWithContext(ctx context.Context, deleteNotificationOptions *DeleteNotificationOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteNotificationOptions, "deleteNotificationOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteNotificationOptions, "deleteNotificationOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteNotificationOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteNotificationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "DeleteNotification")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	builder.AddQuery("notification_id", fmt.Sprint(*deleteNotificationOptions.NotificationID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// ReceivePulsarCatalogEvents : Webhook for catalog events
+// This is a webhook for pulsar catalog events.
+func (projects *ProjectsV1) ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	return projects.ReceivePulsarCatalogEventsWithContext(context.Background(), receivePulsarCatalogEventsOptions)
+}
+
+// ReceivePulsarCatalogEventsWithContext is an alternate form of the ReceivePulsarCatalogEvents method which supports a Context parameter
+func (projects *ProjectsV1) ReceivePulsarCatalogEventsWithContext(ctx context.Context, receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/pulsar/catalog_events`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range receivePulsarCatalogEventsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ReceivePulsarCatalogEvents")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarEventItem)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// ReceiveGitlabEvents : Webhook for gitlab webhook events
+// This is a webhook for gitlab webhook merge request and push events.
+func (projects *ProjectsV1) ReceiveGitlabEvents(receiveGitlabEventsOptions *ReceiveGitlabEventsOptions) (response *core.DetailedResponse, err error) {
+	return projects.ReceiveGitlabEventsWithContext(context.Background(), receiveGitlabEventsOptions)
+}
+
+// ReceiveGitlabEventsWithContext is an alternate form of the ReceiveGitlabEvents method which supports a Context parameter
+func (projects *ProjectsV1) ReceiveGitlabEventsWithContext(ctx context.Context, receiveGitlabEventsOptions *ReceiveGitlabEventsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(receiveGitlabEventsOptions, "receiveGitlabEventsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(receiveGitlabEventsOptions, "receiveGitlabEventsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *receiveGitlabEventsOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/gitlab_webhook/{id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range receiveGitlabEventsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ReceiveGitlabEvents")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	_, err = builder.SetBodyContentJSON(receiveGitlabEventsOptions.GitLabEvent)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
 
 	return
 }
@@ -1764,332 +2216,79 @@ func (projects *ProjectsV1) PlanPullRequestConfigsWithContext(ctx context.Contex
 	return
 }
 
-// PlanConfig : Run a plan job on a given configuration in project
-// Run a plan job on a given configuration in project.
-func (projects *ProjectsV1) PlanConfig(planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
-	return projects.PlanConfigWithContext(context.Background(), planConfigOptions)
+// ProvisionServiceInstance : create a new service instance
+// Provision a new service instance Create a service instance. When the service broker receives a provision request from
+// the IBM Cloud platform, it MUST take whatever action is necessary to create a new resource. When a user creates a
+// service instance from the IBM Cloud console or the IBM Cloud CLI, the IBM Cloud platform validates that the user has
+// permission to create the service instance using IBM Cloud IAM. After this validation occurs, your service broker's
+// provision endpoint (PUT /v2/resource_instances/:instance_id) will be invoked. When provisioning occurs, the IBM Cloud
+// platform provides the following values:
+// - The IBM Cloud context is included in the context variable - The X-Broker-API-Originating-Identity will have the IBM
+// IAM ID of the user that initiated the request - The parameters section will include the requested location (and
+// additional parameters required by your service).
+func (projects *ProjectsV1) ProvisionServiceInstance(provisionServiceInstanceOptions *ProvisionServiceInstanceOptions) (result *CreateResult, response *core.DetailedResponse, err error) {
+	return projects.ProvisionServiceInstanceWithContext(context.Background(), provisionServiceInstanceOptions)
 }
 
-// PlanConfigWithContext is an alternate form of the PlanConfig method which supports a Context parameter
-func (projects *ProjectsV1) PlanConfigWithContext(ctx context.Context, planConfigOptions *PlanConfigOptions) (result *ConfigJobResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(planConfigOptions, "planConfigOptions cannot be nil")
+// ProvisionServiceInstanceWithContext is an alternate form of the ProvisionServiceInstance method which supports a Context parameter
+func (projects *ProjectsV1) ProvisionServiceInstanceWithContext(ctx context.Context, provisionServiceInstanceOptions *ProvisionServiceInstanceOptions) (result *CreateResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(provisionServiceInstanceOptions, "provisionServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(planConfigOptions, "planConfigOptions")
+	err = core.ValidateStruct(provisionServiceInstanceOptions, "provisionServiceInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *planConfigOptions.ID,
-		"config_name": *planConfigOptions.ConfigName,
+		"instance_id": *provisionServiceInstanceOptions.InstanceID,
 	}
 
-	builder := core.NewRequestBuilder(core.POST)
+	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/plan`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range planConfigOptions.Headers {
+	for headerName, headerValue := range provisionServiceInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalConfigJobResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// InstallConfig : Install a Config
-// Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api.
-func (projects *ProjectsV1) InstallConfig(installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
-	return projects.InstallConfigWithContext(context.Background(), installConfigOptions)
-}
-
-// InstallConfigWithContext is an alternate form of the InstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) InstallConfigWithContext(ctx context.Context, installConfigOptions *InstallConfigOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(installConfigOptions, "installConfigOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(installConfigOptions, "installConfigOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *installConfigOptions.ID,
-		"config_name": *installConfigOptions.ConfigName,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/install`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range installConfigOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InstallConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// UninstallConfig : Uninstall a Config
-// Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
-// You can track it by using the project status api.
-func (projects *ProjectsV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
-	return projects.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
-}
-
-// UninstallConfigWithContext is an alternate form of the UninstallConfig method which supports a Context parameter
-func (projects *ProjectsV1) UninstallConfigWithContext(ctx context.Context, uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(uninstallConfigOptions, "uninstallConfigOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(uninstallConfigOptions, "uninstallConfigOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *uninstallConfigOptions.ID,
-		"config_name": *uninstallConfigOptions.ConfigName,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/uninstall`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range uninstallConfigOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UninstallConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// GetSchematicsJob : Fetch and find the latest schematics job corresponds to a given config action
-// Fetch and find the latest schematics job corresponds to a plan, install or uninstall action.
-func (projects *ProjectsV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
-	return projects.GetSchematicsJobWithContext(context.Background(), getSchematicsJobOptions)
-}
-
-// GetSchematicsJobWithContext is an alternate form of the GetSchematicsJob method which supports a Context parameter
-func (projects *ProjectsV1) GetSchematicsJobWithContext(ctx context.Context, getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getSchematicsJobOptions, "getSchematicsJobOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getSchematicsJobOptions, "getSchematicsJobOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *getSchematicsJobOptions.ID,
-		"config_name": *getSchematicsJobOptions.ConfigName,
-		"action": *getSchematicsJobOptions.Action,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/{action}/job`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getSchematicsJobOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetSchematicsJob")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if getSchematicsJobOptions.Since != nil {
-		builder.AddQuery("since", fmt.Sprint(*getSchematicsJobOptions.Since))
-	}
-	if getSchematicsJobOptions.PullRequest != nil {
-		builder.AddQuery("pull_request", fmt.Sprint(*getSchematicsJobOptions.PullRequest))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = projects.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetActionJobResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetCostEstimate : Fetch the cost estimate for a given configuraton
-// Fetch the cost estimate for a given configuraton.
-func (projects *ProjectsV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
-	return projects.GetCostEstimateWithContext(context.Background(), getCostEstimateOptions)
-}
-
-// GetCostEstimateWithContext is an alternate form of the GetCostEstimate method which supports a Context parameter
-func (projects *ProjectsV1) GetCostEstimateWithContext(ctx context.Context, getCostEstimateOptions *GetCostEstimateOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getCostEstimateOptions, "getCostEstimateOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getCostEstimateOptions, "getCostEstimateOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *getCostEstimateOptions.ID,
-		"config_name": *getCostEstimateOptions.ConfigName,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_name}/cost_estimate`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getCostEstimateOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetCostEstimate")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if getCostEstimateOptions.PullRequest != nil {
-		builder.AddQuery("pull_request", fmt.Sprint(*getCostEstimateOptions.PullRequest))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = projects.Service.Request(request, nil)
-
-	return
-}
-
-// PostNotification : Add some notifications
-// Creates a notification event to be stored on the project definition.
-func (projects *ProjectsV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
-	return projects.PostNotificationWithContext(context.Background(), postNotificationOptions)
-}
-
-// PostNotificationWithContext is an alternate form of the PostNotification method which supports a Context parameter
-func (projects *ProjectsV1) PostNotificationWithContext(ctx context.Context, postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(postNotificationOptions, "postNotificationOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(postNotificationOptions, "postNotificationOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *postNotificationOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range postNotificationOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PostNotification")
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ProvisionServiceInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+	if provisionServiceInstanceOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*provisionServiceInstanceOptions.XBrokerApiVersion))
+	}
+	if provisionServiceInstanceOptions.XBrokerApiOriginatingIdentity != nil {
+		builder.AddHeader("X-Broker-Api-Originating-Identity", fmt.Sprint(*provisionServiceInstanceOptions.XBrokerApiOriginatingIdentity))
+	}
+
+	if provisionServiceInstanceOptions.AcceptsIncomplete != nil {
+		builder.AddQuery("accepts_incomplete", fmt.Sprint(*provisionServiceInstanceOptions.AcceptsIncomplete))
+	}
 
 	body := make(map[string]interface{})
-	if postNotificationOptions.Notifications != nil {
-		body["notifications"] = postNotificationOptions.Notifications
+	if provisionServiceInstanceOptions.ServiceID != nil {
+		body["service_id"] = provisionServiceInstanceOptions.ServiceID
+	}
+	if provisionServiceInstanceOptions.PlanID != nil {
+		body["plan_id"] = provisionServiceInstanceOptions.PlanID
+	}
+	if provisionServiceInstanceOptions.Context != nil {
+		body["context"] = provisionServiceInstanceOptions.Context
+	}
+	if provisionServiceInstanceOptions.Parameters != nil {
+		body["parameters"] = provisionServiceInstanceOptions.Parameters
+	}
+	if provisionServiceInstanceOptions.PreviousValues != nil {
+		body["previous_values"] = provisionServiceInstanceOptions.PreviousValues
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2107,7 +2306,7 @@ func (projects *ProjectsV1) PostNotificationWithContext(ctx context.Context, pos
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostNotificationsResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateResult)
 		if err != nil {
 			return
 		}
@@ -2117,57 +2316,356 @@ func (projects *ProjectsV1) PostNotificationWithContext(ctx context.Context, pos
 	return
 }
 
-// GetNotifications : Get events by project id
-// Get all the notification events from a specific project id.
-func (projects *ProjectsV1) GetNotifications(getNotificationsOptions *GetNotificationsOptions) (result []NotificationEvent, response *core.DetailedResponse, err error) {
-	return projects.GetNotificationsWithContext(context.Background(), getNotificationsOptions)
+// DeprovisionServiceInstance : delete a project service instance
+// Delete (deprovision) a project service instance by GUID. When a service broker receives a deprovision request from
+// the IBM Cloud platform, it MUST delete any resources it created during the provision. Usually this means that all
+// resources are immediately reclaimed for future provisions.
+func (projects *ProjectsV1) DeprovisionServiceInstance(deprovisionServiceInstanceOptions *DeprovisionServiceInstanceOptions) (response *core.DetailedResponse, err error) {
+	return projects.DeprovisionServiceInstanceWithContext(context.Background(), deprovisionServiceInstanceOptions)
 }
 
-// GetNotificationsWithContext is an alternate form of the GetNotifications method which supports a Context parameter
-func (projects *ProjectsV1) GetNotificationsWithContext(ctx context.Context, getNotificationsOptions *GetNotificationsOptions) (result []NotificationEvent, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getNotificationsOptions, "getNotificationsOptions cannot be nil")
+// DeprovisionServiceInstanceWithContext is an alternate form of the DeprovisionServiceInstance method which supports a Context parameter
+func (projects *ProjectsV1) DeprovisionServiceInstanceWithContext(ctx context.Context, deprovisionServiceInstanceOptions *DeprovisionServiceInstanceOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deprovisionServiceInstanceOptions, "deprovisionServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getNotificationsOptions, "getNotificationsOptions")
+	err = core.ValidateStruct(deprovisionServiceInstanceOptions, "deprovisionServiceInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *getNotificationsOptions.ID,
+		"instance_id": *deprovisionServiceInstanceOptions.InstanceID,
 	}
 
-	builder := core.NewRequestBuilder(core.GET)
+	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range getNotificationsOptions.Headers {
+	for headerName, headerValue := range deprovisionServiceInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetNotifications")
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "DeprovisionServiceInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
+	if deprovisionServiceInstanceOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*deprovisionServiceInstanceOptions.XBrokerApiVersion))
+	}
+	if deprovisionServiceInstanceOptions.XBrokerApiOriginatingIdentity != nil {
+		builder.AddHeader("X-Broker-Api-Originating-Identity", fmt.Sprint(*deprovisionServiceInstanceOptions.XBrokerApiOriginatingIdentity))
+	}
+
+	builder.AddQuery("plan_id", fmt.Sprint(*deprovisionServiceInstanceOptions.PlanID))
+	builder.AddQuery("service_id", fmt.Sprint(*deprovisionServiceInstanceOptions.ServiceID))
+	if deprovisionServiceInstanceOptions.AcceptsIncomplete != nil {
+		builder.AddQuery("accepts_incomplete", fmt.Sprint(*deprovisionServiceInstanceOptions.AcceptsIncomplete))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse []json.RawMessage
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// UpdateServiceInstance : allow to change plans and service parameters in a provisioned service instance
+func (projects *ProjectsV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (response *core.DetailedResponse, err error) {
+	return projects.UpdateServiceInstanceWithContext(context.Background(), updateServiceInstanceOptions)
+}
+
+// UpdateServiceInstanceWithContext is an alternate form of the UpdateServiceInstance method which supports a Context parameter
+func (projects *ProjectsV1) UpdateServiceInstanceWithContext(ctx context.Context, updateServiceInstanceOptions *UpdateServiceInstanceOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateServiceInstanceOptions, "updateServiceInstanceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateServiceInstanceOptions, "updateServiceInstanceOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"instance_id": *updateServiceInstanceOptions.InstanceID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateServiceInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UpdateServiceInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+	if updateServiceInstanceOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*updateServiceInstanceOptions.XBrokerApiVersion))
+	}
+	if updateServiceInstanceOptions.XBrokerApiOriginatingIdentity != nil {
+		builder.AddHeader("X-Broker-Api-Originating-Identity", fmt.Sprint(*updateServiceInstanceOptions.XBrokerApiOriginatingIdentity))
+	}
+
+	if updateServiceInstanceOptions.AcceptsIncomplete != nil {
+		builder.AddQuery("accepts_incomplete", fmt.Sprint(*updateServiceInstanceOptions.AcceptsIncomplete))
+	}
+
+	body := make(map[string]interface{})
+	if updateServiceInstanceOptions.ServiceID != nil {
+		body["service_id"] = updateServiceInstanceOptions.ServiceID
+	}
+	if updateServiceInstanceOptions.Context != nil {
+		body["context"] = updateServiceInstanceOptions.Context
+	}
+	if updateServiceInstanceOptions.Parameters != nil {
+		body["parameters"] = updateServiceInstanceOptions.Parameters
+	}
+	if updateServiceInstanceOptions.PlanID != nil {
+		body["plan_id"] = updateServiceInstanceOptions.PlanID
+	}
+	if updateServiceInstanceOptions.PreviousValues != nil {
+		body["previous_values"] = updateServiceInstanceOptions.PreviousValues
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// GetLastOperation : Get last_operation for instance by GUID (for asynchronous provision calls)
+func (projects *ProjectsV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *GetLastOperationResult, response *core.DetailedResponse, err error) {
+	return projects.GetLastOperationWithContext(context.Background(), getLastOperationOptions)
+}
+
+// GetLastOperationWithContext is an alternate form of the GetLastOperation method which supports a Context parameter
+func (projects *ProjectsV1) GetLastOperationWithContext(ctx context.Context, getLastOperationOptions *GetLastOperationOptions) (result *GetLastOperationResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getLastOperationOptions, "getLastOperationOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getLastOperationOptions, "getLastOperationOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"instance_id": *getLastOperationOptions.InstanceID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v2/service_instances/{instance_id}/last_operation`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getLastOperationOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetLastOperation")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getLastOperationOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*getLastOperationOptions.XBrokerApiVersion))
+	}
+
+	if getLastOperationOptions.Operation != nil {
+		builder.AddQuery("operation", fmt.Sprint(*getLastOperationOptions.Operation))
+	}
+	if getLastOperationOptions.PlanID != nil {
+		builder.AddQuery("plan_id", fmt.Sprint(*getLastOperationOptions.PlanID))
+	}
+	if getLastOperationOptions.ServiceID != nil {
+		builder.AddQuery("service_id", fmt.Sprint(*getLastOperationOptions.ServiceID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
 	response, err = projects.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationEvent)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetLastOperationResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateServiceInstanceState : Update (disable or enable) the state of a provisioned service instance
+func (projects *ProjectsV1) UpdateServiceInstanceState(updateServiceInstanceStateOptions *UpdateServiceInstanceStateOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+	return projects.UpdateServiceInstanceStateWithContext(context.Background(), updateServiceInstanceStateOptions)
+}
+
+// UpdateServiceInstanceStateWithContext is an alternate form of the UpdateServiceInstanceState method which supports a Context parameter
+func (projects *ProjectsV1) UpdateServiceInstanceStateWithContext(ctx context.Context, updateServiceInstanceStateOptions *UpdateServiceInstanceStateOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateServiceInstanceStateOptions, "updateServiceInstanceStateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateServiceInstanceStateOptions, "updateServiceInstanceStateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"instance_id": *updateServiceInstanceStateOptions.InstanceID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateServiceInstanceStateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UpdateServiceInstanceState")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateServiceInstanceStateOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*updateServiceInstanceStateOptions.XBrokerApiVersion))
+	}
+
+	body := make(map[string]interface{})
+	if updateServiceInstanceStateOptions.Enabled != nil {
+		body["enabled"] = updateServiceInstanceStateOptions.Enabled
+	}
+	if updateServiceInstanceStateOptions.InitiatorID != nil {
+		body["initiator_id"] = updateServiceInstanceStateOptions.InitiatorID
+	}
+	if updateServiceInstanceStateOptions.ReasonCode != nil {
+		body["reason_code"] = updateServiceInstanceStateOptions.ReasonCode
+	}
+	if updateServiceInstanceStateOptions.PlanID != nil {
+		body["plan_id"] = updateServiceInstanceStateOptions.PlanID
+	}
+	if updateServiceInstanceStateOptions.PreviousValues != nil {
+		body["previous_values"] = updateServiceInstanceStateOptions.PreviousValues
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBrokerResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetServiceInstance : Get the current state information associated with the service instance
+func (projects *ProjectsV1) GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+	return projects.GetServiceInstanceWithContext(context.Background(), getServiceInstanceOptions)
+}
+
+// GetServiceInstanceWithContext is an alternate form of the GetServiceInstance method which supports a Context parameter
+func (projects *ProjectsV1) GetServiceInstanceWithContext(ctx context.Context, getServiceInstanceOptions *GetServiceInstanceOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getServiceInstanceOptions, "getServiceInstanceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getServiceInstanceOptions, "getServiceInstanceOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"instance_id": *getServiceInstanceOptions.InstanceID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getServiceInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "GetServiceInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getServiceInstanceOptions.XBrokerApiVersion != nil {
+		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*getServiceInstanceOptions.XBrokerApiVersion))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBrokerResult)
 		if err != nil {
 			return
 		}
@@ -2246,6 +2744,39 @@ func UnmarshalActivePR(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// BrokerResult : Result of Get instance status call.
+type BrokerResult struct {
+	// Indicates whether the service instance is active and is meaningful if enabled is true. The default value is true if
+	// not specified.
+	Active *string `json:"active,omitempty"`
+
+	// Indicates the current state of the service instance.
+	Enabled *string `json:"enabled,omitempty"`
+
+	// Indicates when the service instance was last accessed/modified/etc., and is meaningful if enabled is true AND active
+	// is false. Represented as milliseconds since the epoch, but does not need to be accurate to the second/hour.
+	LastActive *string `json:"last_active,omitempty"`
+}
+
+// UnmarshalBrokerResult unmarshals an instance of BrokerResult from the specified map of raw messages.
+func UnmarshalBrokerResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(BrokerResult)
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_active", &obj.LastActive)
 	if err != nil {
 		return
 	}
@@ -2474,18 +3005,18 @@ type ConfigChangesOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	Source *ProjectPrototype `json:"source" validate:"required"`
+	Source *ProjectInput `json:"source" validate:"required"`
 
 	PullRequest *string `json:"pull_request,omitempty"`
 
-	Target *ProjectPrototype `json:"target,omitempty"`
+	Target *ProjectInput `json:"target,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewConfigChangesOptions : Instantiate ConfigChangesOptions
-func (*ProjectsV1) NewConfigChangesOptions(id string, source *ProjectPrototype) *ConfigChangesOptions {
+func (*ProjectsV1) NewConfigChangesOptions(id string, source *ProjectInput) *ConfigChangesOptions {
 	return &ConfigChangesOptions{
 		ID: core.StringPtr(id),
 		Source: source,
@@ -2499,7 +3030,7 @@ func (_options *ConfigChangesOptions) SetID(id string) *ConfigChangesOptions {
 }
 
 // SetSource : Allow user to set Source
-func (_options *ConfigChangesOptions) SetSource(source *ProjectPrototype) *ConfigChangesOptions {
+func (_options *ConfigChangesOptions) SetSource(source *ProjectInput) *ConfigChangesOptions {
 	_options.Source = source
 	return _options
 }
@@ -2511,7 +3042,7 @@ func (_options *ConfigChangesOptions) SetPullRequest(pullRequest string) *Config
 }
 
 // SetTarget : Allow user to set Target
-func (_options *ConfigChangesOptions) SetTarget(target *ProjectPrototype) *ConfigChangesOptions {
+func (_options *ConfigChangesOptions) SetTarget(target *ProjectInput) *ConfigChangesOptions {
 	_options.Target = target
 	return _options
 }
@@ -2631,15 +3162,12 @@ type CreateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
 
-	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
-
-	// Specifying the optional "return=representation" includes the original input payload in the successful response.
-	Prefer *string `json:"prefer,omitempty"`
-
+	// Group name of the customized collection of resources.
 	ResourceGroup *string `json:"resource_group,omitempty"`
 
+	// Data center locations for resource deployment.
 	Location *string `json:"location,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -2666,20 +3194,8 @@ func (_options *CreateProjectOptions) SetDescription(description string) *Create
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *CreateProjectOptions {
+func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *CreateProjectOptions {
 	_options.Configs = configs
-	return _options
-}
-
-// SetDashboard : Allow user to set Dashboard
-func (_options *CreateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *CreateProjectOptions {
-	_options.Dashboard = dashboard
-	return _options
-}
-
-// SetPrefer : Allow user to set Prefer
-func (_options *CreateProjectOptions) SetPrefer(prefer string) *CreateProjectOptions {
-	_options.Prefer = core.StringPtr(prefer)
 	return _options
 }
 
@@ -2701,10 +3217,78 @@ func (options *CreateProjectOptions) SetHeaders(param map[string]string) *Create
 	return options
 }
 
+// CreateResult : Result of Provision call.
+type CreateResult struct {
+	// The URL of a web-based management user interface for the service instance. The URL MUST contain enough information
+	// for the dashboard to identify the resource being accessed.
+	DashboardURL *string `json:"dashboard_url,omitempty"`
+
+	// For asynchronous responses, service brokers MAY return an identifier representing the operation. The value of this
+	// field MUST be provided by the platform with requests to the last_operation endpoint in a URL encoded query
+	// parameter. If present, MUST be a non-empty string.
+	Operation *string `json:"operation,omitempty"`
+}
+
+// UnmarshalCreateResult unmarshals an instance of CreateResult from the specified map of raw messages.
+func UnmarshalCreateResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateResult)
+	err = core.UnmarshalPrimitive(m, "dashboard_url", &obj.DashboardURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// DeleteNotificationOptions : The DeleteNotification options.
+type DeleteNotificationOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The id of the project, which uniquely identifies it.
+	NotificationID *string `json:"notification_id" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteNotificationOptions : Instantiate DeleteNotificationOptions
+func (*ProjectsV1) NewDeleteNotificationOptions(id string, notificationID string) *DeleteNotificationOptions {
+	return &DeleteNotificationOptions{
+		ID: core.StringPtr(id),
+		NotificationID: core.StringPtr(notificationID),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *DeleteNotificationOptions) SetID(id string) *DeleteNotificationOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetNotificationID : Allow user to set NotificationID
+func (_options *DeleteNotificationOptions) SetNotificationID(notificationID string) *DeleteNotificationOptions {
+	_options.NotificationID = core.StringPtr(notificationID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteNotificationOptions) SetHeaders(param map[string]string) *DeleteNotificationOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteProjectOptions : The DeleteProject options.
 type DeleteProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
+
+	// Set this parameter if you want to get the project definition from a specific branch.
+	Branch *string `json:"branch,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2723,8 +3307,93 @@ func (_options *DeleteProjectOptions) SetID(id string) *DeleteProjectOptions {
 	return _options
 }
 
+// SetBranch : Allow user to set Branch
+func (_options *DeleteProjectOptions) SetBranch(branch string) *DeleteProjectOptions {
+	_options.Branch = core.StringPtr(branch)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *DeleteProjectOptions {
+	options.Headers = param
+	return options
+}
+
+// DeprovisionServiceInstanceOptions : The DeprovisionServiceInstance options.
+type DeprovisionServiceInstanceOptions struct {
+	// The ID of a previously provisioned service instance.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// broker. This value should be a GUID. MUST be a non-empty string.
+	PlanID *string `json:"plan_id" validate:"required"`
+
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. MUST be a non-empty
+	// string.
+	ServiceID *string `json:"service_id" validate:"required"`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Broker Api Originating Identity.
+	XBrokerApiOriginatingIdentity *string `json:"X-Broker-Api-Originating-Identity,omitempty"`
+
+	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
+	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
+	// instance of the requested plan asynchronously, the broker MUST reject the request with a 422 Unprocessable Entity.
+	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeprovisionServiceInstanceOptions : Instantiate DeprovisionServiceInstanceOptions
+func (*ProjectsV1) NewDeprovisionServiceInstanceOptions(instanceID string, planID string, serviceID string) *DeprovisionServiceInstanceOptions {
+	return &DeprovisionServiceInstanceOptions{
+		InstanceID: core.StringPtr(instanceID),
+		PlanID: core.StringPtr(planID),
+		ServiceID: core.StringPtr(serviceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *DeprovisionServiceInstanceOptions) SetInstanceID(instanceID string) *DeprovisionServiceInstanceOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (_options *DeprovisionServiceInstanceOptions) SetPlanID(planID string) *DeprovisionServiceInstanceOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (_options *DeprovisionServiceInstanceOptions) SetServiceID(serviceID string) *DeprovisionServiceInstanceOptions {
+	_options.ServiceID = core.StringPtr(serviceID)
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *DeprovisionServiceInstanceOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *DeprovisionServiceInstanceOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetXBrokerApiOriginatingIdentity : Allow user to set XBrokerApiOriginatingIdentity
+func (_options *DeprovisionServiceInstanceOptions) SetXBrokerApiOriginatingIdentity(xBrokerApiOriginatingIdentity string) *DeprovisionServiceInstanceOptions {
+	_options.XBrokerApiOriginatingIdentity = core.StringPtr(xBrokerApiOriginatingIdentity)
+	return _options
+}
+
+// SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
+func (_options *DeprovisionServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *DeprovisionServiceInstanceOptions {
+	_options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeprovisionServiceInstanceOptions) SetHeaders(param map[string]string) *DeprovisionServiceInstanceOptions {
 	options.Headers = param
 	return options
 }
@@ -2882,6 +3551,95 @@ func (options *GetHealthOptions) SetHeaders(param map[string]string) *GetHealthO
 	return options
 }
 
+// GetLastOperationOptions : The GetLastOperation options.
+type GetLastOperationOptions struct {
+	// The unique instance ID generated during provisioning by the IBM Cloud platform.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// A broker-provided identifier for the operation.
+	Operation *string `json:"operation,omitempty"`
+
+	// ID of the plan from the catalog.json in your broker.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// ID of the service from the catalog.json in your service broker.
+	ServiceID *string `json:"service_id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetLastOperationOptions : Instantiate GetLastOperationOptions
+func (*ProjectsV1) NewGetLastOperationOptions(instanceID string) *GetLastOperationOptions {
+	return &GetLastOperationOptions{
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *GetLastOperationOptions) SetInstanceID(instanceID string) *GetLastOperationOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *GetLastOperationOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *GetLastOperationOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetOperation : Allow user to set Operation
+func (_options *GetLastOperationOptions) SetOperation(operation string) *GetLastOperationOptions {
+	_options.Operation = core.StringPtr(operation)
+	return _options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (_options *GetLastOperationOptions) SetPlanID(planID string) *GetLastOperationOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (_options *GetLastOperationOptions) SetServiceID(serviceID string) *GetLastOperationOptions {
+	_options.ServiceID = core.StringPtr(serviceID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetLastOperationOptions) SetHeaders(param map[string]string) *GetLastOperationOptions {
+	options.Headers = param
+	return options
+}
+
+// GetLastOperationResult : Result of get_last_operation call.
+type GetLastOperationResult struct {
+	// Valid values are in progress, succeeded, and failed.
+	State *string `json:"state,omitempty"`
+
+	// A user-facing message displayed to the platform API client. Can be used to tell the user details about the status of
+	// the operation.
+	Description *string `json:"description,omitempty"`
+}
+
+// UnmarshalGetLastOperationResult unmarshals an instance of GetLastOperationResult from the specified map of raw messages.
+func UnmarshalGetLastOperationResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetLastOperationResult)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // GetNotificationsOptions : The GetNotifications options.
 type GetNotificationsOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -2908,6 +3666,22 @@ func (_options *GetNotificationsOptions) SetID(id string) *GetNotificationsOptio
 func (options *GetNotificationsOptions) SetHeaders(param map[string]string) *GetNotificationsOptions {
 	options.Headers = param
 	return options
+}
+
+// GetNotificationsResponse : GetNotificationsResponse struct
+type GetNotificationsResponse struct {
+	Notifications []NotificationEventWithID `json:"notifications,omitempty"`
+}
+
+// UnmarshalGetNotificationsResponse unmarshals an instance of GetNotificationsResponse from the specified map of raw messages.
+func UnmarshalGetNotificationsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetNotificationsResponse)
+	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // GetProjectComputedStatusOptions : The GetProjectComputedStatus options.
@@ -3034,6 +3808,53 @@ func (options *GetProjectConfigStatusOptions) SetHeaders(param map[string]string
 	return options
 }
 
+// GetProjectFileOptions : The GetProjectFile options.
+type GetProjectFileOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// URL-encoded full path to new file, such as lib%2Fclass%2Erb.
+	FilePath *string `json:"file_path" validate:"required,ne="`
+
+	// Set this parameter if you want to get the file from a specific branch.
+	Branch *string `json:"branch,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetProjectFileOptions : Instantiate GetProjectFileOptions
+func (*ProjectsV1) NewGetProjectFileOptions(id string, filePath string) *GetProjectFileOptions {
+	return &GetProjectFileOptions{
+		ID: core.StringPtr(id),
+		FilePath: core.StringPtr(filePath),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *GetProjectFileOptions) SetID(id string) *GetProjectFileOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetFilePath : Allow user to set FilePath
+func (_options *GetProjectFileOptions) SetFilePath(filePath string) *GetProjectFileOptions {
+	_options.FilePath = core.StringPtr(filePath)
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *GetProjectFileOptions) SetBranch(branch string) *GetProjectFileOptions {
+	_options.Branch = core.StringPtr(branch)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetProjectFileOptions) SetHeaders(param map[string]string) *GetProjectFileOptions {
+	options.Headers = param
+	return options
+}
+
 // GetProjectOptions : The GetProject options.
 type GetProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -3076,12 +3897,15 @@ type GetProjectResponse struct {
 	// The project name.
 	Name *string `json:"name" validate:"required"`
 
-	// A project's descriptive text.
+	// A project descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+	ID *string `json:"id,omitempty"`
 
-	Dashboard *GetProjectResponseDashboard `json:"dashboard,omitempty"`
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
 }
 
 // UnmarshalGetProjectResponse unmarshals an instance of GetProjectResponse from the specified map of raw messages.
@@ -3095,27 +3919,15 @@ func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalGetProjectResponseDashboard)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetProjectResponseDashboard : GetProjectResponseDashboard struct
-type GetProjectResponseDashboard struct {
-	Widgets []Widget `json:"widgets" validate:"required"`
-}
-
-// UnmarshalGetProjectResponseDashboard unmarshals an instance of GetProjectResponseDashboard from the specified map of raw messages.
-func UnmarshalGetProjectResponseDashboard(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetProjectResponseDashboard)
-	err = core.UnmarshalModel(m, "widgets", &obj.Widgets, UnmarshalWidget)
 	if err != nil {
 		return
 	}
@@ -3225,6 +4037,123 @@ func (options *GetSchematicsJobOptions) SetHeaders(param map[string]string) *Get
 	return options
 }
 
+// GetServiceInstanceOptions : The GetServiceInstance options.
+type GetServiceInstanceOptions struct {
+	// The ID of a previously provisioned service instance.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetServiceInstanceOptions : Instantiate GetServiceInstanceOptions
+func (*ProjectsV1) NewGetServiceInstanceOptions(instanceID string) *GetServiceInstanceOptions {
+	return &GetServiceInstanceOptions{
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *GetServiceInstanceOptions) SetInstanceID(instanceID string) *GetServiceInstanceOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *GetServiceInstanceOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *GetServiceInstanceOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetServiceInstanceOptions) SetHeaders(param map[string]string) *GetServiceInstanceOptions {
+	options.Headers = param
+	return options
+}
+
+// GitLabEvent : A GitLab event payload.
+type GitLabEvent struct {
+	// The event kind.
+	ObjectKind *string `json:"object_kind" validate:"required"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
+}
+
+// NewGitLabEvent : Instantiate GitLabEvent (Generic Model Constructor)
+func (*ProjectsV1) NewGitLabEvent(objectKind string) (_model *GitLabEvent, err error) {
+	_model = &GitLabEvent{
+		ObjectKind: core.StringPtr(objectKind),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of GitLabEvent
+func (o *GitLabEvent) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of GitLabEvent
+func (o *GitLabEvent) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of GitLabEvent
+func (o *GitLabEvent) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of GitLabEvent
+func (o *GitLabEvent) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of GitLabEvent
+func (o *GitLabEvent) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.ObjectKind != nil {
+		m["object_kind"] = o.ObjectKind
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalGitLabEvent unmarshals an instance of GitLabEvent from the specified map of raw messages.
+func UnmarshalGitLabEvent(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GitLabEvent)
+	err = core.UnmarshalPrimitive(m, "object_kind", &obj.ObjectKind)
+	if err != nil {
+		return
+	}
+	delete(m, "object_kind")
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Health : Health struct
 type Health struct {
 	// The name of the service.
@@ -3292,61 +4221,6 @@ func UnmarshalHistory(m map[string]json.RawMessage, result interface{}) (err err
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
-}
-
-// InitProjectConfigOptions : The InitProjectConfig options.
-type InitProjectConfigOptions struct {
-	// The version_locator of the offer. It is a dotted value of catalogID.versionID.
-	LocatorID *string `json:"locator_id" validate:"required"`
-
-	// The config name.
-	ConfigName *string `json:"config_name" validate:"required"`
-
-	// The config description.
-	Description *string `json:"description,omitempty"`
-
-	Labels []string `json:"labels,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewInitProjectConfigOptions : Instantiate InitProjectConfigOptions
-func (*ProjectsV1) NewInitProjectConfigOptions(locatorID string, configName string) *InitProjectConfigOptions {
-	return &InitProjectConfigOptions{
-		LocatorID: core.StringPtr(locatorID),
-		ConfigName: core.StringPtr(configName),
-	}
-}
-
-// SetLocatorID : Allow user to set LocatorID
-func (_options *InitProjectConfigOptions) SetLocatorID(locatorID string) *InitProjectConfigOptions {
-	_options.LocatorID = core.StringPtr(locatorID)
-	return _options
-}
-
-// SetConfigName : Allow user to set ConfigName
-func (_options *InitProjectConfigOptions) SetConfigName(configName string) *InitProjectConfigOptions {
-	_options.ConfigName = core.StringPtr(configName)
-	return _options
-}
-
-// SetDescription : Allow user to set Description
-func (_options *InitProjectConfigOptions) SetDescription(description string) *InitProjectConfigOptions {
-	_options.Description = core.StringPtr(description)
-	return _options
-}
-
-// SetLabels : Allow user to set Labels
-func (_options *InitProjectConfigOptions) SetLabels(labels []string) *InitProjectConfigOptions {
-	_options.Labels = labels
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *InitProjectConfigOptions) SetHeaders(param map[string]string) *InitProjectConfigOptions {
-	options.Headers = param
-	return options
 }
 
 // InputVariable : InputVariable struct
@@ -3520,68 +4394,6 @@ func (options *ListProjectsOptions) SetHeaders(param map[string]string) *ListPro
 	return options
 }
 
-// ListProjectsResponse : Projects list.
-type ListProjectsResponse struct {
-	Limit *int64 `json:"limit" validate:"required"`
-
-	// Get the occurrencies of the total Projects.
-	TotalCount *int64 `json:"total_count" validate:"required"`
-
-	First *PaginationLink `json:"first" validate:"required"`
-
-	Last *PaginationLink `json:"last,omitempty"`
-
-	Previous *PaginationLink `json:"previous,omitempty"`
-
-	Next *PaginationLink `json:"next,omitempty"`
-
-	// An array of projects.
-	Projects []ProjectListResponse `json:"projects,omitempty"`
-}
-
-// UnmarshalListProjectsResponse unmarshals an instance of ListProjectsResponse from the specified map of raw messages.
-func UnmarshalListProjectsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListProjectsResponse)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProjectListResponse)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *ListProjectsResponse) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
 // MergeProjectOptions : The MergeProject options.
 type MergeProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -3593,9 +4405,7 @@ type MergeProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
-
-	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3628,14 +4438,8 @@ func (_options *MergeProjectOptions) SetDescription(description string) *MergePr
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *MergeProjectOptions) SetConfigs(configs []ProjectConfigIntf) *MergeProjectOptions {
+func (_options *MergeProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *MergeProjectOptions {
 	_options.Configs = configs
-	return _options
-}
-
-// SetDashboard : Allow user to set Dashboard
-func (_options *MergeProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *MergeProjectOptions {
-	_options.Dashboard = dashboard
 	return _options
 }
 
@@ -3650,23 +4454,23 @@ type NotificationEvent struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	Identifier *string `json:"identifier" validate:"required"`
+	Target *string `json:"target" validate:"required"`
 
 	// The id of the event producer.
 	Source *string `json:"source,omitempty"`
 
-	// The URL of the event producer.
-	SourceURL *string `json:"source_url,omitempty"`
-
 	// The URL you can go to as next steps.
 	ActionURL *string `json:"action_url,omitempty"`
+
+	// Any relevant metadata to be stored.
+	Data interface{} `json:"data,omitempty"`
 }
 
 // NewNotificationEvent : Instantiate NotificationEvent (Generic Model Constructor)
-func (*ProjectsV1) NewNotificationEvent(event string, identifier string) (_model *NotificationEvent, err error) {
+func (*ProjectsV1) NewNotificationEvent(event string, target string) (_model *NotificationEvent, err error) {
 	_model = &NotificationEvent{
 		Event: core.StringPtr(event),
-		Identifier: core.StringPtr(identifier),
+		Target: core.StringPtr(target),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3679,7 +4483,7 @@ func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "identifier", &obj.Identifier)
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
 	if err != nil {
 		return
 	}
@@ -3687,11 +4491,61 @@ func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationEventWithID : NotificationEventWithID struct
+type NotificationEventWithID struct {
+	// Type of event.
+	Event *string `json:"event" validate:"required"`
+
+	Target *string `json:"target" validate:"required"`
+
+	// The id of the event producer.
+	Source *string `json:"source,omitempty"`
+
+	// The URL you can go to as next steps.
+	ActionURL *string `json:"action_url,omitempty"`
+
+	// Any relevant metadata to be stored.
+	Data interface{} `json:"data,omitempty"`
+
+	ID *string `json:"_id" validate:"required"`
+}
+
+// UnmarshalNotificationEventWithID unmarshals an instance of NotificationEventWithID from the specified map of raw messages.
+func UnmarshalNotificationEventWithID(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationEventWithID)
+	err = core.UnmarshalPrimitive(m, "event", &obj.Event)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "_id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -3704,22 +4558,23 @@ type NotificationEventWithStatus struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	Identifier *string `json:"identifier" validate:"required"`
+	Target *string `json:"target" validate:"required"`
 
 	// The id of the event producer.
 	Source *string `json:"source,omitempty"`
 
-	// The URL of the event producer.
-	SourceURL *string `json:"source_url,omitempty"`
-
 	// The URL you can go to as next steps.
 	ActionURL *string `json:"action_url,omitempty"`
+
+	// Any relevant metadata to be stored.
+	Data interface{} `json:"data,omitempty"`
+
+	ID *string `json:"_id" validate:"required"`
 
 	// whether or not the event successfully posted.
 	Status *string `json:"status,omitempty"`
 
-	// rationale to why a event did not post.
-	Reason interface{} `json:"reason,omitempty"`
+	Reasons []interface{} `json:"reasons,omitempty"`
 }
 
 // UnmarshalNotificationEventWithStatus unmarshals an instance of NotificationEventWithStatus from the specified map of raw messages.
@@ -3729,7 +4584,7 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "identifier", &obj.Identifier)
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
 	if err != nil {
 		return
 	}
@@ -3737,11 +4592,15 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_url", &obj.SourceURL)
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "_id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -3749,7 +4608,7 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "reason", &obj.Reason)
+	err = core.UnmarshalPrimitive(m, "reasons", &obj.Reasons)
 	if err != nil {
 		return
 	}
@@ -3892,14 +4751,14 @@ type PlanPullRequestConfigsOptions struct {
 
 	PullRequest *string `json:"pull_request" validate:"required"`
 
-	ProjectDefinition *ProjectPrototype `json:"project_definition" validate:"required"`
+	ProjectDefinition *ProjectInput `json:"project_definition" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewPlanPullRequestConfigsOptions : Instantiate PlanPullRequestConfigsOptions
-func (*ProjectsV1) NewPlanPullRequestConfigsOptions(id string, pullRequest string, projectDefinition *ProjectPrototype) *PlanPullRequestConfigsOptions {
+func (*ProjectsV1) NewPlanPullRequestConfigsOptions(id string, pullRequest string, projectDefinition *ProjectInput) *PlanPullRequestConfigsOptions {
 	return &PlanPullRequestConfigsOptions{
 		ID: core.StringPtr(id),
 		PullRequest: core.StringPtr(pullRequest),
@@ -3920,7 +4779,7 @@ func (_options *PlanPullRequestConfigsOptions) SetPullRequest(pullRequest string
 }
 
 // SetProjectDefinition : Allow user to set ProjectDefinition
-func (_options *PlanPullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *PlanPullRequestConfigsOptions {
+func (_options *PlanPullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectInput) *PlanPullRequestConfigsOptions {
 	_options.ProjectDefinition = projectDefinition
 	return _options
 }
@@ -4029,15 +4888,15 @@ func UnmarshalProjectComputedStatus(m map[string]json.RawMessage, result interfa
 
 // ProjectConfig : ProjectConfig struct
 // Models which "extend" this model:
-// - ProjectConfigManualProperty
-// - ProjectConfigTerraformTemplateProperty
-// - ProjectConfigSchematicsBlueprintProperty
+// - ProjectConfigProjectConfigCommon
+// - ProjectConfigProp
 type ProjectConfig struct {
-	Name *string `json:"name" validate:"required"`
+	ID *string `json:"id,omitempty"`
+
+	// The config name.
+	Name *string `json:"name,omitempty"`
 
 	Labels []string `json:"labels,omitempty"`
-
-	Output []OutputValue `json:"output,omitempty"`
 
 	// A project config description.
 	Description *string `json:"description,omitempty"`
@@ -4046,22 +4905,13 @@ type ProjectConfig struct {
 
 	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
 
+	LocatorID *string `json:"locator_id,omitempty"`
+
 	Input []InputVariable `json:"input,omitempty"`
 
 	// Optional setting object we can pass to the cart api.
 	Setting []ConfigSettingItem `json:"setting,omitempty"`
-
-	// A Terraform blueprint to use for provisioning a set of project resources.
-	Template *TerraformTemplate `json:"template,omitempty"`
-
-	// A Schematics blueprint to use for provisioning a set of project resources.
-	Blueprint *SchematicsBlueprint `json:"blueprint,omitempty"`
 }
-
-// Constants associated with the ProjectConfig.Type property.
-const (
-	ProjectConfig_Type_Manual = "manual"
-)
 func (*ProjectConfig) isaProjectConfig() bool {
 	return true
 }
@@ -4073,15 +4923,15 @@ type ProjectConfigIntf interface {
 // UnmarshalProjectConfig unmarshals an instance of ProjectConfig from the specified map of raw messages.
 func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ProjectConfig)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
 	if err != nil {
 		return
 	}
@@ -4097,19 +4947,15 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTerraformTemplate)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalSchematicsBlueprint)
 	if err != nil {
 		return
 	}
@@ -4119,25 +4965,79 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 
 // ProjectConfigChangesResponse : ProjectConfigChangesResponse struct
 type ProjectConfigChangesResponse struct {
-	Added []string `json:"added" validate:"required"`
+	Added []ProjectConfigChangesResponseAddedItem `json:"added" validate:"required"`
 
-	Deleted []string `json:"deleted" validate:"required"`
+	Deleted []ProjectConfigChangesResponseDeletedItem `json:"deleted" validate:"required"`
 
-	Changed []string `json:"changed" validate:"required"`
+	Changed []ProjectConfigChangesResponseChangedItem `json:"changed" validate:"required"`
 }
 
 // UnmarshalProjectConfigChangesResponse unmarshals an instance of ProjectConfigChangesResponse from the specified map of raw messages.
 func UnmarshalProjectConfigChangesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ProjectConfigChangesResponse)
-	err = core.UnmarshalPrimitive(m, "added", &obj.Added)
+	err = core.UnmarshalModel(m, "added", &obj.Added, UnmarshalProjectConfigChangesResponseAddedItem)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "deleted", &obj.Deleted)
+	err = core.UnmarshalModel(m, "deleted", &obj.Deleted, UnmarshalProjectConfigChangesResponseDeletedItem)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "changed", &obj.Changed)
+	err = core.UnmarshalModel(m, "changed", &obj.Changed, UnmarshalProjectConfigChangesResponseChangedItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigChangesResponseAddedItem : ProjectConfigChangesResponseAddedItem struct
+type ProjectConfigChangesResponseAddedItem struct {
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalProjectConfigChangesResponseAddedItem unmarshals an instance of ProjectConfigChangesResponseAddedItem from the specified map of raw messages.
+func UnmarshalProjectConfigChangesResponseAddedItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigChangesResponseAddedItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigChangesResponseChangedItem : ProjectConfigChangesResponseChangedItem struct
+type ProjectConfigChangesResponseChangedItem struct {
+	Name *string `json:"name,omitempty"`
+
+	NewName *string `json:"new_name,omitempty"`
+}
+
+// UnmarshalProjectConfigChangesResponseChangedItem unmarshals an instance of ProjectConfigChangesResponseChangedItem from the specified map of raw messages.
+func UnmarshalProjectConfigChangesResponseChangedItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigChangesResponseChangedItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "new_name", &obj.NewName)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigChangesResponseDeletedItem : ProjectConfigChangesResponseDeletedItem struct
+type ProjectConfigChangesResponseDeletedItem struct {
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalProjectConfigChangesResponseDeletedItem unmarshals an instance of ProjectConfigChangesResponseDeletedItem from the specified map of raw messages.
+func UnmarshalProjectConfigChangesResponseDeletedItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigChangesResponseDeletedItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
@@ -4173,38 +5073,46 @@ func UnmarshalProjectConfigComputedStatus(m map[string]json.RawMessage, result i
 	return
 }
 
-// ProjectConfigStatus : ProjectConfigStatus struct
-type ProjectConfigStatus struct {
-	Href *string `json:"href" validate:"required"`
+// ProjectConfigInput : ProjectConfigInput struct
+// Models which "extend" this model:
+// - ProjectConfigInputProjectConfigCommon
+// - ProjectConfigInputProp
+type ProjectConfigInput struct {
+	ID *string `json:"id,omitempty"`
 
-	Name *string `json:"name" validate:"required"`
+	// The config name.
+	Name *string `json:"name,omitempty"`
 
-	Status *string `json:"status" validate:"required"`
+	Labels []string `json:"labels,omitempty"`
 
-	Messages []string `json:"messages" validate:"required"`
+	// A project config description.
+	Description *string `json:"description,omitempty"`
 
-	PipelineRun *string `json:"pipeline_run,omitempty"`
+	Type *string `json:"type,omitempty"`
 
-	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
+	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
 
-	ComputedStatuses map[string]interface{} `json:"computed_statuses,omitempty"`
+	LocatorID *string `json:"locator_id,omitempty"`
+
+	Input []InputVariable `json:"input,omitempty"`
 
 	Output []OutputValue `json:"output,omitempty"`
+
+	// Optional setting object we can pass to the cart api.
+	Setting []ConfigSettingItem `json:"setting,omitempty"`
+}
+func (*ProjectConfigInput) isaProjectConfigInput() bool {
+	return true
 }
 
-// Constants associated with the ProjectConfigStatus.Status property.
-const (
-	ProjectConfigStatus_Status_Installing = "INSTALLING"
-	ProjectConfigStatus_Status_InstallingFailed = "INSTALLING_FAILED"
-	ProjectConfigStatus_Status_Ready = "READY"
-	ProjectConfigStatus_Status_Updating = "UPDATING"
-	ProjectConfigStatus_Status_UpdatingFailed = "UPDATING_FAILED"
-)
+type ProjectConfigInputIntf interface {
+	isaProjectConfigInput() bool
+}
 
-// UnmarshalProjectConfigStatus unmarshals an instance of ProjectConfigStatus from the specified map of raw messages.
-func UnmarshalProjectConfigStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigStatus)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+// UnmarshalProjectConfigInput unmarshals an instance of ProjectConfigInput from the specified map of raw messages.
+func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigInput)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -4212,27 +5120,57 @@ func UnmarshalProjectConfigStatus(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "pipeline_run", &obj.PipelineRun)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
+	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "computed_statuses", &obj.ComputedStatuses)
+	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigStatus : ProjectConfigStatus struct
+type ProjectConfigStatus struct {
+	Name *string `json:"name" validate:"required"`
+
+	State *string `json:"state" validate:"required"`
+}
+
+// UnmarshalProjectConfigStatus unmarshals an instance of ProjectConfigStatus from the specified map of raw messages.
+func UnmarshalProjectConfigStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigStatus)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
 		return
 	}
@@ -4242,25 +5180,52 @@ func UnmarshalProjectConfigStatus(m map[string]json.RawMessage, result interface
 
 // ProjectConfigStatuses : The status of all project configs.
 type ProjectConfigStatuses struct {
-	ProjectID *string `json:"project_id" validate:"required"`
-
-	Href *string `json:"href" validate:"required"`
-
-	ConfigStatuses []ProjectConfigStatus `json:"config_statuses" validate:"required"`
+	Configs []ProjectConfigStatus `json:"configs" validate:"required"`
 }
 
 // UnmarshalProjectConfigStatuses unmarshals an instance of ProjectConfigStatuses from the specified map of raw messages.
 func UnmarshalProjectConfigStatuses(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ProjectConfigStatuses)
-	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfigStatus)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectInput : ProjectInput struct
+type ProjectInput struct {
+	// The project name.
+	Name *string `json:"name" validate:"required"`
+
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
+
+	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+}
+
+// NewProjectInput : Instantiate ProjectInput (Generic Model Constructor)
+func (*ProjectsV1) NewProjectInput(name string) (_model *ProjectInput, err error) {
+	_model = &ProjectInput{
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalProjectInput unmarshals an instance of ProjectInput from the specified map of raw messages.
+func UnmarshalProjectInput(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectInput)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "config_statuses", &obj.ConfigStatuses, UnmarshalProjectConfigStatus)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfigInput)
 	if err != nil {
 		return
 	}
@@ -4275,22 +5240,10 @@ type ProjectListResponse struct {
 
 	ID *string `json:"id,omitempty"`
 
-	// The branch name of the PR that is created.
-	PrBranch *string `json:"pr_branch,omitempty"`
-
 	Definition *GetProjectResponse `json:"definition,omitempty"`
 
 	State *string `json:"state,omitempty"`
 }
-
-// Constants associated with the ProjectListResponse.State property.
-const (
-	ProjectListResponse_State_Creating = "CREATING"
-	ProjectListResponse_State_CreatingFailed = "CREATING_FAILED"
-	ProjectListResponse_State_Ready = "READY"
-	ProjectListResponse_State_Updating = "UPDATING"
-	ProjectListResponse_State_UpdatingFailed = "UPDATING_FAILED"
-)
 
 // UnmarshalProjectListResponse unmarshals an instance of ProjectListResponse from the specified map of raw messages.
 func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -4300,10 +5253,6 @@ func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "pr_branch", &obj.PrBranch)
 	if err != nil {
 		return
 	}
@@ -4319,74 +5268,66 @@ func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface
 	return
 }
 
-// ProjectPrototype : ProjectPrototype struct
-type ProjectPrototype struct {
-	// The project name.
-	Name *string `json:"name" validate:"required"`
+// ProjectListResponseSchema : Projects list.
+type ProjectListResponseSchema struct {
+	Limit *int64 `json:"limit" validate:"required"`
 
-	// A project's descriptive text.
-	Description *string `json:"description,omitempty"`
+	// Get the occurrencies of the total Projects.
+	TotalCount *int64 `json:"total_count" validate:"required"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+	First *PaginationLink `json:"first" validate:"required"`
 
-	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+	Last *PaginationLink `json:"last,omitempty"`
+
+	Previous *PaginationLink `json:"previous,omitempty"`
+
+	Next *PaginationLink `json:"next,omitempty"`
+
+	// An array of projects.
+	Projects []ProjectListResponse `json:"projects,omitempty"`
 }
 
-// NewProjectPrototype : Instantiate ProjectPrototype (Generic Model Constructor)
-func (*ProjectsV1) NewProjectPrototype(name string) (_model *ProjectPrototype, err error) {
-	_model = &ProjectPrototype{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalProjectPrototype unmarshals an instance of ProjectPrototype from the specified map of raw messages.
-func UnmarshalProjectPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectPrototype)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+// UnmarshalProjectListResponseSchema unmarshals an instance of ProjectListResponseSchema from the specified map of raw messages.
+func UnmarshalProjectListResponseSchema(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectListResponseSchema)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationLink)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalProjectPrototypeDashboard)
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationLink)
 	if err != nil {
 		return
 	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectPrototypeDashboard : ProjectPrototypeDashboard struct
-type ProjectPrototypeDashboard struct {
-	Widgets []Widget `json:"widgets" validate:"required"`
-}
-
-// NewProjectPrototypeDashboard : Instantiate ProjectPrototypeDashboard (Generic Model Constructor)
-func (*ProjectsV1) NewProjectPrototypeDashboard(widgets []Widget) (_model *ProjectPrototypeDashboard, err error) {
-	_model = &ProjectPrototypeDashboard{
-		Widgets: widgets,
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPaginationLink)
+	if err != nil {
+		return
 	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalProjectPrototypeDashboard unmarshals an instance of ProjectPrototypeDashboard from the specified map of raw messages.
-func UnmarshalProjectPrototypeDashboard(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectPrototypeDashboard)
-	err = core.UnmarshalModel(m, "widgets", &obj.Widgets, UnmarshalWidget)
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProjectListResponse)
 	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ProjectListResponseSchema) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // ProjectResponse : ProjectResponse struct
@@ -4395,9 +5336,6 @@ type ProjectResponse struct {
 	Name *string `json:"name,omitempty"`
 
 	ID *string `json:"id,omitempty"`
-
-	// The branch name of the PR that is created.
-	PrBranch *string `json:"pr_branch,omitempty"`
 
 	Definition *GetProjectResponse `json:"definition,omitempty"`
 }
@@ -4410,10 +5348,6 @@ func UnmarshalProjectResponse(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "pr_branch", &obj.PrBranch)
 	if err != nil {
 		return
 	}
@@ -4464,25 +5398,15 @@ type ProjectStatus struct {
 	ActivePrs []ActivePR `json:"active_prs,omitempty"`
 
 	History []History `json:"history,omitempty"`
+
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 }
-
-// Constants associated with the ProjectStatus.Location property.
-const (
-	ProjectStatus_Location_AuSyd = "au-syd"
-	ProjectStatus_Location_EuDe = "eu-de"
-	ProjectStatus_Location_EuGb = "eu-gb"
-	ProjectStatus_Location_UsEast = "us-east"
-	ProjectStatus_Location_UsSouth = "us-south"
-)
-
-// Constants associated with the ProjectStatus.State property.
-const (
-	ProjectStatus_State_Creating = "CREATING"
-	ProjectStatus_State_CreatingFailed = "CREATING_FAILED"
-	ProjectStatus_State_Ready = "READY"
-	ProjectStatus_State_Updating = "UPDATING"
-	ProjectStatus_State_UpdatingFailed = "UPDATING_FAILED"
-)
 
 // UnmarshalProjectStatus unmarshals an instance of ProjectStatus from the specified map of raw messages.
 func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -4551,6 +5475,14 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -4586,6 +5518,331 @@ func UnmarshalProjectStatusDashboard(m map[string]json.RawMessage, result interf
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// ProvisionServiceInstanceOptions : The ProvisionServiceInstance options.
+type ProvisionServiceInstanceOptions struct {
+	// The instance_id of a service instance is provided by the IBM Cloud platform.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID and it MUST be a
+	// non-empty string.
+	ServiceID *string `json:"service_id" validate:"required"`
+
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// broker.
+	PlanID *string `json:"plan_id" validate:"required"`
+
+	// Platform specific contextual information under which the service instance is to be provisioned.
+	Context []string `json:"context,omitempty"`
+
+	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
+	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
+	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
+	// this request.
+	Parameters interface{} `json:"parameters,omitempty"`
+
+	// Information about the service instance prior to the update.
+	PreviousValues []string `json:"previous_values,omitempty"`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Broker Api Originating Identity.
+	XBrokerApiOriginatingIdentity *string `json:"X-Broker-Api-Originating-Identity,omitempty"`
+
+	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
+	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
+	// instance of the requested plan asynchronously, the broker MUST reject the request with a 422 Unprocessable Entity.
+	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewProvisionServiceInstanceOptions : Instantiate ProvisionServiceInstanceOptions
+func (*ProjectsV1) NewProvisionServiceInstanceOptions(instanceID string, serviceID string, planID string) *ProvisionServiceInstanceOptions {
+	return &ProvisionServiceInstanceOptions{
+		InstanceID: core.StringPtr(instanceID),
+		ServiceID: core.StringPtr(serviceID),
+		PlanID: core.StringPtr(planID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *ProvisionServiceInstanceOptions) SetInstanceID(instanceID string) *ProvisionServiceInstanceOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (_options *ProvisionServiceInstanceOptions) SetServiceID(serviceID string) *ProvisionServiceInstanceOptions {
+	_options.ServiceID = core.StringPtr(serviceID)
+	return _options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (_options *ProvisionServiceInstanceOptions) SetPlanID(planID string) *ProvisionServiceInstanceOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
+}
+
+// SetContext : Allow user to set Context
+func (_options *ProvisionServiceInstanceOptions) SetContext(context []string) *ProvisionServiceInstanceOptions {
+	_options.Context = context
+	return _options
+}
+
+// SetParameters : Allow user to set Parameters
+func (_options *ProvisionServiceInstanceOptions) SetParameters(parameters interface{}) *ProvisionServiceInstanceOptions {
+	_options.Parameters = parameters
+	return _options
+}
+
+// SetPreviousValues : Allow user to set PreviousValues
+func (_options *ProvisionServiceInstanceOptions) SetPreviousValues(previousValues []string) *ProvisionServiceInstanceOptions {
+	_options.PreviousValues = previousValues
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *ProvisionServiceInstanceOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *ProvisionServiceInstanceOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetXBrokerApiOriginatingIdentity : Allow user to set XBrokerApiOriginatingIdentity
+func (_options *ProvisionServiceInstanceOptions) SetXBrokerApiOriginatingIdentity(xBrokerApiOriginatingIdentity string) *ProvisionServiceInstanceOptions {
+	_options.XBrokerApiOriginatingIdentity = core.StringPtr(xBrokerApiOriginatingIdentity)
+	return _options
+}
+
+// SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
+func (_options *ProvisionServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *ProvisionServiceInstanceOptions {
+	_options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ProvisionServiceInstanceOptions) SetHeaders(param map[string]string) *ProvisionServiceInstanceOptions {
+	options.Headers = param
+	return options
+}
+
+// PulsarEventItem : PulsarEventItem struct
+type PulsarEventItem struct {
+	// The type of the event that is published and written in dot notation.
+	EventType *string `json:"event_type" validate:"required"`
+
+	// The time at which the event occurred written as a date-time string.
+	Timestamp *string `json:"timestamp" validate:"required"`
+
+	// The publisher of the events, preferably written as the service's CRN.
+	Publisher *string `json:"publisher" validate:"required"`
+
+	// The IBM Cloud ID that the event is scoped to.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// The version of the payload.
+	Version *string `json:"version" validate:"required"`
+
+	// Custom event properties for a specific event.
+	EventProperties interface{} `json:"event_properties,omitempty"`
+
+	// A unique identifier for that individual event.
+	EventID *string `json:"event_id,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
+}
+
+// NewPulsarEventItem : Instantiate PulsarEventItem (Generic Model Constructor)
+func (*ProjectsV1) NewPulsarEventItem(eventType string, timestamp string, publisher string, accountID string, version string) (_model *PulsarEventItem, err error) {
+	_model = &PulsarEventItem{
+		EventType: core.StringPtr(eventType),
+		Timestamp: core.StringPtr(timestamp),
+		Publisher: core.StringPtr(publisher),
+		AccountID: core.StringPtr(accountID),
+		Version: core.StringPtr(version),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of PulsarEventItem
+func (o *PulsarEventItem) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of PulsarEventItem
+func (o *PulsarEventItem) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of PulsarEventItem
+func (o *PulsarEventItem) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of PulsarEventItem
+func (o *PulsarEventItem) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of PulsarEventItem
+func (o *PulsarEventItem) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.EventType != nil {
+		m["event_type"] = o.EventType
+	}
+	if o.Timestamp != nil {
+		m["timestamp"] = o.Timestamp
+	}
+	if o.Publisher != nil {
+		m["publisher"] = o.Publisher
+	}
+	if o.AccountID != nil {
+		m["account_id"] = o.AccountID
+	}
+	if o.Version != nil {
+		m["version"] = o.Version
+	}
+	if o.EventProperties != nil {
+		m["event_properties"] = o.EventProperties
+	}
+	if o.EventID != nil {
+		m["event_id"] = o.EventID
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalPulsarEventItem unmarshals an instance of PulsarEventItem from the specified map of raw messages.
+func UnmarshalPulsarEventItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PulsarEventItem)
+	err = core.UnmarshalPrimitive(m, "event_type", &obj.EventType)
+	if err != nil {
+		return
+	}
+	delete(m, "event_type")
+	err = core.UnmarshalPrimitive(m, "timestamp", &obj.Timestamp)
+	if err != nil {
+		return
+	}
+	delete(m, "timestamp")
+	err = core.UnmarshalPrimitive(m, "publisher", &obj.Publisher)
+	if err != nil {
+		return
+	}
+	delete(m, "publisher")
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	delete(m, "account_id")
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	delete(m, "version")
+	err = core.UnmarshalPrimitive(m, "event_properties", &obj.EventProperties)
+	if err != nil {
+		return
+	}
+	delete(m, "event_properties")
+	err = core.UnmarshalPrimitive(m, "event_id", &obj.EventID)
+	if err != nil {
+		return
+	}
+	delete(m, "event_id")
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ReceiveGitlabEventsOptions : The ReceiveGitlabEvents options.
+type ReceiveGitlabEventsOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// A gitlab event.
+	GitLabEvent *GitLabEvent `json:"GitLabEvent" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewReceiveGitlabEventsOptions : Instantiate ReceiveGitlabEventsOptions
+func (*ProjectsV1) NewReceiveGitlabEventsOptions(id string, gitLabEvent *GitLabEvent) *ReceiveGitlabEventsOptions {
+	return &ReceiveGitlabEventsOptions{
+		ID: core.StringPtr(id),
+		GitLabEvent: gitLabEvent,
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *ReceiveGitlabEventsOptions) SetID(id string) *ReceiveGitlabEventsOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetGitLabEvent : Allow user to set GitLabEvent
+func (_options *ReceiveGitlabEventsOptions) SetGitLabEvent(gitLabEvent *GitLabEvent) *ReceiveGitlabEventsOptions {
+	_options.GitLabEvent = gitLabEvent
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReceiveGitlabEventsOptions) SetHeaders(param map[string]string) *ReceiveGitlabEventsOptions {
+	options.Headers = param
+	return options
+}
+
+// ReceivePulsarCatalogEventsOptions : The ReceivePulsarCatalogEvents options.
+type ReceivePulsarCatalogEventsOptions struct {
+	// A pulsar event.
+	PulsarEventItem []PulsarEventItem `json:"PulsarEventItem" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewReceivePulsarCatalogEventsOptions : Instantiate ReceivePulsarCatalogEventsOptions
+func (*ProjectsV1) NewReceivePulsarCatalogEventsOptions(pulsarEventItem []PulsarEventItem) *ReceivePulsarCatalogEventsOptions {
+	return &ReceivePulsarCatalogEventsOptions{
+		PulsarEventItem: pulsarEventItem,
+	}
+}
+
+// SetPulsarEventItem : Allow user to set PulsarEventItem
+func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarEventItem(pulsarEventItem []PulsarEventItem) *ReceivePulsarCatalogEventsOptions {
+	_options.PulsarEventItem = pulsarEventItem
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReceivePulsarCatalogEventsOptions) SetHeaders(param map[string]string) *ReceivePulsarCatalogEventsOptions {
+	options.Headers = param
+	return options
 }
 
 // RegisterPullRequestOptions : The RegisterPullRequest options.
@@ -4633,48 +5890,68 @@ func (options *RegisterPullRequestOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// SchematicsBlueprint : A Schematics blueprint to use for provisioning a set of project resources.
-type SchematicsBlueprint struct {
-	RepoURL *string `json:"repo_url" validate:"required"`
+// ReplaceProjectOptions : The ReplaceProject options.
+type ReplaceProjectOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
 
-	CatalogRef *string `json:"catalog_ref,omitempty"`
+	// The project name.
+	Name *string `json:"name" validate:"required"`
 
-	DefinitionFile *string `json:"definition_file" validate:"required"`
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
 
-	PersonalAccessToken *string `json:"personal_access_token,omitempty"`
+	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+
+	// Set this parameter if you want to get the project definition from a specific branch.
+	Branch *string `json:"branch,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
 }
 
-// NewSchematicsBlueprint : Instantiate SchematicsBlueprint (Generic Model Constructor)
-func (*ProjectsV1) NewSchematicsBlueprint(repoURL string, definitionFile string) (_model *SchematicsBlueprint, err error) {
-	_model = &SchematicsBlueprint{
-		RepoURL: core.StringPtr(repoURL),
-		DefinitionFile: core.StringPtr(definitionFile),
+// NewReplaceProjectOptions : Instantiate ReplaceProjectOptions
+func (*ProjectsV1) NewReplaceProjectOptions(id string, name string) *ReplaceProjectOptions {
+	return &ReplaceProjectOptions{
+		ID: core.StringPtr(id),
+		Name: core.StringPtr(name),
 	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
 }
 
-// UnmarshalSchematicsBlueprint unmarshals an instance of SchematicsBlueprint from the specified map of raw messages.
-func UnmarshalSchematicsBlueprint(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SchematicsBlueprint)
-	err = core.UnmarshalPrimitive(m, "repo_url", &obj.RepoURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_ref", &obj.CatalogRef)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "definition_file", &obj.DefinitionFile)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "personal_access_token", &obj.PersonalAccessToken)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
+// SetID : Allow user to set ID
+func (_options *ReplaceProjectOptions) SetID(id string) *ReplaceProjectOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *ReplaceProjectOptions) SetName(name string) *ReplaceProjectOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *ReplaceProjectOptions) SetDescription(description string) *ReplaceProjectOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetConfigs : Allow user to set Configs
+func (_options *ReplaceProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *ReplaceProjectOptions {
+	_options.Configs = configs
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *ReplaceProjectOptions) SetBranch(branch string) *ReplaceProjectOptions {
+	_options.Branch = core.StringPtr(branch)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReplaceProjectOptions) SetHeaders(param map[string]string) *ReplaceProjectOptions {
+	options.Headers = param
+	return options
 }
 
 // ServiceInfoGit : Project plumbing service info.
@@ -4833,32 +6110,6 @@ func UnmarshalStatusConfigs(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// TerraformTemplate : A Terraform blueprint to use for provisioning a set of project resources.
-type TerraformTemplate struct {
-	// The version_locator of the offer. It is a dotted value of catalogID.versionID.
-	LocatorID *string `json:"locator_id" validate:"required"`
-}
-
-// NewTerraformTemplate : Instantiate TerraformTemplate (Generic Model Constructor)
-func (*ProjectsV1) NewTerraformTemplate(locatorID string) (_model *TerraformTemplate, err error) {
-	_model = &TerraformTemplate{
-		LocatorID: core.StringPtr(locatorID),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalTerraformTemplate unmarshals an instance of TerraformTemplate from the specified map of raw messages.
-func UnmarshalTerraformTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TerraformTemplate)
-	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // UninstallConfigOptions : The UninstallConfig options.
 type UninstallConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -5002,167 +6253,6 @@ func (options *UpdateProjectConfigComputedStatusOptions) SetHeaders(param map[st
 	return options
 }
 
-// UpdateProjectConfigStatusOptions : The UpdateProjectConfigStatus options.
-type UpdateProjectConfigStatusOptions struct {
-	// The id of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
-
-	// The name of the config, which must be unique within the project.
-	ConfigName *string `json:"config_name" validate:"required,ne="`
-
-	Status *string `json:"status" validate:"required"`
-
-	Messages []string `json:"messages" validate:"required"`
-
-	PipelineRun *string `json:"pipeline_run,omitempty"`
-
-	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
-
-	Output []OutputValue `json:"output,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// Constants associated with the UpdateProjectConfigStatusOptions.Status property.
-const (
-	UpdateProjectConfigStatusOptions_Status_Installing = "INSTALLING"
-	UpdateProjectConfigStatusOptions_Status_InstallingFailed = "INSTALLING_FAILED"
-	UpdateProjectConfigStatusOptions_Status_Ready = "READY"
-	UpdateProjectConfigStatusOptions_Status_Updating = "UPDATING"
-	UpdateProjectConfigStatusOptions_Status_UpdatingFailed = "UPDATING_FAILED"
-)
-
-// NewUpdateProjectConfigStatusOptions : Instantiate UpdateProjectConfigStatusOptions
-func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string, messages []string) *UpdateProjectConfigStatusOptions {
-	return &UpdateProjectConfigStatusOptions{
-		ID: core.StringPtr(id),
-		ConfigName: core.StringPtr(configName),
-		Status: core.StringPtr(status),
-		Messages: messages,
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *UpdateProjectConfigStatusOptions) SetID(id string) *UpdateProjectConfigStatusOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetConfigName : Allow user to set ConfigName
-func (_options *UpdateProjectConfigStatusOptions) SetConfigName(configName string) *UpdateProjectConfigStatusOptions {
-	_options.ConfigName = core.StringPtr(configName)
-	return _options
-}
-
-// SetStatus : Allow user to set Status
-func (_options *UpdateProjectConfigStatusOptions) SetStatus(status string) *UpdateProjectConfigStatusOptions {
-	_options.Status = core.StringPtr(status)
-	return _options
-}
-
-// SetMessages : Allow user to set Messages
-func (_options *UpdateProjectConfigStatusOptions) SetMessages(messages []string) *UpdateProjectConfigStatusOptions {
-	_options.Messages = messages
-	return _options
-}
-
-// SetPipelineRun : Allow user to set PipelineRun
-func (_options *UpdateProjectConfigStatusOptions) SetPipelineRun(pipelineRun string) *UpdateProjectConfigStatusOptions {
-	_options.PipelineRun = core.StringPtr(pipelineRun)
-	return _options
-}
-
-// SetSchematicsResourceID : Allow user to set SchematicsResourceID
-func (_options *UpdateProjectConfigStatusOptions) SetSchematicsResourceID(schematicsResourceID string) *UpdateProjectConfigStatusOptions {
-	_options.SchematicsResourceID = core.StringPtr(schematicsResourceID)
-	return _options
-}
-
-// SetOutput : Allow user to set Output
-func (_options *UpdateProjectConfigStatusOptions) SetOutput(output []OutputValue) *UpdateProjectConfigStatusOptions {
-	_options.Output = output
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *UpdateProjectConfigStatusOptions) SetHeaders(param map[string]string) *UpdateProjectConfigStatusOptions {
-	options.Headers = param
-	return options
-}
-
-// UpdateProjectOptions : The UpdateProject options.
-type UpdateProjectOptions struct {
-	// The id of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
-
-	// The project name.
-	Name *string `json:"name" validate:"required"`
-
-	// A project's descriptive text.
-	Description *string `json:"description,omitempty"`
-
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
-
-	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
-
-	// Set this parameter if you want to update the project definition of a specific branch.
-	Branch *string `json:"branch,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewUpdateProjectOptions : Instantiate UpdateProjectOptions
-func (*ProjectsV1) NewUpdateProjectOptions(id string, name string) *UpdateProjectOptions {
-	return &UpdateProjectOptions{
-		ID: core.StringPtr(id),
-		Name: core.StringPtr(name),
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *UpdateProjectOptions) SetID(id string) *UpdateProjectOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetName : Allow user to set Name
-func (_options *UpdateProjectOptions) SetName(name string) *UpdateProjectOptions {
-	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetDescription : Allow user to set Description
-func (_options *UpdateProjectOptions) SetDescription(description string) *UpdateProjectOptions {
-	_options.Description = core.StringPtr(description)
-	return _options
-}
-
-// SetConfigs : Allow user to set Configs
-func (_options *UpdateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *UpdateProjectOptions {
-	_options.Configs = configs
-	return _options
-}
-
-// SetDashboard : Allow user to set Dashboard
-func (_options *UpdateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *UpdateProjectOptions {
-	_options.Dashboard = dashboard
-	return _options
-}
-
-// SetBranch : Allow user to set Branch
-func (_options *UpdateProjectOptions) SetBranch(branch string) *UpdateProjectOptions {
-	_options.Branch = core.StringPtr(branch)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *UpdateProjectOptions) SetHeaders(param map[string]string) *UpdateProjectOptions {
-	options.Headers = param
-	return options
-}
-
 // UpdateProjectStatusOptions : The UpdateProjectStatus options.
 type UpdateProjectStatusOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -5184,15 +6274,6 @@ type UpdateProjectStatusOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
-
-// Constants associated with the UpdateProjectStatusOptions.State property.
-const (
-	UpdateProjectStatusOptions_State_Creating = "CREATING"
-	UpdateProjectStatusOptions_State_CreatingFailed = "CREATING_FAILED"
-	UpdateProjectStatusOptions_State_Ready = "READY"
-	UpdateProjectStatusOptions_State_Updating = "UPDATING"
-	UpdateProjectStatusOptions_State_UpdatingFailed = "UPDATING_FAILED"
-)
 
 // NewUpdateProjectStatusOptions : Instantiate UpdateProjectStatusOptions
 func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, state string, history []History) *UpdateProjectStatusOptions {
@@ -5252,7 +6333,7 @@ type UpdatePullRequestConfigsOptions struct {
 
 	PullRequest *string `json:"pull_request" validate:"required"`
 
-	ProjectDefinition *ProjectPrototype `json:"project_definition,omitempty"`
+	ProjectDefinition *ProjectInput `json:"project_definition,omitempty"`
 
 	// The state of the PR.
 	State *string `json:"state,omitempty"`
@@ -5289,7 +6370,7 @@ func (_options *UpdatePullRequestConfigsOptions) SetPullRequest(pullRequest stri
 }
 
 // SetProjectDefinition : Allow user to set ProjectDefinition
-func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *UpdatePullRequestConfigsOptions {
+func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinition(projectDefinition *ProjectInput) *UpdatePullRequestConfigsOptions {
 	_options.ProjectDefinition = projectDefinition
 	return _options
 }
@@ -5329,6 +6410,202 @@ func UnmarshalUpdateResponsePullRequest(m map[string]json.RawMessage, result int
 	return
 }
 
+// UpdateServiceInstanceOptions : The UpdateServiceInstance options.
+type UpdateServiceInstanceOptions struct {
+	// The ID of a previously provisioned service instance.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
+	// string.
+	ServiceID []string `json:"service_id" validate:"required"`
+
+	// Platform specific contextual information under which the service instance is to be provisioned.
+	Context []string `json:"context,omitempty"`
+
+	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
+	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
+	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
+	// this request.
+	Parameters interface{} `json:"parameters,omitempty"`
+
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// broker.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// Information about the service instance prior to the update.
+	PreviousValues []string `json:"previous_values,omitempty"`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Broker Api Originating Identity.
+	XBrokerApiOriginatingIdentity *string `json:"X-Broker-Api-Originating-Identity,omitempty"`
+
+	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
+	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
+	// instance of the requested plan asynchronously, the broker MUST reject the request with a 422 Unprocessable Entity.
+	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateServiceInstanceOptions : Instantiate UpdateServiceInstanceOptions
+func (*ProjectsV1) NewUpdateServiceInstanceOptions(instanceID string, serviceID []string) *UpdateServiceInstanceOptions {
+	return &UpdateServiceInstanceOptions{
+		InstanceID: core.StringPtr(instanceID),
+		ServiceID: serviceID,
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *UpdateServiceInstanceOptions) SetInstanceID(instanceID string) *UpdateServiceInstanceOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (_options *UpdateServiceInstanceOptions) SetServiceID(serviceID []string) *UpdateServiceInstanceOptions {
+	_options.ServiceID = serviceID
+	return _options
+}
+
+// SetContext : Allow user to set Context
+func (_options *UpdateServiceInstanceOptions) SetContext(context []string) *UpdateServiceInstanceOptions {
+	_options.Context = context
+	return _options
+}
+
+// SetParameters : Allow user to set Parameters
+func (_options *UpdateServiceInstanceOptions) SetParameters(parameters interface{}) *UpdateServiceInstanceOptions {
+	_options.Parameters = parameters
+	return _options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (_options *UpdateServiceInstanceOptions) SetPlanID(planID string) *UpdateServiceInstanceOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
+}
+
+// SetPreviousValues : Allow user to set PreviousValues
+func (_options *UpdateServiceInstanceOptions) SetPreviousValues(previousValues []string) *UpdateServiceInstanceOptions {
+	_options.PreviousValues = previousValues
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *UpdateServiceInstanceOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *UpdateServiceInstanceOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetXBrokerApiOriginatingIdentity : Allow user to set XBrokerApiOriginatingIdentity
+func (_options *UpdateServiceInstanceOptions) SetXBrokerApiOriginatingIdentity(xBrokerApiOriginatingIdentity string) *UpdateServiceInstanceOptions {
+	_options.XBrokerApiOriginatingIdentity = core.StringPtr(xBrokerApiOriginatingIdentity)
+	return _options
+}
+
+// SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
+func (_options *UpdateServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *UpdateServiceInstanceOptions {
+	_options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateServiceInstanceOptions) SetHeaders(param map[string]string) *UpdateServiceInstanceOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateServiceInstanceStateOptions : The UpdateServiceInstanceState options.
+type UpdateServiceInstanceStateOptions struct {
+	// The instance_id of a service instance is provided by the IBM Cloud platform.
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
+
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
+	// string.
+	Enabled *bool `json:"enabled" validate:"required"`
+
+	// Optional string that shows the user ID that is initiating the call.
+	InitiatorID *string `json:"initiator_id,omitempty"`
+
+	// Optional string that states the reason code for the service instance state change. Valid values are
+	// IBMCLOUD_ACCT_ACTIVATE, IBMCLOUD_RECLAMATION_RESTORE, or IBMCLOUD_SERVICE_INSTANCE_BELOW_CAP for enable calls;
+	// IBMCLOUD_ACCT_SUSPEND, IBMCLOUD_RECLAMATION_SCHEDULE, or IBMCLOUD_SERVICE_INSTANCE_ABOVE_CAP for disable calls; and
+	// IBMCLOUD_ADMIN_REQUEST for enable and disable calls.
+	ReasonCode interface{} `json:"reason_code,omitempty"`
+
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// broker.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// Information about the service instance prior to the update.
+	PreviousValues []string `json:"previous_values,omitempty"`
+
+	// Broker Api Version.
+	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateServiceInstanceStateOptions : Instantiate UpdateServiceInstanceStateOptions
+func (*ProjectsV1) NewUpdateServiceInstanceStateOptions(instanceID string, enabled bool) *UpdateServiceInstanceStateOptions {
+	return &UpdateServiceInstanceStateOptions{
+		InstanceID: core.StringPtr(instanceID),
+		Enabled: core.BoolPtr(enabled),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (_options *UpdateServiceInstanceStateOptions) SetInstanceID(instanceID string) *UpdateServiceInstanceStateOptions {
+	_options.InstanceID = core.StringPtr(instanceID)
+	return _options
+}
+
+// SetEnabled : Allow user to set Enabled
+func (_options *UpdateServiceInstanceStateOptions) SetEnabled(enabled bool) *UpdateServiceInstanceStateOptions {
+	_options.Enabled = core.BoolPtr(enabled)
+	return _options
+}
+
+// SetInitiatorID : Allow user to set InitiatorID
+func (_options *UpdateServiceInstanceStateOptions) SetInitiatorID(initiatorID string) *UpdateServiceInstanceStateOptions {
+	_options.InitiatorID = core.StringPtr(initiatorID)
+	return _options
+}
+
+// SetReasonCode : Allow user to set ReasonCode
+func (_options *UpdateServiceInstanceStateOptions) SetReasonCode(reasonCode interface{}) *UpdateServiceInstanceStateOptions {
+	_options.ReasonCode = reasonCode
+	return _options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (_options *UpdateServiceInstanceStateOptions) SetPlanID(planID string) *UpdateServiceInstanceStateOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
+}
+
+// SetPreviousValues : Allow user to set PreviousValues
+func (_options *UpdateServiceInstanceStateOptions) SetPreviousValues(previousValues []string) *UpdateServiceInstanceStateOptions {
+	_options.PreviousValues = previousValues
+	return _options
+}
+
+// SetXBrokerApiVersion : Allow user to set XBrokerApiVersion
+func (_options *UpdateServiceInstanceStateOptions) SetXBrokerApiVersion(xBrokerApiVersion string) *UpdateServiceInstanceStateOptions {
+	_options.XBrokerApiVersion = core.StringPtr(xBrokerApiVersion)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateServiceInstanceStateOptions) SetHeaders(param map[string]string) *UpdateServiceInstanceStateOptions {
+	options.Headers = param
+	return options
+}
+
 // ValidateProjectOptions : The ValidateProject options.
 type ValidateProjectOptions struct {
 	// The project name.
@@ -5337,9 +6614,7 @@ type ValidateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
-
-	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5365,14 +6640,8 @@ func (_options *ValidateProjectOptions) SetDescription(description string) *Vali
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *ValidateProjectOptions {
+func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *ValidateProjectOptions {
 	_options.Configs = configs
-	return _options
-}
-
-// SetDashboard : Allow user to set Dashboard
-func (_options *ValidateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *ValidateProjectOptions {
-	_options.Dashboard = dashboard
 	return _options
 }
 
@@ -5388,15 +6657,6 @@ type Widget struct {
 	Name *string `json:"name" validate:"required"`
 }
 
-// NewWidget : Instantiate Widget (Generic Model Constructor)
-func (*ProjectsV1) NewWidget(name string) (_model *Widget, err error) {
-	_model = &Widget{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalWidget unmarshals an instance of Widget from the specified map of raw messages.
 func UnmarshalWidget(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Widget)
@@ -5408,61 +6668,39 @@ func UnmarshalWidget(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// ProjectConfigManualProperty : ProjectConfigManualProperty struct
-// This model "extends" ProjectConfig
-type ProjectConfigManualProperty struct {
-	Name *string `json:"name" validate:"required"`
+// ProjectConfigInputProp : ProjectConfigInputProp struct
+// This model "extends" ProjectConfigInput
+type ProjectConfigInputProp struct {
+	Type *string `json:"type,omitempty"`
 
-	Labels []string `json:"labels,omitempty"`
+	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
+
+	LocatorID *string `json:"locator_id" validate:"required"`
+
+	Input []InputVariable `json:"input,omitempty"`
 
 	Output []OutputValue `json:"output,omitempty"`
 
-	// A project config description.
-	Description *string `json:"description,omitempty"`
-
-	Type *string `json:"type" validate:"required"`
-
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
+	// Optional setting object we can pass to the cart api.
+	Setting []ConfigSettingItem `json:"setting,omitempty"`
 }
 
-// Constants associated with the ProjectConfigManualProperty.Type property.
-const (
-	ProjectConfigManualProperty_Type_Manual = "manual"
-)
-
-// NewProjectConfigManualProperty : Instantiate ProjectConfigManualProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigManualProperty(name string, typeVar string) (_model *ProjectConfigManualProperty, err error) {
-	_model = &ProjectConfigManualProperty{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
+// NewProjectConfigInputProp : Instantiate ProjectConfigInputProp (Generic Model Constructor)
+func (*ProjectsV1) NewProjectConfigInputProp(locatorID string) (_model *ProjectConfigInputProp, err error) {
+	_model = &ProjectConfigInputProp{
+		LocatorID: core.StringPtr(locatorID),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
-func (*ProjectConfigManualProperty) isaProjectConfig() bool {
+func (*ProjectConfigInputProp) isaProjectConfigInput() bool {
 	return true
 }
 
-// UnmarshalProjectConfigManualProperty unmarshals an instance of ProjectConfigManualProperty from the specified map of raw messages.
-func UnmarshalProjectConfigManualProperty(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigManualProperty)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
+// UnmarshalProjectConfigInputProp unmarshals an instance of ProjectConfigInputProp from the specified map of raw messages.
+func UnmarshalProjectConfigInputProp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigInputProp)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -5471,70 +6709,7 @@ func UnmarshalProjectConfigManualProperty(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectConfigSchematicsBlueprintProperty : ProjectConfigSchematicsBlueprintProperty struct
-// This model "extends" ProjectConfig
-type ProjectConfigSchematicsBlueprintProperty struct {
-	Name *string `json:"name" validate:"required"`
-
-	Labels []string `json:"labels,omitempty"`
-
-	Output []OutputValue `json:"output,omitempty"`
-
-	// A project config description.
-	Description *string `json:"description,omitempty"`
-
-	Type *string `json:"type" validate:"required"`
-
-	Input []InputVariable `json:"input,omitempty"`
-
-	// A Schematics blueprint to use for provisioning a set of project resources.
-	Blueprint *SchematicsBlueprint `json:"blueprint" validate:"required"`
-}
-
-// Constants associated with the ProjectConfigSchematicsBlueprintProperty.Type property.
-const (
-	ProjectConfigSchematicsBlueprintProperty_Type_SchematicsBlueprint = "schematics_blueprint"
-)
-
-// NewProjectConfigSchematicsBlueprintProperty : Instantiate ProjectConfigSchematicsBlueprintProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, blueprint *SchematicsBlueprint) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
-	_model = &ProjectConfigSchematicsBlueprintProperty{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-		Blueprint: blueprint,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*ProjectConfigSchematicsBlueprintProperty) isaProjectConfig() bool {
-	return true
-}
-
-// UnmarshalProjectConfigSchematicsBlueprintProperty unmarshals an instance of ProjectConfigSchematicsBlueprintProperty from the specified map of raw messages.
-func UnmarshalProjectConfigSchematicsBlueprintProperty(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigSchematicsBlueprintProperty)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
 	if err != nil {
 		return
 	}
@@ -5542,7 +6717,11 @@ func UnmarshalProjectConfigSchematicsBlueprintProperty(m map[string]json.RawMess
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalSchematicsBlueprint)
+	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
 	if err != nil {
 		return
 	}
@@ -5550,52 +6729,40 @@ func UnmarshalProjectConfigSchematicsBlueprintProperty(m map[string]json.RawMess
 	return
 }
 
-// ProjectConfigTerraformTemplateProperty : ProjectConfigTerraformTemplateProperty struct
-// This model "extends" ProjectConfig
-type ProjectConfigTerraformTemplateProperty struct {
+// ProjectConfigInputProjectConfigCommon : ProjectConfigInputProjectConfigCommon struct
+// This model "extends" ProjectConfigInput
+type ProjectConfigInputProjectConfigCommon struct {
+	ID *string `json:"id,omitempty"`
+
+	// The config name.
 	Name *string `json:"name" validate:"required"`
 
 	Labels []string `json:"labels,omitempty"`
 
-	Output []OutputValue `json:"output,omitempty"`
-
 	// A project config description.
 	Description *string `json:"description,omitempty"`
-
-	Type *string `json:"type" validate:"required"`
-
-	Input []InputVariable `json:"input,omitempty"`
-
-	// Optional setting object we can pass to the cart api.
-	Setting []ConfigSettingItem `json:"setting,omitempty"`
-
-	// A Terraform blueprint to use for provisioning a set of project resources.
-	Template *TerraformTemplate `json:"template" validate:"required"`
 }
 
-// Constants associated with the ProjectConfigTerraformTemplateProperty.Type property.
-const (
-	ProjectConfigTerraformTemplateProperty_Type_TerraformTemplate = "terraform_template"
-)
-
-// NewProjectConfigTerraformTemplateProperty : Instantiate ProjectConfigTerraformTemplateProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, template *TerraformTemplate) (_model *ProjectConfigTerraformTemplateProperty, err error) {
-	_model = &ProjectConfigTerraformTemplateProperty{
+// NewProjectConfigInputProjectConfigCommon : Instantiate ProjectConfigInputProjectConfigCommon (Generic Model Constructor)
+func (*ProjectsV1) NewProjectConfigInputProjectConfigCommon(name string) (_model *ProjectConfigInputProjectConfigCommon, err error) {
+	_model = &ProjectConfigInputProjectConfigCommon{
 		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-		Template: template,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
-func (*ProjectConfigTerraformTemplateProperty) isaProjectConfig() bool {
+func (*ProjectConfigInputProjectConfigCommon) isaProjectConfigInput() bool {
 	return true
 }
 
-// UnmarshalProjectConfigTerraformTemplateProperty unmarshals an instance of ProjectConfigTerraformTemplateProperty from the specified map of raw messages.
-func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigTerraformTemplateProperty)
+// UnmarshalProjectConfigInputProjectConfigCommon unmarshals an instance of ProjectConfigInputProjectConfigCommon from the specified map of raw messages.
+func UnmarshalProjectConfigInputProjectConfigCommon(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigInputProjectConfigCommon)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -5604,15 +6771,45 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigProp : ProjectConfigProp struct
+// This model "extends" ProjectConfig
+type ProjectConfigProp struct {
+	Type *string `json:"type" validate:"required"`
+
+	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
+
+	LocatorID *string `json:"locator_id" validate:"required"`
+
+	Input []InputVariable `json:"input,omitempty"`
+
+	// Optional setting object we can pass to the cart api.
+	Setting []ConfigSettingItem `json:"setting,omitempty"`
+}
+
+func (*ProjectConfigProp) isaProjectConfig() bool {
+	return true
+}
+
+// UnmarshalProjectConfigProp unmarshals an instance of ProjectConfigProp from the specified map of raw messages.
+func UnmarshalProjectConfigProp(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigProp)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
 	if err != nil {
 		return
 	}
@@ -5624,7 +6821,44 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTerraformTemplate)
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigProjectConfigCommon : ProjectConfigProjectConfigCommon struct
+// This model "extends" ProjectConfig
+type ProjectConfigProjectConfigCommon struct {
+	ID *string `json:"id,omitempty"`
+
+	// The config name.
+	Name *string `json:"name" validate:"required"`
+
+	Labels []string `json:"labels,omitempty"`
+
+	// A project config description.
+	Description *string `json:"description,omitempty"`
+}
+
+func (*ProjectConfigProjectConfigCommon) isaProjectConfig() bool {
+	return true
+}
+
+// UnmarshalProjectConfigProjectConfigCommon unmarshals an instance of ProjectConfigProjectConfigCommon from the specified map of raw messages.
+func UnmarshalProjectConfigProjectConfigCommon(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigProjectConfigCommon)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}

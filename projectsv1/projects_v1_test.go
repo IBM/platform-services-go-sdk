@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,12 +174,10 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createProjectPath))
 					Expect(req.Method).To(Equal("POST"))
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
 					Expect(req.URL.Query()["location"]).To(Equal([]string{"us-south"}))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
+					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
@@ -191,36 +189,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -269,8 +270,6 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
 					Expect(req.URL.Query()["location"]).To(Equal([]string{"us-south"}))
 					// Sleep a short time to support a timeout test
@@ -278,8 +277,8 @@ var _ = Describe(`ProjectsV1`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -291,36 +290,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -375,14 +377,12 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					Expect(req.URL.Query()["resource_group"]).To(Equal([]string{"Default"}))
 					Expect(req.URL.Query()["location"]).To(Equal([]string{"us-south"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -399,36 +399,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -448,36 +451,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -507,7 +513,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					defer GinkgoRecover()
 
 					// Set success status code with no respoonse body
-					res.WriteHeader(202)
+					res.WriteHeader(200)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -518,36 +524,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				createProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -632,7 +641,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}, "state": "State"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -689,7 +698,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}, "state": "CREATING"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}, "state": "State"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -782,7 +791,7 @@ var _ = Describe(`ProjectsV1`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(projectsv1.ListProjectsResponse)
+				responseObject := new(projectsv1.ProjectListResponseSchema)
 				nextObject := new(projectsv1.PaginationLink)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -792,7 +801,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(projectsv1.ListProjectsResponse)
+				responseObject := new(projectsv1.ProjectListResponseSchema)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -814,9 +823,9 @@ var _ = Describe(`ProjectsV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","id":"ID","pr_branch":"PrBranch","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","id":"ID","definition":{"name":"Name","description":"Description","id":"ID","crn":"Crn","configs":[{"id":"ID","name":"Name","labels":["Labels"],"description":"Description"}]},"state":"State"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","id":"ID","pr_branch":"PrBranch","definition":{"name":"Name","description":"Description","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"description":"Description","type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}},"state":"CREATING"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","id":"ID","definition":{"name":"Name","description":"Description","id":"ID","crn":"Crn","configs":[{"id":"ID","name":"Name","labels":["Labels"],"description":"Description"}]},"state":"State"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -935,7 +944,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -991,7 +1000,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -1090,15 +1099,15 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdateProject(updateProjectOptions *UpdateProjectOptions) - Operation response error`, func() {
-		updateProjectPath := "/v1/projects/testString"
+	Describe(`ReplaceProject(replaceProjectOptions *ReplaceProjectOptions) - Operation response error`, func() {
+		replaceProjectPath := "/v1/projects/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceProjectPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -1106,7 +1115,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke UpdateProject with error: Operation response processing error`, func() {
+			It(`Invoke ReplaceProject with error: Operation response processing error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1114,47 +1123,51 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the UpdateProjectOptions model
-				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				updateProjectOptionsModel.Branch = core.StringPtr("testString")
-				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceProjectOptions model
+				replaceProjectOptionsModel := new(projectsv1.ReplaceProjectOptions)
+				replaceProjectOptionsModel.ID = core.StringPtr("testString")
+				replaceProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				replaceProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				replaceProjectOptionsModel.Branch = core.StringPtr("testString")
+				replaceProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr := projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr = projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1164,15 +1177,15 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
-	Describe(`UpdateProject(updateProjectOptions *UpdateProjectOptions)`, func() {
-		updateProjectPath := "/v1/projects/testString"
+	Describe(`ReplaceProject(replaceProjectOptions *ReplaceProjectOptions)`, func() {
+		replaceProjectPath := "/v1/projects/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceProjectPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1201,7 +1214,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"branch": "Branch", "pr_url": "PrURL"}`)
 				}))
 			})
-			It(`Invoke UpdateProject successfully with retries`, func() {
+			It(`Invoke ReplaceProject successfully with retries`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1210,49 +1223,53 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the UpdateProjectOptions model
-				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				updateProjectOptionsModel.Branch = core.StringPtr("testString")
-				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceProjectOptions model
+				replaceProjectOptionsModel := new(projectsv1.ReplaceProjectOptions)
+				replaceProjectOptionsModel.ID = core.StringPtr("testString")
+				replaceProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				replaceProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				replaceProjectOptionsModel.Branch = core.StringPtr("testString")
+				replaceProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := projectsService.UpdateProjectWithContext(ctx, updateProjectOptionsModel)
+				_, _, operationErr := projectsService.ReplaceProjectWithContext(ctx, replaceProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr := projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1260,7 +1277,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = projectsService.UpdateProjectWithContext(ctx, updateProjectOptionsModel)
+				_, _, operationErr = projectsService.ReplaceProjectWithContext(ctx, replaceProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1274,7 +1291,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceProjectPath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1300,7 +1317,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					fmt.Fprintf(res, "%s", `{"branch": "Branch", "pr_url": "PrURL"}`)
 				}))
 			})
-			It(`Invoke UpdateProject successfully`, func() {
+			It(`Invoke ReplaceProject successfully`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1309,10 +1326,18 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UpdateProject(nil)
+				result, response, operationErr := projectsService.ReplaceProject(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
 
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
@@ -1320,41 +1345,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the UpdateProjectOptions model
-				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				updateProjectOptionsModel.Branch = core.StringPtr("testString")
-				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceProjectOptions model
+				replaceProjectOptionsModel := new(projectsv1.ReplaceProjectOptions)
+				replaceProjectOptionsModel.ID = core.StringPtr("testString")
+				replaceProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				replaceProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				replaceProjectOptionsModel.Branch = core.StringPtr("testString")
+				replaceProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr = projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke UpdateProject with error: Operation validation and request error`, func() {
+			It(`Invoke ReplaceProject with error: Operation validation and request error`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1362,50 +1383,54 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the UpdateProjectOptions model
-				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				updateProjectOptionsModel.Branch = core.StringPtr("testString")
-				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceProjectOptions model
+				replaceProjectOptionsModel := new(projectsv1.ReplaceProjectOptions)
+				replaceProjectOptionsModel.ID = core.StringPtr("testString")
+				replaceProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				replaceProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				replaceProjectOptionsModel.Branch = core.StringPtr("testString")
+				replaceProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr := projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateProjectOptions model with no property values
-				updateProjectOptionsModelNew := new(projectsv1.UpdateProjectOptions)
+				// Construct a second instance of the ReplaceProjectOptions model with no property values
+				replaceProjectOptionsModelNew := new(projectsv1.ReplaceProjectOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UpdateProject(updateProjectOptionsModelNew)
+				result, response, operationErr = projectsService.ReplaceProject(replaceProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1423,7 +1448,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke UpdateProject successfully`, func() {
+			It(`Invoke ReplaceProject successfully`, func() {
 				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1431,41 +1456,45 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the UpdateProjectOptions model
-				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
-				updateProjectOptionsModel.Branch = core.StringPtr("testString")
-				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ReplaceProjectOptions model
+				replaceProjectOptionsModel := new(projectsv1.ReplaceProjectOptions)
+				replaceProjectOptionsModel.ID = core.StringPtr("testString")
+				replaceProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				replaceProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				replaceProjectOptionsModel.Branch = core.StringPtr("testString")
+				replaceProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
+				result, response, operationErr := projectsService.ReplaceProject(replaceProjectOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1488,6 +1517,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteProjectPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
 					res.WriteHeader(204)
 				}))
 			})
@@ -1507,6 +1537,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(projectsv1.DeleteProjectOptions)
 				deleteProjectOptionsModel.ID = core.StringPtr("testString")
+				deleteProjectOptionsModel.Branch = core.StringPtr("testString")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1525,6 +1556,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeleteProjectOptions model
 				deleteProjectOptionsModel := new(projectsv1.DeleteProjectOptions)
 				deleteProjectOptionsModel.ID = core.StringPtr("testString")
+				deleteProjectOptionsModel.Branch = core.StringPtr("testString")
 				deleteProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -1539,6 +1571,183 @@ var _ = Describe(`ProjectsV1`, func() {
 				response, operationErr = projectsService.DeleteProject(deleteProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectFile(getProjectFileOptions *GetProjectFileOptions)`, func() {
+		getProjectFilePath := "/v1/projects/testString/files/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectFilePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "text/plain")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `"PGgxPlRoaXMgaXMgYSB0ZXN0PC9oMT4="`)
+				}))
+			})
+			It(`Invoke GetProjectFile successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectFileOptions model
+				getProjectFileOptionsModel := new(projectsv1.GetProjectFileOptions)
+				getProjectFileOptionsModel.ID = core.StringPtr("testString")
+				getProjectFileOptionsModel.FilePath = core.StringPtr("testString")
+				getProjectFileOptionsModel.Branch = core.StringPtr("testString")
+				getProjectFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetProjectFileWithContext(ctx, getProjectFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetProjectFile(getProjectFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetProjectFileWithContext(ctx, getProjectFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectFilePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["branch"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "text/plain")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `"PGgxPlRoaXMgaXMgYSB0ZXN0PC9oMT4="`)
+				}))
+			})
+			It(`Invoke GetProjectFile successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetProjectFile(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectFileOptions model
+				getProjectFileOptionsModel := new(projectsv1.GetProjectFileOptions)
+				getProjectFileOptionsModel.ID = core.StringPtr("testString")
+				getProjectFileOptionsModel.FilePath = core.StringPtr("testString")
+				getProjectFileOptionsModel.Branch = core.StringPtr("testString")
+				getProjectFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetProjectFile(getProjectFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectFile with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectFileOptions model
+				getProjectFileOptionsModel := new(projectsv1.GetProjectFileOptions)
+				getProjectFileOptionsModel.ID = core.StringPtr("testString")
+				getProjectFileOptionsModel.FilePath = core.StringPtr("testString")
+				getProjectFileOptionsModel.Branch = core.StringPtr("testString")
+				getProjectFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetProjectFile(getProjectFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectFileOptions model with no property values
+				getProjectFileOptionsModelNew := new(projectsv1.GetProjectFileOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetProjectFile(getProjectFileOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectFile successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectFileOptions model
+				getProjectFileOptionsModel := new(projectsv1.GetProjectFileOptions)
+				getProjectFileOptionsModel.ID = core.StringPtr("testString")
+				getProjectFileOptionsModel.FilePath = core.StringPtr("testString")
+				getProjectFileOptionsModel.Branch = core.StringPtr("testString")
+				getProjectFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetProjectFile(getProjectFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1568,36 +1777,40 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
@@ -1650,7 +1863,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully with retries`, func() {
@@ -1662,36 +1875,40 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1747,7 +1964,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "pr_branch": "PrBranch", "definition": {"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully`, func() {
@@ -1764,36 +1981,40 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1811,36 +2032,40 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -1879,36 +2104,40 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1951,7 +2180,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					res.WriteHeader(200)
+					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke ValidateProject successfully`, func() {
@@ -1967,35 +2196,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
 				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				validateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2011,35 +2244,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
 				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				validateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2054,265 +2291,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				response, operationErr = projectsService.ValidateProject(validateProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`InitProjectConfig(initProjectConfigOptions *InitProjectConfigOptions) - Operation response error`, func() {
-		initProjectConfigPath := "/v1/projects/init_config"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(initProjectConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke InitProjectConfig with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsModel := new(projectsv1.InitProjectConfigOptions)
-				initProjectConfigOptionsModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.ConfigName = core.StringPtr("My workpress example")
-				initProjectConfigOptionsModel.Description = core.StringPtr("testString")
-				initProjectConfigOptionsModel.Labels = []string{"testString"}
-				initProjectConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`InitProjectConfig(initProjectConfigOptions *InitProjectConfigOptions)`, func() {
-		initProjectConfigPath := "/v1/projects/init_config"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(initProjectConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}`)
-				}))
-			})
-			It(`Invoke InitProjectConfig successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsModel := new(projectsv1.InitProjectConfigOptions)
-				initProjectConfigOptionsModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.ConfigName = core.StringPtr("My workpress example")
-				initProjectConfigOptionsModel.Description = core.StringPtr("testString")
-				initProjectConfigOptionsModel.Labels = []string{"testString"}
-				initProjectConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.InitProjectConfigWithContext(ctx, initProjectConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.InitProjectConfigWithContext(ctx, initProjectConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(initProjectConfigPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "description": "Description", "type": "manual", "external_resources_account": "ExternalResourcesAccount"}`)
-				}))
-			})
-			It(`Invoke InitProjectConfig successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.InitProjectConfig(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsModel := new(projectsv1.InitProjectConfigOptions)
-				initProjectConfigOptionsModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.ConfigName = core.StringPtr("My workpress example")
-				initProjectConfigOptionsModel.Description = core.StringPtr("testString")
-				initProjectConfigOptionsModel.Labels = []string{"testString"}
-				initProjectConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke InitProjectConfig with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsModel := new(projectsv1.InitProjectConfigOptions)
-				initProjectConfigOptionsModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.ConfigName = core.StringPtr("My workpress example")
-				initProjectConfigOptionsModel.Description = core.StringPtr("testString")
-				initProjectConfigOptionsModel.Labels = []string{"testString"}
-				initProjectConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the InitProjectConfigOptions model with no property values
-				initProjectConfigOptionsModelNew := new(projectsv1.InitProjectConfigOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.InitProjectConfig(initProjectConfigOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke InitProjectConfig successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsModel := new(projectsv1.InitProjectConfigOptions)
-				initProjectConfigOptionsModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.ConfigName = core.StringPtr("My workpress example")
-				initProjectConfigOptionsModel.Description = core.StringPtr("testString")
-				initProjectConfigOptionsModel.Labels = []string{"testString"}
-				initProjectConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.InitProjectConfig(initProjectConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2342,42 +2320,46 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.Source = projectInputModel
 				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.Target = projectPrototypeModel
+				configChangesOptionsModel.Target = projectInputModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.ConfigChanges(configChangesOptionsModel)
@@ -2430,7 +2412,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"added": ["Added"], "deleted": ["Deleted"], "changed": ["Changed"]}`)
+					fmt.Fprintf(res, "%s", `{"added": [{"name": "Name"}], "deleted": [{"name": "Name"}], "changed": [{"name": "Name", "new_name": "NewName"}]}`)
 				}))
 			})
 			It(`Invoke ConfigChanges successfully with retries`, func() {
@@ -2442,42 +2424,46 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.Source = projectInputModel
 				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.Target = projectPrototypeModel
+				configChangesOptionsModel.Target = projectInputModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2533,7 +2519,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"added": ["Added"], "deleted": ["Deleted"], "changed": ["Changed"]}`)
+					fmt.Fprintf(res, "%s", `{"added": [{"name": "Name"}], "deleted": [{"name": "Name"}], "changed": [{"name": "Name", "new_name": "NewName"}]}`)
 				}))
 			})
 			It(`Invoke ConfigChanges successfully`, func() {
@@ -2550,42 +2536,46 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.Source = projectInputModel
 				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.Target = projectPrototypeModel
+				configChangesOptionsModel.Target = projectInputModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2603,42 +2593,46 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.Source = projectInputModel
 				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.Target = projectPrototypeModel
+				configChangesOptionsModel.Target = projectInputModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2677,3328 +2671,50 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				outputValueModel.Name = core.StringPtr("tags")
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
 				configChangesOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				configChangesOptionsModel.Source = projectPrototypeModel
+				configChangesOptionsModel.Source = projectInputModel
 				configChangesOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.Target = projectPrototypeModel
+				configChangesOptionsModel.Target = projectInputModel
 				configChangesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
 				result, response, operationErr := projectsService.ConfigChanges(configChangesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectStatus(getProjectStatusOptions *GetProjectStatusOptions) - Operation response error`, func() {
-		getProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetProjectStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectStatusOptions model
-				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
-				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectStatus(getProjectStatusOptions *GetProjectStatusOptions)`, func() {
-		getProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
-				}))
-			})
-			It(`Invoke GetProjectStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetProjectStatusOptions model
-				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
-				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.GetProjectStatusWithContext(ctx, getProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.GetProjectStatusWithContext(ctx, getProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
-				}))
-			})
-			It(`Invoke GetProjectStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.GetProjectStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetProjectStatusOptions model
-				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
-				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetProjectStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectStatusOptions model
-				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
-				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetProjectStatusOptions model with no property values
-				getProjectStatusOptionsModelNew := new(projectsv1.GetProjectStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetProjectStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectStatusOptions model
-				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
-				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectStatus(updateProjectStatusOptions *UpdateProjectStatusOptions) - Operation response error`, func() {
-		updateProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateProjectStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the History model
-				historyModel := new(projectsv1.History)
-				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
-				historyModel.Code = core.StringPtr("ISB005I")
-				historyModel.Type = core.StringPtr("schematics")
-
-				// Construct an instance of the ServiceInfoGit model
-				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
-				serviceInfoGitModel.URL = core.StringPtr("testString")
-				serviceInfoGitModel.Branch = core.StringPtr("testString")
-				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoToolchain model
-				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.ID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoSchematics model
-				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
-				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
-				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
-				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
-
-				// Construct an instance of the UpdateProjectStatusOptions model
-				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
-				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
-				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
-				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
-				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
-				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
-				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectStatus(updateProjectStatusOptions *UpdateProjectStatusOptions)`, func() {
-		updateProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
-				}))
-			})
-			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the History model
-				historyModel := new(projectsv1.History)
-				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
-				historyModel.Code = core.StringPtr("ISB005I")
-				historyModel.Type = core.StringPtr("schematics")
-
-				// Construct an instance of the ServiceInfoGit model
-				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
-				serviceInfoGitModel.URL = core.StringPtr("testString")
-				serviceInfoGitModel.Branch = core.StringPtr("testString")
-				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoToolchain model
-				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.ID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoSchematics model
-				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
-				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
-				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
-				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
-
-				// Construct an instance of the UpdateProjectStatusOptions model
-				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
-				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
-				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
-				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
-				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
-				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
-				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.UpdateProjectStatusWithContext(ctx, updateProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.UpdateProjectStatusWithContext(ctx, updateProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
-				}))
-			})
-			It(`Invoke UpdateProjectStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UpdateProjectStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the History model
-				historyModel := new(projectsv1.History)
-				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
-				historyModel.Code = core.StringPtr("ISB005I")
-				historyModel.Type = core.StringPtr("schematics")
-
-				// Construct an instance of the ServiceInfoGit model
-				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
-				serviceInfoGitModel.URL = core.StringPtr("testString")
-				serviceInfoGitModel.Branch = core.StringPtr("testString")
-				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoToolchain model
-				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.ID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoSchematics model
-				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
-				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
-				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
-				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
-
-				// Construct an instance of the UpdateProjectStatusOptions model
-				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
-				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
-				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
-				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
-				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
-				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
-				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateProjectStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the History model
-				historyModel := new(projectsv1.History)
-				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
-				historyModel.Code = core.StringPtr("ISB005I")
-				historyModel.Type = core.StringPtr("schematics")
-
-				// Construct an instance of the ServiceInfoGit model
-				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
-				serviceInfoGitModel.URL = core.StringPtr("testString")
-				serviceInfoGitModel.Branch = core.StringPtr("testString")
-				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoToolchain model
-				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.ID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoSchematics model
-				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
-				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
-				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
-				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
-
-				// Construct an instance of the UpdateProjectStatusOptions model
-				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
-				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
-				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
-				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
-				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
-				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
-				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateProjectStatusOptions model with no property values
-				updateProjectStatusOptionsModelNew := new(projectsv1.UpdateProjectStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateProjectStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the History model
-				historyModel := new(projectsv1.History)
-				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
-				historyModel.Code = core.StringPtr("ISB005I")
-				historyModel.Type = core.StringPtr("schematics")
-
-				// Construct an instance of the ServiceInfoGit model
-				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
-				serviceInfoGitModel.URL = core.StringPtr("testString")
-				serviceInfoGitModel.Branch = core.StringPtr("testString")
-				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoToolchain model
-				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
-				serviceInfoToolchainModel.ID = core.StringPtr("testString")
-
-				// Construct an instance of the ServiceInfoSchematics model
-				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
-				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
-				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
-				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
-
-				// Construct an instance of the UpdateProjectStatusOptions model
-				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
-				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
-				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
-				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
-				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
-				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
-				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectComputedStatus(getProjectComputedStatusOptions *GetProjectComputedStatusOptions) - Operation response error`, func() {
-		getProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetProjectComputedStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectComputedStatusOptions model
-				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
-				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectComputedStatus(getProjectComputedStatusOptions *GetProjectComputedStatusOptions)`, func() {
-		getProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetProjectComputedStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetProjectComputedStatusOptions model
-				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
-				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.GetProjectComputedStatusWithContext(ctx, getProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.GetProjectComputedStatusWithContext(ctx, getProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetProjectComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.GetProjectComputedStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetProjectComputedStatusOptions model
-				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
-				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetProjectComputedStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectComputedStatusOptions model
-				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
-				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetProjectComputedStatusOptions model with no property values
-				getProjectComputedStatusOptionsModelNew := new(projectsv1.GetProjectComputedStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetProjectComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectComputedStatusOptions model
-				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
-				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectComputedStatus(updateProjectComputedStatusOptions *UpdateProjectComputedStatusOptions) - Operation response error`, func() {
-		updateProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateProjectComputedStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectComputedStatusOptions model
-				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
-				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
-				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectComputedStatus(updateProjectComputedStatusOptions *UpdateProjectComputedStatusOptions)`, func() {
-		updateProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke UpdateProjectComputedStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateProjectComputedStatusOptions model
-				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
-				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
-				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.UpdateProjectComputedStatusWithContext(ctx, updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.UpdateProjectComputedStatusWithContext(ctx, updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke UpdateProjectComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UpdateProjectComputedStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateProjectComputedStatusOptions model
-				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
-				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
-				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateProjectComputedStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectComputedStatusOptions model
-				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
-				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
-				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateProjectComputedStatusOptions model with no property values
-				updateProjectComputedStatusOptionsModelNew := new(projectsv1.UpdateProjectComputedStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateProjectComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectComputedStatusOptions model
-				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
-				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
-				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListProjectConfigStatuses(listProjectConfigStatusesOptions *ListProjectConfigStatusesOptions) - Operation response error`, func() {
-		listProjectConfigStatusesPath := "/v1/projects/testString/config_statuses"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListProjectConfigStatuses with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the ListProjectConfigStatusesOptions model
-				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
-				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
-				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListProjectConfigStatuses(listProjectConfigStatusesOptions *ListProjectConfigStatusesOptions)`, func() {
-		listProjectConfigStatusesPath := "/v1/projects/testString/config_statuses"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
-				}))
-			})
-			It(`Invoke ListProjectConfigStatuses successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListProjectConfigStatusesOptions model
-				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
-				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
-				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.ListProjectConfigStatusesWithContext(ctx, listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.ListProjectConfigStatusesWithContext(ctx, listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
-				}))
-			})
-			It(`Invoke ListProjectConfigStatuses successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.ListProjectConfigStatuses(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListProjectConfigStatusesOptions model
-				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
-				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
-				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListProjectConfigStatuses with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the ListProjectConfigStatusesOptions model
-				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
-				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
-				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListProjectConfigStatusesOptions model with no property values
-				listProjectConfigStatusesOptionsModelNew := new(projectsv1.ListProjectConfigStatusesOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListProjectConfigStatuses successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the ListProjectConfigStatusesOptions model
-				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
-				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
-				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectConfigStatus(getProjectConfigStatusOptions *GetProjectConfigStatusOptions) - Operation response error`, func() {
-		getProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetProjectConfigStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigStatusOptions model
-				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
-				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectConfigStatus(getProjectConfigStatusOptions *GetProjectConfigStatusOptions)`, func() {
-		getProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
-				}))
-			})
-			It(`Invoke GetProjectConfigStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetProjectConfigStatusOptions model
-				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
-				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.GetProjectConfigStatusWithContext(ctx, getProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.GetProjectConfigStatusWithContext(ctx, getProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
-				}))
-			})
-			It(`Invoke GetProjectConfigStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.GetProjectConfigStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetProjectConfigStatusOptions model
-				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
-				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetProjectConfigStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigStatusOptions model
-				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
-				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetProjectConfigStatusOptions model with no property values
-				getProjectConfigStatusOptionsModelNew := new(projectsv1.GetProjectConfigStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetProjectConfigStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigStatusOptions model
-				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
-				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectConfigStatus(updateProjectConfigStatusOptions *UpdateProjectConfigStatusOptions) - Operation response error`, func() {
-		updateProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
-				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				updateProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectConfigStatus(updateProjectConfigStatusOptions *UpdateProjectConfigStatusOptions)`, func() {
-		updateProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
-				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				updateProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.UpdateProjectConfigStatusWithContext(ctx, updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.UpdateProjectConfigStatusWithContext(ctx, updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UpdateProjectConfigStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
-				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				updateProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateProjectConfigStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
-				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				updateProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateProjectConfigStatusOptions model with no property values
-				updateProjectConfigStatusOptionsModelNew := new(projectsv1.UpdateProjectConfigStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
-				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				updateProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.UpdateProjectConfigStatus(updateProjectConfigStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptions *GetProjectConfigComputedStatusOptions) - Operation response error`, func() {
-		getProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetProjectConfigComputedStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigComputedStatusOptions model
-				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptions *GetProjectConfigComputedStatusOptions)`, func() {
-		getProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetProjectConfigComputedStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetProjectConfigComputedStatusOptions model
-				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.GetProjectConfigComputedStatusWithContext(ctx, getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.GetProjectConfigComputedStatusWithContext(ctx, getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetProjectConfigComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetProjectConfigComputedStatusOptions model
-				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetProjectConfigComputedStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigComputedStatusOptions model
-				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetProjectConfigComputedStatusOptions model with no property values
-				getProjectConfigComputedStatusOptionsModelNew := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetProjectConfigComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetProjectConfigComputedStatusOptions model
-				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
-				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptions *UpdateProjectConfigComputedStatusOptions) - Operation response error`, func() {
-		updateProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigComputedStatus with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
-				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
-				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptions *UpdateProjectConfigComputedStatusOptions)`, func() {
-		updateProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigComputedStatus successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
-				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
-				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.UpdateProjectConfigComputedStatusWithContext(ctx, updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.UpdateProjectConfigComputedStatusWithContext(ctx, updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
-				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
-				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateProjectConfigComputedStatus with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
-				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
-				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateProjectConfigComputedStatusOptions model with no property values
-				updateProjectConfigComputedStatusOptionsModelNew := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateProjectConfigComputedStatus successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
-				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
-				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
-				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
-				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetHealth(getHealthOptions *GetHealthOptions) - Operation response error`, func() {
-		getHealthPath := "/v1/health"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
-					Expect(req.Method).To(Equal("GET"))
-					// TODO: Add check for info query parameter
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetHealth with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetHealthOptions model
-				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
-				getHealthOptionsModel.Info = core.BoolPtr(false)
-				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetHealth(getHealthOptions *GetHealthOptions)`, func() {
-		getHealthPath := "/v1/health"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// TODO: Add check for info query parameter
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "version": "Version", "dependencies": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetHealth successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetHealthOptions model
-				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
-				getHealthOptionsModel.Info = core.BoolPtr(false)
-				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.GetHealthWithContext(ctx, getHealthOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.GetHealthWithContext(ctx, getHealthOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// TODO: Add check for info query parameter
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "version": "Version", "dependencies": {"mapKey": "anyValue"}}`)
-				}))
-			})
-			It(`Invoke GetHealth successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.GetHealth(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetHealthOptions model
-				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
-				getHealthOptionsModel.Info = core.BoolPtr(false)
-				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetHealth with error: Operation request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetHealthOptions model
-				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
-				getHealthOptionsModel.Info = core.BoolPtr(false)
-				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetHealth successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the GetHealthOptions model
-				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
-				getHealthOptionsModel.Info = core.BoolPtr(false)
-				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`Notify(notifyOptions *NotifyOptions)`, func() {
-		notifyPath := "/v1/notify"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(notifyPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke Notify successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.Notify(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the NotifyOptions model
-				notifyOptionsModel := new(projectsv1.NotifyOptions)
-				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
-				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.Notify(notifyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke Notify with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the NotifyOptions model
-				notifyOptionsModel := new(projectsv1.NotifyOptions)
-				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
-				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectsService.Notify(notifyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the NotifyOptions model with no property values
-				notifyOptionsModelNew := new(projectsv1.NotifyOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.Notify(notifyOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`RegisterPullRequest(registerPullRequestOptions *RegisterPullRequestOptions)`, func() {
-		registerPullRequestPath := "/v1/projects/testString/pullrequest"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(registerPullRequestPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke RegisterPullRequest successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.RegisterPullRequest(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the RegisterPullRequestOptions model
-				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
-				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
-				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
-				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke RegisterPullRequest with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the RegisterPullRequestOptions model
-				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
-				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
-				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
-				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the RegisterPullRequestOptions model with no property values
-				registerPullRequestOptionsModelNew := new(projectsv1.RegisterPullRequestOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeregisterPullRequest(deregisterPullRequestOptions *DeregisterPullRequestOptions)`, func() {
-		deregisterPullRequestPath := "/v1/projects/testString/pullrequest"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deregisterPullRequestPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					Expect(req.URL.Query()["url"]).To(Equal([]string{"testString"}))
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke DeregisterPullRequest successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.DeregisterPullRequest(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeregisterPullRequestOptions model
-				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
-				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeregisterPullRequest with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the DeregisterPullRequestOptions model
-				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
-				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeregisterPullRequestOptions model with no property values
-				deregisterPullRequestOptionsModelNew := new(projectsv1.DeregisterPullRequestOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdatePullRequestConfigs(updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions)`, func() {
-		updatePullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updatePullRequestConfigsPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.URL.Query()["state"]).To(Equal([]string{"merge"}))
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke UpdatePullRequestConfigs successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectsService.UpdatePullRequestConfigs(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the UpdatePullRequestConfigsOptions model
-				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
-				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
-				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke UpdatePullRequestConfigs with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the UpdatePullRequestConfigsOptions model
-				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
-				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
-				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the UpdatePullRequestConfigsOptions model with no property values
-				updatePullRequestConfigsOptionsModelNew := new(projectsv1.UpdatePullRequestConfigsOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`PlanPullRequestConfigs(planPullRequestConfigsOptions *PlanPullRequestConfigsOptions) - Operation response error`, func() {
-		planPullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs/plan"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke PlanPullRequestConfigs with error: Operation response processing error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the PlanPullRequestConfigsOptions model
-				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
-				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectsService.EnableRetries(0, 0)
-				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`PlanPullRequestConfigs(planPullRequestConfigsOptions *PlanPullRequestConfigsOptions)`, func() {
-		planPullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs/plan"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
-				}))
-			})
-			It(`Invoke PlanPullRequestConfigs successfully with retries`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-				projectsService.EnableRetries(0, 0)
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the PlanPullRequestConfigsOptions model
-				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
-				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectsService.PlanPullRequestConfigsWithContext(ctx, planPullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectsService.DisableRetries()
-				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectsService.PlanPullRequestConfigsWithContext(ctx, planPullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
-				}))
-			})
-			It(`Invoke PlanPullRequestConfigs successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectsService.PlanPullRequestConfigs(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the PlanPullRequestConfigsOptions model
-				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
-				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke PlanPullRequestConfigs with error: Operation validation and request error`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the PlanPullRequestConfigsOptions model
-				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
-				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the PlanPullRequestConfigsOptions model with no property values
-				planPullRequestConfigsOptionsModelNew := new(projectsv1.PlanPullRequestConfigsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke PlanPullRequestConfigs successfully`, func() {
-				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectsService).ToNot(BeNil())
-
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				widgetModel.Name = core.StringPtr("project-properties")
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-
-				// Construct an instance of the PlanPullRequestConfigsOptions model
-				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
-				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
-				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.ProjectDefinition = projectPrototypeModel
-				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -6678,6 +3394,1978 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`GetProjectStatus(getProjectStatusOptions *GetProjectStatusOptions) - Operation response error`, func() {
+		getProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusOptions model
+				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
+				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectStatus(getProjectStatusOptions *GetProjectStatusOptions)`, func() {
+		getProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke GetProjectStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectStatusOptions model
+				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
+				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetProjectStatusWithContext(ctx, getProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetProjectStatusWithContext(ctx, getProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke GetProjectStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetProjectStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectStatusOptions model
+				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
+				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusOptions model
+				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
+				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectStatusOptions model with no property values
+				getProjectStatusOptionsModelNew := new(projectsv1.GetProjectStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetProjectStatus(getProjectStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectStatusOptions model
+				getProjectStatusOptionsModel := new(projectsv1.GetProjectStatusOptions)
+				getProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetProjectStatus(getProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectStatus(updateProjectStatusOptions *UpdateProjectStatusOptions) - Operation response error`, func() {
+		updateProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateProjectStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+
+				// Construct an instance of the UpdateProjectStatusOptions model
+				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
+				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
+				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectStatus(updateProjectStatusOptions *UpdateProjectStatusOptions)`, func() {
+		updateProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+
+				// Construct an instance of the UpdateProjectStatusOptions model
+				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
+				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
+				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.UpdateProjectStatusWithContext(ctx, updateProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.UpdateProjectStatusWithContext(ctx, updateProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"id": "ID"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "pull_request": "PullRequest", "catalog_id": "CatalogID", "offering_id": "OfferingID", "offering_kind_id": "OfferingKindID", "version_id": "VersionID", "offering_version": "OfferingVersion", "offering_fulfilment_kind": "terraform", "cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}], "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z"}`)
+				}))
+			})
+			It(`Invoke UpdateProjectStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.UpdateProjectStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+
+				// Construct an instance of the UpdateProjectStatusOptions model
+				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
+				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
+				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateProjectStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+
+				// Construct an instance of the UpdateProjectStatusOptions model
+				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
+				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
+				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateProjectStatusOptions model with no property values
+				updateProjectStatusOptionsModelNew := new(projectsv1.UpdateProjectStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.UpdateProjectStatus(updateProjectStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateProjectStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+
+				// Construct an instance of the UpdateProjectStatusOptions model
+				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
+				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
+				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectComputedStatus(getProjectComputedStatusOptions *GetProjectComputedStatusOptions) - Operation response error`, func() {
+		getProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectComputedStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectComputedStatusOptions model
+				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
+				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectComputedStatus(getProjectComputedStatusOptions *GetProjectComputedStatusOptions)`, func() {
+		getProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetProjectComputedStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectComputedStatusOptions model
+				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
+				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetProjectComputedStatusWithContext(ctx, getProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetProjectComputedStatusWithContext(ctx, getProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetProjectComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetProjectComputedStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectComputedStatusOptions model
+				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
+				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectComputedStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectComputedStatusOptions model
+				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
+				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectComputedStatusOptions model with no property values
+				getProjectComputedStatusOptionsModelNew := new(projectsv1.GetProjectComputedStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectComputedStatusOptions model
+				getProjectComputedStatusOptionsModel := new(projectsv1.GetProjectComputedStatusOptions)
+				getProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				getProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetProjectComputedStatus(getProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectComputedStatus(updateProjectComputedStatusOptions *UpdateProjectComputedStatusOptions) - Operation response error`, func() {
+		updateProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateProjectComputedStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectComputedStatusOptions model
+				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
+				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
+				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectComputedStatus(updateProjectComputedStatusOptions *UpdateProjectComputedStatusOptions)`, func() {
+		updateProjectComputedStatusPath := "/v1/projects/234234324-3444-4556-224232432/status/cost"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke UpdateProjectComputedStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateProjectComputedStatusOptions model
+				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
+				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
+				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.UpdateProjectComputedStatusWithContext(ctx, updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.UpdateProjectComputedStatusWithContext(ctx, updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke UpdateProjectComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.UpdateProjectComputedStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateProjectComputedStatusOptions model
+				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
+				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
+				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateProjectComputedStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectComputedStatusOptions model
+				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
+				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
+				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateProjectComputedStatusOptions model with no property values
+				updateProjectComputedStatusOptionsModelNew := new(projectsv1.UpdateProjectComputedStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateProjectComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectComputedStatusOptions model
+				updateProjectComputedStatusOptionsModel := new(projectsv1.UpdateProjectComputedStatusOptions)
+				updateProjectComputedStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectComputedStatusOptionsModel.ComputedStatuses = make(map[string]interface{})
+				updateProjectComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.UpdateProjectComputedStatus(updateProjectComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListProjectConfigStatuses(listProjectConfigStatusesOptions *ListProjectConfigStatusesOptions) - Operation response error`, func() {
+		listProjectConfigStatusesPath := "/v1/projects/testString/configs/status"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListProjectConfigStatuses with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ListProjectConfigStatusesOptions model
+				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
+				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
+				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListProjectConfigStatuses(listProjectConfigStatusesOptions *ListProjectConfigStatusesOptions)`, func() {
+		listProjectConfigStatusesPath := "/v1/projects/testString/configs/status"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "state": "State"}]}`)
+				}))
+			})
+			It(`Invoke ListProjectConfigStatuses successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListProjectConfigStatusesOptions model
+				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
+				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
+				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.ListProjectConfigStatusesWithContext(ctx, listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.ListProjectConfigStatusesWithContext(ctx, listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProjectConfigStatusesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "state": "State"}]}`)
+				}))
+			})
+			It(`Invoke ListProjectConfigStatuses successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.ListProjectConfigStatuses(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListProjectConfigStatusesOptions model
+				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
+				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
+				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListProjectConfigStatuses with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ListProjectConfigStatusesOptions model
+				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
+				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
+				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListProjectConfigStatusesOptions model with no property values
+				listProjectConfigStatusesOptionsModelNew := new(projectsv1.ListProjectConfigStatusesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListProjectConfigStatuses successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ListProjectConfigStatusesOptions model
+				listProjectConfigStatusesOptionsModel := new(projectsv1.ListProjectConfigStatusesOptions)
+				listProjectConfigStatusesOptionsModel.ID = core.StringPtr("testString")
+				listProjectConfigStatusesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.ListProjectConfigStatuses(listProjectConfigStatusesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectConfigStatus(getProjectConfigStatusOptions *GetProjectConfigStatusOptions) - Operation response error`, func() {
+		getProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/configs/example/status"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectConfigStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigStatusOptions model
+				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
+				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectConfigStatus(getProjectConfigStatusOptions *GetProjectConfigStatusOptions)`, func() {
+		getProjectConfigStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/configs/example/status"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "state": "State"}`)
+				}))
+			})
+			It(`Invoke GetProjectConfigStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectConfigStatusOptions model
+				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
+				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetProjectConfigStatusWithContext(ctx, getProjectConfigStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetProjectConfigStatusWithContext(ctx, getProjectConfigStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "state": "State"}`)
+				}))
+			})
+			It(`Invoke GetProjectConfigStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetProjectConfigStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectConfigStatusOptions model
+				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
+				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectConfigStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigStatusOptions model
+				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
+				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectConfigStatusOptions model with no property values
+				getProjectConfigStatusOptionsModelNew := new(projectsv1.GetProjectConfigStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectConfigStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigStatusOptions model
+				getProjectConfigStatusOptionsModel := new(projectsv1.GetProjectConfigStatusOptions)
+				getProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetProjectConfigStatus(getProjectConfigStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptions *GetProjectConfigComputedStatusOptions) - Operation response error`, func() {
+		getProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProjectConfigComputedStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigComputedStatusOptions model
+				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptions *GetProjectConfigComputedStatusOptions)`, func() {
+		getProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetProjectConfigComputedStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProjectConfigComputedStatusOptions model
+				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetProjectConfigComputedStatusWithContext(ctx, getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetProjectConfigComputedStatusWithContext(ctx, getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetProjectConfigComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProjectConfigComputedStatusOptions model
+				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProjectConfigComputedStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigComputedStatusOptions model
+				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProjectConfigComputedStatusOptions model with no property values
+				getProjectConfigComputedStatusOptionsModelNew := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProjectConfigComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetProjectConfigComputedStatusOptions model
+				getProjectConfigComputedStatusOptionsModel := new(projectsv1.GetProjectConfigComputedStatusOptions)
+				getProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				getProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				getProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				getProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetProjectConfigComputedStatus(getProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptions *UpdateProjectConfigComputedStatusOptions) - Operation response error`, func() {
+		updateProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateProjectConfigComputedStatus with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
+				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
+				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptions *UpdateProjectConfigComputedStatusOptions)`, func() {
+		updateProjectConfigComputedStatusPath := "/v1/projects/b0a2c11d-926c-4653-a15b-ed17d7b34b22/config_statuses/example/cost"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke UpdateProjectConfigComputedStatus successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
+				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
+				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.UpdateProjectConfigComputedStatusWithContext(ctx, updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.UpdateProjectConfigComputedStatusWithContext(ctx, updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProjectConfigComputedStatusPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "computed_statuses": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke UpdateProjectConfigComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
+				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
+				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateProjectConfigComputedStatus with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
+				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
+				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateProjectConfigComputedStatusOptions model with no property values
+				updateProjectConfigComputedStatusOptionsModelNew := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateProjectConfigComputedStatus successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateProjectConfigComputedStatusOptions model
+				updateProjectConfigComputedStatusOptionsModel := new(projectsv1.UpdateProjectConfigComputedStatusOptions)
+				updateProjectConfigComputedStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
+				updateProjectConfigComputedStatusOptionsModel.ConfigName = core.StringPtr("example")
+				updateProjectConfigComputedStatusOptionsModel.ComputedStatus = core.StringPtr("cost")
+				updateProjectConfigComputedStatusOptionsModel.RequestBody = make(map[string]interface{})
+				updateProjectConfigComputedStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.UpdateProjectConfigComputedStatus(updateProjectConfigComputedStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`PostNotification(postNotificationOptions *PostNotificationOptions) - Operation response error`, func() {
 		postNotificationPath := "/v1/projects/testString/event"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -6704,10 +5392,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the NotificationEvent model
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
 				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
@@ -6765,7 +5453,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL", "status": "Status", "reason": {"anyKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "_id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully with retries`, func() {
@@ -6780,10 +5468,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the NotificationEvent model
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
 				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
@@ -6844,7 +5532,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL", "status": "Status", "reason": {"anyKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "_id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully`, func() {
@@ -6864,10 +5552,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the NotificationEvent model
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
 				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
@@ -6893,10 +5581,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the NotificationEvent model
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
 				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
@@ -6943,10 +5631,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the NotificationEvent model
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
 				postNotificationOptionsModel := new(projectsv1.PostNotificationOptions)
@@ -7029,7 +5717,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL"}]`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "_id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully with retries`, func() {
@@ -7083,7 +5771,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"event": "Event", "identifier": "Identifier", "source": "Source", "source_url": "SourceURL", "action_url": "ActionURL"}]`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "_id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully`, func() {
@@ -7168,6 +5856,2556 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Invoke operation
 				result, response, operationErr := projectsService.GetNotifications(getNotificationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteNotification(deleteNotificationOptions *DeleteNotificationOptions)`, func() {
+		deleteNotificationPath := "/v1/projects/testString/event"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteNotificationPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.URL.Query()["notification_id"]).To(Equal([]string{"testString"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteNotification successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.DeleteNotification(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteNotificationOptions model
+				deleteNotificationOptionsModel := new(projectsv1.DeleteNotificationOptions)
+				deleteNotificationOptionsModel.ID = core.StringPtr("testString")
+				deleteNotificationOptionsModel.NotificationID = core.StringPtr("testString")
+				deleteNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.DeleteNotification(deleteNotificationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteNotification with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteNotificationOptions model
+				deleteNotificationOptionsModel := new(projectsv1.DeleteNotificationOptions)
+				deleteNotificationOptionsModel.ID = core.StringPtr("testString")
+				deleteNotificationOptionsModel.NotificationID = core.StringPtr("testString")
+				deleteNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.DeleteNotification(deleteNotificationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteNotificationOptions model with no property values
+				deleteNotificationOptionsModelNew := new(projectsv1.DeleteNotificationOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.DeleteNotification(deleteNotificationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions)`, func() {
+		receivePulsarCatalogEventsPath := "/v1/pulsar/catalog_events"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(receivePulsarCatalogEventsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke ReceivePulsarCatalogEvents successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.ReceivePulsarCatalogEvents(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the PulsarEventItem model
+				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
+				pulsarEventItemModel.EventType = core.StringPtr("testString")
+				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
+				pulsarEventItemModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemModel.Version = core.StringPtr("testString")
+				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemModel.EventID = core.StringPtr("testString")
+				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
+				receivePulsarCatalogEventsOptionsModel := new(projectsv1.ReceivePulsarCatalogEventsOptions)
+				receivePulsarCatalogEventsOptionsModel.PulsarEventItem = []projectsv1.PulsarEventItem{*pulsarEventItemModel}
+				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke ReceivePulsarCatalogEvents with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the PulsarEventItem model
+				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
+				pulsarEventItemModel.EventType = core.StringPtr("testString")
+				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
+				pulsarEventItemModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemModel.Version = core.StringPtr("testString")
+				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemModel.EventID = core.StringPtr("testString")
+				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
+				receivePulsarCatalogEventsOptionsModel := new(projectsv1.ReceivePulsarCatalogEventsOptions)
+				receivePulsarCatalogEventsOptionsModel.PulsarEventItem = []projectsv1.PulsarEventItem{*pulsarEventItemModel}
+				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the ReceivePulsarCatalogEventsOptions model with no property values
+				receivePulsarCatalogEventsOptionsModelNew := new(projectsv1.ReceivePulsarCatalogEventsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReceiveGitlabEvents(receiveGitlabEventsOptions *ReceiveGitlabEventsOptions)`, func() {
+		receiveGitlabEventsPath := "/v1/gitlab_webhook/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(receiveGitlabEventsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReceiveGitlabEvents successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.ReceiveGitlabEvents(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the GitLabEvent model
+				gitLabEventModel := new(projectsv1.GitLabEvent)
+				gitLabEventModel.ObjectKind = core.StringPtr("push")
+				gitLabEventModel.SetProperty("event_name", core.StringPtr("push"))
+				gitLabEventModel.SetProperty("before", core.StringPtr("62928f2f51fcea33aefad3145c6ae81434a4cacf"))
+				gitLabEventModel.SetProperty("after", core.StringPtr("1dfe1e32d92c72a73f930a9babc36de0d6019fce"))
+
+				// Construct an instance of the ReceiveGitlabEventsOptions model
+				receiveGitlabEventsOptionsModel := new(projectsv1.ReceiveGitlabEventsOptions)
+				receiveGitlabEventsOptionsModel.ID = core.StringPtr("testString")
+				receiveGitlabEventsOptionsModel.GitLabEvent = gitLabEventModel
+				receiveGitlabEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.ReceiveGitlabEvents(receiveGitlabEventsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke ReceiveGitlabEvents with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GitLabEvent model
+				gitLabEventModel := new(projectsv1.GitLabEvent)
+				gitLabEventModel.ObjectKind = core.StringPtr("push")
+				gitLabEventModel.SetProperty("event_name", core.StringPtr("push"))
+				gitLabEventModel.SetProperty("before", core.StringPtr("62928f2f51fcea33aefad3145c6ae81434a4cacf"))
+				gitLabEventModel.SetProperty("after", core.StringPtr("1dfe1e32d92c72a73f930a9babc36de0d6019fce"))
+
+				// Construct an instance of the ReceiveGitlabEventsOptions model
+				receiveGitlabEventsOptionsModel := new(projectsv1.ReceiveGitlabEventsOptions)
+				receiveGitlabEventsOptionsModel.ID = core.StringPtr("testString")
+				receiveGitlabEventsOptionsModel.GitLabEvent = gitLabEventModel
+				receiveGitlabEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.ReceiveGitlabEvents(receiveGitlabEventsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the ReceiveGitlabEventsOptions model with no property values
+				receiveGitlabEventsOptionsModelNew := new(projectsv1.ReceiveGitlabEventsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.ReceiveGitlabEvents(receiveGitlabEventsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetHealth(getHealthOptions *GetHealthOptions) - Operation response error`, func() {
+		getHealthPath := "/v1/health"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for info query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetHealth with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetHealthOptions model
+				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
+				getHealthOptionsModel.Info = core.BoolPtr(false)
+				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetHealth(getHealthOptions *GetHealthOptions)`, func() {
+		getHealthPath := "/v1/health"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for info query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "version": "Version", "dependencies": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetHealth successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetHealthOptions model
+				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
+				getHealthOptionsModel.Info = core.BoolPtr(false)
+				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetHealthWithContext(ctx, getHealthOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetHealthWithContext(ctx, getHealthOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getHealthPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for info query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "version": "Version", "dependencies": {"mapKey": "anyValue"}}`)
+				}))
+			})
+			It(`Invoke GetHealth successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetHealth(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetHealthOptions model
+				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
+				getHealthOptionsModel.Info = core.BoolPtr(false)
+				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetHealth with error: Operation request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetHealthOptions model
+				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
+				getHealthOptionsModel.Info = core.BoolPtr(false)
+				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetHealth successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetHealthOptions model
+				getHealthOptionsModel := new(projectsv1.GetHealthOptions)
+				getHealthOptionsModel.Info = core.BoolPtr(false)
+				getHealthOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetHealth(getHealthOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`Notify(notifyOptions *NotifyOptions)`, func() {
+		notifyPath := "/v1/notify"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(notifyPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke Notify successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.Notify(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the NotifyOptions model
+				notifyOptionsModel := new(projectsv1.NotifyOptions)
+				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
+				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.Notify(notifyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke Notify with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the NotifyOptions model
+				notifyOptionsModel := new(projectsv1.NotifyOptions)
+				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
+				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.Notify(notifyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the NotifyOptions model with no property values
+				notifyOptionsModelNew := new(projectsv1.NotifyOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.Notify(notifyOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`RegisterPullRequest(registerPullRequestOptions *RegisterPullRequestOptions)`, func() {
+		registerPullRequestPath := "/v1/projects/testString/pullrequest"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(registerPullRequestPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke RegisterPullRequest successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.RegisterPullRequest(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the RegisterPullRequestOptions model
+				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
+				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
+				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
+				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke RegisterPullRequest with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the RegisterPullRequestOptions model
+				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
+				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
+				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
+				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the RegisterPullRequestOptions model with no property values
+				registerPullRequestOptionsModelNew := new(projectsv1.RegisterPullRequestOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeregisterPullRequest(deregisterPullRequestOptions *DeregisterPullRequestOptions)`, func() {
+		deregisterPullRequestPath := "/v1/projects/testString/pullrequest"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deregisterPullRequestPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.URL.Query()["url"]).To(Equal([]string{"testString"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeregisterPullRequest successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.DeregisterPullRequest(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeregisterPullRequestOptions model
+				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
+				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeregisterPullRequest with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the DeregisterPullRequestOptions model
+				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
+				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeregisterPullRequestOptions model with no property values
+				deregisterPullRequestOptionsModelNew := new(projectsv1.DeregisterPullRequestOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdatePullRequestConfigs(updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions)`, func() {
+		updatePullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updatePullRequestConfigsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"merge"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke UpdatePullRequestConfigs successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.UpdatePullRequestConfigs(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the UpdatePullRequestConfigsOptions model
+				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
+				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				updatePullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
+				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke UpdatePullRequestConfigs with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the UpdatePullRequestConfigsOptions model
+				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
+				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				updatePullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
+				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the UpdatePullRequestConfigsOptions model with no property values
+				updatePullRequestConfigsOptionsModelNew := new(projectsv1.UpdatePullRequestConfigsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PlanPullRequestConfigs(planPullRequestConfigsOptions *PlanPullRequestConfigsOptions) - Operation response error`, func() {
+		planPullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs/plan"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke PlanPullRequestConfigs with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the PlanPullRequestConfigsOptions model
+				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
+				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				planPullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PlanPullRequestConfigs(planPullRequestConfigsOptions *PlanPullRequestConfigsOptions)`, func() {
+		planPullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs/plan"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
+				}))
+			})
+			It(`Invoke PlanPullRequestConfigs successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the PlanPullRequestConfigsOptions model
+				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
+				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				planPullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.PlanPullRequestConfigsWithContext(ctx, planPullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.PlanPullRequestConfigsWithContext(ctx, planPullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(planPullRequestConfigsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20, "schematics_submitted_at": 21}]}`)
+				}))
+			})
+			It(`Invoke PlanPullRequestConfigs successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.PlanPullRequestConfigs(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the PlanPullRequestConfigsOptions model
+				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
+				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				planPullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke PlanPullRequestConfigs with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the PlanPullRequestConfigsOptions model
+				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
+				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				planPullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the PlanPullRequestConfigsOptions model with no property values
+				planPullRequestConfigsOptionsModelNew := new(projectsv1.PlanPullRequestConfigsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke PlanPullRequestConfigs successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+
+				// Construct an instance of the PlanPullRequestConfigsOptions model
+				planPullRequestConfigsOptionsModel := new(projectsv1.PlanPullRequestConfigsOptions)
+				planPullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				planPullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				planPullRequestConfigsOptionsModel.ProjectDefinition = projectInputModel
+				planPullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.PlanPullRequestConfigs(planPullRequestConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ProvisionServiceInstance(provisionServiceInstanceOptions *ProvisionServiceInstanceOptions) - Operation response error`, func() {
+		provisionServiceInstancePath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(provisionServiceInstancePath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.Header["X-Broker-Api-Originating-Identity"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Originating-Identity"][0]).To(Equal(fmt.Sprintf("%v", "ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+					// TODO: Add check for accepts_incomplete query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ProvisionServiceInstance with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				provisionServiceInstanceOptionsModel := new(projectsv1.ProvisionServiceInstanceOptions)
+				provisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.Context = []string{"testString"}
+				provisionServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				provisionServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				provisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				provisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ProvisionServiceInstance(provisionServiceInstanceOptions *ProvisionServiceInstanceOptions)`, func() {
+		provisionServiceInstancePath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(provisionServiceInstancePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.Header["X-Broker-Api-Originating-Identity"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Originating-Identity"][0]).To(Equal(fmt.Sprintf("%v", "ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+					// TODO: Add check for accepts_incomplete query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
+				}))
+			})
+			It(`Invoke ProvisionServiceInstance successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				provisionServiceInstanceOptionsModel := new(projectsv1.ProvisionServiceInstanceOptions)
+				provisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.Context = []string{"testString"}
+				provisionServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				provisionServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				provisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				provisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.ProvisionServiceInstanceWithContext(ctx, provisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.ProvisionServiceInstanceWithContext(ctx, provisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(provisionServiceInstancePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.Header["X-Broker-Api-Originating-Identity"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Originating-Identity"][0]).To(Equal(fmt.Sprintf("%v", "ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+					// TODO: Add check for accepts_incomplete query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
+				}))
+			})
+			It(`Invoke ProvisionServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.ProvisionServiceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				provisionServiceInstanceOptionsModel := new(projectsv1.ProvisionServiceInstanceOptions)
+				provisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.Context = []string{"testString"}
+				provisionServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				provisionServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				provisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				provisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ProvisionServiceInstance with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				provisionServiceInstanceOptionsModel := new(projectsv1.ProvisionServiceInstanceOptions)
+				provisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.Context = []string{"testString"}
+				provisionServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				provisionServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				provisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				provisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ProvisionServiceInstanceOptions model with no property values
+				provisionServiceInstanceOptionsModelNew := new(projectsv1.ProvisionServiceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ProvisionServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				provisionServiceInstanceOptionsModel := new(projectsv1.ProvisionServiceInstanceOptions)
+				provisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				provisionServiceInstanceOptionsModel.Context = []string{"testString"}
+				provisionServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				provisionServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				provisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				provisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.ProvisionServiceInstance(provisionServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeprovisionServiceInstance(deprovisionServiceInstanceOptions *DeprovisionServiceInstanceOptions)`, func() {
+		deprovisionServiceInstancePath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deprovisionServiceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.Header["X-Broker-Api-Originating-Identity"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Originating-Identity"][0]).To(Equal(fmt.Sprintf("%v", "ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"e1031479-4b41-4159-b7cf-f7792c616fdc"}))
+					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"cb54391b-3316-4943-a5a6-a541678c1924"}))
+					// TODO: Add check for accepts_incomplete query parameter
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeprovisionServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.DeprovisionServiceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeprovisionServiceInstanceOptions model
+				deprovisionServiceInstanceOptionsModel := new(projectsv1.DeprovisionServiceInstanceOptions)
+				deprovisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				deprovisionServiceInstanceOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				deprovisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				deprovisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				deprovisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				deprovisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				deprovisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.DeprovisionServiceInstance(deprovisionServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeprovisionServiceInstance with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the DeprovisionServiceInstanceOptions model
+				deprovisionServiceInstanceOptionsModel := new(projectsv1.DeprovisionServiceInstanceOptions)
+				deprovisionServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				deprovisionServiceInstanceOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				deprovisionServiceInstanceOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				deprovisionServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				deprovisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				deprovisionServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				deprovisionServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.DeprovisionServiceInstance(deprovisionServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeprovisionServiceInstanceOptions model with no property values
+				deprovisionServiceInstanceOptionsModelNew := new(projectsv1.DeprovisionServiceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.DeprovisionServiceInstance(deprovisionServiceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions)`, func() {
+		updateServiceInstancePath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstancePath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.Header["X-Broker-Api-Originating-Identity"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Originating-Identity"][0]).To(Equal(fmt.Sprintf("%v", "ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+					// TODO: Add check for accepts_incomplete query parameter
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.UpdateServiceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceOptions model
+				updateServiceInstanceOptionsModel := new(projectsv1.UpdateServiceInstanceOptions)
+				updateServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceOptionsModel.ServiceID = []string{"testString"}
+				updateServiceInstanceOptionsModel.Context = []string{"testString"}
+				updateServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke UpdateServiceInstance with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceOptions model
+				updateServiceInstanceOptionsModel := new(projectsv1.UpdateServiceInstanceOptions)
+				updateServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceOptionsModel.ServiceID = []string{"testString"}
+				updateServiceInstanceOptionsModel.Context = []string{"testString"}
+				updateServiceInstanceOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity = core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(false)
+				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the UpdateServiceInstanceOptions model with no property values
+				updateServiceInstanceOptionsModelNew := new(projectsv1.UpdateServiceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.UpdateServiceInstance(updateServiceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions) - Operation response error`, func() {
+		getLastOperationPath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::/last_operation"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.URL.Query()["operation"]).To(Equal([]string{"ABCD"}))
+					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"e1031479-4b41-4159-b7cf-f7792c616fdc"}))
+					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"cb54391b-3316-4943-a5a6-a541678c1924"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetLastOperation with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(projectsv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getLastOperationOptionsModel.Operation = core.StringPtr("ABCD")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions)`, func() {
+		getLastOperationPath := "/v2/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::/last_operation"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.URL.Query()["operation"]).To(Equal([]string{"ABCD"}))
+					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"e1031479-4b41-4159-b7cf-f7792c616fdc"}))
+					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"cb54391b-3316-4943-a5a6-a541678c1924"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"state": "State", "description": "Description"}`)
+				}))
+			})
+			It(`Invoke GetLastOperation successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(projectsv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getLastOperationOptionsModel.Operation = core.StringPtr("ABCD")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetLastOperationWithContext(ctx, getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetLastOperationWithContext(ctx, getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					Expect(req.URL.Query()["operation"]).To(Equal([]string{"ABCD"}))
+					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"e1031479-4b41-4159-b7cf-f7792c616fdc"}))
+					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"cb54391b-3316-4943-a5a6-a541678c1924"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"state": "State", "description": "Description"}`)
+				}))
+			})
+			It(`Invoke GetLastOperation successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetLastOperation(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(projectsv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getLastOperationOptionsModel.Operation = core.StringPtr("ABCD")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetLastOperation with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(projectsv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getLastOperationOptionsModel.Operation = core.StringPtr("ABCD")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetLastOperationOptions model with no property values
+				getLastOperationOptionsModelNew := new(projectsv1.GetLastOperationOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetLastOperation(getLastOperationOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetLastOperation successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(projectsv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getLastOperationOptionsModel.Operation = core.StringPtr("ABCD")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateServiceInstanceState(updateServiceInstanceStateOptions *UpdateServiceInstanceStateOptions) - Operation response error`, func() {
+		updateServiceInstanceStatePath := "/bluemix_v1/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstanceStatePath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateServiceInstanceState with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				updateServiceInstanceStateOptionsModel := new(projectsv1.UpdateServiceInstanceStateOptions)
+				updateServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(true)
+				updateServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.ReasonCode = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceStateOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceStateOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateServiceInstanceState(updateServiceInstanceStateOptions *UpdateServiceInstanceStateOptions)`, func() {
+		updateServiceInstanceStatePath := "/bluemix_v1/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstanceStatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"active": "Active", "enabled": "Enabled", "last_active": "LastActive"}`)
+				}))
+			})
+			It(`Invoke UpdateServiceInstanceState successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				updateServiceInstanceStateOptionsModel := new(projectsv1.UpdateServiceInstanceStateOptions)
+				updateServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(true)
+				updateServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.ReasonCode = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceStateOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceStateOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.UpdateServiceInstanceStateWithContext(ctx, updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.UpdateServiceInstanceStateWithContext(ctx, updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstanceStatePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"active": "Active", "enabled": "Enabled", "last_active": "LastActive"}`)
+				}))
+			})
+			It(`Invoke UpdateServiceInstanceState successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.UpdateServiceInstanceState(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				updateServiceInstanceStateOptionsModel := new(projectsv1.UpdateServiceInstanceStateOptions)
+				updateServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(true)
+				updateServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.ReasonCode = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceStateOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceStateOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateServiceInstanceState with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				updateServiceInstanceStateOptionsModel := new(projectsv1.UpdateServiceInstanceStateOptions)
+				updateServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(true)
+				updateServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.ReasonCode = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceStateOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceStateOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateServiceInstanceStateOptions model with no property values
+				updateServiceInstanceStateOptionsModelNew := new(projectsv1.UpdateServiceInstanceStateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateServiceInstanceState successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				updateServiceInstanceStateOptionsModel := new(projectsv1.UpdateServiceInstanceStateOptions)
+				updateServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(true)
+				updateServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.ReasonCode = map[string]interface{}{"anyKey": "anyValue"}
+				updateServiceInstanceStateOptionsModel.PlanID = core.StringPtr("testString")
+				updateServiceInstanceStateOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceStateOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				updateServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.UpdateServiceInstanceState(updateServiceInstanceStateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions) - Operation response error`, func() {
+		getServiceInstancePath := "/bluemix_v1/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetServiceInstance with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServiceInstanceOptions model
+				getServiceInstanceOptionsModel := new(projectsv1.GetServiceInstanceOptions)
+				getServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions)`, func() {
+		getServiceInstancePath := "/bluemix_v1/service_instances/crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"active": "Active", "enabled": "Enabled", "last_active": "LastActive"}`)
+				}))
+			})
+			It(`Invoke GetServiceInstance successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetServiceInstanceOptions model
+				getServiceInstanceOptionsModel := new(projectsv1.GetServiceInstanceOptions)
+				getServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.GetServiceInstanceWithContext(ctx, getServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.GetServiceInstanceWithContext(ctx, getServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Broker-Api-Version"]).ToNot(BeNil())
+					Expect(req.Header["X-Broker-Api-Version"][0]).To(Equal(fmt.Sprintf("%v", "1")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"active": "Active", "enabled": "Enabled", "last_active": "LastActive"}`)
+				}))
+			})
+			It(`Invoke GetServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.GetServiceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetServiceInstanceOptions model
+				getServiceInstanceOptionsModel := new(projectsv1.GetServiceInstanceOptions)
+				getServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetServiceInstance with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServiceInstanceOptions model
+				getServiceInstanceOptionsModel := new(projectsv1.GetServiceInstanceOptions)
+				getServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetServiceInstanceOptions model with no property values
+				getServiceInstanceOptionsModelNew := new(projectsv1.GetServiceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.GetServiceInstance(getServiceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetServiceInstance successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServiceInstanceOptions model
+				getServiceInstanceOptionsModel := new(projectsv1.GetServiceInstanceOptions)
+				getServiceInstanceOptionsModel.InstanceID = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.XBrokerApiVersion = core.StringPtr("1")
+				getServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.GetServiceInstance(getServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -7397,6 +8635,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewConfigChangesOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -7407,60 +8659,54 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("testString")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				Expect(projectPrototypeModel).ToNot(BeNil())
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-				Expect(projectPrototypeModel.Name).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(projectPrototypeModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(projectPrototypeModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(projectPrototypeModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				Expect(projectInputModel).ToNot(BeNil())
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				Expect(projectInputModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(projectInputModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(projectInputModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 
 				// Construct an instance of the ConfigChangesOptions model
 				id := "234234324-3444-4556-224232432"
-				var configChangesOptionsSource *projectsv1.ProjectPrototype = nil
+				var configChangesOptionsSource *projectsv1.ProjectInput = nil
 				configChangesOptionsModel := projectsService.NewConfigChangesOptions(id, configChangesOptionsSource)
 				configChangesOptionsModel.SetID("234234324-3444-4556-224232432")
-				configChangesOptionsModel.SetSource(projectPrototypeModel)
+				configChangesOptionsModel.SetSource(projectInputModel)
 				configChangesOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				configChangesOptionsModel.SetTarget(projectPrototypeModel)
+				configChangesOptionsModel.SetTarget(projectInputModel)
 				configChangesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(configChangesOptionsModel).ToNot(BeNil())
 				Expect(configChangesOptionsModel.ID).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
-				Expect(configChangesOptionsModel.Source).To(Equal(projectPrototypeModel))
+				Expect(configChangesOptionsModel.Source).To(Equal(projectInputModel))
 				Expect(configChangesOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
-				Expect(configChangesOptionsModel.Target).To(Equal(projectPrototypeModel))
+				Expect(configChangesOptionsModel.Target).To(Equal(projectInputModel))
 				Expect(configChangesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewConfigSettingItem successfully`, func() {
@@ -7471,6 +8717,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -7481,64 +8741,93 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsName := "acme-microservice"
 				createProjectOptionsModel := projectsService.NewCreateProjectOptions(createProjectOptionsName)
 				createProjectOptionsModel.SetName("acme-microservice")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
-				createProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
-				createProjectOptionsModel.SetPrefer("return=minimal")
+				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
 				createProjectOptionsModel.SetResourceGroup("Default")
 				createProjectOptionsModel.SetLocation("us-south")
 				createProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(createProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
-				Expect(createProjectOptionsModel.Prefer).To(Equal(core.StringPtr("return=minimal")))
+				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 				Expect(createProjectOptionsModel.ResourceGroup).To(Equal(core.StringPtr("Default")))
 				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteNotificationOptions successfully`, func() {
+				// Construct an instance of the DeleteNotificationOptions model
+				id := "testString"
+				notificationID := "testString"
+				deleteNotificationOptionsModel := projectsService.NewDeleteNotificationOptions(id, notificationID)
+				deleteNotificationOptionsModel.SetID("testString")
+				deleteNotificationOptionsModel.SetNotificationID("testString")
+				deleteNotificationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteNotificationOptionsModel).ToNot(BeNil())
+				Expect(deleteNotificationOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteNotificationOptionsModel.NotificationID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
 				// Construct an instance of the DeleteProjectOptions model
 				id := "testString"
 				deleteProjectOptionsModel := projectsService.NewDeleteProjectOptions(id)
 				deleteProjectOptionsModel.SetID("testString")
+				deleteProjectOptionsModel.SetBranch("testString")
 				deleteProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteProjectOptionsModel).ToNot(BeNil())
 				Expect(deleteProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteProjectOptionsModel.Branch).To(Equal(core.StringPtr("testString")))
 				Expect(deleteProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeprovisionServiceInstanceOptions successfully`, func() {
+				// Construct an instance of the DeprovisionServiceInstanceOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				planID := "e1031479-4b41-4159-b7cf-f7792c616fdc"
+				serviceID := "cb54391b-3316-4943-a5a6-a541678c1924"
+				deprovisionServiceInstanceOptionsModel := projectsService.NewDeprovisionServiceInstanceOptions(instanceID, planID, serviceID)
+				deprovisionServiceInstanceOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				deprovisionServiceInstanceOptionsModel.SetPlanID("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				deprovisionServiceInstanceOptionsModel.SetServiceID("cb54391b-3316-4943-a5a6-a541678c1924")
+				deprovisionServiceInstanceOptionsModel.SetXBrokerApiVersion("1")
+				deprovisionServiceInstanceOptionsModel.SetXBrokerApiOriginatingIdentity("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				deprovisionServiceInstanceOptionsModel.SetAcceptsIncomplete(false)
+				deprovisionServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deprovisionServiceInstanceOptionsModel).ToNot(BeNil())
+				Expect(deprovisionServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(deprovisionServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")))
+				Expect(deprovisionServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")))
+				Expect(deprovisionServiceInstanceOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(deprovisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity).To(Equal(core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+				Expect(deprovisionServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(false)))
+				Expect(deprovisionServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeregisterPullRequestOptions successfully`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
@@ -7585,6 +8874,24 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(getHealthOptionsModel).ToNot(BeNil())
 				Expect(getHealthOptionsModel.Info).To(Equal(core.BoolPtr(false)))
 				Expect(getHealthOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLastOperationOptions successfully`, func() {
+				// Construct an instance of the GetLastOperationOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				getLastOperationOptionsModel := projectsService.NewGetLastOperationOptions(instanceID)
+				getLastOperationOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getLastOperationOptionsModel.SetXBrokerApiVersion("1")
+				getLastOperationOptionsModel.SetOperation("ABCD")
+				getLastOperationOptionsModel.SetPlanID("e1031479-4b41-4159-b7cf-f7792c616fdc")
+				getLastOperationOptionsModel.SetServiceID("cb54391b-3316-4943-a5a6-a541678c1924")
+				getLastOperationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLastOperationOptionsModel).ToNot(BeNil())
+				Expect(getLastOperationOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(getLastOperationOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(getLastOperationOptionsModel.Operation).To(Equal(core.StringPtr("ABCD")))
+				Expect(getLastOperationOptionsModel.PlanID).To(Equal(core.StringPtr("e1031479-4b41-4159-b7cf-f7792c616fdc")))
+				Expect(getLastOperationOptionsModel.ServiceID).To(Equal(core.StringPtr("cb54391b-3316-4943-a5a6-a541678c1924")))
+				Expect(getLastOperationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetNotificationsOptions successfully`, func() {
 				// Construct an instance of the GetNotificationsOptions model
@@ -7638,6 +8945,21 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(getProjectConfigStatusOptionsModel.ConfigName).To(Equal(core.StringPtr("example")))
 				Expect(getProjectConfigStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetProjectFileOptions successfully`, func() {
+				// Construct an instance of the GetProjectFileOptions model
+				id := "testString"
+				filePath := "testString"
+				getProjectFileOptionsModel := projectsService.NewGetProjectFileOptions(id, filePath)
+				getProjectFileOptionsModel.SetID("testString")
+				getProjectFileOptionsModel.SetFilePath("testString")
+				getProjectFileOptionsModel.SetBranch("testString")
+				getProjectFileOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getProjectFileOptionsModel).ToNot(BeNil())
+				Expect(getProjectFileOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getProjectFileOptionsModel.FilePath).To(Equal(core.StringPtr("testString")))
+				Expect(getProjectFileOptionsModel.Branch).To(Equal(core.StringPtr("testString")))
+				Expect(getProjectFileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetProjectOptions successfully`, func() {
 				// Construct an instance of the GetProjectOptions model
 				id := "testString"
@@ -7680,22 +9002,23 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(getSchematicsJobOptionsModel.PullRequest).To(Equal(core.StringPtr("testString")))
 				Expect(getSchematicsJobOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewInitProjectConfigOptions successfully`, func() {
-				// Construct an instance of the InitProjectConfigOptions model
-				initProjectConfigOptionsLocatorID := "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global"
-				initProjectConfigOptionsConfigName := "My workpress example"
-				initProjectConfigOptionsModel := projectsService.NewInitProjectConfigOptions(initProjectConfigOptionsLocatorID, initProjectConfigOptionsConfigName)
-				initProjectConfigOptionsModel.SetLocatorID("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				initProjectConfigOptionsModel.SetConfigName("My workpress example")
-				initProjectConfigOptionsModel.SetDescription("testString")
-				initProjectConfigOptionsModel.SetLabels([]string{"testString"})
-				initProjectConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(initProjectConfigOptionsModel).ToNot(BeNil())
-				Expect(initProjectConfigOptionsModel.LocatorID).To(Equal(core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")))
-				Expect(initProjectConfigOptionsModel.ConfigName).To(Equal(core.StringPtr("My workpress example")))
-				Expect(initProjectConfigOptionsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(initProjectConfigOptionsModel.Labels).To(Equal([]string{"testString"}))
-				Expect(initProjectConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewGetServiceInstanceOptions successfully`, func() {
+				// Construct an instance of the GetServiceInstanceOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				getServiceInstanceOptionsModel := projectsService.NewGetServiceInstanceOptions(instanceID)
+				getServiceInstanceOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				getServiceInstanceOptionsModel.SetXBrokerApiVersion("1")
+				getServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getServiceInstanceOptionsModel).ToNot(BeNil())
+				Expect(getServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(getServiceInstanceOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(getServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGitLabEvent successfully`, func() {
+				objectKind := "testString"
+				_model, err := projectsService.NewGitLabEvent(objectKind)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewInputVariable successfully`, func() {
 				name := "testString"
@@ -7739,6 +9062,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(listProjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewMergeProjectOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -7749,33 +9086,29 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
 				// Construct an instance of the MergeProjectOptions model
 				id := "testString"
@@ -7784,21 +9117,19 @@ var _ = Describe(`ProjectsV1`, func() {
 				mergeProjectOptionsModel.SetID("testString")
 				mergeProjectOptionsModel.SetName("acme-microservice")
 				mergeProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
-				mergeProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
+				mergeProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
 				mergeProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(mergeProjectOptionsModel).ToNot(BeNil())
 				Expect(mergeProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(mergeProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(mergeProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(mergeProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(mergeProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				Expect(mergeProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 				Expect(mergeProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewNotificationEvent successfully`, func() {
 				event := "testString"
-				identifier := "testString"
-				_model, err := projectsService.NewNotificationEvent(event, identifier)
+				target := "testString"
+				_model, err := projectsService.NewNotificationEvent(event, target)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -7832,6 +9163,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(planConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPlanPullRequestConfigsOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -7842,59 +9187,53 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				Expect(projectPrototypeModel).ToNot(BeNil())
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-				Expect(projectPrototypeModel.Name).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(projectPrototypeModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(projectPrototypeModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(projectPrototypeModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				Expect(projectInputModel).ToNot(BeNil())
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				Expect(projectInputModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(projectInputModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(projectInputModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 
 				// Construct an instance of the PlanPullRequestConfigsOptions model
 				id := "testString"
 				planPullRequestConfigsOptionsPullRequest := "https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1"
-				var planPullRequestConfigsOptionsProjectDefinition *projectsv1.ProjectPrototype = nil
+				var planPullRequestConfigsOptionsProjectDefinition *projectsv1.ProjectInput = nil
 				planPullRequestConfigsOptionsModel := projectsService.NewPlanPullRequestConfigsOptions(id, planPullRequestConfigsOptionsPullRequest, planPullRequestConfigsOptionsProjectDefinition)
 				planPullRequestConfigsOptionsModel.SetID("testString")
 				planPullRequestConfigsOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				planPullRequestConfigsOptionsModel.SetProjectDefinition(projectPrototypeModel)
+				planPullRequestConfigsOptionsModel.SetProjectDefinition(projectInputModel)
 				planPullRequestConfigsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(planPullRequestConfigsOptionsModel).ToNot(BeNil())
 				Expect(planPullRequestConfigsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(planPullRequestConfigsOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
-				Expect(planPullRequestConfigsOptionsModel.ProjectDefinition).To(Equal(projectPrototypeModel))
+				Expect(planPullRequestConfigsOptionsModel.ProjectDefinition).To(Equal(projectInputModel))
 				Expect(planPullRequestConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPostNotificationOptions successfully`, func() {
@@ -7902,15 +9241,15 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel := new(projectsv1.NotificationEvent)
 				Expect(notificationEventModel).ToNot(BeNil())
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
-				notificationEventModel.Identifier = core.StringPtr("234234324-3444-4556-224232432")
+				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.SourceURL = core.StringPtr("url.for.project.documentation")
-				notificationEventModel.ActionURL = core.StringPtr("testString")
+				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
+				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				Expect(notificationEventModel.Event).To(Equal(core.StringPtr("project.create.failed")))
-				Expect(notificationEventModel.Identifier).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
+				Expect(notificationEventModel.Target).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
 				Expect(notificationEventModel.Source).To(Equal(core.StringPtr("id.of.project.service.instance")))
-				Expect(notificationEventModel.SourceURL).To(Equal(core.StringPtr("url.for.project.documentation")))
-				Expect(notificationEventModel.ActionURL).To(Equal(core.StringPtr("testString")))
+				Expect(notificationEventModel.ActionURL).To(Equal(core.StringPtr("url.for.project.documentation")))
+				Expect(notificationEventModel.Data).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 
 				// Construct an instance of the PostNotificationOptions model
 				id := "testString"
@@ -7923,17 +9262,120 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(postNotificationOptionsModel.Notifications).To(Equal([]projectsv1.NotificationEvent{*notificationEventModel}))
 				Expect(postNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewProjectPrototype successfully`, func() {
+			It(`Invoke NewProjectInput successfully`, func() {
 				name := "testString"
-				_model, err := projectsService.NewProjectPrototype(name)
+				_model, err := projectsService.NewProjectInput(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewProjectPrototypeDashboard successfully`, func() {
-				widgets := []projectsv1.Widget{}
-				_model, err := projectsService.NewProjectPrototypeDashboard(widgets)
+			It(`Invoke NewProvisionServiceInstanceOptions successfully`, func() {
+				// Construct an instance of the ProvisionServiceInstanceOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				provisionServiceInstanceOptionsServiceID := "testString"
+				provisionServiceInstanceOptionsPlanID := "testString"
+				provisionServiceInstanceOptionsModel := projectsService.NewProvisionServiceInstanceOptions(instanceID, provisionServiceInstanceOptionsServiceID, provisionServiceInstanceOptionsPlanID)
+				provisionServiceInstanceOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				provisionServiceInstanceOptionsModel.SetServiceID("testString")
+				provisionServiceInstanceOptionsModel.SetPlanID("testString")
+				provisionServiceInstanceOptionsModel.SetContext([]string{"testString"})
+				provisionServiceInstanceOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
+				provisionServiceInstanceOptionsModel.SetPreviousValues([]string{"testString"})
+				provisionServiceInstanceOptionsModel.SetXBrokerApiVersion("1")
+				provisionServiceInstanceOptionsModel.SetXBrokerApiOriginatingIdentity("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				provisionServiceInstanceOptionsModel.SetAcceptsIncomplete(false)
+				provisionServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(provisionServiceInstanceOptionsModel).ToNot(BeNil())
+				Expect(provisionServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(provisionServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("testString")))
+				Expect(provisionServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(provisionServiceInstanceOptionsModel.Context).To(Equal([]string{"testString"}))
+				Expect(provisionServiceInstanceOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(provisionServiceInstanceOptionsModel.PreviousValues).To(Equal([]string{"testString"}))
+				Expect(provisionServiceInstanceOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(provisionServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity).To(Equal(core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+				Expect(provisionServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(false)))
+				Expect(provisionServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewPulsarEventItem successfully`, func() {
+				eventType := "testString"
+				timestamp := "testString"
+				publisher := "testString"
+				accountID := "testString"
+				version := "testString"
+				_model, err := projectsService.NewPulsarEventItem(eventType, timestamp, publisher, accountID, version)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewReceiveGitlabEventsOptions successfully`, func() {
+				// Construct an instance of the GitLabEvent model
+				gitLabEventModel := new(projectsv1.GitLabEvent)
+				Expect(gitLabEventModel).ToNot(BeNil())
+				gitLabEventModel.ObjectKind = core.StringPtr("testString")
+				gitLabEventModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(gitLabEventModel.ObjectKind).To(Equal(core.StringPtr("testString")))
+				Expect(gitLabEventModel.GetProperties()).ToNot(BeEmpty())
+				Expect(gitLabEventModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+
+				gitLabEventModel.SetProperties(nil)
+				Expect(gitLabEventModel.GetProperties()).To(BeEmpty())
+
+				gitLabEventModelExpectedMap := make(map[string]interface{})
+				gitLabEventModelExpectedMap["foo"] = core.StringPtr("testString")
+				gitLabEventModel.SetProperties(gitLabEventModelExpectedMap)
+				gitLabEventModelActualMap := gitLabEventModel.GetProperties()
+				Expect(gitLabEventModelActualMap).To(Equal(gitLabEventModelExpectedMap))
+
+				// Construct an instance of the ReceiveGitlabEventsOptions model
+				id := "testString"
+				var gitLabEvent *projectsv1.GitLabEvent = nil
+				receiveGitlabEventsOptionsModel := projectsService.NewReceiveGitlabEventsOptions(id, gitLabEvent)
+				receiveGitlabEventsOptionsModel.SetID("testString")
+				receiveGitlabEventsOptionsModel.SetGitLabEvent(gitLabEventModel)
+				receiveGitlabEventsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(receiveGitlabEventsOptionsModel).ToNot(BeNil())
+				Expect(receiveGitlabEventsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(receiveGitlabEventsOptionsModel.GitLabEvent).To(Equal(gitLabEventModel))
+				Expect(receiveGitlabEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewReceivePulsarCatalogEventsOptions successfully`, func() {
+				// Construct an instance of the PulsarEventItem model
+				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
+				Expect(pulsarEventItemModel).ToNot(BeNil())
+				pulsarEventItemModel.EventType = core.StringPtr("testString")
+				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
+				pulsarEventItemModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemModel.Version = core.StringPtr("testString")
+				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemModel.EventID = core.StringPtr("testString")
+				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(pulsarEventItemModel.EventType).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.Timestamp).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.Publisher).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(pulsarEventItemModel.EventID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemModel.GetProperties()).ToNot(BeEmpty())
+				Expect(pulsarEventItemModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+
+				pulsarEventItemModel.SetProperties(nil)
+				Expect(pulsarEventItemModel.GetProperties()).To(BeEmpty())
+
+				pulsarEventItemModelExpectedMap := make(map[string]interface{})
+				pulsarEventItemModelExpectedMap["foo"] = core.StringPtr("testString")
+				pulsarEventItemModel.SetProperties(pulsarEventItemModelExpectedMap)
+				pulsarEventItemModelActualMap := pulsarEventItemModel.GetProperties()
+				Expect(pulsarEventItemModelActualMap).To(Equal(pulsarEventItemModelExpectedMap))
+
+				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
+				pulsarEventItem := []projectsv1.PulsarEventItem{}
+				receivePulsarCatalogEventsOptionsModel := projectsService.NewReceivePulsarCatalogEventsOptions(pulsarEventItem)
+				receivePulsarCatalogEventsOptionsModel.SetPulsarEventItem([]projectsv1.PulsarEventItem{*pulsarEventItemModel})
+				receivePulsarCatalogEventsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(receivePulsarCatalogEventsOptionsModel).ToNot(BeNil())
+				Expect(receivePulsarCatalogEventsOptionsModel.PulsarEventItem).To(Equal([]projectsv1.PulsarEventItem{*pulsarEventItemModel}))
+				Expect(receivePulsarCatalogEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRegisterPullRequestOptions successfully`, func() {
 				// Construct an instance of the RegisterPullRequestOptions model
@@ -7949,18 +9391,72 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(registerPullRequestOptionsModel.URL).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
 				Expect(registerPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewSchematicsBlueprint successfully`, func() {
-				repoURL := "testString"
-				definitionFile := "testString"
-				_model, err := projectsService.NewSchematicsBlueprint(repoURL, definitionFile)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewTerraformTemplate successfully`, func() {
-				locatorID := "testString"
-				_model, err := projectsService.NewTerraformTemplate(locatorID)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
+			It(`Invoke NewReplaceProjectOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				Expect(outputValueModel).ToNot(BeNil())
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
+				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
+
+				// Construct an instance of the ReplaceProjectOptions model
+				id := "testString"
+				replaceProjectOptionsName := "acme-microservice"
+				replaceProjectOptionsModel := projectsService.NewReplaceProjectOptions(id, replaceProjectOptionsName)
+				replaceProjectOptionsModel.SetID("testString")
+				replaceProjectOptionsModel.SetName("acme-microservice")
+				replaceProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
+				replaceProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
+				replaceProjectOptionsModel.SetBranch("testString")
+				replaceProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceProjectOptionsModel).ToNot(BeNil())
+				Expect(replaceProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(replaceProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(replaceProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
+				Expect(replaceProjectOptionsModel.Branch).To(Equal(core.StringPtr("testString")))
+				Expect(replaceProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUninstallConfigOptions successfully`, func() {
 				// Construct an instance of the UninstallConfigOptions model
@@ -8009,100 +9505,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectConfigComputedStatusOptionsModel.ComputedStatus).To(Equal(core.StringPtr("cost")))
 				Expect(updateProjectConfigComputedStatusOptionsModel.RequestBody).To(Equal(make(map[string]interface{})))
 				Expect(updateProjectConfigComputedStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewUpdateProjectConfigStatusOptions successfully`, func() {
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("vpc_id")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"testString"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("vpc_id")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"testString"}))
-
-				// Construct an instance of the UpdateProjectConfigStatusOptions model
-				id := "b0a2c11d-926c-4653-a15b-ed17d7b34b22"
-				configName := "example"
-				updateProjectConfigStatusOptionsStatus := "UPDATING_FAILED"
-				updateProjectConfigStatusOptionsMessages := []string{"Config installation failed"}
-				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus, updateProjectConfigStatusOptionsMessages)
-				updateProjectConfigStatusOptionsModel.SetID("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
-				updateProjectConfigStatusOptionsModel.SetConfigName("example")
-				updateProjectConfigStatusOptionsModel.SetStatus("UPDATING_FAILED")
-				updateProjectConfigStatusOptionsModel.SetMessages([]string{"Config installation failed"})
-				updateProjectConfigStatusOptionsModel.SetPipelineRun("https://url.to.somewhere.failed.install")
-				updateProjectConfigStatusOptionsModel.SetSchematicsResourceID("eu-de.workspace.schematicstestkshama.240ff36b")
-				updateProjectConfigStatusOptionsModel.SetOutput([]projectsv1.OutputValue{*outputValueModel})
-				updateProjectConfigStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateProjectConfigStatusOptionsModel).ToNot(BeNil())
-				Expect(updateProjectConfigStatusOptionsModel.ID).To(Equal(core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")))
-				Expect(updateProjectConfigStatusOptionsModel.ConfigName).To(Equal(core.StringPtr("example")))
-				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("UPDATING_FAILED")))
-				Expect(updateProjectConfigStatusOptionsModel.Messages).To(Equal([]string{"Config installation failed"}))
-				Expect(updateProjectConfigStatusOptionsModel.PipelineRun).To(Equal(core.StringPtr("https://url.to.somewhere.failed.install")))
-				Expect(updateProjectConfigStatusOptionsModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
-				Expect(updateProjectConfigStatusOptionsModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(updateProjectConfigStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewUpdateProjectOptions successfully`, func() {
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
-
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
-
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
-
-				// Construct an instance of the UpdateProjectOptions model
-				id := "testString"
-				updateProjectOptionsName := "acme-microservice"
-				updateProjectOptionsModel := projectsService.NewUpdateProjectOptions(id, updateProjectOptionsName)
-				updateProjectOptionsModel.SetID("testString")
-				updateProjectOptionsModel.SetName("acme-microservice")
-				updateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
-				updateProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
-				updateProjectOptionsModel.SetBranch("testString")
-				updateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateProjectOptionsModel).ToNot(BeNil())
-				Expect(updateProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(updateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(updateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(updateProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
-				Expect(updateProjectOptionsModel.Branch).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateProjectStatusOptions successfully`, func() {
 				// Construct an instance of the History model
@@ -8163,6 +9565,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdatePullRequestConfigsOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -8173,45 +9589,39 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
-
-				// Construct an instance of the ProjectPrototype model
-				projectPrototypeModel := new(projectsv1.ProjectPrototype)
-				Expect(projectPrototypeModel).ToNot(BeNil())
-				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
-				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
-				Expect(projectPrototypeModel.Name).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(projectPrototypeModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(projectPrototypeModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(projectPrototypeModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				// Construct an instance of the ProjectInput model
+				projectInputModel := new(projectsv1.ProjectInput)
+				Expect(projectInputModel).ToNot(BeNil())
+				projectInputModel.Name = core.StringPtr("acme-microservice")
+				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				Expect(projectInputModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(projectInputModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(projectInputModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 
 				// Construct an instance of the UpdatePullRequestConfigsOptions model
 				id := "testString"
@@ -8219,17 +9629,81 @@ var _ = Describe(`ProjectsV1`, func() {
 				updatePullRequestConfigsOptionsModel := projectsService.NewUpdatePullRequestConfigsOptions(id, updatePullRequestConfigsOptionsPullRequest)
 				updatePullRequestConfigsOptionsModel.SetID("testString")
 				updatePullRequestConfigsOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
-				updatePullRequestConfigsOptionsModel.SetProjectDefinition(projectPrototypeModel)
+				updatePullRequestConfigsOptionsModel.SetProjectDefinition(projectInputModel)
 				updatePullRequestConfigsOptionsModel.SetState("merge")
 				updatePullRequestConfigsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updatePullRequestConfigsOptionsModel).ToNot(BeNil())
 				Expect(updatePullRequestConfigsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updatePullRequestConfigsOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
-				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinition).To(Equal(projectPrototypeModel))
+				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinition).To(Equal(projectInputModel))
 				Expect(updatePullRequestConfigsOptionsModel.State).To(Equal(core.StringPtr("merge")))
 				Expect(updatePullRequestConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewUpdateServiceInstanceOptions successfully`, func() {
+				// Construct an instance of the UpdateServiceInstanceOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				updateServiceInstanceOptionsServiceID := []string{"testString"}
+				updateServiceInstanceOptionsModel := projectsService.NewUpdateServiceInstanceOptions(instanceID, updateServiceInstanceOptionsServiceID)
+				updateServiceInstanceOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceOptionsModel.SetServiceID([]string{"testString"})
+				updateServiceInstanceOptionsModel.SetContext([]string{"testString"})
+				updateServiceInstanceOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
+				updateServiceInstanceOptionsModel.SetPlanID("testString")
+				updateServiceInstanceOptionsModel.SetPreviousValues([]string{"testString"})
+				updateServiceInstanceOptionsModel.SetXBrokerApiVersion("1")
+				updateServiceInstanceOptionsModel.SetXBrokerApiOriginatingIdentity("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")
+				updateServiceInstanceOptionsModel.SetAcceptsIncomplete(false)
+				updateServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateServiceInstanceOptionsModel).ToNot(BeNil())
+				Expect(updateServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(updateServiceInstanceOptionsModel.ServiceID).To(Equal([]string{"testString"}))
+				Expect(updateServiceInstanceOptionsModel.Context).To(Equal([]string{"testString"}))
+				Expect(updateServiceInstanceOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(updateServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(updateServiceInstanceOptionsModel.PreviousValues).To(Equal([]string{"testString"}))
+				Expect(updateServiceInstanceOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(updateServiceInstanceOptionsModel.XBrokerApiOriginatingIdentity).To(Equal(core.StringPtr("ibmcloud eyJpYW1fbWQiOiJJQk2pZC03MEdOUjcxN2lFIn0=")))
+				Expect(updateServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(false)))
+				Expect(updateServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateServiceInstanceStateOptions successfully`, func() {
+				// Construct an instance of the UpdateServiceInstanceStateOptions model
+				instanceID := "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::"
+				updateServiceInstanceStateOptionsEnabled := true
+				updateServiceInstanceStateOptionsModel := projectsService.NewUpdateServiceInstanceStateOptions(instanceID, updateServiceInstanceStateOptionsEnabled)
+				updateServiceInstanceStateOptionsModel.SetInstanceID("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				updateServiceInstanceStateOptionsModel.SetEnabled(true)
+				updateServiceInstanceStateOptionsModel.SetInitiatorID("testString")
+				updateServiceInstanceStateOptionsModel.SetReasonCode(map[string]interface{}{"anyKey": "anyValue"})
+				updateServiceInstanceStateOptionsModel.SetPlanID("testString")
+				updateServiceInstanceStateOptionsModel.SetPreviousValues([]string{"testString"})
+				updateServiceInstanceStateOptionsModel.SetXBrokerApiVersion("1")
+				updateServiceInstanceStateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateServiceInstanceStateOptionsModel).ToNot(BeNil())
+				Expect(updateServiceInstanceStateOptionsModel.InstanceID).To(Equal(core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")))
+				Expect(updateServiceInstanceStateOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
+				Expect(updateServiceInstanceStateOptionsModel.InitiatorID).To(Equal(core.StringPtr("testString")))
+				Expect(updateServiceInstanceStateOptionsModel.ReasonCode).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(updateServiceInstanceStateOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(updateServiceInstanceStateOptionsModel.PreviousValues).To(Equal([]string{"testString"}))
+				Expect(updateServiceInstanceStateOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1")))
+				Expect(updateServiceInstanceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewValidateProjectOptions successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("array")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the OutputValue model
 				outputValueModel := new(projectsv1.OutputValue)
 				Expect(outputValueModel).ToNot(BeNil())
@@ -8240,75 +9714,54 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
 
-				// Construct an instance of the ProjectConfigManualProperty model
-				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
-				Expect(projectConfigModel).ToNot(BeNil())
-				projectConfigModel.Name = core.StringPtr("common-variables")
-				projectConfigModel.Labels = []string{"testString"}
-				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigModel.Description = core.StringPtr("testString")
-				projectConfigModel.Type = core.StringPtr("manual")
-				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
-				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				// Construct an instance of the ConfigSettingItem model
+				configSettingItemModel := new(projectsv1.ConfigSettingItem)
+				Expect(configSettingItemModel).ToNot(BeNil())
+				configSettingItemModel.Name = core.StringPtr("testString")
+				configSettingItemModel.Value = core.StringPtr("testString")
+				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the Widget model
-				widgetModel := new(projectsv1.Widget)
-				Expect(widgetModel).ToNot(BeNil())
-				widgetModel.Name = core.StringPtr("project-properties")
-				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
-
-				// Construct an instance of the ProjectPrototypeDashboard model
-				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
-				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
-				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+				// Construct an instance of the ProjectConfigInputProp model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				Expect(projectConfigInputModel).ToNot(BeNil())
+				projectConfigInputModel.Type = core.StringPtr("manual")
+				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
+				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsName := "acme-microservice"
 				validateProjectOptionsModel := projectsService.NewValidateProjectOptions(validateProjectOptionsName)
 				validateProjectOptionsModel.SetName("acme-microservice")
 				validateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
-				validateProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
+				validateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
 				validateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(validateProjectOptionsModel).ToNot(BeNil())
 				Expect(validateProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(validateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(validateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(validateProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				Expect(validateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
 				Expect(validateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewWidget successfully`, func() {
-				name := "testString"
-				_model, err := projectsService.NewWidget(name)
+			It(`Invoke NewProjectConfigInputProp successfully`, func() {
+				locatorID := "testString"
+				_model, err := projectsService.NewProjectConfigInputProp(locatorID)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewProjectConfigManualProperty successfully`, func() {
+			It(`Invoke NewProjectConfigInputProjectConfigCommon successfully`, func() {
 				name := "testString"
-				typeVar := "manual"
-				_model, err := projectsService.NewProjectConfigManualProperty(name, typeVar)
+				_model, err := projectsService.NewProjectConfigInputProjectConfigCommon(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewProjectConfigSchematicsBlueprintProperty successfully`, func() {
-				name := "testString"
-				typeVar := "schematics_blueprint"
-				var blueprint *projectsv1.SchematicsBlueprint = nil
-				_, err := projectsService.NewProjectConfigSchematicsBlueprintProperty(name, typeVar, blueprint)
-				Expect(err).ToNot(BeNil())
-			})
-			It(`Invoke NewProjectConfigTerraformTemplateProperty successfully`, func() {
-				name := "testString"
-				typeVar := "terraform_template"
-				var template *projectsv1.TerraformTemplate = nil
-				_, err := projectsService.NewProjectConfigTerraformTemplateProperty(name, typeVar, template)
-				Expect(err).ToNot(BeNil())
 			})
 		})
 	})
