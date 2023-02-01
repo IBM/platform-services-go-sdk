@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,11 @@ package enterprisebillingunitsv1_test
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/enterprisebillingunitsv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -38,19 +39,13 @@ import (
  */
 
 var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
-
-	const externalConfigFile = "../enterprise_billing_units.env"
+	const externalConfigFile = "../enterprise_billing_units_v1.env"
 
 	var (
-		err                           error
+		err          error
 		enterpriseBillingUnitsService *enterprisebillingunitsv1.EnterpriseBillingUnitsV1
-		serviceURL                    string
-		config                        map[string]string
-
-		enterpriseID   string
-		accountID      string
-		accountGroupID string
-		billingUnitID  string
+		serviceURL   string
+		config       map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -74,19 +69,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			enterpriseID = config["ENTERPRISE_ID"]
-			Expect(enterpriseID).ToNot(BeEmpty())
-
-			accountID = config["ACCOUNT_ID"]
-			Expect(accountID).ToNot(BeEmpty())
-
-			accountGroupID = config["ACCOUNT_GROUP_ID"]
-			Expect(accountGroupID).ToNot(BeEmpty())
-
-			billingUnitID = config["BILLING_UNIT_ID"]
-			Expect(billingUnitID).ToNot(BeEmpty())
-
-			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -96,14 +79,15 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-
 			enterpriseBillingUnitsServiceOptions := &enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{}
 
 			enterpriseBillingUnitsService, err = enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1UsingExternalConfig(enterpriseBillingUnitsServiceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(enterpriseBillingUnitsService).ToNot(BeNil())
 			Expect(enterpriseBillingUnitsService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			enterpriseBillingUnitsService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -112,18 +96,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetBillingUnit(getBillingUnitOptions *GetBillingUnitOptions)`, func() {
-
 			getBillingUnitOptions := &enterprisebillingunitsv1.GetBillingUnitOptions{
-				BillingUnitID: &billingUnitID,
+				BillingUnitID: core.StringPtr("testString"),
 			}
 
 			billingUnit, response, err := enterpriseBillingUnitsService.GetBillingUnit(getBillingUnitOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(billingUnit).ToNot(BeNil())
-
-			fmt.Fprintf(GinkgoWriter, "GetBillingUnit response:\n%s\n", common.ToJSON(billingUnit))
 		})
 	})
 
@@ -131,49 +111,67 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListBillingUnits(enterpriseID)`, func() {
-
+		It(`ListBillingUnits(listBillingUnitsOptions *ListBillingUnitsOptions) with pagination`, func(){
 			listBillingUnitsOptions := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-				EnterpriseID: &enterpriseID,
+				AccountID: core.StringPtr("testString"),
+				EnterpriseID: core.StringPtr("testString"),
+				AccountGroupID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
+				Start: core.Int64Ptr(int64(38)),
 			}
 
-			billingUnitsList, response, err := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptions)
+			listBillingUnitsOptions.Start = nil
+			listBillingUnitsOptions.Limit = core.Int64Ptr(1)
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingUnitsList).ToNot(BeNil())
+			var allResults []enterprisebillingunitsv1.BillingUnit
+			for {
+				billingUnitsList, response, err := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(billingUnitsList).ToNot(BeNil())
+				allResults = append(allResults, billingUnitsList.Resources...)
 
-			fmt.Fprintf(GinkgoWriter, "ListBillingUnits(enterpriseID) response:\n%s\n", common.ToJSON(billingUnitsList))
+				listBillingUnitsOptions.Start, err = billingUnitsList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listBillingUnitsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-
-		It(`ListBillingUnits(accountID)`, func() {
-
+		It(`ListBillingUnits(listBillingUnitsOptions *ListBillingUnitsOptions) using BillingUnitsPager`, func(){
 			listBillingUnitsOptions := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-				AccountID: &accountID,
+				AccountID: core.StringPtr("testString"),
+				EnterpriseID: core.StringPtr("testString"),
+				AccountGroupID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
 			}
 
-			billingUnitsList, response, err := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptions)
-
+			// Test GetNext().
+			pager, err := enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingUnitsList).ToNot(BeNil())
+			Expect(pager).ToNot(BeNil())
 
-			fmt.Fprintf(GinkgoWriter, "ListBillingUnits(accountID) response:\n%s\n", common.ToJSON(billingUnitsList))
-		})
-
-		It(`ListBillingUnits(accountGroupID)`, func() {
-
-			listBillingUnitsOptions := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-				AccountGroupID: &accountGroupID,
+			var allResults []enterprisebillingunitsv1.BillingUnit
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
 			}
 
-			billingUnitsList, response, err := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptions)
-
+			// Test GetAll().
+			pager, err = enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingUnitsList).ToNot(BeNil())
+			Expect(pager).ToNot(BeNil())
 
-			fmt.Fprintf(GinkgoWriter, "ListBillingUnits(accountGroupID) response:\n%s\n", common.ToJSON(billingUnitsList))
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListBillingUnits() returned a total of %d item(s) using BillingUnitsPager.\n", len(allResults))
 		})
 	})
 
@@ -181,19 +179,63 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListBillingOptions(listBillingOptionsOptions *ListBillingOptionsOptions)`, func() {
-
+		It(`ListBillingOptions(listBillingOptionsOptions *ListBillingOptionsOptions) with pagination`, func(){
 			listBillingOptionsOptions := &enterprisebillingunitsv1.ListBillingOptionsOptions{
-				BillingUnitID: &billingUnitID,
+				BillingUnitID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
+				Start: core.Int64Ptr(int64(38)),
 			}
 
-			billingOptionsList, response, err := enterpriseBillingUnitsService.ListBillingOptions(listBillingOptionsOptions)
+			listBillingOptionsOptions.Start = nil
+			listBillingOptionsOptions.Limit = core.Int64Ptr(1)
 
+			var allResults []enterprisebillingunitsv1.BillingOption
+			for {
+				billingOptionsList, response, err := enterpriseBillingUnitsService.ListBillingOptions(listBillingOptionsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(billingOptionsList).ToNot(BeNil())
+				allResults = append(allResults, billingOptionsList.Resources...)
+
+				listBillingOptionsOptions.Start, err = billingOptionsList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listBillingOptionsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListBillingOptions(listBillingOptionsOptions *ListBillingOptionsOptions) using BillingOptionsPager`, func(){
+			listBillingOptionsOptions := &enterprisebillingunitsv1.ListBillingOptionsOptions{
+				BillingUnitID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingOptionsList).ToNot(BeNil())
+			Expect(pager).ToNot(BeNil())
 
-			fmt.Fprintf(GinkgoWriter, "ListBillingOptions() response:\n%s\n", common.ToJSON(billingOptionsList))
+			var allResults []enterprisebillingunitsv1.BillingOption
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListBillingOptions() returned a total of %d item(s) using BillingOptionsPager.\n", len(allResults))
 		})
 	})
 
@@ -201,20 +243,71 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions)`, func() {
-
+		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions) with pagination`, func(){
 			getCreditPoolsOptions := &enterprisebillingunitsv1.GetCreditPoolsOptions{
-				BillingUnitID: &billingUnitID,
-				Type:          core.StringPtr("PLATFORM"),
+				BillingUnitID: core.StringPtr("testString"),
+				Date: core.StringPtr("testString"),
+				Type: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
+				Start: core.Int64Ptr(int64(38)),
 			}
 
-			creditPoolsList, response, err := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptions)
+			getCreditPoolsOptions.Start = nil
+			getCreditPoolsOptions.Limit = core.Int64Ptr(1)
 
+			var allResults []enterprisebillingunitsv1.CreditPool
+			for {
+				creditPoolsList, response, err := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(creditPoolsList).ToNot(BeNil())
+				allResults = append(allResults, creditPoolsList.Resources...)
+
+				getCreditPoolsOptions.Start, err = creditPoolsList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getCreditPoolsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions) using GetCreditPoolsPager`, func(){
+			getCreditPoolsOptions := &enterprisebillingunitsv1.GetCreditPoolsOptions{
+				BillingUnitID: core.StringPtr("testString"),
+				Date: core.StringPtr("testString"),
+				Type: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(creditPoolsList).ToNot(BeNil())
+			Expect(pager).ToNot(BeNil())
 
-			fmt.Fprintf(GinkgoWriter, "GetCreditPools() response:\n%s\n", common.ToJSON(creditPoolsList))
+			var allResults []enterprisebillingunitsv1.CreditPool
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetCreditPools() returned a total of %d item(s) using GetCreditPoolsPager.\n", len(allResults))
 		})
 	})
 })
+
+//
+// Utility functions are declared in the unit test file
+//
