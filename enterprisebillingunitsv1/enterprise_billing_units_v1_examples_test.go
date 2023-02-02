@@ -1,7 +1,8 @@
+//go:build examples
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,26 +34,35 @@ import (
 // This file provides an example of how to use the Enterprise Billing Units service.
 //
 // The following configuration properties are assumed to be defined:
-// ENTERPRISE_BILLING_UNITS_URL=<service base url>
-// ENTERPRISE_BILLING_UNITS_AUTH_TYPE=iam
-// ENTERPRISE_BILLING_UNITS_APIKEY=<IAM apikey>
-// ENTERPRISE_BILLING_UNITS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+//
+// ENTERPRISE_BILLING_UNITS_URL=<service url>
+// ENTERPRISE_BILLING_UNITS_AUTHTYPE=iam
+// ENTERPRISE_BILLING_UNITS_APIKEY=<your iam apikey>
+// ENTERPRISE_BILLING_UNITS_AUTH_URL=<IAM token service URL - omit this if using the production environment>
+// ENTERPRISE_BILLING_UNITS_ENTERPRISE_ID=<id of enterprise to use for examples>
+// ENTERPRISE_BILLING_UNITS_BILLING_UNIT_ID=<id of billing unit to use for examples>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 
-	const externalConfigFile = "../enterprise_billing_units_v1.env"
+var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
+	const externalConfigFile = "../enterprise_billing_units.env"
 
 	var (
 		enterpriseBillingUnitsService *enterprisebillingunitsv1.EnterpriseBillingUnitsV1
-		config       map[string]string
+		config                        map[string]string
+		configLoaded                  bool = false
+
+		enterpriseID  string
+		billingUnitID string
 	)
 
 	var shouldSkipTest = func() {
-		Skip("External configuration is not available, skipping examples...")
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
 	}
 
 	Describe(`External configuration`, func() {
@@ -60,18 +70,22 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
-				Skip("External configuration file not found, skipping examples: " + err.Error())
+				Skip("External configuration file not found, skipping tests: " + err.Error())
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(enterprisebillingunitsv1.DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping examples: " + err.Error())
-			} else if len(config) == 0 {
-				Skip("Unable to load service properties, skipping examples")
+				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
-			shouldSkipTest = func() {}
+			enterpriseID = config["ENTERPRISE_ID"]
+			Expect(enterpriseID).ToNot(BeEmpty())
+
+			billingUnitID = config["BILLING_UNIT_ID"]
+			Expect(billingUnitID).ToNot(BeEmpty())
+
+			configLoaded = len(config) > 0
 		})
 	})
 
@@ -107,7 +121,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			// begin-get_billing_unit
 
 			getBillingUnitOptions := enterpriseBillingUnitsService.NewGetBillingUnitOptions(
-				"testString",
+				billingUnitID,
 			)
 
 			billingUnit, response, err := enterpriseBillingUnitsService.GetBillingUnit(getBillingUnitOptions)
@@ -122,16 +136,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(billingUnit).ToNot(BeNil())
+
 		})
 		It(`ListBillingUnits request example`, func() {
 			fmt.Println("\nListBillingUnits() result:")
 			// begin-list_billing_units
-			listBillingUnitsOptions := &enterprisebillingunitsv1.ListBillingUnitsOptions{
-				AccountID: core.StringPtr("testString"),
-				EnterpriseID: core.StringPtr("testString"),
-				AccountGroupID: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(10)),
-			}
+
+			listBillingUnitsOptions := enterpriseBillingUnitsService.NewListBillingUnitsOptions()
+			listBillingUnitsOptions.SetEnterpriseID(enterpriseID)
 
 			pager, err := enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptions)
 			if err != nil {
@@ -148,15 +160,21 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
+
 			// end-list_billing_units
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(billingUnitsList).ToNot(BeNil())
+
 		})
 		It(`ListBillingOptions request example`, func() {
 			fmt.Println("\nListBillingOptions() result:")
 			// begin-list_billing_options
-			listBillingOptionsOptions := &enterprisebillingunitsv1.ListBillingOptionsOptions{
-				BillingUnitID: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(10)),
-			}
+
+			listBillingOptionsOptions := enterpriseBillingUnitsService.NewListBillingOptionsOptions(
+				billingUnitID,
+			)
 
 			pager, err := enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptions)
 			if err != nil {
@@ -173,17 +191,21 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
+
 			// end-list_billing_options
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(billingOption).ToNot(BeNil())
+
 		})
 		It(`GetCreditPools request example`, func() {
 			fmt.Println("\nGetCreditPools() result:")
 			// begin-get_credit_pools
-			getCreditPoolsOptions := &enterprisebillingunitsv1.GetCreditPoolsOptions{
-				BillingUnitID: core.StringPtr("testString"),
-				Date: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(10)),
-			}
+
+			getCreditPoolsOptions := enterpriseBillingUnitsService.NewGetCreditPoolsOptions(
+				billingUnitID,
+			)
 
 			pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
 			if err != nil {
@@ -200,7 +222,12 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
+
 			// end-get_credit_pools
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsList).ToNot(BeNil())
 		})
 	})
 })
