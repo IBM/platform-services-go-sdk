@@ -164,8 +164,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			// end-list_billing_units
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingUnitsList).ToNot(BeNil())
+			Expect(allResults).ToNot(BeNil())
 
 		})
 		It(`ListBillingOptions request example`, func() {
@@ -195,8 +194,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			// end-list_billing_options
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingOption).ToNot(BeNil())
+			Expect(allResults).ToNot(BeNil())
 
 		})
 		It(`GetCreditPools request example`, func() {
@@ -226,8 +224,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			// end-get_credit_pools
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(creditPoolsList).ToNot(BeNil())
+			Expect(allResults).ToNot(BeNil())
 		})
 	})
 })
