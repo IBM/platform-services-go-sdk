@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.64.0-959a5845-20230112-195144
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -2150,8 +2150,8 @@ func (iamIdentity *IamIdentityV1) GetAccountSettingsWithContext(ctx context.Cont
 }
 
 // UpdateAccountSettings : Update account configurations
-// Allows a user to configure settings on their account with regards to MFA, session lifetimes, access control for
-// creating new identities, and enforcing IP restrictions on token creation.
+// Allows a user to configure settings on their account with regards to MFA, MFA excemption list,  session lifetimes,
+// access control for creating new identities, and enforcing IP restrictions on token creation.
 func (iamIdentity *IamIdentityV1) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettingsResponse, response *core.DetailedResponse, err error) {
 	return iamIdentity.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
 }
@@ -2241,6 +2241,195 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsWithContext(ctx context.C
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetMfaStatus : Get MFA enrollment status for a single user in the account
+// Get MFA enrollment status for a single user in the account.
+func (iamIdentity *IamIdentityV1) GetMfaStatus(getMfaStatusOptions *GetMfaStatusOptions) (result *UserMfaEnrollments, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetMfaStatusWithContext(context.Background(), getMfaStatusOptions)
+}
+
+// GetMfaStatusWithContext is an alternate form of the GetMfaStatus method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetMfaStatusWithContext(ctx context.Context, getMfaStatusOptions *GetMfaStatusOptions) (result *UserMfaEnrollments, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getMfaStatusOptions, "getMfaStatusOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getMfaStatusOptions, "getMfaStatusOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getMfaStatusOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/mfa/accounts/{account_id}/status`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getMfaStatusOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetMfaStatus")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("iam_id", fmt.Sprint(*getMfaStatusOptions.IamID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUserMfaEnrollments)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateMfaReport : Trigger MFA enrollment status report for the account
+// Trigger MFA enrollment status report for the account by specifying the account ID. It can take a few minutes to
+// generate the report for retrieval.
+func (iamIdentity *IamIdentityV1) CreateMfaReport(createMfaReportOptions *CreateMfaReportOptions) (result *ReportReference, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateMfaReportWithContext(context.Background(), createMfaReportOptions)
+}
+
+// CreateMfaReportWithContext is an alternate form of the CreateMfaReport method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateMfaReportWithContext(ctx context.Context, createMfaReportOptions *CreateMfaReportOptions) (result *ReportReference, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createMfaReportOptions, "createMfaReportOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createMfaReportOptions, "createMfaReportOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *createMfaReportOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/mfa/accounts/{account_id}/report`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createMfaReportOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateMfaReport")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if createMfaReportOptions.Type != nil {
+		builder.AddQuery("type", fmt.Sprint(*createMfaReportOptions.Type))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReportReference)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetMfaReport : Get MFA enrollment status report for the account
+// Get MFA enrollment status report for the account by specifying the account ID and the reference that is generated by
+// triggering the report. Reports older than a day are deleted when generating a new report.
+func (iamIdentity *IamIdentityV1) GetMfaReport(getMfaReportOptions *GetMfaReportOptions) (result *ReportMfaEnrollmentStatus, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetMfaReportWithContext(context.Background(), getMfaReportOptions)
+}
+
+// GetMfaReportWithContext is an alternate form of the GetMfaReport method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetMfaReportWithContext(ctx context.Context, getMfaReportOptions *GetMfaReportOptions) (result *ReportMfaEnrollmentStatus, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getMfaReportOptions, "getMfaReportOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getMfaReportOptions, "getMfaReportOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getMfaReportOptions.AccountID,
+		"reference":  *getMfaReportOptions.Reference,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/mfa/accounts/{account_id}/report/{reference}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getMfaReportOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetMfaReport")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReportMfaEnrollmentStatus)
 		if err != nil {
 			return
 		}
@@ -2380,6 +2569,41 @@ func (iamIdentity *IamIdentityV1) GetReportWithContext(ctx context.Context, getR
 	return
 }
 
+// AccountBasedMfaEnrollment : AccountBasedMfaEnrollment struct
+type AccountBasedMfaEnrollment struct {
+	SecurityQuestions *MfaEnrollmentTypeStatus `json:"security_questions" validate:"required"`
+
+	Totp *MfaEnrollmentTypeStatus `json:"totp" validate:"required"`
+
+	Verisign *MfaEnrollmentTypeStatus `json:"verisign" validate:"required"`
+
+	// The enrollment complies to the effective requirement.
+	Complies *bool `json:"complies" validate:"required"`
+}
+
+// UnmarshalAccountBasedMfaEnrollment unmarshals an instance of AccountBasedMfaEnrollment from the specified map of raw messages.
+func UnmarshalAccountBasedMfaEnrollment(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountBasedMfaEnrollment)
+	err = core.UnmarshalModel(m, "security_questions", &obj.SecurityQuestions, UnmarshalMfaEnrollmentTypeStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "totp", &obj.Totp, UnmarshalMfaEnrollmentTypeStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "verisign", &obj.Verisign, UnmarshalMfaEnrollmentTypeStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "complies", &obj.Complies)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AccountSettingsResponse : Response body format for Account Settings REST requests.
 type AccountSettingsResponse struct {
 	// Context with key properties for problem determination.
@@ -2442,16 +2666,16 @@ type AccountSettingsResponse struct {
 	SystemAccessTokenExpirationInSeconds *string `json:"system_access_token_expiration_in_seconds" validate:"required"`
 
 	// Defines the refresh token expiration in seconds. Valid values:
-	//   * Any whole number between '900' and '2592000'
+	//   * Any whole number between '900' and '259200'
 	//   * NOT_SET - To unset account setting and use service default.
 	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds" validate:"required"`
 }
 
 // Constants associated with the AccountSettingsResponse.RestrictCreateServiceID property.
 // Defines whether or not creating a Service Id is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
 	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
@@ -2460,9 +2684,9 @@ const (
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
@@ -2471,12 +2695,12 @@ const (
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
 	AccountSettingsResponseMfaLevel1Const   = "LEVEL1"
 	AccountSettingsResponseMfaLevel2Const   = "LEVEL2"
@@ -2566,12 +2790,12 @@ type AccountSettingsUserMfa struct {
 
 // Constants associated with the AccountSettingsUserMfa.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
 	AccountSettingsUserMfaMfaLevel1Const   = "LEVEL1"
 	AccountSettingsUserMfaMfaLevel2Const   = "LEVEL2"
@@ -3218,6 +3442,43 @@ func (_options *CreateLinkOptions) SetName(name string) *CreateLinkOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *CreateLinkOptions) SetHeaders(param map[string]string) *CreateLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateMfaReportOptions : The CreateMfaReport options.
+type CreateMfaReportOptions struct {
+	// ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Optional report type. The supported value is 'mfa_status'. List MFA enrollment status for all the identities.
+	Type *string `json:"type,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateMfaReportOptions : Instantiate CreateMfaReportOptions
+func (*IamIdentityV1) NewCreateMfaReportOptions(accountID string) *CreateMfaReportOptions {
+	return &CreateMfaReportOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *CreateMfaReportOptions) SetAccountID(accountID string) *CreateMfaReportOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *CreateMfaReportOptions) SetType(typeVar string) *CreateMfaReportOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateMfaReportOptions) SetHeaders(param map[string]string) *CreateMfaReportOptions {
 	options.Headers = param
 	return options
 }
@@ -3873,6 +4134,82 @@ func (options *GetLinkOptions) SetHeaders(param map[string]string) *GetLinkOptio
 	return options
 }
 
+// GetMfaReportOptions : The GetMfaReport options.
+type GetMfaReportOptions struct {
+	// ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Reference for the report to be generated, You can use 'latest' to get the latest report for the given account.
+	Reference *string `json:"reference" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetMfaReportOptions : Instantiate GetMfaReportOptions
+func (*IamIdentityV1) NewGetMfaReportOptions(accountID string, reference string) *GetMfaReportOptions {
+	return &GetMfaReportOptions{
+		AccountID: core.StringPtr(accountID),
+		Reference: core.StringPtr(reference),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetMfaReportOptions) SetAccountID(accountID string) *GetMfaReportOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetReference : Allow user to set Reference
+func (_options *GetMfaReportOptions) SetReference(reference string) *GetMfaReportOptions {
+	_options.Reference = core.StringPtr(reference)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetMfaReportOptions) SetHeaders(param map[string]string) *GetMfaReportOptions {
+	options.Headers = param
+	return options
+}
+
+// GetMfaStatusOptions : The GetMfaStatus options.
+type GetMfaStatusOptions struct {
+	// ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// iam_id of the user. This user must be the member of the account.
+	IamID *string `json:"iam_id" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetMfaStatusOptions : Instantiate GetMfaStatusOptions
+func (*IamIdentityV1) NewGetMfaStatusOptions(accountID string, iamID string) *GetMfaStatusOptions {
+	return &GetMfaStatusOptions{
+		AccountID: core.StringPtr(accountID),
+		IamID:     core.StringPtr(iamID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetMfaStatusOptions) SetAccountID(accountID string) *GetMfaStatusOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIamID : Allow user to set IamID
+func (_options *GetMfaStatusOptions) SetIamID(iamID string) *GetMfaStatusOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetMfaStatusOptions) SetHeaders(param map[string]string) *GetMfaStatusOptions {
+	options.Headers = param
+	return options
+}
+
 // GetProfileOptions : The GetProfile options.
 type GetProfileOptions struct {
 	// ID of the trusted profile to get.
@@ -3996,14 +4333,121 @@ func (options *GetServiceIDOptions) SetHeaders(param map[string]string) *GetServ
 	return options
 }
 
+// IDBasedMfaEnrollment : IDBasedMfaEnrollment struct
+type IDBasedMfaEnrollment struct {
+	// Defines the MFA trait for the account. Valid values:
+	//   * NONE - No MFA trait set
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	TraitAccountDefault *string `json:"trait_account_default" validate:"required"`
+
+	// Defines the MFA trait for the account. Valid values:
+	//   * NONE - No MFA trait set
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	TraitUserSpecific *string `json:"trait_user_specific,omitempty"`
+
+	// Defines the MFA trait for the account. Valid values:
+	//   * NONE - No MFA trait set
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	TraitEffective *string `json:"trait_effective" validate:"required"`
+
+	// The enrollment complies to the effective requirement.
+	Complies *bool `json:"complies" validate:"required"`
+}
+
+// Constants associated with the IDBasedMfaEnrollment.TraitAccountDefault property.
+// Defines the MFA trait for the account. Valid values:
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
+const (
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const   = "LEVEL1"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const   = "LEVEL2"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel3Const   = "LEVEL3"
+	IDBasedMfaEnrollmentTraitAccountDefaultNoneConst     = "NONE"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotpConst     = "TOTP"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotp4allConst = "TOTP4ALL"
+)
+
+// Constants associated with the IDBasedMfaEnrollment.TraitUserSpecific property.
+// Defines the MFA trait for the account. Valid values:
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
+const (
+	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const   = "LEVEL1"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const   = "LEVEL2"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel3Const   = "LEVEL3"
+	IDBasedMfaEnrollmentTraitUserSpecificNoneConst     = "NONE"
+	IDBasedMfaEnrollmentTraitUserSpecificTotpConst     = "TOTP"
+	IDBasedMfaEnrollmentTraitUserSpecificTotp4allConst = "TOTP4ALL"
+)
+
+// Constants associated with the IDBasedMfaEnrollment.TraitEffective property.
+// Defines the MFA trait for the account. Valid values:
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
+const (
+	IDBasedMfaEnrollmentTraitEffectiveLevel1Const   = "LEVEL1"
+	IDBasedMfaEnrollmentTraitEffectiveLevel2Const   = "LEVEL2"
+	IDBasedMfaEnrollmentTraitEffectiveLevel3Const   = "LEVEL3"
+	IDBasedMfaEnrollmentTraitEffectiveNoneConst     = "NONE"
+	IDBasedMfaEnrollmentTraitEffectiveTotpConst     = "TOTP"
+	IDBasedMfaEnrollmentTraitEffectiveTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalIDBasedMfaEnrollment unmarshals an instance of IDBasedMfaEnrollment from the specified map of raw messages.
+func UnmarshalIDBasedMfaEnrollment(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IDBasedMfaEnrollment)
+	err = core.UnmarshalPrimitive(m, "trait_account_default", &obj.TraitAccountDefault)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "trait_user_specific", &obj.TraitUserSpecific)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "trait_effective", &obj.TraitEffective)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "complies", &obj.Complies)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ListAPIKeysOptions : The ListAPIKeys options.
 type ListAPIKeysOptions struct {
-	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// Account ID of the API keys to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// IAM ID of the API key(s) to be queried. The IAM ID may be that of a user or a service. For a user IAM ID iam_id must
+	// IAM ID of the API keys to be queried. The IAM ID may be that of a user or a service. For a user IAM ID iam_id must
 	// match the Authorization token.
 	IamID *string `json:"iam_id,omitempty"`
 
@@ -4013,10 +4457,10 @@ type ListAPIKeysOptions struct {
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
 	Pagetoken *string `json:"pagetoken,omitempty"`
 
-	// Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
+	// Optional parameter to define the scope of the queried API keys. Can be 'entity' (default) or 'account'.
 	Scope *string `json:"scope,omitempty"`
 
-	// Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
+	// Optional parameter to filter the type of the queried API keys. Can be 'user' or 'serviceid'.
 	Type *string `json:"type,omitempty"`
 
 	// Optional sort property, valid values are name, description, created_at and created_by. If specified, the items are
@@ -4034,14 +4478,14 @@ type ListAPIKeysOptions struct {
 }
 
 // Constants associated with the ListAPIKeysOptions.Scope property.
-// Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
+// Optional parameter to define the scope of the queried API keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
 	ListAPIKeysOptionsScopeEntityConst  = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
-// Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
+// Optional parameter to filter the type of the queried API keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
 	ListAPIKeysOptionsTypeUserConst      = "user"
@@ -4409,6 +4853,59 @@ func (options *LockServiceIDOptions) SetHeaders(param map[string]string) *LockSe
 	return options
 }
 
+// MfaEnrollmentTypeStatus : MfaEnrollmentTypeStatus struct
+type MfaEnrollmentTypeStatus struct {
+	// Describes whether the enrollment type is required.
+	Required *bool `json:"required" validate:"required"`
+
+	// Describes whether the enrollment type is enrolled.
+	Enrolled *bool `json:"enrolled" validate:"required"`
+}
+
+// UnmarshalMfaEnrollmentTypeStatus unmarshals an instance of MfaEnrollmentTypeStatus from the specified map of raw messages.
+func UnmarshalMfaEnrollmentTypeStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MfaEnrollmentTypeStatus)
+	err = core.UnmarshalPrimitive(m, "required", &obj.Required)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enrolled", &obj.Enrolled)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// MfaEnrollments : MfaEnrollments struct
+type MfaEnrollments struct {
+	// currently effective mfa type i.e. id_based_mfa or account_based_mfa.
+	EffectiveMfaType *string `json:"effective_mfa_type" validate:"required"`
+
+	IDBasedMfa *IDBasedMfaEnrollment `json:"id_based_mfa,omitempty"`
+
+	AccountBasedMfa *AccountBasedMfaEnrollment `json:"account_based_mfa,omitempty"`
+}
+
+// UnmarshalMfaEnrollments unmarshals an instance of MfaEnrollments from the specified map of raw messages.
+func UnmarshalMfaEnrollments(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MfaEnrollments)
+	err = core.UnmarshalPrimitive(m, "effective_mfa_type", &obj.EffectiveMfaType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "id_based_mfa", &obj.IDBasedMfa, UnmarshalIDBasedMfaEnrollment)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "account_based_mfa", &obj.AccountBasedMfa, UnmarshalAccountBasedMfaEnrollment)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProfileClaimRule : ProfileClaimRule struct
 type ProfileClaimRule struct {
 	// the unique identifier of the claim rule.
@@ -4729,6 +5226,58 @@ func UnmarshalReport(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalEntityActivity)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ReportMfaEnrollmentStatus : ReportMfaEnrollmentStatus struct
+type ReportMfaEnrollmentStatus struct {
+	// IAMid of the user who triggered the report.
+	CreatedBy *string `json:"created_by" validate:"required"`
+
+	// Unique reference used to generate the report.
+	Reference *string `json:"reference" validate:"required"`
+
+	// Date time at which report is generated. Date is in ISO format.
+	ReportTime *string `json:"report_time" validate:"required"`
+
+	// BSS account id of the user who triggered the report.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// IMS account id of the user who triggered the report.
+	ImsAccountID *string `json:"ims_account_id,omitempty"`
+
+	// List of users.
+	Users []UserReportMfaEnrollmentStatus `json:"users,omitempty"`
+}
+
+// UnmarshalReportMfaEnrollmentStatus unmarshals an instance of ReportMfaEnrollmentStatus from the specified map of raw messages.
+func UnmarshalReportMfaEnrollmentStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ReportMfaEnrollmentStatus)
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reference", &obj.Reference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "report_time", &obj.ReportTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ims_account_id", &obj.ImsAccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "users", &obj.Users, UnmarshalUserReportMfaEnrollmentStatus)
 	if err != nil {
 		return
 	}
@@ -5304,7 +5853,7 @@ type UpdateAccountSettingsOptions struct {
 	SystemAccessTokenExpirationInSeconds *string `json:"system_access_token_expiration_in_seconds,omitempty"`
 
 	// Defines the refresh token expiration in seconds. Valid values:
-	//   * Any whole number between '900' and '2592000'
+	//   * Any whole number between '900' and '259200'
 	//   * NOT_SET - To unset account setting and use service default.
 	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds,omitempty"`
 
@@ -5314,9 +5863,9 @@ type UpdateAccountSettingsOptions struct {
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreateServiceID property.
 // Defines whether or not creating a Service Id is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to unset a previously set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to unset a previously set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
@@ -5325,9 +5874,9 @@ const (
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
@@ -5336,12 +5885,12 @@ const (
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
 	UpdateAccountSettingsOptionsMfaLevel1Const   = "LEVEL1"
 	UpdateAccountSettingsOptionsMfaLevel2Const   = "LEVEL2"
@@ -5782,6 +6331,86 @@ func UnmarshalUserActivity(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_authn", &obj.LastAuthn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UserMfaEnrollments : UserMfaEnrollments struct
+type UserMfaEnrollments struct {
+	// IAMid of the user.
+	IamID *string `json:"iam_id" validate:"required"`
+
+	// currently effective mfa type i.e. id_based_mfa or account_based_mfa.
+	EffectiveMfaType *string `json:"effective_mfa_type,omitempty"`
+
+	IDBasedMfa *IDBasedMfaEnrollment `json:"id_based_mfa,omitempty"`
+
+	AccountBasedMfa *AccountBasedMfaEnrollment `json:"account_based_mfa,omitempty"`
+}
+
+// UnmarshalUserMfaEnrollments unmarshals an instance of UserMfaEnrollments from the specified map of raw messages.
+func UnmarshalUserMfaEnrollments(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UserMfaEnrollments)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "effective_mfa_type", &obj.EffectiveMfaType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "id_based_mfa", &obj.IDBasedMfa, UnmarshalIDBasedMfaEnrollment)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "account_based_mfa", &obj.AccountBasedMfa, UnmarshalAccountBasedMfaEnrollment)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UserReportMfaEnrollmentStatus : UserReportMfaEnrollmentStatus struct
+type UserReportMfaEnrollmentStatus struct {
+	// IAMid of the user.
+	IamID *string `json:"iam_id" validate:"required"`
+
+	// Name of the user.
+	Name *string `json:"name,omitempty"`
+
+	// Username of the user.
+	Username *string `json:"username" validate:"required"`
+
+	// Email of the user.
+	Email *string `json:"email,omitempty"`
+
+	Enrollments *MfaEnrollments `json:"enrollments" validate:"required"`
+}
+
+// UnmarshalUserReportMfaEnrollmentStatus unmarshals an instance of UserReportMfaEnrollmentStatus from the specified map of raw messages.
+func UnmarshalUserReportMfaEnrollmentStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UserReportMfaEnrollmentStatus)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "enrollments", &obj.Enrollments, UnmarshalMfaEnrollments)
 	if err != nil {
 		return
 	}

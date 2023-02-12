@@ -83,7 +83,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 		accountSettingEtag string
 
-		reportId string
+		reportId           string
+		reportReferenceMfa string
 	)
 
 	var shouldSkipTest = func() {
@@ -1339,7 +1340,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				SessionInvalidationInSeconds:          core.StringPtr("7200"),
 				MaxSessionsPerIdentity:                core.StringPtr("10"),
 				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
-				SystemRefreshTokenExpirationInSeconds: core.StringPtr("2592000"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
@@ -1456,6 +1457,95 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(report).To(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
 			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateReportMfa - Create an mfa report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateReportMfa(createMfReportOptions *createMfReportOptions)`, func() {
+
+			createMfaReportOptions := &iamidentityv1.CreateMfaReportOptions{
+				AccountID: &accountID,
+				Type:      core.StringPtr("mfa_status"),
+			}
+
+			reportRef, response, err := iamIdentityService.CreateMfaReport(createMfaReportOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(reportRef).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateMfaReport response:\n%s\n", common.ToJSON(reportRef))
+
+			reportReferenceMfa = *reportRef.Reference
+			Expect(reportReferenceMfa).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetReportMfaComplete - Get a complete mfa report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetMfaReport(getMfaReportOptions *GetMfaReportOptions)`, func() {
+			Expect(reportId).ToNot(BeEmpty())
+			getMfaReportOptions := &iamidentityv1.GetMfaReportOptions{
+				AccountID: &accountID,
+				Reference: &reportReferenceMfa,
+			}
+
+			for i := 0; i < 30; i++ {
+				report, response, err := iamIdentityService.GetMfaReport(getMfaReportOptions)
+				Expect(err).To(BeNil())
+				if response.StatusCode != 204 {
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(report).ToNot(BeNil())
+					Expect(report.CreatedBy).ToNot(BeNil())
+					Expect(*report.CreatedBy).To(Equal(iamID))
+					Expect(report.Reference).ToNot(BeNil())
+					Expect(*report.Reference).To(Equal(reportReferenceMfa))
+					break
+				}
+				time.Sleep(1 * time.Second)
+			}
+		})
+	})
+
+	Describe(`GetReportMfaNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReportMfaNotFound(getMfaReportOptions *GetMfaReportOptions)`, func() {
+
+			getMfaReportOptions := &iamidentityv1.GetMfaReportOptions{
+				AccountID: &accountID,
+				Reference: core.StringPtr("1234567890"),
+			}
+
+			report, response, err := iamIdentityService.GetMfaReport(getMfaReportOptions)
+
+			Expect(report).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetMfaStatus`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetMfaStatus(getMfaStatusOptions *getMfaStatusOptions)`, func() {
+
+			getMfaStatusOptions := &iamidentityv1.GetMfaStatusOptions{
+				AccountID: &accountID,
+				IamID:     &iamID,
+			}
+
+			mfaStatusResponse, response, err := iamIdentityService.GetMfaStatus(getMfaStatusOptions)
+
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(mfaStatusResponse).ToNot(BeNil())
 		})
 	})
 
