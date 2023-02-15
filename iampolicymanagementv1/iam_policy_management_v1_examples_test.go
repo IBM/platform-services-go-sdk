@@ -329,34 +329,34 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-create_v2_policy
 
 			subjectAttribute := &iampolicymanagementv1.V2PolicySubjectAttribute{
-				Key:  core.StringPtr("iam_id"),
+				Key:      core.StringPtr("iam_id"),
 				Operator: core.StringPtr("stringEquals"),
-				Value: &exampleUserID,
+				Value:    &exampleUserID,
 			}
 			policySubject := &iampolicymanagementv1.V2PolicySubject{
 				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute},
 			}
-			policyRole := &iampolicymanagementv1.PolicyRole{
+			policyRole := &iampolicymanagementv1.Roles{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
 			}
-			v2PolicyGrant := &iampolicymanagementv1.V2PolicyGrant{
-				Roles: []iampolicymanagementv1.PolicyRole{*policyRole},
+			v2PolicyGrant := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*policyRole},
 			}
 			v2PolicyControl := &iampolicymanagementv1.Control{
 				Grant: v2PolicyGrant,
 			}
 			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:     core.StringPtr("accountId"),
+				Key:      core.StringPtr("accountId"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr(exampleAccountID),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:     core.StringPtr("serviceType"),
+				Key:      core.StringPtr("serviceType"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr("service"),
 			}
 			policyResourceTag := &iampolicymanagementv1.V2PolicyResourceTag{
-				Key:     core.StringPtr("project"),
+				Key:      core.StringPtr("project"),
 				Value:    core.StringPtr("prototype"),
 				Operator: core.StringPtr("stringEquals"),
 			}
@@ -365,18 +365,18 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 				Tags: []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag},
 			}
-			weeklyConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
-				Key:     core.StringPtr("{{environment.attributes.day_of_week}}"),
+			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+				Key:      core.StringPtr("{{environment.attributes.day_of_week}}"),
 				Operator: core.StringPtr("dayOfWeekAnyOf"),
-				Value:    []string{"1+00:00","2+00:00","3+00:00","4+00:00","5+00:00"},
+				Value:    []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"},
 			}
-			startConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
-				Key:     core.StringPtr("{{environment.attributes.current_time}}"),
+			startConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeGreaterThanOrEquals"),
 				Value:    core.StringPtr("09:00:00+00:00"),
 			}
-			endConditionAttribute :=  &iampolicymanagementv1.RuleAttribute{
-				Key:     core.StringPtr("{{environment.attributes.current_time}}"),
+			endConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeLessThanOrEquals"),
 				Value:    core.StringPtr("17:00:00+00:00"),
 			}
@@ -438,29 +438,29 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-replace_v2_policy
 
 			subjectAttribute := &iampolicymanagementv1.V2PolicySubjectAttribute{
-				Key:  core.StringPtr("iam_id"),
+				Key:      core.StringPtr("iam_id"),
 				Operator: core.StringPtr("stringEquals"),
-				Value: &exampleUserID,
+				Value:    &exampleUserID,
 			}
 			policySubject := &iampolicymanagementv1.V2PolicySubject{
 				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute},
 			}
-			updatedPolicyRole := &iampolicymanagementv1.PolicyRole{
+			updatedPolicyRole := &iampolicymanagementv1.Roles{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
 			}
-			v2PolicyGrant := &iampolicymanagementv1.V2PolicyGrant{
-				Roles: []iampolicymanagementv1.PolicyRole{*updatedPolicyRole},
+			v2PolicyGrant := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*updatedPolicyRole},
 			}
 			v2PolicyControl := &iampolicymanagementv1.Control{
 				Grant: v2PolicyGrant,
 			}
 			accountIDResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:     core.StringPtr("accountId"),
+				Key:      core.StringPtr("accountId"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr(exampleAccountID),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:     core.StringPtr("serviceType"),
+				Key:      core.StringPtr("serviceType"),
 				Operator: core.StringPtr("stringEquals"),
 				Value:    core.StringPtr("service"),
 			}
@@ -477,7 +477,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			)
 			options.SetSubject(policySubject)
 			options.SetResource(policyResource)
-
 
 			policy, response, err := iamPolicyManagementService.ReplaceV2Policy(options)
 			if err != nil {

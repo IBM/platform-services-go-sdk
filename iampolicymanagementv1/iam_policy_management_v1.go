@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.65.0-79fc0b8f-20230209-215651
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -161,13 +161,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) DisableRetries() {
 }
 
 // ListPolicies : Get policies by attributes
-// Get policies and filter by attributes. While managing policies, you may want to retrieve policies in the account and
-// filter by attribute values. This can be done through query parameters. Currently, only the following attributes are
-// supported: account_id, iam_id, access_group_id, type, service_type, sort, format and state. account_id is a required
-// query parameter. Only policies that have the specified attributes and that the caller has read access to are
-// returned. If the caller does not have read access to any policies an empty array is returned. If a policy was created
-// using the new beta v2/policies API, then the caller will see placeholder information, e.g., "unsupported version" for
-// iam_id, and a valid v2/policies href. The caller should use this href to view the policy.
+// Get policies and filter by attributes. While managing policies, you might want to retrieve policies in the account
+// and filter by attribute values. This can be done through query parameters. The following attributes are supported:
+// account_id, iam_id, access_group_id, type, service_type, sort, format and state. account_id is a required query
+// parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
+// the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptions *ListPoliciesOptions) (result *PolicyList, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
 }
@@ -264,13 +262,14 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 //
 // To create an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
 // and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
-// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
-// service's or the platform's supported roles. The resource attributes must be a subset of a service's or the
-// platform's supported attributes. The policy resource must include either the **`serviceType`**, **`serviceName`**,
-// **`resourceGroupId`** or **`service_group_id`** attribute and the **`accountId`** attribute.` The IAM Services group
-// (`IAM`) is a subset of account management services that includes the IAM platform services IAM Identity, IAM Access
-// Management, IAM Users Management, IAM Groups, and future IAM services. If the subject is a locked service-id, the
-// request will fail.
+// the **`access_group_id`** subject attribute for assigning access for an access group. Assign roles that are supported
+// by the service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). Use only the resource attributes supported by the
+// service. To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs).
+// The policy resource must include either the **`serviceType`**, **`serviceName`**, **`resourceGroupId`** or
+// **`service_group_id`** attribute and the **`accountId`** attribute. The IAM Services group (`IAM`) is a subset of
+// account management services that includes the IAM platform services IAM Identity, IAM Access Management, IAM Users
+// Management, IAM Groups, and future IAM services. If the subject is a locked service-id, the request will fail.
 //
 // ### Authorization
 //
@@ -278,16 +277,19 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
 // body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
 // attributes might be provided. The following attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId The policy roles must be a subset of the
-// supported authorization roles supported by the target service. The user must also have the same level of access or
-// greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
-// the platform's supported attributes. Both the policy subject and the policy resource must include the
-// **`serviceName`** and **`accountId`** attributes.
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId Assign roles that are supported by the
+//
+// service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
+// greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
+// To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs). Both the
+// policy subject and the policy resource must include the **`serviceName`** and **`accountId`** attributes.
 //
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes may support one
-// or both operators. For more information, see [how to assign access by using wildcards
+// or both operators. For more information, see [Assigning access by using wildcard
 // policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
@@ -382,27 +384,31 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 //
 // To update an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
 // and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
-// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
-// service's or the platform's supported roles. The resource attributes must be a subset of a service's or the
-// platform's supported attributes. The policy resource must include either the **`serviceType`**, **`serviceName`**,
-// or **`resourceGroupId`** attribute and the **`accountId`** attribute.` If the subject is a locked service-id, the
-// request will fail.
+// the **`access_group_id`** subject attribute for assigning access for an access group. Assign roles that are supported
+// by the service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). Use only the resource attributes supported by the
+// service. To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs).
+// The policy resource must include either the **`serviceType`**, **`serviceName`**,  or **`resourceGroupId`** attribute
+// and the **`accountId`** attribute.` If the subject is a locked service-id, the request will fail.
 //
 // ### Authorization
 //
 // To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
 // the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
 // attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId The policy roles must be a subset of the
-// supported authorization roles supported by the target service. The user must also have the same level of access or
-// greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
-// the platform's supported attributes. Both the policy subject and the policy resource must include the
-// **`serviceName`** and **`accountId`** attributes.
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId Assign roles that are supported by the
+//
+// service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
+// greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
+// To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs). Both the
+// policy subject and the policy resource must include the **`serviceName`** and **`accountId`** attributes.
 //
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes might support
-// one or both operators. For more information, see [how to assign access by using wildcards
+// one or both operators. For more information, see [Assigning access by using wildcard
 // policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
@@ -1023,11 +1029,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 }
 
 // ListV2Policies : Get policies by attributes
-// Get policies and filter by attributes. While managing policies, you may want to retrieve policies in the account and
-// filter by attribute values. This can be done through query parameters. Currently, only the following attributes are
-// supported: account_id, iam_id, access_group_id, type, service_type, sort, format and state. account_id is a required
-// query parameter. Only policies that have the specified attributes and that the caller has read access to are
-// returned. If the caller does not have read access to any policies an empty array is returned.
+// Get policies and filter by attributes. While managing policies, you might want to retrieve policies in the account
+// and filter by attribute values. This can be done through query parameters. The following attributes are supported:
+// account_id, iam_id, access_group_id, type, service_type, sort, format and state. account_id is a required query
+// parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
+// the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListV2Policies(listV2PoliciesOptions *ListV2PoliciesOptions) (result *V2PolicyCollection, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListV2PoliciesWithContext(context.Background(), listV2PoliciesOptions)
 }
@@ -1113,46 +1119,49 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 
 // CreateV2Policy : Create a policy
 // Creates a policy to grant access between a subject and a resource. Currently, there is one type of a v2/policy:
-// **access**. A policy administrator might want to create an access policy which grants access to a user, service-id,
-// or an access group.
+// **access**. A policy administrator might want to create an access policy that grants access to a user, service-id, or
+// an access group.
 //
 // ### Access
 //
-// To create an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
-// and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
-// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
-// service's or the platform's supported roles. For more information, see [IAM roles and
-// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions). The resource attributes must be
-// a subset of a service's or the platform's supported attributes. Caller should check with service, e.g.,
-// [VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-resource-attributes), to view supported attributes. The policy
-// resource must include either the **`serviceType`**, **`serviceName`**, **`resourceGroupId`** or
-// **`service_group_id`** attribute and the **`accountId`** attribute.` The rule field can either specify single
-// **`key`**, **`value`**, and **`operator`** or be set of **`conditions`** with a combination **`operator`**.  The
-// possible combination operator are **`and`** and **`or`**. The operator for a rule can be used to specify a time-based
-// condition (e.g., access only during business hours, during the Monday-Friday work week). For example, a policy can
-// grant access Monday-Friday, 9:00am-5:00pm using the following rule:
+// To create an access policy, use **`"type": "access"`** in the body. The supported subject attributes are **`iam_id`**
+// and **`access_group_id`**. Use the **`iam_id`** subject attribute to assign access to a user or service-id. Use the
+// **`access_group_id`** subject attribute to assign access to an access group. Assign roles that are supported by the
+// service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). Use only the resource attributes supported by the
+// service. To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs).
+// The policy resource must include either the **`serviceType`**, **`serviceName`**, **`resourceGroupId`** or
+// **`service_group_id`** attribute and the **`accountId`** attribute. In the rule field, you can specify a single
+// condition by using **`key`**, **`value`**, and condition **`operator`**, or a set of **`conditions`** with a
+// combination **`operator`**.  The possible combination operators are **`and`** and **`or`**. Combine conditions to
+// specify a time-based restriction (e.g., access only during business hours, during the Monday-Friday work week). For
+// example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following rule:
 // ```json
-//   "rule": {
-//     "operator": "and",
-//     "conditions": [{
-//       "key": "{{environment.attributes.day_of_week}}",
-//       "operator": "dayOfWeekAnyOf",
-//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeGreaterThanOrEquals",
-//       "value": "09:00:00+00:00"
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeLessThanOrEquals",
-//       "value": "17:00:00+00:00"
-//     }]
-//   }
-// ``` Rules and conditions allow the following operators with **`key`**, **`value`** :
+//
+//	"rule": {
+//	  "operator": "and",
+//	  "conditions": [{
+//	    "key": "{{environment.attributes.day_of_week}}",
+//	    "operator": "dayOfWeekAnyOf",
+//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeGreaterThanOrEquals",
+//	    "value": "09:00:00+00:00"
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeLessThanOrEquals",
+//	    "value": "17:00:00+00:00"
+//	  }]
+//	}
+//
+// ``` You can use the following operators in the **`key`** and **`value`** pair:
 // ```
-//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//   'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//
+//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//	'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//
 // ```
 //
 // The pattern field that matches the rule is required when rule is provided. For the business hour rule example above,
@@ -1160,15 +1169,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // operators](https://cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
 // and
 // [Limiting access with time-based
-// conditions](https://cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui). The IAM Services group
-// (`IAM`) is a subset of account management services that includes the IAM platform services IAM Identity, IAM Access
-// Management, IAM Users Management, IAM Groups, and future IAM services. If the subject is a locked service-id, the
-// request will fail.
+// conditions](https://cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui). If the subject is a locked
+// service-id, the request will fail.
 //
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals`, `stringMatch`, and `stringEquals` operators are available. For more information,
-// see [how to assign access by using wildcards policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
+// see [Assigning access by using wildcard policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -1266,52 +1273,54 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 //
 // ### Access
 //
-// To update an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
-// and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
-// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
-// service's or the platform's supported roles. For more information, see [IAM roles and
-// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions). The resource attributes must be
-// a subset of a service's or the platform's supported attributes. Caller should check with service, e.g.,
-// [VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-resource-attributes), to view supported attributes. The policy
-// resource must include either the **`serviceType`**, **`serviceName`**,  or **`resourceGroupId`** attribute and the
-// **`accountId`** attribute.` The rule field can either specify single **`key`**, **`value`**, and **`operator`** or be
-// set of **`conditions`** with a combination **`operator`**.  The possible combination operator are **`and`** and
-// **`or`**. The operator for a rule can be used to specify a time-based condition (e.g., access only during business
-// hours, during the Monday-Friday work week). For example, a policy can grant access Monday-Friday, 9:00am-5:00pm using
-// the following rule:
+// To create an access policy, use **`"type": "access"`** in the body. The supported subject attributes are **`iam_id`**
+// and **`access_group_id`**. Use the **`iam_id`** subject attribute to assign access to a user or service-id. Use the
+// **`access_group_id`** subject attribute to assign access to an access group. Assign roles that are supported by the
+// service or platform roles. For more information, see [IAM roles and
+// actions](/docs/account?topic=account-iam-service-roles-actions). Use only the resource attributes supported by the
+// service. To view a service's or the platform's supported attributes, check the [documentation](/docs?tab=all-docs).
+// The policy resource must include either the **`serviceType`**, **`serviceName`**, **`resourceGroupId`** or
+// **`service_group_id`** attribute and the **`accountId`** attribute. In the rule field, you can specify a single
+// condition by using **`key`**, **`value`**, and condition **`operator`**, or a set of **`conditions`** with a
+// combination **`operator`**.  The possible combination operators are **`and`** and **`or`**. Combine conditions to
+// specify a time-based restriction (e.g., access only during business hours, during the Monday-Friday work week). For
+// example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following rule:
 // ```json
-//   "rule": {
-//     "operator": "and",
-//     "conditions": [{
-//       "key": "{{environment.attributes.day_of_week}}",
-//       "operator": "dayOfWeekAnyOf",
-//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeGreaterThanOrEquals",
-//       "value": "09:00:00+00:00"
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeLessThanOrEquals",
-//       "value": "17:00:00+00:00"
-//     }]
-//   }
-// ``` Rules and conditions allow the following operators with **`key`**, **`value`** :
+//
+//	"rule": {
+//	  "operator": "and",
+//	  "conditions": [{
+//	    "key": "{{environment.attributes.day_of_week}}",
+//	    "operator": "dayOfWeekAnyOf",
+//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeGreaterThanOrEquals",
+//	    "value": "09:00:00+00:00"
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeLessThanOrEquals",
+//	    "value": "17:00:00+00:00"
+//	  }]
+//	}
+//
+// ``` You can use the following operators in the **`key`**, **`value`** pair:
 // ```
-//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//   'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//
+//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//	'dayOfWeekEquals', 'dayOfWeekAnyOf',
+//
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
 // operators](https://cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
 // and
 // [Limiting access with time-based
 // conditions](https://cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui).
-//
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals`, `stringMatch`, and `stringEquals` operators are available. For more information,
-// see [how to assign access by using wildcards policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
+// see [Assigning access by using wildcard policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -1446,6 +1455,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx con
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if getV2PolicyOptions.Format != nil {
+		builder.AddQuery("format", fmt.Sprint(*getV2PolicyOptions.Format))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -1519,11 +1532,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx 
 // Control : Specifies the type of access granted by the policy.
 type Control struct {
 	// Permission granted by the policy.
-	Grant *V2PolicyGrant `json:"grant" validate:"required"`
+	Grant *Grant `json:"grant" validate:"required"`
 }
 
 // NewControl : Instantiate Control (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewControl(grant *V2PolicyGrant) (_model *Control, err error) {
+func (*IamPolicyManagementV1) NewControl(grant *Grant) (_model *Control, err error) {
 	_model = &Control{
 		Grant: grant,
 	}
@@ -1534,7 +1547,7 @@ func (*IamPolicyManagementV1) NewControl(grant *V2PolicyGrant) (_model *Control,
 // UnmarshalControl unmarshals an instance of Control from the specified map of raw messages.
 func UnmarshalControl(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Control)
-	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalV2PolicyGrant)
+	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
 		return
 	}
@@ -1545,11 +1558,12 @@ func UnmarshalControl(m map[string]json.RawMessage, result interface{}) (err err
 // ControlResponse : ControlResponse struct
 // Models which "extend" this model:
 // - ControlResponseControl
-// - ControlResponseControlWithTranslatedRoles
+// - ControlResponseControlWithEnrichedRoles
 type ControlResponse struct {
 	// Permission granted by the policy.
-	Grant *V2PolicyGrant `json:"grant,omitempty"`
+	Grant *Grant `json:"grant,omitempty"`
 }
+
 func (*ControlResponse) isaControlResponse() bool {
 	return true
 }
@@ -1561,7 +1575,7 @@ type ControlResponseIntf interface {
 // UnmarshalControlResponse unmarshals an instance of ControlResponse from the specified map of raw messages.
 func UnmarshalControlResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ControlResponse)
-	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalV2PolicyGrant)
+	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
 		return
 	}
@@ -1607,9 +1621,9 @@ type CreatePolicyOptions struct {
 // NewCreatePolicyOptions : Instantiate CreatePolicyOptions
 func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *CreatePolicyOptions {
 	return &CreatePolicyOptions{
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -1661,7 +1675,7 @@ type CreateRoleOptions struct {
 	// The display name of the role that is shown in the console.
 	DisplayName *string `json:"display_name" validate:"required"`
 
-	// The actions of the role. Please refer to [IAM roles and
+	// The actions of the role. For more information, see [IAM roles and
 	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
@@ -1699,9 +1713,9 @@ type CreateRoleOptions struct {
 func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions []string, name string, accountID string, serviceName string) *CreateRoleOptions {
 	return &CreateRoleOptions{
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
-		Name: core.StringPtr(name),
-		AccountID: core.StringPtr(accountID),
+		Actions:     actions,
+		Name:        core.StringPtr(name),
+		AccountID:   core.StringPtr(accountID),
 		ServiceName: core.StringPtr(serviceName),
 	}
 }
@@ -1799,7 +1813,7 @@ type CreateV2PolicyOptions struct {
 // Constants associated with the CreateV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	CreateV2PolicyOptionsTypeAccessConst = "access"
+	CreateV2PolicyOptionsTypeAccessConst        = "access"
 	CreateV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -1807,7 +1821,7 @@ const (
 func (*IamPolicyManagementV1) NewCreateV2PolicyOptions(control *Control, typeVar string) *CreateV2PolicyOptions {
 	return &CreateV2PolicyOptions{
 		Control: control,
-		Type: core.StringPtr(typeVar),
+		Type:    core.StringPtr(typeVar),
 	}
 }
 
@@ -1949,6 +1963,46 @@ func (options *DeleteV2PolicyOptions) SetHeaders(param map[string]string) *Delet
 	return options
 }
 
+// EnrichedRoles : A role associated with a policy with additional information (display_name, description, actions) when
+// `format=display`.
+type EnrichedRoles struct {
+	// The role Cloud Resource Name (CRN) granted by the policy. Example CRN: 'crn:v1:bluemix:public:iam::::role:Editor'.
+	RoleID *string `json:"role_id" validate:"required"`
+
+	// The service defined (or user defined if a custom role) display name of the role.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// The service defined (or user defined if a custom role) description of the role.
+	Description *string `json:"description,omitempty"`
+
+	// The actions of the role. For more information, see [IAM roles and
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	Actions []RoleAction `json:"actions" validate:"required"`
+}
+
+// UnmarshalEnrichedRoles unmarshals an instance of EnrichedRoles from the specified map of raw messages.
+func UnmarshalEnrichedRoles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EnrichedRoles)
+	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalRoleAction)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
@@ -2010,9 +2064,27 @@ type GetV2PolicyOptions struct {
 	// The policy ID.
 	ID *string `json:"id" validate:"required,ne="`
 
+	// Include additional data for policy returned
+	// * `include_last_permit` - returns details of when the policy last granted a permit decision and the number of times
+	// it has done so
+	// * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
+	// fields.
+	Format *string `json:"format,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the GetV2PolicyOptions.Format property.
+// Include additional data for policy returned
+// * `include_last_permit` - returns details of when the policy last granted a permit decision and the number of times
+// it has done so
+// * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
+// fields.
+const (
+	GetV2PolicyOptionsFormatDisplayConst           = "display"
+	GetV2PolicyOptionsFormatIncludeLastPermitConst = "include_last_permit"
+)
 
 // NewGetV2PolicyOptions : Instantiate GetV2PolicyOptions
 func (*IamPolicyManagementV1) NewGetV2PolicyOptions(id string) *GetV2PolicyOptions {
@@ -2027,22 +2099,54 @@ func (_options *GetV2PolicyOptions) SetID(id string) *GetV2PolicyOptions {
 	return _options
 }
 
+// SetFormat : Allow user to set Format
+func (_options *GetV2PolicyOptions) SetFormat(format string) *GetV2PolicyOptions {
+	_options.Format = core.StringPtr(format)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *GetV2PolicyOptions) SetHeaders(param map[string]string) *GetV2PolicyOptions {
 	options.Headers = param
 	return options
 }
 
-// GrantWithTranslatedRoles : Permission granted by the policy with translated roles and additional role information.
-type GrantWithTranslatedRoles struct {
-	// A set of roles granted by the policy.
-	Roles []RoleInDisplayFormat `json:"roles" validate:"required"`
+// Grant : Permission granted by the policy.
+type Grant struct {
+	// A set of role cloud resource names (CRNs) granted by the policy.
+	Roles []Roles `json:"roles" validate:"required"`
 }
 
-// UnmarshalGrantWithTranslatedRoles unmarshals an instance of GrantWithTranslatedRoles from the specified map of raw messages.
-func UnmarshalGrantWithTranslatedRoles(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GrantWithTranslatedRoles)
-	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalRoleInDisplayFormat)
+// NewGrant : Instantiate Grant (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewGrant(roles []Roles) (_model *Grant, err error) {
+	_model = &Grant{
+		Roles: roles,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalGrant unmarshals an instance of Grant from the specified map of raw messages.
+func UnmarshalGrant(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Grant)
+	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalRoles)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GrantWithEnrichedRoles : Permission granted by the policy with translated roles and additional role information.
+type GrantWithEnrichedRoles struct {
+	// A set of roles granted by the policy.
+	Roles []EnrichedRoles `json:"roles" validate:"required"`
+}
+
+// UnmarshalGrantWithEnrichedRoles unmarshals an instance of GrantWithEnrichedRoles from the specified map of raw messages.
+func UnmarshalGrantWithEnrichedRoles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GrantWithEnrichedRoles)
+	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalEnrichedRoles)
 	if err != nil {
 		return
 	}
@@ -2052,7 +2156,7 @@ func UnmarshalGrantWithTranslatedRoles(m map[string]json.RawMessage, result inte
 
 // ListPoliciesOptions : The ListPolicies options.
 type ListPoliciesOptions struct {
-	// The account GUID in which the policies belong to.
+	// The account GUID that the policies belong to.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// Language code for translations
@@ -2081,10 +2185,10 @@ type ListPoliciesOptions struct {
 	// Optional type of service.
 	ServiceType *string `json:"service_type,omitempty"`
 
-	// Optional name of the access management tag in the policy.
+	// Optional name of the access tag in the policy.
 	TagName *string `json:"tag_name,omitempty"`
 
-	// Optional value of the access management tag in the policy.
+	// Optional value of the access tag in the policy.
 	TagValue *string `json:"tag_value,omitempty"`
 
 	// Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
@@ -2109,7 +2213,7 @@ type ListPoliciesOptions struct {
 // Constants associated with the ListPoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListPoliciesOptionsTypeAccessConst = "access"
+	ListPoliciesOptionsTypeAccessConst        = "access"
 	ListPoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -2117,21 +2221,21 @@ const (
 // Optional type of service.
 const (
 	ListPoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListPoliciesOptionsServiceTypeServiceConst = "service"
+	ListPoliciesOptionsServiceTypeServiceConst         = "service"
 )
 
 // Constants associated with the ListPoliciesOptions.Sort property.
 // Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
 // '-' to field. Example '-last_modified_at'.
 const (
-	ListPoliciesOptionsSortCreatedAtConst = "created_at"
-	ListPoliciesOptionsSortCreatedByIDConst = "created_by_id"
-	ListPoliciesOptionsSortHrefConst = "href"
-	ListPoliciesOptionsSortIDConst = "id"
-	ListPoliciesOptionsSortLastModifiedAtConst = "last_modified_at"
+	ListPoliciesOptionsSortCreatedAtConst        = "created_at"
+	ListPoliciesOptionsSortCreatedByIDConst      = "created_by_id"
+	ListPoliciesOptionsSortHrefConst             = "href"
+	ListPoliciesOptionsSortIDConst               = "id"
+	ListPoliciesOptionsSortLastModifiedAtConst   = "last_modified_at"
 	ListPoliciesOptionsSortLastModifiedByIDConst = "last_modified_by_id"
-	ListPoliciesOptionsSortStateConst = "state"
-	ListPoliciesOptionsSortTypeConst = "type"
+	ListPoliciesOptionsSortStateConst            = "state"
+	ListPoliciesOptionsSortTypeConst             = "type"
 )
 
 // Constants associated with the ListPoliciesOptions.Format property.
@@ -2140,7 +2244,7 @@ const (
 // it has done so
 // * `display` - returns the list of all actions included in each of the policy roles.
 const (
-	ListPoliciesOptionsFormatDisplayConst = "display"
+	ListPoliciesOptionsFormatDisplayConst           = "display"
 	ListPoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -2149,7 +2253,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListPoliciesOptionsStateActiveConst = "active"
+	ListPoliciesOptionsStateActiveConst  = "active"
 	ListPoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -2361,7 +2465,7 @@ type ListV2PoliciesOptions struct {
 // Constants associated with the ListV2PoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListV2PoliciesOptionsTypeAccessConst = "access"
+	ListV2PoliciesOptionsTypeAccessConst        = "access"
 	ListV2PoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -2369,7 +2473,7 @@ const (
 // Optional type of service.
 const (
 	ListV2PoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListV2PoliciesOptionsServiceTypeServiceConst = "service"
+	ListV2PoliciesOptionsServiceTypeServiceConst         = "service"
 )
 
 // Constants associated with the ListV2PoliciesOptions.Format property.
@@ -2379,7 +2483,7 @@ const (
 // * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
 // fields.
 const (
-	ListV2PoliciesOptionsFormatDisplayConst = "display"
+	ListV2PoliciesOptionsFormatDisplayConst           = "display"
 	ListV2PoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -2388,7 +2492,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListV2PoliciesOptionsStateActiveConst = "active"
+	ListV2PoliciesOptionsStateActiveConst  = "active"
 	ListV2PoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -2536,11 +2640,11 @@ type ReplacePolicyOptions struct {
 // NewReplacePolicyOptions : Instantiate ReplacePolicyOptions
 func (*IamPolicyManagementV1) NewReplacePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *ReplacePolicyOptions {
 	return &ReplacePolicyOptions{
-		PolicyID: core.StringPtr(policyID),
-		IfMatch: core.StringPtr(ifMatch),
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		PolicyID:  core.StringPtr(policyID),
+		IfMatch:   core.StringPtr(ifMatch),
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -2605,7 +2709,7 @@ type ReplaceRoleOptions struct {
 	// The display name of the role that is shown in the console.
 	DisplayName *string `json:"display_name" validate:"required"`
 
-	// The actions of the role. Please refer to [IAM roles and
+	// The actions of the role. For more information, see [IAM roles and
 	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
@@ -2619,10 +2723,10 @@ type ReplaceRoleOptions struct {
 // NewReplaceRoleOptions : Instantiate ReplaceRoleOptions
 func (*IamPolicyManagementV1) NewReplaceRoleOptions(roleID string, ifMatch string, displayName string, actions []string) *ReplaceRoleOptions {
 	return &ReplaceRoleOptions{
-		RoleID: core.StringPtr(roleID),
-		IfMatch: core.StringPtr(ifMatch),
+		RoleID:      core.StringPtr(roleID),
+		IfMatch:     core.StringPtr(ifMatch),
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
+		Actions:     actions,
 	}
 }
 
@@ -2700,17 +2804,17 @@ type ReplaceV2PolicyOptions struct {
 // Constants associated with the ReplaceV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	ReplaceV2PolicyOptionsTypeAccessConst = "access"
+	ReplaceV2PolicyOptionsTypeAccessConst        = "access"
 	ReplaceV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
 // NewReplaceV2PolicyOptions : Instantiate ReplaceV2PolicyOptions
 func (*IamPolicyManagementV1) NewReplaceV2PolicyOptions(id string, ifMatch string, control *Control, typeVar string) *ReplaceV2PolicyOptions {
 	return &ReplaceV2PolicyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 		Control: control,
-		Type: core.StringPtr(typeVar),
+		Type:    core.StringPtr(typeVar),
 	}
 }
 
@@ -2805,39 +2909,25 @@ func UnmarshalRoleAction(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// RoleInDisplayFormat : A role associated with a policy with additional information (display_name, description, actions) when
-// `format=display`.
-type RoleInDisplayFormat struct {
+// Roles : A role associated with a policy.
+type Roles struct {
 	// The role Cloud Resource Name (CRN) granted by the policy. Example CRN: 'crn:v1:bluemix:public:iam::::role:Editor'.
 	RoleID *string `json:"role_id" validate:"required"`
-
-	// The service defined (or user defined if a custom role) display name of the role.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The service defined (or user defined if a custom role) description of the role.
-	Description *string `json:"description,omitempty"`
-
-	// The actions of the role. Please refer to [IAM roles and
-	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
-	Actions []RoleAction `json:"actions" validate:"required"`
 }
 
-// UnmarshalRoleInDisplayFormat unmarshals an instance of RoleInDisplayFormat from the specified map of raw messages.
-func UnmarshalRoleInDisplayFormat(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RoleInDisplayFormat)
+// NewRoles : Instantiate Roles (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewRoles(roleID string) (_model *Roles, err error) {
+	_model = &Roles{
+		RoleID: core.StringPtr(roleID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalRoles unmarshals an instance of Roles from the specified map of raw messages.
+func UnmarshalRoles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Roles)
 	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalRoleAction)
 	if err != nil {
 		return
 	}
@@ -2853,7 +2943,7 @@ type RuleAttribute struct {
 	// The operator of an attribute.
 	Operator *string `json:"operator" validate:"required"`
 
-	// The value of an rule or resource attribute; can be boolean or string for resource attribute. Can be a string or an
+	// The value of a rule or resource attribute; can be boolean or string for resource attribute. Can be string or an
 	// array of strings (e.g., array of days to permit access) for rule attribute.
 	Value interface{} `json:"value" validate:"required"`
 }
@@ -2861,24 +2951,24 @@ type RuleAttribute struct {
 // Constants associated with the RuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	RuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	RuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	RuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	RuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
-	RuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	RuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	RuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	RuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
-	RuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	RuleAttributeOperatorTimelessthanConst = "timeLessThan"
-	RuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	RuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	RuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	RuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	RuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	RuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
+	RuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	RuleAttributeOperatorTimelessthanConst                = "timeLessThan"
+	RuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
 
 // NewRuleAttribute : Instantiate RuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewRuleAttribute(key string, operator string, value interface{}) (_model *RuleAttribute, err error) {
 	_model = &RuleAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2922,7 +3012,7 @@ type UpdatePolicyStateOptions struct {
 // Constants associated with the UpdatePolicyStateOptions.State property.
 // The policy state.
 const (
-	UpdatePolicyStateOptionsStateActiveConst = "active"
+	UpdatePolicyStateOptionsStateActiveConst  = "active"
 	UpdatePolicyStateOptionsStateDeletedConst = "deleted"
 )
 
@@ -2930,7 +3020,7 @@ const (
 func (*IamPolicyManagementV1) NewUpdatePolicyStateOptions(policyID string, ifMatch string) *UpdatePolicyStateOptions {
 	return &UpdatePolicyStateOptions{
 		PolicyID: core.StringPtr(policyID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:  core.StringPtr(ifMatch),
 	}
 }
 
@@ -3013,14 +3103,14 @@ type V2Policy struct {
 // Constants associated with the V2Policy.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	V2PolicyTypeAccessConst = "access"
+	V2PolicyTypeAccessConst        = "access"
 	V2PolicyTypeAuthorizationConst = "authorization"
 )
 
 // Constants associated with the V2Policy.State property.
 // The policy state, either 'deleted' or 'active'.
 const (
-	V2PolicyStateActiveConst = "active"
+	V2PolicyStateActiveConst  = "active"
 	V2PolicyStateDeletedConst = "deleted"
 )
 
@@ -3112,32 +3202,6 @@ func UnmarshalV2PolicyCollection(m map[string]json.RawMessage, result interface{
 	return
 }
 
-// V2PolicyGrant : Permission granted by the policy.
-type V2PolicyGrant struct {
-	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRole `json:"roles" validate:"required"`
-}
-
-// NewV2PolicyGrant : Instantiate V2PolicyGrant (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewV2PolicyGrant(roles []PolicyRole) (_model *V2PolicyGrant, err error) {
-	_model = &V2PolicyGrant{
-		Roles: roles,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalV2PolicyGrant unmarshals an instance of V2PolicyGrant from the specified map of raw messages.
-func UnmarshalV2PolicyGrant(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(V2PolicyGrant)
-	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRole)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // V2PolicyResource : The resource attributes to which the policy grants access.
 type V2PolicyResource struct {
 	// List of resource attributes to which the policy grants access.
@@ -3179,7 +3243,7 @@ type V2PolicyResourceAttribute struct {
 	// The operator of an attribute.
 	Operator *string `json:"operator" validate:"required"`
 
-	// The value of an rule or resource attribute; can be boolean or string for resource attribute. Can be a string or an
+	// The value of a rule or resource attribute; can be boolean or string for resource attribute. Can be string or an
 	// array of strings (e.g., array of days to permit access) for rule attribute.
 	Value interface{} `json:"value" validate:"required"`
 }
@@ -3189,15 +3253,15 @@ type V2PolicyResourceAttribute struct {
 const (
 	V2PolicyResourceAttributeOperatorStringequalsConst = "stringEquals"
 	V2PolicyResourceAttributeOperatorStringexistsConst = "stringExists"
-	V2PolicyResourceAttributeOperatorStringmatchConst = "stringMatch"
+	V2PolicyResourceAttributeOperatorStringmatchConst  = "stringMatch"
 )
 
 // NewV2PolicyResourceAttribute : Instantiate V2PolicyResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceAttribute(key string, operator string, value interface{}) (_model *V2PolicyResourceAttribute, err error) {
 	_model = &V2PolicyResourceAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3238,14 +3302,14 @@ type V2PolicyResourceTag struct {
 // The operator of an access management tag.
 const (
 	V2PolicyResourceTagOperatorStringequalsConst = "stringEquals"
-	V2PolicyResourceTagOperatorStringmatchConst = "stringMatch"
+	V2PolicyResourceTagOperatorStringmatchConst  = "stringMatch"
 )
 
 // NewV2PolicyResourceTag : Instantiate V2PolicyResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceTag(key string, value string, operator string) (_model *V2PolicyResourceTag, err error) {
 	_model = &V2PolicyResourceTag{
-		Key: core.StringPtr(key),
-		Value: core.StringPtr(value),
+		Key:      core.StringPtr(key),
+		Value:    core.StringPtr(value),
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3282,11 +3346,11 @@ type V2PolicyRule struct {
 	// The operator of an attribute.
 	Operator *string `json:"operator,omitempty"`
 
-	// The value of an rule or resource attribute; can be boolean or string for resource attribute. Can be a string or an
+	// The value of a rule or resource attribute; can be boolean or string for resource attribute. Can be string or an
 	// array of strings (e.g., array of days to permit access) for rule attribute.
 	Value interface{} `json:"value,omitempty"`
 
-	// List of conditions associated with a policy, e.g., time-based-conditions that grant access over a certain time
+	// List of conditions associated with a policy, e.g., time-based conditions that grant access over a certain time
 	// period.
 	Conditions []RuleAttribute `json:"conditions,omitempty"`
 }
@@ -3294,17 +3358,18 @@ type V2PolicyRule struct {
 // Constants associated with the V2PolicyRule.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	V2PolicyRuleOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	V2PolicyRuleOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleOperatorDatetimelessthanConst = "dateTimeLessThan"
-	V2PolicyRuleOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	V2PolicyRuleOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	V2PolicyRuleOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	V2PolicyRuleOperatorTimegreaterthanConst = "timeGreaterThan"
-	V2PolicyRuleOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	V2PolicyRuleOperatorTimelessthanConst = "timeLessThan"
-	V2PolicyRuleOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	V2PolicyRuleOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	V2PolicyRuleOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	V2PolicyRuleOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	V2PolicyRuleOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	V2PolicyRuleOperatorTimegreaterthanConst             = "timeGreaterThan"
+	V2PolicyRuleOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	V2PolicyRuleOperatorTimelessthanConst                = "timeLessThan"
+	V2PolicyRuleOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
+
 func (*V2PolicyRule) isaV2PolicyRule() bool {
 	return true
 }
@@ -3383,9 +3448,9 @@ const (
 // NewV2PolicySubjectAttribute : Instantiate V2PolicySubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicySubjectAttribute(key string, operator string, value string) (_model *V2PolicySubjectAttribute, err error) {
 	_model = &V2PolicySubjectAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: core.StringPtr(value),
+		Value:    core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3421,7 +3486,7 @@ type CustomRole struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 
-	// The actions of the role. Please refer to [IAM roles and
+	// The actions of the role. For more information, see [IAM roles and
 	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
@@ -3555,7 +3620,7 @@ type Policy struct {
 // Constants associated with the Policy.State property.
 // The policy state.
 const (
-	PolicyStateActiveConst = "active"
+	PolicyStateActiveConst  = "active"
 	PolicyStateDeletedConst = "deleted"
 )
 
@@ -3687,7 +3752,7 @@ type ResourceAttribute struct {
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (_model *ResourceAttribute, err error) {
 	_model = &ResourceAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3728,7 +3793,7 @@ type ResourceTag struct {
 // NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (_model *ResourceTag, err error) {
 	_model = &ResourceTag{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3762,7 +3827,7 @@ type Role struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 
-	// The actions of the role. Please refer to [IAM roles and
+	// The actions of the role. For more information, see [IAM roles and
 	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
@@ -3775,7 +3840,7 @@ type Role struct {
 func (*IamPolicyManagementV1) NewRole(displayName string, actions []string) (_model *Role, err error) {
 	_model = &Role{
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
+		Actions:     actions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3847,7 +3912,7 @@ type SubjectAttribute struct {
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (_model *SubjectAttribute, err error) {
 	_model = &SubjectAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3873,7 +3938,7 @@ func UnmarshalSubjectAttribute(m map[string]json.RawMessage, result interface{})
 // This model "extends" ControlResponse
 type ControlResponseControl struct {
 	// Permission granted by the policy.
-	Grant *V2PolicyGrant `json:"grant" validate:"required"`
+	Grant *Grant `json:"grant" validate:"required"`
 }
 
 func (*ControlResponseControl) isaControlResponse() bool {
@@ -3883,7 +3948,7 @@ func (*ControlResponseControl) isaControlResponse() bool {
 // UnmarshalControlResponseControl unmarshals an instance of ControlResponseControl from the specified map of raw messages.
 func UnmarshalControlResponseControl(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ControlResponseControl)
-	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalV2PolicyGrant)
+	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
 		return
 	}
@@ -3891,21 +3956,21 @@ func UnmarshalControlResponseControl(m map[string]json.RawMessage, result interf
 	return
 }
 
-// ControlResponseControlWithTranslatedRoles : Specifies the type of access granted by the policy with additional role information.
+// ControlResponseControlWithEnrichedRoles : Specifies the type of access granted by the policy with additional role information.
 // This model "extends" ControlResponse
-type ControlResponseControlWithTranslatedRoles struct {
+type ControlResponseControlWithEnrichedRoles struct {
 	// Permission granted by the policy with translated roles and additional role information.
-	Grant *GrantWithTranslatedRoles `json:"grant" validate:"required"`
+	Grant *GrantWithEnrichedRoles `json:"grant" validate:"required"`
 }
 
-func (*ControlResponseControlWithTranslatedRoles) isaControlResponse() bool {
+func (*ControlResponseControlWithEnrichedRoles) isaControlResponse() bool {
 	return true
 }
 
-// UnmarshalControlResponseControlWithTranslatedRoles unmarshals an instance of ControlResponseControlWithTranslatedRoles from the specified map of raw messages.
-func UnmarshalControlResponseControlWithTranslatedRoles(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ControlResponseControlWithTranslatedRoles)
-	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrantWithTranslatedRoles)
+// UnmarshalControlResponseControlWithEnrichedRoles unmarshals an instance of ControlResponseControlWithEnrichedRoles from the specified map of raw messages.
+func UnmarshalControlResponseControlWithEnrichedRoles(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ControlResponseControlWithEnrichedRoles)
+	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrantWithEnrichedRoles)
 	if err != nil {
 		return
 	}
@@ -3922,7 +3987,7 @@ type V2PolicyRuleRuleAttribute struct {
 	// The operator of an attribute.
 	Operator *string `json:"operator" validate:"required"`
 
-	// The value of an rule or resource attribute; can be boolean or string for resource attribute. Can be a string or an
+	// The value of a rule or resource attribute; can be boolean or string for resource attribute. Can be string or an
 	// array of strings (e.g., array of days to permit access) for rule attribute.
 	Value interface{} `json:"value" validate:"required"`
 }
@@ -3930,24 +3995,24 @@ type V2PolicyRuleRuleAttribute struct {
 // Constants associated with the V2PolicyRuleRuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanConst = "timeLessThan"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanConst                = "timeLessThan"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
 
 // NewV2PolicyRuleRuleAttribute : Instantiate V2PolicyRuleRuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleAttribute(key string, operator string, value interface{}) (_model *V2PolicyRuleRuleAttribute, err error) {
 	_model = &V2PolicyRuleRuleAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3979,25 +4044,25 @@ func UnmarshalV2PolicyRuleRuleAttribute(m map[string]json.RawMessage, result int
 // V2PolicyRuleRuleWithConditions : Rule that specifies additional access granted (e.g., time-based condition) accross multiple conditions.
 // This model "extends" V2PolicyRule
 type V2PolicyRuleRuleWithConditions struct {
-	// Operator to evalute conditions.
+	// Operator to evaluate conditions.
 	Operator *string `json:"operator" validate:"required"`
 
-	// List of conditions associated with a policy, e.g., time-based-conditions that grant access over a certain time
+	// List of conditions associated with a policy, e.g., time-based conditions that grant access over a certain time
 	// period.
 	Conditions []RuleAttribute `json:"conditions" validate:"required"`
 }
 
 // Constants associated with the V2PolicyRuleRuleWithConditions.Operator property.
-// Operator to evalute conditions.
+// Operator to evaluate conditions.
 const (
 	V2PolicyRuleRuleWithConditionsOperatorAndConst = "and"
-	V2PolicyRuleRuleWithConditionsOperatorOrConst = "or"
+	V2PolicyRuleRuleWithConditionsOperatorOrConst  = "or"
 )
 
 // NewV2PolicyRuleRuleWithConditions : Instantiate V2PolicyRuleRuleWithConditions (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleWithConditions(operator string, conditions []RuleAttribute) (_model *V2PolicyRuleRuleWithConditions, err error) {
 	_model = &V2PolicyRuleRuleWithConditions{
-		Operator: core.StringPtr(operator),
+		Operator:   core.StringPtr(operator),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")

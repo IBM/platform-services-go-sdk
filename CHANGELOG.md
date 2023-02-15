@@ -1,3 +1,10 @@
+## [0.31.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.4...v0.31.5) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Add format query parameter to GET by ID ([#233](https://github.com/IBM/platform-services-go-sdk/issues/233)) ([216a92c](https://github.com/IBM/platform-services-go-sdk/commit/216a92c530662e45448c7cc153f69a3b2e6c00ea))
+
 ## [0.31.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.3...v0.31.4) (2023-01-25)
 
 
