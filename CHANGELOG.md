@@ -1,3 +1,10 @@
+## [0.31.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.5...v0.31.6) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen with latest API definition ([#232](https://github.com/IBM/platform-services-go-sdk/issues/232)) ([922f9ad](https://github.com/IBM/platform-services-go-sdk/commit/922f9ad7b7d80016173293c5830b87374c9b93ef))
+
 ## [0.31.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.4...v0.31.5) (2023-02-15)
 
 
