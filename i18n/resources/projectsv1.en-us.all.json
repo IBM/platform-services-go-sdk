@@ -1,0 +1,506 @@
+[
+  {
+    "id": "project-short-description",
+    "translation": "Manage Projects API Specification."
+  },
+  {
+    "id": "project-long-description",
+    "translation": "This document is the **REST API specification** for the Projects Service. The Projects service provides the capability to manage infrastructure as code in IBM Cloud.\n."
+  },
+  {
+    "id": "project-bad-url-error-message",
+    "translation": "Invalid URL: Set the base URL with the PROJECTS_URL environment variable or key in a credentials file."
+  },
+  {
+    "id": "quiet-global-flag-description",
+    "translation": "Suppresses verbose messages."
+  },
+  {
+    "id": "force-flag-description",
+    "translation": "Force the command to execute."
+  },
+  {
+    "id": "project-list-command-short-description",
+    "translation": "List Projects."
+  },
+  {
+    "id": "project-list-command-long-description",
+    "translation": "List existing Projects. Projects are sorted by id."
+  },
+  {
+    "id": "project-list-start-flag-description",
+    "translation": "Page token query parameter that is used to determine what resource to start the page after. If not specified, the logical first page is returned."
+  },
+  {
+    "id": "project-list-limit-flag-description",
+    "translation": "Determine the maximum number of resources to return. The number of resources returned is the same, with exception of the last page."
+  },
+  {
+    "id": "project-list-complete-flag-description",
+    "translation": "The flag to tell if full metadata should be returned."
+  },
+  {
+    "id": "project-list-all-pages-flag-description",
+    "translation": "Invoke multiple requests to display all pages of the collection for list."
+  },
+  {
+    "id": "project-get-command-short-description",
+    "translation": "Get project by id."
+  },
+  {
+    "id": "project-get-command-long-description",
+    "translation": "Get a project definition document by id."
+  },
+  {
+    "id": "project-get-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-get-exclude-configs-flag-description",
+    "translation": "Only return with the active configs, no drafts."
+  },
+  {
+    "id": "project-get-complete-flag-description",
+    "translation": "The flag to tell if full metadata should be returned."
+  },
+  {
+    "id": "project-delete-command-short-description",
+    "translation": "Delete a project by id."
+  },
+  {
+    "id": "project-delete-command-long-description",
+    "translation": "Delete a project document. A project can only be deleted after deleting all its artifacts."
+  },
+  {
+    "id": "project-delete-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-configs-command-short-description",
+    "translation": "List all project configs."
+  },
+  {
+    "id": "project-configs-command-long-description",
+    "translation": "Returns all project configs for a given project."
+  },
+  {
+    "id": "project-configs-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-configs-version-flag-description",
+    "translation": "The version of configs to return."
+  },
+  {
+    "id": "project-configs-complete-flag-description",
+    "translation": "The flag to tell if full metadata should be returned."
+  },
+  {
+    "id": "project-config-operation-command-short-description",
+    "translation": "Get a project config."
+  },
+  {
+    "id": "project-config-operation-command-long-description",
+    "translation": "Returns the specified project config in a given project."
+  },
+  {
+    "id": "project-config-operation-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-config-operation-config-id-flag-description",
+    "translation": "The id of the config, which uniquely identifies it."
+  },
+  {
+    "id": "project-config-operation-version-flag-description",
+    "translation": "The version of the config to return."
+  },
+  {
+    "id": "project-config-operation-complete-flag-description",
+    "translation": "The flag to tell if full metadata should be returned."
+  },
+  {
+    "id": "project-delete_config-command-short-description",
+    "translation": "Delete a config in a project by id."
+  },
+  {
+    "id": "project-delete_config-command-long-description",
+    "translation": "Delete a config in a project. Deleting the config will also destroy all the resources deployed by the config."
+  },
+  {
+    "id": "project-delete_config-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-delete_config-config-id-flag-description",
+    "translation": "The id of the config, which uniquely identifies it."
+  },
+  {
+    "id": "project-config-diff-command-short-description",
+    "translation": "Get a diff summary of a project config."
+  },
+  {
+    "id": "project-config-diff-command-long-description",
+    "translation": "Returns a diff summary of the specified project config between its current draft and active version of a given project."
+  },
+  {
+    "id": "project-config-diff-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-config-diff-config-id-flag-description",
+    "translation": "The id of the config, which uniquely identifies it."
+  },
+  {
+    "id": "project-install-command-short-description",
+    "translation": "Install a Config."
+  },
+  {
+    "id": "project-install-command-long-description",
+    "translation": "Install a project's configuration. It is an asynchronous operation that can be tracked using the project status api."
+  },
+  {
+    "id": "project-install-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-install-config-id-flag-description",
+    "translation": "The id of the config to install."
+  },
+  {
+    "id": "project-uninstall-command-short-description",
+    "translation": "Uninstall a Config."
+  },
+  {
+    "id": "project-uninstall-command-long-description",
+    "translation": "Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration. You can track it by using the project status api."
+  },
+  {
+    "id": "project-uninstall-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-uninstall-config-id-flag-description",
+    "translation": "The id of the config to uninstall."
+  },
+  {
+    "id": "project-get_schematics_job-command-short-description",
+    "translation": "Fetch and find the latest schematics job corresponds to a given config action."
+  },
+  {
+    "id": "project-get_schematics_job-command-long-description",
+    "translation": "Fetch and find the latest schematics job corresponds to a plan, install or uninstall action."
+  },
+  {
+    "id": "project-get_schematics_job-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-get_schematics_job-config-id-flag-description",
+    "translation": "The id of the config that triggered the action."
+  },
+  {
+    "id": "project-get_schematics_job-action-flag-description",
+    "translation": "The triggered action."
+  },
+  {
+    "id": "project-get_schematics_job-since-flag-description",
+    "translation": "The timestamp of when the action was triggered."
+  },
+  {
+    "id": "project-get_cost_estimate-command-short-description",
+    "translation": "Fetch the cost estimate for a given configuraton."
+  },
+  {
+    "id": "project-get_cost_estimate-command-long-description",
+    "translation": "Fetch the cost estimate for a given configuraton."
+  },
+  {
+    "id": "project-get_cost_estimate-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-get_cost_estimate-config-id-flag-description",
+    "translation": "The id of the config of the cost estimate to fetch."
+  },
+  {
+    "id": "project-get_cost_estimate-version-flag-description",
+    "translation": "The version of the config that the cost estimate will be fetched."
+  },
+  {
+    "id": "project-post-notification-command-short-description",
+    "translation": "Add some notifications."
+  },
+  {
+    "id": "project-post-notification-command-long-description",
+    "translation": "Creates a notification event to be stored on the project definition."
+  },
+  {
+    "id": "project-post-notification-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-post-notification-notifications-flag-description",
+    "translation": ""
+  },
+  {
+    "id": "project-health-command-short-description",
+    "translation": "Get service health information."
+  },
+  {
+    "id": "project-health-command-long-description",
+    "translation": "Get service health information."
+  },
+  {
+    "id": "project-health-info-flag-description",
+    "translation": "Set this parameter if you want to get the version information in the output response."
+  },
+  {
+    "id": "project-post-event-notifications-integration-command-short-description",
+    "translation": "connect to a event notifications instance."
+  },
+  {
+    "id": "project-post-event-notifications-integration-command-long-description",
+    "translation": "connects a project instance to an event notifications instance."
+  },
+  {
+    "id": "project-post-event-notifications-integration-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-post-event-notifications-integration-instance-crn-flag-description",
+    "translation": ""
+  },
+  {
+    "id": "project-post-event-notifications-integration-description-flag-description",
+    "translation": "description of the instance of event."
+  },
+  {
+    "id": "project-post-event-notifications-integration-name-flag-description",
+    "translation": "name of the instance of event."
+  },
+  {
+    "id": "project-post-event-notifications-integration-enabled-flag-description",
+    "translation": "status of instance of event."
+  },
+  {
+    "id": "project-post-event-notifications-integration-source-flag-description",
+    "translation": "source of instance of event."
+  },
+  {
+    "id": "project-post-event-notification-command-short-description",
+    "translation": "send notification to event notifications instance."
+  },
+  {
+    "id": "project-post-event-notification-command-long-description",
+    "translation": "sends notification to event notifications instance."
+  },
+  {
+    "id": "project-post-event-notification-id-flag-description",
+    "translation": "The id of the project, which uniquely identifies it."
+  },
+  {
+    "id": "project-post-event-notification-new-id-flag-description",
+    "translation": ""
+  },
+  {
+    "id": "project-post-event-notification-new-source-flag-description",
+    "translation": "source of instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-datacontenttype-flag-description",
+    "translation": "data content type of the instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-ibmendefaultlong-flag-description",
+    "translation": "ibm default long message of the instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-ibmendefaultshort-flag-description",
+    "translation": "ibm default short message of the instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-ibmensourceid-flag-description",
+    "translation": "ibm source id of the instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-specversion-flag-description",
+    "translation": "spec version of instance of event."
+  },
+  {
+    "id": "project-post-event-notification-new-type-flag-description",
+    "translation": "type of instance of event."
+  },
+  {
+    "id": "final-usage-line-help-menu",
+    "translation": "Use \"ibmcloud {{.COMMAND_PATH}} service-command --help\" for more information about a command."
+  },
+  {
+    "id": "show-help",
+    "translation": "Show help"
+  },
+  {
+    "id": "name-header-help-menu",
+    "translation": "NAME"
+  },
+  {
+    "id": "usage-header-help-menu",
+    "translation": "USAGE"
+  },
+  {
+    "id": "aliases-header-help-menu",
+    "translation": "ALIASES"
+  },
+  {
+    "id": "examples-header-help-menu",
+    "translation": "EXAMPLE"
+  },
+  {
+    "id": "commands-header-help-menu",
+    "translation": "COMMANDS"
+  },
+  {
+    "id": "options-header-help-menu",
+    "translation": "OPTIONS"
+  },
+  {
+    "id": "global-options-header-help-menu",
+    "translation": "GLOBAL OPTIONS"
+  },
+  {
+    "id": "additional-help-topics-header-help-menu",
+    "translation": "ADDITIONAL HELP TOPICS"
+  },
+  {
+    "id": "unregistered-command",
+    "translation": "'{{.COMMAND}}' is not a registered command. See 'ibmcloud {{.NAMESPACE}} help'."
+  },
+  {
+    "id": "suggestions",
+    "translation": "Similar commands:\n\t{{.SUGGESTIONS}}\n"
+  },
+  {
+    "id": "root-command-error",
+    "translation": "Error executing command"
+  },
+  {
+    "id": "missing-required-flags-error",
+    "translation": "required flag(s) {{.FLAGS}} not set"
+  },
+  {
+    "id": "missing-flags-argument-error",
+    "translation": "flag needs an argument: {{.FLAG}}"
+  },
+  {
+    "id": "unknown-shorthand-flag-error",
+    "translation": "unknown shorthand flag: {{.UNKNOWN_SHORTHAND}} in {{.GIVEN_SHORTHANDS}}"
+  },
+  {
+    "id": "unknown-flag-error",
+    "translation": "unknown flag: {{.FLAG}}"
+  },
+  {
+    "id": "response-processing-error",
+    "translation": "Error processing the response received, most likely an error response"
+  },
+  {
+    "id": "file-response-error",
+    "translation": "Error writing response to file '{{.FILENAME}}'"
+  },
+  {
+    "id": "output-file-confirmation",
+    "translation": "Output written to {{.FILENAME}}"
+  },
+  {
+    "id": "jmespath-compile-error",
+    "translation": "Error compiling the JmesPath query"
+  },
+  {
+    "id": "jmespath-application-error",
+    "translation": "Error applying the JmesPath query to the result"
+  },
+  {
+    "id": "yaml-conversion-error",
+    "translation": "Error converting the result to YAML"
+  },
+  {
+    "id": "no-data-for-table",
+    "translation": "Nothing to show."
+  },
+  {
+    "id": "file-conversion-error",
+    "translation": "interface conversion: file argument is not io.ReadCloser"
+  },
+  {
+    "id": "file-reading-error",
+    "translation": "Error reading file '{{.FILENAME}}'"
+  },
+  {
+    "id": "json-conversion-error",
+    "translation": "Error converting response object to JSON"
+  },
+  {
+    "id": "no-service-response-error",
+    "translation": "No information was returned from the service."
+  },
+  {
+    "id": "no-credentials",
+    "translation": "No credentials provided."
+  },
+  {
+    "id": "output-file-flag-description",
+    "translation": "Filename/path to write the resulting output to."
+  },
+  {
+    "id": "output-file-flag-prompt-message",
+    "translation": "Filename/path to write the resulting output to."
+  },
+  {
+    "id": "internal-error",
+    "translation": "Internal error."
+  },
+  {
+    "id": "command-help-error",
+    "translation": "Error printing command help information."
+  },
+  {
+    "id": "output-global-flag-description",
+    "translation": "Choose an output format - can be 'json', 'yaml', or 'table'."
+  },
+  {
+    "id": "jmes-query-global-flag-description",
+    "translation": "Provide a JMESPath query to customize output."
+  },
+  {
+    "id": "credentials-error",
+    "translation": "Could not authenticate the plugin.\nYou must either log in with 'ibmcloud login', export credentials as environment variables, or store them in a credentials file.\nFor more information, see https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md#define-configuration-properties.\nError"
+  },
+  {
+    "id": "config-error",
+    "translation": "Could not configure the plugin"
+  },
+  {
+    "id": "parsing-error",
+    "translation": "Error parsing flag '{{.FLAG_NAME}}' as '{{.TYPE}}'"
+  },
+  {
+    "id": "file-opening-error",
+    "translation": "Error opening file '{{.FILENAME}}'"
+  },
+  {
+    "id": "log-file-creation-error",
+    "translation": "An error occurred when creating log file '{{.PATH}}':\n{{.ERROR}}\n\n"
+  },
+  {
+    "id": "confirm-delete",
+    "translation": "Are you sure you want to delete?"
+  },
+  {
+    "id": "confirmation-error",
+    "translation": "Could not resolve confirmation."
+  },
+  {
+    "id": "prompt-failed",
+    "translation": "Could not resolve the value."
+  }
+]
