@@ -198,31 +198,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -279,7 +275,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -299,31 +295,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -383,7 +375,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -408,31 +400,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -460,31 +448,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -533,31 +517,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -958,7 +938,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -1016,7 +996,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -1678,32 +1658,28 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
@@ -1756,7 +1732,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully with retries`, func() {
@@ -1776,32 +1752,28 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1857,7 +1829,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "definition": {"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": {"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}, "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State"}}}`)
 				}))
 			})
 			It(`Invoke MergeProject successfully`, func() {
@@ -1882,32 +1854,28 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1933,32 +1901,28 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2005,32 +1969,28 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the MergeProjectOptions model
 				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
 				mergeProjectOptionsModel.ID = core.StringPtr("testString")
 				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2097,31 +2057,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
 				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2145,31 +2101,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
 				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2221,31 +2173,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
@@ -2325,31 +2273,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
@@ -2437,31 +2381,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
@@ -2494,31 +2434,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
@@ -2572,31 +2508,27 @@ var _ = Describe(`ProjectsV1`, func() {
 				inputVariableModel.Value = core.StringPtr("testString")
 				inputVariableModel.Default = core.StringPtr("testString")
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 
 				// Construct an instance of the ConfigChangesOptions model
 				configChangesOptionsModel := new(projectsv1.ConfigChangesOptions)
@@ -2642,17 +2574,30 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("env-stage")
-				projectConfigInputModel.Labels = []string{"env:stage", "governance:test", "build:0"}
-				projectConfigInputModel.Description = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectsv1.CreateConfigOptions)
 				createConfigOptionsModel.ID = core.StringPtr("testString")
-				createConfigOptionsModel.ProjectConfig = projectConfigInputModel
+				createConfigOptionsModel.NewName = core.StringPtr("env-stage")
+				createConfigOptionsModel.NewLocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.NewID = core.StringPtr("testString")
+				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
+				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.NewType = core.StringPtr("terraform_template")
+				createConfigOptionsModel.NewInput = []projectsv1.InputVariable{*inputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.CreateConfig(createConfigOptionsModel)
@@ -2705,7 +2650,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke CreateConfig successfully with retries`, func() {
@@ -2717,17 +2662,30 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("env-stage")
-				projectConfigInputModel.Labels = []string{"env:stage", "governance:test", "build:0"}
-				projectConfigInputModel.Description = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectsv1.CreateConfigOptions)
 				createConfigOptionsModel.ID = core.StringPtr("testString")
-				createConfigOptionsModel.ProjectConfig = projectConfigInputModel
+				createConfigOptionsModel.NewName = core.StringPtr("env-stage")
+				createConfigOptionsModel.NewLocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.NewID = core.StringPtr("testString")
+				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
+				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.NewType = core.StringPtr("terraform_template")
+				createConfigOptionsModel.NewInput = []projectsv1.InputVariable{*inputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2783,7 +2741,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke CreateConfig successfully`, func() {
@@ -2800,17 +2758,30 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("env-stage")
-				projectConfigInputModel.Labels = []string{"env:stage", "governance:test", "build:0"}
-				projectConfigInputModel.Description = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectsv1.CreateConfigOptions)
 				createConfigOptionsModel.ID = core.StringPtr("testString")
-				createConfigOptionsModel.ProjectConfig = projectConfigInputModel
+				createConfigOptionsModel.NewName = core.StringPtr("env-stage")
+				createConfigOptionsModel.NewLocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.NewID = core.StringPtr("testString")
+				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
+				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.NewType = core.StringPtr("terraform_template")
+				createConfigOptionsModel.NewInput = []projectsv1.InputVariable{*inputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2828,17 +2799,30 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("env-stage")
-				projectConfigInputModel.Labels = []string{"env:stage", "governance:test", "build:0"}
-				projectConfigInputModel.Description = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectsv1.CreateConfigOptions)
 				createConfigOptionsModel.ID = core.StringPtr("testString")
-				createConfigOptionsModel.ProjectConfig = projectConfigInputModel
+				createConfigOptionsModel.NewName = core.StringPtr("env-stage")
+				createConfigOptionsModel.NewLocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.NewID = core.StringPtr("testString")
+				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
+				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.NewType = core.StringPtr("terraform_template")
+				createConfigOptionsModel.NewInput = []projectsv1.InputVariable{*inputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2877,17 +2861,30 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("env-stage")
-				projectConfigInputModel.Labels = []string{"env:stage", "governance:test", "build:0"}
-				projectConfigInputModel.Description = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectsv1.CreateConfigOptions)
 				createConfigOptionsModel.ID = core.StringPtr("testString")
-				createConfigOptionsModel.ProjectConfig = projectConfigInputModel
+				createConfigOptionsModel.NewName = core.StringPtr("env-stage")
+				createConfigOptionsModel.NewLocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.NewID = core.StringPtr("testString")
+				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
+				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.NewType = core.StringPtr("terraform_template")
+				createConfigOptionsModel.NewInput = []projectsv1.InputVariable{*inputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2971,7 +2968,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]`)
+					fmt.Fprintf(res, "%s", `[{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]`)
 				}))
 			})
 			It(`Invoke ListConfigs successfully with retries`, func() {
@@ -3029,7 +3026,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `[{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}]`)
+					fmt.Fprintf(res, "%s", `[{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]`)
 				}))
 			})
 			It(`Invoke ListConfigs successfully`, func() {
@@ -3200,7 +3197,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke GetConfig successfully with retries`, func() {
@@ -3259,7 +3256,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke GetConfig successfully`, func() {
@@ -3451,7 +3448,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke UpdateConfig successfully with retries`, func() {
@@ -3530,7 +3527,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true, "value": "anyValue", "default": "anyValue"}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
 			It(`Invoke UpdateConfig successfully`, func() {
@@ -6800,49 +6797,43 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				Expect(schematicsTemplatePropertySettingItemModel).ToNot(BeNil())
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
+				Expect(schematicsTemplatePropertySettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(schematicsTemplatePropertySettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				Expect(configSettingItemModel).ToNot(BeNil())
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
 				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
-				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
+				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
 				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
-				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}))
 
 				// Construct an instance of the ProjectInput model
 				projectInputModel := new(projectsv1.ProjectInput)
 				Expect(projectInputModel).ToNot(BeNil())
 				projectInputModel.Name = core.StringPtr("acme-microservice")
 				projectInputModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				projectInputModel.Configs = []projectsv1.ProjectConfigInputIntf{projectConfigInputModel}
+				projectInputModel.Configs = []projectsv1.ProjectConfigInput{*projectConfigInputModel}
 				Expect(projectInputModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(projectInputModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(projectInputModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
+				Expect(projectInputModel.Configs).To(Equal([]projectsv1.ProjectConfigInput{*projectConfigInputModel}))
 
 				// Construct an instance of the ConfigChangesOptions model
 				id := "234234324-3444-4556-224232432"
@@ -6860,36 +6851,54 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(configChangesOptionsModel.Target).To(Equal(projectInputModel))
 				Expect(configChangesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewConfigSettingItem successfully`, func() {
-				name := "testString"
-				value := "testString"
-				_model, err := projectsService.NewConfigSettingItem(name, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewCreateConfigOptions successfully`, func() {
-				// Construct an instance of the ProjectConfigInputProjectConfigCommon model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProjectConfigCommon)
-				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("testString")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				Expect(inputVariableModel).ToNot(BeNil())
+				inputVariableModel.Name = core.StringPtr("account_id")
+				inputVariableModel.Type = core.StringPtr("string")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr(`$configs[].name["account-stage"].input.account_id`)
+				inputVariableModel.Default = core.StringPtr("testString")
+				Expect(inputVariableModel.Name).To(Equal(core.StringPtr("account_id")))
+				Expect(inputVariableModel.Type).To(Equal(core.StringPtr("string")))
+				Expect(inputVariableModel.Required).To(Equal(core.BoolPtr(true)))
+				Expect(inputVariableModel.Value).To(Equal(core.StringPtr(`$configs[].name["account-stage"].input.account_id`)))
+				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				Expect(schematicsTemplatePropertySettingItemModel).ToNot(BeNil())
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				Expect(schematicsTemplatePropertySettingItemModel.Name).To(Equal(core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")))
+				Expect(schematicsTemplatePropertySettingItemModel.Value).To(Equal(core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")))
 
 				// Construct an instance of the CreateConfigOptions model
 				id := "testString"
-				var projectConfig projectsv1.ProjectConfigInputIntf = nil
-				createConfigOptionsModel := projectsService.NewCreateConfigOptions(id, projectConfig)
+				createConfigOptionsNewName := "env-stage"
+				createConfigOptionsNewLocatorID := "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global"
+				createConfigOptionsModel := projectsService.NewCreateConfigOptions(id, createConfigOptionsNewName, createConfigOptionsNewLocatorID)
 				createConfigOptionsModel.SetID("testString")
-				createConfigOptionsModel.SetProjectConfig(projectConfigInputModel)
+				createConfigOptionsModel.SetNewName("env-stage")
+				createConfigOptionsModel.SetNewLocatorID("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				createConfigOptionsModel.SetNewID("testString")
+				createConfigOptionsModel.SetNewLabels([]string{"env:stage", "governance:test", "build:0"})
+				createConfigOptionsModel.SetNewDescription("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")
+				createConfigOptionsModel.SetNewType("terraform_template")
+				createConfigOptionsModel.SetNewInput([]projectsv1.InputVariable{*inputVariableModel})
+				createConfigOptionsModel.SetNewSetting([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel})
 				createConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigOptionsModel).ToNot(BeNil())
 				Expect(createConfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(createConfigOptionsModel.ProjectConfig).To(Equal(projectConfigInputModel))
+				Expect(createConfigOptionsModel.NewName).To(Equal(core.StringPtr("env-stage")))
+				Expect(createConfigOptionsModel.NewLocatorID).To(Equal(core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")))
+				Expect(createConfigOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
+				Expect(createConfigOptionsModel.NewLabels).To(Equal([]string{"env:stage", "governance:test", "build:0"}))
+				Expect(createConfigOptionsModel.NewDescription).To(Equal(core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of config that points to a github repo hosting the terraform modules that can be deployed via Schematics Workspace.\n")))
+				Expect(createConfigOptionsModel.NewType).To(Equal(core.StringPtr("terraform_template")))
+				Expect(createConfigOptionsModel.NewInput).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
+				Expect(createConfigOptionsModel.NewSetting).To(Equal([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}))
 				Expect(createConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
@@ -6907,53 +6916,47 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				Expect(schematicsTemplatePropertySettingItemModel).ToNot(BeNil())
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
+				Expect(schematicsTemplatePropertySettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(schematicsTemplatePropertySettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				Expect(configSettingItemModel).ToNot(BeNil())
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
 				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
-				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
+				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
 				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
-				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}))
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsName := "acme-microservice"
 				createProjectOptionsModel := projectsService.NewCreateProjectOptions(createProjectOptionsName)
 				createProjectOptionsModel.SetName("acme-microservice")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
+				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInput{*projectConfigInputModel})
 				createProjectOptionsModel.SetResourceGroup("Default")
 				createProjectOptionsModel.SetLocation("us-south")
 				createProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
+				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInput{*projectConfigInputModel}))
 				Expect(createProjectOptionsModel.ResourceGroup).To(Equal(core.StringPtr("Default")))
 				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -7214,39 +7217,33 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				Expect(schematicsTemplatePropertySettingItemModel).ToNot(BeNil())
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
+				Expect(schematicsTemplatePropertySettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(schematicsTemplatePropertySettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				Expect(configSettingItemModel).ToNot(BeNil())
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
 				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
-				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
+				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
 				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
-				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}))
 
 				// Construct an instance of the MergeProjectOptions model
 				id := "testString"
@@ -7255,25 +7252,19 @@ var _ = Describe(`ProjectsV1`, func() {
 				mergeProjectOptionsModel.SetID("testString")
 				mergeProjectOptionsModel.SetName("acme-microservice")
 				mergeProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				mergeProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
+				mergeProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInput{*projectConfigInputModel})
 				mergeProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(mergeProjectOptionsModel).ToNot(BeNil())
 				Expect(mergeProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(mergeProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(mergeProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(mergeProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
+				Expect(mergeProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInput{*projectConfigInputModel}))
 				Expect(mergeProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewNotificationEvent successfully`, func() {
 				event := "testString"
 				target := "testString"
 				_model, err := projectsService.NewNotificationEvent(event, target)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewOutputValue successfully`, func() {
-				name := "testString"
-				_model, err := projectsService.NewOutputValue(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -7322,17 +7313,36 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(postNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewProjectConfigPatch successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectsv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+				inputVariableModel.Value = core.StringPtr("testString")
+				inputVariableModel.Default = core.StringPtr("testString")
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("testString")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"testString"}
+
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
+
 				// Construct an instance of the ProjectConfig model
 				projectConfig := new(projectsv1.ProjectConfig)
 				projectConfig.ID = core.StringPtr("testString")
 				projectConfig.Name = core.StringPtr("testString")
 				projectConfig.Labels = []string{"testString"}
 				projectConfig.Description = core.StringPtr("testString")
-				projectConfig.Type = core.StringPtr("testString")
-				projectConfig.ExternalResourcesAccount = core.StringPtr("testString")
 				projectConfig.LocatorID = core.StringPtr("testString")
+				projectConfig.Type = core.StringPtr("terraform_template")
 				projectConfig.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfig.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
+				projectConfig.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfig.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
 
 				projectConfigPatch := projectsService.NewProjectConfigPatch(projectConfig)
 				Expect(projectConfigPatch).ToNot(BeNil())
@@ -7365,29 +7375,29 @@ var _ = Describe(`ProjectsV1`, func() {
 					"From": BeNil(),
 					"Value": Equal(projectConfig.Description),
 					}),
-				"/type": MatchAllFields(Fields{
-					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
-					"Path": PointTo(Equal("/type")),
-					"From": BeNil(),
-					"Value": Equal(projectConfig.Type),
-					}),
-				"/external_resources_account": MatchAllFields(Fields{
-					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
-					"Path": PointTo(Equal("/external_resources_account")),
-					"From": BeNil(),
-					"Value": Equal(projectConfig.ExternalResourcesAccount),
-					}),
 				"/locator_id": MatchAllFields(Fields{
 					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
 					"Path": PointTo(Equal("/locator_id")),
 					"From": BeNil(),
 					"Value": Equal(projectConfig.LocatorID),
 					}),
+				"/type": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/type")),
+					"From": BeNil(),
+					"Value": Equal(projectConfig.Type),
+					}),
 				"/input": MatchAllFields(Fields{
 					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
 					"Path": PointTo(Equal("/input")),
 					"From": BeNil(),
 					"Value": Equal(projectConfig.Input),
+					}),
+				"/output": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/output")),
+					"From": BeNil(),
+					"Value": Equal(projectConfig.Output),
 					}),
 				"/setting": MatchAllFields(Fields{
 					"Op": PointTo(Equal(projectsv1.JSONPatchOperation_Op_Add)),
@@ -7396,6 +7406,13 @@ var _ = Describe(`ProjectsV1`, func() {
 					"Value": Equal(projectConfig.Setting),
 					}),
 				}))
+			})
+			It(`Invoke NewProjectConfigInput successfully`, func() {
+				name := "testString"
+				locatorID := "testString"
+				_model, err := projectsService.NewProjectConfigInput(name, locatorID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewProjectInput successfully`, func() {
 				name := "testString"
@@ -7562,6 +7579,13 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(replaceServiceInstanceStateOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1.0")))
 				Expect(replaceServiceInstanceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewSchematicsTemplatePropertySettingItem successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := projectsService.NewSchematicsTemplatePropertySettingItem(name, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewUninstallConfigOptions successfully`, func() {
 				// Construct an instance of the UninstallConfigOptions model
 				id := "testString"
@@ -7687,64 +7711,46 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(inputVariableModel.Value).To(Equal(core.StringPtr("testString")))
 				Expect(inputVariableModel.Default).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the OutputValue model
-				outputValueModel := new(projectsv1.OutputValue)
-				Expect(outputValueModel).ToNot(BeNil())
-				outputValueModel.Name = core.StringPtr("tags")
-				outputValueModel.Description = core.StringPtr("testString")
-				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
-				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
-				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+				// Construct an instance of the SchematicsTemplatePropertySettingItem model
+				schematicsTemplatePropertySettingItemModel := new(projectsv1.SchematicsTemplatePropertySettingItem)
+				Expect(schematicsTemplatePropertySettingItemModel).ToNot(BeNil())
+				schematicsTemplatePropertySettingItemModel.Name = core.StringPtr("testString")
+				schematicsTemplatePropertySettingItemModel.Value = core.StringPtr("testString")
+				Expect(schematicsTemplatePropertySettingItemModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(schematicsTemplatePropertySettingItemModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ConfigSettingItem model
-				configSettingItemModel := new(projectsv1.ConfigSettingItem)
-				Expect(configSettingItemModel).ToNot(BeNil())
-				configSettingItemModel.Name = core.StringPtr("testString")
-				configSettingItemModel.Value = core.StringPtr("testString")
-				Expect(configSettingItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(configSettingItemModel.Value).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ProjectConfigInputProp model
-				projectConfigInputModel := new(projectsv1.ProjectConfigInputProp)
+				// Construct an instance of the ProjectConfigInput model
+				projectConfigInputModel := new(projectsv1.ProjectConfigInput)
 				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.Type = core.StringPtr("manual")
-				projectConfigInputModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				projectConfigInputModel.ID = core.StringPtr("testString")
+				projectConfigInputModel.Name = core.StringPtr("common-variables")
+				projectConfigInputModel.Labels = []string{"testString"}
+				projectConfigInputModel.Description = core.StringPtr("testString")
 				projectConfigInputModel.LocatorID = core.StringPtr("testString")
+				projectConfigInputModel.Type = core.StringPtr("manual")
 				projectConfigInputModel.Input = []projectsv1.InputVariable{*inputVariableModel}
-				projectConfigInputModel.Output = []projectsv1.OutputValue{*outputValueModel}
-				projectConfigInputModel.Setting = []projectsv1.ConfigSettingItem{*configSettingItemModel}
-				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
-				Expect(projectConfigInputModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+				projectConfigInputModel.Setting = []projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}
+				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigInputModel.Type).To(Equal(core.StringPtr("manual")))
 				Expect(projectConfigInputModel.Input).To(Equal([]projectsv1.InputVariable{*inputVariableModel}))
-				Expect(projectConfigInputModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
-				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.ConfigSettingItem{*configSettingItemModel}))
+				Expect(projectConfigInputModel.Setting).To(Equal([]projectsv1.SchematicsTemplatePropertySettingItem{*schematicsTemplatePropertySettingItemModel}))
 
 				// Construct an instance of the ValidateProjectOptions model
 				validateProjectOptionsName := "acme-microservice"
 				validateProjectOptionsModel := projectsService.NewValidateProjectOptions(validateProjectOptionsName)
 				validateProjectOptionsModel.SetName("acme-microservice")
 				validateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				validateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel})
+				validateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigInput{*projectConfigInputModel})
 				validateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(validateProjectOptionsModel).ToNot(BeNil())
 				Expect(validateProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(validateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(validateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInputIntf{projectConfigInputModel}))
+				Expect(validateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigInput{*projectConfigInputModel}))
 				Expect(validateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewProjectConfigInputProp successfully`, func() {
-				locatorID := "testString"
-				_model, err := projectsService.NewProjectConfigInputProp(locatorID)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewProjectConfigInputProjectConfigCommon successfully`, func() {
-				name := "testString"
-				_model, err := projectsService.NewProjectConfigInputProjectConfigCommon(name)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
 			})
 		})
 	})

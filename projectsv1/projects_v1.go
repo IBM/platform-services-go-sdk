@@ -752,12 +752,12 @@ func (projects *ProjectsV1) ConfigChangesWithContext(ctx context.Context, config
 
 // CreateConfig : Add a new config to a project
 // Add a new config to a project.
-func (projects *ProjectsV1) CreateConfig(createConfigOptions *CreateConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateConfig(createConfigOptions *CreateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return projects.CreateConfigWithContext(context.Background(), createConfigOptions)
 }
 
 // CreateConfigWithContext is an alternate form of the CreateConfig method which supports a Context parameter
-func (projects *ProjectsV1) CreateConfigWithContext(ctx context.Context, createConfigOptions *CreateConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateConfigWithContext(ctx context.Context, createConfigOptions *CreateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createConfigOptions, "createConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -790,7 +790,32 @@ func (projects *ProjectsV1) CreateConfigWithContext(ctx context.Context, createC
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	_, err = builder.SetBodyContentJSON(createConfigOptions.ProjectConfig)
+	body := make(map[string]interface{})
+	if createConfigOptions.NewName != nil {
+		body["name"] = createConfigOptions.NewName
+	}
+	if createConfigOptions.NewLocatorID != nil {
+		body["locator_id"] = createConfigOptions.NewLocatorID
+	}
+	if createConfigOptions.NewID != nil {
+		body["id"] = createConfigOptions.NewID
+	}
+	if createConfigOptions.NewLabels != nil {
+		body["labels"] = createConfigOptions.NewLabels
+	}
+	if createConfigOptions.NewDescription != nil {
+		body["description"] = createConfigOptions.NewDescription
+	}
+	if createConfigOptions.NewType != nil {
+		body["type"] = createConfigOptions.NewType
+	}
+	if createConfigOptions.NewInput != nil {
+		body["input"] = createConfigOptions.NewInput
+	}
+	if createConfigOptions.NewSetting != nil {
+		body["setting"] = createConfigOptions.NewSetting
+	}
+	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
 	}
@@ -818,12 +843,12 @@ func (projects *ProjectsV1) CreateConfigWithContext(ctx context.Context, createC
 
 // ListConfigs : List all project configs
 // Returns all project configs for a given project.
-func (projects *ProjectsV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result []ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result []ProjectConfig, response *core.DetailedResponse, err error) {
 	return projects.ListConfigsWithContext(context.Background(), listConfigsOptions)
 }
 
 // ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (projects *ProjectsV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result []ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result []ProjectConfig, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
 	if err != nil {
 		return
@@ -885,12 +910,12 @@ func (projects *ProjectsV1) ListConfigsWithContext(ctx context.Context, listConf
 
 // GetConfig : Get a project config
 // Returns the specified project config in a given project.
-func (projects *ProjectsV1) GetConfig(getConfigOptions *GetConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) GetConfig(getConfigOptions *GetConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return projects.GetConfigWithContext(context.Background(), getConfigOptions)
 }
 
 // GetConfigWithContext is an alternate form of the GetConfig method which supports a Context parameter
-func (projects *ProjectsV1) GetConfigWithContext(ctx context.Context, getConfigOptions *GetConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) GetConfigWithContext(ctx context.Context, getConfigOptions *GetConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getConfigOptions, "getConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -953,12 +978,12 @@ func (projects *ProjectsV1) GetConfigWithContext(ctx context.Context, getConfigO
 
 // UpdateConfig : Update a config in a project by id
 // Update a config in a project.
-func (projects *ProjectsV1) UpdateConfig(updateConfigOptions *UpdateConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateConfig(updateConfigOptions *UpdateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return projects.UpdateConfigWithContext(context.Background(), updateConfigOptions)
 }
 
 // UpdateConfigWithContext is an alternate form of the UpdateConfig method which supports a Context parameter
-func (projects *ProjectsV1) UpdateConfigWithContext(ctx context.Context, updateConfigOptions *UpdateConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateConfigWithContext(ctx context.Context, updateConfigOptions *UpdateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateConfigOptions, "updateConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -2511,55 +2536,46 @@ func UnmarshalConfigJobResponse(m map[string]json.RawMessage, result interface{}
 	return
 }
 
-// ConfigSettingItem : ConfigSettingItem struct
-type ConfigSettingItem struct {
-	Name *string `json:"name" validate:"required"`
-
-	Value *string `json:"value" validate:"required"`
-}
-
-// NewConfigSettingItem : Instantiate ConfigSettingItem (Generic Model Constructor)
-func (*ProjectsV1) NewConfigSettingItem(name string, value string) (_model *ConfigSettingItem, err error) {
-	_model = &ConfigSettingItem{
-		Name: core.StringPtr(name),
-		Value: core.StringPtr(value),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalConfigSettingItem unmarshals an instance of ConfigSettingItem from the specified map of raw messages.
-func UnmarshalConfigSettingItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ConfigSettingItem)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // CreateConfigOptions : The CreateConfig options.
 type CreateConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
-	// The new project definition document.
-	ProjectConfig ProjectConfigInputIntf `json:"project_config" validate:"required"`
+	// The config name.
+	NewName *string `json:"name" validate:"required"`
+
+	NewLocatorID *string `json:"locator_id" validate:"required"`
+
+	NewID *string `json:"id,omitempty"`
+
+	NewLabels []string `json:"labels,omitempty"`
+
+	// A project config description.
+	NewDescription *string `json:"description,omitempty"`
+
+	NewType *string `json:"type,omitempty"`
+
+	NewInput []InputVariable `json:"input,omitempty"`
+
+	// Optional setting object we can pass to the cart api.
+	NewSetting []SchematicsTemplatePropertySettingItem `json:"setting,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
+// Constants associated with the CreateConfigOptions.NewType property.
+const (
+	CreateConfigOptions_NewType_SchematicsBlueprint = "schematics_blueprint"
+	CreateConfigOptions_NewType_TerraformTemplate = "terraform_template"
+)
+
 // NewCreateConfigOptions : Instantiate CreateConfigOptions
-func (*ProjectsV1) NewCreateConfigOptions(id string, projectConfig ProjectConfigInputIntf) *CreateConfigOptions {
+func (*ProjectsV1) NewCreateConfigOptions(id string, newName string, newLocatorID string) *CreateConfigOptions {
 	return &CreateConfigOptions{
 		ID: core.StringPtr(id),
-		ProjectConfig: projectConfig,
+		NewName: core.StringPtr(newName),
+		NewLocatorID: core.StringPtr(newLocatorID),
 	}
 }
 
@@ -2569,9 +2585,51 @@ func (_options *CreateConfigOptions) SetID(id string) *CreateConfigOptions {
 	return _options
 }
 
-// SetProjectConfig : Allow user to set ProjectConfig
-func (_options *CreateConfigOptions) SetProjectConfig(projectConfig ProjectConfigInputIntf) *CreateConfigOptions {
-	_options.ProjectConfig = projectConfig
+// SetNewName : Allow user to set NewName
+func (_options *CreateConfigOptions) SetNewName(newName string) *CreateConfigOptions {
+	_options.NewName = core.StringPtr(newName)
+	return _options
+}
+
+// SetNewLocatorID : Allow user to set NewLocatorID
+func (_options *CreateConfigOptions) SetNewLocatorID(newLocatorID string) *CreateConfigOptions {
+	_options.NewLocatorID = core.StringPtr(newLocatorID)
+	return _options
+}
+
+// SetNewID : Allow user to set NewID
+func (_options *CreateConfigOptions) SetNewID(newID string) *CreateConfigOptions {
+	_options.NewID = core.StringPtr(newID)
+	return _options
+}
+
+// SetNewLabels : Allow user to set NewLabels
+func (_options *CreateConfigOptions) SetNewLabels(newLabels []string) *CreateConfigOptions {
+	_options.NewLabels = newLabels
+	return _options
+}
+
+// SetNewDescription : Allow user to set NewDescription
+func (_options *CreateConfigOptions) SetNewDescription(newDescription string) *CreateConfigOptions {
+	_options.NewDescription = core.StringPtr(newDescription)
+	return _options
+}
+
+// SetNewType : Allow user to set NewType
+func (_options *CreateConfigOptions) SetNewType(newType string) *CreateConfigOptions {
+	_options.NewType = core.StringPtr(newType)
+	return _options
+}
+
+// SetNewInput : Allow user to set NewInput
+func (_options *CreateConfigOptions) SetNewInput(newInput []InputVariable) *CreateConfigOptions {
+	_options.NewInput = newInput
+	return _options
+}
+
+// SetNewSetting : Allow user to set NewSetting
+func (_options *CreateConfigOptions) SetNewSetting(newSetting []SchematicsTemplatePropertySettingItem) *CreateConfigOptions {
+	_options.NewSetting = newSetting
 	return _options
 }
 
@@ -2589,7 +2647,7 @@ type CreateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+	Configs []ProjectConfigInput `json:"configs,omitempty"`
 
 	// Group name of the customized collection of resources.
 	ResourceGroup *string `json:"resource_group,omitempty"`
@@ -2621,7 +2679,7 @@ func (_options *CreateProjectOptions) SetDescription(description string) *Create
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *CreateProjectOptions {
+func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigInput) *CreateProjectOptions {
 	_options.Configs = configs
 	return _options
 }
@@ -3252,7 +3310,7 @@ type GetProjectResponse struct {
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
 	Crn *string `json:"crn,omitempty"`
 
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+	Configs []ProjectConfig `json:"configs,omitempty"`
 
 	Metadata *GetProjectResponseMetadata `json:"metadata,omitempty"`
 }
@@ -3844,7 +3902,7 @@ type MergeProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+	Configs []ProjectConfigInput `json:"configs,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3877,7 +3935,7 @@ func (_options *MergeProjectOptions) SetDescription(description string) *MergePr
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *MergeProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *MergeProjectOptions {
+func (_options *MergeProjectOptions) SetConfigs(configs []ProjectConfigInput) *MergeProjectOptions {
 	_options.Configs = configs
 	return _options
 }
@@ -4067,15 +4125,6 @@ type OutputValue struct {
 	Value []string `json:"value,omitempty"`
 }
 
-// NewOutputValue : Instantiate OutputValue (Generic Model Constructor)
-func (*ProjectsV1) NewOutputValue(name string) (_model *OutputValue, err error) {
-	_model = &OutputValue{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalOutputValue unmarshals an instance of OutputValue from the specified map of raw messages.
 func UnmarshalOutputValue(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(OutputValue)
@@ -4227,38 +4276,34 @@ func UnmarshalPostNotificationsResponse(m map[string]json.RawMessage, result int
 }
 
 // ProjectConfig : ProjectConfig struct
-// Models which "extend" this model:
-// - ProjectConfigProjectConfigCommon
-// - ProjectConfigProp
 type ProjectConfig struct {
 	ID *string `json:"id,omitempty"`
 
 	// The config name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name" validate:"required"`
 
 	Labels []string `json:"labels,omitempty"`
 
 	// A project config description.
 	Description *string `json:"description,omitempty"`
 
-	Type *string `json:"type,omitempty"`
+	LocatorID *string `json:"locator_id" validate:"required"`
 
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-
-	LocatorID *string `json:"locator_id,omitempty"`
+	Type *string `json:"type" validate:"required"`
 
 	Input []InputVariable `json:"input,omitempty"`
 
+	Output []OutputValue `json:"output,omitempty"`
+
 	// Optional setting object we can pass to the cart api.
-	Setting []ConfigSettingItem `json:"setting,omitempty"`
-}
-func (*ProjectConfig) isaProjectConfig() bool {
-	return true
+	Setting []SchematicsTemplatePropertySettingItem `json:"setting,omitempty"`
 }
 
-type ProjectConfigIntf interface {
-	isaProjectConfig() bool
-}
+// Constants associated with the ProjectConfig.Type property.
+const (
+	ProjectConfig_Type_SchematicsBlueprint = "schematics_blueprint"
+	ProjectConfig_Type_TerraformTemplate = "terraform_template"
+)
 
 // UnmarshalProjectConfig unmarshals an instance of ProjectConfig from the specified map of raw messages.
 func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -4279,15 +4324,11 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
@@ -4295,7 +4336,11 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
+	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalSchematicsTemplatePropertySettingItem)
 	if err != nil {
 		return
 	}
@@ -4332,20 +4377,6 @@ func (*ProjectsV1) NewProjectConfigPatch(projectConfig *ProjectConfig) (_patch [
 			Value: projectConfig.Description,
 		})
 	}
-	if (projectConfig.Type != nil) {
-		_patch = append(_patch, JSONPatchOperation{
-			Op: core.StringPtr(JSONPatchOperation_Op_Add),
-			Path: core.StringPtr("/type"),
-			Value: projectConfig.Type,
-		})
-	}
-	if (projectConfig.ExternalResourcesAccount != nil) {
-		_patch = append(_patch, JSONPatchOperation{
-			Op: core.StringPtr(JSONPatchOperation_Op_Add),
-			Path: core.StringPtr("/external_resources_account"),
-			Value: projectConfig.ExternalResourcesAccount,
-		})
-	}
 	if (projectConfig.LocatorID != nil) {
 		_patch = append(_patch, JSONPatchOperation{
 			Op: core.StringPtr(JSONPatchOperation_Op_Add),
@@ -4353,11 +4384,25 @@ func (*ProjectsV1) NewProjectConfigPatch(projectConfig *ProjectConfig) (_patch [
 			Value: projectConfig.LocatorID,
 		})
 	}
+	if (projectConfig.Type != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/type"),
+			Value: projectConfig.Type,
+		})
+	}
 	if (projectConfig.Input != nil) {
 		_patch = append(_patch, JSONPatchOperation{
 			Op: core.StringPtr(JSONPatchOperation_Op_Add),
 			Path: core.StringPtr("/input"),
 			Value: projectConfig.Input,
+		})
+	}
+	if (projectConfig.Output != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/output"),
+			Value: projectConfig.Output,
 		})
 	}
 	if (projectConfig.Setting != nil) {
@@ -4453,39 +4498,41 @@ func UnmarshalProjectConfigChangesResponseDeletedItem(m map[string]json.RawMessa
 }
 
 // ProjectConfigInput : ProjectConfigInput struct
-// Models which "extend" this model:
-// - ProjectConfigInputProjectConfigCommon
-// - ProjectConfigInputProp
 type ProjectConfigInput struct {
 	ID *string `json:"id,omitempty"`
 
 	// The config name.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name" validate:"required"`
 
 	Labels []string `json:"labels,omitempty"`
 
 	// A project config description.
 	Description *string `json:"description,omitempty"`
 
+	LocatorID *string `json:"locator_id" validate:"required"`
+
 	Type *string `json:"type,omitempty"`
-
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-
-	LocatorID *string `json:"locator_id,omitempty"`
 
 	Input []InputVariable `json:"input,omitempty"`
 
-	Output []OutputValue `json:"output,omitempty"`
-
 	// Optional setting object we can pass to the cart api.
-	Setting []ConfigSettingItem `json:"setting,omitempty"`
-}
-func (*ProjectConfigInput) isaProjectConfigInput() bool {
-	return true
+	Setting []SchematicsTemplatePropertySettingItem `json:"setting,omitempty"`
 }
 
-type ProjectConfigInputIntf interface {
-	isaProjectConfigInput() bool
+// Constants associated with the ProjectConfigInput.Type property.
+const (
+	ProjectConfigInput_Type_SchematicsBlueprint = "schematics_blueprint"
+	ProjectConfigInput_Type_TerraformTemplate = "terraform_template"
+)
+
+// NewProjectConfigInput : Instantiate ProjectConfigInput (Generic Model Constructor)
+func (*ProjectsV1) NewProjectConfigInput(name string, locatorID string) (_model *ProjectConfigInput, err error) {
+	_model = &ProjectConfigInput{
+		Name: core.StringPtr(name),
+		LocatorID: core.StringPtr(locatorID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
 }
 
 // UnmarshalProjectConfigInput unmarshals an instance of ProjectConfigInput from the specified map of raw messages.
@@ -4507,15 +4554,11 @@ func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
@@ -4523,11 +4566,7 @@ func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalSchematicsTemplatePropertySettingItem)
 	if err != nil {
 		return
 	}
@@ -4543,7 +4582,7 @@ type ProjectInput struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+	Configs []ProjectConfigInput `json:"configs,omitempty"`
 }
 
 // NewProjectInput : Instantiate ProjectInput (Generic Model Constructor)
@@ -5214,6 +5253,38 @@ func (options *ReplaceServiceInstanceStateOptions) SetHeaders(param map[string]s
 	return options
 }
 
+// SchematicsTemplatePropertySettingItem : SchematicsTemplatePropertySettingItem struct
+type SchematicsTemplatePropertySettingItem struct {
+	Name *string `json:"name" validate:"required"`
+
+	Value *string `json:"value" validate:"required"`
+}
+
+// NewSchematicsTemplatePropertySettingItem : Instantiate SchematicsTemplatePropertySettingItem (Generic Model Constructor)
+func (*ProjectsV1) NewSchematicsTemplatePropertySettingItem(name string, value string) (_model *SchematicsTemplatePropertySettingItem, err error) {
+	_model = &SchematicsTemplatePropertySettingItem{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalSchematicsTemplatePropertySettingItem unmarshals an instance of SchematicsTemplatePropertySettingItem from the specified map of raw messages.
+func UnmarshalSchematicsTemplatePropertySettingItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SchematicsTemplatePropertySettingItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // UninstallConfigOptions : The UninstallConfig options.
 type UninstallConfigOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -5428,7 +5499,7 @@ type ValidateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Configs []ProjectConfigInputIntf `json:"configs,omitempty"`
+	Configs []ProjectConfigInput `json:"configs,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5454,7 +5525,7 @@ func (_options *ValidateProjectOptions) SetDescription(description string) *Vali
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigInputIntf) *ValidateProjectOptions {
+func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigInput) *ValidateProjectOptions {
 	_options.Configs = configs
 	return _options
 }
@@ -5463,204 +5534,6 @@ func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigInputI
 func (options *ValidateProjectOptions) SetHeaders(param map[string]string) *ValidateProjectOptions {
 	options.Headers = param
 	return options
-}
-
-// ProjectConfigInputProp : ProjectConfigInputProp struct
-// This model "extends" ProjectConfigInput
-type ProjectConfigInputProp struct {
-	Type *string `json:"type,omitempty"`
-
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-
-	LocatorID *string `json:"locator_id" validate:"required"`
-
-	Input []InputVariable `json:"input,omitempty"`
-
-	Output []OutputValue `json:"output,omitempty"`
-
-	// Optional setting object we can pass to the cart api.
-	Setting []ConfigSettingItem `json:"setting,omitempty"`
-}
-
-// NewProjectConfigInputProp : Instantiate ProjectConfigInputProp (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigInputProp(locatorID string) (_model *ProjectConfigInputProp, err error) {
-	_model = &ProjectConfigInputProp{
-		LocatorID: core.StringPtr(locatorID),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*ProjectConfigInputProp) isaProjectConfigInput() bool {
-	return true
-}
-
-// UnmarshalProjectConfigInputProp unmarshals an instance of ProjectConfigInputProp from the specified map of raw messages.
-func UnmarshalProjectConfigInputProp(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigInputProp)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "output", &obj.Output, UnmarshalOutputValue)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectConfigInputProjectConfigCommon : ProjectConfigInputProjectConfigCommon struct
-// This model "extends" ProjectConfigInput
-type ProjectConfigInputProjectConfigCommon struct {
-	ID *string `json:"id,omitempty"`
-
-	// The config name.
-	Name *string `json:"name" validate:"required"`
-
-	Labels []string `json:"labels,omitempty"`
-
-	// A project config description.
-	Description *string `json:"description,omitempty"`
-}
-
-// NewProjectConfigInputProjectConfigCommon : Instantiate ProjectConfigInputProjectConfigCommon (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigInputProjectConfigCommon(name string) (_model *ProjectConfigInputProjectConfigCommon, err error) {
-	_model = &ProjectConfigInputProjectConfigCommon{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*ProjectConfigInputProjectConfigCommon) isaProjectConfigInput() bool {
-	return true
-}
-
-// UnmarshalProjectConfigInputProjectConfigCommon unmarshals an instance of ProjectConfigInputProjectConfigCommon from the specified map of raw messages.
-func UnmarshalProjectConfigInputProjectConfigCommon(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigInputProjectConfigCommon)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectConfigProp : ProjectConfigProp struct
-// This model "extends" ProjectConfig
-type ProjectConfigProp struct {
-	Type *string `json:"type" validate:"required"`
-
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-
-	LocatorID *string `json:"locator_id" validate:"required"`
-
-	Input []InputVariable `json:"input,omitempty"`
-
-	// Optional setting object we can pass to the cart api.
-	Setting []ConfigSettingItem `json:"setting,omitempty"`
-}
-
-func (*ProjectConfigProp) isaProjectConfig() bool {
-	return true
-}
-
-// UnmarshalProjectConfigProp unmarshals an instance of ProjectConfigProp from the specified map of raw messages.
-func UnmarshalProjectConfigProp(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigProp)
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectConfigProjectConfigCommon : ProjectConfigProjectConfigCommon struct
-// This model "extends" ProjectConfig
-type ProjectConfigProjectConfigCommon struct {
-	ID *string `json:"id,omitempty"`
-
-	// The config name.
-	Name *string `json:"name" validate:"required"`
-
-	Labels []string `json:"labels,omitempty"`
-
-	// A project config description.
-	Description *string `json:"description,omitempty"`
-}
-
-func (*ProjectConfigProjectConfigCommon) isaProjectConfig() bool {
-	return true
-}
-
-// UnmarshalProjectConfigProjectConfigCommon unmarshals an instance of ProjectConfigProjectConfigCommon from the specified map of raw messages.
-func UnmarshalProjectConfigProjectConfigCommon(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigProjectConfigCommon)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 //
