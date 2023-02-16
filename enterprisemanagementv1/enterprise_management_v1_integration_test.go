@@ -284,6 +284,24 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DeleteAccountGroup - Delete an account group from the enterprise`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAccountGroup(deleteAccountGroupOptions *DeleteAccountGroupOptions)`, func() {
+
+			deleteAccountGroupOptions := &enterprisemanagementv1.DeleteAccountGroupOptions{
+				AccountGroupID: &accountGroupID,
+			}
+
+			response, err := enterpriseManagementService.DeleteAccountGroup(deleteAccountGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
+
 	Describe(`CreateAccount - Create a new account in an enterprise`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -419,6 +437,24 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
+
+		})
+	})
+
+	Describe(`DeleteAccount - Remove an account from its enterprise`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAccount(deleteAccountOptions *DeleteAccountOptions)`, func() {
+
+			deleteAccountOptions := &enterprisemanagementv1.DeleteAccountOptions{
+				AccountID: &exampleAccountID,
+			}
+
+			response, err := enterpriseManagementService.DeleteAccount(deleteAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 
 		})
 	})

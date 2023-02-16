@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1424,6 +1424,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1444,6 +1445,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
@@ -1479,6 +1481,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1504,6 +1507,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1545,6 +1549,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1572,6 +1577,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1596,6 +1602,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseManagementService.SetServiceURL("")
@@ -1634,6 +1641,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1709,6 +1717,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					AccountGroupID: core.StringPtr("testString"),
 					Parent: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeDeleted: core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountsPager(listAccountsOptionsModel)
@@ -1737,6 +1746,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					AccountGroupID: core.StringPtr("testString"),
 					Parent: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeDeleted: core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountsPager(listAccountsOptionsModel)
@@ -2048,6 +2058,74 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`DeleteAccount(deleteAccountOptions *DeleteAccountOptions)`, func() {
+		deleteAccountPath := "/accounts/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAccount successfully`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := enterpriseManagementService.DeleteAccount(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAccountOptions model
+				deleteAccountOptionsModel := new(enterprisemanagementv1.DeleteAccountOptions)
+				deleteAccountOptionsModel.AccountID = core.StringPtr("testString")
+				deleteAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.DeleteAccount(deleteAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAccount with error: Operation validation and request error`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountOptions model
+				deleteAccountOptionsModel := new(enterprisemanagementv1.DeleteAccountOptions)
+				deleteAccountOptionsModel.AccountID = core.StringPtr("testString")
+				deleteAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := enterpriseManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := enterpriseManagementService.DeleteAccount(deleteAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAccountOptions model with no property values
+				deleteAccountOptionsModelNew := new(enterprisemanagementv1.DeleteAccountOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = enterpriseManagementService.DeleteAccount(deleteAccountOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) - Operation response error`, func() {
 		createAccountGroupPath := "/account-groups"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2317,6 +2395,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2337,6 +2416,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
@@ -2372,6 +2452,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2397,6 +2478,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2438,6 +2520,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_deleted query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2465,6 +2548,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2489,6 +2573,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseManagementService.SetServiceURL("")
@@ -2527,6 +2612,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listAccountGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2602,6 +2688,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					ParentAccountGroupID: core.StringPtr("testString"),
 					Parent: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeDeleted: core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptionsModel)
@@ -2630,6 +2717,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					ParentAccountGroupID: core.StringPtr("testString"),
 					Parent: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeDeleted: core.BoolPtr(true),
 				}
 
 				pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptionsModel)
@@ -2943,6 +3031,74 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`DeleteAccountGroup(deleteAccountGroupOptions *DeleteAccountGroupOptions)`, func() {
+		deleteAccountGroupPath := "/account-groups/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountGroupPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAccountGroup successfully`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := enterpriseManagementService.DeleteAccountGroup(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAccountGroupOptions model
+				deleteAccountGroupOptionsModel := new(enterprisemanagementv1.DeleteAccountGroupOptions)
+				deleteAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
+				deleteAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.DeleteAccountGroup(deleteAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAccountGroup with error: Operation validation and request error`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountGroupOptions model
+				deleteAccountGroupOptionsModel := new(enterprisemanagementv1.DeleteAccountGroupOptions)
+				deleteAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
+				deleteAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := enterpriseManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := enterpriseManagementService.DeleteAccountGroup(deleteAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAccountGroupOptions model with no property values
+				deleteAccountGroupOptionsModelNew := new(enterprisemanagementv1.DeleteAccountGroupOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = enterpriseManagementService.DeleteAccountGroup(deleteAccountGroupOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			enterpriseManagementService, _ := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -2999,6 +3155,26 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(createEnterpriseOptionsModel.Domain).To(Equal(core.StringPtr("testString")))
 				Expect(createEnterpriseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteAccountGroupOptions successfully`, func() {
+				// Construct an instance of the DeleteAccountGroupOptions model
+				accountGroupID := "testString"
+				deleteAccountGroupOptionsModel := enterpriseManagementService.NewDeleteAccountGroupOptions(accountGroupID)
+				deleteAccountGroupOptionsModel.SetAccountGroupID("testString")
+				deleteAccountGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAccountGroupOptionsModel).ToNot(BeNil())
+				Expect(deleteAccountGroupOptionsModel.AccountGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAccountGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAccountOptions successfully`, func() {
+				// Construct an instance of the DeleteAccountOptions model
+				accountID := "testString"
+				deleteAccountOptionsModel := enterpriseManagementService.NewDeleteAccountOptions(accountID)
+				deleteAccountOptionsModel.SetAccountID("testString")
+				deleteAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAccountOptionsModel).ToNot(BeNil())
+				Expect(deleteAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetAccountGroupOptions successfully`, func() {
 				// Construct an instance of the GetAccountGroupOptions model
 				accountGroupID := "testString"
@@ -3054,6 +3230,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.SetNextDocid("testString")
 				listAccountGroupsOptionsModel.SetParent("testString")
 				listAccountGroupsOptionsModel.SetLimit(int64(10))
+				listAccountGroupsOptionsModel.SetIncludeDeleted(true)
 				listAccountGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccountGroupsOptionsModel).ToNot(BeNil())
 				Expect(listAccountGroupsOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
@@ -3061,6 +3238,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(listAccountGroupsOptionsModel.NextDocid).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountGroupsOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listAccountGroupsOptionsModel.IncludeDeleted).To(Equal(core.BoolPtr(true)))
 				Expect(listAccountGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAccountsOptions successfully`, func() {
@@ -3071,6 +3249,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.SetNextDocid("testString")
 				listAccountsOptionsModel.SetParent("testString")
 				listAccountsOptionsModel.SetLimit(int64(10))
+				listAccountsOptionsModel.SetIncludeDeleted(true)
 				listAccountsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccountsOptionsModel).ToNot(BeNil())
 				Expect(listAccountsOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
@@ -3078,6 +3257,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(listAccountsOptionsModel.NextDocid).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountsOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listAccountsOptionsModel.IncludeDeleted).To(Equal(core.BoolPtr(true)))
 				Expect(listAccountsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListEnterprisesOptions successfully`, func() {
