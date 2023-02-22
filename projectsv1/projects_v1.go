@@ -547,9 +547,6 @@ func (projects *ProjectsV1) CreateConfigWithContext(ctx context.Context, createC
 	if createConfigOptions.NewDescription != nil {
 		body["description"] = createConfigOptions.NewDescription
 	}
-	if createConfigOptions.NewType != nil {
-		body["type"] = createConfigOptions.NewType
-	}
 	if createConfigOptions.NewInput != nil {
 		body["input"] = createConfigOptions.NewInput
 	}
@@ -1162,7 +1159,7 @@ func (projects *ProjectsV1) GetSchematicsJobWithContext(ctx context.Context, get
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/{action}/job`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/job/{action}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2141,7 +2138,7 @@ func (projects *ProjectsV1) PostEventNotificationsIntegrationWithContext(ctx con
 
 	body := make(map[string]interface{})
 	if postEventNotificationsIntegrationOptions.InstanceCrn != nil {
-		body["instanceCrn"] = postEventNotificationsIntegrationOptions.InstanceCrn
+		body["instance_crn"] = postEventNotificationsIntegrationOptions.InstanceCrn
 	}
 	if postEventNotificationsIntegrationOptions.Description != nil {
 		body["description"] = postEventNotificationsIntegrationOptions.Description
@@ -2739,11 +2736,8 @@ type CreateConfigOptions struct {
 	// A project config description.
 	NewDescription *string `json:"description,omitempty"`
 
-	// The type of a Project Config Manual Property.
-	NewType *string `json:"type,omitempty"`
-
 	// The inputs of a Schematics Template Property.
-	NewInput []InputVariable `json:"input,omitempty"`
+	NewInput []InputVariableInput `json:"input,omitempty"`
 
 	// Optional setting object we can pass to the cart api.
 	NewSetting []ConfigSettingItems `json:"setting,omitempty"`
@@ -2751,13 +2745,6 @@ type CreateConfigOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
-
-// Constants associated with the CreateConfigOptions.NewType property.
-// The type of a Project Config Manual Property.
-const (
-	CreateConfigOptions_NewType_SchematicsBlueprint = "schematics_blueprint"
-	CreateConfigOptions_NewType_TerraformTemplate = "terraform_template"
-)
 
 // NewCreateConfigOptions : Instantiate CreateConfigOptions
 func (*ProjectsV1) NewCreateConfigOptions(id string, newName string, newLocatorID string) *CreateConfigOptions {
@@ -2804,14 +2791,8 @@ func (_options *CreateConfigOptions) SetNewDescription(newDescription string) *C
 	return _options
 }
 
-// SetNewType : Allow user to set NewType
-func (_options *CreateConfigOptions) SetNewType(newType string) *CreateConfigOptions {
-	_options.NewType = core.StringPtr(newType)
-	return _options
-}
-
 // SetNewInput : Allow user to set NewInput
-func (_options *CreateConfigOptions) SetNewInput(newInput []InputVariable) *CreateConfigOptions {
+func (_options *CreateConfigOptions) SetNewInput(newInput []InputVariableInput) *CreateConfigOptions {
 	_options.NewInput = newInput
 	return _options
 }
@@ -3306,7 +3287,7 @@ func (options *DeleteServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
-// GetActionJobResponse : GetActionJobResponse struct
+// GetActionJobResponse : The response of a fetching an Action Job.
 type GetActionJobResponse struct {
 	// The unique id of a project.
 	ID *string `json:"id,omitempty"`
@@ -3850,7 +3831,7 @@ func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjec
 	return options
 }
 
-// GetProjectResponse : GetProjectResponse struct
+// GetProjectResponse : The project returned in response body.
 type GetProjectResponse struct {
 	// The project name.
 	Name *string `json:"name" validate:"required"`
@@ -4124,16 +4105,6 @@ const (
 	InputVariable_Type_String = "string"
 )
 
-// NewInputVariable : Instantiate InputVariable (Generic Model Constructor)
-func (*ProjectsV1) NewInputVariable(name string, typeVar string) (_model *InputVariable, err error) {
-	_model = &InputVariable{
-		Name: core.StringPtr(name),
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
 // UnmarshalInputVariable unmarshals an instance of InputVariable from the specified map of raw messages.
 func UnmarshalInputVariable(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InputVariable)
@@ -4146,6 +4117,32 @@ func UnmarshalInputVariable(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "required", &obj.Required)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// InputVariableInput : InputVariableInput struct
+type InputVariableInput struct {
+	// The variable name.
+	Name *string `json:"name" validate:"required"`
+}
+
+// NewInputVariableInput : Instantiate InputVariableInput (Generic Model Constructor)
+func (*ProjectsV1) NewInputVariableInput(name string) (_model *InputVariableInput, err error) {
+	_model = &InputVariableInput{
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalInputVariableInput unmarshals an instance of InputVariableInput from the specified map of raw messages.
+func UnmarshalInputVariableInput(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(InputVariableInput)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
@@ -4364,7 +4361,7 @@ type NotificationEventWithID struct {
 	Data map[string]interface{} `json:"data,omitempty"`
 
 	// The unique id of a project.
-	ID *string `json:"_id" validate:"required"`
+	ID *string `json:"id" validate:"required"`
 }
 
 // UnmarshalNotificationEventWithID unmarshals an instance of NotificationEventWithID from the specified map of raw messages.
@@ -4390,7 +4387,7 @@ func UnmarshalNotificationEventWithID(m map[string]json.RawMessage, result inter
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "_id", &obj.ID)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -4416,7 +4413,7 @@ type NotificationEventWithStatus struct {
 	Data map[string]interface{} `json:"data,omitempty"`
 
 	// The unique id of a project.
-	ID *string `json:"_id" validate:"required"`
+	ID *string `json:"id" validate:"required"`
 
 	// whether or not the event successfully posted.
 	Status *string `json:"status,omitempty"`
@@ -4447,7 +4444,7 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "_id", &obj.ID)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -4698,7 +4695,7 @@ type PostEventNotificationsIntegrationOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	InstanceCrn *string `json:"instanceCrn" validate:"required"`
+	InstanceCrn *string `json:"instance_crn" validate:"required"`
 
 	// description of the instance of event.
 	Description *string `json:"description,omitempty"`
@@ -5086,22 +5083,12 @@ type ProjectConfigInput struct {
 	// The location id of a Project Config Manual Property.
 	LocatorID *string `json:"locator_id" validate:"required"`
 
-	// The type of a Project Config Manual Property.
-	Type *string `json:"type,omitempty"`
-
 	// The inputs of a Schematics Template Property.
-	Input []InputVariable `json:"input,omitempty"`
+	Input []InputVariableInput `json:"input,omitempty"`
 
 	// Optional setting object we can pass to the cart api.
 	Setting []ConfigSettingItems `json:"setting,omitempty"`
 }
-
-// Constants associated with the ProjectConfigInput.Type property.
-// The type of a Project Config Manual Property.
-const (
-	ProjectConfigInput_Type_SchematicsBlueprint = "schematics_blueprint"
-	ProjectConfigInput_Type_TerraformTemplate = "terraform_template"
-)
 
 // NewProjectConfigInput : Instantiate ProjectConfigInput (Generic Model Constructor)
 func (*ProjectsV1) NewProjectConfigInput(name string, locatorID string) (_model *ProjectConfigInput, err error) {
@@ -5136,11 +5123,7 @@ func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
+	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
 	if err != nil {
 		return
 	}
@@ -5815,7 +5798,7 @@ func (options *UpdateConfigOptions) SetHeaders(param map[string]string) *UpdateC
 // UpdateProjectConfigInput : The Project Config input.
 // Models which "extend" this model:
 // - UpdateProjectConfigInputProjectConfigManualProperty
-// - UpdateProjectConfigInputProjectConfigInputSchematicsTemplate
+// - UpdateProjectConfigInputSchematicsTemplate
 type UpdateProjectConfigInput struct {
 	// The config name.
 	Name *string `json:"name,omitempty"`
@@ -5836,7 +5819,7 @@ type UpdateProjectConfigInput struct {
 	LocatorID *string `json:"locator_id,omitempty"`
 
 	// The inputs of a Schematics Template Property.
-	Input []InputVariable `json:"input,omitempty"`
+	Input []InputVariableInput `json:"input,omitempty"`
 
 	// Optional setting object we can pass to the cart api.
 	Setting []ConfigSettingItems `json:"setting,omitempty"`
@@ -5882,7 +5865,7 @@ func UnmarshalUpdateProjectConfigInput(m map[string]json.RawMessage, result inte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
+	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
 	if err != nil {
 		return
 	}
@@ -6109,9 +6092,9 @@ func (options *UpdateServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
-// UpdateProjectConfigInputProjectConfigInputSchematicsTemplate : The Schematics Template Property.
+// UpdateProjectConfigInputSchematicsTemplate : The Schematics Template Property.
 // This model "extends" UpdateProjectConfigInput
-type UpdateProjectConfigInputProjectConfigInputSchematicsTemplate struct {
+type UpdateProjectConfigInputSchematicsTemplate struct {
 	// The config name.
 	Name *string `json:"name,omitempty"`
 
@@ -6124,30 +6107,20 @@ type UpdateProjectConfigInputProjectConfigInputSchematicsTemplate struct {
 	// The location id of a Project Config Manual Property.
 	LocatorID *string `json:"locator_id,omitempty"`
 
-	// The type of a Project Config Manual Property.
-	Type *string `json:"type,omitempty"`
-
 	// The inputs of a Schematics Template Property.
-	Input []InputVariable `json:"input,omitempty"`
+	Input []InputVariableInput `json:"input,omitempty"`
 
 	// Optional setting object we can pass to the cart api.
 	Setting []ConfigSettingItems `json:"setting,omitempty"`
 }
 
-// Constants associated with the UpdateProjectConfigInputProjectConfigInputSchematicsTemplate.Type property.
-// The type of a Project Config Manual Property.
-const (
-	UpdateProjectConfigInputProjectConfigInputSchematicsTemplate_Type_SchematicsBlueprint = "schematics_blueprint"
-	UpdateProjectConfigInputProjectConfigInputSchematicsTemplate_Type_TerraformTemplate = "terraform_template"
-)
-
-func (*UpdateProjectConfigInputProjectConfigInputSchematicsTemplate) isaUpdateProjectConfigInput() bool {
+func (*UpdateProjectConfigInputSchematicsTemplate) isaUpdateProjectConfigInput() bool {
 	return true
 }
 
-// UnmarshalUpdateProjectConfigInputProjectConfigInputSchematicsTemplate unmarshals an instance of UpdateProjectConfigInputProjectConfigInputSchematicsTemplate from the specified map of raw messages.
-func UnmarshalUpdateProjectConfigInputProjectConfigInputSchematicsTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateProjectConfigInputProjectConfigInputSchematicsTemplate)
+// UnmarshalUpdateProjectConfigInputSchematicsTemplate unmarshals an instance of UpdateProjectConfigInputSchematicsTemplate from the specified map of raw messages.
+func UnmarshalUpdateProjectConfigInputSchematicsTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UpdateProjectConfigInputSchematicsTemplate)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -6164,11 +6137,7 @@ func UnmarshalUpdateProjectConfigInputProjectConfigInputSchematicsTemplate(m map
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariable)
+	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
 	if err != nil {
 		return
 	}
