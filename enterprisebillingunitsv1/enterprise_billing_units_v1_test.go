@@ -389,7 +389,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -409,7 +409,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingUnitsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingUnitsOptionsModel.Start = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptionsModel)
@@ -444,7 +444,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -469,7 +469,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingUnitsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingUnitsOptionsModel.Start = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -510,7 +510,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -537,7 +537,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingUnitsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingUnitsOptionsModel.Start = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -561,7 +561,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingUnitsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingUnitsOptionsModel.Start = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseBillingUnitsService.SetServiceURL("")
@@ -599,7 +599,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingUnitsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingUnitsOptionsModel.Start = core.StringPtr("testString")
 				listBillingUnitsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -617,11 +617,11 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=135")
+				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
@@ -636,14 +636,6 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart with a non-integer query param in the "NextURL" URL`, func() {
-				responseObject := new(enterprisebillingunitsv1.BillingUnitsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=tiger")
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
 			})
 		})
@@ -736,7 +728,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -754,7 +746,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := new(enterprisebillingunitsv1.ListBillingOptionsOptions)
 				listBillingOptionsOptionsModel.BillingUnitID = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingOptionsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingOptionsOptionsModel.Start = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseBillingUnitsService.ListBillingOptions(listBillingOptionsOptionsModel)
@@ -787,7 +779,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 
 					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -810,7 +802,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := new(enterprisebillingunitsv1.ListBillingOptionsOptions)
 				listBillingOptionsOptionsModel.BillingUnitID = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingOptionsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingOptionsOptionsModel.Start = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -849,7 +841,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 
 					Expect(req.URL.Query()["billing_unit_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -874,7 +866,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := new(enterprisebillingunitsv1.ListBillingOptionsOptions)
 				listBillingOptionsOptionsModel.BillingUnitID = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingOptionsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingOptionsOptionsModel.Start = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -896,7 +888,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := new(enterprisebillingunitsv1.ListBillingOptionsOptions)
 				listBillingOptionsOptionsModel.BillingUnitID = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingOptionsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingOptionsOptionsModel.Start = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseBillingUnitsService.SetServiceURL("")
@@ -939,7 +931,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := new(enterprisebillingunitsv1.ListBillingOptionsOptions)
 				listBillingOptionsOptionsModel.BillingUnitID = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listBillingOptionsOptionsModel.Start = core.Int64Ptr(int64(38))
+				listBillingOptionsOptionsModel.Start = core.StringPtr("testString")
 				listBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -957,11 +949,11 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=135")
+				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
@@ -976,14 +968,6 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart with a non-integer query param in the "NextURL" URL`, func() {
-				responseObject := new(enterprisebillingunitsv1.BillingOptionsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=tiger")
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
 			})
 		})
@@ -1074,7 +1058,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["date"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1094,7 +1078,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.Date = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Type = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				getCreditPoolsOptionsModel.Start = core.Int64Ptr(int64(38))
+				getCreditPoolsOptionsModel.Start = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptionsModel)
@@ -1129,7 +1113,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["date"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1154,7 +1138,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.Date = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Type = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				getCreditPoolsOptionsModel.Start = core.Int64Ptr(int64(38))
+				getCreditPoolsOptionsModel.Start = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1195,7 +1179,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["date"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1222,7 +1206,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.Date = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Type = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				getCreditPoolsOptionsModel.Start = core.Int64Ptr(int64(38))
+				getCreditPoolsOptionsModel.Start = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1246,7 +1230,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.Date = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Type = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				getCreditPoolsOptionsModel.Start = core.Int64Ptr(int64(38))
+				getCreditPoolsOptionsModel.Start = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseBillingUnitsService.SetServiceURL("")
@@ -1291,7 +1275,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.Date = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Type = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				getCreditPoolsOptionsModel.Start = core.Int64Ptr(int64(38))
+				getCreditPoolsOptionsModel.Start = core.StringPtr("testString")
 				getCreditPoolsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1309,11 +1293,11 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=135")
+				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
@@ -1328,14 +1312,6 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart with a non-integer query param in the "NextURL" URL`, func() {
-				responseObject := new(enterprisebillingunitsv1.CreditPoolsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=tiger")
-	
-				value, err := responseObject.GetNextStart()
-				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
 			})
 		})
@@ -1440,14 +1416,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				getCreditPoolsOptionsModel.SetDate("testString")
 				getCreditPoolsOptionsModel.SetType("testString")
 				getCreditPoolsOptionsModel.SetLimit(int64(10))
-				getCreditPoolsOptionsModel.SetStart(int64(38))
+				getCreditPoolsOptionsModel.SetStart("testString")
 				getCreditPoolsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getCreditPoolsOptionsModel).ToNot(BeNil())
 				Expect(getCreditPoolsOptionsModel.BillingUnitID).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsOptionsModel.Date).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(getCreditPoolsOptionsModel.Start).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getCreditPoolsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBillingOptionsOptions successfully`, func() {
@@ -1456,12 +1432,12 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingOptionsOptionsModel := enterpriseBillingUnitsService.NewListBillingOptionsOptions(billingUnitID)
 				listBillingOptionsOptionsModel.SetBillingUnitID("testString")
 				listBillingOptionsOptionsModel.SetLimit(int64(10))
-				listBillingOptionsOptionsModel.SetStart(int64(38))
+				listBillingOptionsOptionsModel.SetStart("testString")
 				listBillingOptionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listBillingOptionsOptionsModel).ToNot(BeNil())
 				Expect(listBillingOptionsOptionsModel.BillingUnitID).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingOptionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listBillingOptionsOptionsModel.Start).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listBillingOptionsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingOptionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListBillingUnitsOptions successfully`, func() {
@@ -1471,14 +1447,14 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 				listBillingUnitsOptionsModel.SetEnterpriseID("testString")
 				listBillingUnitsOptionsModel.SetAccountGroupID("testString")
 				listBillingUnitsOptionsModel.SetLimit(int64(10))
-				listBillingUnitsOptionsModel.SetStart(int64(38))
+				listBillingUnitsOptionsModel.SetStart("testString")
 				listBillingUnitsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listBillingUnitsOptionsModel).ToNot(BeNil())
 				Expect(listBillingUnitsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingUnitsOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingUnitsOptionsModel.AccountGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingUnitsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listBillingUnitsOptionsModel.Start).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listBillingUnitsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listBillingUnitsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})

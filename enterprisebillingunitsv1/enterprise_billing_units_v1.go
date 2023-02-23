@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 // Package enterprisebillingunitsv1 : Operations and models for the EnterpriseBillingUnitsV1 service
@@ -27,7 +27,6 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
-	"strconv"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -35,7 +34,7 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// EnterpriseBillingUnitsV1 : Billing units for IBM Cloud enterprises
+// EnterpriseBillingUnitsV1 : Billing units for IBM Cloud Enterprise
 //
 // API Version: 1.0.0
 type EnterpriseBillingUnitsV1 struct {
@@ -584,7 +583,7 @@ func UnmarshalBillingOptionsList(m map[string]json.RawMessage, result interface{
 }
 
 // Retrieve the value to be passed to a request to access the next page of results
-func (resp *BillingOptionsList) GetNextStart() (*int64, error) {
+func (resp *BillingOptionsList) GetNextStart() (*string, error) {
 	if core.IsNil(resp.NextURL) {
 		return nil, nil
 	}
@@ -592,12 +591,7 @@ func (resp *BillingOptionsList) GetNextStart() (*int64, error) {
 	if err != nil || start == nil {
 		return nil, err
 	}
-	var startValue int64
-	startValue, err = strconv.ParseInt(*start, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	return core.Int64Ptr(startValue), nil
+	return start, nil
 }
 
 // BillingUnit : Information about a billing unit.
@@ -698,7 +692,7 @@ func UnmarshalBillingUnitsList(m map[string]json.RawMessage, result interface{})
 }
 
 // Retrieve the value to be passed to a request to access the next page of results
-func (resp *BillingUnitsList) GetNextStart() (*int64, error) {
+func (resp *BillingUnitsList) GetNextStart() (*string, error) {
 	if core.IsNil(resp.NextURL) {
 		return nil, nil
 	}
@@ -706,12 +700,7 @@ func (resp *BillingUnitsList) GetNextStart() (*int64, error) {
 	if err != nil || start == nil {
 		return nil, err
 	}
-	var startValue int64
-	startValue, err = strconv.ParseInt(*start, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	return core.Int64Ptr(startValue), nil
+	return start, nil
 }
 
 // CreditPool : The credit pool for a billing unit.
@@ -824,7 +813,7 @@ func UnmarshalCreditPoolsList(m map[string]json.RawMessage, result interface{}) 
 }
 
 // Retrieve the value to be passed to a request to access the next page of results
-func (resp *CreditPoolsList) GetNextStart() (*int64, error) {
+func (resp *CreditPoolsList) GetNextStart() (*string, error) {
 	if core.IsNil(resp.NextURL) {
 		return nil, nil
 	}
@@ -832,12 +821,7 @@ func (resp *CreditPoolsList) GetNextStart() (*int64, error) {
 	if err != nil || start == nil {
 		return nil, err
 	}
-	var startValue int64
-	startValue, err = strconv.ParseInt(*start, 10, 64)
-	if err != nil {
-		return nil, err
-	}
-	return core.Int64Ptr(startValue), nil
+	return start, nil
 }
 
 // GetBillingUnitOptions : The GetBillingUnit options.
@@ -882,8 +866,8 @@ type GetCreditPoolsOptions struct {
 	// Return results up to this limit. Valid values are between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The pagination offset. This will be the index of the first returned result.
-	Start *int64 `json:"start,omitempty"`
+	// The pagination offset. This represents the index of the first returned result.
+	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -921,8 +905,8 @@ func (_options *GetCreditPoolsOptions) SetLimit(limit int64) *GetCreditPoolsOpti
 }
 
 // SetStart : Allow user to set Start
-func (_options *GetCreditPoolsOptions) SetStart(start int64) *GetCreditPoolsOptions {
-	_options.Start = core.Int64Ptr(start)
+func (_options *GetCreditPoolsOptions) SetStart(start string) *GetCreditPoolsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -940,8 +924,8 @@ type ListBillingOptionsOptions struct {
 	// Return results up to this limit. Valid values are between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The pagination offset. This will be the index of the first returned result.
-	Start *int64 `json:"start,omitempty"`
+	// The pagination offset. This represents the index of the first returned result.
+	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -967,8 +951,8 @@ func (_options *ListBillingOptionsOptions) SetLimit(limit int64) *ListBillingOpt
 }
 
 // SetStart : Allow user to set Start
-func (_options *ListBillingOptionsOptions) SetStart(start int64) *ListBillingOptionsOptions {
-	_options.Start = core.Int64Ptr(start)
+func (_options *ListBillingOptionsOptions) SetStart(start string) *ListBillingOptionsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -992,8 +976,8 @@ type ListBillingUnitsOptions struct {
 	// Return results up to this limit. Valid values are between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The pagination offset. This will be the index of the first returned result.
-	Start *int64 `json:"start,omitempty"`
+	// The pagination offset. This represents the index of the first returned result.
+	Start *string `json:"start,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1029,8 +1013,8 @@ func (_options *ListBillingUnitsOptions) SetLimit(limit int64) *ListBillingUnits
 }
 
 // SetStart : Allow user to set Start
-func (_options *ListBillingUnitsOptions) SetStart(start int64) *ListBillingUnitsOptions {
-	_options.Start = core.Int64Ptr(start)
+func (_options *ListBillingUnitsOptions) SetStart(start string) *ListBillingUnitsOptions {
+	_options.Start = core.StringPtr(start)
 	return _options
 }
 
@@ -1132,13 +1116,13 @@ type BillingUnitsPager struct {
 	options *ListBillingUnitsOptions
 	client  *EnterpriseBillingUnitsV1
 	pageContext struct {
-		next *int64
+		next *string
 	}
 }
 
 // NewBillingUnitsPager returns a new BillingUnitsPager instance.
 func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewBillingUnitsPager(options *ListBillingUnitsOptions) (pager *BillingUnitsPager, err error) {
-	if options.Start != nil && *options.Start != 0 {
+	if options.Start != nil && *options.Start != "" {
 		err = fmt.Errorf("the 'options.Start' field should not be set")
 		return
 	}
@@ -1170,10 +1154,10 @@ func (pager *BillingUnitsPager) GetNextWithContext(ctx context.Context) (page []
 		return
 	}
 
-	var next *int64
+	var next *string
 	if result.NextURL != nil {
-		var start *int64
-		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		var start *string
+		start, err = core.GetQueryParam(result.NextURL, "start")
 		if err != nil {
 			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
 			return
@@ -1219,13 +1203,13 @@ type BillingOptionsPager struct {
 	options *ListBillingOptionsOptions
 	client  *EnterpriseBillingUnitsV1
 	pageContext struct {
-		next *int64
+		next *string
 	}
 }
 
 // NewBillingOptionsPager returns a new BillingOptionsPager instance.
 func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewBillingOptionsPager(options *ListBillingOptionsOptions) (pager *BillingOptionsPager, err error) {
-	if options.Start != nil && *options.Start != 0 {
+	if options.Start != nil && *options.Start != "" {
 		err = fmt.Errorf("the 'options.Start' field should not be set")
 		return
 	}
@@ -1257,10 +1241,10 @@ func (pager *BillingOptionsPager) GetNextWithContext(ctx context.Context) (page 
 		return
 	}
 
-	var next *int64
+	var next *string
 	if result.NextURL != nil {
-		var start *int64
-		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		var start *string
+		start, err = core.GetQueryParam(result.NextURL, "start")
 		if err != nil {
 			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
 			return
@@ -1306,13 +1290,13 @@ type GetCreditPoolsPager struct {
 	options *GetCreditPoolsOptions
 	client  *EnterpriseBillingUnitsV1
 	pageContext struct {
-		next *int64
+		next *string
 	}
 }
 
 // NewGetCreditPoolsPager returns a new GetCreditPoolsPager instance.
 func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) NewGetCreditPoolsPager(options *GetCreditPoolsOptions) (pager *GetCreditPoolsPager, err error) {
-	if options.Start != nil && *options.Start != 0 {
+	if options.Start != nil && *options.Start != "" {
 		err = fmt.Errorf("the 'options.Start' field should not be set")
 		return
 	}
@@ -1344,10 +1328,10 @@ func (pager *GetCreditPoolsPager) GetNextWithContext(ctx context.Context) (page 
 		return
 	}
 
-	var next *int64
+	var next *string
 	if result.NextURL != nil {
-		var start *int64
-		start, err = core.GetQueryParamAsInt(result.NextURL, "start")
+		var start *string
+		start, err = core.GetQueryParam(result.NextURL, "start")
 		if err != nil {
 			err = fmt.Errorf("error retrieving 'start' query parameter from URL '%s': %s", *result.NextURL, err.Error())
 			return
