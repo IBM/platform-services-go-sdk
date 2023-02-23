@@ -2532,6 +2532,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
 					Expect(req.Method).To(Equal("DELETE"))
+					// TODO: Add check for draft_only query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2549,6 +2550,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := new(projectsv1.DeleteConfigOptions)
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.DeleteConfig(deleteConfigOptionsModel)
@@ -2579,6 +2581,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					// TODO: Add check for draft_only query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2601,6 +2604,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := new(projectsv1.DeleteConfigOptions)
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2637,6 +2641,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					// TODO: Add check for draft_only query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2661,6 +2666,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := new(projectsv1.DeleteConfigOptions)
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2682,6 +2688,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := new(projectsv1.DeleteConfigOptions)
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2724,6 +2731,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := new(projectsv1.DeleteConfigOptions)
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3915,7 +3923,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -3974,7 +3981,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully with retries`, func() {
@@ -3991,7 +3998,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4053,7 +4059,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully`, func() {
@@ -4075,7 +4081,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4104,7 +4109,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4154,7 +4158,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4238,7 +4241,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully with retries`, func() {
@@ -4292,7 +4295,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully`, func() {
@@ -7565,10 +7568,12 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel := projectsService.NewDeleteConfigOptions(id, configID)
 				deleteConfigOptionsModel.SetID("testString")
 				deleteConfigOptionsModel.SetConfigID("testString")
+				deleteConfigOptionsModel.SetDraftOnly(false)
 				deleteConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteConfigOptionsModel).ToNot(BeNil())
 				Expect(deleteConfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteConfigOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteConfigOptionsModel.DraftOnly).To(Equal(core.BoolPtr(false)))
 				Expect(deleteConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteEventNotificationsIntegrationOptions successfully`, func() {
@@ -7884,12 +7889,10 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
-				notificationEventModel.ActionURL = core.StringPtr("url.for.project.documentation")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				Expect(notificationEventModel.Event).To(Equal(core.StringPtr("project.create.failed")))
 				Expect(notificationEventModel.Target).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
 				Expect(notificationEventModel.Source).To(Equal(core.StringPtr("id.of.project.service.instance")))
-				Expect(notificationEventModel.ActionURL).To(Equal(core.StringPtr("url.for.project.documentation")))
 				Expect(notificationEventModel.Data).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 
 				// Construct an instance of the PostNotificationOptions model

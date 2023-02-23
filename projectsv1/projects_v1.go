@@ -821,6 +821,10 @@ func (projects *ProjectsV1) DeleteConfigWithContext(ctx context.Context, deleteC
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if deleteConfigOptions.DraftOnly != nil {
+		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -2881,6 +2885,7 @@ type CreateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
+	// The project configs.
 	Configs []ProjectConfigInput `json:"configs,omitempty"`
 
 	// Group name of the customized collection of resources.
@@ -3009,6 +3014,9 @@ type DeleteConfigOptions struct {
 	// The id of the config, which uniquely identifies it.
 	ConfigID *string `json:"config_id" validate:"required,ne="`
 
+	// The flag to tell if only the draft version should be deleted.
+	DraftOnly *bool `json:"draft_only,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -3030,6 +3038,12 @@ func (_options *DeleteConfigOptions) SetID(id string) *DeleteConfigOptions {
 // SetConfigID : Allow user to set ConfigID
 func (_options *DeleteConfigOptions) SetConfigID(configID string) *DeleteConfigOptions {
 	_options.ConfigID = core.StringPtr(configID)
+	return _options
+}
+
+// SetDraftOnly : Allow user to set DraftOnly
+func (_options *DeleteConfigOptions) SetDraftOnly(draftOnly bool) *DeleteConfigOptions {
+	_options.DraftOnly = core.BoolPtr(draftOnly)
 	return _options
 }
 
@@ -3845,6 +3859,7 @@ type GetProjectResponse struct {
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
 	Crn *string `json:"crn,omitempty"`
 
+	// The project configs.
 	Configs []ProjectConfig `json:"configs,omitempty"`
 
 	Metadata *GetProjectResponseMetadata `json:"metadata,omitempty"`
@@ -4293,14 +4308,11 @@ type NotificationEvent struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// The unique id of a project.
+	// id of the configuration affected (id:version:isDraft).
 	Target *string `json:"target" validate:"required"`
 
 	// The id of the event producer.
 	Source *string `json:"source,omitempty"`
-
-	// The URL you can go to as next steps.
-	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4331,10 +4343,6 @@ func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
 		return
@@ -4348,14 +4356,11 @@ type NotificationEventWithID struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// The unique id of a project.
+	// id of the configuration affected (id:version:isDraft).
 	Target *string `json:"target" validate:"required"`
 
 	// The id of the event producer.
 	Source *string `json:"source,omitempty"`
-
-	// The URL you can go to as next steps.
-	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4379,10 +4384,6 @@ func UnmarshalNotificationEventWithID(m map[string]json.RawMessage, result inter
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
 		return
@@ -4400,14 +4401,11 @@ type NotificationEventWithStatus struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// The unique id of a project.
+	// id of the configuration affected (id:version:isDraft).
 	Target *string `json:"target" validate:"required"`
 
 	// The id of the event producer.
 	Source *string `json:"source,omitempty"`
-
-	// The URL you can go to as next steps.
-	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4433,10 +4431,6 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
 	if err != nil {
 		return
 	}
@@ -5310,7 +5304,7 @@ func (resp *ProjectListResponseSchema) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// ProjectUpdate : ProjectUpdate struct
+// ProjectUpdate : The project update request.
 type ProjectUpdate struct {
 	// The project name.
 	Name *string `json:"name,omitempty"`
