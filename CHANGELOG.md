@@ -1,3 +1,10 @@
+# [0.32.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.6...v0.32.0) (2023-02-24)
+
+
+### Features
+
+* bump minimum go version to 1.18 ([#235](https://github.com/IBM/platform-services-go-sdk/issues/235)) ([a5b12e5](https://github.com/IBM/platform-services-go-sdk/commit/a5b12e54fec71478e0a054e61a9c8a5dd0d2aa78))
+
 ## [0.31.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.5...v0.31.6) (2023-02-15)
 
 
