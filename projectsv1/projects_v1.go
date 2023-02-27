@@ -43,7 +43,7 @@ type ProjectsV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://projects-api.projects-stage-us-south-c-324a0a89696c3783407d3a435ca143c0-0001.us-south.containers.appdomain.cloud"
+const DefaultServiceURL = "https://projects.api.test.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "projects"
@@ -823,6 +823,9 @@ func (projects *ProjectsV1) DeleteConfigWithContext(ctx context.Context, deleteC
 
 	if deleteConfigOptions.DraftOnly != nil {
 		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
+	}
+	if deleteConfigOptions.Destroy != nil {
+		builder.AddQuery("destroy", fmt.Sprint(*deleteConfigOptions.Destroy))
 	}
 
 	request, err := builder.Build()
@@ -3017,6 +3020,9 @@ type DeleteConfigOptions struct {
 	// The flag to tell if only the draft version should be deleted.
 	DraftOnly *bool `json:"draft_only,omitempty"`
 
+	// The flag to tell if the resources deployed by schematics should be destroyed.
+	Destroy *bool `json:"destroy,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -3044,6 +3050,12 @@ func (_options *DeleteConfigOptions) SetConfigID(configID string) *DeleteConfigO
 // SetDraftOnly : Allow user to set DraftOnly
 func (_options *DeleteConfigOptions) SetDraftOnly(draftOnly bool) *DeleteConfigOptions {
 	_options.DraftOnly = core.BoolPtr(draftOnly)
+	return _options
+}
+
+// SetDestroy : Allow user to set Destroy
+func (_options *DeleteConfigOptions) SetDestroy(destroy bool) *DeleteConfigOptions {
+	_options.Destroy = core.BoolPtr(destroy)
 	return _options
 }
 
@@ -3783,8 +3795,9 @@ func (options *GetNotificationsOptions) SetHeaders(param map[string]string) *Get
 	return options
 }
 
-// GetNotificationsResponse : GetNotificationsResponse struct
+// GetNotificationsResponse : The response from fetching notifications.
 type GetNotificationsResponse struct {
+	// Collection of the notification events with id.
 	Notifications []NotificationEventWithID `json:"notifications,omitempty"`
 }
 
@@ -4308,11 +4321,14 @@ type NotificationEvent struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// id of the configuration affected (id:version:isDraft).
+	// The target of the event.
 	Target *string `json:"target" validate:"required"`
 
-	// The id of the event producer.
+	// The source of the event.
 	Source *string `json:"source,omitempty"`
+
+	// actionable url that users can go to as a response to the event.
+	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4343,6 +4359,10 @@ func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
 		return
@@ -4356,11 +4376,14 @@ type NotificationEventWithID struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// id of the configuration affected (id:version:isDraft).
+	// The target of the event.
 	Target *string `json:"target" validate:"required"`
 
-	// The id of the event producer.
+	// The source of the event.
 	Source *string `json:"source,omitempty"`
+
+	// actionable url that users can go to as a response to the event.
+	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4384,6 +4407,10 @@ func UnmarshalNotificationEventWithID(m map[string]json.RawMessage, result inter
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
 	if err != nil {
 		return
@@ -4401,11 +4428,14 @@ type NotificationEventWithStatus struct {
 	// Type of event.
 	Event *string `json:"event" validate:"required"`
 
-	// id of the configuration affected (id:version:isDraft).
+	// The target of the event.
 	Target *string `json:"target" validate:"required"`
 
-	// The id of the event producer.
+	// The source of the event.
 	Source *string `json:"source,omitempty"`
+
+	// actionable url that users can go to as a response to the event.
+	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
 	Data map[string]interface{} `json:"data,omitempty"`
@@ -4416,6 +4446,7 @@ type NotificationEventWithStatus struct {
 	// whether or not the event successfully posted.
 	Status *string `json:"status,omitempty"`
 
+	// the reasons for the status of an event.
 	Reasons []map[string]interface{} `json:"reasons,omitempty"`
 }
 
@@ -4431,6 +4462,10 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
 	if err != nil {
 		return
 	}
@@ -4485,11 +4520,12 @@ func UnmarshalOutputValue(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// PaginationLink : PaginationLink struct
+// PaginationLink : a pagination link.
 type PaginationLink struct {
 	// The url of the PR, which uniquely identifies it.
 	Href *string `json:"href" validate:"required"`
 
+	// a pagination token.
 	Start *string `json:"start,omitempty"`
 }
 
@@ -4814,6 +4850,7 @@ type PostNotificationOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
+	// Collection of the notification events to be posted.
 	Notifications []NotificationEvent `json:"notifications,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -4847,6 +4884,7 @@ func (options *PostNotificationOptions) SetHeaders(param map[string]string) *Pos
 
 // PostNotificationsResponse : The result of a notification post.
 type PostNotificationsResponse struct {
+	// Collection of the notification events with status.
 	Notifications []NotificationEventWithStatus `json:"notifications,omitempty"`
 }
 
@@ -5244,17 +5282,22 @@ func UnmarshalProjectListItemMetadata(m map[string]json.RawMessage, result inter
 
 // ProjectListResponseSchema : Projects list.
 type ProjectListResponseSchema struct {
+	// a pagination limit.
 	Limit *int64 `json:"limit" validate:"required"`
 
 	// Get the occurrencies of the total Projects.
 	TotalCount *int64 `json:"total_count" validate:"required"`
 
+	// a pagination link.
 	First *PaginationLink `json:"first" validate:"required"`
 
+	// a pagination link.
 	Last *PaginationLink `json:"last,omitempty"`
 
+	// a pagination link.
 	Previous *PaginationLink `json:"previous,omitempty"`
 
+	// a pagination link.
 	Next *PaginationLink `json:"next,omitempty"`
 
 	// An array of projects.
@@ -5328,13 +5371,14 @@ func UnmarshalProjectUpdate(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// PulsarEventItem : PulsarEventItem struct
-type PulsarEventItem struct {
+// PulsarEventItems : PulsarEventItems struct
+type PulsarEventItems struct {
 	// The type of the event that is published and written in dot notation.
 	EventType *string `json:"event_type" validate:"required"`
 
-	// The time at which the event occurred written as a date-time string.
-	Timestamp *string `json:"timestamp" validate:"required"`
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	Timestamp *strfmt.DateTime `json:"timestamp" validate:"required"`
 
 	// The publisher of the events, preferably written as the service's CRN.
 	Publisher *string `json:"publisher" validate:"required"`
@@ -5355,11 +5399,11 @@ type PulsarEventItem struct {
 	additionalProperties map[string]interface{}
 }
 
-// NewPulsarEventItem : Instantiate PulsarEventItem (Generic Model Constructor)
-func (*ProjectsV1) NewPulsarEventItem(eventType string, timestamp string, publisher string, accountID string, version string) (_model *PulsarEventItem, err error) {
-	_model = &PulsarEventItem{
+// NewPulsarEventItems : Instantiate PulsarEventItems (Generic Model Constructor)
+func (*ProjectsV1) NewPulsarEventItems(eventType string, timestamp *strfmt.DateTime, publisher string, accountID string, version string) (_model *PulsarEventItems, err error) {
+	_model = &PulsarEventItems{
 		EventType: core.StringPtr(eventType),
-		Timestamp: core.StringPtr(timestamp),
+		Timestamp: timestamp,
 		Publisher: core.StringPtr(publisher),
 		AccountID: core.StringPtr(accountID),
 		Version: core.StringPtr(version),
@@ -5368,34 +5412,34 @@ func (*ProjectsV1) NewPulsarEventItem(eventType string, timestamp string, publis
 	return
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of PulsarEventItem
-func (o *PulsarEventItem) SetProperty(key string, value interface{}) {
+// SetProperty allows the user to set an arbitrary property on an instance of PulsarEventItems
+func (o *PulsarEventItems) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
 	}
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of PulsarEventItem
-func (o *PulsarEventItem) SetProperties(m map[string]interface{}) {
+// SetProperties allows the user to set a map of arbitrary properties on an instance of PulsarEventItems
+func (o *PulsarEventItems) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
 		o.additionalProperties[k] = v
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of PulsarEventItem
-func (o *PulsarEventItem) GetProperty(key string) interface{} {
+// GetProperty allows the user to retrieve an arbitrary property from an instance of PulsarEventItems
+func (o *PulsarEventItems) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of PulsarEventItem
-func (o *PulsarEventItem) GetProperties() map[string]interface{} {
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of PulsarEventItems
+func (o *PulsarEventItems) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
 
-// MarshalJSON performs custom serialization for instances of PulsarEventItem
-func (o *PulsarEventItem) MarshalJSON() (buffer []byte, err error) {
+// MarshalJSON performs custom serialization for instances of PulsarEventItems
+func (o *PulsarEventItems) MarshalJSON() (buffer []byte, err error) {
 	m := make(map[string]interface{})
 	if len(o.additionalProperties) > 0 {
 		for k, v := range o.additionalProperties {
@@ -5427,9 +5471,9 @@ func (o *PulsarEventItem) MarshalJSON() (buffer []byte, err error) {
 	return
 }
 
-// UnmarshalPulsarEventItem unmarshals an instance of PulsarEventItem from the specified map of raw messages.
-func UnmarshalPulsarEventItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PulsarEventItem)
+// UnmarshalPulsarEventItems unmarshals an instance of PulsarEventItems from the specified map of raw messages.
+func UnmarshalPulsarEventItems(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PulsarEventItems)
 	err = core.UnmarshalPrimitive(m, "event_type", &obj.EventType)
 	if err != nil {
 		return
@@ -5481,21 +5525,21 @@ func UnmarshalPulsarEventItem(m map[string]json.RawMessage, result interface{}) 
 // ReceivePulsarCatalogEventsOptions : The ReceivePulsarCatalogEvents options.
 type ReceivePulsarCatalogEventsOptions struct {
 	// A pulsar event.
-	PulsarCatalogEvents []PulsarEventItem `json:"pulsar_catalog_events" validate:"required"`
+	PulsarCatalogEvents []PulsarEventItems `json:"pulsar_catalog_events" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewReceivePulsarCatalogEventsOptions : Instantiate ReceivePulsarCatalogEventsOptions
-func (*ProjectsV1) NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents []PulsarEventItem) *ReceivePulsarCatalogEventsOptions {
+func (*ProjectsV1) NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents []PulsarEventItems) *ReceivePulsarCatalogEventsOptions {
 	return &ReceivePulsarCatalogEventsOptions{
 		PulsarCatalogEvents: pulsarCatalogEvents,
 	}
 }
 
 // SetPulsarCatalogEvents : Allow user to set PulsarCatalogEvents
-func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarCatalogEvents(pulsarCatalogEvents []PulsarEventItem) *ReceivePulsarCatalogEventsOptions {
+func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarCatalogEvents(pulsarCatalogEvents []PulsarEventItems) *ReceivePulsarCatalogEventsOptions {
 	_options.PulsarCatalogEvents = pulsarCatalogEvents
 	return _options
 }
@@ -5511,11 +5555,11 @@ type ReplaceServiceInstanceOptions struct {
 	// The instance_id of a service instance is provided by the IBM Cloud platform.
 	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
-	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID and it MUST be a
+	// The ID of the service stored in the catalog.j-son of your broker. This value should be a GUID and it MUST be a
 	// non-empty string.
 	ServiceID *string `json:"service_id" validate:"required"`
 
-	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.j-son of your
 	// broker.
 	PlanID *string `json:"plan_id" validate:"required"`
 
@@ -5620,8 +5664,8 @@ type ReplaceServiceInstanceStateOptions struct {
 	// The instance_id of a service instance is provided by the IBM Cloud platform.
 	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
-	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
-	// string.
+	// The ID of the service stored in the catalog.j-son of your broker. This value should be a GUID. It MUST be a
+	// non-empty string.
 	Enabled *bool `json:"enabled" validate:"required"`
 
 	// Optional string that shows the user ID that is initiating the call.
@@ -5633,7 +5677,7 @@ type ReplaceServiceInstanceStateOptions struct {
 	// IBMCLOUD_ADMIN_REQUEST for enable and disable calls.
 	ReasonCode map[string]interface{} `json:"reason_code,omitempty"`
 
-	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.j-son of your
 	// broker.
 	PlanID *string `json:"plan_id,omitempty"`
 
@@ -5983,8 +6027,8 @@ type UpdateServiceInstanceOptions struct {
 	// The ID of a previously provisioned service instance.
 	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
-	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
-	// string.
+	// The ID of the service stored in the catalog.j-son of your broker. This value should be a GUID. It MUST be a
+	// non-empty string.
 	ServiceID []string `json:"service_id" validate:"required"`
 
 	// Platform specific contextual information under which the service instance is to be provisioned.
@@ -5996,7 +6040,7 @@ type UpdateServiceInstanceOptions struct {
 	// this request.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
-	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.j-son of your
 	// broker.
 	PlanID *string `json:"plan_id,omitempty"`
 

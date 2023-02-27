@@ -2533,6 +2533,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2551,6 +2552,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
 				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.DeleteConfig(deleteConfigOptionsModel)
@@ -2582,6 +2584,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2605,6 +2608,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
 				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2642,6 +2646,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2667,6 +2672,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
 				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2689,6 +2695,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
 				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2732,6 +2739,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.ID = core.StringPtr("testString")
 				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
 				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
 				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3923,6 +3931,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -3981,7 +3990,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully with retries`, func() {
@@ -3998,6 +4007,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4059,7 +4069,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID", "status": "Status", "reasons": [{"anyKey": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke PostNotification successfully`, func() {
@@ -4081,6 +4091,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4109,6 +4120,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4158,6 +4170,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 
 				// Construct an instance of the PostNotificationOptions model
@@ -4241,7 +4254,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully with retries`, func() {
@@ -4295,7 +4308,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
+					fmt.Fprintf(res, "%s", `{"notifications": [{"event": "Event", "target": "Target", "source": "Source", "action_url": "ActionURL", "data": {"anyKey": "anyValue"}, "id": "ID"}]}`)
 				}))
 			})
 			It(`Invoke GetNotifications successfully`, func() {
@@ -4502,20 +4515,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the PulsarEventItem model
-				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
-				pulsarEventItemModel.EventType = core.StringPtr("testString")
-				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
-				pulsarEventItemModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemModel.Version = core.StringPtr("testString")
-				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemModel.EventID = core.StringPtr("testString")
-				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
+				// Construct an instance of the PulsarEventItems model
+				pulsarEventItemsModel := new(projectsv1.PulsarEventItems)
+				pulsarEventItemsModel.EventType = core.StringPtr("testString")
+				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemsModel.Version = core.StringPtr("testString")
+				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemsModel.EventID = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
 				receivePulsarCatalogEventsOptionsModel := new(projectsv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectsv1.PulsarEventItem{*pulsarEventItemModel}
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectsv1.PulsarEventItems{*pulsarEventItemsModel}
 				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4531,20 +4544,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the PulsarEventItem model
-				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
-				pulsarEventItemModel.EventType = core.StringPtr("testString")
-				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
-				pulsarEventItemModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemModel.Version = core.StringPtr("testString")
-				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemModel.EventID = core.StringPtr("testString")
-				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
+				// Construct an instance of the PulsarEventItems model
+				pulsarEventItemsModel := new(projectsv1.PulsarEventItems)
+				pulsarEventItemsModel.EventType = core.StringPtr("testString")
+				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemsModel.Version = core.StringPtr("testString")
+				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemsModel.EventID = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
 				receivePulsarCatalogEventsOptionsModel := new(projectsv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectsv1.PulsarEventItem{*pulsarEventItemModel}
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectsv1.PulsarEventItems{*pulsarEventItemsModel}
 				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -7569,11 +7582,13 @@ var _ = Describe(`ProjectsV1`, func() {
 				deleteConfigOptionsModel.SetID("testString")
 				deleteConfigOptionsModel.SetConfigID("testString")
 				deleteConfigOptionsModel.SetDraftOnly(false)
+				deleteConfigOptionsModel.SetDestroy(false)
 				deleteConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteConfigOptionsModel).ToNot(BeNil())
 				Expect(deleteConfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteConfigOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteConfigOptionsModel.DraftOnly).To(Equal(core.BoolPtr(false)))
+				Expect(deleteConfigOptionsModel.Destroy).To(Equal(core.BoolPtr(false)))
 				Expect(deleteConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteEventNotificationsIntegrationOptions successfully`, func() {
@@ -7889,10 +7904,12 @@ var _ = Describe(`ProjectsV1`, func() {
 				notificationEventModel.Event = core.StringPtr("project.create.failed")
 				notificationEventModel.Target = core.StringPtr("234234324-3444-4556-224232432")
 				notificationEventModel.Source = core.StringPtr("id.of.project.service.instance")
+				notificationEventModel.ActionURL = core.StringPtr("actionable url")
 				notificationEventModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				Expect(notificationEventModel.Event).To(Equal(core.StringPtr("project.create.failed")))
 				Expect(notificationEventModel.Target).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
 				Expect(notificationEventModel.Source).To(Equal(core.StringPtr("id.of.project.service.instance")))
+				Expect(notificationEventModel.ActionURL).To(Equal(core.StringPtr("actionable url")))
 				Expect(notificationEventModel.Data).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 
 				// Construct an instance of the PostNotificationOptions model
@@ -7913,54 +7930,54 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewPulsarEventItem successfully`, func() {
+			It(`Invoke NewPulsarEventItems successfully`, func() {
 				eventType := "testString"
-				timestamp := "testString"
+				timestamp := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				publisher := "testString"
 				accountID := "testString"
 				version := "testString"
-				_model, err := projectsService.NewPulsarEventItem(eventType, timestamp, publisher, accountID, version)
+				_model, err := projectsService.NewPulsarEventItems(eventType, timestamp, publisher, accountID, version)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewReceivePulsarCatalogEventsOptions successfully`, func() {
-				// Construct an instance of the PulsarEventItem model
-				pulsarEventItemModel := new(projectsv1.PulsarEventItem)
-				Expect(pulsarEventItemModel).ToNot(BeNil())
-				pulsarEventItemModel.EventType = core.StringPtr("testString")
-				pulsarEventItemModel.Timestamp = core.StringPtr("testString")
-				pulsarEventItemModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemModel.Version = core.StringPtr("testString")
-				pulsarEventItemModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemModel.EventID = core.StringPtr("testString")
-				pulsarEventItemModel.SetProperty("foo", core.StringPtr("testString"))
-				Expect(pulsarEventItemModel.EventType).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.Timestamp).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.Publisher).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(pulsarEventItemModel.EventID).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemModel.GetProperties()).ToNot(BeEmpty())
-				Expect(pulsarEventItemModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the PulsarEventItems model
+				pulsarEventItemsModel := new(projectsv1.PulsarEventItems)
+				Expect(pulsarEventItemsModel).ToNot(BeNil())
+				pulsarEventItemsModel.EventType = core.StringPtr("testString")
+				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemsModel.Version = core.StringPtr("testString")
+				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemsModel.EventID = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(pulsarEventItemsModel.EventType).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemsModel.Timestamp).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
+				Expect(pulsarEventItemsModel.Publisher).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemsModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(pulsarEventItemsModel.EventID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventItemsModel.GetProperties()).ToNot(BeEmpty())
+				Expect(pulsarEventItemsModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
-				pulsarEventItemModel.SetProperties(nil)
-				Expect(pulsarEventItemModel.GetProperties()).To(BeEmpty())
+				pulsarEventItemsModel.SetProperties(nil)
+				Expect(pulsarEventItemsModel.GetProperties()).To(BeEmpty())
 
-				pulsarEventItemModelExpectedMap := make(map[string]interface{})
-				pulsarEventItemModelExpectedMap["foo"] = core.StringPtr("testString")
-				pulsarEventItemModel.SetProperties(pulsarEventItemModelExpectedMap)
-				pulsarEventItemModelActualMap := pulsarEventItemModel.GetProperties()
-				Expect(pulsarEventItemModelActualMap).To(Equal(pulsarEventItemModelExpectedMap))
+				pulsarEventItemsModelExpectedMap := make(map[string]interface{})
+				pulsarEventItemsModelExpectedMap["foo"] = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperties(pulsarEventItemsModelExpectedMap)
+				pulsarEventItemsModelActualMap := pulsarEventItemsModel.GetProperties()
+				Expect(pulsarEventItemsModelActualMap).To(Equal(pulsarEventItemsModelExpectedMap))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
-				pulsarCatalogEvents := []projectsv1.PulsarEventItem{}
+				pulsarCatalogEvents := []projectsv1.PulsarEventItems{}
 				receivePulsarCatalogEventsOptionsModel := projectsService.NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents)
-				receivePulsarCatalogEventsOptionsModel.SetPulsarCatalogEvents([]projectsv1.PulsarEventItem{*pulsarEventItemModel})
+				receivePulsarCatalogEventsOptionsModel.SetPulsarCatalogEvents([]projectsv1.PulsarEventItems{*pulsarEventItemsModel})
 				receivePulsarCatalogEventsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(receivePulsarCatalogEventsOptionsModel).ToNot(BeNil())
-				Expect(receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents).To(Equal([]projectsv1.PulsarEventItem{*pulsarEventItemModel}))
+				Expect(receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents).To(Equal([]projectsv1.PulsarEventItems{*pulsarEventItemsModel}))
 				Expect(receivePulsarCatalogEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceServiceInstanceOptions successfully`, func() {
