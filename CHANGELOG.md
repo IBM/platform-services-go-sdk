@@ -1,3 +1,24 @@
+# [0.32.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.6...v0.32.0) (2023-02-24)
+
+
+### Features
+
+* bump minimum go version to 1.18 ([#235](https://github.com/IBM/platform-services-go-sdk/issues/235)) ([a5b12e5](https://github.com/IBM/platform-services-go-sdk/commit/a5b12e54fec71478e0a054e61a9c8a5dd0d2aa78))
+
+## [0.31.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.5...v0.31.6) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen with latest API definition ([#232](https://github.com/IBM/platform-services-go-sdk/issues/232)) ([922f9ad](https://github.com/IBM/platform-services-go-sdk/commit/922f9ad7b7d80016173293c5830b87374c9b93ef))
+
+## [0.31.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.4...v0.31.5) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Add format query parameter to GET by ID ([#233](https://github.com/IBM/platform-services-go-sdk/issues/233)) ([216a92c](https://github.com/IBM/platform-services-go-sdk/commit/216a92c530662e45448c7cc153f69a3b2e6c00ea))
+
 ## [0.31.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.3...v0.31.4) (2023-01-25)
 
 

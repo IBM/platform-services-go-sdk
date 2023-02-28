@@ -309,7 +309,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			serviceNameResourceAttribute.Value = core.StringPtr("service")
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
 
-
 			policyResourceTag := new(iampolicymanagementv1.V2PolicyResourceTag)
 			policyResourceTag.Key = core.StringPtr("project")
 			policyResourceTag.Value = core.StringPtr("prototype")
@@ -320,14 +319,14 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			subjectAttribute.Key = core.StringPtr("iam_id")
 			subjectAttribute.Operator = core.StringPtr("stringEquals")
 			subjectAttribute.Value = core.StringPtr(testUserId)
-			
+
 			// Construct an instance of the V2PolicyResource model
 			policyResource := new(iampolicymanagementv1.V2PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
 			policyResource.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag}
 
-			// Construct an instance of the PolicyRole model
-			policyRole := new(iampolicymanagementv1.PolicyRole)
+			// Construct an instance of the Roles model
+			policyRole := new(iampolicymanagementv1.Roles)
 			policyRole.RoleID = core.StringPtr(testViewerRoleCrn)
 
 			// Construct an instance of the PolicySubject model
@@ -336,15 +335,15 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			// Contruct and instance of PolicyControl model
 			control := new(iampolicymanagementv1.Control)
-			grant := new(iampolicymanagementv1.V2PolicyGrant)
-			grant.Roles = []iampolicymanagementv1.PolicyRole{*policyRole}
+			grant := new(iampolicymanagementv1.Grant)
+			grant.Roles = []iampolicymanagementv1.Roles{*policyRole}
 			control.Grant = grant
 
 			// Construct an instance of Policy Rule Attribute
 			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
 			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
 			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
-			weeklyConditionAttribute.Value = []string{"1+00:00","2+00:00","3+00:00","4+00:00","5+00:00"}
+			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
 
 			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
 			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
@@ -432,8 +431,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			policyResource := new(iampolicymanagementv1.V2PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
 
-			// Construct an instance of the PolicyRole model
-			policyRole := new(iampolicymanagementv1.PolicyRole)
+			// Construct an instance of the Roles model
+			policyRole := new(iampolicymanagementv1.Roles)
 			policyRole.RoleID = core.StringPtr(testViewerRoleCrn)
 
 			// Construct an instance of the PolicySubject model
@@ -442,15 +441,15 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			// Contruct and instance of PolicyControl model
 			control := new(iampolicymanagementv1.Control)
-			grant := new(iampolicymanagementv1.V2PolicyGrant)
-			grant.Roles = []iampolicymanagementv1.PolicyRole{*policyRole}
+			grant := new(iampolicymanagementv1.Grant)
+			grant.Roles = []iampolicymanagementv1.Roles{*policyRole}
 			control.Grant = grant
 
 			// Construct an instance of Policy Rule Attribute
 			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
 			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
 			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
-			weeklyConditionAttribute.Value = []string{"1+00:00","2+00:00","3+00:00","4+00:00","5+00:00"}
+			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
 
 			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
 			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
