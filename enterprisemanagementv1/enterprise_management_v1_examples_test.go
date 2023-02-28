@@ -236,6 +236,23 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			fmt.Printf("\nUpdateAccountGroup() response status code: %d\n", response.StatusCode)
 			Expect(response.StatusCode).To(Equal(204))
 		})
+		It(`DeleteAccountGroup request example`, func() {
+			// begin-delete_account_group
+			deleteAccountGroupOptions := enterpriseManagementService.NewDeleteAccountGroupOptions(
+				accountGroupID,
+			)
+
+			response, err := enterpriseManagementService.DeleteAccountGroup(deleteAccountGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_account_group
+
+			Expect(err).To(BeNil())
+			fmt.Printf("\nDeleteAccountGroup() response status code: %d\n", response.StatusCode)
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`ImportAccountToEnterprise request example`, func() {
 			Skip("Skip by design")
 			importAccountID := "<accountid_to_be_imported>"
@@ -348,6 +365,25 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			fmt.Printf("\nUpdateAccount() response status code: %d\n", response.StatusCode)
 			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteAccount request example`, func() {
+			fmt.Println("\nDeleteAccount() result:")
+			// begin-delete_account
+
+			deleteAccountOptions := enterpriseManagementService.NewDeleteAccountOptions(
+				accountID,
+			)
+
+			response, err := enterpriseManagementService.DeleteAccount(deleteAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_account
+
+			Expect(err).To(BeNil())
+			fmt.Printf("\nDeleteAccount() response status code: %d\n", response.StatusCode)
+			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`CreateEnterprise request example`, func() {
 			Skip("Skip by design")

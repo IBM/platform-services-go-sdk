@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.60.2-95dc7721-20221102-203229
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
@@ -43,7 +43,7 @@ type EnterpriseManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://enterprise.cloud.ibm.com/v1"
+const DefaultServiceURL = "https://enterprise.test.cloud.ibm.com/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "enterprise_management"
@@ -467,7 +467,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 
 	pathParamsMap := map[string]string{
 		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
-		"account_id":    *importAccountToEnterpriseOptions.AccountID,
+		"account_id": *importAccountToEnterpriseOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -639,6 +639,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountsWithContext(ctx 
 	if listAccountsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountsOptions.Limit))
 	}
+	if listAccountsOptions.IncludeDeleted != nil {
+		builder.AddQuery("include_deleted", fmt.Sprint(*listAccountsOptions.IncludeDeleted))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -780,6 +783,55 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountWithContext(ctx
 	return
 }
 
+// DeleteAccount : Remove an account from its enterprise
+// Remove an account from the enterprise its currently in. After an account is removed, it will be canceled and cannot
+// be reactivated.
+func (enterpriseManagement *EnterpriseManagementV1) DeleteAccount(deleteAccountOptions *DeleteAccountOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.DeleteAccountWithContext(context.Background(), deleteAccountOptions)
+}
+
+// DeleteAccountWithContext is an alternate form of the DeleteAccount method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) DeleteAccountWithContext(ctx context.Context, deleteAccountOptions *DeleteAccountOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAccountOptions, "deleteAccountOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteAccountOptions, "deleteAccountOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *deleteAccountOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts/{account_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteAccountOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "DeleteAccount")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = enterpriseManagement.Service.Request(request, nil)
+
+	return
+}
+
 // CreateAccountGroup : Create an account group
 // Create a new account group, which can be used to group together multiple accounts. To create an account group, you
 // must have an existing enterprise. The API creates an account group entity under the parent that is specified in the
@@ -908,6 +960,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	}
 	if listAccountGroupsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountGroupsOptions.Limit))
+	}
+	if listAccountGroupsOptions.IncludeDeleted != nil {
+		builder.AddQuery("include_deleted", fmt.Sprint(*listAccountGroupsOptions.IncludeDeleted))
 	}
 
 	request, err := builder.Build()
@@ -1042,6 +1097,56 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroupWithContex
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = enterpriseManagement.Service.Request(request, nil)
+
+	return
+}
+
+// DeleteAccountGroup : Delete an account group from the enterprise
+// Delete an existing account group from the enterprise. You can't delete an account group that has child account
+// groups, the delete request will fail. This API doesn't perform a recursive delete on the child account groups, it
+// only deletes the current account group.
+func (enterpriseManagement *EnterpriseManagementV1) DeleteAccountGroup(deleteAccountGroupOptions *DeleteAccountGroupOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.DeleteAccountGroupWithContext(context.Background(), deleteAccountGroupOptions)
+}
+
+// DeleteAccountGroupWithContext is an alternate form of the DeleteAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) DeleteAccountGroupWithContext(ctx context.Context, deleteAccountGroupOptions *DeleteAccountGroupOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAccountGroupOptions, "deleteAccountGroupOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteAccountGroupOptions, "deleteAccountGroupOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_group_id": *deleteAccountGroupOptions.AccountGroupID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteAccountGroupOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "DeleteAccountGroup")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
 	}
 
 	request, err := builder.Build()
@@ -1317,8 +1422,8 @@ type CreateAccountGroupOptions struct {
 // NewCreateAccountGroupOptions : Instantiate CreateAccountGroupOptions
 func (*EnterpriseManagementV1) NewCreateAccountGroupOptions(parent string, name string, primaryContactIamID string) *CreateAccountGroupOptions {
 	return &CreateAccountGroupOptions{
-		Parent:              core.StringPtr(parent),
-		Name:                core.StringPtr(name),
+		Parent: core.StringPtr(parent),
+		Name: core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1383,8 +1488,8 @@ type CreateAccountOptions struct {
 // NewCreateAccountOptions : Instantiate CreateAccountOptions
 func (*EnterpriseManagementV1) NewCreateAccountOptions(parent string, name string, ownerIamID string) *CreateAccountOptions {
 	return &CreateAccountOptions{
-		Parent:     core.StringPtr(parent),
-		Name:       core.StringPtr(name),
+		Parent: core.StringPtr(parent),
+		Name: core.StringPtr(name),
 		OwnerIamID: core.StringPtr(ownerIamID),
 	}
 }
@@ -1451,8 +1556,8 @@ type CreateEnterpriseOptions struct {
 // NewCreateEnterpriseOptions : Instantiate CreateEnterpriseOptions
 func (*EnterpriseManagementV1) NewCreateEnterpriseOptions(sourceAccountID string, name string, primaryContactIamID string) *CreateEnterpriseOptions {
 	return &CreateEnterpriseOptions{
-		SourceAccountID:     core.StringPtr(sourceAccountID),
-		Name:                core.StringPtr(name),
+		SourceAccountID: core.StringPtr(sourceAccountID),
+		Name: core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1510,6 +1615,62 @@ func UnmarshalCreateEnterpriseResponse(m map[string]json.RawMessage, result inte
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// DeleteAccountGroupOptions : The DeleteAccountGroup options.
+type DeleteAccountGroupOptions struct {
+	// The ID of the account group to retrieve.
+	AccountGroupID *string `json:"account_group_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteAccountGroupOptions : Instantiate DeleteAccountGroupOptions
+func (*EnterpriseManagementV1) NewDeleteAccountGroupOptions(accountGroupID string) *DeleteAccountGroupOptions {
+	return &DeleteAccountGroupOptions{
+		AccountGroupID: core.StringPtr(accountGroupID),
+	}
+}
+
+// SetAccountGroupID : Allow user to set AccountGroupID
+func (_options *DeleteAccountGroupOptions) SetAccountGroupID(accountGroupID string) *DeleteAccountGroupOptions {
+	_options.AccountGroupID = core.StringPtr(accountGroupID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteAccountGroupOptions) SetHeaders(param map[string]string) *DeleteAccountGroupOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteAccountOptions : The DeleteAccount options.
+type DeleteAccountOptions struct {
+	// The ID of the target account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteAccountOptions : Instantiate DeleteAccountOptions
+func (*EnterpriseManagementV1) NewDeleteAccountOptions(accountID string) *DeleteAccountOptions {
+	return &DeleteAccountOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *DeleteAccountOptions) SetAccountID(accountID string) *DeleteAccountOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteAccountOptions) SetHeaders(param map[string]string) *DeleteAccountOptions {
+	options.Headers = param
+	return options
 }
 
 // Enterprise : An enterprise resource.
@@ -1643,7 +1804,7 @@ func (options *GetAccountGroupOptions) SetHeaders(param map[string]string) *GetA
 
 // GetAccountOptions : The GetAccount options.
 type GetAccountOptions struct {
-	// The ID of the account to retrieve.
+	// The ID of the target account.
 	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
@@ -1721,7 +1882,7 @@ type ImportAccountToEnterpriseOptions struct {
 func (*EnterpriseManagementV1) NewImportAccountToEnterpriseOptions(enterpriseID string, accountID string) *ImportAccountToEnterpriseOptions {
 	return &ImportAccountToEnterpriseOptions{
 		EnterpriseID: core.StringPtr(enterpriseID),
-		AccountID:    core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 	}
 }
 
@@ -1773,6 +1934,9 @@ type ListAccountGroupsOptions struct {
 	// Return results up to this limit. Valid values are between `0` and `100`.
 	Limit *int64 `json:"limit,omitempty"`
 
+	// Include the deleted account groups from an enterprise when used in conjunction with other query parameters.
+	IncludeDeleted *bool `json:"include_deleted,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1809,6 +1973,12 @@ func (_options *ListAccountGroupsOptions) SetParent(parent string) *ListAccountG
 // SetLimit : Allow user to set Limit
 func (_options *ListAccountGroupsOptions) SetLimit(limit int64) *ListAccountGroupsOptions {
 	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetIncludeDeleted : Allow user to set IncludeDeleted
+func (_options *ListAccountGroupsOptions) SetIncludeDeleted(includeDeleted bool) *ListAccountGroupsOptions {
+	_options.IncludeDeleted = core.BoolPtr(includeDeleted)
 	return _options
 }
 
@@ -1879,6 +2049,9 @@ type ListAccountsOptions struct {
 	// Return results up to this limit. Valid values are between `0` and `100`.
 	Limit *int64 `json:"limit,omitempty"`
 
+	// Include the deleted accounts from an enterprise when used in conjunction with enterprise_id.
+	IncludeDeleted *bool `json:"include_deleted,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1915,6 +2088,12 @@ func (_options *ListAccountsOptions) SetParent(parent string) *ListAccountsOptio
 // SetLimit : Allow user to set Limit
 func (_options *ListAccountsOptions) SetLimit(limit int64) *ListAccountsOptions {
 	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetIncludeDeleted : Allow user to set IncludeDeleted
+func (_options *ListAccountsOptions) SetIncludeDeleted(includeDeleted bool) *ListAccountsOptions {
+	_options.IncludeDeleted = core.BoolPtr(includeDeleted)
 	return _options
 }
 
@@ -2121,7 +2300,7 @@ func (options *UpdateAccountGroupOptions) SetHeaders(param map[string]string) *U
 
 // UpdateAccountOptions : The UpdateAccount options.
 type UpdateAccountOptions struct {
-	// The ID of the account to retrieve.
+	// The ID of the target account.
 	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The CRN of the new parent within the enterprise.
@@ -2135,7 +2314,7 @@ type UpdateAccountOptions struct {
 func (*EnterpriseManagementV1) NewUpdateAccountOptions(accountID string, parent string) *UpdateAccountOptions {
 	return &UpdateAccountOptions{
 		AccountID: core.StringPtr(accountID),
-		Parent:    core.StringPtr(parent),
+		Parent: core.StringPtr(parent),
 	}
 }
 
@@ -2216,9 +2395,9 @@ func (options *UpdateEnterpriseOptions) SetHeaders(param map[string]string) *Upd
 // EnterprisesPager can be used to simplify the use of the "ListEnterprises" method.
 //
 type EnterprisesPager struct {
-	hasNext     bool
-	options     *ListEnterprisesOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListEnterprisesOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2303,9 +2482,9 @@ func (pager *EnterprisesPager) GetAll() (allItems []Enterprise, err error) {
 // AccountsPager can be used to simplify the use of the "ListAccounts" method.
 //
 type AccountsPager struct {
-	hasNext     bool
-	options     *ListAccountsOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListAccountsOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2390,9 +2569,9 @@ func (pager *AccountsPager) GetAll() (allItems []Account, err error) {
 // AccountGroupsPager can be used to simplify the use of the "ListAccountGroups" method.
 //
 type AccountGroupsPager struct {
-	hasNext     bool
-	options     *ListAccountGroupsOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListAccountGroupsOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
