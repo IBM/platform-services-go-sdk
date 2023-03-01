@@ -2437,7 +2437,19 @@ type ListV2PoliciesOptions struct {
 	ServiceGroupID *string `json:"service_group_id,omitempty"`
 
 	// Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
-	// '-' to field. Example '-last_modified_at'.
+	// '-' to field, for example, '-last_modified_at'. Note that last permit information is only included when
+	// 'format=include_last_permit', for example, "format=include_last_permit&sort=last_permit_at" Example fields that can
+	// be sorted on:
+	//   - 'id'
+	//   - 'type'
+	//   - 'href'
+	//   - 'created_at'
+	//   - 'created_by_id'
+	//   - 'last_modified_at'
+	//   - 'last_modified_by_id'
+	//   - 'state'
+	//   - 'last_permit_at'
+	//   - 'last_permit_frequency'.
 	Sort *string `json:"sort,omitempty"`
 
 	// Include additional data per policy returned
@@ -2468,20 +2480,6 @@ const (
 const (
 	ListV2PoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
 	ListV2PoliciesOptionsServiceTypeServiceConst = "service"
-)
-
-// Constants associated with the ListV2PoliciesOptions.Sort property.
-// Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
-// '-' to field. Example '-last_modified_at'.
-const (
-	ListV2PoliciesOptionsSortCreatedAtConst = "created_at"
-	ListV2PoliciesOptionsSortCreatedByIDConst = "created_by_id"
-	ListV2PoliciesOptionsSortHrefConst = "href"
-	ListV2PoliciesOptionsSortIDConst = "id"
-	ListV2PoliciesOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListV2PoliciesOptionsSortLastModifiedByIDConst = "last_modified_by_id"
-	ListV2PoliciesOptionsSortStateConst = "state"
-	ListV2PoliciesOptionsSortTypeConst = "type"
 )
 
 // Constants associated with the ListV2PoliciesOptions.Format property.
