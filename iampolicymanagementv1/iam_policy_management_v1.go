@@ -42,7 +42,7 @@ type IamPolicyManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.test.cloud.ibm.com"
+const DefaultServiceURL = "https://iam.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_policy_management"
@@ -288,7 +288,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 //
 // Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes may support one
 // or both operators. For more information, see [Assigning access by using wildcard
-// policies](https://test.cloud.ibm.com/docs/account?topic=account-wildcard).
+// policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -405,7 +405,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 //
 // Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes might support
 // one or both operators. For more information, see [Assigning access by using wildcard
-// policies](https://test.cloud.ibm.com/docs/account?topic=account-wildcard).
+// policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -1024,70 +1024,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 	return
 }
 
-// ListServices : Get services by filters
-// Get services based on the filters. While managing policies, you may want to retrieve services and filter by usages.
-// This can be done through query parameters. Only services that match the filter and that the caller has read access to
-// are returned. If the caller does not have read access to any services an empty array is returned.
-func (iamPolicyManagement *IamPolicyManagementV1) ListServices(listServicesOptions *ListServicesOptions) (result *ServiceList, response *core.DetailedResponse, err error) {
-	return iamPolicyManagement.ListServicesWithContext(context.Background(), listServicesOptions)
-}
-
-// ListServicesWithContext is an alternate form of the ListServices method which supports a Context parameter
-func (iamPolicyManagement *IamPolicyManagementV1) ListServicesWithContext(ctx context.Context, listServicesOptions *ListServicesOptions) (result *ServiceList, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listServicesOptions, "listServicesOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v3/services`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listServicesOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ListServices")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	if listServicesOptions.AcceptLanguage != nil {
-		builder.AddHeader("Accept-Language", fmt.Sprint(*listServicesOptions.AcceptLanguage))
-	}
-
-	if listServicesOptions.ServiceType != nil {
-		builder.AddQuery("service_type", fmt.Sprint(*listServicesOptions.ServiceType))
-	}
-	if listServicesOptions.Fields != nil {
-		builder.AddQuery("fields", fmt.Sprint(*listServicesOptions.Fields))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
 // ListV2Policies : Get policies by attributes
 // Get policies and filter by attributes. While managing policies, you might want to retrieve policies in the account
 // and filter by attribute values. This can be done through query parameters. The following attributes are supported:
@@ -1225,16 +1161,16 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 //
 // The pattern field that matches the rule is required when rule is provided. For the business hour rule example above,
 // the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
-// operators](https://test.cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
+// operators](https://cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
 // and
 // [Limiting access with time-based
-// conditions](https://test.cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui). If the subject is a
-// locked service-id, the request will fail.
+// conditions](https://cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui). If the subject is a locked
+// service-id, the request will fail.
 //
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals`, `stringMatch`, and `stringEquals` operators are available. For more information,
-// see [Assigning access by using wildcard policies](https://test.cloud.ibm.com/docs/account?topic=account-wildcard).
+// see [Assigning access by using wildcard policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -1368,14 +1304,14 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 //   'dayOfWeekEquals', 'dayOfWeekAnyOf',
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
-// operators](https://test.cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
+// operators](https://cloud.ibm.com/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties)
 // and
 // [Limiting access with time-based
-// conditions](https://test.cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui).
+// conditions](https://cloud.ibm.com/docs/account?topic=account-iam-time-based&interface=ui).
 // ### Attribute Operators
 //
 // Currently, only the `stringEquals`, `stringMatch`, and `stringEquals` operators are available. For more information,
-// see [Assigning access by using wildcard policies](https://test.cloud.ibm.com/docs/account?topic=account-wildcard).
+// see [Assigning access by using wildcard policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
 //
 // ### Attribute Validations
 //
@@ -1730,7 +1666,7 @@ type CreateRoleOptions struct {
 	DisplayName *string `json:"display_name" validate:"required"`
 
 	// The actions of the role. For more information, see [IAM roles and
-	// actions](https://test.cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
@@ -2030,7 +1966,7 @@ type EnrichedRoles struct {
 	Description *string `json:"description,omitempty"`
 
 	// The actions of the role. For more information, see [IAM roles and
-	// actions](https://test.cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []RoleAction `json:"actions" validate:"required"`
 }
 
@@ -2463,61 +2399,6 @@ func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesO
 	return options
 }
 
-// ListServicesOptions : The ListServices options.
-type ListServicesOptions struct {
-	// Language code for translations
-	// * `default` - English
-	// * `de` -  German (Standard)
-	// * `en` - English
-	// * `es` - Spanish (Spain)
-	// * `fr` - French (Standard)
-	// * `it` - Italian (Standard)
-	// * `ja` - Japanese
-	// * `ko` - Korean
-	// * `pt-br` - Portuguese (Brazil)
-	// * `zh-cn` - Chinese (Simplified, PRC)
-	// * `zh-tw` - (Chinese, Taiwan).
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
-
-	// The type of service, values: service, platform_service.
-	ServiceType *string `json:"service_type,omitempty"`
-
-	// The fields to be returned. name and href are always returned for identification.
-	Fields *string `json:"fields,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewListServicesOptions : Instantiate ListServicesOptions
-func (*IamPolicyManagementV1) NewListServicesOptions() *ListServicesOptions {
-	return &ListServicesOptions{}
-}
-
-// SetAcceptLanguage : Allow user to set AcceptLanguage
-func (_options *ListServicesOptions) SetAcceptLanguage(acceptLanguage string) *ListServicesOptions {
-	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return _options
-}
-
-// SetServiceType : Allow user to set ServiceType
-func (_options *ListServicesOptions) SetServiceType(serviceType string) *ListServicesOptions {
-	_options.ServiceType = core.StringPtr(serviceType)
-	return _options
-}
-
-// SetFields : Allow user to set Fields
-func (_options *ListServicesOptions) SetFields(fields string) *ListServicesOptions {
-	_options.Fields = core.StringPtr(fields)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ListServicesOptions) SetHeaders(param map[string]string) *ListServicesOptions {
-	options.Headers = param
-	return options
-}
-
 // ListV2PoliciesOptions : The ListV2Policies options.
 type ListV2PoliciesOptions struct {
 	// The account GUID in which the policies belong to.
@@ -2843,7 +2724,7 @@ type ReplaceRoleOptions struct {
 	DisplayName *string `json:"display_name" validate:"required"`
 
 	// The actions of the role. For more information, see [IAM roles and
-	// actions](https://test.cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
 	// The description of the role.
@@ -3119,161 +3000,6 @@ func UnmarshalRuleAttribute(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceActionsItem : The action.
-type ServiceActionsItem struct {
-	// The id of the action.
-	ID *string `json:"id,omitempty"`
-
-	// The display name of the action.
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// The description of the action.
-	Description *string `json:"description,omitempty"`
-
-	// The roles associated with the action.
-	Roles []string `json:"roles" validate:"required"`
-}
-
-// UnmarshalServiceActionsItem unmarshals an instance of ServiceActionsItem from the specified map of raw messages.
-func UnmarshalServiceActionsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceActionsItem)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceSupportedAnonymousAccessesItem : The supported authorization subjects.
-type ServiceSupportedAnonymousAccessesItem struct {
-	// The attributes of the supported authorization subjects.
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
-
-	// The roles of the supported authorization subjects.
-	Roles []string `json:"roles,omitempty"`
-}
-
-// UnmarshalServiceSupportedAnonymousAccessesItem unmarshals an instance of ServiceSupportedAnonymousAccessesItem from the specified map of raw messages.
-func UnmarshalServiceSupportedAnonymousAccessesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceSupportedAnonymousAccessesItem)
-	err = core.UnmarshalPrimitive(m, "attributes", &obj.Attributes)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceSupportedAttributesItem : The supported attributes.
-type ServiceSupportedAttributesItem struct {
-	// The id of the attribute.
-	Key *string `json:"key,omitempty"`
-
-	// The display name of the attribute.
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// The description of the attribute.
-	Description *string `json:"description,omitempty"`
-
-	// The UI display info of the attribute.
-	UI map[string]interface{} `json:"ui,omitempty"`
-}
-
-// UnmarshalServiceSupportedAttributesItem unmarshals an instance of ServiceSupportedAttributesItem from the specified map of raw messages.
-func UnmarshalServiceSupportedAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceSupportedAttributesItem)
-	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ui", &obj.UI)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceSupportedAuthorizationSubjectsItem : The supported authorization subjects.
-type ServiceSupportedAuthorizationSubjectsItem struct {
-	// The attributes of the supported authorization subjects.
-	Attributes map[string]interface{} `json:"attributes,omitempty"`
-
-	// The roles of the supported authorization subjects.
-	Roles []string `json:"roles,omitempty"`
-}
-
-// UnmarshalServiceSupportedAuthorizationSubjectsItem unmarshals an instance of ServiceSupportedAuthorizationSubjectsItem from the specified map of raw messages.
-func UnmarshalServiceSupportedAuthorizationSubjectsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceSupportedAuthorizationSubjectsItem)
-	err = core.UnmarshalPrimitive(m, "attributes", &obj.Attributes)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceSupportedRolesItem : The supported roles.
-type ServiceSupportedRolesItem struct {
-	// The id of the role.
-	ID *string `json:"id,omitempty"`
-
-	// The display name of the role.
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-}
-
-// UnmarshalServiceSupportedRolesItem unmarshals an instance of ServiceSupportedRolesItem from the specified map of raw messages.
-func UnmarshalServiceSupportedRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceSupportedRolesItem)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
@@ -3774,7 +3500,7 @@ type CustomRole struct {
 	Description *string `json:"description,omitempty"`
 
 	// The actions of the role. For more information, see [IAM roles and
-	// actions](https://test.cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
 	// The role Cloud Resource Name (CRN). Example CRN:
@@ -4115,7 +3841,7 @@ type Role struct {
 	Description *string `json:"description,omitempty"`
 
 	// The actions of the role. For more information, see [IAM roles and
-	// actions](https://test.cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions" validate:"required"`
 
 	// The role Cloud Resource Name (CRN). Example CRN:
@@ -4180,89 +3906,6 @@ func UnmarshalRoleList(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalModel(m, "system_roles", &obj.SystemRoles, UnmarshalRole)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Service : Service struct
-type Service struct {
-	// The service name.
-	Name *string `json:"name,omitempty"`
-
-	// The service type.
-	ServiceType *string `json:"serviceType,omitempty"`
-
-	// The actions of the service.
-	Actions []ServiceActionsItem `json:"actions,omitempty"`
-
-	// The supported roles of the service.
-	SupportedRoles []ServiceSupportedRolesItem `json:"supportedRoles,omitempty"`
-
-	// The supported attributes of the service.
-	SupportedAttributes []ServiceSupportedAttributesItem `json:"supportedAttributes,omitempty"`
-
-	// The supported authorization subjects of the service.
-	SupportedAuthorizationSubjects []ServiceSupportedAuthorizationSubjectsItem `json:"supportedAuthorizationSubjects,omitempty"`
-
-	// The supported authorization subjects of the service.
-	SupportedAnonymousAccesses []ServiceSupportedAnonymousAccessesItem `json:"supportedAnonymousAccesses,omitempty"`
-}
-
-// Constants associated with the Service.ServiceType property.
-// The service type.
-const (
-	ServiceServiceTypePlatformServiceConst = "platform_service"
-	ServiceServiceTypeServiceConst = "service"
-)
-
-// UnmarshalService unmarshals an instance of Service from the specified map of raw messages.
-func UnmarshalService(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Service)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "serviceType", &obj.ServiceType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalServiceActionsItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "supportedRoles", &obj.SupportedRoles, UnmarshalServiceSupportedRolesItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "supportedAttributes", &obj.SupportedAttributes, UnmarshalServiceSupportedAttributesItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "supportedAuthorizationSubjects", &obj.SupportedAuthorizationSubjects, UnmarshalServiceSupportedAuthorizationSubjectsItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "supportedAnonymousAccesses", &obj.SupportedAnonymousAccesses, UnmarshalServiceSupportedAnonymousAccessesItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceList : A collection of services.
-type ServiceList struct {
-	// List of services.
-	Policies []Service `json:"policies,omitempty"`
-}
-
-// UnmarshalServiceList unmarshals an instance of ServiceList from the specified map of raw messages.
-func UnmarshalServiceList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceList)
-	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalService)
 	if err != nil {
 		return
 	}
