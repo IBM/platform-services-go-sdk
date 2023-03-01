@@ -503,6 +503,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			options := service.NewListV2PoliciesOptions(testAccountID)
 			options.SetIamID(testUserId)
+			options.SetSort("-id")
 			result, detailedResponse, err := service.ListV2Policies(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
