@@ -66,13 +66,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2926,6 +2929,233 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`ListServices(listServicesOptions *ListServicesOptions) - Operation response error`, func() {
+		listServicesPath := "/v3/services"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listServicesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["fields"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListServices with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := new(iampolicymanagementv1.ListServicesOptions)
+				listServicesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listServicesOptionsModel.ServiceType = core.StringPtr("testString")
+				listServicesOptionsModel.Fields = core.StringPtr("testString")
+				listServicesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListServices(listServicesOptions *ListServicesOptions)`, func() {
+		listServicesPath := "/v3/services"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listServicesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["fields"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"policies": [{"name": "Name", "serviceType": "service", "actions": [{"id": "ID", "displayName": "DisplayName", "description": "Description", "roles": ["Roles"]}], "supportedRoles": [{"id": "ID", "displayName": "DisplayName", "description": "Description"}], "supportedAttributes": [{"key": "Key", "displayName": "DisplayName", "description": "Description", "ui": {"anyKey": "anyValue"}}], "supportedAuthorizationSubjects": [{"attributes": {"anyKey": "anyValue"}, "roles": ["Roles"]}], "supportedAnonymousAccesses": [{"attributes": {"anyKey": "anyValue"}, "roles": ["Roles"]}]}]}`)
+				}))
+			})
+			It(`Invoke ListServices successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := new(iampolicymanagementv1.ListServicesOptions)
+				listServicesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listServicesOptionsModel.ServiceType = core.StringPtr("testString")
+				listServicesOptionsModel.Fields = core.StringPtr("testString")
+				listServicesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.ListServicesWithContext(ctx, listServicesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.ListServicesWithContext(ctx, listServicesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listServicesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["fields"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"policies": [{"name": "Name", "serviceType": "service", "actions": [{"id": "ID", "displayName": "DisplayName", "description": "Description", "roles": ["Roles"]}], "supportedRoles": [{"id": "ID", "displayName": "DisplayName", "description": "Description"}], "supportedAttributes": [{"key": "Key", "displayName": "DisplayName", "description": "Description", "ui": {"anyKey": "anyValue"}}], "supportedAuthorizationSubjects": [{"attributes": {"anyKey": "anyValue"}, "roles": ["Roles"]}], "supportedAnonymousAccesses": [{"attributes": {"anyKey": "anyValue"}, "roles": ["Roles"]}]}]}`)
+				}))
+			})
+			It(`Invoke ListServices successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.ListServices(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := new(iampolicymanagementv1.ListServicesOptions)
+				listServicesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listServicesOptionsModel.ServiceType = core.StringPtr("testString")
+				listServicesOptionsModel.Fields = core.StringPtr("testString")
+				listServicesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListServices with error: Operation request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := new(iampolicymanagementv1.ListServicesOptions)
+				listServicesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listServicesOptionsModel.ServiceType = core.StringPtr("testString")
+				listServicesOptionsModel.Fields = core.StringPtr("testString")
+				listServicesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListServices successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := new(iampolicymanagementv1.ListServicesOptions)
+				listServicesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listServicesOptionsModel.ServiceType = core.StringPtr("testString")
+				listServicesOptionsModel.Fields = core.StringPtr("testString")
+				listServicesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.ListServices(listServicesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListV2Policies(listV2PoliciesOptions *ListV2PoliciesOptions) - Operation response error`, func() {
 		listV2PoliciesPath := "/v2/policies"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2945,6 +3175,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					res.Header().Set("Content-type", "application/json")
@@ -2970,6 +3201,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("id")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3011,6 +3243,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Sleep a short time to support a timeout test
@@ -3041,6 +3274,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("id")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3088,6 +3322,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"id"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Set mock response
@@ -3120,6 +3355,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("id")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3149,6 +3385,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("id")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3199,6 +3436,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("id")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4849,6 +5087,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listRolesOptionsModel.PolicyType).To(Equal(core.StringPtr("authorization")))
 				Expect(listRolesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListServicesOptions successfully`, func() {
+				// Construct an instance of the ListServicesOptions model
+				listServicesOptionsModel := iamPolicyManagementService.NewListServicesOptions()
+				listServicesOptionsModel.SetAcceptLanguage("default")
+				listServicesOptionsModel.SetServiceType("testString")
+				listServicesOptionsModel.SetFields("testString")
+				listServicesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listServicesOptionsModel).ToNot(BeNil())
+				Expect(listServicesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listServicesOptionsModel.ServiceType).To(Equal(core.StringPtr("testString")))
+				Expect(listServicesOptionsModel.Fields).To(Equal(core.StringPtr("testString")))
+				Expect(listServicesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListV2PoliciesOptions successfully`, func() {
 				// Construct an instance of the ListV2PoliciesOptions model
 				accountID := "testString"
@@ -4861,6 +5112,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.SetServiceType("service")
 				listV2PoliciesOptionsModel.SetServiceName("testString")
 				listV2PoliciesOptionsModel.SetServiceGroupID("testString")
+				listV2PoliciesOptionsModel.SetSort("id")
 				listV2PoliciesOptionsModel.SetFormat("include_last_permit")
 				listV2PoliciesOptionsModel.SetState("active")
 				listV2PoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -4873,6 +5125,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listV2PoliciesOptionsModel.ServiceType).To(Equal(core.StringPtr("service")))
 				Expect(listV2PoliciesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.Sort).To(Equal(core.StringPtr("id")))
 				Expect(listV2PoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
 				Expect(listV2PoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
