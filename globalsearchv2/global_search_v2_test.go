@@ -184,7 +184,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -214,7 +213,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
-				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalSearchService.Search(searchOptionsModel)
@@ -272,7 +270,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -307,7 +304,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
-				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -371,7 +367,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.URL.Query()["is_public"]).To(Equal([]string{"false"}))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["can_tag"]).To(Equal([]string{"false"}))
-					Expect(req.URL.Query()["is_hidden"]).To(Equal([]string{"false"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -408,7 +403,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
-				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -442,7 +436,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
-				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalSearchService.SetServiceURL("")
@@ -490,7 +483,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.IsPublic = core.StringPtr("false")
 				searchOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				searchOptionsModel.CanTag = core.StringPtr("false")
-				searchOptionsModel.IsHidden = core.StringPtr("false")
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -736,7 +728,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SetIsPublic("false")
 				searchOptionsModel.SetImpersonateUser("testString")
 				searchOptionsModel.SetCanTag("false")
-				searchOptionsModel.SetIsHidden("false")
 				searchOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(searchOptionsModel).ToNot(BeNil())
 				Expect(searchOptionsModel.Query).To(Equal(core.StringPtr("testString")))
@@ -753,7 +744,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(searchOptionsModel.IsPublic).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.CanTag).To(Equal(core.StringPtr("false")))
-				Expect(searchOptionsModel.IsHidden).To(Equal(core.StringPtr("false")))
 				Expect(searchOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
