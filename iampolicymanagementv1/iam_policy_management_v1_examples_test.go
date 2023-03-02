@@ -502,6 +502,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			)
 			options.SetIamID(exampleUserID)
 			options.SetFormat("include_last_permit")
+			options.SetSort("-id")
 
 			policyList, response, err := iamPolicyManagementService.ListV2Policies(options)
 			if err != nil {

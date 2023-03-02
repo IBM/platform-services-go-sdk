@@ -1,3 +1,10 @@
+## [0.32.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.0...v0.32.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add sort query parameter to List V2 Policies ([#238](https://github.com/IBM/platform-services-go-sdk/issues/238)) ([be7c94e](https://github.com/IBM/platform-services-go-sdk/commit/be7c94ec3ba8d919e5443a1903a5a5b26568815c))
+
 # [0.32.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.6...v0.32.0) (2023-02-24)
 
 

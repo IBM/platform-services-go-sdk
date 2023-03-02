@@ -66,13 +66,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2945,6 +2948,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					res.Header().Set("Content-type", "application/json")
@@ -2970,6 +2974,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3011,6 +3016,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Sleep a short time to support a timeout test
@@ -3041,6 +3047,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3088,6 +3095,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"service"}))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"include_last_permit"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Set mock response
@@ -3120,6 +3128,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3149,6 +3158,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3199,6 +3209,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.ServiceType = core.StringPtr("service")
 				listV2PoliciesOptionsModel.ServiceName = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listV2PoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listV2PoliciesOptionsModel.Format = core.StringPtr("include_last_permit")
 				listV2PoliciesOptionsModel.State = core.StringPtr("active")
 				listV2PoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4861,6 +4872,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listV2PoliciesOptionsModel.SetServiceType("service")
 				listV2PoliciesOptionsModel.SetServiceName("testString")
 				listV2PoliciesOptionsModel.SetServiceGroupID("testString")
+				listV2PoliciesOptionsModel.SetSort("testString")
 				listV2PoliciesOptionsModel.SetFormat("include_last_permit")
 				listV2PoliciesOptionsModel.SetState("active")
 				listV2PoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -4873,6 +4885,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listV2PoliciesOptionsModel.ServiceType).To(Equal(core.StringPtr("service")))
 				Expect(listV2PoliciesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listV2PoliciesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listV2PoliciesOptionsModel.Format).To(Equal(core.StringPtr("include_last_permit")))
 				Expect(listV2PoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
