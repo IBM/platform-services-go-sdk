@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.63.0-5dae26c1-20230111-193039
+ * IBM OpenAPI SDK Code Generator Version: 3.67.0-df2073a1-20230222-221157
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -246,9 +246,6 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	}
 	if searchOptions.CanTag != nil {
 		builder.AddQuery("can_tag", fmt.Sprint(*searchOptions.CanTag))
-	}
-	if searchOptions.IsHidden != nil {
-		builder.AddQuery("is_hidden", fmt.Sprint(*searchOptions.IsHidden))
 	}
 
 	body := make(map[string]interface{})
@@ -521,10 +518,6 @@ type SearchOptions struct {
 	// only resources that user has permissions for tagging are returned (_for administrators only_).
 	CanTag *string `json:"can_tag,omitempty"`
 
-	// Determines if the result set must return only the visible resources or not. If false (default), only visible
-	// resources are returned; if true, only hidden resources are returned; if any, all resources are returned.
-	IsHidden *string `json:"is_hidden,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -573,15 +566,6 @@ const (
 const (
 	SearchOptionsCanTagFalseConst = "false"
 	SearchOptionsCanTagTrueConst = "true"
-)
-
-// Constants associated with the SearchOptions.IsHidden property.
-// Determines if the result set must return only the visible resources or not. If false (default), only visible
-// resources are returned; if true, only hidden resources are returned; if any, all resources are returned.
-const (
-	SearchOptionsIsHiddenAnyConst = "any"
-	SearchOptionsIsHiddenFalseConst = "false"
-	SearchOptionsIsHiddenTrueConst = "true"
 )
 
 // NewSearchOptions : Instantiate SearchOptions
@@ -670,12 +654,6 @@ func (_options *SearchOptions) SetImpersonateUser(impersonateUser string) *Searc
 // SetCanTag : Allow user to set CanTag
 func (_options *SearchOptions) SetCanTag(canTag string) *SearchOptions {
 	_options.CanTag = core.StringPtr(canTag)
-	return _options
-}
-
-// SetIsHidden : Allow user to set IsHidden
-func (_options *SearchOptions) SetIsHidden(isHidden string) *SearchOptions {
-	_options.IsHidden = core.StringPtr(isHidden)
 	return _options
 }
 
