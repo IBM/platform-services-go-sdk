@@ -1,3 +1,10 @@
+## [0.32.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.1...v0.32.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* **Global Search:** remove is_hidden param from search operation ([#239](https://github.com/IBM/platform-services-go-sdk/issues/239)) ([67937e4](https://github.com/IBM/platform-services-go-sdk/commit/67937e4421759cd009300b3be24fc4f242819e20))
+
 ## [0.32.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.0...v0.32.1) (2023-03-01)
 
 
