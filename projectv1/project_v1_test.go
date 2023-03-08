@@ -1748,6 +1748,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Construct an instance of the ListConfigsOptions model
 				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
 				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
 				listConfigsOptionsModel.Version = core.StringPtr("active")
 				listConfigsOptionsModel.Complete = core.BoolPtr(false)
 				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1803,6 +1804,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Construct an instance of the ListConfigsOptions model
 				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
 				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
 				listConfigsOptionsModel.Version = core.StringPtr("active")
 				listConfigsOptionsModel.Complete = core.BoolPtr(false)
 				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1866,6 +1868,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Construct an instance of the ListConfigsOptions model
 				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
 				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
 				listConfigsOptionsModel.Version = core.StringPtr("active")
 				listConfigsOptionsModel.Complete = core.BoolPtr(false)
 				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1888,6 +1891,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Construct an instance of the ListConfigsOptions model
 				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
 				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
 				listConfigsOptionsModel.Version = core.StringPtr("active")
 				listConfigsOptionsModel.Complete = core.BoolPtr(false)
 				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1931,6 +1935,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Construct an instance of the ListConfigsOptions model
 				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
 				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
 				listConfigsOptionsModel.Version = core.StringPtr("active")
 				listConfigsOptionsModel.Complete = core.BoolPtr(false)
 				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8145,11 +8150,13 @@ var _ = Describe(`ProjectV1`, func() {
 				listConfigsOptionsModel.SetID("testString")
 				listConfigsOptionsModel.SetVersion("active")
 				listConfigsOptionsModel.SetComplete(false)
+				listConfigsOptionsModel.SetProjectID("testString")
 				listConfigsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listConfigsOptionsModel).ToNot(BeNil())
 				Expect(listConfigsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(listConfigsOptionsModel.Version).To(Equal(core.StringPtr("active")))
 				Expect(listConfigsOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
+				Expect(listConfigsOptionsModel.ProjectID).To(Equal(core.StringPtr("testString")))
 				Expect(listConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListProjectsOptions successfully`, func() {

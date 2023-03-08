@@ -586,12 +586,12 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 
 // ListConfigs : List all project configuration
 // Returns all project configuration for a given project.
-func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *[], response *core.DetailedResponse, err error) {
 	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
 }
 
 // ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *[], response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
 	if err != nil {
 		return
@@ -603,6 +603,7 @@ func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfig
 
 	pathParamsMap := map[string]string{
 		"id": *listConfigsOptions.ID,
+		"projectId": *listConfigsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4309,6 +4310,9 @@ type ListConfigsOptions struct {
 	// The flag to determine if full metadata should be returned.
 	Complete *bool `json:"complete,omitempty"`
 
+	// The project ID.
+	ProjectID *string `json:"projectId,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4343,6 +4347,12 @@ func (_options *ListConfigsOptions) SetVersion(version string) *ListConfigsOptio
 // SetComplete : Allow user to set Complete
 func (_options *ListConfigsOptions) SetComplete(complete bool) *ListConfigsOptions {
 	_options.Complete = core.BoolPtr(complete)
+	return _options
+}
+
+// SetProjectID : Allow user to set ProjectID
+func (_options *ListConfigsOptions) SetProjectID(projectID string) *ListConfigsOptions {
+	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
