@@ -409,16 +409,9 @@ func (project *ProjectV1) UpdateProjectWithContext(ctx context.Context, updatePr
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Content-Type", "application/json-patch+json")
 
-	body := make(map[string]interface{})
-	if updateProjectOptions.Name != nil {
-		body["name"] = updateProjectOptions.Name
-	}
-	if updateProjectOptions.Description != nil {
-		body["description"] = updateProjectOptions.Description
-	}
-	_, err = builder.SetBodyContentJSON(body)
+	_, err = builder.SetBodyContentJSON(updateProjectOptions.JSONPatchOperation)
 	if err != nil {
 		return
 	}
@@ -586,12 +579,12 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 
 // ListConfigs : List all project configuration
 // Returns all project configuration for a given project.
-func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *[], response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
 	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
 }
 
 // ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *[], response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
 	if err != nil {
 		return
@@ -759,7 +752,11 @@ func (project *ProjectV1) UpdateConfigWithContext(ctx context.Context, updateCon
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Content-Type", "application/json-patch+json")
+
+	if updateConfigOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*updateConfigOptions.Complete))
+	}
 
 	_, err = builder.SetBodyContentJSON(updateConfigOptions.ProjectConfig)
 	if err != nil {
@@ -918,6 +915,81 @@ func (project *ProjectV1) GetConfigDiffWithContext(ctx context.Context, getConfi
 	return
 }
 
+// ForceMerge : Force merge a project configuration draft
+// Force to merge the changes from the current active draft to the active configuration with an approving comment.
+func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
+}
+
+// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
+func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *forceMergeOptions.ID,
+		"config_id": *forceMergeOptions.ConfigID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range forceMergeOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if forceMergeOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
+	}
+
+	body := make(map[string]interface{})
+	if forceMergeOptions.Comment != nil {
+		body["comment"] = forceMergeOptions.Comment
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // CreateDraftAction : Merge or discard a project configuration draft
 // If a merge action is requested, the changes from the current active draft are merged to the active configuration. If
 // a discard action is requested, the current draft is set to the discarded state.
@@ -960,6 +1032,10 @@ func (project *ProjectV1) CreateDraftActionWithContext(ctx context.Context, crea
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+
+	if createDraftActionOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*createDraftActionOptions.Complete))
+	}
 
 	body := make(map[string]interface{})
 	if createDraftActionOptions.Comment != nil {
@@ -1811,7 +1887,7 @@ func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, 
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
+	builder.AddHeader("Content-Type", "application/json-patch+json")
 	if updateServiceInstanceOptions.XBrokerApiVersion != nil {
 		builder.AddHeader("X-Broker-Api-Version", fmt.Sprint(*updateServiceInstanceOptions.XBrokerApiVersion))
 	}
@@ -1823,23 +1899,7 @@ func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, 
 		builder.AddQuery("accepts_incomplete", fmt.Sprint(*updateServiceInstanceOptions.AcceptsIncomplete))
 	}
 
-	body := make(map[string]interface{})
-	if updateServiceInstanceOptions.ServiceID != nil {
-		body["service_id"] = updateServiceInstanceOptions.ServiceID
-	}
-	if updateServiceInstanceOptions.Context != nil {
-		body["context"] = updateServiceInstanceOptions.Context
-	}
-	if updateServiceInstanceOptions.Parameters != nil {
-		body["parameters"] = updateServiceInstanceOptions.Parameters
-	}
-	if updateServiceInstanceOptions.PlanID != nil {
-		body["plan_id"] = updateServiceInstanceOptions.PlanID
-	}
-	if updateServiceInstanceOptions.PreviousValues != nil {
-		body["previous_values"] = updateServiceInstanceOptions.PreviousValues
-	}
-	_, err = builder.SetBodyContentJSON(body)
+	_, err = builder.SetBodyContentJSON(updateServiceInstanceOptions.JSONPatchOperation)
 	if err != nil {
 		return
 	}
@@ -2188,14 +2248,11 @@ func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx conte
 	if postEventNotificationsIntegrationOptions.Description != nil {
 		body["description"] = postEventNotificationsIntegrationOptions.Description
 	}
-	if postEventNotificationsIntegrationOptions.Name != nil {
-		body["name"] = postEventNotificationsIntegrationOptions.Name
+	if postEventNotificationsIntegrationOptions.EventNotificationsSourceName != nil {
+		body["event_notifications_source_name"] = postEventNotificationsIntegrationOptions.EventNotificationsSourceName
 	}
 	if postEventNotificationsIntegrationOptions.Enabled != nil {
 		body["enabled"] = postEventNotificationsIntegrationOptions.Enabled
-	}
-	if postEventNotificationsIntegrationOptions.Source != nil {
-		body["source"] = postEventNotificationsIntegrationOptions.Source
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2331,40 +2388,40 @@ func (project *ProjectV1) DeleteEventNotificationsIntegrationWithContext(ctx con
 	return
 }
 
-// PostEventNotification : Send notification to event notifications instance
+// PostTestEventNotification : Send notification to event notifications instance
 // Sends notification to event notifications instance.
-func (project *ProjectV1) PostEventNotification(postEventNotificationOptions *PostEventNotificationOptions) (result *PostEventNotificationRequest, response *core.DetailedResponse, err error) {
-	return project.PostEventNotificationWithContext(context.Background(), postEventNotificationOptions)
+func (project *ProjectV1) PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *PostTestEventNotificationResponse, response *core.DetailedResponse, err error) {
+	return project.PostTestEventNotificationWithContext(context.Background(), postTestEventNotificationOptions)
 }
 
-// PostEventNotificationWithContext is an alternate form of the PostEventNotification method which supports a Context parameter
-func (project *ProjectV1) PostEventNotificationWithContext(ctx context.Context, postEventNotificationOptions *PostEventNotificationOptions) (result *PostEventNotificationRequest, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(postEventNotificationOptions, "postEventNotificationOptions cannot be nil")
+// PostTestEventNotificationWithContext is an alternate form of the PostTestEventNotification method which supports a Context parameter
+func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Context, postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *PostTestEventNotificationResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(postTestEventNotificationOptions, "postTestEventNotificationOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(postEventNotificationOptions, "postEventNotificationOptions")
+	err = core.ValidateStruct(postTestEventNotificationOptions, "postTestEventNotificationOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *postEventNotificationOptions.ID,
+		"id": *postTestEventNotificationOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications/notifications`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications/test`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range postEventNotificationOptions.Headers {
+	for headerName, headerValue := range postTestEventNotificationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "PostEventNotification")
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "PostTestEventNotification")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2372,29 +2429,11 @@ func (project *ProjectV1) PostEventNotificationWithContext(ctx context.Context, 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if postEventNotificationOptions.NewID != nil {
-		body["id"] = postEventNotificationOptions.NewID
+	if postTestEventNotificationOptions.Ibmendefaultlong != nil {
+		body["ibmendefaultlong"] = postTestEventNotificationOptions.Ibmendefaultlong
 	}
-	if postEventNotificationOptions.NewSource != nil {
-		body["source"] = postEventNotificationOptions.NewSource
-	}
-	if postEventNotificationOptions.NewDatacontenttype != nil {
-		body["datacontenttype"] = postEventNotificationOptions.NewDatacontenttype
-	}
-	if postEventNotificationOptions.NewIbmendefaultlong != nil {
-		body["ibmendefaultlong"] = postEventNotificationOptions.NewIbmendefaultlong
-	}
-	if postEventNotificationOptions.NewIbmendefaultshort != nil {
-		body["ibmendefaultshort"] = postEventNotificationOptions.NewIbmendefaultshort
-	}
-	if postEventNotificationOptions.NewIbmensourceid != nil {
-		body["ibmensourceid"] = postEventNotificationOptions.NewIbmensourceid
-	}
-	if postEventNotificationOptions.NewSpecversion != nil {
-		body["specversion"] = postEventNotificationOptions.NewSpecversion
-	}
-	if postEventNotificationOptions.NewType != nil {
-		body["type"] = postEventNotificationOptions.NewType
+	if postTestEventNotificationOptions.Ibmendefaultshort != nil {
+		body["ibmendefaultshort"] = postTestEventNotificationOptions.Ibmendefaultshort
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2412,7 +2451,7 @@ func (project *ProjectV1) PostEventNotificationWithContext(ctx context.Context, 
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostEventNotificationRequest)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostTestEventNotificationResponse)
 		if err != nil {
 			return
 		}
@@ -2895,6 +2934,9 @@ type CreateDraftActionOptions struct {
 	// Notes on the project draft action.
 	Comment *string `json:"comment,omitempty"`
 
+	// The flag to determine if full metadata should be returned.
+	Complete *bool `json:"complete,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2936,6 +2978,12 @@ func (_options *CreateDraftActionOptions) SetAction(action string) *CreateDraftA
 // SetComment : Allow user to set Comment
 func (_options *CreateDraftActionOptions) SetComment(comment string) *CreateDraftActionOptions {
 	_options.Comment = core.StringPtr(comment)
+	return _options
+}
+
+// SetComplete : Allow user to set Complete
+func (_options *CreateDraftActionOptions) SetComplete(complete bool) *CreateDraftActionOptions {
+	_options.Complete = core.BoolPtr(complete)
 	return _options
 }
 
@@ -3036,7 +3084,7 @@ func UnmarshalCreateResult(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// CumulativeNeedsAttentionView : CumulativeNeedsAttentionView struct
+// CumulativeNeedsAttentionView : The cumulative list of needs attention items of a project.
 type CumulativeNeedsAttentionView struct {
 	// The event name.
 	Event *string `json:"event,omitempty"`
@@ -3387,6 +3435,62 @@ func (options *DeleteServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
+// ForceMergeOptions : The ForceMerge options.
+type ForceMergeOptions struct {
+	// The ID of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The ID of the configuration, which uniquely identifies it.
+	ConfigID *string `json:"config_id" validate:"required,ne="`
+
+	// Notes on the project draft action.
+	Comment *string `json:"comment,omitempty"`
+
+	// The flag to determine if full metadata should be returned.
+	Complete *bool `json:"complete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewForceMergeOptions : Instantiate ForceMergeOptions
+func (*ProjectV1) NewForceMergeOptions(id string, configID string) *ForceMergeOptions {
+	return &ForceMergeOptions{
+		ID: core.StringPtr(id),
+		ConfigID: core.StringPtr(configID),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *ForceMergeOptions) SetID(id string) *ForceMergeOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetConfigID : Allow user to set ConfigID
+func (_options *ForceMergeOptions) SetConfigID(configID string) *ForceMergeOptions {
+	_options.ConfigID = core.StringPtr(configID)
+	return _options
+}
+
+// SetComment : Allow user to set Comment
+func (_options *ForceMergeOptions) SetComment(comment string) *ForceMergeOptions {
+	_options.Comment = core.StringPtr(comment)
+	return _options
+}
+
+// SetComplete : Allow user to set Complete
+func (_options *ForceMergeOptions) SetComplete(complete bool) *ForceMergeOptions {
+	_options.Complete = core.BoolPtr(complete)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ForceMergeOptions) SetHeaders(param map[string]string) *ForceMergeOptions {
+	options.Headers = param
+	return options
+}
+
 // GetActionJobResponse : The response of a fetching an action job.
 type GetActionJobResponse struct {
 	// The unique ID of a project.
@@ -3671,6 +3775,7 @@ type GetEventNotificationsIntegrationResponse struct {
 	// The status of instance of the event.
 	Enabled *bool `json:"enabled,omitempty"`
 
+	// A unique ID of the instance of the event.
 	ID *string `json:"id,omitempty"`
 
 	// The type of the instance of event.
@@ -3949,7 +4054,8 @@ type GetProjectResponse struct {
 	// The project configurations.
 	Configs []ProjectConfig `json:"configs,omitempty"`
 
-	Metadata *GetProjectResponseMetadata `json:"metadata,omitempty"`
+	// Metadata of the Project.
+	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 }
 
 // UnmarshalGetProjectResponse unmarshals an instance of GetProjectResponse from the specified map of raw messages.
@@ -3975,73 +4081,7 @@ func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalGetProjectResponseMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetProjectResponseMetadata : GetProjectResponseMetadata struct
-type GetProjectResponseMetadata struct {
-	// An IBM Cloud resource name, which uniquely identifies a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	CumulativeNeedsAttentionView *CumulativeNeedsAttentionView `json:"cumulative_needs_attention_view,omitempty"`
-
-	// True to indicate the fetch of needs attention items that failed.
-	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
-
-	// The location of where the project was created.
-	Location *string `json:"location,omitempty"`
-
-	// The resource group of where the project was created.
-	ResourceGroup *string `json:"resource_group,omitempty"`
-
-	// The project status value.
-	State *string `json:"state,omitempty"`
-
-	// The CRN of the event notifications instance if one is connected to this project.
-	EventNotificationsCrn *string `json:"event_notifications_crn,omitempty"`
-}
-
-// UnmarshalGetProjectResponseMetadata unmarshals an instance of GetProjectResponseMetadata from the specified map of raw messages.
-func UnmarshalGetProjectResponseMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetProjectResponseMetadata)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttentionView)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cumulative_needs_attention_view_err", &obj.CumulativeNeedsAttentionViewErr)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "event_notifications_crn", &obj.EventNotificationsCrn)
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
 	if err != nil {
 		return
 	}
@@ -4297,6 +4337,65 @@ func (_options *InstallConfigOptions) SetComplete(complete bool) *InstallConfigO
 func (options *InstallConfigOptions) SetHeaders(param map[string]string) *InstallConfigOptions {
 	options.Headers = param
 	return options
+}
+
+// JSONPatchOperation : This model represents an individual patch operation to be performed on a JSON document, as defined by RFC 6902.
+type JSONPatchOperation struct {
+	// The operation to be performed.
+	Op *string `json:"op" validate:"required"`
+
+	// The JSON Pointer that identifies the field that is the target of the operation.
+	Path *string `json:"path" validate:"required"`
+
+	// The JSON Pointer that identifies the field that is the source of the operation.
+	From *string `json:"from,omitempty"`
+
+	// The value to be used within the operation.
+	Value interface{} `json:"value,omitempty"`
+}
+
+// Constants associated with the JSONPatchOperation.Op property.
+// The operation to be performed.
+const (
+	JSONPatchOperation_Op_Add = "add"
+	JSONPatchOperation_Op_Copy = "copy"
+	JSONPatchOperation_Op_Move = "move"
+	JSONPatchOperation_Op_Remove = "remove"
+	JSONPatchOperation_Op_Replace = "replace"
+	JSONPatchOperation_Op_Test = "test"
+)
+
+// NewJSONPatchOperation : Instantiate JSONPatchOperation (Generic Model Constructor)
+func (*ProjectV1) NewJSONPatchOperation(op string, path string) (_model *JSONPatchOperation, err error) {
+	_model = &JSONPatchOperation{
+		Op: core.StringPtr(op),
+		Path: core.StringPtr(path),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalJSONPatchOperation unmarshals an instance of JSONPatchOperation from the specified map of raw messages.
+func UnmarshalJSONPatchOperation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(JSONPatchOperation)
+	err = core.UnmarshalPrimitive(m, "op", &obj.Op)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "from", &obj.From)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // ListConfigsOptions : The ListConfigs options.
@@ -4636,200 +4735,22 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// PostEventNotificationOptions : The PostEventNotification options.
-type PostEventNotificationOptions struct {
-	// The ID of the project, which uniquely identifies it.
-	ID *string `json:"-" validate:"required,ne="`
-
-	NewID *string `json:"id" validate:"required"`
-
-	// The source of the instance of the event.
-	NewSource *string `json:"source" validate:"required"`
-
-	// The data content type of the instance of the event.
-	NewDatacontenttype *string `json:"datacontenttype,omitempty"`
-
-	// IBM default long message of the instance of the event.
-	NewIbmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
-
-	// IBM default short message of the instance of the event.
-	NewIbmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
-
-	// IBM source ID of the instance of the event.
-	NewIbmensourceid *string `json:"ibmensourceid,omitempty"`
-
-	// The spec version of the instance of the event.
-	NewSpecversion *string `json:"specversion,omitempty"`
-
-	// The type of instance of the event.
-	NewType *string `json:"type,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewPostEventNotificationOptions : Instantiate PostEventNotificationOptions
-func (*ProjectV1) NewPostEventNotificationOptions(id string, newID string, newSource string) *PostEventNotificationOptions {
-	return &PostEventNotificationOptions{
-		ID: core.StringPtr(id),
-		NewID: core.StringPtr(newID),
-		NewSource: core.StringPtr(newSource),
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *PostEventNotificationOptions) SetID(id string) *PostEventNotificationOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetNewID : Allow user to set NewID
-func (_options *PostEventNotificationOptions) SetNewID(newID string) *PostEventNotificationOptions {
-	_options.NewID = core.StringPtr(newID)
-	return _options
-}
-
-// SetNewSource : Allow user to set NewSource
-func (_options *PostEventNotificationOptions) SetNewSource(newSource string) *PostEventNotificationOptions {
-	_options.NewSource = core.StringPtr(newSource)
-	return _options
-}
-
-// SetNewDatacontenttype : Allow user to set NewDatacontenttype
-func (_options *PostEventNotificationOptions) SetNewDatacontenttype(newDatacontenttype string) *PostEventNotificationOptions {
-	_options.NewDatacontenttype = core.StringPtr(newDatacontenttype)
-	return _options
-}
-
-// SetNewIbmendefaultlong : Allow user to set NewIbmendefaultlong
-func (_options *PostEventNotificationOptions) SetNewIbmendefaultlong(newIbmendefaultlong string) *PostEventNotificationOptions {
-	_options.NewIbmendefaultlong = core.StringPtr(newIbmendefaultlong)
-	return _options
-}
-
-// SetNewIbmendefaultshort : Allow user to set NewIbmendefaultshort
-func (_options *PostEventNotificationOptions) SetNewIbmendefaultshort(newIbmendefaultshort string) *PostEventNotificationOptions {
-	_options.NewIbmendefaultshort = core.StringPtr(newIbmendefaultshort)
-	return _options
-}
-
-// SetNewIbmensourceid : Allow user to set NewIbmensourceid
-func (_options *PostEventNotificationOptions) SetNewIbmensourceid(newIbmensourceid string) *PostEventNotificationOptions {
-	_options.NewIbmensourceid = core.StringPtr(newIbmensourceid)
-	return _options
-}
-
-// SetNewSpecversion : Allow user to set NewSpecversion
-func (_options *PostEventNotificationOptions) SetNewSpecversion(newSpecversion string) *PostEventNotificationOptions {
-	_options.NewSpecversion = core.StringPtr(newSpecversion)
-	return _options
-}
-
-// SetNewType : Allow user to set NewType
-func (_options *PostEventNotificationOptions) SetNewType(newType string) *PostEventNotificationOptions {
-	_options.NewType = core.StringPtr(newType)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *PostEventNotificationOptions) SetHeaders(param map[string]string) *PostEventNotificationOptions {
-	options.Headers = param
-	return options
-}
-
-// PostEventNotificationRequest : The request to post an event notification to the event notifications API.
-type PostEventNotificationRequest struct {
-	// The data content type of the instance of the event.
-	Datacontenttype *string `json:"datacontenttype,omitempty"`
-
-	// IBM default long message of the instance of the event.
-	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
-
-	// IBM default short message of the instance of the event.
-	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
-
-	// IBM source ID of the instance of the event.
-	Ibmensourceid *string `json:"ibmensourceid,omitempty"`
-
-	ID *string `json:"id" validate:"required"`
-
-	// The source of the instance of the event.
-	Source *string `json:"source" validate:"required"`
-
-	// The spec version of the instance of the event.
-	Specversion *string `json:"specversion,omitempty"`
-
-	// The type of instance of the event.
-	Type *string `json:"type,omitempty"`
-}
-
-// NewPostEventNotificationRequest : Instantiate PostEventNotificationRequest (Generic Model Constructor)
-func (*ProjectV1) NewPostEventNotificationRequest(id string, source string) (_model *PostEventNotificationRequest, err error) {
-	_model = &PostEventNotificationRequest{
-		ID: core.StringPtr(id),
-		Source: core.StringPtr(source),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalPostEventNotificationRequest unmarshals an instance of PostEventNotificationRequest from the specified map of raw messages.
-func UnmarshalPostEventNotificationRequest(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PostEventNotificationRequest)
-	err = core.UnmarshalPrimitive(m, "datacontenttype", &obj.Datacontenttype)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibmendefaultlong", &obj.Ibmendefaultlong)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibmendefaultshort", &obj.Ibmendefaultshort)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibmensourceid", &obj.Ibmensourceid)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "specversion", &obj.Specversion)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PostEventNotificationsIntegrationOptions : The PostEventNotificationsIntegration options.
 type PostEventNotificationsIntegrationOptions struct {
 	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
+	// A CRN of the instance of the event.
 	InstanceCrn *string `json:"instance_crn" validate:"required"`
 
 	// A description of the instance of the event.
 	Description *string `json:"description,omitempty"`
 
-	// A name of the instance of event.
-	Name *string `json:"name,omitempty"`
+	// the name of the source this project is on the event notifications instance.
+	EventNotificationsSourceName *string `json:"event_notifications_source_name,omitempty"`
 
 	// A status of the instance of the event.
 	Enabled *bool `json:"enabled,omitempty"`
-
-	// A source of the instance of the event.
-	Source *string `json:"source,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4861,21 +4782,15 @@ func (_options *PostEventNotificationsIntegrationOptions) SetDescription(descrip
 	return _options
 }
 
-// SetName : Allow user to set Name
-func (_options *PostEventNotificationsIntegrationOptions) SetName(name string) *PostEventNotificationsIntegrationOptions {
-	_options.Name = core.StringPtr(name)
+// SetEventNotificationsSourceName : Allow user to set EventNotificationsSourceName
+func (_options *PostEventNotificationsIntegrationOptions) SetEventNotificationsSourceName(eventNotificationsSourceName string) *PostEventNotificationsIntegrationOptions {
+	_options.EventNotificationsSourceName = core.StringPtr(eventNotificationsSourceName)
 	return _options
 }
 
 // SetEnabled : Allow user to set Enabled
 func (_options *PostEventNotificationsIntegrationOptions) SetEnabled(enabled bool) *PostEventNotificationsIntegrationOptions {
 	_options.Enabled = core.BoolPtr(enabled)
-	return _options
-}
-
-// SetSource : Allow user to set Source
-func (_options *PostEventNotificationsIntegrationOptions) SetSource(source string) *PostEventNotificationsIntegrationOptions {
-	_options.Source = core.StringPtr(source)
 	return _options
 }
 
@@ -4896,6 +4811,7 @@ type PostEventNotificationsIntegrationResponse struct {
 	// A status of the instance of the event.
 	Enabled *bool `json:"enabled,omitempty"`
 
+	// A unique ID of the instance of the event.
 	ID *string `json:"id,omitempty"`
 
 	// The type of instance of the event.
@@ -4991,6 +4907,118 @@ func UnmarshalPostNotificationsResponse(m map[string]json.RawMessage, result int
 	return
 }
 
+// PostTestEventNotificationOptions : The PostTestEventNotification options.
+type PostTestEventNotificationOptions struct {
+	// The ID of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// IBM default long message of the instance of the event.
+	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
+
+	// IBM default short message of the instance of the event.
+	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPostTestEventNotificationOptions : Instantiate PostTestEventNotificationOptions
+func (*ProjectV1) NewPostTestEventNotificationOptions(id string) *PostTestEventNotificationOptions {
+	return &PostTestEventNotificationOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *PostTestEventNotificationOptions) SetID(id string) *PostTestEventNotificationOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetIbmendefaultlong : Allow user to set Ibmendefaultlong
+func (_options *PostTestEventNotificationOptions) SetIbmendefaultlong(ibmendefaultlong string) *PostTestEventNotificationOptions {
+	_options.Ibmendefaultlong = core.StringPtr(ibmendefaultlong)
+	return _options
+}
+
+// SetIbmendefaultshort : Allow user to set Ibmendefaultshort
+func (_options *PostTestEventNotificationOptions) SetIbmendefaultshort(ibmendefaultshort string) *PostTestEventNotificationOptions {
+	_options.Ibmendefaultshort = core.StringPtr(ibmendefaultshort)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PostTestEventNotificationOptions) SetHeaders(param map[string]string) *PostTestEventNotificationOptions {
+	options.Headers = param
+	return options
+}
+
+// PostTestEventNotificationResponse : The response for posting a test notification to the event notifications instance.
+type PostTestEventNotificationResponse struct {
+	// The data content type of the instance of the event.
+	Datacontenttype *string `json:"datacontenttype,omitempty"`
+
+	// IBM default long message of the instance of the event.
+	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
+
+	// IBM default short message of the instance of the event.
+	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
+
+	// IBM source ID of the instance of the event.
+	Ibmensourceid *string `json:"ibmensourceid,omitempty"`
+
+	// A unique ID of the instance of the event.
+	ID *string `json:"id" validate:"required"`
+
+	// The source of the instance of the event.
+	Source *string `json:"source" validate:"required"`
+
+	// The spec version of the instance of the event.
+	Specversion *string `json:"specversion,omitempty"`
+
+	// The type of instance of the event.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalPostTestEventNotificationResponse unmarshals an instance of PostTestEventNotificationResponse from the specified map of raw messages.
+func UnmarshalPostTestEventNotificationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PostTestEventNotificationResponse)
+	err = core.UnmarshalPrimitive(m, "datacontenttype", &obj.Datacontenttype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmendefaultlong", &obj.Ibmendefaultlong)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmendefaultshort", &obj.Ibmendefaultshort)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmensourceid", &obj.Ibmensourceid)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "specversion", &obj.Specversion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectConfig : The project configuration.
 type ProjectConfig struct {
 	// The unique ID of a project.
@@ -5068,6 +5096,73 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*ProjectV1) NewProjectConfigPatch(projectConfig *ProjectConfig) (_patch []JSONPatchOperation) {
+	if (projectConfig.ID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/id"),
+			Value: projectConfig.ID,
+		})
+	}
+	if (projectConfig.Name != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/name"),
+			Value: projectConfig.Name,
+		})
+	}
+	if (projectConfig.Labels != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/labels"),
+			Value: projectConfig.Labels,
+		})
+	}
+	if (projectConfig.Description != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/description"),
+			Value: projectConfig.Description,
+		})
+	}
+	if (projectConfig.LocatorID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/locator_id"),
+			Value: projectConfig.LocatorID,
+		})
+	}
+	if (projectConfig.Type != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/type"),
+			Value: projectConfig.Type,
+		})
+	}
+	if (projectConfig.Input != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/input"),
+			Value: projectConfig.Input,
+		})
+	}
+	if (projectConfig.Output != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/output"),
+			Value: projectConfig.Output,
+		})
+	}
+	if (projectConfig.Setting != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/setting"),
+			Value: projectConfig.Setting,
+		})
+	}
 	return
 }
 
@@ -5287,7 +5382,8 @@ type ProjectListItem struct {
 	// The project description.
 	Description *string `json:"description,omitempty"`
 
-	Metadata *ProjectListItemMetadata `json:"metadata,omitempty"`
+	// Metadata of the Project.
+	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 }
 
 // UnmarshalProjectListItem unmarshals an instance of ProjectListItem from the specified map of raw messages.
@@ -5305,66 +5401,7 @@ func UnmarshalProjectListItem(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectListItemMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectListItemMetadata : ProjectListItemMetadata struct
-type ProjectListItemMetadata struct {
-	// An IBM Cloud resource name, which uniquely identifies a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	CumulativeNeedsAttentionView *CumulativeNeedsAttentionView `json:"cumulative_needs_attention_view,omitempty"`
-
-	// True to indicate the fetch of needs attention items that failed.
-	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
-
-	// The location of where the project created.
-	Location *string `json:"location,omitempty"`
-
-	// The resource group of where the project created.
-	ResourceGroup *string `json:"resource_group,omitempty"`
-
-	// The project status value.
-	State *string `json:"state,omitempty"`
-}
-
-// UnmarshalProjectListItemMetadata unmarshals an instance of ProjectListItemMetadata from the specified map of raw messages.
-func UnmarshalProjectListItemMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectListItemMetadata)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttentionView)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cumulative_needs_attention_view_err", &obj.CumulativeNeedsAttentionViewErr)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
 	if err != nil {
 		return
 	}
@@ -5439,6 +5476,73 @@ func (resp *ProjectListResponseSchema) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// ProjectMetadata : Metadata of the Project.
+type ProjectMetadata struct {
+	// An IBM Cloud resource name, which uniquely identifies a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The cumulative list of needs attention items of a project.
+	CumulativeNeedsAttentionView *CumulativeNeedsAttentionView `json:"cumulative_needs_attention_view,omitempty"`
+
+	// True to indicate the fetch of needs attention items that failed.
+	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
+
+	// The location of where the project was created.
+	Location *string `json:"location,omitempty"`
+
+	// The resource group of where the project was created.
+	ResourceGroup *string `json:"resource_group,omitempty"`
+
+	// The project status value.
+	State *string `json:"state,omitempty"`
+
+	// The CRN of the event notifications instance if one is connected to this project.
+	EventNotificationsCrn *string `json:"event_notifications_crn,omitempty"`
+}
+
+// UnmarshalProjectMetadata unmarshals an instance of ProjectMetadata from the specified map of raw messages.
+func UnmarshalProjectMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectMetadata)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttentionView)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cumulative_needs_attention_view_err", &obj.CumulativeNeedsAttentionViewErr)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "event_notifications_crn", &obj.EventNotificationsCrn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectUpdate : The project update request.
 type ProjectUpdate struct {
 	// The project name.
@@ -5460,6 +5564,24 @@ func UnmarshalProjectUpdate(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*ProjectV1) NewProjectUpdatePatch(projectUpdate *ProjectUpdate) (_patch []JSONPatchOperation) {
+	if (projectUpdate.Name != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/name"),
+			Value: projectUpdate.Name,
+		})
+	}
+	if (projectUpdate.Description != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/description"),
+			Value: projectUpdate.Description,
+		})
+	}
 	return
 }
 
@@ -5886,14 +6008,17 @@ type UpdateConfigOptions struct {
 	ConfigID *string `json:"config_id" validate:"required,ne="`
 
 	// The change delta of the project configuration to update.
-	ProjectConfig UpdateProjectConfigInputIntf `json:"project_config" validate:"required"`
+	ProjectConfig []JSONPatchOperation `json:"project_config" validate:"required"`
+
+	// The flag to determine if full metadata should be returned.
+	Complete *bool `json:"complete,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateConfigOptions : Instantiate UpdateConfigOptions
-func (*ProjectV1) NewUpdateConfigOptions(id string, configID string, projectConfig UpdateProjectConfigInputIntf) *UpdateConfigOptions {
+func (*ProjectV1) NewUpdateConfigOptions(id string, configID string, projectConfig []JSONPatchOperation) *UpdateConfigOptions {
 	return &UpdateConfigOptions{
 		ID: core.StringPtr(id),
 		ConfigID: core.StringPtr(configID),
@@ -5914,8 +6039,14 @@ func (_options *UpdateConfigOptions) SetConfigID(configID string) *UpdateConfigO
 }
 
 // SetProjectConfig : Allow user to set ProjectConfig
-func (_options *UpdateConfigOptions) SetProjectConfig(projectConfig UpdateProjectConfigInputIntf) *UpdateConfigOptions {
+func (_options *UpdateConfigOptions) SetProjectConfig(projectConfig []JSONPatchOperation) *UpdateConfigOptions {
 	_options.ProjectConfig = projectConfig
+	return _options
+}
+
+// SetComplete : Allow user to set Complete
+func (_options *UpdateConfigOptions) SetComplete(complete bool) *UpdateConfigOptions {
+	_options.Complete = core.BoolPtr(complete)
 	return _options
 }
 
@@ -5925,107 +6056,23 @@ func (options *UpdateConfigOptions) SetHeaders(param map[string]string) *UpdateC
 	return options
 }
 
-// UpdateProjectConfigInput : The project configuration input.
-// Models which "extend" this model:
-// - UpdateProjectConfigInputProjectConfigManualProperty
-// - UpdateProjectConfigInputSchematicsTemplate
-type UpdateProjectConfigInput struct {
-	// The configuration name.
-	Name *string `json:"name,omitempty"`
-
-	// The configuration labels.
-	Labels []string `json:"labels,omitempty"`
-
-	// A project configuration description.
-	Description *string `json:"description,omitempty"`
-
-	// The type of a project configuration manual property.
-	Type *string `json:"type,omitempty"`
-
-	// The external resource account ID in project configuration.
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-
-	// The location ID of a project configuration manual property.
-	LocatorID *string `json:"locator_id,omitempty"`
-
-	// The inputs of a Schematics template property.
-	Input []InputVariableInput `json:"input,omitempty"`
-
-	// An optional setting object That is passed to the cart API.
-	Setting []ConfigSettingItems `json:"setting,omitempty"`
-}
-
-// Constants associated with the UpdateProjectConfigInput.Type property.
-// The type of a project configuration manual property.
-const (
-	UpdateProjectConfigInput_Type_Manual = "manual"
-)
-func (*UpdateProjectConfigInput) isaUpdateProjectConfigInput() bool {
-	return true
-}
-
-type UpdateProjectConfigInputIntf interface {
-	isaUpdateProjectConfigInput() bool
-}
-
-// UnmarshalUpdateProjectConfigInput unmarshals an instance of UpdateProjectConfigInput from the specified map of raw messages.
-func UnmarshalUpdateProjectConfigInput(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateProjectConfigInput)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItems)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // UpdateProjectOptions : The UpdateProject options.
 type UpdateProjectOptions struct {
 	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The project name.
-	Name *string `json:"name,omitempty"`
-
-	// A project descriptive text.
-	Description *string `json:"description,omitempty"`
+	// The new project definition document.
+	JSONPatchOperation []JSONPatchOperation `json:"JsonPatchOperation" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateProjectOptions : Instantiate UpdateProjectOptions
-func (*ProjectV1) NewUpdateProjectOptions(id string) *UpdateProjectOptions {
+func (*ProjectV1) NewUpdateProjectOptions(id string, jsonPatchOperation []JSONPatchOperation) *UpdateProjectOptions {
 	return &UpdateProjectOptions{
 		ID: core.StringPtr(id),
+		JSONPatchOperation: jsonPatchOperation,
 	}
 }
 
@@ -6035,15 +6082,9 @@ func (_options *UpdateProjectOptions) SetID(id string) *UpdateProjectOptions {
 	return _options
 }
 
-// SetName : Allow user to set Name
-func (_options *UpdateProjectOptions) SetName(name string) *UpdateProjectOptions {
-	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetDescription : Allow user to set Description
-func (_options *UpdateProjectOptions) SetDescription(description string) *UpdateProjectOptions {
-	_options.Description = core.StringPtr(description)
+// SetJSONPatchOperation : Allow user to set JSONPatchOperation
+func (_options *UpdateProjectOptions) SetJSONPatchOperation(jsonPatchOperation []JSONPatchOperation) *UpdateProjectOptions {
+	_options.JSONPatchOperation = jsonPatchOperation
 	return _options
 }
 
@@ -6114,30 +6155,24 @@ func UnmarshalUpdateResult(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
+func (*ProjectV1) NewUpdateResultPatch(updateResult *UpdateResult) (_patch []JSONPatchOperation) {
+	for key, value := range updateResult.additionalProperties {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/" + key),
+			Value: value,
+		})
+	}
+	return
+}
+
 // UpdateServiceInstanceOptions : The UpdateServiceInstance options.
 type UpdateServiceInstanceOptions struct {
 	// The ID of a previously provisioned service instance.
 	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
-	// The ID of the service stored in the catalog.j-son of your broker. This value should be a GUID. It MUST be a
-	// non-empty string.
-	ServiceID []string `json:"service_id" validate:"required"`
-
-	// Platform specific contextual information under which the service instance is to be provisioned.
-	Context []string `json:"context,omitempty"`
-
-	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
-	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
-	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
-	// this request.
-	Parameters map[string]interface{} `json:"parameters,omitempty"`
-
-	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.j-son of your
-	// broker.
-	PlanID *string `json:"plan_id,omitempty"`
-
-	// Information about the service instance prior to the update.
-	PreviousValues []string `json:"previous_values,omitempty"`
+	// It contains the query filters and the search token that is initally set to null or undefined.
+	JSONPatchOperation []JSONPatchOperation `json:"JsonPatchOperation" validate:"required"`
 
 	// Broker API Version.
 	XBrokerApiVersion *string `json:"X-Broker-Api-Version,omitempty"`
@@ -6155,10 +6190,10 @@ type UpdateServiceInstanceOptions struct {
 }
 
 // NewUpdateServiceInstanceOptions : Instantiate UpdateServiceInstanceOptions
-func (*ProjectV1) NewUpdateServiceInstanceOptions(instanceID string, serviceID []string) *UpdateServiceInstanceOptions {
+func (*ProjectV1) NewUpdateServiceInstanceOptions(instanceID string, jsonPatchOperation []JSONPatchOperation) *UpdateServiceInstanceOptions {
 	return &UpdateServiceInstanceOptions{
 		InstanceID: core.StringPtr(instanceID),
-		ServiceID: serviceID,
+		JSONPatchOperation: jsonPatchOperation,
 	}
 }
 
@@ -6168,33 +6203,9 @@ func (_options *UpdateServiceInstanceOptions) SetInstanceID(instanceID string) *
 	return _options
 }
 
-// SetServiceID : Allow user to set ServiceID
-func (_options *UpdateServiceInstanceOptions) SetServiceID(serviceID []string) *UpdateServiceInstanceOptions {
-	_options.ServiceID = serviceID
-	return _options
-}
-
-// SetContext : Allow user to set Context
-func (_options *UpdateServiceInstanceOptions) SetContext(context []string) *UpdateServiceInstanceOptions {
-	_options.Context = context
-	return _options
-}
-
-// SetParameters : Allow user to set Parameters
-func (_options *UpdateServiceInstanceOptions) SetParameters(parameters map[string]interface{}) *UpdateServiceInstanceOptions {
-	_options.Parameters = parameters
-	return _options
-}
-
-// SetPlanID : Allow user to set PlanID
-func (_options *UpdateServiceInstanceOptions) SetPlanID(planID string) *UpdateServiceInstanceOptions {
-	_options.PlanID = core.StringPtr(planID)
-	return _options
-}
-
-// SetPreviousValues : Allow user to set PreviousValues
-func (_options *UpdateServiceInstanceOptions) SetPreviousValues(previousValues []string) *UpdateServiceInstanceOptions {
-	_options.PreviousValues = previousValues
+// SetJSONPatchOperation : Allow user to set JSONPatchOperation
+func (_options *UpdateServiceInstanceOptions) SetJSONPatchOperation(jsonPatchOperation []JSONPatchOperation) *UpdateServiceInstanceOptions {
+	_options.JSONPatchOperation = jsonPatchOperation
 	return _options
 }
 
@@ -6220,128 +6231,6 @@ func (_options *UpdateServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomp
 func (options *UpdateServiceInstanceOptions) SetHeaders(param map[string]string) *UpdateServiceInstanceOptions {
 	options.Headers = param
 	return options
-}
-
-// UpdateProjectConfigInputSchematicsTemplate : The Schematics template property.
-// This model "extends" UpdateProjectConfigInput
-type UpdateProjectConfigInputSchematicsTemplate struct {
-	// The configuration name.
-	Name *string `json:"name,omitempty"`
-
-	// The configuration labels.
-	Labels []string `json:"labels,omitempty"`
-
-	// A project configuration description.
-	Description *string `json:"description,omitempty"`
-
-	// The location ID of a project configuration manual property.
-	LocatorID *string `json:"locator_id,omitempty"`
-
-	// The inputs of a Schematics template property.
-	Input []InputVariableInput `json:"input,omitempty"`
-
-	// An optional setting object That is passed to the cart API.
-	Setting []ConfigSettingItems `json:"setting,omitempty"`
-}
-
-func (*UpdateProjectConfigInputSchematicsTemplate) isaUpdateProjectConfigInput() bool {
-	return true
-}
-
-// UnmarshalUpdateProjectConfigInputSchematicsTemplate unmarshals an instance of UpdateProjectConfigInputSchematicsTemplate from the specified map of raw messages.
-func UnmarshalUpdateProjectConfigInputSchematicsTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateProjectConfigInputSchematicsTemplate)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItems)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// UpdateProjectConfigInputProjectConfigManualProperty : The project configuration manual type.
-// This model "extends" UpdateProjectConfigInput
-type UpdateProjectConfigInputProjectConfigManualProperty struct {
-	// The configuration name.
-	Name *string `json:"name,omitempty"`
-
-	// The configuration labels.
-	Labels []string `json:"labels,omitempty"`
-
-	// A project configuration description.
-	Description *string `json:"description,omitempty"`
-
-	// The type of a project configuration manual property.
-	Type *string `json:"type" validate:"required"`
-
-	// The external resource account ID in project configuration.
-	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
-}
-
-// Constants associated with the UpdateProjectConfigInputProjectConfigManualProperty.Type property.
-// The type of a project configuration manual property.
-const (
-	UpdateProjectConfigInputProjectConfigManualProperty_Type_Manual = "manual"
-)
-
-// NewUpdateProjectConfigInputProjectConfigManualProperty : Instantiate UpdateProjectConfigInputProjectConfigManualProperty (Generic Model Constructor)
-func (*ProjectV1) NewUpdateProjectConfigInputProjectConfigManualProperty(typeVar string) (_model *UpdateProjectConfigInputProjectConfigManualProperty, err error) {
-	_model = &UpdateProjectConfigInputProjectConfigManualProperty{
-		Type: core.StringPtr(typeVar),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*UpdateProjectConfigInputProjectConfigManualProperty) isaUpdateProjectConfigInput() bool {
-	return true
-}
-
-// UnmarshalUpdateProjectConfigInputProjectConfigManualProperty unmarshals an instance of UpdateProjectConfigInputProjectConfigManualProperty from the specified map of raw messages.
-func UnmarshalUpdateProjectConfigInputProjectConfigManualProperty(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateProjectConfigInputProjectConfigManualProperty)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "labels", &obj.Labels)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "external_resources_account", &obj.ExternalResourcesAccount)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 //
