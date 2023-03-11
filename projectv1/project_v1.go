@@ -3084,44 +3084,6 @@ func UnmarshalCreateResult(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// CumulativeNeedsAttentionView : The cumulative list of needs attention items of a project.
-type CumulativeNeedsAttentionView struct {
-	// The event name.
-	Event *string `json:"event,omitempty"`
-
-	// The unique ID of a project.
-	EventID *string `json:"event_id,omitempty"`
-
-	// The unique ID of a project.
-	ConfigID *string `json:"config_id,omitempty"`
-
-	// The version number of the configuration.
-	ConfigVersion *int64 `json:"config_version,omitempty"`
-}
-
-// UnmarshalCumulativeNeedsAttentionView unmarshals an instance of CumulativeNeedsAttentionView from the specified map of raw messages.
-func UnmarshalCumulativeNeedsAttentionView(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CumulativeNeedsAttentionView)
-	err = core.UnmarshalPrimitive(m, "event", &obj.Event)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "event_id", &obj.EventID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "config_id", &obj.ConfigID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "config_version", &obj.ConfigVersion)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // DeleteConfigOptions : The DeleteConfig options.
 type DeleteConfigOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -4518,6 +4480,9 @@ type NotificationEvent struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
+	// Whom triggered the flow that posted the event.
+	TriggeredBy *string `json:"triggered_by,omitempty"`
+
 	// Actionable URL that users can go to as a response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
@@ -4550,6 +4515,10 @@ func UnmarshalNotificationEvent(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "triggered_by", &obj.TriggeredBy)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "action_url", &obj.ActionURL)
 	if err != nil {
 		return
@@ -4573,6 +4542,9 @@ type NotificationEventWithID struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
+	// Whom triggered the flow that posted the event.
+	TriggeredBy *string `json:"triggered_by,omitempty"`
+
 	// Actionable URL that users can go to as a response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
@@ -4595,6 +4567,10 @@ func UnmarshalNotificationEventWithID(m map[string]json.RawMessage, result inter
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "triggered_by", &obj.TriggeredBy)
 	if err != nil {
 		return
 	}
@@ -4625,6 +4601,9 @@ type NotificationEventWithStatus struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
+	// Whom triggered the flow that posted the event.
+	TriggeredBy *string `json:"triggered_by,omitempty"`
+
 	// Actionable URL that users can go to as a response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
@@ -4653,6 +4632,10 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "triggered_by", &obj.TriggeredBy)
 	if err != nil {
 		return
 	}
@@ -5486,7 +5469,7 @@ type ProjectMetadata struct {
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The cumulative list of needs attention items of a project.
-	CumulativeNeedsAttentionView *CumulativeNeedsAttentionView `json:"cumulative_needs_attention_view,omitempty"`
+	CumulativeNeedsAttentionView *[] `json:"cumulative_needs_attention_view,omitempty"`
 
 	// True to indicate the fetch of needs attention items that failed.
 	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
@@ -5515,7 +5498,7 @@ func UnmarshalProjectMetadata(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttentionView)
+	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, Unmarshal[])
 	if err != nil {
 		return
 	}
