@@ -3084,8 +3084,8 @@ func UnmarshalCreateResult(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// CumulativeNeedsAttentionView : The cumulative list of needs attention items of a project.
-type CumulativeNeedsAttentionView struct {
+// CumulativeNeedsAttention : CumulativeNeedsAttention struct
+type CumulativeNeedsAttention struct {
 	// The event name.
 	Event *string `json:"event,omitempty"`
 
@@ -3099,9 +3099,9 @@ type CumulativeNeedsAttentionView struct {
 	ConfigVersion *int64 `json:"config_version,omitempty"`
 }
 
-// UnmarshalCumulativeNeedsAttentionView unmarshals an instance of CumulativeNeedsAttentionView from the specified map of raw messages.
-func UnmarshalCumulativeNeedsAttentionView(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CumulativeNeedsAttentionView)
+// UnmarshalCumulativeNeedsAttention unmarshals an instance of CumulativeNeedsAttention from the specified map of raw messages.
+func UnmarshalCumulativeNeedsAttention(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CumulativeNeedsAttention)
 	err = core.UnmarshalPrimitive(m, "event", &obj.Event)
 	if err != nil {
 		return
@@ -5507,7 +5507,7 @@ type ProjectMetadata struct {
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The cumulative list of needs attention items of a project.
-	CumulativeNeedsAttentionView *CumulativeNeedsAttentionView `json:"cumulative_needs_attention_view,omitempty"`
+	CumulativeNeedsAttentionView []CumulativeNeedsAttention `json:"cumulative_needs_attention_view,omitempty"`
 
 	// True to indicate the fetch of needs attention items that failed.
 	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
@@ -5536,7 +5536,7 @@ func UnmarshalProjectMetadata(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttentionView)
+	err = core.UnmarshalModel(m, "cumulative_needs_attention_view", &obj.CumulativeNeedsAttentionView, UnmarshalCumulativeNeedsAttention)
 	if err != nil {
 		return
 	}
