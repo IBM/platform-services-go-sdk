@@ -595,7 +595,6 @@ func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfig
 
 	pathParamsMap := map[string]string{
 		"id": *listConfigsOptions.ID,
-		"projectId": *listConfigsOptions.ProjectID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4409,9 +4408,6 @@ type ListConfigsOptions struct {
 	// The flag to determine if full metadata should be returned.
 	Complete *bool `json:"complete,omitempty"`
 
-	// The project ID.
-	ProjectID *string `json:"projectId,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4446,12 +4442,6 @@ func (_options *ListConfigsOptions) SetVersion(version string) *ListConfigsOptio
 // SetComplete : Allow user to set Complete
 func (_options *ListConfigsOptions) SetComplete(complete bool) *ListConfigsOptions {
 	_options.Complete = core.BoolPtr(complete)
-	return _options
-}
-
-// SetProjectID : Allow user to set ProjectID
-func (_options *ListConfigsOptions) SetProjectID(projectID string) *ListConfigsOptions {
-	_options.ProjectID = core.StringPtr(projectID)
 	return _options
 }
 
