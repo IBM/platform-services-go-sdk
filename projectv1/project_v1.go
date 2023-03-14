@@ -162,9 +162,8 @@ func (project *ProjectV1) DisableRetries() {
 }
 
 // CreateProject : Create a project
-// Create a new project, which asynchronously setup the tools to manage it. The initial pull request is also created on
-// the project git repo. After approving the pull request, the user can deploy the resources that the project
-// configures.
+// Create a new project and asynchronously setup the tools to manage it. An initial pull request is created on the
+// project Git repo. After approving the pull request, the user can deploy the resources that the project configures.
 func (project *ProjectV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	return project.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
@@ -305,7 +304,7 @@ func (project *ProjectV1) ListProjectsWithContext(ctx context.Context, listProje
 }
 
 // GetProject : Get project by ID
-// Get a project definition document by ID.
+// Get a project definition document by the ID.
 func (project *ProjectV1) GetProject(getProjectOptions *GetProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	return project.GetProjectWithContext(context.Background(), getProjectOptions)
 }
@@ -371,8 +370,8 @@ func (project *ProjectV1) GetProjectWithContext(ctx context.Context, getProjectO
 	return
 }
 
-// UpdateProject : Update a project by ID
-// Update a project.
+// UpdateProject : Update a project
+// Update a project by the ID.
 func (project *ProjectV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *ProjectUpdate, response *core.DetailedResponse, err error) {
 	return project.UpdateProjectWithContext(context.Background(), updateProjectOptions)
 }
@@ -437,8 +436,8 @@ func (project *ProjectV1) UpdateProjectWithContext(ctx context.Context, updatePr
 	return
 }
 
-// DeleteProject : Delete a project by ID
-// Delete a project document. A project can only be deleted after deleting all of its artifacts.
+// DeleteProject : Delete a project
+// Delete a project document by the ID. A project can only be deleted after deleting all of its artifacts.
 func (project *ProjectV1) DeleteProject(deleteProjectOptions *DeleteProjectOptions) (response *core.DetailedResponse, err error) {
 	return project.DeleteProjectWithContext(context.Background(), deleteProjectOptions)
 }
@@ -489,7 +488,7 @@ func (project *ProjectV1) DeleteProjectWithContext(ctx context.Context, deletePr
 	return
 }
 
-// CreateConfig : Add a new configuration to a project
+// CreateConfig : Add a new configuration
 // Add a new configuration to a project.
 func (project *ProjectV1) CreateConfig(createConfigOptions *CreateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return project.CreateConfigWithContext(context.Background(), createConfigOptions)
@@ -577,76 +576,8 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 	return
 }
 
-// ListConfigs : List all project configuration
-// Returns all project configuration for a given project.
-func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
-	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
-}
-
-// ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(listConfigsOptions, "listConfigsOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *listConfigsOptions.ID,
-		"projectId": *listConfigsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listConfigsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ListConfigs")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listConfigsOptions.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*listConfigsOptions.Version))
-	}
-	if listConfigsOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*listConfigsOptions.Complete))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
 // GetConfig : Get a project configuration
-// Returns the specified project configuration in a given project.
+// Returns the specified project configuration in a specific project.
 func (project *ProjectV1) GetConfig(getConfigOptions *GetConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return project.GetConfigWithContext(context.Background(), getConfigOptions)
 }
@@ -713,8 +644,8 @@ func (project *ProjectV1) GetConfigWithContext(ctx context.Context, getConfigOpt
 	return
 }
 
-// UpdateConfig : Update a configuration in a project by ID
-// Update a configuration in a project.
+// UpdateConfig : Update a configuration
+// Update a configuration in a project by the ID.
 func (project *ProjectV1) UpdateConfig(updateConfigOptions *UpdateConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return project.UpdateConfigWithContext(context.Background(), updateConfigOptions)
 }
@@ -784,78 +715,9 @@ func (project *ProjectV1) UpdateConfigWithContext(ctx context.Context, updateCon
 	return
 }
 
-// DeleteConfig : Delete a configuration in a project by ID
-// Delete a configuration in a project. Deleting the configuration will also destroy all the resources deployed by the
-// configuration.
-func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
-	return project.DeleteConfigWithContext(context.Background(), deleteConfigOptions)
-}
-
-// DeleteConfigWithContext is an alternate form of the DeleteConfig method which supports a Context parameter
-func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteConfigOptions, "deleteConfigOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteConfigOptions, "deleteConfigOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *deleteConfigOptions.ID,
-		"config_id": *deleteConfigOptions.ConfigID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteConfigOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if deleteConfigOptions.DraftOnly != nil {
-		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
-	}
-	if deleteConfigOptions.Destroy != nil {
-		builder.AddQuery("destroy", fmt.Sprint(*deleteConfigOptions.Destroy))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteProjectConfigResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
 // GetConfigDiff : Get a diff summary of a project configuration
-// Returns a diff summary of the specified project configuration between its current draft and active version of a given
-// project.
+// Returns a diff summary of the specified project configuration between its current draft and active version of a
+// specific project.
 func (project *ProjectV1) GetConfigDiff(getConfigDiffOptions *GetConfigDiffOptions) (result *ProjectConfigDiff, response *core.DetailedResponse, err error) {
 	return project.GetConfigDiffWithContext(context.Background(), getConfigDiffOptions)
 }
@@ -915,82 +777,7 @@ func (project *ProjectV1) GetConfigDiffWithContext(ctx context.Context, getConfi
 	return
 }
 
-// ForceMerge : Force merge a project configuration draft
-// Force to merge the changes from the current active draft to the active configuration with an approving comment.
-func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
-}
-
-// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
-func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *forceMergeOptions.ID,
-		"config_id": *forceMergeOptions.ConfigID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range forceMergeOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if forceMergeOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
-	}
-
-	body := make(map[string]interface{})
-	if forceMergeOptions.Comment != nil {
-		body["comment"] = forceMergeOptions.Comment
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// CreateDraftAction : Merge or discard a project configuration draft
+// CreateDraftAction : Merge or discard a configuration draft
 // If a merge action is requested, the changes from the current active draft are merged to the active configuration. If
 // a discard action is requested, the current draft is set to the discarded state.
 func (project *ProjectV1) CreateDraftAction(createDraftActionOptions *CreateDraftActionOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
@@ -1067,8 +854,8 @@ func (project *ProjectV1) CreateDraftActionWithContext(ctx context.Context, crea
 	return
 }
 
-// CheckConfig : Run a validation check to a given configuration in project
-// Run a validation check to a given configuration in project. The check includes creating or updating the associated
+// CheckConfig : Run a validation check
+// Run a validation check on a given configuration in project. The check includes creating or updating the associated
 // schematics workspace with a plan job, running the CRA scans, and cost estimatation.
 func (project *ProjectV1) CheckConfig(checkConfigOptions *CheckConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return project.CheckConfigWithContext(context.Background(), checkConfigOptions)
@@ -1139,8 +926,8 @@ func (project *ProjectV1) CheckConfigWithContext(ctx context.Context, checkConfi
 	return
 }
 
-// InstallConfig : Install a configuration
-// Install a project's configuration. It is an asynchronous operation that can be tracked using the project status API.
+// InstallConfig : Deploy a configuration
+// Deploy a project's configuration. It is an asynchronous operation that can be tracked using the project status API.
 func (project *ProjectV1) InstallConfig(installConfigOptions *InstallConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
 	return project.InstallConfigWithContext(context.Background(), installConfigOptions)
 }
@@ -1204,9 +991,9 @@ func (project *ProjectV1) InstallConfigWithContext(ctx context.Context, installC
 	return
 }
 
-// UninstallConfig : Uninstall a configuration
-// Uninstall a project's configuration. The operation uninstall all the resources deployed with the given configuration.
-// You can track it by using the project status API.
+// UninstallConfig : Destroy configuration resources
+// Destroy a project's configuration resources. The operation destroys all the resources that are deployed with the
+// specific configuration. You can track it by using the project status API.
 func (project *ProjectV1) UninstallConfig(uninstallConfigOptions *UninstallConfigOptions) (response *core.DetailedResponse, err error) {
 	return project.UninstallConfigWithContext(context.Background(), uninstallConfigOptions)
 }
@@ -1254,8 +1041,9 @@ func (project *ProjectV1) UninstallConfigWithContext(ctx context.Context, uninst
 	return
 }
 
-// GetSchematicsJob : Fetch and find the latest schematics job corresponds to a given configuration action
-// Fetch and find the latest schematics job that corresponds to a plan, install, or uninstall action.
+// GetSchematicsJob : View the latest schematics job
+// Fetch and find the latest schematics job that corresponds to a plan, deploy, or destroy configuration resource
+// action.
 func (project *ProjectV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
 	return project.GetSchematicsJobWithContext(context.Background(), getSchematicsJobOptions)
 }
@@ -1320,8 +1108,8 @@ func (project *ProjectV1) GetSchematicsJobWithContext(ctx context.Context, getSc
 	return
 }
 
-// GetCostEstimate : Fetch the cost estimate for a given configuraton
-// Fetch the cost estimate for a given configuraton.
+// GetCostEstimate : Get the cost estimate
+// Retrieve the cost estimate for a configuraton.
 func (project *ProjectV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (result *GetCostEstimateResponse, response *core.DetailedResponse, err error) {
 	return project.GetCostEstimateWithContext(context.Background(), getCostEstimateOptions)
 }
@@ -1385,7 +1173,7 @@ func (project *ProjectV1) GetCostEstimateWithContext(ctx context.Context, getCos
 	return
 }
 
-// PostNotification : Add some notifications
+// PostNotification : Add notifications
 // Creates a notification event to be stored on the project definition.
 func (project *ProjectV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
 	return project.PostNotificationWithContext(context.Background(), postNotificationOptions)
@@ -1515,8 +1303,8 @@ func (project *ProjectV1) GetNotificationsWithContext(ctx context.Context, getNo
 	return
 }
 
-// DeleteNotification : Delete a notification from a project
-// Delete a project notification.
+// DeleteNotification : Delete a notification
+// Delete a notification from a project.
 // - in: query
 //   name: notification_id
 //   description: The ID of the project, which uniquely identifies it.
@@ -1557,56 +1345,6 @@ func (project *ProjectV1) DeleteNotificationWithContext(ctx context.Context, del
 	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteNotification")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = project.Service.Request(request, nil)
-
-	return
-}
-
-// ReceivePulsarCatalogEvents : Webhook for catalog events
-// This is a webhook for pulsar catalog events.
-func (project *ProjectV1) ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
-	return project.ReceivePulsarCatalogEventsWithContext(context.Background(), receivePulsarCatalogEventsOptions)
-}
-
-// ReceivePulsarCatalogEventsWithContext is an alternate form of the ReceivePulsarCatalogEvents method which supports a Context parameter
-func (project *ProjectV1) ReceivePulsarCatalogEventsWithContext(ctx context.Context, receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/pulsar/catalog_events`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range receivePulsarCatalogEventsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ReceivePulsarCatalogEvents")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarCatalogEvents)
-	if err != nil {
-		return
 	}
 
 	request, err := builder.Build()
@@ -1679,7 +1417,7 @@ func (project *ProjectV1) GetHealthWithContext(ctx context.Context, getHealthOpt
 // Create a new service instance Create a service instance. When the service broker receives a provision request from
 // the IBM Cloud platform, it MUST take whatever action is necessary to create a new resource. When a user creates a
 // service instance from the IBM Cloud console or the IBM Cloud CLI, the IBM Cloud platform validates that the user has
-// permission to create the service instance using IBM Cloud IAM. After this validation occurs, your service broker's
+// permission to create the service instance by using IBM Cloud IAM. After this validation occurs, your service broker's
 // provision endpoint (PUT /v2/resource_instances/:instance_id) will be invoked. When provisioning occurs, the IBM Cloud
 // platform provides the following values:
 // - The IBM Cloud context is included in the context variable - The X-Broker-API-Originating-Identity will have the IBM
@@ -1849,8 +1587,8 @@ func (project *ProjectV1) DeleteServiceInstanceWithContext(ctx context.Context, 
 	return
 }
 
-// UpdateServiceInstance : Allow the change of plans and service parameters in a provisioned service instance
-// Update plans and service parameters in a provisioned service instance.
+// UpdateServiceInstance : Change of plans and service parameters in a provisioned service instance
+// Allows an update to the plans and service parameters in a provisioned service instance.
 func (project *ProjectV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *UpdateResult, response *core.DetailedResponse, err error) {
 	return project.UpdateServiceInstanceWithContext(context.Background(), updateServiceInstanceOptions)
 }
@@ -1925,8 +1663,8 @@ func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, 
 	return
 }
 
-// GetLastOperation : Get last_operation for instance by GUID (for asynchronous provision calls)
-// Retrieve previous operation for service instance by GUID.
+// GetLastOperation : Get last_operation for instance by GUID
+// Retrieve previous operation for service instance by GUID (for asynchronous provision calls).
 func (project *ProjectV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *GetLastOperationResult, response *core.DetailedResponse, err error) {
 	return project.GetLastOperationWithContext(context.Background(), getLastOperationOptions)
 }
@@ -1998,8 +1736,8 @@ func (project *ProjectV1) GetLastOperationWithContext(ctx context.Context, getLa
 	return
 }
 
-// ReplaceServiceInstanceState : Update (disable or enable) the state of a provisioned service instance
-// Update the state of a provisioned service instance.
+// ReplaceServiceInstanceState : Update the state of a provisioned service instance
+// Update (disable or enable) the state of a provisioned service instance.
 func (project *ProjectV1) ReplaceServiceInstanceState(replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
 	return project.ReplaceServiceInstanceStateWithContext(context.Background(), replaceServiceInstanceStateOptions)
 }
@@ -2083,8 +1821,8 @@ func (project *ProjectV1) ReplaceServiceInstanceStateWithContext(ctx context.Con
 	return
 }
 
-// GetServiceInstance : Get the current state information associated with the service instance
-// Retrieve current state for the specified service instance.
+// GetServiceInstance : Get the current state information
+// Retrieve the current state for the specified service instance.
 func (project *ProjectV1) GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
 	return project.GetServiceInstanceWithContext(context.Background(), getServiceInstanceOptions)
 }
@@ -2146,8 +1884,8 @@ func (project *ProjectV1) GetServiceInstanceWithContext(ctx context.Context, get
 	return
 }
 
-// GetCatalog : Get the catalog metadata stored within the broker
-// Fetch the catalog metadata.
+// GetCatalog : Get the catalog metadata
+// Fetch the catalog metadata that's stored within the broker.
 func (project *ProjectV1) GetCatalog(getCatalogOptions *GetCatalogOptions) (result *CatalogResponse, response *core.DetailedResponse, err error) {
 	return project.GetCatalogWithContext(context.Background(), getCatalogOptions)
 }
@@ -2340,8 +2078,8 @@ func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx contex
 	return
 }
 
-// DeleteEventNotificationsIntegration : Delete a event notifications connection to this project
-// Removes the event notifications integration if that is where the project was onboarded to.
+// DeleteEventNotificationsIntegration : Delete a event notifications connection
+// Deletes the event notifications integration if that is where the project was onboarded to.
 func (project *ProjectV1) DeleteEventNotificationsIntegration(deleteEventNotificationsIntegrationOptions *DeleteEventNotificationsIntegrationOptions) (response *core.DetailedResponse, err error) {
 	return project.DeleteEventNotificationsIntegrationWithContext(context.Background(), deleteEventNotificationsIntegrationOptions)
 }
@@ -2389,7 +2127,7 @@ func (project *ProjectV1) DeleteEventNotificationsIntegrationWithContext(ctx con
 }
 
 // PostTestEventNotification : Send notification to event notifications instance
-// Sends notification to event notifications instance.
+// Sends a notification to the event notifications instance.
 func (project *ProjectV1) PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *PostTestEventNotificationResponse, response *core.DetailedResponse, err error) {
 	return project.PostTestEventNotificationWithContext(context.Background(), postTestEventNotificationOptions)
 }
@@ -2461,6 +2199,268 @@ func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Conte
 	return
 }
 
+// ListConfigs : List all project configuration
+// Lists all of the project configurations for a specific project.
+func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
+}
+
+// ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
+func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listConfigsOptions, "listConfigsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *listConfigsOptions.ID,
+		"projectId": *listConfigsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listConfigsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ListConfigs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listConfigsOptions.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*listConfigsOptions.Version))
+	}
+	if listConfigsOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*listConfigsOptions.Complete))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteConfig : Delete a configuration in a project by ID
+// Delete a configuration in a project. Deleting the configuration will also destroy all the resources deployed by the
+// configuration.
+func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+	return project.DeleteConfigWithContext(context.Background(), deleteConfigOptions)
+}
+
+// DeleteConfigWithContext is an alternate form of the DeleteConfig method which supports a Context parameter
+func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteConfigOptions, "deleteConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteConfigOptions, "deleteConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteConfigOptions.ID,
+		"config_id": *deleteConfigOptions.ConfigID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if deleteConfigOptions.DraftOnly != nil {
+		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
+	}
+	if deleteConfigOptions.Destroy != nil {
+		builder.AddQuery("destroy", fmt.Sprint(*deleteConfigOptions.Destroy))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteProjectConfigResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ForceMerge : Force merge a project configuration draft
+// Force the merge of the changes from the current active draft to the active configuration with an approving comment.
+func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
+}
+
+// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
+func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *forceMergeOptions.ID,
+		"config_id": *forceMergeOptions.ConfigID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range forceMergeOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if forceMergeOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
+	}
+
+	body := make(map[string]interface{})
+	if forceMergeOptions.Comment != nil {
+		body["comment"] = forceMergeOptions.Comment
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ReceivePulsarCatalogEvents : Webhook for catalog events
+// This is a webhook for pulsar catalog events.
+func (project *ProjectV1) ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	return project.ReceivePulsarCatalogEventsWithContext(context.Background(), receivePulsarCatalogEventsOptions)
+}
+
+// ReceivePulsarCatalogEventsWithContext is an alternate form of the ReceivePulsarCatalogEvents method which supports a Context parameter
+func (project *ProjectV1) ReceivePulsarCatalogEventsWithContext(ctx context.Context, receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/pulsar/catalog_events`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range receivePulsarCatalogEventsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ReceivePulsarCatalogEvents")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarCatalogEvents)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = project.Service.Request(request, nil)
+
+	return
+}
+
 // BrokerResult : The result of Get instance status call.
 type BrokerResult struct {
 	// Indicates whether the service instance is active and is meaningful if enabled is true. The default value is true if
@@ -2494,7 +2494,7 @@ func UnmarshalBrokerResult(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// CatalogResponse : response from fetching the catalog metadata stored within the broker.
+// CatalogResponse : Response from fetching the catalog metadata stored within the broker.
 type CatalogResponse struct {
 	// collection of catalog services.
 	Services []CatalogResponseServices `json:"services,omitempty"`
@@ -2511,7 +2511,7 @@ func UnmarshalCatalogResponse(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// CatalogResponseServices : catalog service structure.
+// CatalogResponseServices : Catalog service structure.
 type CatalogResponseServices struct {
 	// Specifies whether or not your service can be bound to applications in IBM Cloud. If bindable, it must be able to
 	// return API endpoints and credentials to your service consumers.
@@ -3133,7 +3133,7 @@ type DeleteConfigOptions struct {
 	// The flag to determine if only the draft version should be deleted.
 	DraftOnly *bool `json:"draft_only,omitempty"`
 
-	// The flag to tell if the resources deployed by schematics should be destroyed.
+	// The flag that indicates if the resources deployed by schematics should be destroyed.
 	Destroy *bool `json:"destroy,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3263,7 +3263,7 @@ type DeleteProjectOptions struct {
 	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The flag to tell if the resources deployed by schematics should be destroyed.
+	// The flag that indicates if the resources deployed by schematics should be destroyed.
 	Destroy *bool `json:"destroy,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -3362,10 +3362,10 @@ type DeleteServiceInstanceOptions struct {
 	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
-	// broker. This value should be a GUID. MUST be a non-empty string.
+	// broker. This value should be a GUID. It MUST be a non-empty string.
 	PlanID *string `json:"plan_id" validate:"required"`
 
-	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. MUST be a non-empty
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
 	// string.
 	ServiceID *string `json:"service_id" validate:"required"`
 
@@ -4054,7 +4054,7 @@ type GetProjectResponse struct {
 	// The project configurations.
 	Configs []ProjectConfig `json:"configs,omitempty"`
 
-	// Metadata of the Project.
+	// Metadata of the project.
 	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 }
 
@@ -4518,7 +4518,7 @@ type NotificationEvent struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Whom triggered the flow that posted the event.
+	// Who triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
 	// Actionable URL that users can go to as a response to the event.
@@ -4580,7 +4580,7 @@ type NotificationEventWithID struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Whom triggered the flow that posted the event.
+	// Who triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
 	// Actionable URL that users can go to as a response to the event.
@@ -4639,7 +4639,7 @@ type NotificationEventWithStatus struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Whom triggered the flow that posted the event.
+	// Who triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
 	// Actionable URL that users can go to as a response to the event.
@@ -4767,7 +4767,7 @@ type PostEventNotificationsIntegrationOptions struct {
 	// A description of the instance of the event.
 	Description *string `json:"description,omitempty"`
 
-	// the name of the source this project is on the event notifications instance.
+	// The name of the source this project is on the event notifications instance.
 	EventNotificationsSourceName *string `json:"event_notifications_source_name,omitempty"`
 
 	// A status of the instance of the event.
@@ -5237,7 +5237,7 @@ func UnmarshalProjectConfigDiffAdded(m map[string]json.RawMessage, result interf
 
 // ProjectConfigDiffChanged : The changes to configurations in the diff summary.
 type ProjectConfigDiffChanged struct {
-	// Collection of changess to configurations in the diff summary.
+	// Collection of changes to configurations in the diff summary.
 	Input []ProjectConfigDiffInputVariable `json:"input,omitempty"`
 }
 
@@ -5403,7 +5403,7 @@ type ProjectListItem struct {
 	// The project description.
 	Description *string `json:"description,omitempty"`
 
-	// Metadata of the Project.
+	// Metadata of the project.
 	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 }
 
@@ -5497,7 +5497,7 @@ func (resp *ProjectListResponseSchema) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
-// ProjectMetadata : Metadata of the Project.
+// ProjectMetadata : Metadata of the project.
 type ProjectMetadata struct {
 	// An IBM Cloud resource name, which uniquely identifies a resource.
 	Crn *string `json:"crn,omitempty"`
@@ -5984,10 +5984,10 @@ func (options *ReplaceServiceInstanceStateOptions) SetHeaders(param map[string]s
 
 // UninstallConfigOptions : The UninstallConfig options.
 type UninstallConfigOptions struct {
-	// The id of the project, which uniquely identifies it.
+	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The ID of the configuration to uninstall.
+	// The ID of the configuration to destroy configuration resources.
 	ConfigID *string `json:"config_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests

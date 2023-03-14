@@ -1751,239 +1751,6 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`ListConfigs(listConfigsOptions *ListConfigsOptions) - Operation response error`, func() {
-		listConfigsPath := "/v1/projects/testString/configs"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
-					// TODO: Add check for complete query parameter
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListConfigs with error: Operation response processing error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigsOptions model
-				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
-				listConfigsOptionsModel.ID = core.StringPtr("testString")
-				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
-				listConfigsOptionsModel.Version = core.StringPtr("active")
-				listConfigsOptionsModel.Complete = core.BoolPtr(false)
-				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectService.EnableRetries(0, 0)
-				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListConfigs(listConfigsOptions *ListConfigsOptions)`, func() {
-		listConfigsPath := "/v1/projects/testString/configs"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
-					// TODO: Add check for complete query parameter
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]}`)
-				}))
-			})
-			It(`Invoke ListConfigs successfully with retries`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-				projectService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListConfigsOptions model
-				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
-				listConfigsOptionsModel.ID = core.StringPtr("testString")
-				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
-				listConfigsOptionsModel.Version = core.StringPtr("active")
-				listConfigsOptionsModel.Complete = core.BoolPtr(false)
-				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectService.ListConfigsWithContext(ctx, listConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectService.DisableRetries()
-				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectService.ListConfigsWithContext(ctx, listConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
-					// TODO: Add check for complete query parameter
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]}`)
-				}))
-			})
-			It(`Invoke ListConfigs successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectService.ListConfigs(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListConfigsOptions model
-				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
-				listConfigsOptionsModel.ID = core.StringPtr("testString")
-				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
-				listConfigsOptionsModel.Version = core.StringPtr("active")
-				listConfigsOptionsModel.Complete = core.BoolPtr(false)
-				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListConfigs with error: Operation validation and request error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigsOptions model
-				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
-				listConfigsOptionsModel.ID = core.StringPtr("testString")
-				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
-				listConfigsOptionsModel.Version = core.StringPtr("active")
-				listConfigsOptionsModel.Complete = core.BoolPtr(false)
-				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListConfigsOptions model with no property values
-				listConfigsOptionsModelNew := new(projectv1.ListConfigsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListConfigs successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ListConfigsOptions model
-				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
-				listConfigsOptionsModel.ID = core.StringPtr("testString")
-				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
-				listConfigsOptionsModel.Version = core.StringPtr("active")
-				listConfigsOptionsModel.Complete = core.BoolPtr(false)
-				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`GetConfig(getConfigOptions *GetConfigOptions) - Operation response error`, func() {
 		getConfigPath := "/v1/projects/testString/configs/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2514,239 +2281,6 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`DeleteConfig(deleteConfigOptions *DeleteConfigOptions) - Operation response error`, func() {
-		deleteConfigPath := "/v1/projects/testString/configs/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
-					Expect(req.Method).To(Equal("DELETE"))
-					// TODO: Add check for draft_only query parameter
-					// TODO: Add check for destroy query parameter
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke DeleteConfig with error: Operation response processing error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteConfigOptions model
-				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
-				deleteConfigOptionsModel.ID = core.StringPtr("testString")
-				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
-				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
-				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
-				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectService.EnableRetries(0, 0)
-				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteConfig(deleteConfigOptions *DeleteConfigOptions)`, func() {
-		deleteConfigPath := "/v1/projects/testString/configs/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					// TODO: Add check for draft_only query parameter
-					// TODO: Add check for destroy query parameter
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name"}`)
-				}))
-			})
-			It(`Invoke DeleteConfig successfully with retries`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-				projectService.EnableRetries(0, 0)
-
-				// Construct an instance of the DeleteConfigOptions model
-				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
-				deleteConfigOptionsModel.ID = core.StringPtr("testString")
-				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
-				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
-				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
-				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectService.DeleteConfigWithContext(ctx, deleteConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectService.DisableRetries()
-				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectService.DeleteConfigWithContext(ctx, deleteConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					// TODO: Add check for draft_only query parameter
-					// TODO: Add check for destroy query parameter
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name"}`)
-				}))
-			})
-			It(`Invoke DeleteConfig successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectService.DeleteConfig(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the DeleteConfigOptions model
-				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
-				deleteConfigOptionsModel.ID = core.StringPtr("testString")
-				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
-				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
-				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
-				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke DeleteConfig with error: Operation validation and request error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteConfigOptions model
-				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
-				deleteConfigOptionsModel.ID = core.StringPtr("testString")
-				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
-				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
-				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
-				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the DeleteConfigOptions model with no property values
-				deleteConfigOptionsModelNew := new(projectv1.DeleteConfigOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke DeleteConfig successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteConfigOptions model
-				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
-				deleteConfigOptionsModel.ID = core.StringPtr("testString")
-				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
-				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
-				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
-				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`GetConfigDiff(getConfigDiffOptions *GetConfigDiffOptions) - Operation response error`, func() {
 		getConfigDiffPath := "/v1/projects/testString/configs/testString/diff"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2953,268 +2487,6 @@ var _ = Describe(`ProjectV1`, func() {
 
 				// Invoke operation
 				result, response, operationErr := projectService.GetConfigDiff(getConfigDiffOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions) - Operation response error`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
-					Expect(req.Method).To(Equal("POST"))
-					// TODO: Add check for complete query parameter
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ForceMerge with error: Operation response processing error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				projectService.EnableRetries(0, 0)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions)`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// TODO: Add check for complete query parameter
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
-				}))
-			})
-			It(`Invoke ForceMerge successfully with retries`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-				projectService.EnableRetries(0, 0)
-
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				projectService.DisableRetries()
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// TODO: Add check for complete query parameter
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
-				}))
-			})
-			It(`Invoke ForceMerge successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectService.ForceMerge(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ForceMerge with error: Operation validation and request error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ForceMergeOptions model with no property values
-				forceMergeOptionsModelNew := new(projectv1.ForceMergeOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke ForceMerge successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -5053,112 +4325,6 @@ var _ = Describe(`ProjectV1`, func() {
 				deleteNotificationOptionsModelNew := new(projectv1.DeleteNotificationOptions)
 				// Invoke operation with invalid model (negative test)
 				response, operationErr = projectService.DeleteNotification(deleteNotificationOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions)`, func() {
-		receivePulsarCatalogEventsPath := "/v1/pulsar/catalog_events"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(receivePulsarCatalogEventsPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke ReceivePulsarCatalogEvents successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectService.ReceivePulsarCatalogEvents(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the PulsarEventItems model
-				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
-				pulsarEventItemsModel.EventType = core.StringPtr("testString")
-				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemsModel.Version = core.StringPtr("testString")
-				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemsModel.EventID = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
-
-				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
-				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
-				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke ReceivePulsarCatalogEvents with error: Operation validation and request error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the PulsarEventItems model
-				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
-				pulsarEventItemsModel.EventType = core.StringPtr("testString")
-				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemsModel.Version = core.StringPtr("testString")
-				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemsModel.EventID = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
-
-				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
-				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
-				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the ReceivePulsarCatalogEventsOptions model with no property values
-				receivePulsarCatalogEventsOptionsModelNew := new(projectv1.ReceivePulsarCatalogEventsOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -7999,6 +7165,840 @@ var _ = Describe(`ProjectV1`, func() {
 
 				// Verify a nil result
 				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConfigs(listConfigsOptions *ListConfigsOptions) - Operation response error`, func() {
+		listConfigsPath := "/v1/projects/testString/configs"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
+					// TODO: Add check for complete query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListConfigs with error: Operation response processing error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigsOptions model
+				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
+				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
+				listConfigsOptionsModel.Version = core.StringPtr("active")
+				listConfigsOptionsModel.Complete = core.BoolPtr(false)
+				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectService.EnableRetries(0, 0)
+				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListConfigs(listConfigsOptions *ListConfigsOptions)`, func() {
+		listConfigsPath := "/v1/projects/testString/configs"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
+					// TODO: Add check for complete query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]}`)
+				}))
+			})
+			It(`Invoke ListConfigs successfully with retries`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+				projectService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListConfigsOptions model
+				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
+				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
+				listConfigsOptionsModel.Version = core.StringPtr("active")
+				listConfigsOptionsModel.Complete = core.BoolPtr(false)
+				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectService.ListConfigsWithContext(ctx, listConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectService.DisableRetries()
+				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectService.ListConfigsWithContext(ctx, listConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listConfigsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["version"]).To(Equal([]string{"active"}))
+					// TODO: Add check for complete query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}]}`)
+				}))
+			})
+			It(`Invoke ListConfigs successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectService.ListConfigs(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListConfigsOptions model
+				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
+				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
+				listConfigsOptionsModel.Version = core.StringPtr("active")
+				listConfigsOptionsModel.Complete = core.BoolPtr(false)
+				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListConfigs with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigsOptions model
+				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
+				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
+				listConfigsOptionsModel.Version = core.StringPtr("active")
+				listConfigsOptionsModel.Complete = core.BoolPtr(false)
+				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListConfigsOptions model with no property values
+				listConfigsOptionsModelNew := new(projectv1.ListConfigsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectService.ListConfigs(listConfigsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListConfigs successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ListConfigsOptions model
+				listConfigsOptionsModel := new(projectv1.ListConfigsOptions)
+				listConfigsOptionsModel.ID = core.StringPtr("testString")
+				listConfigsOptionsModel.ProjectID = core.StringPtr("testString")
+				listConfigsOptionsModel.Version = core.StringPtr("active")
+				listConfigsOptionsModel.Complete = core.BoolPtr(false)
+				listConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectService.ListConfigs(listConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteConfig(deleteConfigOptions *DeleteConfigOptions) - Operation response error`, func() {
+		deleteConfigPath := "/v1/projects/testString/configs/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke DeleteConfig with error: Operation response processing error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteConfigOptions model
+				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
+				deleteConfigOptionsModel.ID = core.StringPtr("testString")
+				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
+				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectService.EnableRetries(0, 0)
+				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteConfig(deleteConfigOptions *DeleteConfigOptions)`, func() {
+		deleteConfigPath := "/v1/projects/testString/configs/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke DeleteConfig successfully with retries`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+				projectService.EnableRetries(0, 0)
+
+				// Construct an instance of the DeleteConfigOptions model
+				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
+				deleteConfigOptionsModel.ID = core.StringPtr("testString")
+				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
+				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectService.DeleteConfigWithContext(ctx, deleteConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectService.DisableRetries()
+				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectService.DeleteConfigWithContext(ctx, deleteConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteConfigPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// TODO: Add check for draft_only query parameter
+					// TODO: Add check for destroy query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name"}`)
+				}))
+			})
+			It(`Invoke DeleteConfig successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectService.DeleteConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the DeleteConfigOptions model
+				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
+				deleteConfigOptionsModel.ID = core.StringPtr("testString")
+				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
+				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke DeleteConfig with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteConfigOptions model
+				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
+				deleteConfigOptionsModel.ID = core.StringPtr("testString")
+				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
+				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the DeleteConfigOptions model with no property values
+				deleteConfigOptionsModelNew := new(projectv1.DeleteConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectService.DeleteConfig(deleteConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteConfig successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteConfigOptions model
+				deleteConfigOptionsModel := new(projectv1.DeleteConfigOptions)
+				deleteConfigOptionsModel.ID = core.StringPtr("testString")
+				deleteConfigOptionsModel.ConfigID = core.StringPtr("testString")
+				deleteConfigOptionsModel.DraftOnly = core.BoolPtr(false)
+				deleteConfigOptionsModel.Destroy = core.BoolPtr(false)
+				deleteConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectService.DeleteConfig(deleteConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions) - Operation response error`, func() {
+		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.Method).To(Equal("POST"))
+					// TODO: Add check for complete query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ForceMerge with error: Operation response processing error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ForceMergeOptions model
+				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
+				forceMergeOptionsModel.ID = core.StringPtr("testString")
+				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
+				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceMergeOptionsModel.Complete = core.BoolPtr(false)
+				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectService.EnableRetries(0, 0)
+				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions)`, func() {
+		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// TODO: Add check for complete query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
+				}))
+			})
+			It(`Invoke ForceMerge successfully with retries`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+				projectService.EnableRetries(0, 0)
+
+				// Construct an instance of the ForceMergeOptions model
+				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
+				forceMergeOptionsModel.ID = core.StringPtr("testString")
+				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
+				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceMergeOptionsModel.Complete = core.BoolPtr(false)
+				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectService.DisableRetries()
+				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// TODO: Add check for complete query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
+				}))
+			})
+			It(`Invoke ForceMerge successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectService.ForceMerge(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ForceMergeOptions model
+				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
+				forceMergeOptionsModel.ID = core.StringPtr("testString")
+				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
+				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceMergeOptionsModel.Complete = core.BoolPtr(false)
+				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ForceMerge with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ForceMergeOptions model
+				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
+				forceMergeOptionsModel.ID = core.StringPtr("testString")
+				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
+				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceMergeOptionsModel.Complete = core.BoolPtr(false)
+				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ForceMergeOptions model with no property values
+				forceMergeOptionsModelNew := new(projectv1.ForceMergeOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke ForceMerge successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the ForceMergeOptions model
+				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
+				forceMergeOptionsModel.ID = core.StringPtr("testString")
+				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
+				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceMergeOptionsModel.Complete = core.BoolPtr(false)
+				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions)`, func() {
+		receivePulsarCatalogEventsPath := "/v1/pulsar/catalog_events"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(receivePulsarCatalogEventsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke ReceivePulsarCatalogEvents successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectService.ReceivePulsarCatalogEvents(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the PulsarEventItems model
+				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
+				pulsarEventItemsModel.EventType = core.StringPtr("testString")
+				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemsModel.Version = core.StringPtr("testString")
+				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemsModel.EventID = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
+				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
+				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke ReceivePulsarCatalogEvents with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the PulsarEventItems model
+				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
+				pulsarEventItemsModel.EventType = core.StringPtr("testString")
+				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
+				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
+				pulsarEventItemsModel.Version = core.StringPtr("testString")
+				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventItemsModel.EventID = core.StringPtr("testString")
+				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
+				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
+				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the ReceivePulsarCatalogEventsOptions model with no property values
+				receivePulsarCatalogEventsOptionsModelNew := new(projectv1.ReceivePulsarCatalogEventsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectService.ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
