@@ -249,6 +249,9 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ct
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if updateCatalogAccountOptions.ID != nil {
+		body["id"] = updateCatalogAccountOptions.ID
+	}
 	if updateCatalogAccountOptions.HideIBMCloudCatalog != nil {
 		body["hide_IBM_cloud_catalog"] = updateCatalogAccountOptions.HideIBMCloudCatalog
 	}
@@ -549,6 +552,9 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createCatalogOptions.ID != nil {
+		body["id"] = createCatalogOptions.ID
+	}
 	if createCatalogOptions.Label != nil {
 		body["label"] = createCatalogOptions.Label
 	}
@@ -721,6 +727,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if replaceCatalogOptions.ID != nil {
+		body["id"] = replaceCatalogOptions.ID
+	}
 	if replaceCatalogOptions.Label != nil {
 		body["label"] = replaceCatalogOptions.Label
 	}
@@ -1304,6 +1313,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createOfferingOptions.ID != nil {
+		body["id"] = createOfferingOptions.ID
+	}
 	if createOfferingOptions.URL != nil {
 		body["url"] = createOfferingOptions.URL
 	}
@@ -1923,6 +1935,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if replaceOfferingOptions.ID != nil {
+		body["id"] = replaceOfferingOptions.ID
+	}
 	if replaceOfferingOptions.URL != nil {
 		body["url"] = replaceOfferingOptions.URL
 	}
@@ -4908,6 +4923,9 @@ func (catalogManagement *CatalogManagementV1) CreateObjectWithContext(ctx contex
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if createObjectOptions.ID != nil {
+		body["id"] = createObjectOptions.ID
+	}
 	if createObjectOptions.Name != nil {
 		body["name"] = createObjectOptions.Name
 	}
@@ -5088,6 +5106,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if replaceObjectOptions.ID != nil {
+		body["id"] = replaceObjectOptions.ID
+	}
 	if replaceObjectOptions.Name != nil {
 		body["name"] = replaceObjectOptions.Name
 	}
