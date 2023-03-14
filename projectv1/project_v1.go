@@ -576,6 +576,74 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 	return
 }
 
+// ListConfigs : List all project configuration
+// Lists all of the project configurations for a specific project.
+func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
+}
+
+// ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
+func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listConfigsOptions, "listConfigsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *listConfigsOptions.ID,
+		"projectId": *listConfigsOptions.ProjectID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listConfigsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ListConfigs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listConfigsOptions.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*listConfigsOptions.Version))
+	}
+	if listConfigsOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*listConfigsOptions.Complete))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetConfig : Get a project configuration
 // Returns the specified project configuration in a specific project.
 func (project *ProjectV1) GetConfig(getConfigOptions *GetConfigOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
@@ -715,6 +783,75 @@ func (project *ProjectV1) UpdateConfigWithContext(ctx context.Context, updateCon
 	return
 }
 
+// DeleteConfig : Delete a configuration in a project by ID
+// Delete a configuration in a project. Deleting the configuration will also destroy all the resources deployed by the
+// configuration.
+func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+	return project.DeleteConfigWithContext(context.Background(), deleteConfigOptions)
+}
+
+// DeleteConfigWithContext is an alternate form of the DeleteConfig method which supports a Context parameter
+func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteConfigOptions, "deleteConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteConfigOptions, "deleteConfigOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deleteConfigOptions.ID,
+		"config_id": *deleteConfigOptions.ConfigID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if deleteConfigOptions.DraftOnly != nil {
+		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
+	}
+	if deleteConfigOptions.Destroy != nil {
+		builder.AddQuery("destroy", fmt.Sprint(*deleteConfigOptions.Destroy))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteProjectConfigResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetConfigDiff : Get a diff summary of a project configuration
 // Returns a diff summary of the specified project configuration between its current draft and active version of a
 // specific project.
@@ -768,6 +905,81 @@ func (project *ProjectV1) GetConfigDiffWithContext(ctx context.Context, getConfi
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigDiff)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ForceMerge : Force merge a project configuration draft
+// Force the merge of the changes from the current active draft to the active configuration with an approving comment.
+func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
+}
+
+// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
+func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *forceMergeOptions.ID,
+		"config_id": *forceMergeOptions.ConfigID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range forceMergeOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if forceMergeOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
+	}
+
+	body := make(map[string]interface{})
+	if forceMergeOptions.Comment != nil {
+		body["comment"] = forceMergeOptions.Comment
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
 		if err != nil {
 			return
 		}
@@ -1345,6 +1557,56 @@ func (project *ProjectV1) DeleteNotificationWithContext(ctx context.Context, del
 	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteNotification")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = project.Service.Request(request, nil)
+
+	return
+}
+
+// ReceivePulsarCatalogEvents : Webhook for catalog events
+// This is a webhook for pulsar catalog events.
+func (project *ProjectV1) ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	return project.ReceivePulsarCatalogEventsWithContext(context.Background(), receivePulsarCatalogEventsOptions)
+}
+
+// ReceivePulsarCatalogEventsWithContext is an alternate form of the ReceivePulsarCatalogEvents method which supports a Context parameter
+func (project *ProjectV1) ReceivePulsarCatalogEventsWithContext(ctx context.Context, receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/pulsar/catalog_events`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range receivePulsarCatalogEventsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ReceivePulsarCatalogEvents")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarCatalogEvents)
+	if err != nil {
+		return
 	}
 
 	request, err := builder.Build()
@@ -2195,268 +2457,6 @@ func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Conte
 		}
 		response.Result = result
 	}
-
-	return
-}
-
-// ListConfigs : List all project configuration
-// Lists all of the project configurations for a specific project.
-func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
-	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
-}
-
-// ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(listConfigsOptions, "listConfigsOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *listConfigsOptions.ID,
-		"projectId": *listConfigsOptions.ProjectID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listConfigsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ListConfigs")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if listConfigsOptions.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*listConfigsOptions.Version))
-	}
-	if listConfigsOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*listConfigsOptions.Complete))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// DeleteConfig : Delete a configuration in a project by ID
-// Delete a configuration in a project. Deleting the configuration will also destroy all the resources deployed by the
-// configuration.
-func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
-	return project.DeleteConfigWithContext(context.Background(), deleteConfigOptions)
-}
-
-// DeleteConfigWithContext is an alternate form of the DeleteConfig method which supports a Context parameter
-func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteConfigOptions, "deleteConfigOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteConfigOptions, "deleteConfigOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *deleteConfigOptions.ID,
-		"config_id": *deleteConfigOptions.ConfigID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteConfigOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteConfig")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	if deleteConfigOptions.DraftOnly != nil {
-		builder.AddQuery("draft_only", fmt.Sprint(*deleteConfigOptions.DraftOnly))
-	}
-	if deleteConfigOptions.Destroy != nil {
-		builder.AddQuery("destroy", fmt.Sprint(*deleteConfigOptions.Destroy))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteProjectConfigResponse)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// ForceMerge : Force merge a project configuration draft
-// Force the merge of the changes from the current active draft to the active configuration with an approving comment.
-func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
-}
-
-// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
-func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *forceMergeOptions.ID,
-		"config_id": *forceMergeOptions.ConfigID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range forceMergeOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if forceMergeOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
-	}
-
-	body := make(map[string]interface{})
-	if forceMergeOptions.Comment != nil {
-		body["comment"] = forceMergeOptions.Comment
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = project.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// ReceivePulsarCatalogEvents : Webhook for catalog events
-// This is a webhook for pulsar catalog events.
-func (project *ProjectV1) ReceivePulsarCatalogEvents(receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
-	return project.ReceivePulsarCatalogEventsWithContext(context.Background(), receivePulsarCatalogEventsOptions)
-}
-
-// ReceivePulsarCatalogEventsWithContext is an alternate form of the ReceivePulsarCatalogEvents method which supports a Context parameter
-func (project *ProjectV1) ReceivePulsarCatalogEventsWithContext(ctx context.Context, receivePulsarCatalogEventsOptions *ReceivePulsarCatalogEventsOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(receivePulsarCatalogEventsOptions, "receivePulsarCatalogEventsOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/pulsar/catalog_events`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range receivePulsarCatalogEventsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ReceivePulsarCatalogEvents")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarCatalogEvents)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = project.Service.Request(request, nil)
 
 	return
 }
