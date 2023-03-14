@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.55.1-b24c7487-20220831-201343
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -28,6 +28,7 @@ import (
 	"io"
 	"net/http"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
@@ -248,12 +249,6 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ct
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateCatalogAccountOptions.ID != nil {
-		body["id"] = updateCatalogAccountOptions.ID
-	}
-	if updateCatalogAccountOptions.Rev != nil {
-		body["_rev"] = updateCatalogAccountOptions.Rev
-	}
 	if updateCatalogAccountOptions.HideIBMCloudCatalog != nil {
 		body["hide_IBM_cloud_catalog"] = updateCatalogAccountOptions.HideIBMCloudCatalog
 	}
@@ -554,12 +549,6 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createCatalogOptions.ID != nil {
-		body["id"] = createCatalogOptions.ID
-	}
-	if createCatalogOptions.Rev != nil {
-		body["_rev"] = createCatalogOptions.Rev
-	}
 	if createCatalogOptions.Label != nil {
 		body["label"] = createCatalogOptions.Label
 	}
@@ -574,6 +563,9 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	}
 	if createCatalogOptions.CatalogIconURL != nil {
 		body["catalog_icon_url"] = createCatalogOptions.CatalogIconURL
+	}
+	if createCatalogOptions.CatalogBannerURL != nil {
+		body["catalog_banner_url"] = createCatalogOptions.CatalogBannerURL
 	}
 	if createCatalogOptions.Tags != nil {
 		body["tags"] = createCatalogOptions.Tags
@@ -729,12 +721,6 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceCatalogOptions.ID != nil {
-		body["id"] = replaceCatalogOptions.ID
-	}
-	if replaceCatalogOptions.Rev != nil {
-		body["_rev"] = replaceCatalogOptions.Rev
-	}
 	if replaceCatalogOptions.Label != nil {
 		body["label"] = replaceCatalogOptions.Label
 	}
@@ -749,6 +735,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	}
 	if replaceCatalogOptions.CatalogIconURL != nil {
 		body["catalog_icon_url"] = replaceCatalogOptions.CatalogIconURL
+	}
+	if replaceCatalogOptions.CatalogBannerURL != nil {
+		body["catalog_banner_url"] = replaceCatalogOptions.CatalogBannerURL
 	}
 	if replaceCatalogOptions.Tags != nil {
 		body["tags"] = replaceCatalogOptions.Tags
@@ -1315,12 +1304,6 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createOfferingOptions.ID != nil {
-		body["id"] = createOfferingOptions.ID
-	}
-	if createOfferingOptions.Rev != nil {
-		body["_rev"] = createOfferingOptions.Rev
-	}
 	if createOfferingOptions.URL != nil {
 		body["url"] = createOfferingOptions.URL
 	}
@@ -1940,12 +1923,6 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceOfferingOptions.ID != nil {
-		body["id"] = replaceOfferingOptions.ID
-	}
-	if replaceOfferingOptions.Rev != nil {
-		body["_rev"] = replaceOfferingOptions.Rev
-	}
 	if replaceOfferingOptions.URL != nil {
 		body["url"] = replaceOfferingOptions.URL
 	}
@@ -2992,6 +2969,9 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceWithContext(ctx c
 	if getOfferingSourceOptions.Channel != nil {
 		builder.AddQuery("channel", fmt.Sprint(*getOfferingSourceOptions.Channel))
 	}
+	if getOfferingSourceOptions.AsIs != nil {
+		builder.AddQuery("asIs", fmt.Sprint(*getOfferingSourceOptions.AsIs))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -3773,12 +3753,15 @@ func (catalogManagement *CatalogManagementV1) DeleteVersionWithContext(ctx conte
 
 // DeprecateVersion : Deprecate version immediately - use /archive instead
 // Deprecate the specified version.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions) (response *core.DetailedResponse, err error) {
 	return catalogManagement.DeprecateVersionWithContext(context.Background(), deprecateVersionOptions)
 }
 
 // DeprecateVersionWithContext is an alternate form of the DeprecateVersion method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) DeprecateVersionWithContext(ctx context.Context, deprecateVersionOptions *DeprecateVersionOptions) (response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: DeprecateVersion")
 	err = core.ValidateNotNil(deprecateVersionOptions, "deprecateVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -3805,150 +3788,6 @@ func (catalogManagement *CatalogManagementV1) DeprecateVersionWithContext(ctx co
 	}
 
 	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateVersion")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// AccountPublishVersion : Publish version to account members
-// Publish the specified version so it is viewable by account members.
-func (catalogManagement *CatalogManagementV1) AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.AccountPublishVersionWithContext(context.Background(), accountPublishVersionOptions)
-}
-
-// AccountPublishVersionWithContext is an alternate form of the AccountPublishVersion method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) AccountPublishVersionWithContext(ctx context.Context, accountPublishVersionOptions *AccountPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(accountPublishVersionOptions, "accountPublishVersionOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(accountPublishVersionOptions, "accountPublishVersionOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"version_loc_id": *accountPublishVersionOptions.VersionLocID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/account-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range accountPublishVersionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AccountPublishVersion")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// IBMPublishVersion : Publish version to IBMers in public catalog
-// Publish the specified version so that it is visible to IBMers in the public catalog.
-func (catalogManagement *CatalogManagementV1) IBMPublishVersion(ibmPublishVersionOptions *IBMPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.IBMPublishVersionWithContext(context.Background(), ibmPublishVersionOptions)
-}
-
-// IBMPublishVersionWithContext is an alternate form of the IBMPublishVersion method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) IBMPublishVersionWithContext(ctx context.Context, ibmPublishVersionOptions *IBMPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(ibmPublishVersionOptions, "ibmPublishVersionOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(ibmPublishVersionOptions, "ibmPublishVersionOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"version_loc_id": *ibmPublishVersionOptions.VersionLocID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/ibm-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range ibmPublishVersionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "IBMPublishVersion")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// PublicPublishVersion : Publish version to all users in public catalog
-// Publish the specified version so it is visible to all users in the public catalog.
-func (catalogManagement *CatalogManagementV1) PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.PublicPublishVersionWithContext(context.Background(), publicPublishVersionOptions)
-}
-
-// PublicPublishVersionWithContext is an alternate form of the PublicPublishVersion method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) PublicPublishVersionWithContext(ctx context.Context, publicPublishVersionOptions *PublicPublishVersionOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(publicPublishVersionOptions, "publicPublishVersionOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(publicPublishVersionOptions, "publicPublishVersionOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"version_loc_id": *publicPublishVersionOptions.VersionLocID,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/public-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range publicPublishVersionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PublicPublishVersion")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -5069,14 +4908,8 @@ func (catalogManagement *CatalogManagementV1) CreateObjectWithContext(ctx contex
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createObjectOptions.ID != nil {
-		body["id"] = createObjectOptions.ID
-	}
 	if createObjectOptions.Name != nil {
 		body["name"] = createObjectOptions.Name
-	}
-	if createObjectOptions.Rev != nil {
-		body["_rev"] = createObjectOptions.Rev
 	}
 	if createObjectOptions.CRN != nil {
 		body["crn"] = createObjectOptions.CRN
@@ -5255,14 +5088,8 @@ func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceObjectOptions.ID != nil {
-		body["id"] = replaceObjectOptions.ID
-	}
 	if replaceObjectOptions.Name != nil {
 		body["name"] = replaceObjectOptions.Name
-	}
-	if replaceObjectOptions.Rev != nil {
-		body["_rev"] = replaceObjectOptions.Rev
 	}
 	if replaceObjectOptions.CRN != nil {
 		body["crn"] = replaceObjectOptions.CRN
@@ -5782,12 +5609,15 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessWithContext(ctx con
 
 // CreateObjectAccess : Add account ID to object access list
 // Add an account ID to an object's access list.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) CreateObjectAccess(createObjectAccessOptions *CreateObjectAccessOptions) (response *core.DetailedResponse, err error) {
 	return catalogManagement.CreateObjectAccessWithContext(context.Background(), createObjectAccessOptions)
 }
 
 // CreateObjectAccessWithContext is an alternate form of the CreateObjectAccess method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) CreateObjectAccessWithContext(ctx context.Context, createObjectAccessOptions *CreateObjectAccessOptions) (response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: CreateObjectAccess")
 	err = core.ValidateNotNil(createObjectAccessOptions, "createObjectAccessOptions cannot be nil")
 	if err != nil {
 		return
@@ -5832,12 +5662,15 @@ func (catalogManagement *CatalogManagementV1) CreateObjectAccessWithContext(ctx 
 
 // DeleteObjectAccess : Remove account ID from object access list
 // Delete the specified account ID from the specified object's access list.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) DeleteObjectAccess(deleteObjectAccessOptions *DeleteObjectAccessOptions) (response *core.DetailedResponse, err error) {
 	return catalogManagement.DeleteObjectAccessWithContext(context.Background(), deleteObjectAccessOptions)
 }
 
 // DeleteObjectAccessWithContext is an alternate form of the DeleteObjectAccess method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx context.Context, deleteObjectAccessOptions *DeleteObjectAccessOptions) (response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: DeleteObjectAccess")
 	err = core.ValidateNotNil(deleteObjectAccessOptions, "deleteObjectAccessOptions cannot be nil")
 	if err != nil {
 		return
@@ -5882,12 +5715,15 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessWithContext(ctx 
 
 // GetObjectAccessListDeprecated : Get object access list
 // Deprecated - use /accessv1 instead.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecated(getObjectAccessListDeprecatedOptions *GetObjectAccessListDeprecatedOptions) (result *ObjectAccessListResult, response *core.DetailedResponse, err error) {
 	return catalogManagement.GetObjectAccessListDeprecatedWithContext(context.Background(), getObjectAccessListDeprecatedOptions)
 }
 
 // GetObjectAccessListDeprecatedWithContext is an alternate form of the GetObjectAccessListDeprecated method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (catalogManagement *CatalogManagementV1) GetObjectAccessListDeprecatedWithContext(ctx context.Context, getObjectAccessListDeprecatedOptions *GetObjectAccessListDeprecatedOptions) (result *ObjectAccessListResult, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: GetObjectAccessListDeprecated")
 	err = core.ValidateNotNil(getObjectAccessListDeprecatedOptions, "getObjectAccessListDeprecatedOptions cannot be nil")
 	if err != nil {
 		return
@@ -6078,202 +5914,6 @@ func (catalogManagement *CatalogManagementV1) AddObjectAccessListWithContext(ctx
 		}
 		response.Result = result
 	}
-
-	return
-}
-
-// AccountPublishObject : Publish object to account
-// Publish a catalog object to account.
-func (catalogManagement *CatalogManagementV1) AccountPublishObject(accountPublishObjectOptions *AccountPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.AccountPublishObjectWithContext(context.Background(), accountPublishObjectOptions)
-}
-
-// AccountPublishObjectWithContext is an alternate form of the AccountPublishObject method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) AccountPublishObjectWithContext(ctx context.Context, accountPublishObjectOptions *AccountPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(accountPublishObjectOptions, "accountPublishObjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(accountPublishObjectOptions, "accountPublishObjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"catalog_identifier": *accountPublishObjectOptions.CatalogIdentifier,
-		"object_identifier": *accountPublishObjectOptions.ObjectIdentifier,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/account-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range accountPublishObjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "AccountPublishObject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// SharedPublishObject : Publish object to share with allow list
-// Publish the specified object so that it is visible to those in the allow list.
-func (catalogManagement *CatalogManagementV1) SharedPublishObject(sharedPublishObjectOptions *SharedPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.SharedPublishObjectWithContext(context.Background(), sharedPublishObjectOptions)
-}
-
-// SharedPublishObjectWithContext is an alternate form of the SharedPublishObject method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) SharedPublishObjectWithContext(ctx context.Context, sharedPublishObjectOptions *SharedPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(sharedPublishObjectOptions, "sharedPublishObjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(sharedPublishObjectOptions, "sharedPublishObjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"catalog_identifier": *sharedPublishObjectOptions.CatalogIdentifier,
-		"object_identifier": *sharedPublishObjectOptions.ObjectIdentifier,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/shared-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range sharedPublishObjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SharedPublishObject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// IBMPublishObject : Publish object to share with IBMers
-// Publish the specified object so that it is visible to IBMers in the public catalog.
-func (catalogManagement *CatalogManagementV1) IBMPublishObject(ibmPublishObjectOptions *IBMPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.IBMPublishObjectWithContext(context.Background(), ibmPublishObjectOptions)
-}
-
-// IBMPublishObjectWithContext is an alternate form of the IBMPublishObject method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) IBMPublishObjectWithContext(ctx context.Context, ibmPublishObjectOptions *IBMPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(ibmPublishObjectOptions, "ibmPublishObjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(ibmPublishObjectOptions, "ibmPublishObjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"catalog_identifier": *ibmPublishObjectOptions.CatalogIdentifier,
-		"object_identifier": *ibmPublishObjectOptions.ObjectIdentifier,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/ibm-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range ibmPublishObjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "IBMPublishObject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// PublicPublishObject : Publish object to share with all users
-// Publish the specified object so it is visible to all users in the public catalog.
-func (catalogManagement *CatalogManagementV1) PublicPublishObject(publicPublishObjectOptions *PublicPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.PublicPublishObjectWithContext(context.Background(), publicPublishObjectOptions)
-}
-
-// PublicPublishObjectWithContext is an alternate form of the PublicPublishObject method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) PublicPublishObjectWithContext(ctx context.Context, publicPublishObjectOptions *PublicPublishObjectOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(publicPublishObjectOptions, "publicPublishObjectOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(publicPublishObjectOptions, "publicPublishObjectOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"catalog_identifier": *publicPublishObjectOptions.CatalogIdentifier,
-		"object_identifier": *publicPublishObjectOptions.ObjectIdentifier,
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}/public-publish`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range publicPublishObjectOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PublicPublishObject")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
 
 	return
 }
@@ -7031,72 +6671,6 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// AccountPublishObjectOptions : The AccountPublishObject options.
-type AccountPublishObjectOptions struct {
-	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
-
-	// Object identifier.
-	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewAccountPublishObjectOptions : Instantiate AccountPublishObjectOptions
-func (*CatalogManagementV1) NewAccountPublishObjectOptions(catalogIdentifier string, objectIdentifier string) *AccountPublishObjectOptions {
-	return &AccountPublishObjectOptions{
-		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier: core.StringPtr(objectIdentifier),
-	}
-}
-
-// SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (_options *AccountPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *AccountPublishObjectOptions {
-	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return _options
-}
-
-// SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (_options *AccountPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *AccountPublishObjectOptions {
-	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *AccountPublishObjectOptions) SetHeaders(param map[string]string) *AccountPublishObjectOptions {
-	options.Headers = param
-	return options
-}
-
-// AccountPublishVersionOptions : The AccountPublishVersion options.
-type AccountPublishVersionOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewAccountPublishVersionOptions : Instantiate AccountPublishVersionOptions
-func (*CatalogManagementV1) NewAccountPublishVersionOptions(versionLocID string) *AccountPublishVersionOptions {
-	return &AccountPublishVersionOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (_options *AccountPublishVersionOptions) SetVersionLocID(versionLocID string) *AccountPublishVersionOptions {
-	_options.VersionLocID = core.StringPtr(versionLocID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *AccountPublishVersionOptions) SetHeaders(param map[string]string) *AccountPublishVersionOptions {
-	options.Headers = param
-	return options
-}
-
 // AccumulatedFilters : The accumulated filters for an account. This will return the account filters plus a filter for each catalog the user
 // has access to.
 type AccumulatedFilters struct {
@@ -7276,12 +6850,15 @@ func (options *AddOfferingAccessListOptions) SetHeaders(param map[string]string)
 // ApprovalResult : Result of approval.
 type ApprovalResult struct {
 	// Shared - object is shared using access list - not set when using PC Managed objects.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	Shared *bool `json:"shared,omitempty"`
 
 	// Shared with IBM only - access list is also applicable - not set when using PC Managed objects.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	IBM *bool `json:"ibm,omitempty"`
 
 	// Shared with everyone - not set when using PC Managed objects.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	Public *bool `json:"public,omitempty"`
 
 	// Published to Partner Center (pc_managed) or for objects, allowed to request publishing.
@@ -7772,6 +7349,9 @@ type Catalog struct {
 	// URL for an icon associated with this catalog.
 	CatalogIconURL *string `json:"catalog_icon_url,omitempty"`
 
+	// URL for a banner image for this catalog.
+	CatalogBannerURL *string `json:"catalog_banner_url,omitempty"`
+
 	// List of tags associated with this catalog.
 	Tags []string `json:"tags,omitempty"`
 
@@ -7843,6 +7423,10 @@ func UnmarshalCatalog(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "catalog_icon_url", &obj.CatalogIconURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_banner_url", &obj.CatalogBannerURL)
 	if err != nil {
 		return
 	}
@@ -8191,6 +7775,123 @@ func (options *CommitVersionOptions) SetHeaders(param map[string]string) *Commit
 	return options
 }
 
+// ComplianceControl : Control that can be added to a version.
+type ComplianceControl struct {
+	// SCC profile.
+	SccProfile *ComplianceControlSccProfile `json:"scc_profile,omitempty"`
+
+	// Control family.
+	Family *ComplianceControlFamily `json:"family,omitempty"`
+
+	// Control goals.
+	Goals []Goal `json:"goals,omitempty"`
+
+	// Control validation.
+	Validation *ComplianceControlValidation `json:"validation,omitempty"`
+}
+
+// UnmarshalComplianceControl unmarshals an instance of ComplianceControl from the specified map of raw messages.
+func UnmarshalComplianceControl(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ComplianceControl)
+	err = core.UnmarshalModel(m, "scc_profile", &obj.SccProfile, UnmarshalComplianceControlSccProfile)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "family", &obj.Family, UnmarshalComplianceControlFamily)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "goals", &obj.Goals, UnmarshalGoal)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "validation", &obj.Validation, UnmarshalComplianceControlValidation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ComplianceControlFamily : Control family.
+type ComplianceControlFamily struct {
+	// ID.
+	ID *string `json:"id,omitempty"`
+
+	// External ID.
+	ExternalID *string `json:"external_id,omitempty"`
+
+	// Description.
+	Description *string `json:"description,omitempty"`
+
+	// UI href.
+	UIHref *string `json:"ui_href,omitempty"`
+}
+
+// UnmarshalComplianceControlFamily unmarshals an instance of ComplianceControlFamily from the specified map of raw messages.
+func UnmarshalComplianceControlFamily(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ComplianceControlFamily)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "external_id", &obj.ExternalID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ComplianceControlSccProfile : SCC profile.
+type ComplianceControlSccProfile struct {
+	// Profile type.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalComplianceControlSccProfile unmarshals an instance of ComplianceControlSccProfile from the specified map of raw messages.
+func UnmarshalComplianceControlSccProfile(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ComplianceControlSccProfile)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ComplianceControlValidation : Control validation.
+type ComplianceControlValidation struct {
+	// Validation certified bool.
+	Certified *bool `json:"certified,omitempty"`
+
+	// Map of validation results.
+	Results map[string]interface{} `json:"results,omitempty"`
+}
+
+// UnmarshalComplianceControlValidation unmarshals an instance of ComplianceControlValidation from the specified map of raw messages.
+func UnmarshalComplianceControlValidation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ComplianceControlValidation)
+	err = core.UnmarshalPrimitive(m, "certified", &obj.Certified)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "results", &obj.Results)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Configuration : Configuration description.
 type Configuration struct {
 	// Configuration key.
@@ -8505,7 +8206,7 @@ type CostBreakdown struct {
 	TotalHourlyCost *string `json:"totalHourlyCost,omitempty"`
 
 	// Total monthly cost.
-	TotalMonthlyCOst *string `json:"totalMonthlyCOst,omitempty"`
+	TotalMonthlyCost *string `json:"totalMonthlyCost,omitempty"`
 
 	// Resources.
 	Resources []CostResource `json:"resources,omitempty"`
@@ -8518,7 +8219,7 @@ func UnmarshalCostBreakdown(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "totalMonthlyCOst", &obj.TotalMonthlyCOst)
+	err = core.UnmarshalPrimitive(m, "totalMonthlyCost", &obj.TotalMonthlyCost)
 	if err != nil {
 		return
 	}
@@ -8785,9 +8486,6 @@ type CreateCatalogOptions struct {
 	// Unique ID.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
 	// Display Name in the requested language.
 	Label *string `json:"label,omitempty"`
 
@@ -8802,6 +8500,9 @@ type CreateCatalogOptions struct {
 
 	// URL for an icon associated with this catalog.
 	CatalogIconURL *string `json:"catalog_icon_url,omitempty"`
+
+	// URL for a banner image for this catalog.
+	CatalogBannerURL *string `json:"catalog_banner_url,omitempty"`
 
 	// List of tags associated with this catalog.
 	Tags []string `json:"tags,omitempty"`
@@ -8845,12 +8546,6 @@ func (_options *CreateCatalogOptions) SetID(id string) *CreateCatalogOptions {
 	return _options
 }
 
-// SetRev : Allow user to set Rev
-func (_options *CreateCatalogOptions) SetRev(rev string) *CreateCatalogOptions {
-	_options.Rev = core.StringPtr(rev)
-	return _options
-}
-
 // SetLabel : Allow user to set Label
 func (_options *CreateCatalogOptions) SetLabel(label string) *CreateCatalogOptions {
 	_options.Label = core.StringPtr(label)
@@ -8878,6 +8573,12 @@ func (_options *CreateCatalogOptions) SetShortDescriptionI18n(shortDescriptionI1
 // SetCatalogIconURL : Allow user to set CatalogIconURL
 func (_options *CreateCatalogOptions) SetCatalogIconURL(catalogIconURL string) *CreateCatalogOptions {
 	_options.CatalogIconURL = core.StringPtr(catalogIconURL)
+	return _options
+}
+
+// SetCatalogBannerURL : Allow user to set CatalogBannerURL
+func (_options *CreateCatalogOptions) SetCatalogBannerURL(catalogBannerURL string) *CreateCatalogOptions {
+	_options.CatalogBannerURL = core.StringPtr(catalogBannerURL)
 	return _options
 }
 
@@ -9001,9 +8702,6 @@ type CreateObjectOptions struct {
 	// The programmatic name of this object.
 	Name *string `json:"name,omitempty"`
 
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
 	// The crn for this specific object.
 	CRN *string `json:"crn,omitempty"`
 
@@ -9078,12 +8776,6 @@ func (_options *CreateObjectOptions) SetID(id string) *CreateObjectOptions {
 // SetName : Allow user to set Name
 func (_options *CreateObjectOptions) SetName(name string) *CreateObjectOptions {
 	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetRev : Allow user to set Rev
-func (_options *CreateObjectOptions) SetRev(rev string) *CreateObjectOptions {
-	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -9469,9 +9161,6 @@ type CreateOfferingOptions struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
 	// The url for this specific offering.
 	URL *string `json:"url,omitempty"`
 
@@ -9546,12 +9235,15 @@ type CreateOfferingOptions struct {
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
 	// Is it permitted to request publishing to IBM or Public.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBMers.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBM Cloud users.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
 
 	// The original offering CRN that this publish entry came from.
@@ -9582,6 +9274,7 @@ type CreateOfferingOptions struct {
 	Hidden *bool `json:"hidden,omitempty"`
 
 	// Deprecated - Provider of this offering.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	Provider *string `json:"provider,omitempty"`
 
 	// Information on the provider for this offering, or omitted if no provider information is given.
@@ -9628,12 +9321,6 @@ func (_options *CreateOfferingOptions) SetCatalogIdentifier(catalogIdentifier st
 // SetID : Allow user to set ID
 func (_options *CreateOfferingOptions) SetID(id string) *CreateOfferingOptions {
 	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetRev : Allow user to set Rev
-func (_options *CreateOfferingOptions) SetRev(rev string) *CreateOfferingOptions {
-	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -9782,18 +9469,21 @@ func (_options *CreateOfferingOptions) SetShareEnabled(shareEnabled bool) *Creat
 }
 
 // SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *CreateOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *CreateOfferingOptions {
 	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
 	return _options
 }
 
 // SetIBMPublishApproved : Allow user to set IBMPublishApproved
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *CreateOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *CreateOfferingOptions {
 	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
 	return _options
 }
 
 // SetPublicPublishApproved : Allow user to set PublicPublishApproved
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *CreateOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *CreateOfferingOptions {
 	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
 	return _options
@@ -9854,6 +9544,7 @@ func (_options *CreateOfferingOptions) SetHidden(hidden bool) *CreateOfferingOpt
 }
 
 // SetProvider : Allow user to set Provider
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *CreateOfferingOptions) SetProvider(provider string) *CreateOfferingOptions {
 	_options.Provider = core.StringPtr(provider)
 	return _options
@@ -10284,51 +9975,6 @@ func (_options *DeleteVersionOptions) SetVersionLocID(versionLocID string) *Dele
 func (options *DeleteVersionOptions) SetHeaders(param map[string]string) *DeleteVersionOptions {
 	options.Headers = param
 	return options
-}
-
-// Dependency : Dependency definition.
-type Dependency struct {
-	// Optional - If not specified, assumes the Public Catalog.
-	CatalogID *string `json:"catalog_id,omitempty"`
-
-	// Optional - Offering ID - not required if name is set.
-	ID *string `json:"id,omitempty"`
-
-	// Optional - Programmatic Offering name.
-	Name *string `json:"name,omitempty"`
-
-	// Required - Semver value or range.
-	Version *string `json:"version,omitempty"`
-
-	// Optional - List of dependent flavors in the specified range.
-	Flavors []string `json:"flavors,omitempty"`
-}
-
-// UnmarshalDependency unmarshals an instance of Dependency from the specified map of raw messages.
-func UnmarshalDependency(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Dependency)
-	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "flavors", &obj.Flavors)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // DeployOperatorsOptions : The DeployOperators options.
@@ -12040,6 +11686,10 @@ type GetOfferingSourceOptions struct {
 	// The channel value of the specified version.
 	Channel *string `json:"channel,omitempty"`
 
+	// If false (the default), the root folder from the original onboarded tgz file is removed.  If true, the root folder
+	// is returned.
+	AsIs *bool `json:"asIs,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -12090,6 +11740,12 @@ func (_options *GetOfferingSourceOptions) SetKind(kind string) *GetOfferingSourc
 // SetChannel : Allow user to set Channel
 func (_options *GetOfferingSourceOptions) SetChannel(channel string) *GetOfferingSourceOptions {
 	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetAsIs : Allow user to set AsIs
+func (_options *GetOfferingSourceOptions) SetAsIs(asIs bool) *GetOfferingSourceOptions {
+	_options.AsIs = core.BoolPtr(asIs)
 	return _options
 }
 
@@ -12498,6 +12154,37 @@ func (options *GetVersionOptions) SetHeaders(param map[string]string) *GetVersio
 	return options
 }
 
+// Goal : Compliance control goal.
+type Goal struct {
+	// Goal ID.
+	ID *string `json:"id,omitempty"`
+
+	// Goal description.
+	Description *string `json:"description,omitempty"`
+
+	// Goal UI href.
+	UIHref *string `json:"ui_href,omitempty"`
+}
+
+// UnmarshalGoal unmarshals an instance of Goal from the specified map of raw messages.
+func UnmarshalGoal(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Goal)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui_href", &obj.UIHref)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // IamPermission : IAM Permission definition.
 type IamPermission struct {
 	// Service name.
@@ -12582,72 +12269,6 @@ func UnmarshalIDFilter(m map[string]json.RawMessage, result interface{}) (err er
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
-}
-
-// IBMPublishObjectOptions : The IBMPublishObject options.
-type IBMPublishObjectOptions struct {
-	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
-
-	// Object identifier.
-	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewIBMPublishObjectOptions : Instantiate IBMPublishObjectOptions
-func (*CatalogManagementV1) NewIBMPublishObjectOptions(catalogIdentifier string, objectIdentifier string) *IBMPublishObjectOptions {
-	return &IBMPublishObjectOptions{
-		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier: core.StringPtr(objectIdentifier),
-	}
-}
-
-// SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (_options *IBMPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *IBMPublishObjectOptions {
-	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return _options
-}
-
-// SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (_options *IBMPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *IBMPublishObjectOptions {
-	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *IBMPublishObjectOptions) SetHeaders(param map[string]string) *IBMPublishObjectOptions {
-	options.Headers = param
-	return options
-}
-
-// IBMPublishVersionOptions : The IBMPublishVersion options.
-type IBMPublishVersionOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewIBMPublishVersionOptions : Instantiate IBMPublishVersionOptions
-func (*CatalogManagementV1) NewIBMPublishVersionOptions(versionLocID string) *IBMPublishVersionOptions {
-	return &IBMPublishVersionOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (_options *IBMPublishVersionOptions) SetVersionLocID(versionLocID string) *IBMPublishVersionOptions {
-	_options.VersionLocID = core.StringPtr(versionLocID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *IBMPublishVersionOptions) SetHeaders(param map[string]string) *IBMPublishVersionOptions {
-	options.Headers = param
-	return options
 }
 
 // Image : Image.
@@ -14529,6 +14150,23 @@ func UnmarshalNamespaceSearchResult(m map[string]json.RawMessage, result interfa
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *NamespaceSearchResult) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
 // ObjectAccessListResult : Paginated object search result.
 type ObjectAccessListResult struct {
 	// The offset (origin 0) of the first resource in this page of search results.
@@ -14600,6 +14238,23 @@ func UnmarshalObjectAccessListResult(m map[string]json.RawMessage, result interf
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ObjectAccessListResult) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
 }
 
 // ObjectListResult : Paginated object search result.
@@ -14675,6 +14330,23 @@ func UnmarshalObjectListResult(m map[string]json.RawMessage, result interface{})
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ObjectListResult) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
 // ObjectSearchResult : Paginated object search result.
 type ObjectSearchResult struct {
 	// The offset (origin 0) of the first resource in this page of search results.
@@ -14746,6 +14418,23 @@ func UnmarshalObjectSearchResult(m map[string]json.RawMessage, result interface{
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ObjectSearchResult) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
 }
 
 // Offering : Offering information.
@@ -14830,12 +14519,15 @@ type Offering struct {
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
 	// Is it permitted to request publishing to IBM or Public.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBMers.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBM Cloud users.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
 
 	// The original offering CRN that this publish entry came from.
@@ -14866,6 +14558,7 @@ type Offering struct {
 	Hidden *bool `json:"hidden,omitempty"`
 
 	// Deprecated - Provider of this offering.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	Provider *string `json:"provider,omitempty"`
 
 	// Information on the provider for this offering, or omitted if no provider information is given.
@@ -15340,6 +15033,58 @@ func UnmarshalOfferingInstanceLastOperation(m map[string]json.RawMessage, result
 	return
 }
 
+// OfferingReference : Offering reference definition.
+type OfferingReference struct {
+	// Optional - If not specified, assumes the Public Catalog.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// Optional - Offering ID - not required if name is set.
+	ID *string `json:"id,omitempty"`
+
+	// Optional - Programmatic Offering name.
+	Name *string `json:"name,omitempty"`
+
+	// Format kind.
+	Kind *string `json:"kind,omitempty"`
+
+	// Required - Semver value or range.
+	Version *string `json:"version,omitempty"`
+
+	// Optional - List of dependent flavors in the specified range.
+	Flavors []string `json:"flavors,omitempty"`
+}
+
+// UnmarshalOfferingReference unmarshals an instance of OfferingReference from the specified map of raw messages.
+func UnmarshalOfferingReference(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingReference)
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "flavors", &obj.Flavors)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // OfferingSearchResult : Paginated offering search result.
 type OfferingSearchResult struct {
 	// The offset (origin 0) of the first resource in this page of search results.
@@ -15411,6 +15156,23 @@ func UnmarshalOfferingSearchResult(m map[string]json.RawMessage, result interfac
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *OfferingSearchResult) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
 }
 
 // OperatorDeployResult : Operator deploy result.
@@ -15861,72 +15623,6 @@ func UnmarshalProviderInfo(m map[string]json.RawMessage, result interface{}) (er
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
-}
-
-// PublicPublishObjectOptions : The PublicPublishObject options.
-type PublicPublishObjectOptions struct {
-	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
-
-	// Object identifier.
-	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewPublicPublishObjectOptions : Instantiate PublicPublishObjectOptions
-func (*CatalogManagementV1) NewPublicPublishObjectOptions(catalogIdentifier string, objectIdentifier string) *PublicPublishObjectOptions {
-	return &PublicPublishObjectOptions{
-		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier: core.StringPtr(objectIdentifier),
-	}
-}
-
-// SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (_options *PublicPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *PublicPublishObjectOptions {
-	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return _options
-}
-
-// SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (_options *PublicPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *PublicPublishObjectOptions {
-	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *PublicPublishObjectOptions) SetHeaders(param map[string]string) *PublicPublishObjectOptions {
-	options.Headers = param
-	return options
-}
-
-// PublicPublishVersionOptions : The PublicPublishVersion options.
-type PublicPublishVersionOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewPublicPublishVersionOptions : Instantiate PublicPublishVersionOptions
-func (*CatalogManagementV1) NewPublicPublishVersionOptions(versionLocID string) *PublicPublishVersionOptions {
-	return &PublicPublishVersionOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (_options *PublicPublishVersionOptions) SetVersionLocID(versionLocID string) *PublicPublishVersionOptions {
-	_options.VersionLocID = core.StringPtr(versionLocID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *PublicPublishVersionOptions) SetHeaders(param map[string]string) *PublicPublishVersionOptions {
-	options.Headers = param
-	return options
 }
 
 // PublishObject : Publish information.
@@ -16429,7 +16125,7 @@ type RenderType struct {
 	GroupingIndex *int64 `json:"grouping_index,omitempty"`
 
 	// Map of constraint parameters that will be passed to the custom widget.
-	ConfigConstraints interface{} `json:"config_constraints,omitempty"`
+	ConfigConstraints map[string]interface{} `json:"config_constraints,omitempty"`
 
 	// List of parameters that are associated with this configuration.
 	Associations *RenderTypeAssociations `json:"associations,omitempty"`
@@ -16515,9 +16211,6 @@ type ReplaceCatalogOptions struct {
 	// Unique ID.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
 	// Display Name in the requested language.
 	Label *string `json:"label,omitempty"`
 
@@ -16532,6 +16225,9 @@ type ReplaceCatalogOptions struct {
 
 	// URL for an icon associated with this catalog.
 	CatalogIconURL *string `json:"catalog_icon_url,omitempty"`
+
+	// URL for a banner image for this catalog.
+	CatalogBannerURL *string `json:"catalog_banner_url,omitempty"`
 
 	// List of tags associated with this catalog.
 	Tags []string `json:"tags,omitempty"`
@@ -16583,12 +16279,6 @@ func (_options *ReplaceCatalogOptions) SetID(id string) *ReplaceCatalogOptions {
 	return _options
 }
 
-// SetRev : Allow user to set Rev
-func (_options *ReplaceCatalogOptions) SetRev(rev string) *ReplaceCatalogOptions {
-	_options.Rev = core.StringPtr(rev)
-	return _options
-}
-
 // SetLabel : Allow user to set Label
 func (_options *ReplaceCatalogOptions) SetLabel(label string) *ReplaceCatalogOptions {
 	_options.Label = core.StringPtr(label)
@@ -16616,6 +16306,12 @@ func (_options *ReplaceCatalogOptions) SetShortDescriptionI18n(shortDescriptionI
 // SetCatalogIconURL : Allow user to set CatalogIconURL
 func (_options *ReplaceCatalogOptions) SetCatalogIconURL(catalogIconURL string) *ReplaceCatalogOptions {
 	_options.CatalogIconURL = core.StringPtr(catalogIconURL)
+	return _options
+}
+
+// SetCatalogBannerURL : Allow user to set CatalogBannerURL
+func (_options *ReplaceCatalogOptions) SetCatalogBannerURL(catalogBannerURL string) *ReplaceCatalogOptions {
+	_options.CatalogBannerURL = core.StringPtr(catalogBannerURL)
 	return _options
 }
 
@@ -16692,9 +16388,6 @@ type ReplaceObjectOptions struct {
 
 	// The programmatic name of this object.
 	Name *string `json:"name,omitempty"`
-
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
 
 	// The crn for this specific object.
 	CRN *string `json:"crn,omitempty"`
@@ -16777,12 +16470,6 @@ func (_options *ReplaceObjectOptions) SetID(id string) *ReplaceObjectOptions {
 // SetName : Allow user to set Name
 func (_options *ReplaceObjectOptions) SetName(name string) *ReplaceObjectOptions {
 	_options.Name = core.StringPtr(name)
-	return _options
-}
-
-// SetRev : Allow user to set Rev
-func (_options *ReplaceObjectOptions) SetRev(rev string) *ReplaceObjectOptions {
-	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -16899,9 +16586,6 @@ type ReplaceOfferingOptions struct {
 	// unique id.
 	ID *string `json:"id,omitempty"`
 
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
 	// The url for this specific offering.
 	URL *string `json:"url,omitempty"`
 
@@ -16976,12 +16660,15 @@ type ReplaceOfferingOptions struct {
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
 	// Is it permitted to request publishing to IBM or Public.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBMers.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBM Cloud users.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
 
 	// The original offering CRN that this publish entry came from.
@@ -17012,6 +16699,7 @@ type ReplaceOfferingOptions struct {
 	Hidden *bool `json:"hidden,omitempty"`
 
 	// Deprecated - Provider of this offering.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	Provider *string `json:"provider,omitempty"`
 
 	// Information on the provider for this offering, or omitted if no provider information is given.
@@ -17065,12 +16753,6 @@ func (_options *ReplaceOfferingOptions) SetOfferingID(offeringID string) *Replac
 // SetID : Allow user to set ID
 func (_options *ReplaceOfferingOptions) SetID(id string) *ReplaceOfferingOptions {
 	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetRev : Allow user to set Rev
-func (_options *ReplaceOfferingOptions) SetRev(rev string) *ReplaceOfferingOptions {
-	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -17219,18 +16901,21 @@ func (_options *ReplaceOfferingOptions) SetShareEnabled(shareEnabled bool) *Repl
 }
 
 // SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *ReplaceOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *ReplaceOfferingOptions {
 	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
 	return _options
 }
 
 // SetIBMPublishApproved : Allow user to set IBMPublishApproved
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *ReplaceOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *ReplaceOfferingOptions {
 	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
 	return _options
 }
 
 // SetPublicPublishApproved : Allow user to set PublicPublishApproved
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *ReplaceOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *ReplaceOfferingOptions {
 	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
 	return _options
@@ -17291,6 +16976,7 @@ func (_options *ReplaceOfferingOptions) SetHidden(hidden bool) *ReplaceOfferingO
 }
 
 // SetProvider : Allow user to set Provider
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (_options *ReplaceOfferingOptions) SetProvider(provider string) *ReplaceOfferingOptions {
 	_options.Provider = core.StringPtr(provider)
 	return _options
@@ -17735,10 +17421,7 @@ type SetOfferingPublishOptions struct {
 //  * `ibm` - (deprecated)
 //  * `public` - (deprecated).
 const (
-	SetOfferingPublishOptionsApprovalTypeAllowRequestConst = "allow_request"
-	SetOfferingPublishOptionsApprovalTypeIBMConst = "ibm"
 	SetOfferingPublishOptionsApprovalTypePcManagedConst = "pc_managed"
-	SetOfferingPublishOptionsApprovalTypePublicConst = "public"
 	SetOfferingPublishOptionsApprovalTypePublishApprovedConst = "publish_approved"
 )
 
@@ -17968,44 +17651,6 @@ func UnmarshalShareSetting(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// SharedPublishObjectOptions : The SharedPublishObject options.
-type SharedPublishObjectOptions struct {
-	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
-
-	// Object identifier.
-	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewSharedPublishObjectOptions : Instantiate SharedPublishObjectOptions
-func (*CatalogManagementV1) NewSharedPublishObjectOptions(catalogIdentifier string, objectIdentifier string) *SharedPublishObjectOptions {
-	return &SharedPublishObjectOptions{
-		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		ObjectIdentifier: core.StringPtr(objectIdentifier),
-	}
-}
-
-// SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (_options *SharedPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *SharedPublishObjectOptions {
-	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return _options
-}
-
-// SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (_options *SharedPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *SharedPublishObjectOptions {
-	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *SharedPublishObjectOptions) SetHeaders(param map[string]string) *SharedPublishObjectOptions {
-	options.Headers = param
-	return options
-}
-
 // SolutionInfo : Version Solution Information.  Only supported for Product kind Solution.
 type SolutionInfo struct {
 	// Architecture diagrams for this solution.
@@ -18018,7 +17663,7 @@ type SolutionInfo struct {
 	CostEstimate *CostEstimate `json:"cost_estimate,omitempty"`
 
 	// Dependencies for this solution.
-	Dependencies []Dependency `json:"dependencies,omitempty"`
+	Dependencies []OfferingReference `json:"dependencies,omitempty"`
 }
 
 // UnmarshalSolutionInfo unmarshals an instance of SolutionInfo from the specified map of raw messages.
@@ -18036,7 +17681,7 @@ func UnmarshalSolutionInfo(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "dependencies", &obj.Dependencies, UnmarshalDependency)
+	err = core.UnmarshalModel(m, "dependencies", &obj.Dependencies, UnmarshalOfferingReference)
 	if err != nil {
 		return
 	}
@@ -18046,19 +17691,19 @@ func UnmarshalSolutionInfo(m map[string]json.RawMessage, result interface{}) (er
 
 // State : Offering state.
 type State struct {
-	// one of: new, validated, account-published, ibm-published, public-published.
+	// one of: new, validated, consumable.
 	Current *string `json:"current,omitempty"`
 
 	// Date and time of current request.
 	CurrentEntered *strfmt.DateTime `json:"current_entered,omitempty"`
 
-	// one of: new, validated, account-published, ibm-published, public-published.
+	// one of: new, validated, consumable.
 	Pending *string `json:"pending,omitempty"`
 
 	// Date and time of pending request.
 	PendingRequested *strfmt.DateTime `json:"pending_requested,omitempty"`
 
-	// one of: new, validated, account-published, ibm-published, public-published.
+	// one of: new, validated, consumable.
 	Previous *string `json:"previous,omitempty"`
 }
 
@@ -18536,12 +18181,6 @@ func (_options *UpdateCatalogAccountOptions) SetID(id string) *UpdateCatalogAcco
 	return _options
 }
 
-// SetRev : Allow user to set Rev
-func (_options *UpdateCatalogAccountOptions) SetRev(rev string) *UpdateCatalogAccountOptions {
-	_options.Rev = core.StringPtr(rev)
-	return _options
-}
-
 // SetHideIBMCloudCatalog : Allow user to set HideIBMCloudCatalog
 func (_options *UpdateCatalogAccountOptions) SetHideIBMCloudCatalog(hideIBMCloudCatalog bool) *UpdateCatalogAccountOptions {
 	_options.HideIBMCloudCatalog = core.BoolPtr(hideIBMCloudCatalog)
@@ -18956,6 +18595,9 @@ type Version struct {
 
 	// Is the version able to be shared.
 	IsConsumable *bool `json:"is_consumable,omitempty"`
+
+	// List of links to sec./compliance controls.
+	Compliance []ComplianceControl `json:"compliance,omitempty"`
 }
 
 // UnmarshalVersion unmarshals an instance of Version from the specified map of raw messages.
@@ -19110,6 +18752,10 @@ func UnmarshalVersion(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "is_consumable", &obj.IsConsumable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "compliance", &obj.Compliance, UnmarshalComplianceControl)
 	if err != nil {
 		return
 	}
@@ -19480,6 +19126,180 @@ func (pager *EnterpriseAuditsPager) GetAll() (allItems []AuditLogDigest, err err
 }
 
 //
+// GetConsumptionOfferingsPager can be used to simplify the use of the "GetConsumptionOfferings" method.
+//
+type GetConsumptionOfferingsPager struct {
+	hasNext bool
+	options *GetConsumptionOfferingsOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewGetConsumptionOfferingsPager returns a new GetConsumptionOfferingsPager instance.
+func (catalogManagement *CatalogManagementV1) NewGetConsumptionOfferingsPager(options *GetConsumptionOfferingsOptions) (pager *GetConsumptionOfferingsPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy GetConsumptionOfferingsOptions = *options
+	pager = &GetConsumptionOfferingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetConsumptionOfferingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetConsumptionOfferingsPager) GetNextWithContext(ctx context.Context) (page []Offering, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.GetConsumptionOfferingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetConsumptionOfferingsPager) GetAllWithContext(ctx context.Context) (allItems []Offering, err error) {
+	for pager.HasNext() {
+		var nextPage []Offering
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetConsumptionOfferingsPager) GetNext() (page []Offering, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetConsumptionOfferingsPager) GetAll() (allItems []Offering, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// OfferingsPager can be used to simplify the use of the "ListOfferings" method.
+//
+type OfferingsPager struct {
+	hasNext bool
+	options *ListOfferingsOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewOfferingsPager returns a new OfferingsPager instance.
+func (catalogManagement *CatalogManagementV1) NewOfferingsPager(options *ListOfferingsOptions) (pager *OfferingsPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy ListOfferingsOptions = *options
+	pager = &OfferingsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *OfferingsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *OfferingsPager) GetNextWithContext(ctx context.Context) (page []Offering, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.ListOfferingsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *OfferingsPager) GetAllWithContext(ctx context.Context) (allItems []Offering, err error) {
+	for pager.HasNext() {
+		var nextPage []Offering
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *OfferingsPager) GetNext() (page []Offering, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *OfferingsPager) GetAll() (allItems []Offering, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
 // OfferingAuditsPager can be used to simplify the use of the "ListOfferingAudits" method.
 //
 type OfferingAuditsPager struct {
@@ -19642,6 +19462,267 @@ func (pager *GetOfferingAccessListPager) GetAll() (allItems []Access, err error)
 }
 
 //
+// GetNamespacesPager can be used to simplify the use of the "GetNamespaces" method.
+//
+type GetNamespacesPager struct {
+	hasNext bool
+	options *GetNamespacesOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewGetNamespacesPager returns a new GetNamespacesPager instance.
+func (catalogManagement *CatalogManagementV1) NewGetNamespacesPager(options *GetNamespacesOptions) (pager *GetNamespacesPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy GetNamespacesOptions = *options
+	pager = &GetNamespacesPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetNamespacesPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetNamespacesPager) GetNextWithContext(ctx context.Context) (page []string, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.GetNamespacesWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetNamespacesPager) GetAllWithContext(ctx context.Context) (allItems []string, err error) {
+	for pager.HasNext() {
+		var nextPage []string
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetNamespacesPager) GetNext() (page []string, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetNamespacesPager) GetAll() (allItems []string, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// SearchObjectsPager can be used to simplify the use of the "SearchObjects" method.
+//
+type SearchObjectsPager struct {
+	hasNext bool
+	options *SearchObjectsOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewSearchObjectsPager returns a new SearchObjectsPager instance.
+func (catalogManagement *CatalogManagementV1) NewSearchObjectsPager(options *SearchObjectsOptions) (pager *SearchObjectsPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy SearchObjectsOptions = *options
+	pager = &SearchObjectsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *SearchObjectsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *SearchObjectsPager) GetNextWithContext(ctx context.Context) (page []CatalogObject, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.SearchObjectsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *SearchObjectsPager) GetAllWithContext(ctx context.Context) (allItems []CatalogObject, err error) {
+	for pager.HasNext() {
+		var nextPage []CatalogObject
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *SearchObjectsPager) GetNext() (page []CatalogObject, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *SearchObjectsPager) GetAll() (allItems []CatalogObject, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// ObjectsPager can be used to simplify the use of the "ListObjects" method.
+//
+type ObjectsPager struct {
+	hasNext bool
+	options *ListObjectsOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewObjectsPager returns a new ObjectsPager instance.
+func (catalogManagement *CatalogManagementV1) NewObjectsPager(options *ListObjectsOptions) (pager *ObjectsPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy ListObjectsOptions = *options
+	pager = &ObjectsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *ObjectsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *ObjectsPager) GetNextWithContext(ctx context.Context) (page []CatalogObject, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.ListObjectsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *ObjectsPager) GetAllWithContext(ctx context.Context) (allItems []CatalogObject, err error) {
+	for pager.HasNext() {
+		var nextPage []CatalogObject
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *ObjectsPager) GetNext() (page []CatalogObject, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *ObjectsPager) GetAll() (allItems []CatalogObject, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
 // ObjectAuditsPager can be used to simplify the use of the "ListObjectAudits" method.
 //
 type ObjectAuditsPager struct {
@@ -19800,6 +19881,93 @@ func (pager *GetObjectAccessListPager) GetNext() (page []Access, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *GetObjectAccessListPager) GetAll() (allItems []Access, err error) {
+	return pager.GetAllWithContext(context.Background())
+}
+
+//
+// GetObjectAccessListDeprecatedPager can be used to simplify the use of the "GetObjectAccessListDeprecated" method.
+//
+type GetObjectAccessListDeprecatedPager struct {
+	hasNext bool
+	options *GetObjectAccessListDeprecatedOptions
+	client  *CatalogManagementV1
+	pageContext struct {
+		next *int64
+	}
+}
+
+// NewGetObjectAccessListDeprecatedPager returns a new GetObjectAccessListDeprecatedPager instance.
+func (catalogManagement *CatalogManagementV1) NewGetObjectAccessListDeprecatedPager(options *GetObjectAccessListDeprecatedOptions) (pager *GetObjectAccessListDeprecatedPager, err error) {
+	if options.Offset != nil && *options.Offset != 0 {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy GetObjectAccessListDeprecatedOptions = *options
+	pager = &GetObjectAccessListDeprecatedPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetObjectAccessListDeprecatedPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetObjectAccessListDeprecatedPager) GetNextWithContext(ctx context.Context) (page []Access, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.GetObjectAccessListDeprecatedWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *int64
+	if result.Next != nil {
+		var offset *int64
+		offset, err = core.GetQueryParamAsInt(result.Next, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Resources
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetObjectAccessListDeprecatedPager) GetAllWithContext(ctx context.Context) (allItems []Access, err error) {
+	for pager.HasNext() {
+		var nextPage []Access
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetObjectAccessListDeprecatedPager) GetNext() (page []Access, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetObjectAccessListDeprecatedPager) GetAll() (allItems []Access, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 

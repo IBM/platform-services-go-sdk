@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -409,8 +409,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := new(catalogmanagementv1.UpdateCatalogAccountOptions)
-				updateCatalogAccountOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogAccountOptionsModel.Rev = core.StringPtr("testString")
 				updateCatalogAccountOptionsModel.HideIBMCloudCatalog = core.BoolPtr(true)
 				updateCatalogAccountOptionsModel.AccountFilters = filtersModel
 				updateCatalogAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -500,8 +498,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := new(catalogmanagementv1.UpdateCatalogAccountOptions)
-				updateCatalogAccountOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogAccountOptionsModel.Rev = core.StringPtr("testString")
 				updateCatalogAccountOptionsModel.HideIBMCloudCatalog = core.BoolPtr(true)
 				updateCatalogAccountOptionsModel.AccountFilters = filtersModel
 				updateCatalogAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -599,8 +595,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := new(catalogmanagementv1.UpdateCatalogAccountOptions)
-				updateCatalogAccountOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogAccountOptionsModel.Rev = core.StringPtr("testString")
 				updateCatalogAccountOptionsModel.HideIBMCloudCatalog = core.BoolPtr(true)
 				updateCatalogAccountOptionsModel.AccountFilters = filtersModel
 				updateCatalogAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -643,8 +637,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := new(catalogmanagementv1.UpdateCatalogAccountOptions)
-				updateCatalogAccountOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogAccountOptionsModel.Rev = core.StringPtr("testString")
 				updateCatalogAccountOptionsModel.HideIBMCloudCatalog = core.BoolPtr(true)
 				updateCatalogAccountOptionsModel.AccountFilters = filtersModel
 				updateCatalogAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -701,8 +693,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := new(catalogmanagementv1.UpdateCatalogAccountOptions)
-				updateCatalogAccountOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogAccountOptionsModel.Rev = core.StringPtr("testString")
 				updateCatalogAccountOptionsModel.HideIBMCloudCatalog = core.BoolPtr(true)
 				updateCatalogAccountOptionsModel.AccountFilters = filtersModel
 				updateCatalogAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1524,7 +1514,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogs successfully with retries`, func() {
@@ -1577,7 +1567,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogs successfully`, func() {
@@ -1744,13 +1734,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
-				createCatalogOptionsModel.ID = core.StringPtr("testString")
-				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.LabelI18n = make(map[string]string)
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				createCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				createCatalogOptionsModel.Tags = []string{"testString"}
 				createCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				createCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -1759,7 +1748,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.CatalogFilters = filtersModel
 				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
-				createCatalogOptionsModel.Metadata = make(map[string]interface{})
+				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.CreateCatalog(createCatalogOptionsModel)
@@ -1812,7 +1801,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke CreateCatalog successfully with retries`, func() {
@@ -1882,13 +1871,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
-				createCatalogOptionsModel.ID = core.StringPtr("testString")
-				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.LabelI18n = make(map[string]string)
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				createCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				createCatalogOptionsModel.Tags = []string{"testString"}
 				createCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				createCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -1897,7 +1885,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.CatalogFilters = filtersModel
 				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
-				createCatalogOptionsModel.Metadata = make(map[string]interface{})
+				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1953,7 +1941,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke CreateCatalog successfully`, func() {
@@ -2028,13 +2016,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
-				createCatalogOptionsModel.ID = core.StringPtr("testString")
-				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.LabelI18n = make(map[string]string)
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				createCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				createCatalogOptionsModel.Tags = []string{"testString"}
 				createCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				createCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2043,7 +2030,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.CatalogFilters = filtersModel
 				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
-				createCatalogOptionsModel.Metadata = make(map[string]interface{})
+				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2119,13 +2106,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
-				createCatalogOptionsModel.ID = core.StringPtr("testString")
-				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.LabelI18n = make(map[string]string)
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				createCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				createCatalogOptionsModel.Tags = []string{"testString"}
 				createCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				createCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2134,7 +2120,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.CatalogFilters = filtersModel
 				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
-				createCatalogOptionsModel.Metadata = make(map[string]interface{})
+				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -2224,13 +2210,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
-				createCatalogOptionsModel.ID = core.StringPtr("testString")
-				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.LabelI18n = make(map[string]string)
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				createCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				createCatalogOptionsModel.Tags = []string{"testString"}
 				createCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				createCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2239,7 +2224,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.CatalogFilters = filtersModel
 				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
-				createCatalogOptionsModel.Metadata = make(map[string]interface{})
+				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2317,7 +2302,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetCatalog successfully with retries`, func() {
@@ -2371,7 +2356,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetCatalog successfully`, func() {
@@ -2549,13 +2534,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
 				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.LabelI18n = make(map[string]string)
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Tags = []string{"testString"}
 				replaceCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				replaceCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2564,7 +2548,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
 				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Metadata = make(map[string]interface{})
+				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.ReplaceCatalog(replaceCatalogOptionsModel)
@@ -2617,7 +2601,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke ReplaceCatalog successfully with retries`, func() {
@@ -2688,13 +2672,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
 				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.LabelI18n = make(map[string]string)
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Tags = []string{"testString"}
 				replaceCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				replaceCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2703,7 +2686,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
 				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Metadata = make(map[string]interface{})
+				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2759,7 +2742,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke ReplaceCatalog successfully`, func() {
@@ -2835,13 +2818,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
 				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.LabelI18n = make(map[string]string)
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Tags = []string{"testString"}
 				replaceCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				replaceCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2850,7 +2832,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
 				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Metadata = make(map[string]interface{})
+				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2927,13 +2909,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
 				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.LabelI18n = make(map[string]string)
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Tags = []string{"testString"}
 				replaceCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				replaceCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -2942,7 +2923,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
 				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Metadata = make(map[string]interface{})
+				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -3040,13 +3021,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
 				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.LabelI18n = make(map[string]string)
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescriptionI18n = make(map[string]string)
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogBannerURL = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Tags = []string{"testString"}
 				replaceCatalogOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				replaceCatalogOptionsModel.Disabled = core.BoolPtr(true)
@@ -3055,7 +3035,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
 				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
-				replaceCatalogOptionsModel.Metadata = make(map[string]interface{})
+				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4261,7 +4241,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["catalog"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["select"]).To(Equal([]string{"all"}))
 					// TODO: Add check for includeHidden query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4282,7 +4262,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.Catalog = core.StringPtr("testString")
 				getConsumptionOfferingsOptionsModel.Select = core.StringPtr("all")
 				getConsumptionOfferingsOptionsModel.IncludeHidden = core.BoolPtr(true)
-				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getConsumptionOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getConsumptionOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -4318,7 +4298,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["catalog"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["select"]).To(Equal([]string{"all"}))
 					// TODO: Add check for includeHidden query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -4326,7 +4306,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetConsumptionOfferings successfully with retries`, func() {
@@ -4344,7 +4324,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.Catalog = core.StringPtr("testString")
 				getConsumptionOfferingsOptionsModel.Select = core.StringPtr("all")
 				getConsumptionOfferingsOptionsModel.IncludeHidden = core.BoolPtr(true)
-				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getConsumptionOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getConsumptionOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4386,12 +4366,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["catalog"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["select"]).To(Equal([]string{"all"}))
 					// TODO: Add check for includeHidden query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetConsumptionOfferings successfully`, func() {
@@ -4414,7 +4394,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.Catalog = core.StringPtr("testString")
 				getConsumptionOfferingsOptionsModel.Select = core.StringPtr("all")
 				getConsumptionOfferingsOptionsModel.IncludeHidden = core.BoolPtr(true)
-				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getConsumptionOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getConsumptionOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4439,7 +4419,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.Catalog = core.StringPtr("testString")
 				getConsumptionOfferingsOptionsModel.Select = core.StringPtr("all")
 				getConsumptionOfferingsOptionsModel.IncludeHidden = core.BoolPtr(true)
-				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getConsumptionOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getConsumptionOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4478,7 +4458,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.Catalog = core.StringPtr("testString")
 				getConsumptionOfferingsOptionsModel.Select = core.StringPtr("all")
 				getConsumptionOfferingsOptionsModel.IncludeHidden = core.BoolPtr(true)
-				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getConsumptionOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getConsumptionOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getConsumptionOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4494,6 +4474,117 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getConsumptionOfferingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}]},"is_consumable":true,"compliance":[{"scc_profile":{"type":"Type"},"family":{"id":"ID","external_id":"ExternalID","description":"Description","ui_href":"UIHref"},"goals":[{"id":"ID","description":"Description","ui_href":"UIHref"}],"validation":{"certified":false,"results":{"anyKey":"anyValue"}}}]}],"plans":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","deployments":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z"}]}]}],"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}]},"is_consumable":true,"compliance":[{"scc_profile":{"type":"Type"},"family":{"id":"ID","external_id":"ExternalID","description":"Description","ui_href":"UIHref"},"goals":[{"id":"ID","description":"Description","ui_href":"UIHref"}],"validation":{"certified":false,"results":{"anyKey":"anyValue"}}}]}],"plans":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","deployments":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z"}]}]}],"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetConsumptionOfferingsPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
+					Digest: core.BoolPtr(true),
+					Catalog: core.StringPtr("testString"),
+					Select: core.StringPtr("all"),
+					IncludeHidden: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []catalogmanagementv1.Offering
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetConsumptionOfferingsPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
+					Digest: core.BoolPtr(true),
+					Catalog: core.StringPtr("testString"),
+					Select: core.StringPtr("all"),
+					IncludeHidden: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`ListOfferings(listOfferingsOptions *ListOfferingsOptions) - Operation response error`, func() {
 		listOfferingsPath := "/catalogs/testString/offerings"
@@ -4506,7 +4597,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listOfferingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					// TODO: Add check for digest query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
@@ -4528,7 +4619,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
 				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
-				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listOfferingsOptionsModel.Name = core.StringPtr("testString")
 				listOfferingsOptionsModel.Sort = core.StringPtr("testString")
@@ -4564,7 +4655,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// TODO: Add check for digest query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
@@ -4575,7 +4666,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke ListOfferings successfully with retries`, func() {
@@ -4591,7 +4682,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
 				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
-				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listOfferingsOptionsModel.Name = core.StringPtr("testString")
 				listOfferingsOptionsModel.Sort = core.StringPtr("testString")
@@ -4633,7 +4724,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// TODO: Add check for digest query parameter
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
@@ -4641,7 +4732,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke ListOfferings successfully`, func() {
@@ -4662,7 +4753,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
 				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
-				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listOfferingsOptionsModel.Name = core.StringPtr("testString")
 				listOfferingsOptionsModel.Sort = core.StringPtr("testString")
@@ -4688,7 +4779,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
 				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
-				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listOfferingsOptionsModel.Name = core.StringPtr("testString")
 				listOfferingsOptionsModel.Sort = core.StringPtr("testString")
@@ -4735,7 +4826,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
 				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
-				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listOfferingsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listOfferingsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listOfferingsOptionsModel.Name = core.StringPtr("testString")
 				listOfferingsOptionsModel.Sort = core.StringPtr("testString")
@@ -4752,6 +4843,119 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.OfferingSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listOfferingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}]},"is_consumable":true,"compliance":[{"scc_profile":{"type":"Type"},"family":{"id":"ID","external_id":"ExternalID","description":"Description","ui_href":"UIHref"},"goals":[{"id":"ID","description":"Description","ui_href":"UIHref"}],"validation":{"certified":false,"results":{"anyKey":"anyValue"}}}]}],"plans":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","deployments":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z"}]}]}],"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}]},"is_consumable":true,"compliance":[{"scc_profile":{"type":"Type"},"family":{"id":"ID","external_id":"ExternalID","description":"Description","ui_href":"UIHref"},"goals":[{"id":"ID","description":"Description","ui_href":"UIHref"}],"validation":{"certified":false,"results":{"anyKey":"anyValue"}}}]}],"plans":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","deployments":[{"id":"ID","label":"Label","name":"Name","short_description":"ShortDescription","long_description":"LongDescription","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z"}]}]}],"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use OfferingsPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Digest: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+					IncludeHidden: core.BoolPtr(true),
+				}
+
+				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []catalogmanagementv1.Offering
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use OfferingsPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Digest: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+					IncludeHidden: core.BoolPtr(true),
+				}
+
+				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -4854,7 +5058,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -4935,7 +5139,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -4943,7 +5147,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -4959,7 +5163,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -4979,25 +5183,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -5014,7 +5246,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -5034,6 +5266,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -5042,7 +5275,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5054,7 +5287,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5067,7 +5300,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5157,8 +5390,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
 				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createOfferingOptionsModel.ID = core.StringPtr("testString")
-				createOfferingOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingOptionsModel.URL = core.StringPtr("testString")
 				createOfferingOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -5192,7 +5423,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				createOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -5256,7 +5487,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke CreateOffering successfully with retries`, func() {
@@ -5344,7 +5575,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -5425,7 +5656,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -5433,7 +5664,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -5449,7 +5680,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -5469,25 +5700,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -5504,7 +5763,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -5524,6 +5783,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -5532,7 +5792,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5544,7 +5804,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5557,7 +5817,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -5647,8 +5907,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
 				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createOfferingOptionsModel.ID = core.StringPtr("testString")
-				createOfferingOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingOptionsModel.URL = core.StringPtr("testString")
 				createOfferingOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -5682,7 +5940,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				createOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -5749,7 +6007,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke CreateOffering successfully`, func() {
@@ -5842,7 +6100,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -5923,7 +6181,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -5931,7 +6189,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -5947,7 +6205,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -5967,25 +6225,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -6002,7 +6288,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -6022,6 +6308,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -6030,7 +6317,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6042,7 +6329,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6055,7 +6342,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6145,8 +6432,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
 				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createOfferingOptionsModel.ID = core.StringPtr("testString")
-				createOfferingOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingOptionsModel.URL = core.StringPtr("testString")
 				createOfferingOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -6180,7 +6465,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				createOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -6285,7 +6570,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -6366,7 +6651,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -6374,7 +6659,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -6390,7 +6675,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -6410,25 +6695,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -6445,7 +6758,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -6465,6 +6778,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -6473,7 +6787,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6485,7 +6799,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6498,7 +6812,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6588,8 +6902,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
 				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createOfferingOptionsModel.ID = core.StringPtr("testString")
-				createOfferingOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingOptionsModel.URL = core.StringPtr("testString")
 				createOfferingOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -6623,7 +6935,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				createOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -6749,7 +7061,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -6830,7 +7142,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -6838,7 +7150,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -6854,7 +7166,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -6874,25 +7186,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -6909,7 +7249,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -6929,6 +7269,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -6937,7 +7278,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6949,7 +7290,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -6962,7 +7303,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -7052,8 +7393,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
 				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createOfferingOptionsModel.ID = core.StringPtr("testString")
-				createOfferingOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingOptionsModel.URL = core.StringPtr("testString")
 				createOfferingOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -7087,7 +7426,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				createOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -7261,7 +7600,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOfferingVersion successfully with retries`, func() {
@@ -7393,7 +7732,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOfferingVersion successfully`, func() {
@@ -7803,7 +8142,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOffering successfully with retries`, func() {
@@ -7936,7 +8275,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOffering successfully`, func() {
@@ -8298,7 +8637,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReloadOffering successfully with retries`, func() {
@@ -8388,7 +8727,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReloadOffering successfully`, func() {
@@ -8604,7 +8943,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetOffering successfully with retries`, func() {
@@ -8663,7 +9002,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetOffering successfully`, func() {
@@ -8867,7 +9206,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -8948,7 +9287,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -8956,7 +9295,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -8972,7 +9311,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -8992,25 +9331,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -9027,7 +9394,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -9047,6 +9414,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -9055,7 +9423,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9067,7 +9435,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9080,7 +9448,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9171,8 +9539,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
 				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
 				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CRN = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -9206,7 +9572,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Metadata = make(map[string]interface{})
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -9270,7 +9636,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReplaceOffering successfully with retries`, func() {
@@ -9358,7 +9724,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -9439,7 +9805,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -9447,7 +9813,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -9463,7 +9829,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -9483,25 +9849,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -9518,7 +9912,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -9538,6 +9932,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -9546,7 +9941,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9558,7 +9953,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9571,7 +9966,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -9662,8 +10057,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
 				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
 				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CRN = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -9697,7 +10090,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Metadata = make(map[string]interface{})
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -9764,7 +10157,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReplaceOffering successfully`, func() {
@@ -9857,7 +10250,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -9938,7 +10331,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -9946,7 +10339,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -9962,7 +10355,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -9982,25 +10375,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -10017,7 +10438,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -10037,6 +10458,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -10045,7 +10467,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10057,7 +10479,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10070,7 +10492,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10161,8 +10583,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
 				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
 				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CRN = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -10196,7 +10616,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Metadata = make(map[string]interface{})
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -10301,7 +10721,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -10382,7 +10802,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -10390,7 +10810,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -10406,7 +10826,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -10426,25 +10846,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -10461,7 +10909,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -10481,6 +10929,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -10489,7 +10938,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10501,7 +10950,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10514,7 +10963,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10605,8 +11054,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
 				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
 				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CRN = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -10640,7 +11087,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Metadata = make(map[string]interface{})
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -10766,7 +11213,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 
 				// Construct an instance of the Resource model
@@ -10847,7 +11294,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostResource model
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
@@ -10855,7 +11302,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CostBreakdown model
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 
 				// Construct an instance of the CostSummary model
@@ -10871,7 +11318,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Project model
 				projectModel := new(catalogmanagementv1.Project)
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
@@ -10891,25 +11338,53 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costEstimateModel.DiffTotalMonthlyCost = core.StringPtr("testString")
 				costEstimateModel.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -10926,7 +11401,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -10946,6 +11421,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -10954,7 +11430,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10966,7 +11442,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -10979,7 +11455,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -11070,8 +11546,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
 				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
 				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CRN = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
@@ -11105,7 +11579,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.PortalUIURL = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.Metadata = make(map[string]interface{})
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
 				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
 				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
@@ -11224,7 +11698,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke UpdateOffering successfully with retries`, func() {
@@ -11306,7 +11780,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke UpdateOffering successfully`, func() {
@@ -14066,6 +14540,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["channel"]).To(Equal([]string{"testString"}))
+					// TODO: Add check for asIs query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -14093,6 +14568,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -14137,6 +14613,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["channel"]).To(Equal([]string{"testString"}))
+					// TODO: Add check for asIs query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/yaml")
 					res.WriteHeader(200)
@@ -14166,6 +14643,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -14192,6 +14670,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -14239,6 +14718,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -15541,7 +16021,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}`)
 				}))
 			})
 			It(`Invoke GetOfferingWorkingCopy successfully with retries`, func() {
@@ -15595,7 +16075,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}`)
 				}))
 			})
 			It(`Invoke GetOfferingWorkingCopy successfully`, func() {
@@ -15825,7 +16305,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetVersion successfully with retries`, func() {
@@ -15879,7 +16359,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCOst": "TotalMonthlyCOst", "resources": [{"name": "Name", "metadata": {"mapKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"mapKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"mapKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}]}, "is_consumable": true, "compliance": [{"scc_profile": {"type": "Type"}, "family": {"id": "ID", "external_id": "ExternalID", "description": "Description", "ui_href": "UIHref"}, "goals": [{"id": "ID", "description": "Description", "ui_href": "UIHref"}], "validation": {"certified": false, "results": {"anyKey": "anyValue"}}}]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z"}]}]}], "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetVersion successfully`, func() {
@@ -16103,210 +16583,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deprecateVersionOptionsModelNew := new(catalogmanagementv1.DeprecateVersionOptions)
 				// Invoke operation with invalid model (negative test)
 				response, operationErr = catalogManagementService.DeprecateVersion(deprecateVersionOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions)`, func() {
-		accountPublishVersionPath := "/versions/testString/account-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(accountPublishVersionPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke AccountPublishVersion successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.AccountPublishVersion(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the AccountPublishVersionOptions model
-				accountPublishVersionOptionsModel := new(catalogmanagementv1.AccountPublishVersionOptions)
-				accountPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				accountPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.AccountPublishVersion(accountPublishVersionOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke AccountPublishVersion with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the AccountPublishVersionOptions model
-				accountPublishVersionOptionsModel := new(catalogmanagementv1.AccountPublishVersionOptions)
-				accountPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				accountPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.AccountPublishVersion(accountPublishVersionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the AccountPublishVersionOptions model with no property values
-				accountPublishVersionOptionsModelNew := new(catalogmanagementv1.AccountPublishVersionOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.AccountPublishVersion(accountPublishVersionOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`IBMPublishVersion(ibmPublishVersionOptions *IBMPublishVersionOptions)`, func() {
-		ibmPublishVersionPath := "/versions/testString/ibm-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(ibmPublishVersionPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke IBMPublishVersion successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.IBMPublishVersion(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the IBMPublishVersionOptions model
-				ibmPublishVersionOptionsModel := new(catalogmanagementv1.IBMPublishVersionOptions)
-				ibmPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				ibmPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.IBMPublishVersion(ibmPublishVersionOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke IBMPublishVersion with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the IBMPublishVersionOptions model
-				ibmPublishVersionOptionsModel := new(catalogmanagementv1.IBMPublishVersionOptions)
-				ibmPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				ibmPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the IBMPublishVersionOptions model with no property values
-				ibmPublishVersionOptionsModelNew := new(catalogmanagementv1.IBMPublishVersionOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.IBMPublishVersion(ibmPublishVersionOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions)`, func() {
-		publicPublishVersionPath := "/versions/testString/public-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(publicPublishVersionPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke PublicPublishVersion successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.PublicPublishVersion(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the PublicPublishVersionOptions model
-				publicPublishVersionOptionsModel := new(catalogmanagementv1.PublicPublishVersionOptions)
-				publicPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				publicPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.PublicPublishVersion(publicPublishVersionOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke PublicPublishVersion with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the PublicPublishVersionOptions model
-				publicPublishVersionOptionsModel := new(catalogmanagementv1.PublicPublishVersionOptions)
-				publicPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
-				publicPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.PublicPublishVersion(publicPublishVersionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the PublicPublishVersionOptions model with no property values
-				publicPublishVersionOptionsModelNew := new(catalogmanagementv1.PublicPublishVersionOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.PublicPublishVersion(publicPublishVersionOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -16559,7 +16835,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -16579,7 +16855,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.ClusterID = core.StringPtr("testString")
 				getNamespacesOptionsModel.Region = core.StringPtr("testString")
 				getNamespacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getNamespacesOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getNamespacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -16614,7 +16890,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -16639,7 +16915,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.ClusterID = core.StringPtr("testString")
 				getNamespacesOptionsModel.Region = core.StringPtr("testString")
 				getNamespacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getNamespacesOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getNamespacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -16680,7 +16956,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -16707,7 +16983,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.ClusterID = core.StringPtr("testString")
 				getNamespacesOptionsModel.Region = core.StringPtr("testString")
 				getNamespacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getNamespacesOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getNamespacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -16731,7 +17007,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.ClusterID = core.StringPtr("testString")
 				getNamespacesOptionsModel.Region = core.StringPtr("testString")
 				getNamespacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getNamespacesOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getNamespacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -16776,7 +17052,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.ClusterID = core.StringPtr("testString")
 				getNamespacesOptionsModel.Region = core.StringPtr("testString")
 				getNamespacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getNamespacesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getNamespacesOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getNamespacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -16790,6 +17066,115 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.NamespaceSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.NamespaceSearchResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.NamespaceSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.NamespaceSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getNamespacesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":["Resources"]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":["Resources"]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetNamespacesPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []string
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetNamespacesPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -18100,7 +18485,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"metadata": {"cluster_id": "ClusterID", "region": "Region", "namespace": "Namespace", "workspace_id": "WorkspaceID", "workspace_name": "WorkspaceName"}, "release": {"deployments": [{"mapKey": "anyValue"}], "replicasets": [{"mapKey": "anyValue"}], "statefulsets": [{"mapKey": "anyValue"}], "pods": [{"mapKey": "anyValue"}], "errors": [{"mapKey": "Inner"}]}, "content_mgmt": {"pods": [{"mapKey": "Inner"}], "errors": [{"mapKey": "Inner"}]}}`)
+					fmt.Fprintf(res, "%s", `{"metadata": {"cluster_id": "ClusterID", "region": "Region", "namespace": "Namespace", "workspace_id": "WorkspaceID", "workspace_name": "WorkspaceName"}, "release": {"deployments": [{"anyKey": "anyValue"}], "replicasets": [{"anyKey": "anyValue"}], "statefulsets": [{"anyKey": "anyValue"}], "pods": [{"anyKey": "anyValue"}], "errors": [{"mapKey": "Inner"}]}, "content_mgmt": {"pods": [{"mapKey": "Inner"}], "errors": [{"mapKey": "Inner"}]}}`)
 				}))
 			})
 			It(`Invoke GetPreinstall successfully with retries`, func() {
@@ -18163,7 +18548,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"metadata": {"cluster_id": "ClusterID", "region": "Region", "namespace": "Namespace", "workspace_id": "WorkspaceID", "workspace_name": "WorkspaceName"}, "release": {"deployments": [{"mapKey": "anyValue"}], "replicasets": [{"mapKey": "anyValue"}], "statefulsets": [{"mapKey": "anyValue"}], "pods": [{"mapKey": "anyValue"}], "errors": [{"mapKey": "Inner"}]}, "content_mgmt": {"pods": [{"mapKey": "Inner"}], "errors": [{"mapKey": "Inner"}]}}`)
+					fmt.Fprintf(res, "%s", `{"metadata": {"cluster_id": "ClusterID", "region": "Region", "namespace": "Namespace", "workspace_id": "WorkspaceID", "workspace_name": "WorkspaceName"}, "release": {"deployments": [{"anyKey": "anyValue"}], "replicasets": [{"anyKey": "anyValue"}], "statefulsets": [{"anyKey": "anyValue"}], "pods": [{"anyKey": "anyValue"}], "errors": [{"mapKey": "Inner"}]}, "content_mgmt": {"pods": [{"mapKey": "Inner"}], "errors": [{"mapKey": "Inner"}]}}`)
 				}))
 			})
 			It(`Invoke GetPreinstall successfully`, func() {
@@ -18508,7 +18893,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}`)
 				}))
 			})
 			It(`Invoke GetValidationStatus successfully with retries`, func() {
@@ -18565,7 +18950,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}, "message": "Message"}`)
+					fmt.Fprintf(res, "%s", `{"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}`)
 				}))
 			})
 			It(`Invoke GetValidationStatus successfully`, func() {
@@ -18681,7 +19066,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"mapKey": "anyValue"}`)
+					fmt.Fprintf(res, "%s", `{"anyKey": "anyValue"}`)
 				}))
 			})
 			It(`Invoke GetOverrideValues successfully with retries`, func() {
@@ -18735,7 +19120,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"mapKey": "anyValue"}`)
+					fmt.Fprintf(res, "%s", `{"anyKey": "anyValue"}`)
 				}))
 			})
 			It(`Invoke GetOverrideValues successfully`, func() {
@@ -18843,7 +19228,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["query"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"vpe"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// TODO: Add check for collapse query parameter
 					// TODO: Add check for digest query parameter
@@ -18864,7 +19249,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := new(catalogmanagementv1.SearchObjectsOptions)
 				searchObjectsOptionsModel.Query = core.StringPtr("testString")
 				searchObjectsOptionsModel.Kind = core.StringPtr("vpe")
-				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				searchObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				searchObjectsOptionsModel.Collapse = core.BoolPtr(true)
 				searchObjectsOptionsModel.Digest = core.BoolPtr(true)
@@ -18900,7 +19285,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					Expect(req.URL.Query()["query"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"vpe"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// TODO: Add check for collapse query parameter
 					// TODO: Add check for digest query parameter
@@ -18910,7 +19295,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke SearchObjects successfully with retries`, func() {
@@ -18926,7 +19311,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := new(catalogmanagementv1.SearchObjectsOptions)
 				searchObjectsOptionsModel.Query = core.StringPtr("testString")
 				searchObjectsOptionsModel.Kind = core.StringPtr("vpe")
-				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				searchObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				searchObjectsOptionsModel.Collapse = core.BoolPtr(true)
 				searchObjectsOptionsModel.Digest = core.BoolPtr(true)
@@ -18968,14 +19353,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					Expect(req.URL.Query()["query"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"vpe"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// TODO: Add check for collapse query parameter
 					// TODO: Add check for digest query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke SearchObjects successfully`, func() {
@@ -18996,7 +19381,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := new(catalogmanagementv1.SearchObjectsOptions)
 				searchObjectsOptionsModel.Query = core.StringPtr("testString")
 				searchObjectsOptionsModel.Kind = core.StringPtr("vpe")
-				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				searchObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				searchObjectsOptionsModel.Collapse = core.BoolPtr(true)
 				searchObjectsOptionsModel.Digest = core.BoolPtr(true)
@@ -19021,7 +19406,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := new(catalogmanagementv1.SearchObjectsOptions)
 				searchObjectsOptionsModel.Query = core.StringPtr("testString")
 				searchObjectsOptionsModel.Kind = core.StringPtr("vpe")
-				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				searchObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				searchObjectsOptionsModel.Collapse = core.BoolPtr(true)
 				searchObjectsOptionsModel.Digest = core.BoolPtr(true)
@@ -19067,7 +19452,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := new(catalogmanagementv1.SearchObjectsOptions)
 				searchObjectsOptionsModel.Query = core.StringPtr("testString")
 				searchObjectsOptionsModel.Kind = core.StringPtr("vpe")
-				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				searchObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				searchObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				searchObjectsOptionsModel.Collapse = core.BoolPtr(true)
 				searchObjectsOptionsModel.Digest = core.BoolPtr(true)
@@ -19085,6 +19470,117 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.ObjectSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.ObjectSearchResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectSearchResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(searchObjectsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","name":"Name","_rev":"Rev","crn":"CRN","url":"URL","parent_id":"ParentID","label_i18n":{"mapKey":"Inner"},"label":"Label","tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"kind":"Kind","publish":{"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true,"portal_approval_record":"PortalApprovalRecord","portal_url":"PortalURL"},"state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"catalog_id":"CatalogID","catalog_name":"CatalogName","data":{"anyKey":"anyValue"}}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","name":"Name","_rev":"Rev","crn":"CRN","url":"URL","parent_id":"ParentID","label_i18n":{"mapKey":"Inner"},"label":"Label","tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"kind":"Kind","publish":{"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true,"portal_approval_record":"PortalApprovalRecord","portal_url":"PortalURL"},"state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"catalog_id":"CatalogID","catalog_name":"CatalogName","data":{"anyKey":"anyValue"}}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use SearchObjectsPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
+					Query: core.StringPtr("testString"),
+					Kind: core.StringPtr("vpe"),
+					Limit: core.Int64Ptr(int64(10)),
+					Collapse: core.BoolPtr(true),
+					Digest: core.BoolPtr(true),
+				}
+
+				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []catalogmanagementv1.CatalogObject
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use SearchObjectsPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
+					Query: core.StringPtr("testString"),
+					Kind: core.StringPtr("vpe"),
+					Limit: core.Int64Ptr(int64(10)),
+					Collapse: core.BoolPtr(true),
+					Digest: core.BoolPtr(true),
+				}
+
+				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`ListObjects(listObjectsOptions *ListObjectsOptions) - Operation response error`, func() {
 		listObjectsPath := "/catalogs/testString/objects"
@@ -19096,7 +19592,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listObjectsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
@@ -19116,7 +19612,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ListObjectsOptions model
 				listObjectsOptionsModel := new(catalogmanagementv1.ListObjectsOptions)
 				listObjectsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listObjectsOptionsModel.Name = core.StringPtr("testString")
 				listObjectsOptionsModel.Sort = core.StringPtr("testString")
@@ -19150,7 +19646,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listObjectsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
@@ -19160,7 +19656,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke ListObjects successfully with retries`, func() {
@@ -19175,7 +19671,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ListObjectsOptions model
 				listObjectsOptionsModel := new(catalogmanagementv1.ListObjectsOptions)
 				listObjectsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listObjectsOptionsModel.Name = core.StringPtr("testString")
 				listObjectsOptionsModel.Sort = core.StringPtr("testString")
@@ -19215,14 +19711,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listObjectsPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke ListObjects successfully`, func() {
@@ -19242,7 +19738,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ListObjectsOptions model
 				listObjectsOptionsModel := new(catalogmanagementv1.ListObjectsOptions)
 				listObjectsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listObjectsOptionsModel.Name = core.StringPtr("testString")
 				listObjectsOptionsModel.Sort = core.StringPtr("testString")
@@ -19266,7 +19762,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ListObjectsOptions model
 				listObjectsOptionsModel := new(catalogmanagementv1.ListObjectsOptions)
 				listObjectsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listObjectsOptionsModel.Name = core.StringPtr("testString")
 				listObjectsOptionsModel.Sort = core.StringPtr("testString")
@@ -19311,7 +19807,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the ListObjectsOptions model
 				listObjectsOptionsModel := new(catalogmanagementv1.ListObjectsOptions)
 				listObjectsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				listObjectsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listObjectsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listObjectsOptionsModel.Name = core.StringPtr("testString")
 				listObjectsOptionsModel.Sort = core.StringPtr("testString")
@@ -19327,6 +19823,115 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.ObjectListResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.ObjectListResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectListResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectListResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listObjectsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","name":"Name","_rev":"Rev","crn":"CRN","url":"URL","parent_id":"ParentID","label_i18n":{"mapKey":"Inner"},"label":"Label","tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"kind":"Kind","publish":{"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true,"portal_approval_record":"PortalApprovalRecord","portal_url":"PortalURL"},"state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"catalog_id":"CatalogID","catalog_name":"CatalogName","data":{"anyKey":"anyValue"}}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","name":"Name","_rev":"Rev","crn":"CRN","url":"URL","parent_id":"ParentID","label_i18n":{"mapKey":"Inner"},"label":"Label","tags":["Tags"],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"kind":"Kind","publish":{"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true,"portal_approval_record":"PortalApprovalRecord","portal_url":"PortalURL"},"state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"catalog_id":"CatalogID","catalog_name":"CatalogName","data":{"anyKey":"anyValue"}}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use ObjectsPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+				}
+
+				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []catalogmanagementv1.CatalogObject
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use ObjectsPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+				}
+
+				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -19372,9 +19977,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateObjectOptions model
 				createObjectOptionsModel := new(catalogmanagementv1.CreateObjectOptions)
 				createObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createObjectOptionsModel.ID = core.StringPtr("testString")
 				createObjectOptionsModel.Name = core.StringPtr("testString")
-				createObjectOptionsModel.Rev = core.StringPtr("testString")
 				createObjectOptionsModel.CRN = core.StringPtr("testString")
 				createObjectOptionsModel.URL = core.StringPtr("testString")
 				createObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -19390,7 +19993,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.State = stateModel
 				createObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				createObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				createObjectOptionsModel.Data = make(map[string]interface{})
+				createObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				createObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.CreateObject(createObjectOptionsModel)
@@ -19443,7 +20046,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke CreateObject successfully with retries`, func() {
@@ -19474,9 +20077,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateObjectOptions model
 				createObjectOptionsModel := new(catalogmanagementv1.CreateObjectOptions)
 				createObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createObjectOptionsModel.ID = core.StringPtr("testString")
 				createObjectOptionsModel.Name = core.StringPtr("testString")
-				createObjectOptionsModel.Rev = core.StringPtr("testString")
 				createObjectOptionsModel.CRN = core.StringPtr("testString")
 				createObjectOptionsModel.URL = core.StringPtr("testString")
 				createObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -19492,7 +20093,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.State = stateModel
 				createObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				createObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				createObjectOptionsModel.Data = make(map[string]interface{})
+				createObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				createObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -19548,7 +20149,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke CreateObject successfully`, func() {
@@ -19584,9 +20185,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateObjectOptions model
 				createObjectOptionsModel := new(catalogmanagementv1.CreateObjectOptions)
 				createObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createObjectOptionsModel.ID = core.StringPtr("testString")
 				createObjectOptionsModel.Name = core.StringPtr("testString")
-				createObjectOptionsModel.Rev = core.StringPtr("testString")
 				createObjectOptionsModel.CRN = core.StringPtr("testString")
 				createObjectOptionsModel.URL = core.StringPtr("testString")
 				createObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -19602,7 +20201,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.State = stateModel
 				createObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				createObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				createObjectOptionsModel.Data = make(map[string]interface{})
+				createObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				createObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -19639,9 +20238,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateObjectOptions model
 				createObjectOptionsModel := new(catalogmanagementv1.CreateObjectOptions)
 				createObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createObjectOptionsModel.ID = core.StringPtr("testString")
 				createObjectOptionsModel.Name = core.StringPtr("testString")
-				createObjectOptionsModel.Rev = core.StringPtr("testString")
 				createObjectOptionsModel.CRN = core.StringPtr("testString")
 				createObjectOptionsModel.URL = core.StringPtr("testString")
 				createObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -19657,7 +20254,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.State = stateModel
 				createObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				createObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				createObjectOptionsModel.Data = make(map[string]interface{})
+				createObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				createObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -19715,9 +20312,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateObjectOptions model
 				createObjectOptionsModel := new(catalogmanagementv1.CreateObjectOptions)
 				createObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				createObjectOptionsModel.ID = core.StringPtr("testString")
 				createObjectOptionsModel.Name = core.StringPtr("testString")
-				createObjectOptionsModel.Rev = core.StringPtr("testString")
 				createObjectOptionsModel.CRN = core.StringPtr("testString")
 				createObjectOptionsModel.URL = core.StringPtr("testString")
 				createObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -19733,7 +20328,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.State = stateModel
 				createObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				createObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				createObjectOptionsModel.Data = make(map[string]interface{})
+				createObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				createObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -19812,7 +20407,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetObject successfully with retries`, func() {
@@ -19867,7 +20462,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetObject successfully`, func() {
@@ -20009,9 +20604,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := new(catalogmanagementv1.ReplaceObjectOptions)
 				replaceObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				replaceObjectOptionsModel.ID = core.StringPtr("testString")
 				replaceObjectOptionsModel.Name = core.StringPtr("testString")
-				replaceObjectOptionsModel.Rev = core.StringPtr("testString")
 				replaceObjectOptionsModel.CRN = core.StringPtr("testString")
 				replaceObjectOptionsModel.URL = core.StringPtr("testString")
 				replaceObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -20027,7 +20620,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.State = stateModel
 				replaceObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceObjectOptionsModel.Data = make(map[string]interface{})
+				replaceObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				replaceObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.ReplaceObject(replaceObjectOptionsModel)
@@ -20080,7 +20673,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke ReplaceObject successfully with retries`, func() {
@@ -20112,9 +20705,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := new(catalogmanagementv1.ReplaceObjectOptions)
 				replaceObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				replaceObjectOptionsModel.ID = core.StringPtr("testString")
 				replaceObjectOptionsModel.Name = core.StringPtr("testString")
-				replaceObjectOptionsModel.Rev = core.StringPtr("testString")
 				replaceObjectOptionsModel.CRN = core.StringPtr("testString")
 				replaceObjectOptionsModel.URL = core.StringPtr("testString")
 				replaceObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -20130,7 +20721,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.State = stateModel
 				replaceObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceObjectOptionsModel.Data = make(map[string]interface{})
+				replaceObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				replaceObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -20186,7 +20777,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "_rev": "Rev", "crn": "CRN", "url": "URL", "parent_id": "ParentID", "label_i18n": {"mapKey": "Inner"}, "label": "Label", "tags": ["Tags"], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "kind": "Kind", "publish": {"permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true, "portal_approval_record": "PortalApprovalRecord", "portal_url": "PortalURL"}, "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "catalog_id": "CatalogID", "catalog_name": "CatalogName", "data": {"anyKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke ReplaceObject successfully`, func() {
@@ -20223,9 +20814,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := new(catalogmanagementv1.ReplaceObjectOptions)
 				replaceObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				replaceObjectOptionsModel.ID = core.StringPtr("testString")
 				replaceObjectOptionsModel.Name = core.StringPtr("testString")
-				replaceObjectOptionsModel.Rev = core.StringPtr("testString")
 				replaceObjectOptionsModel.CRN = core.StringPtr("testString")
 				replaceObjectOptionsModel.URL = core.StringPtr("testString")
 				replaceObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -20241,7 +20830,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.State = stateModel
 				replaceObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceObjectOptionsModel.Data = make(map[string]interface{})
+				replaceObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				replaceObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -20279,9 +20868,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := new(catalogmanagementv1.ReplaceObjectOptions)
 				replaceObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				replaceObjectOptionsModel.ID = core.StringPtr("testString")
 				replaceObjectOptionsModel.Name = core.StringPtr("testString")
-				replaceObjectOptionsModel.Rev = core.StringPtr("testString")
 				replaceObjectOptionsModel.CRN = core.StringPtr("testString")
 				replaceObjectOptionsModel.URL = core.StringPtr("testString")
 				replaceObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -20297,7 +20884,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.State = stateModel
 				replaceObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceObjectOptionsModel.Data = make(map[string]interface{})
+				replaceObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				replaceObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -20356,9 +20943,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := new(catalogmanagementv1.ReplaceObjectOptions)
 				replaceObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				replaceObjectOptionsModel.ID = core.StringPtr("testString")
 				replaceObjectOptionsModel.Name = core.StringPtr("testString")
-				replaceObjectOptionsModel.Rev = core.StringPtr("testString")
 				replaceObjectOptionsModel.CRN = core.StringPtr("testString")
 				replaceObjectOptionsModel.URL = core.StringPtr("testString")
 				replaceObjectOptionsModel.ParentID = core.StringPtr("testString")
@@ -20374,7 +20959,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.State = stateModel
 				replaceObjectOptionsModel.CatalogID = core.StringPtr("testString")
 				replaceObjectOptionsModel.CatalogName = core.StringPtr("testString")
-				replaceObjectOptionsModel.Data = make(map[string]interface{})
+				replaceObjectOptionsModel.Data = map[string]interface{}{"anyKey": "anyValue"}
 				replaceObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -22062,7 +22647,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getObjectAccessListDeprecatedPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -22081,7 +22666,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := new(catalogmanagementv1.GetObjectAccessListDeprecatedOptions)
 				getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -22113,7 +22698,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getObjectAccessListDeprecatedPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -22137,7 +22722,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := new(catalogmanagementv1.GetObjectAccessListDeprecatedOptions)
 				getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -22175,7 +22760,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getObjectAccessListDeprecatedPath))
 					Expect(req.Method).To(Equal("GET"))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -22201,7 +22786,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := new(catalogmanagementv1.GetObjectAccessListDeprecatedOptions)
 				getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -22224,7 +22809,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := new(catalogmanagementv1.GetObjectAccessListDeprecatedOptions)
 				getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -22268,7 +22853,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := new(catalogmanagementv1.GetObjectAccessListDeprecatedOptions)
 				getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.Limit = core.Int64Ptr(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.Offset = core.Int64Ptr(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -22282,6 +22867,113 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(catalogmanagementv1.ObjectAccessListResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=135")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(catalogmanagementv1.ObjectAccessListResult)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectAccessListResult)
+				responseObject.Next = core.StringPtr("ibm.com")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(catalogmanagementv1.ObjectAccessListResult)
+				responseObject.Next = core.StringPtr("ibm.com?offset=tiger")
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getObjectAccessListDeprecatedPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","account":"Account","account_type":11,"catalog_id":"CatalogID","target_id":"TargetID","target_account":"TargetAccount","target_kind":"TargetKind","private_accessible":false,"created":"2019-01-01T12:00:00.000Z"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","account":"Account","account_type":11,"catalog_id":"CatalogID","target_id":"TargetID","target_account":"TargetAccount","target_kind":"TargetKind","private_accessible":false,"created":"2019-01-01T12:00:00.000Z"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetObjectAccessListDeprecatedPager.GetNext successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []catalogmanagementv1.Access
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetObjectAccessListDeprecatedPager.GetAll successfully`, func() {
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(catalogManagementService).ToNot(BeNil())
+
+				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+				}
+
+				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -22793,286 +23485,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`AccountPublishObject(accountPublishObjectOptions *AccountPublishObjectOptions)`, func() {
-		accountPublishObjectPath := "/catalogs/testString/objects/testString/account-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(accountPublishObjectPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke AccountPublishObject successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.AccountPublishObject(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the AccountPublishObjectOptions model
-				accountPublishObjectOptionsModel := new(catalogmanagementv1.AccountPublishObjectOptions)
-				accountPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				accountPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				accountPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.AccountPublishObject(accountPublishObjectOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke AccountPublishObject with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the AccountPublishObjectOptions model
-				accountPublishObjectOptionsModel := new(catalogmanagementv1.AccountPublishObjectOptions)
-				accountPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				accountPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				accountPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.AccountPublishObject(accountPublishObjectOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the AccountPublishObjectOptions model with no property values
-				accountPublishObjectOptionsModelNew := new(catalogmanagementv1.AccountPublishObjectOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.AccountPublishObject(accountPublishObjectOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`SharedPublishObject(sharedPublishObjectOptions *SharedPublishObjectOptions)`, func() {
-		sharedPublishObjectPath := "/catalogs/testString/objects/testString/shared-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(sharedPublishObjectPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke SharedPublishObject successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.SharedPublishObject(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the SharedPublishObjectOptions model
-				sharedPublishObjectOptionsModel := new(catalogmanagementv1.SharedPublishObjectOptions)
-				sharedPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				sharedPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				sharedPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.SharedPublishObject(sharedPublishObjectOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke SharedPublishObject with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the SharedPublishObjectOptions model
-				sharedPublishObjectOptionsModel := new(catalogmanagementv1.SharedPublishObjectOptions)
-				sharedPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				sharedPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				sharedPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.SharedPublishObject(sharedPublishObjectOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the SharedPublishObjectOptions model with no property values
-				sharedPublishObjectOptionsModelNew := new(catalogmanagementv1.SharedPublishObjectOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.SharedPublishObject(sharedPublishObjectOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`IBMPublishObject(ibmPublishObjectOptions *IBMPublishObjectOptions)`, func() {
-		ibmPublishObjectPath := "/catalogs/testString/objects/testString/ibm-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(ibmPublishObjectPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke IBMPublishObject successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.IBMPublishObject(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the IBMPublishObjectOptions model
-				ibmPublishObjectOptionsModel := new(catalogmanagementv1.IBMPublishObjectOptions)
-				ibmPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				ibmPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				ibmPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.IBMPublishObject(ibmPublishObjectOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke IBMPublishObject with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the IBMPublishObjectOptions model
-				ibmPublishObjectOptionsModel := new(catalogmanagementv1.IBMPublishObjectOptions)
-				ibmPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				ibmPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				ibmPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.IBMPublishObject(ibmPublishObjectOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the IBMPublishObjectOptions model with no property values
-				ibmPublishObjectOptionsModelNew := new(catalogmanagementv1.IBMPublishObjectOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.IBMPublishObject(ibmPublishObjectOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`PublicPublishObject(publicPublishObjectOptions *PublicPublishObjectOptions)`, func() {
-		publicPublishObjectPath := "/catalogs/testString/objects/testString/public-publish"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(publicPublishObjectPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					res.WriteHeader(202)
-				}))
-			})
-			It(`Invoke PublicPublishObject successfully`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.PublicPublishObject(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the PublicPublishObjectOptions model
-				publicPublishObjectOptionsModel := new(catalogmanagementv1.PublicPublishObjectOptions)
-				publicPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				publicPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				publicPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.PublicPublishObject(publicPublishObjectOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke PublicPublishObject with error: Operation validation and request error`, func() {
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(catalogManagementService).ToNot(BeNil())
-
-				// Construct an instance of the PublicPublishObjectOptions model
-				publicPublishObjectOptionsModel := new(catalogmanagementv1.PublicPublishObjectOptions)
-				publicPublishObjectOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				publicPublishObjectOptionsModel.ObjectIdentifier = core.StringPtr("testString")
-				publicPublishObjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := catalogManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.PublicPublishObject(publicPublishObjectOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the PublicPublishObjectOptions model with no property values
-				publicPublishObjectOptionsModelNew := new(catalogmanagementv1.PublicPublishObjectOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.PublicPublishObject(publicPublishObjectOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions) - Operation response error`, func() {
 		createOfferingInstancePath := "/instances/offerings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -23129,7 +23541,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				createOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23191,7 +23603,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully with retries`, func() {
@@ -23234,7 +23646,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				createOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23299,7 +23711,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully`, func() {
@@ -23347,7 +23759,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				createOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23403,7 +23815,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				createOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23480,7 +23892,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				createOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23565,7 +23977,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully with retries`, func() {
@@ -23619,7 +24031,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully`, func() {
@@ -23772,7 +24184,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				putOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23834,7 +24246,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully with retries`, func() {
@@ -23878,7 +24290,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				putOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -23943,7 +24355,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"mapKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully`, func() {
@@ -23992,7 +24404,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				putOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -24049,7 +24461,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				putOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -24127,7 +24539,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				putOfferingInstanceOptionsModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Location = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Disabled = core.BoolPtr(true)
@@ -24782,29 +25194,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				URL:           "http://catalogmanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewAccountPublishObjectOptions successfully`, func() {
-				// Construct an instance of the AccountPublishObjectOptions model
-				catalogIdentifier := "testString"
-				objectIdentifier := "testString"
-				accountPublishObjectOptionsModel := catalogManagementService.NewAccountPublishObjectOptions(catalogIdentifier, objectIdentifier)
-				accountPublishObjectOptionsModel.SetCatalogIdentifier("testString")
-				accountPublishObjectOptionsModel.SetObjectIdentifier("testString")
-				accountPublishObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(accountPublishObjectOptionsModel).ToNot(BeNil())
-				Expect(accountPublishObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(accountPublishObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(accountPublishObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewAccountPublishVersionOptions successfully`, func() {
-				// Construct an instance of the AccountPublishVersionOptions model
-				versionLocID := "testString"
-				accountPublishVersionOptionsModel := catalogManagementService.NewAccountPublishVersionOptions(versionLocID)
-				accountPublishVersionOptionsModel.SetVersionLocID("testString")
-				accountPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(accountPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(accountPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(accountPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewAddObjectAccessListOptions successfully`, func() {
 				// Construct an instance of the AddObjectAccessListOptions model
 				catalogIdentifier := "testString"
@@ -25026,13 +25415,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := catalogManagementService.NewCreateCatalogOptions()
-				createCatalogOptionsModel.SetID("testString")
-				createCatalogOptionsModel.SetRev("testString")
 				createCatalogOptionsModel.SetLabel("testString")
 				createCatalogOptionsModel.SetLabelI18n(make(map[string]string))
 				createCatalogOptionsModel.SetShortDescription("testString")
 				createCatalogOptionsModel.SetShortDescriptionI18n(make(map[string]string))
 				createCatalogOptionsModel.SetCatalogIconURL("testString")
+				createCatalogOptionsModel.SetCatalogBannerURL("testString")
 				createCatalogOptionsModel.SetTags([]string{"testString"})
 				createCatalogOptionsModel.SetFeatures([]catalogmanagementv1.Feature{*featureModel})
 				createCatalogOptionsModel.SetDisabled(true)
@@ -25041,16 +25429,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.SetCatalogFilters(filtersModel)
 				createCatalogOptionsModel.SetSyndicationSettings(syndicationResourceModel)
 				createCatalogOptionsModel.SetKind("testString")
-				createCatalogOptionsModel.SetMetadata(make(map[string]interface{}))
+				createCatalogOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				createCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCatalogOptionsModel).ToNot(BeNil())
-				Expect(createCatalogOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(createCatalogOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.Label).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.LabelI18n).To(Equal(make(map[string]string)))
 				Expect(createCatalogOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.ShortDescriptionI18n).To(Equal(make(map[string]string)))
 				Expect(createCatalogOptionsModel.CatalogIconURL).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogOptionsModel.CatalogBannerURL).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(createCatalogOptionsModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(createCatalogOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
@@ -25059,7 +25446,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createCatalogOptionsModel.CatalogFilters).To(Equal(filtersModel))
 				Expect(createCatalogOptionsModel.SyndicationSettings).To(Equal(syndicationResourceModel))
 				Expect(createCatalogOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
-				Expect(createCatalogOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(createCatalogOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateObjectAccessOptions successfully`, func() {
@@ -25111,9 +25498,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				catalogIdentifier := "testString"
 				createObjectOptionsModel := catalogManagementService.NewCreateObjectOptions(catalogIdentifier)
 				createObjectOptionsModel.SetCatalogIdentifier("testString")
-				createObjectOptionsModel.SetID("testString")
 				createObjectOptionsModel.SetName("testString")
-				createObjectOptionsModel.SetRev("testString")
 				createObjectOptionsModel.SetCRN("testString")
 				createObjectOptionsModel.SetURL("testString")
 				createObjectOptionsModel.SetParentID("testString")
@@ -25129,13 +25514,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createObjectOptionsModel.SetState(stateModel)
 				createObjectOptionsModel.SetCatalogID("testString")
 				createObjectOptionsModel.SetCatalogName("testString")
-				createObjectOptionsModel.SetData(make(map[string]interface{}))
+				createObjectOptionsModel.SetData(map[string]interface{}{"anyKey": "anyValue"})
 				createObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createObjectOptionsModel).ToNot(BeNil())
 				Expect(createObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(createObjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createObjectOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.ParentID).To(Equal(core.StringPtr("testString")))
@@ -25151,7 +25534,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createObjectOptionsModel.State).To(Equal(stateModel))
 				Expect(createObjectOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(createObjectOptionsModel.Data).To(Equal(make(map[string]interface{})))
+				Expect(createObjectOptionsModel.Data).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateOfferingInstanceOptions successfully`, func() {
@@ -25194,7 +25577,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.SetChannel("testString")
 				createOfferingInstanceOptionsModel.SetCreated(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
 				createOfferingInstanceOptionsModel.SetUpdated(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
-				createOfferingInstanceOptionsModel.SetMetadata(make(map[string]interface{}))
+				createOfferingInstanceOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				createOfferingInstanceOptionsModel.SetResourceGroupID("testString")
 				createOfferingInstanceOptionsModel.SetLocation("testString")
 				createOfferingInstanceOptionsModel.SetDisabled(true)
@@ -25224,7 +25607,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingInstanceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(createOfferingInstanceOptionsModel.Updated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-				Expect(createOfferingInstanceOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(createOfferingInstanceOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createOfferingInstanceOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Location).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
@@ -25362,13 +25745,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 				Expect(validationModel.Validated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(validationModel.Requested).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(validationModel.State).To(Equal(core.StringPtr("testString")))
 				Expect(validationModel.LastOperation).To(Equal(core.StringPtr("testString")))
-				Expect(validationModel.Target).To(Equal(make(map[string]interface{})))
+				Expect(validationModel.Target).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(validationModel.Message).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the Resource model
@@ -25505,12 +25888,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				Expect(costResourceModel).ToNot(BeNil())
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
 				Expect(costResourceModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(costResourceModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(costResourceModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(costResourceModel.HourlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costResourceModel.MonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costResourceModel.CostComponents).To(Equal([]catalogmanagementv1.CostComponent{*costComponentModel}))
@@ -25519,10 +25902,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				Expect(costBreakdownModel).ToNot(BeNil())
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 				Expect(costBreakdownModel.TotalHourlyCost).To(Equal(core.StringPtr("testString")))
-				Expect(costBreakdownModel.TotalMonthlyCOst).To(Equal(core.StringPtr("testString")))
+				Expect(costBreakdownModel.TotalMonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costBreakdownModel.Resources).To(Equal([]catalogmanagementv1.CostResource{*costResourceModel}))
 
 				// Construct an instance of the CostSummary model
@@ -25547,13 +25930,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				projectModel := new(catalogmanagementv1.Project)
 				Expect(projectModel).ToNot(BeNil())
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
 				projectModel.Summary = costSummaryModel
 				Expect(projectModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(projectModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(projectModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(projectModel.PastBreakdown).To(Equal(costBreakdownModel))
 				Expect(projectModel.Breakdown).To(Equal(costBreakdownModel))
 				Expect(projectModel.Diff).To(Equal(costBreakdownModel))
@@ -25585,19 +25968,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(costEstimateModel.DiffTotalMonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costEstimateModel.TimeGenerated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				Expect(dependencyModel).ToNot(BeNil())
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
-				Expect(dependencyModel.CatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Flavors).To(Equal([]string{"testString"}))
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				Expect(offeringReferenceModel).ToNot(BeNil())
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
+				Expect(offeringReferenceModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Kind).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Flavors).To(Equal([]string{"testString"}))
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
@@ -25605,17 +25990,63 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
 				Expect(solutionInfoModel.ArchitectureDiagrams).To(Equal([]catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}))
 				Expect(solutionInfoModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(solutionInfoModel.CostEstimate).To(Equal(costEstimateModel))
-				Expect(solutionInfoModel.Dependencies).To(Equal([]catalogmanagementv1.Dependency{*dependencyModel}))
+				Expect(solutionInfoModel.Dependencies).To(Equal([]catalogmanagementv1.OfferingReference{*offeringReferenceModel}))
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				Expect(complianceControlSccProfileModel).ToNot(BeNil())
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+				Expect(complianceControlSccProfileModel.Type).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				Expect(complianceControlFamilyModel).ToNot(BeNil())
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+				Expect(complianceControlFamilyModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.ExternalID).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.UIHref).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				Expect(goalModel).ToNot(BeNil())
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+				Expect(goalModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(goalModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(goalModel.UIHref).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				Expect(complianceControlValidationModel).ToNot(BeNil())
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+				Expect(complianceControlValidationModel.Certified).To(Equal(core.BoolPtr(true)))
+				Expect(complianceControlValidationModel.Results).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				Expect(complianceControlModel).ToNot(BeNil())
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
+				Expect(complianceControlModel.SccProfile).To(Equal(complianceControlSccProfileModel))
+				Expect(complianceControlModel.Family).To(Equal(complianceControlFamilyModel))
+				Expect(complianceControlModel.Goals).To(Equal([]catalogmanagementv1.Goal{*goalModel}))
+				Expect(complianceControlModel.Validation).To(Equal(complianceControlValidationModel))
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				Expect(versionModel).ToNot(BeNil())
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -25632,7 +26063,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -25652,8 +26083,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
-				Expect(versionModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(versionModel.Rev).To(Equal(core.StringPtr("testString")))
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 				Expect(versionModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Flavor).To(Equal(flavorModel))
@@ -25670,7 +26100,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.Configuration).To(Equal([]catalogmanagementv1.Configuration{*configurationModel}))
 				Expect(versionModel.Outputs).To(Equal([]catalogmanagementv1.Output{*outputModel}))
 				Expect(versionModel.IamPermissions).To(Equal([]catalogmanagementv1.IamPermission{*iamPermissionModel}))
-				Expect(versionModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(versionModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(versionModel.Validation).To(Equal(validationModel))
 				Expect(versionModel.RequiredResources).To(Equal([]catalogmanagementv1.Resource{*resourceModel}))
 				Expect(versionModel.SingleInstance).To(Equal(core.BoolPtr(true)))
@@ -25690,6 +26120,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.DeprecatePending).To(Equal(deprecatePendingModel))
 				Expect(versionModel.SolutionInfo).To(Equal(solutionInfoModel))
 				Expect(versionModel.IsConsumable).To(Equal(core.BoolPtr(true)))
+				Expect(versionModel.Compliance).To(Equal([]catalogmanagementv1.ComplianceControl{*complianceControlModel}))
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -25699,7 +26130,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -25708,7 +26139,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deploymentModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentModel.LongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(deploymentModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(deploymentModel.Tags).To(Equal([]string{"testString"}))
 				Expect(deploymentModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(deploymentModel.Updated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -25721,7 +26152,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -25732,7 +26163,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(planModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(planModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(planModel.LongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(planModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(planModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(planModel.Tags).To(Equal([]string{"testString"}))
 				Expect(planModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(planModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -25746,7 +26177,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -25757,7 +26188,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(kindModel.FormatKind).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.InstallKind).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.TargetKind).To(Equal(core.StringPtr("testString")))
-				Expect(kindModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(kindModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(kindModel.Tags).To(Equal([]string{"testString"}))
 				Expect(kindModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(kindModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -25903,8 +26334,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				catalogIdentifier := "testString"
 				createOfferingOptionsModel := catalogManagementService.NewCreateOfferingOptions(catalogIdentifier)
 				createOfferingOptionsModel.SetCatalogIdentifier("testString")
-				createOfferingOptionsModel.SetID("testString")
-				createOfferingOptionsModel.SetRev("testString")
 				createOfferingOptionsModel.SetURL("testString")
 				createOfferingOptionsModel.SetCRN("testString")
 				createOfferingOptionsModel.SetLabel("testString")
@@ -25938,7 +26367,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.SetPortalUIURL("testString")
 				createOfferingOptionsModel.SetCatalogID("testString")
 				createOfferingOptionsModel.SetCatalogName("testString")
-				createOfferingOptionsModel.SetMetadata(make(map[string]interface{}))
+				createOfferingOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				createOfferingOptionsModel.SetDisclaimer("testString")
 				createOfferingOptionsModel.SetHidden(true)
 				createOfferingOptionsModel.SetProvider("testString")
@@ -25953,8 +26382,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createOfferingOptionsModel).ToNot(BeNil())
 				Expect(createOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.Label).To(Equal(core.StringPtr("testString")))
@@ -25988,7 +26415,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingOptionsModel.PortalUIURL).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(createOfferingOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createOfferingOptionsModel.Disclaimer).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(createOfferingOptionsModel.Provider).To(Equal(core.StringPtr("testString")))
@@ -26258,7 +26685,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getConsumptionOfferingsOptionsModel.SetCatalog("testString")
 				getConsumptionOfferingsOptionsModel.SetSelect("all")
 				getConsumptionOfferingsOptionsModel.SetIncludeHidden(true)
-				getConsumptionOfferingsOptionsModel.SetLimit(int64(1000))
+				getConsumptionOfferingsOptionsModel.SetLimit(int64(10))
 				getConsumptionOfferingsOptionsModel.SetOffset(int64(38))
 				getConsumptionOfferingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getConsumptionOfferingsOptionsModel).ToNot(BeNil())
@@ -26266,7 +26693,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getConsumptionOfferingsOptionsModel.Catalog).To(Equal(core.StringPtr("testString")))
 				Expect(getConsumptionOfferingsOptionsModel.Select).To(Equal(core.StringPtr("all")))
 				Expect(getConsumptionOfferingsOptionsModel.IncludeHidden).To(Equal(core.BoolPtr(true)))
-				Expect(getConsumptionOfferingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(getConsumptionOfferingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(getConsumptionOfferingsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(getConsumptionOfferingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -26294,14 +26721,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getNamespacesOptionsModel.SetClusterID("testString")
 				getNamespacesOptionsModel.SetRegion("testString")
 				getNamespacesOptionsModel.SetXAuthRefreshToken("testString")
-				getNamespacesOptionsModel.SetLimit(int64(1000))
+				getNamespacesOptionsModel.SetLimit(int64(10))
 				getNamespacesOptionsModel.SetOffset(int64(38))
 				getNamespacesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getNamespacesOptionsModel).ToNot(BeNil())
 				Expect(getNamespacesOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
 				Expect(getNamespacesOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(getNamespacesOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(getNamespacesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(getNamespacesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(getNamespacesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(getNamespacesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -26312,13 +26739,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getObjectAccessListDeprecatedOptionsModel := catalogManagementService.NewGetObjectAccessListDeprecatedOptions(catalogIdentifier, objectIdentifier)
 				getObjectAccessListDeprecatedOptionsModel.SetCatalogIdentifier("testString")
 				getObjectAccessListDeprecatedOptionsModel.SetObjectIdentifier("testString")
-				getObjectAccessListDeprecatedOptionsModel.SetLimit(int64(1000))
+				getObjectAccessListDeprecatedOptionsModel.SetLimit(int64(10))
 				getObjectAccessListDeprecatedOptionsModel.SetOffset(int64(38))
 				getObjectAccessListDeprecatedOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getObjectAccessListDeprecatedOptionsModel).ToNot(BeNil())
 				Expect(getObjectAccessListDeprecatedOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getObjectAccessListDeprecatedOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(getObjectAccessListDeprecatedOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(getObjectAccessListDeprecatedOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(getObjectAccessListDeprecatedOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(getObjectAccessListDeprecatedOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -26523,6 +26950,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.SetID("testString")
 				getOfferingSourceOptionsModel.SetKind("testString")
 				getOfferingSourceOptionsModel.SetChannel("testString")
+				getOfferingSourceOptionsModel.SetAsIs(true)
 				getOfferingSourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getOfferingSourceOptionsModel).ToNot(BeNil())
 				Expect(getOfferingSourceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
@@ -26532,6 +26960,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getOfferingSourceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingSourceOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingSourceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingSourceOptionsModel.AsIs).To(Equal(core.BoolPtr(true)))
 				Expect(getOfferingSourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetOfferingSourceURLOptions successfully`, func() {
@@ -26652,29 +27081,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getVersionOptionsModel).ToNot(BeNil())
 				Expect(getVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewIBMPublishObjectOptions successfully`, func() {
-				// Construct an instance of the IBMPublishObjectOptions model
-				catalogIdentifier := "testString"
-				objectIdentifier := "testString"
-				ibmPublishObjectOptionsModel := catalogManagementService.NewIBMPublishObjectOptions(catalogIdentifier, objectIdentifier)
-				ibmPublishObjectOptionsModel.SetCatalogIdentifier("testString")
-				ibmPublishObjectOptionsModel.SetObjectIdentifier("testString")
-				ibmPublishObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(ibmPublishObjectOptionsModel).ToNot(BeNil())
-				Expect(ibmPublishObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(ibmPublishObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(ibmPublishObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewIBMPublishVersionOptions successfully`, func() {
-				// Construct an instance of the IBMPublishVersionOptions model
-				versionLocID := "testString"
-				ibmPublishVersionOptionsModel := catalogManagementService.NewIBMPublishVersionOptions(versionLocID)
-				ibmPublishVersionOptionsModel.SetVersionLocID("testString")
-				ibmPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(ibmPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(ibmPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(ibmPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewImportOfferingOptions successfully`, func() {
 				// Construct an instance of the Flavor model
@@ -27079,14 +27485,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				catalogIdentifier := "testString"
 				listObjectsOptionsModel := catalogManagementService.NewListObjectsOptions(catalogIdentifier)
 				listObjectsOptionsModel.SetCatalogIdentifier("testString")
-				listObjectsOptionsModel.SetLimit(int64(1000))
+				listObjectsOptionsModel.SetLimit(int64(10))
 				listObjectsOptionsModel.SetOffset(int64(38))
 				listObjectsOptionsModel.SetName("testString")
 				listObjectsOptionsModel.SetSort("testString")
 				listObjectsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listObjectsOptionsModel).ToNot(BeNil())
 				Expect(listObjectsOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(listObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(listObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listObjectsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listObjectsOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(listObjectsOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
@@ -27133,7 +27539,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				listOfferingsOptionsModel := catalogManagementService.NewListOfferingsOptions(catalogIdentifier)
 				listOfferingsOptionsModel.SetCatalogIdentifier("testString")
 				listOfferingsOptionsModel.SetDigest(true)
-				listOfferingsOptionsModel.SetLimit(int64(1000))
+				listOfferingsOptionsModel.SetLimit(int64(10))
 				listOfferingsOptionsModel.SetOffset(int64(38))
 				listOfferingsOptionsModel.SetName("testString")
 				listOfferingsOptionsModel.SetSort("testString")
@@ -27142,7 +27548,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(listOfferingsOptionsModel).ToNot(BeNil())
 				Expect(listOfferingsOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(listOfferingsOptionsModel.Digest).To(Equal(core.BoolPtr(true)))
-				Expect(listOfferingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(listOfferingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listOfferingsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listOfferingsOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(listOfferingsOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
@@ -27267,29 +27673,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(preinstallVersionOptionsModel.VcenterDatastore).To(Equal(core.StringPtr("testString")))
 				Expect(preinstallVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPublicPublishObjectOptions successfully`, func() {
-				// Construct an instance of the PublicPublishObjectOptions model
-				catalogIdentifier := "testString"
-				objectIdentifier := "testString"
-				publicPublishObjectOptionsModel := catalogManagementService.NewPublicPublishObjectOptions(catalogIdentifier, objectIdentifier)
-				publicPublishObjectOptionsModel.SetCatalogIdentifier("testString")
-				publicPublishObjectOptionsModel.SetObjectIdentifier("testString")
-				publicPublishObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(publicPublishObjectOptionsModel).ToNot(BeNil())
-				Expect(publicPublishObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(publicPublishObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(publicPublishObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewPublicPublishVersionOptions successfully`, func() {
-				// Construct an instance of the PublicPublishVersionOptions model
-				versionLocID := "testString"
-				publicPublishVersionOptionsModel := catalogManagementService.NewPublicPublishVersionOptions(versionLocID)
-				publicPublishVersionOptionsModel.SetVersionLocID("testString")
-				publicPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(publicPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(publicPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(publicPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewPutOfferingInstanceOptions successfully`, func() {
 				// Construct an instance of the OfferingInstanceLastOperation model
 				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
@@ -27332,7 +27715,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.SetChannel("testString")
 				putOfferingInstanceOptionsModel.SetCreated(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
 				putOfferingInstanceOptionsModel.SetUpdated(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
-				putOfferingInstanceOptionsModel.SetMetadata(make(map[string]interface{}))
+				putOfferingInstanceOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				putOfferingInstanceOptionsModel.SetResourceGroupID("testString")
 				putOfferingInstanceOptionsModel.SetLocation("testString")
 				putOfferingInstanceOptionsModel.SetDisabled(true)
@@ -27363,7 +27746,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(putOfferingInstanceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(putOfferingInstanceOptionsModel.Updated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-				Expect(putOfferingInstanceOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(putOfferingInstanceOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(putOfferingInstanceOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Location).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
@@ -27515,13 +27898,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				catalogIdentifier := "testString"
 				replaceCatalogOptionsModel := catalogManagementService.NewReplaceCatalogOptions(catalogIdentifier)
 				replaceCatalogOptionsModel.SetCatalogIdentifier("testString")
-				replaceCatalogOptionsModel.SetID("testString")
-				replaceCatalogOptionsModel.SetRev("testString")
 				replaceCatalogOptionsModel.SetLabel("testString")
 				replaceCatalogOptionsModel.SetLabelI18n(make(map[string]string))
 				replaceCatalogOptionsModel.SetShortDescription("testString")
 				replaceCatalogOptionsModel.SetShortDescriptionI18n(make(map[string]string))
 				replaceCatalogOptionsModel.SetCatalogIconURL("testString")
+				replaceCatalogOptionsModel.SetCatalogBannerURL("testString")
 				replaceCatalogOptionsModel.SetTags([]string{"testString"})
 				replaceCatalogOptionsModel.SetFeatures([]catalogmanagementv1.Feature{*featureModel})
 				replaceCatalogOptionsModel.SetDisabled(true)
@@ -27530,17 +27912,16 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.SetCatalogFilters(filtersModel)
 				replaceCatalogOptionsModel.SetSyndicationSettings(syndicationResourceModel)
 				replaceCatalogOptionsModel.SetKind("testString")
-				replaceCatalogOptionsModel.SetMetadata(make(map[string]interface{}))
+				replaceCatalogOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				replaceCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceCatalogOptionsModel).ToNot(BeNil())
 				Expect(replaceCatalogOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(replaceCatalogOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceCatalogOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.Label).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.LabelI18n).To(Equal(make(map[string]string)))
 				Expect(replaceCatalogOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.ShortDescriptionI18n).To(Equal(make(map[string]string)))
 				Expect(replaceCatalogOptionsModel.CatalogIconURL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceCatalogOptionsModel.CatalogBannerURL).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(replaceCatalogOptionsModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(replaceCatalogOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
@@ -27549,7 +27930,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(replaceCatalogOptionsModel.CatalogFilters).To(Equal(filtersModel))
 				Expect(replaceCatalogOptionsModel.SyndicationSettings).To(Equal(syndicationResourceModel))
 				Expect(replaceCatalogOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
-				Expect(replaceCatalogOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(replaceCatalogOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(replaceCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceObjectOptions successfully`, func() {
@@ -27587,9 +27968,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel := catalogManagementService.NewReplaceObjectOptions(catalogIdentifier, objectIdentifier)
 				replaceObjectOptionsModel.SetCatalogIdentifier("testString")
 				replaceObjectOptionsModel.SetObjectIdentifier("testString")
-				replaceObjectOptionsModel.SetID("testString")
 				replaceObjectOptionsModel.SetName("testString")
-				replaceObjectOptionsModel.SetRev("testString")
 				replaceObjectOptionsModel.SetCRN("testString")
 				replaceObjectOptionsModel.SetURL("testString")
 				replaceObjectOptionsModel.SetParentID("testString")
@@ -27605,14 +27984,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceObjectOptionsModel.SetState(stateModel)
 				replaceObjectOptionsModel.SetCatalogID("testString")
 				replaceObjectOptionsModel.SetCatalogName("testString")
-				replaceObjectOptionsModel.SetData(make(map[string]interface{}))
+				replaceObjectOptionsModel.SetData(map[string]interface{}{"anyKey": "anyValue"})
 				replaceObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceObjectOptionsModel).ToNot(BeNil())
 				Expect(replaceObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(replaceObjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(replaceObjectOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.ParentID).To(Equal(core.StringPtr("testString")))
@@ -27628,7 +28005,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(replaceObjectOptionsModel.State).To(Equal(stateModel))
 				Expect(replaceObjectOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceObjectOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(replaceObjectOptionsModel.Data).To(Equal(make(map[string]interface{})))
+				Expect(replaceObjectOptionsModel.Data).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(replaceObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceOfferingOptions successfully`, func() {
@@ -27759,13 +28136,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				validationModel.State = core.StringPtr("testString")
 				validationModel.LastOperation = core.StringPtr("testString")
-				validationModel.Target = make(map[string]interface{})
+				validationModel.Target = map[string]interface{}{"anyKey": "anyValue"}
 				validationModel.Message = core.StringPtr("testString")
 				Expect(validationModel.Validated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(validationModel.Requested).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(validationModel.State).To(Equal(core.StringPtr("testString")))
 				Expect(validationModel.LastOperation).To(Equal(core.StringPtr("testString")))
-				Expect(validationModel.Target).To(Equal(make(map[string]interface{})))
+				Expect(validationModel.Target).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(validationModel.Message).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the Resource model
@@ -27902,12 +28279,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costResourceModel := new(catalogmanagementv1.CostResource)
 				Expect(costResourceModel).ToNot(BeNil())
 				costResourceModel.Name = core.StringPtr("testString")
-				costResourceModel.Metadata = make(map[string]interface{})
+				costResourceModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				costResourceModel.HourlyCost = core.StringPtr("testString")
 				costResourceModel.MonthlyCost = core.StringPtr("testString")
 				costResourceModel.CostComponents = []catalogmanagementv1.CostComponent{*costComponentModel}
 				Expect(costResourceModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(costResourceModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(costResourceModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(costResourceModel.HourlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costResourceModel.MonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costResourceModel.CostComponents).To(Equal([]catalogmanagementv1.CostComponent{*costComponentModel}))
@@ -27916,10 +28293,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				costBreakdownModel := new(catalogmanagementv1.CostBreakdown)
 				Expect(costBreakdownModel).ToNot(BeNil())
 				costBreakdownModel.TotalHourlyCost = core.StringPtr("testString")
-				costBreakdownModel.TotalMonthlyCOst = core.StringPtr("testString")
+				costBreakdownModel.TotalMonthlyCost = core.StringPtr("testString")
 				costBreakdownModel.Resources = []catalogmanagementv1.CostResource{*costResourceModel}
 				Expect(costBreakdownModel.TotalHourlyCost).To(Equal(core.StringPtr("testString")))
-				Expect(costBreakdownModel.TotalMonthlyCOst).To(Equal(core.StringPtr("testString")))
+				Expect(costBreakdownModel.TotalMonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costBreakdownModel.Resources).To(Equal([]catalogmanagementv1.CostResource{*costResourceModel}))
 
 				// Construct an instance of the CostSummary model
@@ -27944,13 +28321,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				projectModel := new(catalogmanagementv1.Project)
 				Expect(projectModel).ToNot(BeNil())
 				projectModel.Name = core.StringPtr("testString")
-				projectModel.Metadata = make(map[string]interface{})
+				projectModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				projectModel.PastBreakdown = costBreakdownModel
 				projectModel.Breakdown = costBreakdownModel
 				projectModel.Diff = costBreakdownModel
 				projectModel.Summary = costSummaryModel
 				Expect(projectModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(projectModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(projectModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(projectModel.PastBreakdown).To(Equal(costBreakdownModel))
 				Expect(projectModel.Breakdown).To(Equal(costBreakdownModel))
 				Expect(projectModel.Diff).To(Equal(costBreakdownModel))
@@ -27982,19 +28359,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(costEstimateModel.DiffTotalMonthlyCost).To(Equal(core.StringPtr("testString")))
 				Expect(costEstimateModel.TimeGenerated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 
-				// Construct an instance of the Dependency model
-				dependencyModel := new(catalogmanagementv1.Dependency)
-				Expect(dependencyModel).ToNot(BeNil())
-				dependencyModel.CatalogID = core.StringPtr("testString")
-				dependencyModel.ID = core.StringPtr("testString")
-				dependencyModel.Name = core.StringPtr("testString")
-				dependencyModel.Version = core.StringPtr("testString")
-				dependencyModel.Flavors = []string{"testString"}
-				Expect(dependencyModel.CatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(dependencyModel.Flavors).To(Equal([]string{"testString"}))
+				// Construct an instance of the OfferingReference model
+				offeringReferenceModel := new(catalogmanagementv1.OfferingReference)
+				Expect(offeringReferenceModel).ToNot(BeNil())
+				offeringReferenceModel.CatalogID = core.StringPtr("testString")
+				offeringReferenceModel.ID = core.StringPtr("testString")
+				offeringReferenceModel.Name = core.StringPtr("testString")
+				offeringReferenceModel.Kind = core.StringPtr("testString")
+				offeringReferenceModel.Version = core.StringPtr("testString")
+				offeringReferenceModel.Flavors = []string{"testString"}
+				Expect(offeringReferenceModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Kind).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(offeringReferenceModel.Flavors).To(Equal([]string{"testString"}))
 
 				// Construct an instance of the SolutionInfo model
 				solutionInfoModel := new(catalogmanagementv1.SolutionInfo)
@@ -28002,17 +28381,63 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				solutionInfoModel.ArchitectureDiagrams = []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}
 				solutionInfoModel.Features = []catalogmanagementv1.Feature{*featureModel}
 				solutionInfoModel.CostEstimate = costEstimateModel
-				solutionInfoModel.Dependencies = []catalogmanagementv1.Dependency{*dependencyModel}
+				solutionInfoModel.Dependencies = []catalogmanagementv1.OfferingReference{*offeringReferenceModel}
 				Expect(solutionInfoModel.ArchitectureDiagrams).To(Equal([]catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel}))
 				Expect(solutionInfoModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(solutionInfoModel.CostEstimate).To(Equal(costEstimateModel))
-				Expect(solutionInfoModel.Dependencies).To(Equal([]catalogmanagementv1.Dependency{*dependencyModel}))
+				Expect(solutionInfoModel.Dependencies).To(Equal([]catalogmanagementv1.OfferingReference{*offeringReferenceModel}))
+
+				// Construct an instance of the ComplianceControlSccProfile model
+				complianceControlSccProfileModel := new(catalogmanagementv1.ComplianceControlSccProfile)
+				Expect(complianceControlSccProfileModel).ToNot(BeNil())
+				complianceControlSccProfileModel.Type = core.StringPtr("testString")
+				Expect(complianceControlSccProfileModel.Type).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ComplianceControlFamily model
+				complianceControlFamilyModel := new(catalogmanagementv1.ComplianceControlFamily)
+				Expect(complianceControlFamilyModel).ToNot(BeNil())
+				complianceControlFamilyModel.ID = core.StringPtr("testString")
+				complianceControlFamilyModel.ExternalID = core.StringPtr("testString")
+				complianceControlFamilyModel.Description = core.StringPtr("testString")
+				complianceControlFamilyModel.UIHref = core.StringPtr("testString")
+				Expect(complianceControlFamilyModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.ExternalID).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(complianceControlFamilyModel.UIHref).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Goal model
+				goalModel := new(catalogmanagementv1.Goal)
+				Expect(goalModel).ToNot(BeNil())
+				goalModel.ID = core.StringPtr("testString")
+				goalModel.Description = core.StringPtr("testString")
+				goalModel.UIHref = core.StringPtr("testString")
+				Expect(goalModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(goalModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(goalModel.UIHref).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ComplianceControlValidation model
+				complianceControlValidationModel := new(catalogmanagementv1.ComplianceControlValidation)
+				Expect(complianceControlValidationModel).ToNot(BeNil())
+				complianceControlValidationModel.Certified = core.BoolPtr(true)
+				complianceControlValidationModel.Results = map[string]interface{}{"anyKey": "anyValue"}
+				Expect(complianceControlValidationModel.Certified).To(Equal(core.BoolPtr(true)))
+				Expect(complianceControlValidationModel.Results).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+
+				// Construct an instance of the ComplianceControl model
+				complianceControlModel := new(catalogmanagementv1.ComplianceControl)
+				Expect(complianceControlModel).ToNot(BeNil())
+				complianceControlModel.SccProfile = complianceControlSccProfileModel
+				complianceControlModel.Family = complianceControlFamilyModel
+				complianceControlModel.Goals = []catalogmanagementv1.Goal{*goalModel}
+				complianceControlModel.Validation = complianceControlValidationModel
+				Expect(complianceControlModel.SccProfile).To(Equal(complianceControlSccProfileModel))
+				Expect(complianceControlModel.Family).To(Equal(complianceControlFamilyModel))
+				Expect(complianceControlModel.Goals).To(Equal([]catalogmanagementv1.Goal{*goalModel}))
+				Expect(complianceControlModel.Validation).To(Equal(complianceControlValidationModel))
 
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				Expect(versionModel).ToNot(BeNil())
-				versionModel.ID = core.StringPtr("testString")
-				versionModel.Rev = core.StringPtr("testString")
 				versionModel.CRN = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Flavor = flavorModel
@@ -28029,7 +28454,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Outputs = []catalogmanagementv1.Output{*outputModel}
 				versionModel.IamPermissions = []catalogmanagementv1.IamPermission{*iamPermissionModel}
-				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
 				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
@@ -28049,8 +28474,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.DeprecatePending = deprecatePendingModel
 				versionModel.SolutionInfo = solutionInfoModel
 				versionModel.IsConsumable = core.BoolPtr(true)
-				Expect(versionModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(versionModel.Rev).To(Equal(core.StringPtr("testString")))
+				versionModel.Compliance = []catalogmanagementv1.ComplianceControl{*complianceControlModel}
 				Expect(versionModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Flavor).To(Equal(flavorModel))
@@ -28067,7 +28491,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.Configuration).To(Equal([]catalogmanagementv1.Configuration{*configurationModel}))
 				Expect(versionModel.Outputs).To(Equal([]catalogmanagementv1.Output{*outputModel}))
 				Expect(versionModel.IamPermissions).To(Equal([]catalogmanagementv1.IamPermission{*iamPermissionModel}))
-				Expect(versionModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(versionModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(versionModel.Validation).To(Equal(validationModel))
 				Expect(versionModel.RequiredResources).To(Equal([]catalogmanagementv1.Resource{*resourceModel}))
 				Expect(versionModel.SingleInstance).To(Equal(core.BoolPtr(true)))
@@ -28087,6 +28511,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.DeprecatePending).To(Equal(deprecatePendingModel))
 				Expect(versionModel.SolutionInfo).To(Equal(solutionInfoModel))
 				Expect(versionModel.IsConsumable).To(Equal(core.BoolPtr(true)))
+				Expect(versionModel.Compliance).To(Equal([]catalogmanagementv1.ComplianceControl{*complianceControlModel}))
 
 				// Construct an instance of the Deployment model
 				deploymentModel := new(catalogmanagementv1.Deployment)
@@ -28096,7 +28521,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deploymentModel.Name = core.StringPtr("testString")
 				deploymentModel.ShortDescription = core.StringPtr("testString")
 				deploymentModel.LongDescription = core.StringPtr("testString")
-				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				deploymentModel.Tags = []string{"testString"}
 				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -28105,7 +28530,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deploymentModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentModel.LongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(deploymentModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(deploymentModel.Tags).To(Equal([]string{"testString"}))
 				Expect(deploymentModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
 				Expect(deploymentModel.Updated).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -28118,7 +28543,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				planModel.Name = core.StringPtr("testString")
 				planModel.ShortDescription = core.StringPtr("testString")
 				planModel.LongDescription = core.StringPtr("testString")
-				planModel.Metadata = make(map[string]interface{})
+				planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				planModel.Tags = []string{"testString"}
 				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -28129,7 +28554,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(planModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(planModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(planModel.LongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(planModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(planModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(planModel.Tags).To(Equal([]string{"testString"}))
 				Expect(planModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(planModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -28143,7 +28568,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.FormatKind = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
-				kindModel.Metadata = make(map[string]interface{})
+				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
 				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
@@ -28154,7 +28579,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(kindModel.FormatKind).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.InstallKind).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.TargetKind).To(Equal(core.StringPtr("testString")))
-				Expect(kindModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(kindModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(kindModel.Tags).To(Equal([]string{"testString"}))
 				Expect(kindModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
 				Expect(kindModel.Created).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
@@ -28302,8 +28727,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel := catalogManagementService.NewReplaceOfferingOptions(catalogIdentifier, offeringID)
 				replaceOfferingOptionsModel.SetCatalogIdentifier("testString")
 				replaceOfferingOptionsModel.SetOfferingID("testString")
-				replaceOfferingOptionsModel.SetID("testString")
-				replaceOfferingOptionsModel.SetRev("testString")
 				replaceOfferingOptionsModel.SetURL("testString")
 				replaceOfferingOptionsModel.SetCRN("testString")
 				replaceOfferingOptionsModel.SetLabel("testString")
@@ -28337,7 +28760,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceOfferingOptionsModel.SetPortalUIURL("testString")
 				replaceOfferingOptionsModel.SetCatalogID("testString")
 				replaceOfferingOptionsModel.SetCatalogName("testString")
-				replaceOfferingOptionsModel.SetMetadata(make(map[string]interface{}))
+				replaceOfferingOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				replaceOfferingOptionsModel.SetDisclaimer("testString")
 				replaceOfferingOptionsModel.SetHidden(true)
 				replaceOfferingOptionsModel.SetProvider("testString")
@@ -28353,8 +28776,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(replaceOfferingOptionsModel).ToNot(BeNil())
 				Expect(replaceOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.Label).To(Equal(core.StringPtr("testString")))
@@ -28388,7 +28809,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(replaceOfferingOptionsModel.PortalUIURL).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(replaceOfferingOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(replaceOfferingOptionsModel.Disclaimer).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(replaceOfferingOptionsModel.Provider).To(Equal(core.StringPtr("testString")))
@@ -28432,7 +28853,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				searchObjectsOptionsModel := catalogManagementService.NewSearchObjectsOptions(query)
 				searchObjectsOptionsModel.SetQuery("testString")
 				searchObjectsOptionsModel.SetKind("vpe")
-				searchObjectsOptionsModel.SetLimit(int64(1000))
+				searchObjectsOptionsModel.SetLimit(int64(10))
 				searchObjectsOptionsModel.SetOffset(int64(38))
 				searchObjectsOptionsModel.SetCollapse(true)
 				searchObjectsOptionsModel.SetDigest(true)
@@ -28440,7 +28861,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(searchObjectsOptionsModel).ToNot(BeNil())
 				Expect(searchObjectsOptionsModel.Query).To(Equal(core.StringPtr("testString")))
 				Expect(searchObjectsOptionsModel.Kind).To(Equal(core.StringPtr("vpe")))
-				Expect(searchObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
+				Expect(searchObjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(searchObjectsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(searchObjectsOptionsModel.Collapse).To(Equal(core.BoolPtr(true)))
 				Expect(searchObjectsOptionsModel.Digest).To(Equal(core.BoolPtr(true)))
@@ -28526,19 +28947,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(shareOfferingOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
 				Expect(shareOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewSharedPublishObjectOptions successfully`, func() {
-				// Construct an instance of the SharedPublishObjectOptions model
-				catalogIdentifier := "testString"
-				objectIdentifier := "testString"
-				sharedPublishObjectOptionsModel := catalogManagementService.NewSharedPublishObjectOptions(catalogIdentifier, objectIdentifier)
-				sharedPublishObjectOptionsModel.SetCatalogIdentifier("testString")
-				sharedPublishObjectOptionsModel.SetObjectIdentifier("testString")
-				sharedPublishObjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(sharedPublishObjectOptionsModel).ToNot(BeNil())
-				Expect(sharedPublishObjectOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(sharedPublishObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(sharedPublishObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewSuspendVersionOptions successfully`, func() {
 				// Construct an instance of the SuspendVersionOptions model
 				versionLocID := "testString"
@@ -28585,14 +28993,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateCatalogAccountOptions model
 				updateCatalogAccountOptionsModel := catalogManagementService.NewUpdateCatalogAccountOptions()
-				updateCatalogAccountOptionsModel.SetID("testString")
-				updateCatalogAccountOptionsModel.SetRev("testString")
 				updateCatalogAccountOptionsModel.SetHideIBMCloudCatalog(true)
 				updateCatalogAccountOptionsModel.SetAccountFilters(filtersModel)
 				updateCatalogAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateCatalogAccountOptionsModel).ToNot(BeNil())
-				Expect(updateCatalogAccountOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateCatalogAccountOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(updateCatalogAccountOptionsModel.HideIBMCloudCatalog).To(Equal(core.BoolPtr(true)))
 				Expect(updateCatalogAccountOptionsModel.AccountFilters).To(Equal(filtersModel))
 				Expect(updateCatalogAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
