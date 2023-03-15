@@ -1,3 +1,45 @@
+## [0.32.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.1...v0.32.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* **Global Search:** remove is_hidden param from search operation ([#239](https://github.com/IBM/platform-services-go-sdk/issues/239)) ([67937e4](https://github.com/IBM/platform-services-go-sdk/commit/67937e4421759cd009300b3be24fc4f242819e20))
+
+## [0.32.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.0...v0.32.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add sort query parameter to List V2 Policies ([#238](https://github.com/IBM/platform-services-go-sdk/issues/238)) ([be7c94e](https://github.com/IBM/platform-services-go-sdk/commit/be7c94ec3ba8d919e5443a1903a5a5b26568815c))
+
+# [0.32.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.6...v0.32.0) (2023-02-24)
+
+
+### Features
+
+* bump minimum go version to 1.18 ([#235](https://github.com/IBM/platform-services-go-sdk/issues/235)) ([a5b12e5](https://github.com/IBM/platform-services-go-sdk/commit/a5b12e54fec71478e0a054e61a9c8a5dd0d2aa78))
+
+## [0.31.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.5...v0.31.6) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen with latest API definition ([#232](https://github.com/IBM/platform-services-go-sdk/issues/232)) ([922f9ad](https://github.com/IBM/platform-services-go-sdk/commit/922f9ad7b7d80016173293c5830b87374c9b93ef))
+
+## [0.31.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.4...v0.31.5) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Add format query parameter to GET by ID ([#233](https://github.com/IBM/platform-services-go-sdk/issues/233)) ([216a92c](https://github.com/IBM/platform-services-go-sdk/commit/216a92c530662e45448c7cc153f69a3b2e6c00ea))
+
+## [0.31.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.3...v0.31.4) (2023-01-25)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update time-based condition example and pattern, ([#231](https://github.com/IBM/platform-services-go-sdk/issues/231)) ([92d5126](https://github.com/IBM/platform-services-go-sdk/commit/92d51260d7aed93924362f949d8e98c3cb60418d))
+
 ## [0.31.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.2...v0.31.3) (2023-01-17)
 
 
