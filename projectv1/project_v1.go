@@ -576,7 +576,7 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 	return
 }
 
-// ListConfigs : List all project configuration
+// ListConfigs : List all project configurations
 // Lists all of the project configurations for a specific project.
 func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
 	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
@@ -938,7 +938,7 @@ func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeO
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/force_merge`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/force_merge`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2224,7 +2224,7 @@ func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx conte
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/event_notifications`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2303,7 +2303,7 @@ func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx contex
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/event_notifications`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2339,7 +2339,7 @@ func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx contex
 	return
 }
 
-// DeleteEventNotificationsIntegration : Delete a event notifications connection
+// DeleteEventNotificationsIntegration : Delete an event notifications connection
 // Deletes the event notifications integration if that is where the project was onboarded to.
 func (project *ProjectV1) DeleteEventNotificationsIntegration(deleteEventNotificationsIntegrationOptions *DeleteEventNotificationsIntegrationOptions) (response *core.DetailedResponse, err error) {
 	return project.DeleteEventNotificationsIntegrationWithContext(context.Background(), deleteEventNotificationsIntegrationOptions)
@@ -2363,7 +2363,7 @@ func (project *ProjectV1) DeleteEventNotificationsIntegrationWithContext(ctx con
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/event_notifications`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2411,7 +2411,7 @@ func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Conte
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/integrations/event_notifications/test`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/event_notifications/test`, pathParamsMap)
 	if err != nil {
 		return
 	}

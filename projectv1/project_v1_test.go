@@ -2960,7 +2960,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions) - Operation response error`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
+		forceMergePath := "/v1/projects/testString/configs/testString/force_merge"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3009,7 +3009,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions)`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/draft/force_merge"
+		forceMergePath := "/v1/projects/testString/configs/testString/force_merge"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7203,7 +7203,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`PostEventNotificationsIntegration(postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions) - Operation response error`, func() {
-		postEventNotificationsIntegrationPath := "/v1/projects/testString/integrations/event_notifications"
+		postEventNotificationsIntegrationPath := "/v1/projects/testString/event_notifications"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7252,7 +7252,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`PostEventNotificationsIntegration(postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions)`, func() {
-		postEventNotificationsIntegrationPath := "/v1/projects/testString/integrations/event_notifications"
+		postEventNotificationsIntegrationPath := "/v1/projects/testString/event_notifications"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7467,7 +7467,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`GetEventNotificationsIntegration(getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions) - Operation response error`, func() {
-		getEventNotificationsIntegrationPath := "/v1/projects/testString/integrations/event_notifications"
+		getEventNotificationsIntegrationPath := "/v1/projects/testString/event_notifications"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7512,7 +7512,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`GetEventNotificationsIntegration(getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions)`, func() {
-		getEventNotificationsIntegrationPath := "/v1/projects/testString/integrations/event_notifications"
+		getEventNotificationsIntegrationPath := "/v1/projects/testString/event_notifications"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7679,7 +7679,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`DeleteEventNotificationsIntegration(deleteEventNotificationsIntegrationOptions *DeleteEventNotificationsIntegrationOptions)`, func() {
-		deleteEventNotificationsIntegrationPath := "/v1/projects/testString/integrations/event_notifications"
+		deleteEventNotificationsIntegrationPath := "/v1/projects/testString/event_notifications"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7747,7 +7747,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions) - Operation response error`, func() {
-		postTestEventNotificationPath := "/v1/projects/testString/integrations/event_notifications/test"
+		postTestEventNotificationPath := "/v1/projects/testString/event_notifications/test"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -7794,7 +7794,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 	})
 	Describe(`PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions)`, func() {
-		postTestEventNotificationPath := "/v1/projects/testString/integrations/event_notifications/test"
+		postTestEventNotificationPath := "/v1/projects/testString/event_notifications/test"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
