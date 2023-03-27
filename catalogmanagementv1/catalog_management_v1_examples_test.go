@@ -1119,27 +1119,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(catalogObject).ToNot(BeNil())
 		})
 
-		It(`CreateObjectAccess request example`, func() {
-			// begin-create_object_access
-
-			createObjectAccessOptions := catalogManagementService.NewCreateObjectAccessOptions(
-				objectCatalogID,
-				objectID,
-				accountID,
-			)
-
-			response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-create_object_access
-			fmt.Printf("\nCreateObjectAccess() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-		})
-
 		It(`GetObjectAccess request example`, func() {
 			fmt.Println("\nGetObjectAccess() result:")
 			// begin-get_object_access
@@ -1385,27 +1364,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accessListBulkResponse).ToNot(BeNil())
-		})
-
-		It(`DeleteObjectAccess request example`, func() {
-			// begin-delete_object_access
-
-			deleteObjectAccessOptions := catalogManagementService.NewDeleteObjectAccessOptions(
-				objectCatalogID,
-				objectID,
-				accountID,
-			)
-
-			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_object_access
-			fmt.Printf("\nDeleteObjectAccess() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 
 		It(`DeleteObject request example`, func() {
