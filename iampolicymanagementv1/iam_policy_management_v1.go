@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.65.0-79fc0b8f-20230209-215651
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -681,8 +681,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyStateWithContext(c
 // ListRoles : Get roles by filters
 // Get roles based on the filters. While managing roles, you may want to retrieve roles and filter by usages. This can
 // be done through query parameters. Currently, we only support the following attributes: account_id, service_name,
-// source_service_name and policy_type. Only roles that match the filter and that the caller has read access to are
-// returned. If the caller does not have read access to any roles an empty array is returned.
+// service_group_id, source_service_name and policy_type. Both service_name and service_group_id attributes are mutually
+// exclusive. Only roles that match the filter and that the caller has read access to are returned. If the caller does
+// not have read access to any roles an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *ListRolesOptions) (result *RoleList, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListRolesWithContext(context.Background(), listRolesOptions)
 }
@@ -726,6 +727,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 	}
 	if listRolesOptions.PolicyType != nil {
 		builder.AddQuery("policy_type", fmt.Sprint(*listRolesOptions.PolicyType))
+	}
+	if listRolesOptions.ServiceGroupID != nil {
+		builder.AddQuery("service_group_id", fmt.Sprint(*listRolesOptions.ServiceGroupID))
 	}
 
 	request, err := builder.Build()
@@ -2354,6 +2358,9 @@ type ListRolesOptions struct {
 	// Optional Policy Type.
 	PolicyType *string `json:"policy_type,omitempty"`
 
+	// Optional id of service group.
+	ServiceGroupID *string `json:"service_group_id,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2390,6 +2397,12 @@ func (_options *ListRolesOptions) SetSourceServiceName(sourceServiceName string)
 // SetPolicyType : Allow user to set PolicyType
 func (_options *ListRolesOptions) SetPolicyType(policyType string) *ListRolesOptions {
 	_options.PolicyType = core.StringPtr(policyType)
+	return _options
+}
+
+// SetServiceGroupID : Allow user to set ServiceGroupID
+func (_options *ListRolesOptions) SetServiceGroupID(serviceGroupID string) *ListRolesOptions {
+	_options.ServiceGroupID = core.StringPtr(serviceGroupID)
 	return _options
 }
 
