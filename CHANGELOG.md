@@ -1,3 +1,10 @@
+# [0.33.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.2...v0.33.0) (2023-03-27)
+
+
+### Features
+
+* **IAM Policy Management:** support of new query param source_group_id for v2/roles ([#243](https://github.com/IBM/platform-services-go-sdk/issues/243)) ([f89b2ba](https://github.com/IBM/platform-services-go-sdk/commit/f89b2ba1b34bc2a964fb22f342ac7847367b137e))
+
 ## [0.32.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.1...v0.32.2) (2023-03-07)
 
 
