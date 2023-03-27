@@ -1872,6 +1872,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["source_service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"authorization"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"IAM"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1892,6 +1893,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.ServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.SourceServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.PolicyType = core.StringPtr("authorization")
+				listRolesOptionsModel.ServiceGroupID = core.StringPtr("IAM")
 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListRoles(listRolesOptionsModel)
@@ -1928,6 +1930,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["source_service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"authorization"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"IAM"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1953,6 +1956,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.ServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.SourceServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.PolicyType = core.StringPtr("authorization")
+				listRolesOptionsModel.ServiceGroupID = core.StringPtr("IAM")
 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1995,6 +1999,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["source_service_name"]).To(Equal([]string{"iam-groups"}))
 					Expect(req.URL.Query()["policy_type"]).To(Equal([]string{"authorization"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"IAM"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2022,6 +2027,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.ServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.SourceServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.PolicyType = core.StringPtr("authorization")
+				listRolesOptionsModel.ServiceGroupID = core.StringPtr("IAM")
 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2046,6 +2052,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.ServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.SourceServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.PolicyType = core.StringPtr("authorization")
+				listRolesOptionsModel.ServiceGroupID = core.StringPtr("IAM")
 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -2084,6 +2091,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.ServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.SourceServiceName = core.StringPtr("iam-groups")
 				listRolesOptionsModel.PolicyType = core.StringPtr("authorization")
+				listRolesOptionsModel.ServiceGroupID = core.StringPtr("IAM")
 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4851,6 +4859,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.SetServiceName("iam-groups")
 				listRolesOptionsModel.SetSourceServiceName("iam-groups")
 				listRolesOptionsModel.SetPolicyType("authorization")
+				listRolesOptionsModel.SetServiceGroupID("IAM")
 				listRolesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listRolesOptionsModel).ToNot(BeNil())
 				Expect(listRolesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
@@ -4858,6 +4867,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listRolesOptionsModel.ServiceName).To(Equal(core.StringPtr("iam-groups")))
 				Expect(listRolesOptionsModel.SourceServiceName).To(Equal(core.StringPtr("iam-groups")))
 				Expect(listRolesOptionsModel.PolicyType).To(Equal(core.StringPtr("authorization")))
+				Expect(listRolesOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("IAM")))
 				Expect(listRolesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListV2PoliciesOptions successfully`, func() {
