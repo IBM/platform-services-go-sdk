@@ -59,6 +59,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testCustomRoleId   string = ""
 		testCustomRoleETag string = ""
 		testCustomRoleName string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
 	)
 
 	var shouldSkipTest = func() {
@@ -606,6 +607,39 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 				}
 			}
 			Expect(testRolePresent).To(BeTrue())
+		})
+	})
+
+	Describe("List V2 roles", func() {
+		It("Successfully listed the roles when account_id and service_group_id present", func() {
+			shouldSkipTest()
+
+			options := service.NewListRolesOptions()
+			options.SetAccountID(testAccountID)
+			options.SetServiceGroupID("IAM")
+			result, detailedResponse, err := service.ListRoles(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListRoles() result:\n%s\n", common.ToJSON(result))
+
+			// confirm the system's viewer and service roles are present
+			testSystemRolePresent := false
+			testServiceRolePresent := false
+			for _, role := range result.SystemRoles {
+				if *role.CRN == testViewerRoleCrn {
+					testSystemRolePresent = true
+				}
+			}
+
+			for _, role := range result.ServiceRoles {
+				if *role.CRN == testServiceRoleCrn {
+					testServiceRolePresent = true
+				}
+			}
+
+			Expect(testSystemRolePresent).To(BeTrue())
+			Expect(testServiceRolePresent).To(BeTrue())
 		})
 	})
 
