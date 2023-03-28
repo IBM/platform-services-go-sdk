@@ -913,54 +913,54 @@ func (project *ProjectV1) GetConfigDiffWithContext(ctx context.Context, getConfi
 	return
 }
 
-// ForceMerge : Force merge a project configuration draft
-// Force the merge of the changes from the current active draft to the active configuration with an approving comment.
-func (project *ProjectV1) ForceMerge(forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	return project.ForceMergeWithContext(context.Background(), forceMergeOptions)
+// ForceApprove : Force approve project configuration
+// Force approve configuration edits to the main configuration with an approving comment.
+func (project *ProjectV1) ForceApprove(forceApproveOptions *ForceApproveOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	return project.ForceApproveWithContext(context.Background(), forceApproveOptions)
 }
 
-// ForceMergeWithContext is an alternate form of the ForceMerge method which supports a Context parameter
-func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeOptions *ForceMergeOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(forceMergeOptions, "forceMergeOptions cannot be nil")
+// ForceApproveWithContext is an alternate form of the ForceApprove method which supports a Context parameter
+func (project *ProjectV1) ForceApproveWithContext(ctx context.Context, forceApproveOptions *ForceApproveOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(forceApproveOptions, "forceApproveOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(forceMergeOptions, "forceMergeOptions")
+	err = core.ValidateStruct(forceApproveOptions, "forceApproveOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *forceMergeOptions.ID,
-		"config_id": *forceMergeOptions.ConfigID,
+		"id": *forceApproveOptions.ID,
+		"config_id": *forceApproveOptions.ConfigID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/force_merge`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/force_approve`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range forceMergeOptions.Headers {
+	for headerName, headerValue := range forceApproveOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceMerge")
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ForceApprove")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if forceMergeOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*forceMergeOptions.Complete))
+	if forceApproveOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*forceApproveOptions.Complete))
 	}
 
 	body := make(map[string]interface{})
-	if forceMergeOptions.Comment != nil {
-		body["comment"] = forceMergeOptions.Comment
+	if forceApproveOptions.Comment != nil {
+		body["comment"] = forceApproveOptions.Comment
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -988,56 +988,54 @@ func (project *ProjectV1) ForceMergeWithContext(ctx context.Context, forceMergeO
 	return
 }
 
-// CreateDraftAction : Merge or discard a configuration draft
-// If a merge action is requested, the changes from the current active draft are merged to the active configuration. If
-// a discard action is requested, the current draft is set to the discarded state.
-func (project *ProjectV1) CreateDraftAction(createDraftActionOptions *CreateDraftActionOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	return project.CreateDraftActionWithContext(context.Background(), createDraftActionOptions)
+// Approve : Approve and merge a configuration draft
+// Approve and merge configuration edits to the main configuration.
+func (project *ProjectV1) Approve(approveOptions *ApproveOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	return project.ApproveWithContext(context.Background(), approveOptions)
 }
 
-// CreateDraftActionWithContext is an alternate form of the CreateDraftAction method which supports a Context parameter
-func (project *ProjectV1) CreateDraftActionWithContext(ctx context.Context, createDraftActionOptions *CreateDraftActionOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createDraftActionOptions, "createDraftActionOptions cannot be nil")
+// ApproveWithContext is an alternate form of the Approve method which supports a Context parameter
+func (project *ProjectV1) ApproveWithContext(ctx context.Context, approveOptions *ApproveOptions) (result *ProjectConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(approveOptions, "approveOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createDraftActionOptions, "createDraftActionOptions")
+	err = core.ValidateStruct(approveOptions, "approveOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *createDraftActionOptions.ID,
-		"config_id": *createDraftActionOptions.ConfigID,
-		"action": *createDraftActionOptions.Action,
+		"id": *approveOptions.ID,
+		"config_id": *approveOptions.ConfigID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/draft/{action}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/configs/{config_id}/approve`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createDraftActionOptions.Headers {
+	for headerName, headerValue := range approveOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "CreateDraftAction")
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "Approve")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if createDraftActionOptions.Complete != nil {
-		builder.AddQuery("complete", fmt.Sprint(*createDraftActionOptions.Complete))
+	if approveOptions.Complete != nil {
+		builder.AddQuery("complete", fmt.Sprint(*approveOptions.Complete))
 	}
 
 	body := make(map[string]interface{})
-	if createDraftActionOptions.Comment != nil {
-		body["comment"] = createDraftActionOptions.Comment
+	if approveOptions.Comment != nil {
+		body["comment"] = approveOptions.Comment
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1384,6 +1382,66 @@ func (project *ProjectV1) GetCostEstimateWithContext(ctx context.Context, getCos
 	return
 }
 
+// PostCrnToken : Creates a project CRN token
+// Refreshes a project CRN token by creating a new one.
+func (project *ProjectV1) PostCrnToken(postCrnTokenOptions *PostCrnTokenOptions) (result *ProjectCRNTokenResponse, response *core.DetailedResponse, err error) {
+	return project.PostCrnTokenWithContext(context.Background(), postCrnTokenOptions)
+}
+
+// PostCrnTokenWithContext is an alternate form of the PostCrnToken method which supports a Context parameter
+func (project *ProjectV1) PostCrnTokenWithContext(ctx context.Context, postCrnTokenOptions *PostCrnTokenOptions) (result *ProjectCRNTokenResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(postCrnTokenOptions, "postCrnTokenOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(postCrnTokenOptions, "postCrnTokenOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *postCrnTokenOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/token`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range postCrnTokenOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "PostCrnToken")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = project.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectCRNTokenResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // PostNotification : Add notifications
 // Creates a notification event to be stored on the project definition.
 func (project *ProjectV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
@@ -1510,60 +1568,6 @@ func (project *ProjectV1) GetNotificationsWithContext(ctx context.Context, getNo
 		}
 		response.Result = result
 	}
-
-	return
-}
-
-// DeleteNotification : Delete a notification
-// Delete a notification from a project.
-// - in: query
-//   name: notification_id
-//   description: The ID of the project, which uniquely identifies it.
-//   required: true
-//   schema:
-//     $ref: "#/components/schemas/Identifier".
-func (project *ProjectV1) DeleteNotification(deleteNotificationOptions *DeleteNotificationOptions) (response *core.DetailedResponse, err error) {
-	return project.DeleteNotificationWithContext(context.Background(), deleteNotificationOptions)
-}
-
-// DeleteNotificationWithContext is an alternate form of the DeleteNotification method which supports a Context parameter
-func (project *ProjectV1) DeleteNotificationWithContext(ctx context.Context, deleteNotificationOptions *DeleteNotificationOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteNotificationOptions, "deleteNotificationOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteNotificationOptions, "deleteNotificationOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"id": *deleteNotificationOptions.ID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = project.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/projects/{id}/event`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteNotificationOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("project", "V1", "DeleteNotification")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = project.Service.Request(request, nil)
 
 	return
 }
@@ -2460,6 +2464,62 @@ func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Conte
 	return
 }
 
+// ApproveOptions : The Approve options.
+type ApproveOptions struct {
+	// The ID of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The ID of the configuration, which uniquely identifies it.
+	ConfigID *string `json:"config_id" validate:"required,ne="`
+
+	// Notes on the project draft action.
+	Comment *string `json:"comment,omitempty"`
+
+	// The flag to determine if full metadata should be returned.
+	Complete *bool `json:"complete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewApproveOptions : Instantiate ApproveOptions
+func (*ProjectV1) NewApproveOptions(id string, configID string) *ApproveOptions {
+	return &ApproveOptions{
+		ID: core.StringPtr(id),
+		ConfigID: core.StringPtr(configID),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *ApproveOptions) SetID(id string) *ApproveOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetConfigID : Allow user to set ConfigID
+func (_options *ApproveOptions) SetConfigID(configID string) *ApproveOptions {
+	_options.ConfigID = core.StringPtr(configID)
+	return _options
+}
+
+// SetComment : Allow user to set Comment
+func (_options *ApproveOptions) SetComment(comment string) *ApproveOptions {
+	_options.Comment = core.StringPtr(comment)
+	return _options
+}
+
+// SetComplete : Allow user to set Complete
+func (_options *ApproveOptions) SetComplete(complete bool) *ApproveOptions {
+	_options.Complete = core.BoolPtr(complete)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ApproveOptions) SetHeaders(param map[string]string) *ApproveOptions {
+	options.Headers = param
+	return options
+}
+
 // BrokerResult : The result of Get instance status call.
 type BrokerResult struct {
 	// Indicates whether the service instance is active and is meaningful if enabled is true. The default value is true if
@@ -2919,79 +2979,6 @@ func (options *CreateConfigOptions) SetHeaders(param map[string]string) *CreateC
 	return options
 }
 
-// CreateDraftActionOptions : The CreateDraftAction options.
-type CreateDraftActionOptions struct {
-	// The ID of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
-
-	// The ID of the configuration, which uniquely identifies it.
-	ConfigID *string `json:"config_id" validate:"required,ne="`
-
-	// The action to the draft.
-	Action *string `json:"action" validate:"required,ne="`
-
-	// Notes on the project draft action.
-	Comment *string `json:"comment,omitempty"`
-
-	// The flag to determine if full metadata should be returned.
-	Complete *bool `json:"complete,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// Constants associated with the CreateDraftActionOptions.Action property.
-// The action to the draft.
-const (
-	CreateDraftActionOptions_Action_Discard = "discard"
-	CreateDraftActionOptions_Action_Merge = "merge"
-)
-
-// NewCreateDraftActionOptions : Instantiate CreateDraftActionOptions
-func (*ProjectV1) NewCreateDraftActionOptions(id string, configID string, action string) *CreateDraftActionOptions {
-	return &CreateDraftActionOptions{
-		ID: core.StringPtr(id),
-		ConfigID: core.StringPtr(configID),
-		Action: core.StringPtr(action),
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *CreateDraftActionOptions) SetID(id string) *CreateDraftActionOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetConfigID : Allow user to set ConfigID
-func (_options *CreateDraftActionOptions) SetConfigID(configID string) *CreateDraftActionOptions {
-	_options.ConfigID = core.StringPtr(configID)
-	return _options
-}
-
-// SetAction : Allow user to set Action
-func (_options *CreateDraftActionOptions) SetAction(action string) *CreateDraftActionOptions {
-	_options.Action = core.StringPtr(action)
-	return _options
-}
-
-// SetComment : Allow user to set Comment
-func (_options *CreateDraftActionOptions) SetComment(comment string) *CreateDraftActionOptions {
-	_options.Comment = core.StringPtr(comment)
-	return _options
-}
-
-// SetComplete : Allow user to set Complete
-func (_options *CreateDraftActionOptions) SetComplete(complete bool) *CreateDraftActionOptions {
-	_options.Complete = core.BoolPtr(complete)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *CreateDraftActionOptions) SetHeaders(param map[string]string) *CreateDraftActionOptions {
-	options.Headers = param
-	return options
-}
-
 // CreateProjectOptions : The CreateProject options.
 type CreateProjectOptions struct {
 	// The project name.
@@ -3205,34 +3192,6 @@ func (options *DeleteEventNotificationsIntegrationOptions) SetHeaders(param map[
 	return options
 }
 
-// DeleteNotificationOptions : The DeleteNotification options.
-type DeleteNotificationOptions struct {
-	// The ID of the project, which uniquely identifies it.
-	ID *string `json:"id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewDeleteNotificationOptions : Instantiate DeleteNotificationOptions
-func (*ProjectV1) NewDeleteNotificationOptions(id string) *DeleteNotificationOptions {
-	return &DeleteNotificationOptions{
-		ID: core.StringPtr(id),
-	}
-}
-
-// SetID : Allow user to set ID
-func (_options *DeleteNotificationOptions) SetID(id string) *DeleteNotificationOptions {
-	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *DeleteNotificationOptions) SetHeaders(param map[string]string) *DeleteNotificationOptions {
-	options.Headers = param
-	return options
-}
-
 // DeleteProjectConfigResponse : Delete configuration response.
 type DeleteProjectConfigResponse struct {
 	// The unique ID of a project.
@@ -3434,8 +3393,8 @@ func (options *DeleteServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
-// ForceMergeOptions : The ForceMerge options.
-type ForceMergeOptions struct {
+// ForceApproveOptions : The ForceApprove options.
+type ForceApproveOptions struct {
 	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -3452,40 +3411,40 @@ type ForceMergeOptions struct {
 	Headers map[string]string
 }
 
-// NewForceMergeOptions : Instantiate ForceMergeOptions
-func (*ProjectV1) NewForceMergeOptions(id string, configID string) *ForceMergeOptions {
-	return &ForceMergeOptions{
+// NewForceApproveOptions : Instantiate ForceApproveOptions
+func (*ProjectV1) NewForceApproveOptions(id string, configID string) *ForceApproveOptions {
+	return &ForceApproveOptions{
 		ID: core.StringPtr(id),
 		ConfigID: core.StringPtr(configID),
 	}
 }
 
 // SetID : Allow user to set ID
-func (_options *ForceMergeOptions) SetID(id string) *ForceMergeOptions {
+func (_options *ForceApproveOptions) SetID(id string) *ForceApproveOptions {
 	_options.ID = core.StringPtr(id)
 	return _options
 }
 
 // SetConfigID : Allow user to set ConfigID
-func (_options *ForceMergeOptions) SetConfigID(configID string) *ForceMergeOptions {
+func (_options *ForceApproveOptions) SetConfigID(configID string) *ForceApproveOptions {
 	_options.ConfigID = core.StringPtr(configID)
 	return _options
 }
 
 // SetComment : Allow user to set Comment
-func (_options *ForceMergeOptions) SetComment(comment string) *ForceMergeOptions {
+func (_options *ForceApproveOptions) SetComment(comment string) *ForceApproveOptions {
 	_options.Comment = core.StringPtr(comment)
 	return _options
 }
 
 // SetComplete : Allow user to set Complete
-func (_options *ForceMergeOptions) SetComplete(complete bool) *ForceMergeOptions {
+func (_options *ForceApproveOptions) SetComplete(complete bool) *ForceApproveOptions {
 	_options.Complete = core.BoolPtr(complete)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ForceMergeOptions) SetHeaders(param map[string]string) *ForceMergeOptions {
+func (options *ForceApproveOptions) SetHeaders(param map[string]string) *ForceApproveOptions {
 	options.Headers = param
 	return options
 }
@@ -4746,6 +4705,34 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// PostCrnTokenOptions : The PostCrnToken options.
+type PostCrnTokenOptions struct {
+	// The ID of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPostCrnTokenOptions : Instantiate PostCrnTokenOptions
+func (*ProjectV1) NewPostCrnTokenOptions(id string) *PostCrnTokenOptions {
+	return &PostCrnTokenOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *PostCrnTokenOptions) SetID(id string) *PostCrnTokenOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PostCrnTokenOptions) SetHeaders(param map[string]string) *PostCrnTokenOptions {
+	options.Headers = param
+	return options
+}
+
 // PostEventNotificationsIntegrationOptions : The PostEventNotificationsIntegration options.
 type PostEventNotificationsIntegrationOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -5023,6 +5010,30 @@ func UnmarshalPostTestEventNotificationResponse(m map[string]json.RawMessage, re
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectCRNTokenResponse : The project CRN token.
+type ProjectCRNTokenResponse struct {
+	// The IAM access token.
+	AccesToken *string `json:"acces_token,omitempty"`
+
+	// Number of seconds counted since January 1st, 1970, until the IAM access token will expire.
+	Expiration *int64 `json:"expiration,omitempty"`
+}
+
+// UnmarshalProjectCRNTokenResponse unmarshals an instance of ProjectCRNTokenResponse from the specified map of raw messages.
+func UnmarshalProjectCRNTokenResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectCRNTokenResponse)
+	err = core.UnmarshalPrimitive(m, "acces_token", &obj.AccesToken)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "expiration", &obj.Expiration)
 	if err != nil {
 		return
 	}

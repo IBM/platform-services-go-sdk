@@ -2959,15 +2959,15 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions) - Operation response error`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/force_merge"
+	Describe(`ForceApprove(forceApproveOptions *ForceApproveOptions) - Operation response error`, func() {
+		forceApprovePath := "/v1/projects/testString/configs/testString/force_approve"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.URL.EscapedPath()).To(Equal(forceApprovePath))
 					Expect(req.Method).To(Equal("POST"))
 					// TODO: Add check for complete query parameter
 					res.Header().Set("Content-type", "application/json")
@@ -2975,7 +2975,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ForceMerge with error: Operation response processing error`, func() {
+			It(`Invoke ForceApprove with error: Operation response processing error`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2983,22 +2983,22 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ForceApproveOptions model
+				forceApproveOptionsModel := new(projectv1.ForceApproveOptions)
+				forceApproveOptionsModel.ID = core.StringPtr("testString")
+				forceApproveOptionsModel.ConfigID = core.StringPtr("testString")
+				forceApproveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceApproveOptionsModel.Complete = core.BoolPtr(false)
+				forceApproveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr := projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				projectService.EnableRetries(0, 0)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr = projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3008,15 +3008,15 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`ForceMerge(forceMergeOptions *ForceMergeOptions)`, func() {
-		forceMergePath := "/v1/projects/testString/configs/testString/force_merge"
+	Describe(`ForceApprove(forceApproveOptions *ForceApproveOptions)`, func() {
+		forceApprovePath := "/v1/projects/testString/configs/testString/force_approve"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.URL.EscapedPath()).To(Equal(forceApprovePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3045,7 +3045,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
-			It(`Invoke ForceMerge successfully with retries`, func() {
+			It(`Invoke ForceApprove successfully with retries`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3054,24 +3054,24 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 				projectService.EnableRetries(0, 0)
 
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ForceApproveOptions model
+				forceApproveOptionsModel := new(projectv1.ForceApproveOptions)
+				forceApproveOptionsModel.ID = core.StringPtr("testString")
+				forceApproveOptionsModel.ConfigID = core.StringPtr("testString")
+				forceApproveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceApproveOptionsModel.Complete = core.BoolPtr(false)
+				forceApproveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
+				_, _, operationErr := projectService.ForceApproveWithContext(ctx, forceApproveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				projectService.DisableRetries()
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr := projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -3079,7 +3079,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = projectService.ForceMergeWithContext(ctx, forceMergeOptionsModel)
+				_, _, operationErr = projectService.ForceApproveWithContext(ctx, forceApproveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -3093,7 +3093,7 @@ var _ = Describe(`ProjectV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(forceMergePath))
+					Expect(req.URL.EscapedPath()).To(Equal(forceApprovePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3119,7 +3119,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
-			It(`Invoke ForceMerge successfully`, func() {
+			It(`Invoke ForceApprove successfully`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3128,27 +3128,27 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectService.ForceMerge(nil)
+				result, response, operationErr := projectService.ForceApprove(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ForceApproveOptions model
+				forceApproveOptionsModel := new(projectv1.ForceApproveOptions)
+				forceApproveOptionsModel.ID = core.StringPtr("testString")
+				forceApproveOptionsModel.ConfigID = core.StringPtr("testString")
+				forceApproveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceApproveOptionsModel.Complete = core.BoolPtr(false)
+				forceApproveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr = projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ForceMerge with error: Operation validation and request error`, func() {
+			It(`Invoke ForceApprove with error: Operation validation and request error`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3156,25 +3156,25 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ForceApproveOptions model
+				forceApproveOptionsModel := new(projectv1.ForceApproveOptions)
+				forceApproveOptionsModel.ID = core.StringPtr("testString")
+				forceApproveOptionsModel.ConfigID = core.StringPtr("testString")
+				forceApproveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceApproveOptionsModel.Complete = core.BoolPtr(false)
+				forceApproveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr := projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ForceMergeOptions model with no property values
-				forceMergeOptionsModelNew := new(projectv1.ForceMergeOptions)
+				// Construct a second instance of the ForceApproveOptions model with no property values
+				forceApproveOptionsModelNew := new(projectv1.ForceApproveOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectService.ForceMerge(forceMergeOptionsModelNew)
+				result, response, operationErr = projectService.ForceApprove(forceApproveOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3192,7 +3192,7 @@ var _ = Describe(`ProjectV1`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke ForceMerge successfully`, func() {
+			It(`Invoke ForceApprove successfully`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3200,16 +3200,16 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the ForceMergeOptions model
-				forceMergeOptionsModel := new(projectv1.ForceMergeOptions)
-				forceMergeOptionsModel.ID = core.StringPtr("testString")
-				forceMergeOptionsModel.ConfigID = core.StringPtr("testString")
-				forceMergeOptionsModel.Comment = core.StringPtr("Approving the changes")
-				forceMergeOptionsModel.Complete = core.BoolPtr(false)
-				forceMergeOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ForceApproveOptions model
+				forceApproveOptionsModel := new(projectv1.ForceApproveOptions)
+				forceApproveOptionsModel.ID = core.StringPtr("testString")
+				forceApproveOptionsModel.ConfigID = core.StringPtr("testString")
+				forceApproveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				forceApproveOptionsModel.Complete = core.BoolPtr(false)
+				forceApproveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := projectService.ForceMerge(forceMergeOptionsModel)
+				result, response, operationErr := projectService.ForceApprove(forceApproveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3221,15 +3221,15 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`CreateDraftAction(createDraftActionOptions *CreateDraftActionOptions) - Operation response error`, func() {
-		createDraftActionPath := "/v1/projects/testString/configs/testString/draft/merge"
+	Describe(`Approve(approveOptions *ApproveOptions) - Operation response error`, func() {
+		approvePath := "/v1/projects/testString/configs/testString/approve"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDraftActionPath))
+					Expect(req.URL.EscapedPath()).To(Equal(approvePath))
 					Expect(req.Method).To(Equal("POST"))
 					// TODO: Add check for complete query parameter
 					res.Header().Set("Content-type", "application/json")
@@ -3237,7 +3237,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke CreateDraftAction with error: Operation response processing error`, func() {
+			It(`Invoke Approve with error: Operation response processing error`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3245,23 +3245,22 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the CreateDraftActionOptions model
-				createDraftActionOptionsModel := new(projectv1.CreateDraftActionOptions)
-				createDraftActionOptionsModel.ID = core.StringPtr("testString")
-				createDraftActionOptionsModel.ConfigID = core.StringPtr("testString")
-				createDraftActionOptionsModel.Action = core.StringPtr("merge")
-				createDraftActionOptionsModel.Comment = core.StringPtr("Approving the changes")
-				createDraftActionOptionsModel.Complete = core.BoolPtr(false)
-				createDraftActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ApproveOptions model
+				approveOptionsModel := new(projectv1.ApproveOptions)
+				approveOptionsModel.ID = core.StringPtr("testString")
+				approveOptionsModel.ConfigID = core.StringPtr("testString")
+				approveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				approveOptionsModel.Complete = core.BoolPtr(false)
+				approveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr := projectService.Approve(approveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				projectService.EnableRetries(0, 0)
-				result, response, operationErr = projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr = projectService.Approve(approveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3271,15 +3270,15 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
-	Describe(`CreateDraftAction(createDraftActionOptions *CreateDraftActionOptions)`, func() {
-		createDraftActionPath := "/v1/projects/testString/configs/testString/draft/merge"
+	Describe(`Approve(approveOptions *ApproveOptions)`, func() {
+		approvePath := "/v1/projects/testString/configs/testString/approve"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDraftActionPath))
+					Expect(req.URL.EscapedPath()).To(Equal(approvePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3308,7 +3307,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
-			It(`Invoke CreateDraftAction successfully with retries`, func() {
+			It(`Invoke Approve successfully with retries`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3317,25 +3316,24 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 				projectService.EnableRetries(0, 0)
 
-				// Construct an instance of the CreateDraftActionOptions model
-				createDraftActionOptionsModel := new(projectv1.CreateDraftActionOptions)
-				createDraftActionOptionsModel.ID = core.StringPtr("testString")
-				createDraftActionOptionsModel.ConfigID = core.StringPtr("testString")
-				createDraftActionOptionsModel.Action = core.StringPtr("merge")
-				createDraftActionOptionsModel.Comment = core.StringPtr("Approving the changes")
-				createDraftActionOptionsModel.Complete = core.BoolPtr(false)
-				createDraftActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ApproveOptions model
+				approveOptionsModel := new(projectv1.ApproveOptions)
+				approveOptionsModel.ID = core.StringPtr("testString")
+				approveOptionsModel.ConfigID = core.StringPtr("testString")
+				approveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				approveOptionsModel.Complete = core.BoolPtr(false)
+				approveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := projectService.CreateDraftActionWithContext(ctx, createDraftActionOptionsModel)
+				_, _, operationErr := projectService.ApproveWithContext(ctx, approveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				projectService.DisableRetries()
-				result, response, operationErr := projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr := projectService.Approve(approveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -3343,7 +3341,7 @@ var _ = Describe(`ProjectV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = projectService.CreateDraftActionWithContext(ctx, createDraftActionOptionsModel)
+				_, _, operationErr = projectService.ApproveWithContext(ctx, approveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -3357,7 +3355,7 @@ var _ = Describe(`ProjectV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createDraftActionPath))
+					Expect(req.URL.EscapedPath()).To(Equal(approvePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -3383,7 +3381,7 @@ var _ = Describe(`ProjectV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}`)
 				}))
 			})
-			It(`Invoke CreateDraftAction successfully`, func() {
+			It(`Invoke Approve successfully`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3392,28 +3390,27 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := projectService.CreateDraftAction(nil)
+				result, response, operationErr := projectService.Approve(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateDraftActionOptions model
-				createDraftActionOptionsModel := new(projectv1.CreateDraftActionOptions)
-				createDraftActionOptionsModel.ID = core.StringPtr("testString")
-				createDraftActionOptionsModel.ConfigID = core.StringPtr("testString")
-				createDraftActionOptionsModel.Action = core.StringPtr("merge")
-				createDraftActionOptionsModel.Comment = core.StringPtr("Approving the changes")
-				createDraftActionOptionsModel.Complete = core.BoolPtr(false)
-				createDraftActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ApproveOptions model
+				approveOptionsModel := new(projectv1.ApproveOptions)
+				approveOptionsModel.ID = core.StringPtr("testString")
+				approveOptionsModel.ConfigID = core.StringPtr("testString")
+				approveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				approveOptionsModel.Complete = core.BoolPtr(false)
+				approveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr = projectService.Approve(approveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CreateDraftAction with error: Operation validation and request error`, func() {
+			It(`Invoke Approve with error: Operation validation and request error`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3421,26 +3418,25 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the CreateDraftActionOptions model
-				createDraftActionOptionsModel := new(projectv1.CreateDraftActionOptions)
-				createDraftActionOptionsModel.ID = core.StringPtr("testString")
-				createDraftActionOptionsModel.ConfigID = core.StringPtr("testString")
-				createDraftActionOptionsModel.Action = core.StringPtr("merge")
-				createDraftActionOptionsModel.Comment = core.StringPtr("Approving the changes")
-				createDraftActionOptionsModel.Complete = core.BoolPtr(false)
-				createDraftActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ApproveOptions model
+				approveOptionsModel := new(projectv1.ApproveOptions)
+				approveOptionsModel.ID = core.StringPtr("testString")
+				approveOptionsModel.ConfigID = core.StringPtr("testString")
+				approveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				approveOptionsModel.Complete = core.BoolPtr(false)
+				approveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr := projectService.Approve(approveOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateDraftActionOptions model with no property values
-				createDraftActionOptionsModelNew := new(projectv1.CreateDraftActionOptions)
+				// Construct a second instance of the ApproveOptions model with no property values
+				approveOptionsModelNew := new(projectv1.ApproveOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = projectService.CreateDraftAction(createDraftActionOptionsModelNew)
+				result, response, operationErr = projectService.Approve(approveOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3458,7 +3454,7 @@ var _ = Describe(`ProjectV1`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke CreateDraftAction successfully`, func() {
+			It(`Invoke Approve successfully`, func() {
 				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3466,17 +3462,16 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the CreateDraftActionOptions model
-				createDraftActionOptionsModel := new(projectv1.CreateDraftActionOptions)
-				createDraftActionOptionsModel.ID = core.StringPtr("testString")
-				createDraftActionOptionsModel.ConfigID = core.StringPtr("testString")
-				createDraftActionOptionsModel.Action = core.StringPtr("merge")
-				createDraftActionOptionsModel.Comment = core.StringPtr("Approving the changes")
-				createDraftActionOptionsModel.Complete = core.BoolPtr(false)
-				createDraftActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ApproveOptions model
+				approveOptionsModel := new(projectv1.ApproveOptions)
+				approveOptionsModel.ID = core.StringPtr("testString")
+				approveOptionsModel.ConfigID = core.StringPtr("testString")
+				approveOptionsModel.Comment = core.StringPtr("Approving the changes")
+				approveOptionsModel.Complete = core.BoolPtr(false)
+				approveOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := projectService.CreateDraftAction(createDraftActionOptionsModel)
+				result, response, operationErr := projectService.Approve(approveOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -4482,6 +4477,218 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
+	Describe(`PostCrnToken(postCrnTokenOptions *PostCrnTokenOptions) - Operation response error`, func() {
+		postCrnTokenPath := "/v1/projects/testString/token"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postCrnTokenPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke PostCrnToken with error: Operation response processing error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the PostCrnTokenOptions model
+				postCrnTokenOptionsModel := new(projectv1.PostCrnTokenOptions)
+				postCrnTokenOptionsModel.ID = core.StringPtr("testString")
+				postCrnTokenOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectService.EnableRetries(0, 0)
+				result, response, operationErr = projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PostCrnToken(postCrnTokenOptions *PostCrnTokenOptions)`, func() {
+		postCrnTokenPath := "/v1/projects/testString/token"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postCrnTokenPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"acces_token": "AccesToken", "expiration": 10}`)
+				}))
+			})
+			It(`Invoke PostCrnToken successfully with retries`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+				projectService.EnableRetries(0, 0)
+
+				// Construct an instance of the PostCrnTokenOptions model
+				postCrnTokenOptionsModel := new(projectv1.PostCrnTokenOptions)
+				postCrnTokenOptionsModel.ID = core.StringPtr("testString")
+				postCrnTokenOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectService.PostCrnTokenWithContext(ctx, postCrnTokenOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectService.DisableRetries()
+				result, response, operationErr := projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectService.PostCrnTokenWithContext(ctx, postCrnTokenOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(postCrnTokenPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"acces_token": "AccesToken", "expiration": 10}`)
+				}))
+			})
+			It(`Invoke PostCrnToken successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectService.PostCrnToken(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the PostCrnTokenOptions model
+				postCrnTokenOptionsModel := new(projectv1.PostCrnTokenOptions)
+				postCrnTokenOptionsModel.ID = core.StringPtr("testString")
+				postCrnTokenOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke PostCrnToken with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the PostCrnTokenOptions model
+				postCrnTokenOptionsModel := new(projectv1.PostCrnTokenOptions)
+				postCrnTokenOptionsModel.ID = core.StringPtr("testString")
+				postCrnTokenOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the PostCrnTokenOptions model with no property values
+				postCrnTokenOptionsModelNew := new(projectv1.PostCrnTokenOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectService.PostCrnToken(postCrnTokenOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke PostCrnToken successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the PostCrnTokenOptions model
+				postCrnTokenOptionsModel := new(projectv1.PostCrnTokenOptions)
+				postCrnTokenOptionsModel.ID = core.StringPtr("testString")
+				postCrnTokenOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectService.PostCrnToken(postCrnTokenOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`PostNotification(postNotificationOptions *PostNotificationOptions) - Operation response error`, func() {
 		postNotificationPath := "/v1/projects/testString/event"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -4982,74 +5189,6 @@ var _ = Describe(`ProjectV1`, func() {
 
 				// Verify a nil result
 				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteNotification(deleteNotificationOptions *DeleteNotificationOptions)`, func() {
-		deleteNotificationPath := "/v1/projects/testString/event"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteNotificationPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke DeleteNotification successfully`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := projectService.DeleteNotification(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteNotificationOptions model
-				deleteNotificationOptionsModel := new(projectv1.DeleteNotificationOptions)
-				deleteNotificationOptionsModel.ID = core.StringPtr("testString")
-				deleteNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = projectService.DeleteNotification(deleteNotificationOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteNotification with error: Operation validation and request error`, func() {
-				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(projectService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteNotificationOptions model
-				deleteNotificationOptionsModel := new(projectv1.DeleteNotificationOptions)
-				deleteNotificationOptionsModel.ID = core.StringPtr("testString")
-				deleteNotificationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := projectService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := projectService.DeleteNotification(deleteNotificationOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteNotificationOptions model with no property values
-				deleteNotificationOptionsModelNew := new(projectv1.DeleteNotificationOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = projectService.DeleteNotification(deleteNotificationOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -8006,6 +8145,23 @@ var _ = Describe(`ProjectV1`, func() {
 				URL:           "http://projectv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
+			It(`Invoke NewApproveOptions successfully`, func() {
+				// Construct an instance of the ApproveOptions model
+				id := "testString"
+				configID := "testString"
+				approveOptionsModel := projectService.NewApproveOptions(id, configID)
+				approveOptionsModel.SetID("testString")
+				approveOptionsModel.SetConfigID("testString")
+				approveOptionsModel.SetComment("Approving the changes")
+				approveOptionsModel.SetComplete(false)
+				approveOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(approveOptionsModel).ToNot(BeNil())
+				Expect(approveOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(approveOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
+				Expect(approveOptionsModel.Comment).To(Equal(core.StringPtr("Approving the changes")))
+				Expect(approveOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
+				Expect(approveOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCheckConfigOptions successfully`, func() {
 				// Construct an instance of the CheckConfigOptions model
 				id := "testString"
@@ -8071,26 +8227,6 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(createConfigOptionsModel.NewInput).To(Equal([]projectv1.InputVariableInput{*inputVariableInputModel}))
 				Expect(createConfigOptionsModel.NewSetting).To(Equal([]projectv1.ConfigSettingItems{*configSettingItemsModel}))
 				Expect(createConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewCreateDraftActionOptions successfully`, func() {
-				// Construct an instance of the CreateDraftActionOptions model
-				id := "testString"
-				configID := "testString"
-				action := "merge"
-				createDraftActionOptionsModel := projectService.NewCreateDraftActionOptions(id, configID, action)
-				createDraftActionOptionsModel.SetID("testString")
-				createDraftActionOptionsModel.SetConfigID("testString")
-				createDraftActionOptionsModel.SetAction("merge")
-				createDraftActionOptionsModel.SetComment("Approving the changes")
-				createDraftActionOptionsModel.SetComplete(false)
-				createDraftActionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createDraftActionOptionsModel).ToNot(BeNil())
-				Expect(createDraftActionOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(createDraftActionOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
-				Expect(createDraftActionOptionsModel.Action).To(Equal(core.StringPtr("merge")))
-				Expect(createDraftActionOptionsModel.Comment).To(Equal(core.StringPtr("Approving the changes")))
-				Expect(createDraftActionOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
-				Expect(createDraftActionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
 				// Construct an instance of the InputVariableInput model
@@ -8169,16 +8305,6 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(deleteEventNotificationsIntegrationOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteEventNotificationsIntegrationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteNotificationOptions successfully`, func() {
-				// Construct an instance of the DeleteNotificationOptions model
-				id := "testString"
-				deleteNotificationOptionsModel := projectService.NewDeleteNotificationOptions(id)
-				deleteNotificationOptionsModel.SetID("testString")
-				deleteNotificationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteNotificationOptionsModel).ToNot(BeNil())
-				Expect(deleteNotificationOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewDeleteProjectOptions successfully`, func() {
 				// Construct an instance of the DeleteProjectOptions model
 				id := "testString"
@@ -8213,22 +8339,22 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(deleteServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(false)))
 				Expect(deleteServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewForceMergeOptions successfully`, func() {
-				// Construct an instance of the ForceMergeOptions model
+			It(`Invoke NewForceApproveOptions successfully`, func() {
+				// Construct an instance of the ForceApproveOptions model
 				id := "testString"
 				configID := "testString"
-				forceMergeOptionsModel := projectService.NewForceMergeOptions(id, configID)
-				forceMergeOptionsModel.SetID("testString")
-				forceMergeOptionsModel.SetConfigID("testString")
-				forceMergeOptionsModel.SetComment("Approving the changes")
-				forceMergeOptionsModel.SetComplete(false)
-				forceMergeOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(forceMergeOptionsModel).ToNot(BeNil())
-				Expect(forceMergeOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(forceMergeOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
-				Expect(forceMergeOptionsModel.Comment).To(Equal(core.StringPtr("Approving the changes")))
-				Expect(forceMergeOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
-				Expect(forceMergeOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				forceApproveOptionsModel := projectService.NewForceApproveOptions(id, configID)
+				forceApproveOptionsModel.SetID("testString")
+				forceApproveOptionsModel.SetConfigID("testString")
+				forceApproveOptionsModel.SetComment("Approving the changes")
+				forceApproveOptionsModel.SetComplete(false)
+				forceApproveOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(forceApproveOptionsModel).ToNot(BeNil())
+				Expect(forceApproveOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(forceApproveOptionsModel.ConfigID).To(Equal(core.StringPtr("testString")))
+				Expect(forceApproveOptionsModel.Comment).To(Equal(core.StringPtr("Approving the changes")))
+				Expect(forceApproveOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
+				Expect(forceApproveOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCatalogOptions successfully`, func() {
 				// Construct an instance of the GetCatalogOptions model
@@ -8436,6 +8562,16 @@ var _ = Describe(`ProjectV1`, func() {
 				_model, err := projectService.NewNotificationEvent(event, target)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewPostCrnTokenOptions successfully`, func() {
+				// Construct an instance of the PostCrnTokenOptions model
+				id := "testString"
+				postCrnTokenOptionsModel := projectService.NewPostCrnTokenOptions(id)
+				postCrnTokenOptionsModel.SetID("testString")
+				postCrnTokenOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(postCrnTokenOptionsModel).ToNot(BeNil())
+				Expect(postCrnTokenOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(postCrnTokenOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPostEventNotificationsIntegrationOptions successfully`, func() {
 				// Construct an instance of the PostEventNotificationsIntegrationOptions model
