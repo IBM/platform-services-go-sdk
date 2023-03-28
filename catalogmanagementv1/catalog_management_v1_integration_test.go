@@ -236,13 +236,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
-				ID:                   &catalogIDLink,
-				Rev:                  &catalogRevLink,
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
 				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: make(map[string]string),
 				CatalogIconURL:       core.StringPtr("testString"),
+				CatalogBannerURL:     core.StringPtr("testString"),
 				Tags:                 []string{"testString"},
 				Features:             []catalogmanagementv1.Feature{*featureModel},
 				Disabled:             core.BoolPtr(true),
@@ -354,6 +353,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: make(map[string]string),
 				CatalogIconURL:       core.StringPtr("testString"),
+				CatalogBannerURL:     core.StringPtr("testString"),
 				Tags:                 []string{"testString"},
 				Features:             []catalogmanagementv1.Feature{*featureModel},
 				Disabled:             core.BoolPtr(true),
@@ -507,7 +507,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				APIURL:       core.StringPtr("testString"),
 				Caption:      core.StringPtr("testString"),
 				CaptionI18n:  make(map[string]string),
-				Type:         core.StringPtr("testString"),
+				Type:         core.StringPtr("image/svg+xml"),
 				ThumbnailURL: core.StringPtr("testString"),
 			}
 
@@ -537,7 +537,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			costBreakdownModel := &catalogmanagementv1.CostBreakdown{
 				TotalHourlyCost:  core.StringPtr("testString"),
-				TotalMonthlyCOst: core.StringPtr("testString"),
+				TotalMonthlyCost: core.StringPtr("testString"),
 				Resources:        []catalogmanagementv1.CostResource{*costResourceModel},
 			}
 
@@ -574,7 +574,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				TimeGenerated:        CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
-			dependencyModel := &catalogmanagementv1.Dependency{
+			dependencyModel := &catalogmanagementv1.OfferingReference{
 				CatalogID: core.StringPtr("testString"),
 				ID:        core.StringPtr("testString"),
 				Name:      core.StringPtr("testString"),
@@ -586,7 +586,36 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ArchitectureDiagrams: []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel},
 				Features:             []catalogmanagementv1.Feature{*featureModel},
 				CostEstimate:         costEstimateModel,
-				Dependencies:         []catalogmanagementv1.Dependency{*dependencyModel},
+				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
+			}
+
+			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
+				Type: core.StringPtr("testString"),
+			}
+
+			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+				ID:          core.StringPtr("testString"),
+				ExternalID:  core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			goalModel := &catalogmanagementv1.Goal{
+				ID:          core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
+				Certified: core.BoolPtr(true),
+				Results:   make(map[string]interface{}),
+			}
+
+			complianceModel := &catalogmanagementv1.ComplianceControl{
+				SccProfile: complianceControlSCCProfileModel,
+				Family:     complianceControlFamilyModel,
+				Goals:      []catalogmanagementv1.Goal{*goalModel},
+				Validation: complianceControlValidationModel,
 			}
 
 			versionModel := &catalogmanagementv1.Version{
@@ -626,6 +655,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				DeprecatePending:    deprecatePendingModel,
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
+				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
 			}
 
 			deploymentModel := &catalogmanagementv1.Deployment{
@@ -738,8 +768,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
 				CatalogIdentifier:             &catalogIDLink,
-				ID:                            &offeringIDLink,
-				Rev:                           &offeringRevLink,
 				URL:                           core.StringPtr("testString"),
 				CRN:                           core.StringPtr("testString"),
 				Label:                         core.StringPtr("testString"),
@@ -1111,7 +1139,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				APIURL:       core.StringPtr("testString"),
 				Caption:      core.StringPtr("testString"),
 				CaptionI18n:  make(map[string]string),
-				Type:         core.StringPtr("testString"),
+				Type:         core.StringPtr("image/svg+xml"),
 				ThumbnailURL: core.StringPtr("testString"),
 			}
 
@@ -1141,7 +1169,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			costBreakdownModel := &catalogmanagementv1.CostBreakdown{
 				TotalHourlyCost:  core.StringPtr("testString"),
-				TotalMonthlyCOst: core.StringPtr("testString"),
+				TotalMonthlyCost: core.StringPtr("testString"),
 				Resources:        []catalogmanagementv1.CostResource{*costResourceModel},
 			}
 
@@ -1178,7 +1206,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				TimeGenerated:        CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
-			dependencyModel := &catalogmanagementv1.Dependency{
+			dependencyModel := &catalogmanagementv1.OfferingReference{
 				CatalogID: core.StringPtr("testString"),
 				ID:        core.StringPtr("testString"),
 				Name:      core.StringPtr("testString"),
@@ -1190,7 +1218,36 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ArchitectureDiagrams: []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel},
 				Features:             []catalogmanagementv1.Feature{*featureModel},
 				CostEstimate:         costEstimateModel,
-				Dependencies:         []catalogmanagementv1.Dependency{*dependencyModel},
+				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
+			}
+
+			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
+				Type: core.StringPtr("testString"),
+			}
+
+			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+				ID:          core.StringPtr("testString"),
+				ExternalID:  core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			goalModel := &catalogmanagementv1.Goal{
+				ID:          core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
+				Certified: core.BoolPtr(true),
+				Results:   make(map[string]interface{}),
+			}
+
+			complianceModel := &catalogmanagementv1.ComplianceControl{
+				SccProfile: complianceControlSCCProfileModel,
+				Family:     complianceControlFamilyModel,
+				Goals:      []catalogmanagementv1.Goal{*goalModel},
+				Validation: complianceControlValidationModel,
 			}
 
 			versionModel := &catalogmanagementv1.Version{
@@ -1231,6 +1288,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				DeprecatePending:    deprecatePendingModel,
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
+				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
 			}
 
 			deploymentModel := &catalogmanagementv1.Deployment{
@@ -2301,54 +2359,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`AccountPublishVersion - Publish version to account members`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions)`, func() {
-			Skip("Not testing")
-			accountPublishVersionOptions := &catalogmanagementv1.AccountPublishVersionOptions{
-				VersionLocID: core.StringPtr(versionLocatorLink),
-			}
-
-			response, err := catalogManagementService.AccountPublishVersion(accountPublishVersionOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`IBMPublishVersion - Publish version to IBMers in public catalog`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`IBMPublishVersion(ibmPublishVersionOptions *IBMPublishVersionOptions)`, func() {
-			Skip("Not testing")
-			ibmPublishVersionOptions := &catalogmanagementv1.IBMPublishVersionOptions{
-				VersionLocID: core.StringPtr(versionLocatorLink),
-			}
-
-			response, err := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`PublicPublishVersion - Publish version to all users in public catalog`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions)`, func() {
-			Skip("Not testing")
-			publicPublishVersionOptions := &catalogmanagementv1.PublicPublishVersionOptions{
-				VersionLocID: core.StringPtr(versionLocatorLink),
-			}
-
-			response, err := catalogManagementService.PublicPublishVersion(publicPublishVersionOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
 	Describe(`GetCluster - Get kubernetes cluster`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -3060,8 +3070,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
-				ID:                   &catalogIDLink,
-				Rev:                  &catalogRevLink,
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
 				ShortDescription:     core.StringPtr("testString"),
@@ -3112,9 +3120,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
 				CatalogIdentifier:    &catalogIDLink,
-				ID:                   &objectIDLink,
 				Name:                 core.StringPtr("testString"),
-				Rev:                  &objectRevLink,
 				CRN:                  core.StringPtr("testString"),
 				URL:                  core.StringPtr("testString"),
 				ParentID:             core.StringPtr("us-south"),
@@ -3389,23 +3395,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateObjectAccess - Add account ID to object access list`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateObjectAccess(createObjectAccessOptions *CreateObjectAccessOptions)`, func() {
-			createObjectAccessOptions := &catalogmanagementv1.CreateObjectAccessOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-				AccessIdentifier:  core.StringPtr(accountID),
-			}
-
-			response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-		})
-	})
-
 	Describe(`GetObjectAccessList - Get object access list`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -3530,74 +3519,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`AccountPublishObject - Publish object to account`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`AccountPublishObject(accountPublishObjectOptions *AccountPublishObjectOptions)`, func() {
-			Skip("Not testing")
-			accountPublishObjectOptions := &catalogmanagementv1.AccountPublishObjectOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-			}
-
-			response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`SharedPublishObject - Publish object to share with allow list`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`SharedPublishObject(sharedPublishObjectOptions *SharedPublishObjectOptions)`, func() {
-			Skip("Not testing")
-			sharedPublishObjectOptions := &catalogmanagementv1.SharedPublishObjectOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-			}
-
-			response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`IBMPublishObject - Publish object to share with IBMers`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`IBMPublishObject(ibmPublishObjectOptions *IBMPublishObjectOptions)`, func() {
-			Skip("Not testing")
-			ibmPublishObjectOptions := &catalogmanagementv1.IBMPublishObjectOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-			}
-
-			response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
-	Describe(`PublicPublishObject - Publish object to share with all users`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`PublicPublishObject(publicPublishObjectOptions *PublicPublishObjectOptions)`, func() {
-			Skip("Not testing")
-			publicPublishObjectOptions := &catalogmanagementv1.PublicPublishObjectOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-			}
-
-			response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-	})
-
 	Describe(`DeleteObjectAccessList - Delete accesses from object access list`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -3613,23 +3534,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accessListBulkResponse).ToNot(BeNil())
-		})
-	})
-
-	Describe(`DeleteObjectAccess - Remove account ID from object access list`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteObjectAccess(deleteObjectAccessOptions *DeleteObjectAccessOptions)`, func() {
-			deleteObjectAccessOptions := &catalogmanagementv1.DeleteObjectAccessOptions{
-				CatalogIdentifier: &catalogIDLink,
-				ObjectIdentifier:  &objectIDLink,
-				AccessIdentifier:  core.StringPtr(accountID),
-			}
-
-			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 
