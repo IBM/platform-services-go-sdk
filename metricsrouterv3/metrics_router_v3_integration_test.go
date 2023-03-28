@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		metricsrouterServiceNotAuthorized *metricsrouterv3.MetricsRouterV3
 		serviceURL                        string
 		config                            map[string]string
-		refreshTokenNotAuthorized         string
 
 		// Variables to hold link values
 		routeIDLink  string
@@ -104,11 +103,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			Expect(metricsrouterServiceNotAuthorized).ToNot(BeNil())
 			Expect(metricsrouterServiceNotAuthorized.Service.Options.URL).To(Equal(serviceURL))
 
-			tokenNotAuthorized, err := metricsrouterServiceNotAuthorized.Service.Options.Authenticator.(*core.IamAuthenticator).RequestToken()
-			Expect(err).To(BeNil())
-			refreshTokenNotAuthorized = tokenNotAuthorized.RefreshToken
-			Expect(refreshTokenNotAuthorized).ToNot(BeNil())
-
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			metricsRouterService.EnableRetries(4, 30*time.Second)
 		})
@@ -118,7 +112,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
 			createTargetOptions := &metricsrouterv3.CreateTargetOptions{
 				Name:           core.StringPtr("my-mr-target"),
@@ -153,17 +146,23 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    core.StringPtr("teststring"),
+				Values:   []string{"us-south"},
 			}
+
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
+
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
@@ -178,15 +177,19 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
 		})
 
-		It(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+		It(`CreateRoute(createRouteOptions *CreateRouteOptions) with in operator`, func() {
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("in"),
-				Value:    []string{"us-south", "us-east"},
+				Values:   []string{"us-south", "us-east"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route-with-in"),
@@ -203,14 +206,18 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`CreateRoute fails when multiple values used with 'is' filter operator`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"us-south", "us-east"},
+				Values:   []string{"us-south", "us-east"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route-with-multiple-value-is-operator"),
@@ -223,36 +230,19 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 			Expect(route).To(BeNil())
 		})
 
-		It(`CreateRoute fails when string type passed to filter value with 'in' filter operator`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
-				Operand:  core.StringPtr("location"),
-				Operator: core.StringPtr("in"),
-				Value:    core.StringPtr("teststring"),
-			}
-			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
-			}
-			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
-				Name:  core.StringPtr("my-route-with-string-value-in-operator"),
-				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
-			}
-
-			route, response, err := metricsRouterService.CreateRoute(createRouteOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(response.StatusCode).To(Equal(400))
-			Expect(route).To(BeNil())
-		})
-
 		It(`CreateRoute fails when filter value length greater than limit`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("in"),
-				Value:    []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v"},
+				Values:   []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route-with-filter-length-more-than-limit"),
@@ -266,14 +256,18 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`CreateRoute fails when filter value length equal to zero`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("in"),
-				Value:    []string{""},
+				Values:   []string{""},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route-with-zero-length-value"),
@@ -287,53 +281,56 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`CreateRoute fails when filter length exceeded the limit`, func() {
-
-			inclusionFilterModelArray := []metricsrouterv3.InclusionFilter{
-				metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := []metricsrouterv3.InclusionFilterPrototype{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"us-south"},
+					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"us-east"},
+					Values:   []string{"us-east"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"au-syd"},
+					Values:   []string{"au-syd"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"eu-de"},
+					Values:   []string{"eu-de"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"eu-gb"},
+					Values:   []string{"eu-gb"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"us-south"},
+					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"us-south"},
+					Values:   []string{"us-south"},
 				},
-				metricsrouterv3.InclusionFilter{
+				metricsrouterv3.InclusionFilterPrototype{
 					Operand:  core.StringPtr("location"),
 					Operator: core.StringPtr("in"),
-					Value:    []string{"us-south"},
+					Values:   []string{"us-south"},
 				},
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: inclusionFilterModelArray,
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: inclusionFilterPrototypeModel,
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
 				Name:  core.StringPtr("my-route-with-more-filter-length"),
@@ -347,17 +344,21 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    core.StringPtr("teststring"),
+				Values:   []string{"us-south"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
-				Name:  core.StringPtr("my-route"),
+				Name:  core.StringPtr("my-unauthorized-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
 
@@ -368,17 +369,21 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`Returns 400 when input validation fails`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: core.StringPtr(notFoundTargetID),
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    core.StringPtr("teststring"),
+				Values:   []string{"us-south"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{notFoundTargetID},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 			createRouteOptions := &metricsrouterv3.CreateRouteOptions{
-				Name:  core.StringPtr("my-route"),
+				Name:  core.StringPtr("my-wrong-input-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
 
@@ -393,14 +398,13 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
 			listTargetsOptions := &metricsrouterv3.ListTargetsOptions{}
 
-			targetList, response, err := metricsRouterService.ListTargets(listTargetsOptions)
+			targetCollection, response, err := metricsRouterService.ListTargets(listTargetsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(targetList).ToNot(BeNil())
+			Expect(targetCollection).ToNot(BeNil())
 		})
 
 		It(`Returns 403 when user is not authorized)`, func() {
@@ -418,7 +422,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
 			getTargetOptions := &metricsrouterv3.GetTargetOptions{
 				ID: &targetIDLink,
@@ -431,7 +434,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
-
 			getTargetOptions := &metricsrouterv3.GetTargetOptions{
 				ID: &targetIDLink,
 			}
@@ -455,19 +457,18 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ReplaceTarget - Update a target`, func() {
+	Describe(`UpdateTarget - Update a target`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
-		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions)`, func() {
-			replaceTargetOptions := &metricsrouterv3.ReplaceTargetOptions{
+		It(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
+			updateTargetOptions := &metricsrouterv3.UpdateTargetOptions{
 				ID:             &targetIDLink,
 				Name:           core.StringPtr("my-mr-target"),
 				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
 			}
 
-			target, response, err := metricsRouterService.ReplaceTarget(replaceTargetOptions)
+			target, response, err := metricsRouterService.UpdateTarget(updateTargetOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
@@ -475,52 +476,13 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 
 		It(`Returns 404 when target id is not found`, func() {
 
-			replaceTargetOptions := &metricsrouterv3.ReplaceTargetOptions{
+			updateTargetOptions := &metricsrouterv3.UpdateTargetOptions{
 				ID:             core.StringPtr(notFoundTargetID),
 				Name:           core.StringPtr("my-mr-target"),
 				DestinationCRN: core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"),
 			}
 
-			_, response, err := metricsRouterService.ReplaceTarget(replaceTargetOptions)
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(404))
-		})
-	})
-
-	Describe(`ValidateTarget - Validate a target`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-
-		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions)`, func() {
-			validateTargetOptions := &metricsrouterv3.ValidateTargetOptions{
-				ID: &targetIDLink,
-			}
-
-			target, response, err := metricsRouterService.ValidateTarget(validateTargetOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-
-		It(`Returns 403 when user is not authorized`, func() {
-			validateTargetOptions := &metricsrouterv3.ValidateTargetOptions{
-				ID: &targetIDLink,
-			}
-
-			_, response, err := metricsrouterServiceNotAuthorized.ValidateTarget(validateTargetOptions)
-
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
-		})
-
-		It(`Returns 404 when target id is not found`, func() {
-			validateTargetOptions := &metricsrouterv3.ValidateTargetOptions{
-				ID: core.StringPtr(notFoundTargetID),
-			}
-
-			_, response, err := metricsRouterService.ValidateTarget(validateTargetOptions)
-
+			_, response, err := metricsRouterService.UpdateTarget(updateTargetOptions)
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
 		})
@@ -530,14 +492,13 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`ListRoutes(listRoutesOptions *ListRoutesOptions)`, func() {
 			listRoutesOptions := &metricsrouterv3.ListRoutesOptions{}
 
-			routeList, response, err := metricsRouterService.ListRoutes(listRoutesOptions)
+			routeCollection, response, err := metricsRouterService.ListRoutes(listRoutesOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(routeList).ToNot(BeNil())
+			Expect(routeCollection).ToNot(BeNil())
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
@@ -555,7 +516,6 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`GetRoute(getRouteOptions *GetRouteOptions)`, func() {
 			getRouteOptions := &metricsrouterv3.GetRouteOptions{
 				ID: &routeIDLink,
@@ -590,73 +550,82 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ReplaceRoute - Update a route`, func() {
+	Describe(`UpdateRoute - Update a route`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
-		It(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+		It(`UpdateRoute(updateRouteOptions *UpdateRouteOptions)`, func() {
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    core.StringPtr("teststring"),
+				Values:   []string{"us-south"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
-			replaceRouteOptions := &metricsrouterv3.ReplaceRouteOptions{
+			updateRouteOptions := &metricsrouterv3.UpdateRouteOptions{
 				ID:    &routeIDLink,
 				Name:  core.StringPtr("my-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
-
-			route, response, err := metricsRouterService.ReplaceRoute(replaceRouteOptions)
+			route, response, err := metricsRouterService.UpdateRoute(updateRouteOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"teststring"},
+				Values:   []string{"us-south"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
-			replaceRouteOptions := &metricsrouterv3.ReplaceRouteOptions{
+			updateRouteOptions := &metricsrouterv3.UpdateRouteOptions{
 				ID:    &routeIDLink,
 				Name:  core.StringPtr("my-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
 
-			_, response, err := metricsrouterServiceNotAuthorized.ReplaceRoute(replaceRouteOptions)
+			_, response, err := metricsrouterServiceNotAuthorized.UpdateRoute(updateRouteOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
 		})
 
 		It(`Returns 404 when route id is not found`, func() {
-
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
 				Operand:  core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"teststring"},
+				Values:   []string{"us-south"},
 			}
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{targetIDLink},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Action:           core.StringPtr("send"),
+				Targets:          []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
-			replaceRouteOptions := &metricsrouterv3.ReplaceRouteOptions{
+			updateRouteOptions := &metricsrouterv3.UpdateRouteOptions{
 				ID:    core.StringPtr(notFoundRouteID),
 				Name:  core.StringPtr("my-route"),
 				Rules: []metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			}
 
-			_, response, err := metricsRouterService.ReplaceRoute(replaceRouteOptions)
+			_, response, err := metricsRouterService.UpdateRoute(updateRouteOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
@@ -667,18 +636,16 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
 		It(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
 			getSettingsOptions := &metricsrouterv3.GetSettingsOptions{}
 
-			settings, response, err := metricsRouterService.GetSettings(getSettingsOptions)
+			setting, response, err := metricsRouterService.GetSettings(getSettingsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(settings).ToNot(BeNil())
+			Expect(setting).ToNot(BeNil())
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
-
 			getSettingsOptions := &metricsrouterv3.GetSettingsOptions{}
 
 			_, response, err := metricsrouterServiceNotAuthorized.GetSettings(getSettingsOptions)
@@ -688,23 +655,27 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ReplaceSettings - Modify settings`, func() {
+	Describe(`UpdateSettings - Modify settings`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-
-		It(`ReplaceSettings(replaceSettingsOptions *ReplaceSettingsOptions)`, func() {
-			replaceSettingsOptions := &metricsrouterv3.ReplaceSettingsOptions{
-				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				PrivateAPIEndpointOnly: core.BoolPtr(false),
-				DefaultTargets:         []string{targetIDLink},
-				PermittedTargetRegions: []string{"us-south"},
+		It(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
 			}
 
-			settings, response, err := metricsRouterService.ReplaceSettings(replaceSettingsOptions)
+			updateSettingsOptions := &metricsrouterv3.UpdateSettingsOptions{
+				DefaultTargets:         []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				PermittedTargetRegions: []string{"us-south"},
+				PrimaryMetadataRegion:  core.StringPtr("us-south"),
+				BackupMetadataRegion:   core.StringPtr("us-east"),
+				PrivateAPIEndpointOnly: core.BoolPtr(false),
+			}
+
+			setting, response, err := metricsRouterService.UpdateSettings(updateSettingsOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(settings).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(setting).ToNot(BeNil())
 		})
 
 		It(`DeleteTarget will fail when target is a default target added in settings`, func() {
@@ -712,40 +683,46 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				ID: &targetIDLink,
 			}
 
-			warningReport, response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
+			response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(warningReport).To(BeNil())
-		})
-
-		It(`Removing default targets`, func() {
-			replaceSettingsOptions := &metricsrouterv3.ReplaceSettingsOptions{
-				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				PrivateAPIEndpointOnly: core.BoolPtr(false),
-				DefaultTargets:         []string{},
-				PermittedTargetRegions: []string{"us-south"},
-			}
-
-			settings, response, err := metricsRouterService.ReplaceSettings(replaceSettingsOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(settings).ToNot(BeNil())
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
-			replaceSettingsOptions := &metricsrouterv3.ReplaceSettingsOptions{
-				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				PrivateAPIEndpointOnly: core.BoolPtr(false),
-				DefaultTargets:         []string{},
-				PermittedTargetRegions: []string{"us-south"},
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
 			}
 
-			_, response, err := metricsrouterServiceNotAuthorized.ReplaceSettings(replaceSettingsOptions)
+			updateSettingsOptions := &metricsrouterv3.UpdateSettingsOptions{
+				DefaultTargets:         []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				PermittedTargetRegions: []string{"us-south"},
+				PrimaryMetadataRegion:  core.StringPtr("us-south"),
+				BackupMetadataRegion:   core.StringPtr("us-east"),
+				PrivateAPIEndpointOnly: core.BoolPtr(false),
+			}
+
+			_, response, err := metricsrouterServiceNotAuthorized.UpdateSettings(updateSettingsOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
 		})
+
+		It(`Removing default targets`, func() {
+			updateSettingsOptions := &metricsrouterv3.UpdateSettingsOptions{
+				DefaultTargets:         []metricsrouterv3.TargetIdentity{},
+				PermittedTargetRegions: []string{"us-south"},
+				PrimaryMetadataRegion:  core.StringPtr("us-south"),
+				BackupMetadataRegion:   core.StringPtr("us-east"),
+				PrivateAPIEndpointOnly: core.BoolPtr(false),
+			}
+
+			setting, response, err := metricsRouterService.UpdateSettings(updateSettingsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(setting).ToNot(BeNil())
+		})
+
 	})
 
 	Describe(`DeleteRoute - Delete a route`, func() {
@@ -806,7 +783,7 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				ID: &targetIDLink,
 			}
 
-			_, response, err := metricsrouterServiceNotAuthorized.DeleteTarget(deleteTargetOptions)
+			response, err := metricsrouterServiceNotAuthorized.DeleteTarget(deleteTargetOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
@@ -818,7 +795,7 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				ID: core.StringPtr(notFoundTargetID),
 			}
 
-			_, response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
+			response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
@@ -829,10 +806,9 @@ var _ = Describe(`MetricsRouterV3 Integration Tests`, func() {
 				ID: &targetIDLink,
 			}
 
-			warningReport, response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
+			response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-			Expect(warningReport).To(BeNil())
 		})
 	})
 })

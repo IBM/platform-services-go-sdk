@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,48 +154,44 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		It(`GetServiceURLForRegion(region string)`, func() {
 			var url string
 			var err error
-			url, err = metricsrouterv3.GetServiceURLForRegion("au-syd.dev")
-			Expect(url).To(Equal("https://au-syd.metrics-router.dev.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("us-south")
-			Expect(url).To(Equal("https://us-south.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.us-south")
-			Expect(url).To(Equal("https://private.us-south.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("us-east")
-			Expect(url).To(Equal("https://us-east.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.us-east")
-			Expect(url).To(Equal("https://private.us-east.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("eu-de")
-			Expect(url).To(Equal("https://eu-de.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-de")
-			Expect(url).To(Equal("https://private.eu-de.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
-			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
-			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
 			url, err = metricsrouterv3.GetServiceURLForRegion("au-syd")
-			Expect(url).To(Equal("https://au-syd.metrics-router.cloud.ibm.com"))
+			Expect(url).To(Equal("https://au-syd.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("private.au-syd")
-			Expect(url).To(Equal("https://private.au-syd.metrics-router.cloud.ibm.com"))
+			Expect(url).To(Equal("https://private.au-syd.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-de")
+			Expect(url).To(Equal("https://eu-de.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-de")
+			Expect(url).To(Equal("https://private.eu-de.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-gb")
+			Expect(url).To(Equal("https://eu-gb.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-gb")
+			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("us-east")
+			Expect(url).To(Equal("https://us-east.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.us-east")
+			Expect(url).To(Equal("https://private.us-east.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("us-south")
+			Expect(url).To(Equal("https://us-south.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.us-south")
+			Expect(url).To(Equal("https://private.us-south.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("INVALID_REGION")
@@ -205,7 +201,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions) - Operation response error`, func() {
-		createTargetPath := "/api/v3/targets"
+		createTargetPath := "/targets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -252,7 +248,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
-		createTargetPath := "/api/v3/targets"
+		createTargetPath := "/targets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -284,7 +280,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -356,7 +352,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -459,7 +455,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions) - Operation response error`, func() {
-		listTargetsPath := "/api/v3/targets"
+		listTargetsPath := "/targets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -503,7 +499,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
-		listTargetsPath := "/api/v3/targets"
+		listTargetsPath := "/targets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -519,7 +515,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -572,7 +568,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -659,7 +655,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetTarget(getTargetOptions *GetTargetOptions) - Operation response error`, func() {
-		getTargetPath := "/api/v3/targets/testString"
+		getTargetPath := "/targets/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -704,7 +700,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
-		getTargetPath := "/api/v3/targets/testString"
+		getTargetPath := "/targets/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -720,7 +716,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -774,7 +770,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -870,22 +866,22 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) - Operation response error`, func() {
-		replaceTargetPath := "/api/v3/targets/testString"
+	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions) - Operation response error`, func() {
+		updateTargetPath := "/targets/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceTargetPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceTarget with error: Operation response processing error`, func() {
+			It(`Invoke UpdateTarget with error: Operation response processing error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -893,21 +889,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceTargetOptions model
-				replaceTargetOptionsModel := new(metricsrouterv3.ReplaceTargetOptions)
-				replaceTargetOptionsModel.ID = core.StringPtr("testString")
-				replaceTargetOptionsModel.Name = core.StringPtr("my-mr-target")
-				replaceTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(metricsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-mr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				metricsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -917,16 +913,16 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions)`, func() {
-		replaceTargetPath := "/api/v3/targets/testString"
+	Describe(`UpdateTarget(updateTargetOptions *UpdateTargetOptions)`, func() {
+		updateTargetPath := "/targets/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceTargetPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -950,10 +946,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
-			It(`Invoke ReplaceTarget successfully with retries`, func() {
+			It(`Invoke UpdateTarget successfully with retries`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -962,23 +958,23 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 				metricsRouterService.EnableRetries(0, 0)
 
-				// Construct an instance of the ReplaceTargetOptions model
-				replaceTargetOptionsModel := new(metricsrouterv3.ReplaceTargetOptions)
-				replaceTargetOptionsModel.ID = core.StringPtr("testString")
-				replaceTargetOptionsModel.Name = core.StringPtr("my-mr-target")
-				replaceTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(metricsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-mr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := metricsRouterService.ReplaceTargetWithContext(ctx, replaceTargetOptionsModel)
+				_, _, operationErr := metricsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				metricsRouterService.DisableRetries()
-				result, response, operationErr := metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -986,7 +982,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = metricsRouterService.ReplaceTargetWithContext(ctx, replaceTargetOptionsModel)
+				_, _, operationErr = metricsRouterService.UpdateTargetWithContext(ctx, updateTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1000,8 +996,8 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceTargetPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateTargetPath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -1022,10 +1018,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
-			It(`Invoke ReplaceTarget successfully`, func() {
+			It(`Invoke UpdateTarget successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1034,26 +1030,26 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := metricsRouterService.ReplaceTarget(nil)
+				result, response, operationErr := metricsRouterService.UpdateTarget(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ReplaceTargetOptions model
-				replaceTargetOptionsModel := new(metricsrouterv3.ReplaceTargetOptions)
-				replaceTargetOptionsModel.ID = core.StringPtr("testString")
-				replaceTargetOptionsModel.Name = core.StringPtr("my-mr-target")
-				replaceTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(metricsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-mr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ReplaceTarget with error: Operation validation and request error`, func() {
+			It(`Invoke UpdateTarget with error: Operation validation and request error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1061,24 +1057,24 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceTargetOptions model
-				replaceTargetOptionsModel := new(metricsrouterv3.ReplaceTargetOptions)
-				replaceTargetOptionsModel.ID = core.StringPtr("testString")
-				replaceTargetOptionsModel.Name = core.StringPtr("my-mr-target")
-				replaceTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(metricsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-mr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceTargetOptions model with no property values
-				replaceTargetOptionsModelNew := new(metricsrouterv3.ReplaceTargetOptions)
+				// Construct a second instance of the UpdateTargetOptions model with no property values
+				updateTargetOptionsModelNew := new(metricsrouterv3.UpdateTargetOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = metricsRouterService.ReplaceTarget(replaceTargetOptionsModelNew)
+				result, response, operationErr = metricsRouterService.UpdateTarget(updateTargetOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1096,7 +1092,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ReplaceTarget successfully`, func() {
+			It(`Invoke UpdateTarget successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1104,15 +1100,15 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceTargetOptions model
-				replaceTargetOptionsModel := new(metricsrouterv3.ReplaceTargetOptions)
-				replaceTargetOptionsModel.ID = core.StringPtr("testString")
-				replaceTargetOptionsModel.Name = core.StringPtr("my-mr-target")
-				replaceTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateTargetOptions model
+				updateTargetOptionsModel := new(metricsrouterv3.UpdateTargetOptions)
+				updateTargetOptionsModel.ID = core.StringPtr("testString")
+				updateTargetOptionsModel.Name = core.StringPtr("my-mr-target")
+				updateTargetOptionsModel.DestinationCRN = core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := metricsRouterService.ReplaceTarget(replaceTargetOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateTarget(updateTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1124,110 +1120,8 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) - Operation response error`, func() {
-		deleteTargetPath := "/api/v3/targets/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
-					Expect(req.Method).To(Equal("DELETE"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke DeleteTarget with error: Operation response processing error`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteTargetOptions model
-				deleteTargetOptionsModel := new(metricsrouterv3.DeleteTargetOptions)
-				deleteTargetOptionsModel.ID = core.StringPtr("testString")
-				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				metricsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-		deleteTargetPath := "/api/v3/targets/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
-				}))
-			})
-			It(`Invoke DeleteTarget successfully with retries`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-				metricsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the DeleteTargetOptions model
-				deleteTargetOptionsModel := new(metricsrouterv3.DeleteTargetOptions)
-				deleteTargetOptionsModel.ID = core.StringPtr("testString")
-				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := metricsRouterService.DeleteTargetWithContext(ctx, deleteTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				metricsRouterService.DisableRetries()
-				result, response, operationErr := metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = metricsRouterService.DeleteTargetWithContext(ctx, deleteTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
+		deleteTargetPath := "/targets/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1237,10 +1131,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully`, func() {
@@ -1252,10 +1143,9 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := metricsRouterService.DeleteTarget(nil)
+				response, operationErr := metricsRouterService.DeleteTarget(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteTargetOptions model
 				deleteTargetOptionsModel := new(metricsrouterv3.DeleteTargetOptions)
@@ -1263,11 +1153,9 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
+				response, operationErr = metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
 			})
 			It(`Invoke DeleteTarget with error: Operation validation and request error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
@@ -1284,264 +1172,16 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
+				response, operationErr := metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteTargetOptions model with no property values
 				deleteTargetOptionsModelNew := new(metricsrouterv3.DeleteTargetOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = metricsRouterService.DeleteTarget(deleteTargetOptionsModelNew)
+				response, operationErr = metricsRouterService.DeleteTarget(deleteTargetOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke DeleteTarget successfully`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteTargetOptions model
-				deleteTargetOptionsModel := new(metricsrouterv3.DeleteTargetOptions)
-				deleteTargetOptionsModel.ID = core.StringPtr("testString")
-				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := metricsRouterService.DeleteTarget(deleteTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) - Operation response error`, func() {
-		validateTargetPath := "/api/v3/targets/testString/validate"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ValidateTarget with error: Operation response processing error`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ValidateTargetOptions model
-				validateTargetOptionsModel := new(metricsrouterv3.ValidateTargetOptions)
-				validateTargetOptionsModel.ID = core.StringPtr("testString")
-				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				metricsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ValidateTarget(validateTargetOptions *ValidateTargetOptions)`, func() {
-		validateTargetPath := "/api/v3/targets/testString/validate"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
-				}))
-			})
-			It(`Invoke ValidateTarget successfully with retries`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-				metricsRouterService.EnableRetries(0, 0)
-
-				// Construct an instance of the ValidateTargetOptions model
-				validateTargetOptionsModel := new(metricsrouterv3.ValidateTargetOptions)
-				validateTargetOptionsModel.ID = core.StringPtr("testString")
-				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := metricsRouterService.ValidateTargetWithContext(ctx, validateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				metricsRouterService.DisableRetries()
-				result, response, operationErr := metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = metricsRouterService.ValidateTargetWithContext(ctx, validateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-mr-target-us-south", "crn": "crn:v1:bluemix:public:metrics-router:us-south:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "destination_crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "target_type": "sysdig_monitor", "region": "us-south", "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3}`)
-				}))
-			})
-			It(`Invoke ValidateTarget successfully`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := metricsRouterService.ValidateTarget(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ValidateTargetOptions model
-				validateTargetOptionsModel := new(metricsrouterv3.ValidateTargetOptions)
-				validateTargetOptionsModel.ID = core.StringPtr("testString")
-				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ValidateTarget with error: Operation validation and request error`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ValidateTargetOptions model
-				validateTargetOptionsModel := new(metricsrouterv3.ValidateTargetOptions)
-				validateTargetOptionsModel.ID = core.StringPtr("testString")
-				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := metricsRouterService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ValidateTargetOptions model with no property values
-				validateTargetOptionsModelNew := new(metricsrouterv3.ValidateTargetOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = metricsRouterService.ValidateTarget(validateTargetOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ValidateTarget successfully`, func() {
-				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(metricsRouterService).ToNot(BeNil())
-
-				// Construct an instance of the ValidateTargetOptions model
-				validateTargetOptionsModel := new(metricsrouterv3.ValidateTargetOptions)
-				validateTargetOptionsModel.ID = core.StringPtr("testString")
-				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := metricsRouterService.ValidateTarget(validateTargetOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1549,7 +1189,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`CreateRoute(createRouteOptions *CreateRouteOptions) - Operation response error`, func() {
-		createRoutePath := "/api/v3/routes"
+		createRoutePath := "/routes"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1571,16 +1211,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
@@ -1606,7 +1251,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
-		createRoutePath := "/api/v3/routes"
+		createRoutePath := "/routes"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1638,7 +1283,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully with retries`, func() {
@@ -1650,16 +1295,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 				metricsRouterService.EnableRetries(0, 0)
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
@@ -1720,7 +1370,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully`, func() {
@@ -1737,16 +1387,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
@@ -1769,16 +1424,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
@@ -1822,16 +1482,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsModel := new(metricsrouterv3.CreateRouteOptions)
@@ -1853,7 +1518,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`ListRoutes(listRoutesOptions *ListRoutesOptions) - Operation response error`, func() {
-		listRoutesPath := "/api/v3/routes"
+		listRoutesPath := "/routes"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1897,7 +1562,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`ListRoutes(listRoutesOptions *ListRoutesOptions)`, func() {
-		listRoutesPath := "/api/v3/routes"
+		listRoutesPath := "/routes"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1913,7 +1578,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully with retries`, func() {
@@ -1966,7 +1631,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully`, func() {
@@ -2053,7 +1718,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetRoute(getRouteOptions *GetRouteOptions) - Operation response error`, func() {
-		getRoutePath := "/api/v3/routes/testString"
+		getRoutePath := "/routes/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2098,7 +1763,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetRoute(getRouteOptions *GetRouteOptions)`, func() {
-		getRoutePath := "/api/v3/routes/testString"
+		getRoutePath := "/routes/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2114,7 +1779,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully with retries`, func() {
@@ -2168,7 +1833,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully`, func() {
@@ -2264,22 +1929,22 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions) - Operation response error`, func() {
-		replaceRoutePath := "/api/v3/routes/testString"
+	Describe(`UpdateRoute(updateRouteOptions *UpdateRouteOptions) - Operation response error`, func() {
+		updateRoutePath := "/routes/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceRoutePath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoutePath))
+					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceRoute with error: Operation response processing error`, func() {
+			It(`Invoke UpdateRoute with error: Operation response processing error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2287,32 +1952,37 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"testString"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
-				// Construct an instance of the ReplaceRouteOptions model
-				replaceRouteOptionsModel := new(metricsrouterv3.ReplaceRouteOptions)
-				replaceRouteOptionsModel.ID = core.StringPtr("testString")
-				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
-				replaceRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
-				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateRouteOptions model
+				updateRouteOptionsModel := new(metricsrouterv3.UpdateRouteOptions)
+				updateRouteOptionsModel.ID = core.StringPtr("testString")
+				updateRouteOptionsModel.Name = core.StringPtr("my-route")
+				updateRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				updateRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				metricsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2322,16 +1992,16 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
-		replaceRoutePath := "/api/v3/routes/testString"
+	Describe(`UpdateRoute(updateRouteOptions *UpdateRouteOptions)`, func() {
+		updateRoutePath := "/routes/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceRoutePath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoutePath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -2355,10 +2025,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
-			It(`Invoke ReplaceRoute successfully with retries`, func() {
+			It(`Invoke UpdateRoute successfully with retries`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2367,34 +2037,39 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 				metricsRouterService.EnableRetries(0, 0)
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
-				// Construct an instance of the ReplaceRouteOptions model
-				replaceRouteOptionsModel := new(metricsrouterv3.ReplaceRouteOptions)
-				replaceRouteOptionsModel.ID = core.StringPtr("testString")
-				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
-				replaceRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
-				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateRouteOptions model
+				updateRouteOptionsModel := new(metricsrouterv3.UpdateRouteOptions)
+				updateRouteOptionsModel.ID = core.StringPtr("testString")
+				updateRouteOptionsModel.Name = core.StringPtr("my-route")
+				updateRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				updateRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := metricsRouterService.ReplaceRouteWithContext(ctx, replaceRouteOptionsModel)
+				_, _, operationErr := metricsRouterService.UpdateRouteWithContext(ctx, updateRouteOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				metricsRouterService.DisableRetries()
-				result, response, operationErr := metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2402,7 +2077,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = metricsRouterService.ReplaceRouteWithContext(ctx, replaceRouteOptionsModel)
+				_, _, operationErr = metricsRouterService.UpdateRouteWithContext(ctx, updateRouteOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2416,8 +2091,8 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceRoutePath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateRoutePath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -2438,10 +2113,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "inclusion_filters": [{"operand": "location", "operator": "is", "value": ["Value"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 3, "message": "Route was created successfully."}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:metrics-router:global:a/0be5ad401ae913d8ff665d92680664ed:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "rules": [{"action": "send", "targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "inclusion_filters": [{"operand": "location", "operator": "is", "values": ["us-south"]}]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
-			It(`Invoke ReplaceRoute successfully`, func() {
+			It(`Invoke UpdateRoute successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2450,37 +2125,42 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := metricsRouterService.ReplaceRoute(nil)
+				result, response, operationErr := metricsRouterService.UpdateRoute(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
-				// Construct an instance of the ReplaceRouteOptions model
-				replaceRouteOptionsModel := new(metricsrouterv3.ReplaceRouteOptions)
-				replaceRouteOptionsModel.ID = core.StringPtr("testString")
-				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
-				replaceRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
-				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateRouteOptions model
+				updateRouteOptionsModel := new(metricsrouterv3.UpdateRouteOptions)
+				updateRouteOptionsModel.ID = core.StringPtr("testString")
+				updateRouteOptionsModel.Name = core.StringPtr("my-route")
+				updateRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				updateRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ReplaceRoute with error: Operation validation and request error`, func() {
+			It(`Invoke UpdateRoute with error: Operation validation and request error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2488,35 +2168,40 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
-				// Construct an instance of the ReplaceRouteOptions model
-				replaceRouteOptionsModel := new(metricsrouterv3.ReplaceRouteOptions)
-				replaceRouteOptionsModel.ID = core.StringPtr("testString")
-				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
-				replaceRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
-				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateRouteOptions model
+				updateRouteOptionsModel := new(metricsrouterv3.UpdateRouteOptions)
+				updateRouteOptionsModel.ID = core.StringPtr("testString")
+				updateRouteOptionsModel.Name = core.StringPtr("my-route")
+				updateRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				updateRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceRouteOptions model with no property values
-				replaceRouteOptionsModelNew := new(metricsrouterv3.ReplaceRouteOptions)
+				// Construct a second instance of the UpdateRouteOptions model with no property values
+				updateRouteOptionsModelNew := new(metricsrouterv3.UpdateRouteOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = metricsRouterService.ReplaceRoute(replaceRouteOptionsModelNew)
+				result, response, operationErr = metricsRouterService.UpdateRoute(updateRouteOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2534,7 +2219,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ReplaceRoute successfully`, func() {
+			It(`Invoke UpdateRoute successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2542,26 +2227,31 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
 
-				// Construct an instance of the ReplaceRouteOptions model
-				replaceRouteOptionsModel := new(metricsrouterv3.ReplaceRouteOptions)
-				replaceRouteOptionsModel.ID = core.StringPtr("testString")
-				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
-				replaceRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
-				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateRouteOptions model
+				updateRouteOptionsModel := new(metricsrouterv3.UpdateRouteOptions)
+				updateRouteOptionsModel.ID = core.StringPtr("testString")
+				updateRouteOptionsModel.Name = core.StringPtr("my-route")
+				updateRouteOptionsModel.Rules = []metricsrouterv3.RulePrototype{*rulePrototypeModel}
+				updateRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := metricsRouterService.ReplaceRoute(replaceRouteOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateRoute(updateRouteOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -2574,7 +2264,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`DeleteRoute(deleteRouteOptions *DeleteRouteOptions)`, func() {
-		deleteRoutePath := "/api/v3/routes/testString"
+		deleteRoutePath := "/routes/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2642,7 +2332,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions) - Operation response error`, func() {
-		getSettingsPath := "/api/v3/settings"
+		getSettingsPath := "/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2686,7 +2376,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 		})
 	})
 	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
-		getSettingsPath := "/api/v3/settings"
+		getSettingsPath := "/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2702,7 +2392,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 3, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "permitted_target_regions": ["us-south"], "primary_metadata_region": "us-south", "backup_metadata_region": "us-east", "private_api_endpoint_only": false}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully with retries`, func() {
@@ -2755,7 +2445,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 3, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "permitted_target_regions": ["us-south"], "primary_metadata_region": "us-south", "backup_metadata_region": "us-east", "private_api_endpoint_only": false}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully`, func() {
@@ -2841,22 +2531,22 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceSettings(replaceSettingsOptions *ReplaceSettingsOptions) - Operation response error`, func() {
-		replaceSettingsPath := "/api/v3/settings"
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) - Operation response error`, func() {
+		updateSettingsPath := "/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceSettingsPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
+					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceSettings with error: Operation response processing error`, func() {
+			It(`Invoke UpdateSettings with error: Operation response processing error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2864,22 +2554,27 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsModel := new(metricsrouterv3.ReplaceSettingsOptions)
-				replaceSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				replaceSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
-				replaceSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				replaceSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				replaceSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(metricsrouterv3.UpdateSettingsOptions)
+				updateSettingsOptionsModel.DefaultTargets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				updateSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
+				updateSettingsOptionsModel.PrimaryMetadataRegion = core.StringPtr("us-south")
+				updateSettingsOptionsModel.BackupMetadataRegion = core.StringPtr("us-east")
+				updateSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				metricsRouterService.EnableRetries(0, 0)
-				result, response, operationErr = metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2889,16 +2584,16 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceSettings(replaceSettingsOptions *ReplaceSettingsOptions)`, func() {
-		replaceSettingsPath := "/api/v3/settings"
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+		updateSettingsPath := "/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceSettingsPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -2921,11 +2616,11 @@ var _ = Describe(`MetricsRouterV3`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 3, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"default_targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "permitted_target_regions": ["us-south"], "primary_metadata_region": "us-south", "backup_metadata_region": "us-east", "private_api_endpoint_only": false}`)
 				}))
 			})
-			It(`Invoke ReplaceSettings successfully with retries`, func() {
+			It(`Invoke UpdateSettings successfully with retries`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -2934,24 +2629,29 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 				metricsRouterService.EnableRetries(0, 0)
 
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsModel := new(metricsrouterv3.ReplaceSettingsOptions)
-				replaceSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				replaceSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
-				replaceSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				replaceSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				replaceSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(metricsrouterv3.UpdateSettingsOptions)
+				updateSettingsOptionsModel.DefaultTargets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				updateSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
+				updateSettingsOptionsModel.PrimaryMetadataRegion = core.StringPtr("us-south")
+				updateSettingsOptionsModel.BackupMetadataRegion = core.StringPtr("us-east")
+				updateSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := metricsRouterService.ReplaceSettingsWithContext(ctx, replaceSettingsOptionsModel)
+				_, _, operationErr := metricsRouterService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				metricsRouterService.DisableRetries()
-				result, response, operationErr := metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -2959,7 +2659,7 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = metricsRouterService.ReplaceSettingsWithContext(ctx, replaceSettingsOptionsModel)
+				_, _, operationErr = metricsRouterService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -2973,8 +2673,8 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(replaceSettingsPath))
-					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
 					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
@@ -2994,11 +2694,11 @@ var _ = Describe(`MetricsRouterV3`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 3, "message": "The route and target audit logs can be found in the metadata primary region and everything else can be found in the region it is being called from."}`)
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"default_targets": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "crn": "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::", "name": "a-mr-target-us-south", "target_type": "sysdig_monitor"}], "permitted_target_regions": ["us-south"], "primary_metadata_region": "us-south", "backup_metadata_region": "us-east", "private_api_endpoint_only": false}`)
 				}))
 			})
-			It(`Invoke ReplaceSettings successfully`, func() {
+			It(`Invoke UpdateSettings successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3007,27 +2707,32 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(metricsRouterService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := metricsRouterService.ReplaceSettings(nil)
+				result, response, operationErr := metricsRouterService.UpdateSettings(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsModel := new(metricsrouterv3.ReplaceSettingsOptions)
-				replaceSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				replaceSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
-				replaceSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				replaceSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				replaceSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(metricsrouterv3.UpdateSettingsOptions)
+				updateSettingsOptionsModel.DefaultTargets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				updateSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
+				updateSettingsOptionsModel.PrimaryMetadataRegion = core.StringPtr("us-south")
+				updateSettingsOptionsModel.BackupMetadataRegion = core.StringPtr("us-east")
+				updateSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr = metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ReplaceSettings with error: Operation validation and request error`, func() {
+			It(`Invoke UpdateSettings with error: Operation request error`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3035,26 +2740,24 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsModel := new(metricsrouterv3.ReplaceSettingsOptions)
-				replaceSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				replaceSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
-				replaceSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				replaceSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				replaceSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(metricsrouterv3.UpdateSettingsOptions)
+				updateSettingsOptionsModel.DefaultTargets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				updateSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
+				updateSettingsOptionsModel.PrimaryMetadataRegion = core.StringPtr("us-south")
+				updateSettingsOptionsModel.BackupMetadataRegion = core.StringPtr("us-east")
+				updateSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := metricsRouterService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceSettingsOptions model with no property values
-				replaceSettingsOptionsModelNew := new(metricsrouterv3.ReplaceSettingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = metricsRouterService.ReplaceSettings(replaceSettingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -3068,10 +2771,10 @@ var _ = Describe(`MetricsRouterV3`, func() {
 					defer GinkgoRecover()
 
 					// Set success status code with no respoonse body
-					res.WriteHeader(201)
+					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ReplaceSettings successfully`, func() {
+			It(`Invoke UpdateSettings successfully`, func() {
 				metricsRouterService, serviceErr := metricsrouterv3.NewMetricsRouterV3(&metricsrouterv3.MetricsRouterV3Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3079,16 +2782,21 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(metricsRouterService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsModel := new(metricsrouterv3.ReplaceSettingsOptions)
-				replaceSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				replaceSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
-				replaceSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				replaceSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				replaceSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(metricsrouterv3.UpdateSettingsOptions)
+				updateSettingsOptionsModel.DefaultTargets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				updateSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
+				updateSettingsOptionsModel.PrimaryMetadataRegion = core.StringPtr("us-south")
+				updateSettingsOptionsModel.BackupMetadataRegion = core.StringPtr("us-east")
+				updateSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := metricsRouterService.ReplaceSettings(replaceSettingsOptionsModel)
+				result, response, operationErr := metricsRouterService.UpdateSettings(updateSettingsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3107,23 +2815,31 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCreateRouteOptions successfully`, func() {
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				Expect(inclusionFilterModel).ToNot(BeNil())
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
-				Expect(inclusionFilterModel.Operand).To(Equal(core.StringPtr("location")))
-				Expect(inclusionFilterModel.Operator).To(Equal(core.StringPtr("is")))
-				Expect(inclusionFilterModel.Value).To(Equal([]string{"teststring"}))
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				Expect(targetIdentityModel).ToNot(BeNil())
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+				Expect(targetIdentityModel.ID).To(Equal(core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")))
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				Expect(inclusionFilterPrototypeModel).ToNot(BeNil())
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
+				Expect(inclusionFilterPrototypeModel.Operand).To(Equal(core.StringPtr("location")))
+				Expect(inclusionFilterPrototypeModel.Operator).To(Equal(core.StringPtr("is")))
+				Expect(inclusionFilterPrototypeModel.Values).To(Equal([]string{"us-south"}))
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
 				Expect(rulePrototypeModel).ToNot(BeNil())
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
-				Expect(rulePrototypeModel.TargetIds).To(Equal([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}))
-				Expect(rulePrototypeModel.InclusionFilters).To(Equal([]metricsrouterv3.InclusionFilter{*inclusionFilterModel}))
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
+				Expect(rulePrototypeModel.Action).To(Equal(core.StringPtr("send")))
+				Expect(rulePrototypeModel.Targets).To(Equal([]metricsrouterv3.TargetIdentity{*targetIdentityModel}))
+				Expect(rulePrototypeModel.InclusionFilters).To(Equal([]metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}))
 
 				// Construct an instance of the CreateRouteOptions model
 				createRouteOptionsName := "my-route"
@@ -3199,11 +2915,11 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(getTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(getTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewInclusionFilter successfully`, func() {
+			It(`Invoke NewInclusionFilterPrototype successfully`, func() {
 				operand := "location"
 				operator := "is"
-				value := []string{"teststring"}
-				_model, err := metricsRouterService.NewInclusionFilter(operand, operator, value)
+				values := []string{"us-south"}
+				_model, err := metricsRouterService.NewInclusionFilterPrototype(operand, operator, values)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -3221,89 +2937,95 @@ var _ = Describe(`MetricsRouterV3`, func() {
 				Expect(listTargetsOptionsModel).ToNot(BeNil())
 				Expect(listTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewReplaceRouteOptions successfully`, func() {
-				// Construct an instance of the InclusionFilter model
-				inclusionFilterModel := new(metricsrouterv3.InclusionFilter)
-				Expect(inclusionFilterModel).ToNot(BeNil())
-				inclusionFilterModel.Operand = core.StringPtr("location")
-				inclusionFilterModel.Operator = core.StringPtr("is")
-				inclusionFilterModel.Value = []string{"teststring"}
-				Expect(inclusionFilterModel.Operand).To(Equal(core.StringPtr("location")))
-				Expect(inclusionFilterModel.Operator).To(Equal(core.StringPtr("is")))
-				Expect(inclusionFilterModel.Value).To(Equal([]string{"teststring"}))
+			It(`Invoke NewRulePrototype successfully`, func() {
+				targets := []metricsrouterv3.TargetIdentity{}
+				inclusionFilters := []metricsrouterv3.InclusionFilterPrototype{}
+				_model, err := metricsRouterService.NewRulePrototype(targets, inclusionFilters)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTargetIdentity successfully`, func() {
+				id := "c3af557f-fb0e-4476-85c3-0889e7fe7bc4"
+				_model, err := metricsRouterService.NewTargetIdentity(id)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewUpdateRouteOptions successfully`, func() {
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				Expect(targetIdentityModel).ToNot(BeNil())
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+				Expect(targetIdentityModel.ID).To(Equal(core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")))
+
+				// Construct an instance of the InclusionFilterPrototype model
+				inclusionFilterPrototypeModel := new(metricsrouterv3.InclusionFilterPrototype)
+				Expect(inclusionFilterPrototypeModel).ToNot(BeNil())
+				inclusionFilterPrototypeModel.Operand = core.StringPtr("location")
+				inclusionFilterPrototypeModel.Operator = core.StringPtr("is")
+				inclusionFilterPrototypeModel.Values = []string{"us-south"}
+				Expect(inclusionFilterPrototypeModel.Operand).To(Equal(core.StringPtr("location")))
+				Expect(inclusionFilterPrototypeModel.Operator).To(Equal(core.StringPtr("is")))
+				Expect(inclusionFilterPrototypeModel.Values).To(Equal([]string{"us-south"}))
 
 				// Construct an instance of the RulePrototype model
 				rulePrototypeModel := new(metricsrouterv3.RulePrototype)
 				Expect(rulePrototypeModel).ToNot(BeNil())
-				rulePrototypeModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilter{*inclusionFilterModel}
-				Expect(rulePrototypeModel.TargetIds).To(Equal([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}))
-				Expect(rulePrototypeModel.InclusionFilters).To(Equal([]metricsrouterv3.InclusionFilter{*inclusionFilterModel}))
+				rulePrototypeModel.Action = core.StringPtr("send")
+				rulePrototypeModel.Targets = []metricsrouterv3.TargetIdentity{*targetIdentityModel}
+				rulePrototypeModel.InclusionFilters = []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}
+				Expect(rulePrototypeModel.Action).To(Equal(core.StringPtr("send")))
+				Expect(rulePrototypeModel.Targets).To(Equal([]metricsrouterv3.TargetIdentity{*targetIdentityModel}))
+				Expect(rulePrototypeModel.InclusionFilters).To(Equal([]metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel}))
 
-				// Construct an instance of the ReplaceRouteOptions model
+				// Construct an instance of the UpdateRouteOptions model
 				id := "testString"
-				replaceRouteOptionsName := "my-route"
-				replaceRouteOptionsRules := []metricsrouterv3.RulePrototype{}
-				replaceRouteOptionsModel := metricsRouterService.NewReplaceRouteOptions(id, replaceRouteOptionsName, replaceRouteOptionsRules)
-				replaceRouteOptionsModel.SetID("testString")
-				replaceRouteOptionsModel.SetName("my-route")
-				replaceRouteOptionsModel.SetRules([]metricsrouterv3.RulePrototype{*rulePrototypeModel})
-				replaceRouteOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceRouteOptionsModel).ToNot(BeNil())
-				Expect(replaceRouteOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceRouteOptionsModel.Name).To(Equal(core.StringPtr("my-route")))
-				Expect(replaceRouteOptionsModel.Rules).To(Equal([]metricsrouterv3.RulePrototype{*rulePrototypeModel}))
-				Expect(replaceRouteOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				updateRouteOptionsModel := metricsRouterService.NewUpdateRouteOptions(id)
+				updateRouteOptionsModel.SetID("testString")
+				updateRouteOptionsModel.SetName("my-route")
+				updateRouteOptionsModel.SetRules([]metricsrouterv3.RulePrototype{*rulePrototypeModel})
+				updateRouteOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateRouteOptionsModel).ToNot(BeNil())
+				Expect(updateRouteOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateRouteOptionsModel.Name).To(Equal(core.StringPtr("my-route")))
+				Expect(updateRouteOptionsModel.Rules).To(Equal([]metricsrouterv3.RulePrototype{*rulePrototypeModel}))
+				Expect(updateRouteOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewReplaceSettingsOptions successfully`, func() {
-				// Construct an instance of the ReplaceSettingsOptions model
-				replaceSettingsOptionsMetadataRegionPrimary := "us-south"
-				replaceSettingsOptionsPrivateAPIEndpointOnly := false
-				replaceSettingsOptionsModel := metricsRouterService.NewReplaceSettingsOptions(replaceSettingsOptionsMetadataRegionPrimary, replaceSettingsOptionsPrivateAPIEndpointOnly)
-				replaceSettingsOptionsModel.SetMetadataRegionPrimary("us-south")
-				replaceSettingsOptionsModel.SetPrivateAPIEndpointOnly(false)
-				replaceSettingsOptionsModel.SetDefaultTargets([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"})
-				replaceSettingsOptionsModel.SetPermittedTargetRegions([]string{"us-south"})
-				replaceSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceSettingsOptionsModel).ToNot(BeNil())
-				Expect(replaceSettingsOptionsModel.MetadataRegionPrimary).To(Equal(core.StringPtr("us-south")))
-				Expect(replaceSettingsOptionsModel.PrivateAPIEndpointOnly).To(Equal(core.BoolPtr(false)))
-				Expect(replaceSettingsOptionsModel.DefaultTargets).To(Equal([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}))
-				Expect(replaceSettingsOptionsModel.PermittedTargetRegions).To(Equal([]string{"us-south"}))
-				Expect(replaceSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewUpdateSettingsOptions successfully`, func() {
+				// Construct an instance of the TargetIdentity model
+				targetIdentityModel := new(metricsrouterv3.TargetIdentity)
+				Expect(targetIdentityModel).ToNot(BeNil())
+				targetIdentityModel.ID = core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")
+				Expect(targetIdentityModel.ID).To(Equal(core.StringPtr("c3af557f-fb0e-4476-85c3-0889e7fe7bc4")))
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := metricsRouterService.NewUpdateSettingsOptions()
+				updateSettingsOptionsModel.SetDefaultTargets([]metricsrouterv3.TargetIdentity{*targetIdentityModel})
+				updateSettingsOptionsModel.SetPermittedTargetRegions([]string{"us-south"})
+				updateSettingsOptionsModel.SetPrimaryMetadataRegion("us-south")
+				updateSettingsOptionsModel.SetBackupMetadataRegion("us-east")
+				updateSettingsOptionsModel.SetPrivateAPIEndpointOnly(false)
+				updateSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateSettingsOptionsModel).ToNot(BeNil())
+				Expect(updateSettingsOptionsModel.DefaultTargets).To(Equal([]metricsrouterv3.TargetIdentity{*targetIdentityModel}))
+				Expect(updateSettingsOptionsModel.PermittedTargetRegions).To(Equal([]string{"us-south"}))
+				Expect(updateSettingsOptionsModel.PrimaryMetadataRegion).To(Equal(core.StringPtr("us-south")))
+				Expect(updateSettingsOptionsModel.BackupMetadataRegion).To(Equal(core.StringPtr("us-east")))
+				Expect(updateSettingsOptionsModel.PrivateAPIEndpointOnly).To(Equal(core.BoolPtr(false)))
+				Expect(updateSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewReplaceTargetOptions successfully`, func() {
-				// Construct an instance of the ReplaceTargetOptions model
+			It(`Invoke NewUpdateTargetOptions successfully`, func() {
+				// Construct an instance of the UpdateTargetOptions model
 				id := "testString"
-				replaceTargetOptionsName := "my-mr-target"
-				replaceTargetOptionsDestinationCRN := "crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::"
-				replaceTargetOptionsModel := metricsRouterService.NewReplaceTargetOptions(id, replaceTargetOptionsName, replaceTargetOptionsDestinationCRN)
-				replaceTargetOptionsModel.SetID("testString")
-				replaceTargetOptionsModel.SetName("my-mr-target")
-				replaceTargetOptionsModel.SetDestinationCRN("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
-				replaceTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceTargetOptionsModel).ToNot(BeNil())
-				Expect(replaceTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceTargetOptionsModel.Name).To(Equal(core.StringPtr("my-mr-target")))
-				Expect(replaceTargetOptionsModel.DestinationCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")))
-				Expect(replaceTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewRulePrototype successfully`, func() {
-				targetIds := []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				inclusionFilters := []metricsrouterv3.InclusionFilter{}
-				_model, err := metricsRouterService.NewRulePrototype(targetIds, inclusionFilters)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewValidateTargetOptions successfully`, func() {
-				// Construct an instance of the ValidateTargetOptions model
-				id := "testString"
-				validateTargetOptionsModel := metricsRouterService.NewValidateTargetOptions(id)
-				validateTargetOptionsModel.SetID("testString")
-				validateTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(validateTargetOptionsModel).ToNot(BeNil())
-				Expect(validateTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(validateTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				updateTargetOptionsModel := metricsRouterService.NewUpdateTargetOptions(id)
+				updateTargetOptionsModel.SetID("testString")
+				updateTargetOptionsModel.SetName("my-mr-target")
+				updateTargetOptionsModel.SetDestinationCRN("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")
+				updateTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateTargetOptionsModel).ToNot(BeNil())
+				Expect(updateTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTargetOptionsModel.Name).To(Equal(core.StringPtr("my-mr-target")))
+				Expect(updateTargetOptionsModel.DestinationCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::")))
+				Expect(updateTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})

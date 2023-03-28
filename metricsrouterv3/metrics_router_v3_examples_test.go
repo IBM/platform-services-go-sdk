@@ -1,8 +1,7 @@
-//go:build examples
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +29,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the metrics-router service.
 //
 // The following configuration properties are assumed to be defined:
@@ -41,16 +41,17 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 
 	const externalConfigFile = "../metrics_router_v3.env"
 
 	var (
 		metricsRouterService *metricsrouterv3.MetricsRouterV3
-		config               map[string]string
+		config       map[string]string
 
 		// Variables to hold link values
-		routeIDLink  string
+		routeIDLink string
 		targetIDLink string
 	)
 
@@ -134,15 +135,19 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			fmt.Println("\nCreateRoute() result:")
 			// begin-create_route
 
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
-				Operand:  core.StringPtr("location"),
+			targetIdentityModel := &metricsrouterv3.TargetIdentity{
+				ID: &targetIDLink,
+			}
+
+			inclusionFilterPrototypeModel := &metricsrouterv3.InclusionFilterPrototype{
+				Operand: core.StringPtr("location"),
 				Operator: core.StringPtr("is"),
-				Value:    []string{"testString"},
+				Values: []string{"us-south"},
 			}
 
 			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
+				Targets: []metricsrouterv3.TargetIdentity{*targetIdentityModel},
+				InclusionFilters: []metricsrouterv3.InclusionFilterPrototype{*inclusionFilterPrototypeModel},
 			}
 
 			createRouteOptions := metricsRouterService.NewCreateRouteOptions(
@@ -172,18 +177,18 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 
 			listTargetsOptions := metricsRouterService.NewListTargetsOptions()
 
-			targetList, response, err := metricsRouterService.ListTargets(listTargetsOptions)
+			targetCollection, response, err := metricsRouterService.ListTargets(listTargetsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(targetList, "", "  ")
+			b, _ := json.MarshalIndent(targetCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_targets
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(targetList).ToNot(BeNil())
+			Expect(targetCollection).ToNot(BeNil())
 		})
 		It(`GetTarget request example`, func() {
 			fmt.Println("\nGetTarget() result:")
@@ -206,45 +211,22 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
 		})
-		It(`ReplaceTarget request example`, func() {
-			fmt.Println("\nReplaceTarget() result:")
-			// begin-replace_target
+		It(`UpdateTarget request example`, func() {
+			fmt.Println("\nUpdateTarget() result:")
+			// begin-update_target
 
-			replaceTargetOptions := metricsRouterService.NewReplaceTargetOptions(
+			updateTargetOptions := metricsRouterService.NewUpdateTargetOptions(
 				targetIDLink,
-				"my-mr-target",
-				"crn:v1:bluemix:public:sysdig-monitor:us-south:a/0be5ad401ae913d8ff665d92680664ed:22222222-2222-2222-2222-222222222222::",
 			)
 
-			target, response, err := metricsRouterService.ReplaceTarget(replaceTargetOptions)
+			target, response, err := metricsRouterService.UpdateTarget(updateTargetOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
 			fmt.Println(string(b))
 
-			// end-replace_target
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(target).ToNot(BeNil())
-		})
-		It(`ValidateTarget request example`, func() {
-			fmt.Println("\nValidateTarget() result:")
-			// begin-validate_target
-
-			validateTargetOptions := metricsRouterService.NewValidateTargetOptions(
-				targetIDLink,
-			)
-
-			target, response, err := metricsRouterService.ValidateTarget(validateTargetOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Println(string(b))
-
-			// end-validate_target
+			// end-update_target
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -256,18 +238,18 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 
 			listRoutesOptions := metricsRouterService.NewListRoutesOptions()
 
-			routeList, response, err := metricsRouterService.ListRoutes(listRoutesOptions)
+			routeCollection, response, err := metricsRouterService.ListRoutes(listRoutesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(routeList, "", "  ")
+			b, _ := json.MarshalIndent(routeCollection, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_routes
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(routeList).ToNot(BeNil())
+			Expect(routeCollection).ToNot(BeNil())
 		})
 		It(`GetRoute request example`, func() {
 			fmt.Println("\nGetRoute() result:")
@@ -290,35 +272,22 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
 		})
-		It(`ReplaceRoute request example`, func() {
-			fmt.Println("\nReplaceRoute() result:")
-			// begin-replace_route
+		It(`UpdateRoute request example`, func() {
+			fmt.Println("\nUpdateRoute() result:")
+			// begin-update_route
 
-			inclusionFilterModel := &metricsrouterv3.InclusionFilter{
-				Operand:  core.StringPtr("location"),
-				Operator: core.StringPtr("is"),
-				Value:    []string{"testString"},
-			}
-
-			rulePrototypeModel := &metricsrouterv3.RulePrototype{
-				TargetIds:        []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
-				InclusionFilters: []metricsrouterv3.InclusionFilter{*inclusionFilterModel},
-			}
-
-			replaceRouteOptions := metricsRouterService.NewReplaceRouteOptions(
+			updateRouteOptions := metricsRouterService.NewUpdateRouteOptions(
 				routeIDLink,
-				"my-route",
-				[]metricsrouterv3.RulePrototype{*rulePrototypeModel},
 			)
 
-			route, response, err := metricsRouterService.ReplaceRoute(replaceRouteOptions)
+			route, response, err := metricsRouterService.UpdateRoute(updateRouteOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
 			fmt.Println(string(b))
 
-			// end-replace_route
+			// end-update_route
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -330,40 +299,37 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 
 			getSettingsOptions := metricsRouterService.NewGetSettingsOptions()
 
-			settings, response, err := metricsRouterService.GetSettings(getSettingsOptions)
+			setting, response, err := metricsRouterService.GetSettings(getSettingsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(settings, "", "  ")
+			b, _ := json.MarshalIndent(setting, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_settings
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(settings).ToNot(BeNil())
+			Expect(setting).ToNot(BeNil())
 		})
-		It(`ReplaceSettings request example`, func() {
-			fmt.Println("\nReplaceSettings() result:")
-			// begin-replace_settings
+		It(`UpdateSettings request example`, func() {
+			fmt.Println("\nUpdateSettings() result:")
+			// begin-update_settings
 
-			replaceSettingsOptions := metricsRouterService.NewReplaceSettingsOptions(
-				"us-south",
-				false,
-			)
+			updateSettingsOptions := metricsRouterService.NewUpdateSettingsOptions()
 
-			settings, response, err := metricsRouterService.ReplaceSettings(replaceSettingsOptions)
+			setting, response, err := metricsRouterService.UpdateSettings(updateSettingsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(settings, "", "  ")
+			b, _ := json.MarshalIndent(setting, "", "  ")
 			fmt.Println(string(b))
 
-			// end-replace_settings
+			// end-update_settings
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(settings).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(setting).ToNot(BeNil())
 		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
@@ -386,25 +352,24 @@ var _ = Describe(`MetricsRouterV3 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteTarget request example`, func() {
-			fmt.Println("\nDeleteTarget() result:")
 			// begin-delete_target
 
 			deleteTargetOptions := metricsRouterService.NewDeleteTargetOptions(
 				targetIDLink,
 			)
 
-			warningReport, response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
+			response, err := metricsRouterService.DeleteTarget(deleteTargetOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(warningReport, "", "  ")
-			fmt.Println(string(b))
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTarget(): %d\n", response.StatusCode)
+			}
 
 			// end-delete_target
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(warningReport).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
