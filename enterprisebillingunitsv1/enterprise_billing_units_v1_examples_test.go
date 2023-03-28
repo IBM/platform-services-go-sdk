@@ -205,26 +205,18 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				billingUnitID,
 			)
 
-			pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
+			creditPoolsList, response, err := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptions)
 			if err != nil {
 				panic(err)
 			}
-
-			var allResults []enterprisebillingunitsv1.CreditPool
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
+			b, _ := json.MarshalIndent(creditPoolsList, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_credit_pools
 
 			Expect(err).To(BeNil())
-			Expect(allResults).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsList).ToNot(BeNil())
 		})
 	})
 })

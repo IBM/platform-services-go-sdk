@@ -272,64 +272,20 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions) with pagination`, func() {
+		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions)`, func() {
 
 			getCreditPoolsOptions := &enterprisebillingunitsv1.GetCreditPoolsOptions{
 				BillingUnitID: &billingUnitID,
 				Type:          core.StringPtr("PLATFORM"),
 			}
 
-			getCreditPoolsOptions.Start = nil
-			getCreditPoolsOptions.Limit = core.Int64Ptr(1)
+			creditPoolsList, response, err := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptions)
 
-			var allResults []enterprisebillingunitsv1.CreditPool
-			for {
-				creditPoolsList, response, err := enterpriseBillingUnitsService.GetCreditPools(getCreditPoolsOptions)
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(creditPoolsList).ToNot(BeNil())
-				allResults = append(allResults, creditPoolsList.Resources...)
-
-				getCreditPoolsOptions.Start, err = creditPoolsList.GetNextStart()
-				Expect(err).To(BeNil())
-
-				if getCreditPoolsOptions.Start == nil {
-					break
-				}
-			}
-			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
-		})
-		It(`GetCreditPools(getCreditPoolsOptions *GetCreditPoolsOptions) using GetCreditPoolsPager`, func() {
-			getCreditPoolsOptions := &enterprisebillingunitsv1.GetCreditPoolsOptions{
-				BillingUnitID: &billingUnitID,
-				Type:          core.StringPtr("PLATFORM"),
-				Limit:         core.Int64Ptr(int64(10)),
-			}
-
-			// Test GetNext().
-			pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
 			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsList).ToNot(BeNil())
 
-			var allResults []enterprisebillingunitsv1.CreditPool
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				Expect(err).To(BeNil())
-				Expect(nextPage).ToNot(BeNil())
-				allResults = append(allResults, nextPage...)
-			}
-
-			// Test GetAll().
-			pager, err = enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptions)
-			Expect(err).To(BeNil())
-			Expect(pager).ToNot(BeNil())
-
-			allItems, err := pager.GetAll()
-			Expect(err).To(BeNil())
-			Expect(allItems).ToNot(BeNil())
-
-			Expect(len(allItems)).To(Equal(len(allResults)))
-			fmt.Fprintf(GinkgoWriter, "GetCreditPools() returned a total of %d item(s) using GetCreditPoolsPager.\n", len(allResults))
+			fmt.Fprintf(GinkgoWriter, "GetCreditPools() response:\n%s\n", common.ToJSON(creditPoolsList))
 		})
 	})
 })

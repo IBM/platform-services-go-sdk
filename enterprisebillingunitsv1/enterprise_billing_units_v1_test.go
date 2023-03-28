@@ -1338,58 +1338,6 @@ var _ = Describe(`EnterpriseBillingUnitsV1`, func() {
 					}
 				}))
 			})
-			It(`Use GetCreditPoolsPager.GetNext successfully`, func() {
-				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
-
-				getCreditPoolsOptionsModel := &enterprisebillingunitsv1.GetCreditPoolsOptions{
-					BillingUnitID: core.StringPtr("testString"),
-					Date: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []enterprisebillingunitsv1.CreditPool
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use GetCreditPoolsPager.GetAll successfully`, func() {
-				enterpriseBillingUnitsService, serviceErr := enterprisebillingunitsv1.NewEnterpriseBillingUnitsV1(&enterprisebillingunitsv1.EnterpriseBillingUnitsV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(enterpriseBillingUnitsService).ToNot(BeNil())
-
-				getCreditPoolsOptionsModel := &enterprisebillingunitsv1.GetCreditPoolsOptions{
-					BillingUnitID: core.StringPtr("testString"),
-					Date: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := enterpriseBillingUnitsService.NewGetCreditPoolsPager(getCreditPoolsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
 		})
 	})
 	Describe(`Model constructor tests`, func() {
