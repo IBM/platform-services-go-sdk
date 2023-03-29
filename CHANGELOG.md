@@ -1,3 +1,10 @@
+# [0.35.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.34.0...v0.35.0) (2023-03-29)
+
+
+### Features
+
+* **Enterprise Billing Units:** add start and limit parameters to billing unit list APIs ([#230](https://github.com/IBM/platform-services-go-sdk/issues/230)) ([19296ca](https://github.com/IBM/platform-services-go-sdk/commit/19296caa99eafe3544f748b5115ef37ca4344cca))
+
 # [0.34.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.33.0...v0.34.0) (2023-03-27)
 
 
