@@ -164,12 +164,12 @@ func (project *ProjectV1) DisableRetries() {
 // CreateProject : Create a project
 // Create a new project and asynchronously setup the tools to manage it. An initial pull request is created on the
 // project Git repo. After approving the pull request, the user can deploy the resources that the project configures.
-func (project *ProjectV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return project.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
 
 // CreateProjectWithContext is an alternate form of the CreateProject method which supports a Context parameter
-func (project *ProjectV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createProjectOptions, "createProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -231,7 +231,7 @@ func (project *ProjectV1) CreateProjectWithContext(ctx context.Context, createPr
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetProjectResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
 			return
 		}
@@ -243,12 +243,12 @@ func (project *ProjectV1) CreateProjectWithContext(ctx context.Context, createPr
 
 // ListProjects : List projects
 // List existing projects. Projects are sorted by ID.
-func (project *ProjectV1) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectListResponseSchema, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListProjects(listProjectsOptions *ListProjectsOptions) (result *ProjectCollection, response *core.DetailedResponse, err error) {
 	return project.ListProjectsWithContext(context.Background(), listProjectsOptions)
 }
 
 // ListProjectsWithContext is an alternate form of the ListProjects method which supports a Context parameter
-func (project *ProjectV1) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ProjectListResponseSchema, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListProjectsWithContext(ctx context.Context, listProjectsOptions *ListProjectsOptions) (result *ProjectCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listProjectsOptions, "listProjectsOptions")
 	if err != nil {
 		return
@@ -293,7 +293,7 @@ func (project *ProjectV1) ListProjectsWithContext(ctx context.Context, listProje
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectListResponseSchema)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectCollection)
 		if err != nil {
 			return
 		}
@@ -305,12 +305,12 @@ func (project *ProjectV1) ListProjectsWithContext(ctx context.Context, listProje
 
 // GetProject : Get project by ID
 // Get a project definition document by the ID.
-func (project *ProjectV1) GetProject(getProjectOptions *GetProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetProject(getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return project.GetProjectWithContext(context.Background(), getProjectOptions)
 }
 
 // GetProjectWithContext is an alternate form of the GetProject method which supports a Context parameter
-func (project *ProjectV1) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectOptions, "getProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -360,7 +360,7 @@ func (project *ProjectV1) GetProjectWithContext(ctx context.Context, getProjectO
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetProjectResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
 			return
 		}
@@ -372,12 +372,12 @@ func (project *ProjectV1) GetProjectWithContext(ctx context.Context, getProjectO
 
 // UpdateProject : Update a project
 // Update a project by the ID.
-func (project *ProjectV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *ProjectUpdate, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return project.UpdateProjectWithContext(context.Background(), updateProjectOptions)
 }
 
 // UpdateProjectWithContext is an alternate form of the UpdateProject method which supports a Context parameter
-func (project *ProjectV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *ProjectUpdate, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateProjectOptions, "updateProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -426,7 +426,7 @@ func (project *ProjectV1) UpdateProjectWithContext(ctx context.Context, updatePr
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectUpdate)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
 		if err != nil {
 			return
 		}
@@ -578,12 +578,12 @@ func (project *ProjectV1) CreateConfigWithContext(ctx context.Context, createCon
 
 // ListConfigs : List all project configurations
 // Lists all of the project configurations for a specific project.
-func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigs(listConfigsOptions *ListConfigsOptions) (result *ProjectConfigCollection, response *core.DetailedResponse, err error) {
 	return project.ListConfigsWithContext(context.Background(), listConfigsOptions)
 }
 
 // ListConfigsWithContext is an alternate form of the ListConfigs method which supports a Context parameter
-func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigList, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfigsOptions *ListConfigsOptions) (result *ProjectConfigCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listConfigsOptions, "listConfigsOptions cannot be nil")
 	if err != nil {
 		return
@@ -633,7 +633,7 @@ func (project *ProjectV1) ListConfigsWithContext(ctx context.Context, listConfig
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigList)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigCollection)
 		if err != nil {
 			return
 		}
@@ -785,12 +785,12 @@ func (project *ProjectV1) UpdateConfigWithContext(ctx context.Context, updateCon
 // DeleteConfig : Delete a configuration in a project by ID
 // Delete a configuration in a project. Deleting the configuration will also destroy all the resources deployed by the
 // configuration.
-func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) DeleteConfig(deleteConfigOptions *DeleteConfigOptions) (result *ProjectConfigDelete, response *core.DetailedResponse, err error) {
 	return project.DeleteConfigWithContext(context.Background(), deleteConfigOptions)
 }
 
 // DeleteConfigWithContext is an alternate form of the DeleteConfig method which supports a Context parameter
-func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *DeleteProjectConfigResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteConfigOptions *DeleteConfigOptions) (result *ProjectConfigDelete, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteConfigOptions, "deleteConfigOptions cannot be nil")
 	if err != nil {
 		return
@@ -841,7 +841,7 @@ func (project *ProjectV1) DeleteConfigWithContext(ctx context.Context, deleteCon
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteProjectConfigResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigDelete)
 		if err != nil {
 			return
 		}
@@ -1253,12 +1253,12 @@ func (project *ProjectV1) UninstallConfigWithContext(ctx context.Context, uninst
 // GetSchematicsJob : View the latest schematics job
 // Fetch and find the latest schematics job that corresponds to a plan, deploy, or destroy configuration resource
 // action.
-func (project *ProjectV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetSchematicsJob(getSchematicsJobOptions *GetSchematicsJobOptions) (result *ActionJob, response *core.DetailedResponse, err error) {
 	return project.GetSchematicsJobWithContext(context.Background(), getSchematicsJobOptions)
 }
 
 // GetSchematicsJobWithContext is an alternate form of the GetSchematicsJob method which supports a Context parameter
-func (project *ProjectV1) GetSchematicsJobWithContext(ctx context.Context, getSchematicsJobOptions *GetSchematicsJobOptions) (result *GetActionJobResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetSchematicsJobWithContext(ctx context.Context, getSchematicsJobOptions *GetSchematicsJobOptions) (result *ActionJob, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getSchematicsJobOptions, "getSchematicsJobOptions cannot be nil")
 	if err != nil {
 		return
@@ -1307,7 +1307,7 @@ func (project *ProjectV1) GetSchematicsJobWithContext(ctx context.Context, getSc
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetActionJobResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalActionJob)
 		if err != nil {
 			return
 		}
@@ -1319,12 +1319,12 @@ func (project *ProjectV1) GetSchematicsJobWithContext(ctx context.Context, getSc
 
 // GetCostEstimate : Get the cost estimate
 // Retrieve the cost estimate for a configuraton.
-func (project *ProjectV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (result *GetCostEstimateResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetCostEstimate(getCostEstimateOptions *GetCostEstimateOptions) (result *CostEstimate, response *core.DetailedResponse, err error) {
 	return project.GetCostEstimateWithContext(context.Background(), getCostEstimateOptions)
 }
 
 // GetCostEstimateWithContext is an alternate form of the GetCostEstimate method which supports a Context parameter
-func (project *ProjectV1) GetCostEstimateWithContext(ctx context.Context, getCostEstimateOptions *GetCostEstimateOptions) (result *GetCostEstimateResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetCostEstimateWithContext(ctx context.Context, getCostEstimateOptions *GetCostEstimateOptions) (result *CostEstimate, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCostEstimateOptions, "getCostEstimateOptions cannot be nil")
 	if err != nil {
 		return
@@ -1372,7 +1372,7 @@ func (project *ProjectV1) GetCostEstimateWithContext(ctx context.Context, getCos
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetCostEstimateResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCostEstimate)
 		if err != nil {
 			return
 		}
@@ -1444,12 +1444,12 @@ func (project *ProjectV1) PostCrnTokenWithContext(ctx context.Context, postCrnTo
 
 // PostNotification : Add notifications
 // Creates a notification event to be stored on the project definition.
-func (project *ProjectV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostNotification(postNotificationOptions *PostNotificationOptions) (result *NotificationsPrototypePostResponse, response *core.DetailedResponse, err error) {
 	return project.PostNotificationWithContext(context.Background(), postNotificationOptions)
 }
 
 // PostNotificationWithContext is an alternate form of the PostNotification method which supports a Context parameter
-func (project *ProjectV1) PostNotificationWithContext(ctx context.Context, postNotificationOptions *PostNotificationOptions) (result *PostNotificationsResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostNotificationWithContext(ctx context.Context, postNotificationOptions *PostNotificationOptions) (result *NotificationsPrototypePostResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(postNotificationOptions, "postNotificationOptions cannot be nil")
 	if err != nil {
 		return
@@ -1502,7 +1502,7 @@ func (project *ProjectV1) PostNotificationWithContext(ctx context.Context, postN
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostNotificationsResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationsPrototypePostResponse)
 		if err != nil {
 			return
 		}
@@ -1514,12 +1514,12 @@ func (project *ProjectV1) PostNotificationWithContext(ctx context.Context, postN
 
 // GetNotifications : Get events by project ID
 // Get all the notification events from a specific project ID.
-func (project *ProjectV1) GetNotifications(getNotificationsOptions *GetNotificationsOptions) (result *GetNotificationsResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetNotifications(getNotificationsOptions *GetNotificationsOptions) (result *NotificationsGetResponse, response *core.DetailedResponse, err error) {
 	return project.GetNotificationsWithContext(context.Background(), getNotificationsOptions)
 }
 
 // GetNotificationsWithContext is an alternate form of the GetNotifications method which supports a Context parameter
-func (project *ProjectV1) GetNotificationsWithContext(ctx context.Context, getNotificationsOptions *GetNotificationsOptions) (result *GetNotificationsResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetNotificationsWithContext(ctx context.Context, getNotificationsOptions *GetNotificationsOptions) (result *NotificationsGetResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getNotificationsOptions, "getNotificationsOptions cannot be nil")
 	if err != nil {
 		return
@@ -1562,7 +1562,7 @@ func (project *ProjectV1) GetNotificationsWithContext(ctx context.Context, getNo
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetNotificationsResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationsGetResponse)
 		if err != nil {
 			return
 		}
@@ -1688,12 +1688,12 @@ func (project *ProjectV1) GetHealthWithContext(ctx context.Context, getHealthOpt
 // - The IBM Cloud context is included in the context variable - The X-Broker-API-Originating-Identity will have the IBM
 // IAM ID of the user that initiated the request - The parameters section will include the requested location (and
 // additional parameters required by your service).
-func (project *ProjectV1) ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *CreateResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *ResourceCreateResponse, response *core.DetailedResponse, err error) {
 	return project.ReplaceServiceInstanceWithContext(context.Background(), replaceServiceInstanceOptions)
 }
 
 // ReplaceServiceInstanceWithContext is an alternate form of the ReplaceServiceInstance method which supports a Context parameter
-func (project *ProjectV1) ReplaceServiceInstanceWithContext(ctx context.Context, replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *CreateResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ReplaceServiceInstanceWithContext(ctx context.Context, replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *ResourceCreateResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceServiceInstanceOptions, "replaceServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -1768,7 +1768,7 @@ func (project *ProjectV1) ReplaceServiceInstanceWithContext(ctx context.Context,
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceCreateResponse)
 		if err != nil {
 			return
 		}
@@ -1782,12 +1782,12 @@ func (project *ProjectV1) ReplaceServiceInstanceWithContext(ctx context.Context,
 // Delete (deprovision) a project service instance by GUID. When a service broker receives a delete request from the IBM
 // Cloud platform, it MUST delete any resources it created during the provision. Usually this means that all resources
 // are immediately reclaimed for future provisions.
-func (project *ProjectV1) DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *DeleteResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *ResourceDeleteResponse, response *core.DetailedResponse, err error) {
 	return project.DeleteServiceInstanceWithContext(context.Background(), deleteServiceInstanceOptions)
 }
 
 // DeleteServiceInstanceWithContext is an alternate form of the DeleteServiceInstance method which supports a Context parameter
-func (project *ProjectV1) DeleteServiceInstanceWithContext(ctx context.Context, deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *DeleteResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) DeleteServiceInstanceWithContext(ctx context.Context, deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *ResourceDeleteResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceInstanceOptions, "deleteServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -1842,7 +1842,7 @@ func (project *ProjectV1) DeleteServiceInstanceWithContext(ctx context.Context, 
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceDeleteResponse)
 		if err != nil {
 			return
 		}
@@ -1854,12 +1854,12 @@ func (project *ProjectV1) DeleteServiceInstanceWithContext(ctx context.Context, 
 
 // UpdateServiceInstance : Change of plans and service parameters in a provisioned service instance
 // Allows an update to the plans and service parameters in a provisioned service instance.
-func (project *ProjectV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *UpdateResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *ResourceUpdateResult, response *core.DetailedResponse, err error) {
 	return project.UpdateServiceInstanceWithContext(context.Background(), updateServiceInstanceOptions)
 }
 
 // UpdateServiceInstanceWithContext is an alternate form of the UpdateServiceInstance method which supports a Context parameter
-func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *UpdateResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *ResourceUpdateResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateServiceInstanceOptions, "updateServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -1918,7 +1918,7 @@ func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, 
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUpdateResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceUpdateResult)
 		if err != nil {
 			return
 		}
@@ -1930,12 +1930,12 @@ func (project *ProjectV1) UpdateServiceInstanceWithContext(ctx context.Context, 
 
 // GetLastOperation : Get last_operation for instance by GUID
 // Retrieve previous operation for service instance by GUID (for asynchronous provision calls).
-func (project *ProjectV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *GetLastOperationResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *ResourceLastOperationGetResponse, response *core.DetailedResponse, err error) {
 	return project.GetLastOperationWithContext(context.Background(), getLastOperationOptions)
 }
 
 // GetLastOperationWithContext is an alternate form of the GetLastOperation method which supports a Context parameter
-func (project *ProjectV1) GetLastOperationWithContext(ctx context.Context, getLastOperationOptions *GetLastOperationOptions) (result *GetLastOperationResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetLastOperationWithContext(ctx context.Context, getLastOperationOptions *GetLastOperationOptions) (result *ResourceLastOperationGetResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLastOperationOptions, "getLastOperationOptions cannot be nil")
 	if err != nil {
 		return
@@ -1991,7 +1991,7 @@ func (project *ProjectV1) GetLastOperationWithContext(ctx context.Context, getLa
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetLastOperationResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceLastOperationGetResponse)
 		if err != nil {
 			return
 		}
@@ -2003,12 +2003,12 @@ func (project *ProjectV1) GetLastOperationWithContext(ctx context.Context, getLa
 
 // ReplaceServiceInstanceState : Update the state of a provisioned service instance
 // Update (disable or enable) the state of a provisioned service instance.
-func (project *ProjectV1) ReplaceServiceInstanceState(replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ReplaceServiceInstanceState(replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *ResourceStateResponse, response *core.DetailedResponse, err error) {
 	return project.ReplaceServiceInstanceStateWithContext(context.Background(), replaceServiceInstanceStateOptions)
 }
 
 // ReplaceServiceInstanceStateWithContext is an alternate form of the ReplaceServiceInstanceState method which supports a Context parameter
-func (project *ProjectV1) ReplaceServiceInstanceStateWithContext(ctx context.Context, replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) ReplaceServiceInstanceStateWithContext(ctx context.Context, replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *ResourceStateResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceServiceInstanceStateOptions, "replaceServiceInstanceStateOptions cannot be nil")
 	if err != nil {
 		return
@@ -2076,7 +2076,7 @@ func (project *ProjectV1) ReplaceServiceInstanceStateWithContext(ctx context.Con
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBrokerResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceStateResponse)
 		if err != nil {
 			return
 		}
@@ -2088,12 +2088,12 @@ func (project *ProjectV1) ReplaceServiceInstanceStateWithContext(ctx context.Con
 
 // GetServiceInstance : Get the current state information
 // Retrieve the current state for the specified service instance.
-func (project *ProjectV1) GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetServiceInstance(getServiceInstanceOptions *GetServiceInstanceOptions) (result *ResourceStateResponse, response *core.DetailedResponse, err error) {
 	return project.GetServiceInstanceWithContext(context.Background(), getServiceInstanceOptions)
 }
 
 // GetServiceInstanceWithContext is an alternate form of the GetServiceInstance method which supports a Context parameter
-func (project *ProjectV1) GetServiceInstanceWithContext(ctx context.Context, getServiceInstanceOptions *GetServiceInstanceOptions) (result *BrokerResult, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetServiceInstanceWithContext(ctx context.Context, getServiceInstanceOptions *GetServiceInstanceOptions) (result *ResourceStateResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getServiceInstanceOptions, "getServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -2139,7 +2139,7 @@ func (project *ProjectV1) GetServiceInstanceWithContext(ctx context.Context, get
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalBrokerResult)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceStateResponse)
 		if err != nil {
 			return
 		}
@@ -2206,12 +2206,12 @@ func (project *ProjectV1) GetCatalogWithContext(ctx context.Context, getCatalogO
 
 // PostEventNotificationsIntegration : Connect to a event notifications instance
 // Connects a project instance to an event notifications instance.
-func (project *ProjectV1) PostEventNotificationsIntegration(postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions) (result *PostEventNotificationsIntegrationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostEventNotificationsIntegration(postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions) (result *NotificationsIntegrationPostResponse, response *core.DetailedResponse, err error) {
 	return project.PostEventNotificationsIntegrationWithContext(context.Background(), postEventNotificationsIntegrationOptions)
 }
 
 // PostEventNotificationsIntegrationWithContext is an alternate form of the PostEventNotificationsIntegration method which supports a Context parameter
-func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx context.Context, postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions) (result *PostEventNotificationsIntegrationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx context.Context, postEventNotificationsIntegrationOptions *PostEventNotificationsIntegrationOptions) (result *NotificationsIntegrationPostResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(postEventNotificationsIntegrationOptions, "postEventNotificationsIntegrationOptions cannot be nil")
 	if err != nil {
 		return
@@ -2273,7 +2273,7 @@ func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx conte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostEventNotificationsIntegrationResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationsIntegrationPostResponse)
 		if err != nil {
 			return
 		}
@@ -2285,12 +2285,12 @@ func (project *ProjectV1) PostEventNotificationsIntegrationWithContext(ctx conte
 
 // GetEventNotificationsIntegration : Get event notification source details by project ID
 // Gets the source details of the project from the connect event notifications instance.
-func (project *ProjectV1) GetEventNotificationsIntegration(getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions) (result *GetEventNotificationsIntegrationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetEventNotificationsIntegration(getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions) (result *NotificationsIntegrationGetResponse, response *core.DetailedResponse, err error) {
 	return project.GetEventNotificationsIntegrationWithContext(context.Background(), getEventNotificationsIntegrationOptions)
 }
 
 // GetEventNotificationsIntegrationWithContext is an alternate form of the GetEventNotificationsIntegration method which supports a Context parameter
-func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx context.Context, getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions) (result *GetEventNotificationsIntegrationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx context.Context, getEventNotificationsIntegrationOptions *GetEventNotificationsIntegrationOptions) (result *NotificationsIntegrationGetResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getEventNotificationsIntegrationOptions, "getEventNotificationsIntegrationOptions cannot be nil")
 	if err != nil {
 		return
@@ -2333,7 +2333,7 @@ func (project *ProjectV1) GetEventNotificationsIntegrationWithContext(ctx contex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetEventNotificationsIntegrationResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationsIntegrationGetResponse)
 		if err != nil {
 			return
 		}
@@ -2393,12 +2393,12 @@ func (project *ProjectV1) DeleteEventNotificationsIntegrationWithContext(ctx con
 
 // PostTestEventNotification : Send notification to event notifications instance
 // Sends a notification to the event notifications instance.
-func (project *ProjectV1) PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *PostTestEventNotificationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostTestEventNotification(postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *NotificationsIntegrationTestPostResponse, response *core.DetailedResponse, err error) {
 	return project.PostTestEventNotificationWithContext(context.Background(), postTestEventNotificationOptions)
 }
 
 // PostTestEventNotificationWithContext is an alternate form of the PostTestEventNotification method which supports a Context parameter
-func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Context, postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *PostTestEventNotificationResponse, response *core.DetailedResponse, err error) {
+func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Context, postTestEventNotificationOptions *PostTestEventNotificationOptions) (result *NotificationsIntegrationTestPostResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(postTestEventNotificationOptions, "postTestEventNotificationOptions cannot be nil")
 	if err != nil {
 		return
@@ -2454,13 +2454,30 @@ func (project *ProjectV1) PostTestEventNotificationWithContext(ctx context.Conte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPostTestEventNotificationResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNotificationsIntegrationTestPostResponse)
 		if err != nil {
 			return
 		}
 		response.Result = result
 	}
 
+	return
+}
+
+// ActionJob : The response of a fetching an action job.
+type ActionJob struct {
+	// The unique ID of a project.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalActionJob unmarshals an instance of ActionJob from the specified map of raw messages.
+func UnmarshalActionJob(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActionJob)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2520,42 +2537,9 @@ func (options *ApproveOptions) SetHeaders(param map[string]string) *ApproveOptio
 	return options
 }
 
-// BrokerResult : The result of Get instance status call.
-type BrokerResult struct {
-	// Indicates whether the service instance is active and is meaningful if enabled is true. The default value is true if
-	// not specified.
-	Active *string `json:"active,omitempty"`
-
-	// Indicates the current state of the service instance.
-	Enabled *string `json:"enabled,omitempty"`
-
-	// Indicates when the service instance was last accessed/modified/etc., and it is meaningful if enabled is true and
-	// active is false. Represented as milliseconds since the epoch, but does not need to be accurate to the second/hour.
-	LastActive *string `json:"last_active,omitempty"`
-}
-
-// UnmarshalBrokerResult unmarshals an instance of BrokerResult from the specified map of raw messages.
-func UnmarshalBrokerResult(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(BrokerResult)
-	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_active", &obj.LastActive)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // CatalogResponse : Response from fetching the catalog metadata stored within the broker.
 type CatalogResponse struct {
-	// collection of catalog services.
+	// The collection of catalog services.
 	Services []CatalogResponseServices `json:"services,omitempty"`
 }
 
@@ -2572,41 +2556,40 @@ func UnmarshalCatalogResponse(m map[string]json.RawMessage, result interface{}) 
 
 // CatalogResponseServices : Catalog service structure.
 type CatalogResponseServices struct {
-	// Specifies whether or not your service can be bound to applications in IBM Cloud. If bindable, it must be able to
-	// return API endpoints and credentials to your service consumers.
+	// Specifies if your service can be bound to applications in IBM Cloud. If a service is bindable, it must be able to
+	// return API endpoints and credentials to your service users.
 	Bindable *bool `json:"bindable,omitempty"`
 
-	// A short description of the service. It MUST be a non-empty string. Note that this description is not displayed by
-	// the the IBM Cloud console or IBM Cloud CLI.
+	// A short description of the service. It must be a non-empty string. This description is not displayed by the IBM
+	// Cloud console or the IBM Cloud CLI.
 	Description *string `json:"description,omitempty"`
 
-	// An identifier used to correlate this service in future requests to the broker. This MUST be globally unique within
-	// the IBM Cloud platform. It MUST be a non-empty string, and using a GUID is recommended. Recommended: If you define
-	// your service in the RMC, the RMC will generate a globally unique GUID service ID that you can use in your service
-	// broker.
+	// An identifier used to correlate this service in future requests to the broker. This must be globally unique within
+	// the IBM Cloud platform. It must be a non-empty string, and using a GUID is recommended. If you define your service
+	// in the Resource Management Console, RMC generates a globally unique GUID service ID that you can use in your service
+	// broker.".
 	ID *string `json:"id,omitempty"`
 
-	// catalog service metadata.
+	// The catalog service metadata.
 	Metadata *CatalogResponseServicesMetadata `json:"metadata,omitempty"`
 
-	// The service name is not your display name. Your service name must follow the follow these rules: It must be all
-	// lowercase. It can't include spaces but may include hyphens (-). It must be less than 32 characters. Your service
-	// name should include your company name. If your company has more then one offering your service name should include
-	// both company and offering as part of the name. For example, the Compose company has offerings for Redis and
-	// Elasticsearch. Sample service names on IBM Cloud for these offerings would be compose-redis and
-	// compose-elasticsearch. Each of these service names have associated display names that are shown in the IBM Cloud
-	// catalog: Compose Redis and Compose Elasticsearch. Another company (e.g. FastJetMail) may only have the single
-	// JetMail offering, in which case the service name should be fastjetmail. Recommended: If you define your service in
-	// RMC, you can export a catalog.j-son that will include the service name you defined within the RMC.
+	// This service name isn't your display name. Your service name must meet the following criteria: It must be all
+	// lowercase. It can't include spaces but can include hyphens (-). It must be less than 32 characters. Your service
+	// name should include your company name. If your company has more then one offering, your service name should include
+	// both the company and offering as part of the name. For example, the Compose company has offerings for Redis and
+	// Elasticsearch. Sample service names on IBM Cloud for these offerings would be 'compose-redis' and
+	// 'compose-elasticsearch'. Both service names have associated display names that are shown in the IBM Cloud catalog:
+	// Compose Redis and Compose Elasticsearch. Another company (e.g. FastJetMail) might only have the single JetMail
+	// offering, in which case the service name should be 'fastjetmail'. If you define your service in the Resource
+	// Management Console, you can export a catalog.j-son that includes the service name you defined within the RMC.
 	Name *string `json:"name,omitempty"`
 
-	// The Default is false. This specifices whether or not you support plan changes for provisioned instances. If your
-	// offering supports multiple plans, and you want users to be able to change plans for a provisioned instance, you will
-	// need to enable the ability for users to update their service instance by using /v2/service_instances/{instance_id}
-	// PATCH.
+	// The default is false. This specifies if your support plan changes for provisioned instances. If your offering
+	// supports multiple plans, and you want users to be able to change plans for a provisioned instance, you must enable
+	// the ability for users to update their service instances by using /v2/service_instances/{instance_id} PATCH.
 	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
 
-	// collection of catalog service tags.
+	// The collection of catalog service tags.
 	Tags []string `json:"tags,omitempty"`
 
 	// A list of plans for this service that must contain at least one plan.
@@ -2652,30 +2635,30 @@ func UnmarshalCatalogResponseServices(m map[string]json.RawMessage, result inter
 	return
 }
 
-// CatalogResponseServicesMetadata : catalog service metadata.
+// CatalogResponseServicesMetadata : The catalog service metadata.
 type CatalogResponseServicesMetadata struct {
-	// catalog service name.
+	// The catalog service name.
 	DisplayName *string `json:"display_name,omitempty"`
 
-	// catalog service documentation url.
+	// The catalog service documentation URL.
 	DocumentationURL *string `json:"documentation_url,omitempty"`
 
-	// catalog service image url.
+	// The catalog service image URL.
 	ImageURL *string `json:"image_url,omitempty"`
 
-	// catalog service instructions url.
+	// The catalog service instructions URL.
 	InstructionsURL *string `json:"instructions_url,omitempty"`
 
-	// catalog service long description.
+	// The catalog service long description.
 	LongDescription *string `json:"long_description,omitempty"`
 
-	// catalog service provider display name.
+	// The catalog service provider display name.
 	ProviderDisplayName *string `json:"provider_display_name,omitempty"`
 
-	// catalog service support url.
+	// The catalog service support URL.
 	SupportURL *string `json:"support_url,omitempty"`
 
-	// catalog service terms url.
+	// The catalog service terms URL.
 	TermsURL *string `json:"terms_url,omitempty"`
 }
 
@@ -2718,21 +2701,21 @@ func UnmarshalCatalogResponseServicesMetadata(m map[string]json.RawMessage, resu
 	return
 }
 
-// CatalogResponseServicesPlans : catalog service plan.
+// CatalogResponseServicesPlans : The catalog service plan.
 type CatalogResponseServicesPlans struct {
-	// catalog service plan description.
+	// The catalog service plan description.
 	Description *string `json:"description,omitempty"`
 
-	// catalog service plan subscription level.
+	// The catalog service plan subscription level.
 	Free *bool `json:"free,omitempty"`
 
-	// catalog service plan subscription id.
+	// The catalog service plan subscription ID.
 	ID *string `json:"id,omitempty"`
 
-	// catalog service plan metadata.
+	// The catalog service plan metadata.
 	Metadata *CatalogResponseServicesPlansMetadata `json:"metadata,omitempty"`
 
-	// catalog service plan name.
+	// The catalog service plan name.
 	Name *string `json:"name,omitempty"`
 }
 
@@ -2763,12 +2746,12 @@ func UnmarshalCatalogResponseServicesPlans(m map[string]json.RawMessage, result 
 	return
 }
 
-// CatalogResponseServicesPlansMetadata : catalog service plan metadata.
+// CatalogResponseServicesPlansMetadata : The catalog service plan metadata.
 type CatalogResponseServicesPlansMetadata struct {
-	// catalog service plan metadata bullets.
+	// The catalog service plan metadata bullets.
 	Bullets []string `json:"bullets,omitempty"`
 
-	// catalog service plan metadata name.
+	// The catalog service plan metadata name.
 	DisplayName *string `json:"display_name,omitempty"`
 }
 
@@ -2852,35 +2835,62 @@ func (options *CheckConfigOptions) SetHeaders(param map[string]string) *CheckCon
 	return options
 }
 
-// ConfigSettingItems : ConfigSettingItems struct
-type ConfigSettingItems struct {
-	// The name of the configuration setting.
-	Name *string `json:"name" validate:"required"`
+// CostEstimate : The cost estimate for the given configuration.
+type CostEstimate struct {
 
-	// The value of a the configuration setting.
-	Value *string `json:"value" validate:"required"`
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
 }
 
-// NewConfigSettingItems : Instantiate ConfigSettingItems (Generic Model Constructor)
-func (*ProjectV1) NewConfigSettingItems(name string, value string) (_model *ConfigSettingItems, err error) {
-	_model = &ConfigSettingItems{
-		Name: core.StringPtr(name),
-		Value: core.StringPtr(value),
+// SetProperty allows the user to set an arbitrary property on an instance of CostEstimate
+func (o *CostEstimate) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
 	}
-	err = core.ValidateStruct(_model, "required parameters")
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of CostEstimate
+func (o *CostEstimate) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of CostEstimate
+func (o *CostEstimate) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of CostEstimate
+func (o *CostEstimate) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of CostEstimate
+func (o *CostEstimate) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)
 	return
 }
 
-// UnmarshalConfigSettingItems unmarshals an instance of ConfigSettingItems from the specified map of raw messages.
-func UnmarshalConfigSettingItems(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ConfigSettingItems)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
+// UnmarshalCostEstimate unmarshals an instance of CostEstimate from the specified map of raw messages.
+func UnmarshalCostEstimate(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CostEstimate)
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -2903,14 +2913,14 @@ type CreateConfigOptions struct {
 	// A collection of configuration labels.
 	NewLabels []string `json:"labels,omitempty"`
 
-	// A project configuration description.
+	// The project configuration description.
 	NewDescription *string `json:"description,omitempty"`
 
 	// The inputs of a Schematics template property.
-	NewInput []InputVariableInput `json:"input,omitempty"`
+	NewInput []ProjectConfigInputVariable `json:"input,omitempty"`
 
-	// An optional setting object That is passed to the cart API.
-	NewSetting []ConfigSettingItems `json:"setting,omitempty"`
+	// An optional setting object that's passed to the cart API.
+	NewSetting []ProjectConfigSettingCollection `json:"setting,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2962,13 +2972,13 @@ func (_options *CreateConfigOptions) SetNewDescription(newDescription string) *C
 }
 
 // SetNewInput : Allow user to set NewInput
-func (_options *CreateConfigOptions) SetNewInput(newInput []InputVariableInput) *CreateConfigOptions {
+func (_options *CreateConfigOptions) SetNewInput(newInput []ProjectConfigInputVariable) *CreateConfigOptions {
 	_options.NewInput = newInput
 	return _options
 }
 
 // SetNewSetting : Allow user to set NewSetting
-func (_options *CreateConfigOptions) SetNewSetting(newSetting []ConfigSettingItems) *CreateConfigOptions {
+func (_options *CreateConfigOptions) SetNewSetting(newSetting []ProjectConfigSettingCollection) *CreateConfigOptions {
 	_options.NewSetting = newSetting
 	return _options
 }
@@ -2988,7 +2998,7 @@ type CreateProjectOptions struct {
 	Description *string `json:"description,omitempty"`
 
 	// The project configurations.
-	Configs []ProjectConfigInput `json:"configs,omitempty"`
+	Configs []ProjectConfigPrototype `json:"configs,omitempty"`
 
 	// Group name of the customized collection of resources.
 	ResourceGroup *string `json:"resource_group,omitempty"`
@@ -3020,7 +3030,7 @@ func (_options *CreateProjectOptions) SetDescription(description string) *Create
 }
 
 // SetConfigs : Allow user to set Configs
-func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigInput) *CreateProjectOptions {
+func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigPrototype) *CreateProjectOptions {
 	_options.Configs = configs
 	return _options
 }
@@ -3041,33 +3051,6 @@ func (_options *CreateProjectOptions) SetLocation(location string) *CreateProjec
 func (options *CreateProjectOptions) SetHeaders(param map[string]string) *CreateProjectOptions {
 	options.Headers = param
 	return options
-}
-
-// CreateResult : Result of the provision call.
-type CreateResult struct {
-	// The URL of a web-based management user interface for the service instance. The URL MUST contain enough information
-	// for the dashboard to identify the resource being accessed.
-	DashboardURL *string `json:"dashboard_url,omitempty"`
-
-	// For asynchronous responses, service brokers can return an identifier representing the operation. The value of this
-	// field MUST be provided by the platform with requests to the last_operation endpoint in a URL encoded query
-	// parameter. If present, it MUST be a non-empty string.
-	Operation *string `json:"operation,omitempty"`
-}
-
-// UnmarshalCreateResult unmarshals an instance of CreateResult from the specified map of raw messages.
-func UnmarshalCreateResult(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CreateResult)
-	err = core.UnmarshalPrimitive(m, "dashboard_url", &obj.DashboardURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // CumulativeNeedsAttention : CumulativeNeedsAttention struct
@@ -3192,30 +3175,6 @@ func (options *DeleteEventNotificationsIntegrationOptions) SetHeaders(param map[
 	return options
 }
 
-// DeleteProjectConfigResponse : Delete configuration response.
-type DeleteProjectConfigResponse struct {
-	// The unique ID of a project.
-	ID *string `json:"id,omitempty"`
-
-	// The name of the configuration being deleted.
-	Name *string `json:"name,omitempty"`
-}
-
-// UnmarshalDeleteProjectConfigResponse unmarshals an instance of DeleteProjectConfigResponse from the specified map of raw messages.
-func UnmarshalDeleteProjectConfigResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DeleteProjectConfigResponse)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // DeleteProjectOptions : The DeleteProject options.
 type DeleteProjectOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -3251,67 +3210,6 @@ func (_options *DeleteProjectOptions) SetDestroy(destroy bool) *DeleteProjectOpt
 func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *DeleteProjectOptions {
 	options.Headers = param
 	return options
-}
-
-// DeleteResult : The result of deprovisioning a service instance.
-type DeleteResult struct {
-
-	// Allows users to set arbitrary properties
-	additionalProperties map[string]interface{}
-}
-
-// SetProperty allows the user to set an arbitrary property on an instance of DeleteResult
-func (o *DeleteResult) SetProperty(key string, value interface{}) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]interface{})
-	}
-	o.additionalProperties[key] = value
-}
-
-// SetProperties allows the user to set a map of arbitrary properties on an instance of DeleteResult
-func (o *DeleteResult) SetProperties(m map[string]interface{}) {
-	o.additionalProperties = make(map[string]interface{})
-	for k, v := range m {
-		o.additionalProperties[k] = v
-	}
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of DeleteResult
-func (o *DeleteResult) GetProperty(key string) interface{} {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of DeleteResult
-func (o *DeleteResult) GetProperties() map[string]interface{} {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of DeleteResult
-func (o *DeleteResult) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	buffer, err = json.Marshal(m)
-	return
-}
-
-// UnmarshalDeleteResult unmarshals an instance of DeleteResult from the specified map of raw messages.
-func UnmarshalDeleteResult(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DeleteResult)
-	for k := range m {
-		var v interface{}
-		e := core.UnmarshalPrimitive(m, k, &v)
-		if e != nil {
-			err = e
-			return
-		}
-		obj.SetProperty(k, v)
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // DeleteServiceInstanceOptions : The DeleteServiceInstance options.
@@ -3447,23 +3345,6 @@ func (_options *ForceApproveOptions) SetComplete(complete bool) *ForceApproveOpt
 func (options *ForceApproveOptions) SetHeaders(param map[string]string) *ForceApproveOptions {
 	options.Headers = param
 	return options
-}
-
-// GetActionJobResponse : The response of a fetching an action job.
-type GetActionJobResponse struct {
-	// The unique ID of a project.
-	ID *string `json:"id,omitempty"`
-}
-
-// UnmarshalGetActionJobResponse unmarshals an instance of GetActionJobResponse from the specified map of raw messages.
-func UnmarshalGetActionJobResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetActionJobResponse)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetCatalogOptions : The GetCatalog options.
@@ -3633,67 +3514,6 @@ func (options *GetCostEstimateOptions) SetHeaders(param map[string]string) *GetC
 	return options
 }
 
-// GetCostEstimateResponse : The cost estimate for the given configuration.
-type GetCostEstimateResponse struct {
-
-	// Allows users to set arbitrary properties
-	additionalProperties map[string]interface{}
-}
-
-// SetProperty allows the user to set an arbitrary property on an instance of GetCostEstimateResponse
-func (o *GetCostEstimateResponse) SetProperty(key string, value interface{}) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]interface{})
-	}
-	o.additionalProperties[key] = value
-}
-
-// SetProperties allows the user to set a map of arbitrary properties on an instance of GetCostEstimateResponse
-func (o *GetCostEstimateResponse) SetProperties(m map[string]interface{}) {
-	o.additionalProperties = make(map[string]interface{})
-	for k, v := range m {
-		o.additionalProperties[k] = v
-	}
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of GetCostEstimateResponse
-func (o *GetCostEstimateResponse) GetProperty(key string) interface{} {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of GetCostEstimateResponse
-func (o *GetCostEstimateResponse) GetProperties() map[string]interface{} {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of GetCostEstimateResponse
-func (o *GetCostEstimateResponse) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	buffer, err = json.Marshal(m)
-	return
-}
-
-// UnmarshalGetCostEstimateResponse unmarshals an instance of GetCostEstimateResponse from the specified map of raw messages.
-func UnmarshalGetCostEstimateResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetCostEstimateResponse)
-	for k := range m {
-		var v interface{}
-		e := core.UnmarshalPrimitive(m, k, &v)
-		if e != nil {
-			err = e
-			return
-		}
-		obj.SetProperty(k, v)
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // GetEventNotificationsIntegrationOptions : The GetEventNotificationsIntegration options.
 type GetEventNotificationsIntegrationOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -3720,73 +3540,6 @@ func (_options *GetEventNotificationsIntegrationOptions) SetID(id string) *GetEv
 func (options *GetEventNotificationsIntegrationOptions) SetHeaders(param map[string]string) *GetEventNotificationsIntegrationOptions {
 	options.Headers = param
 	return options
-}
-
-// GetEventNotificationsIntegrationResponse : The resulting response of getting the source details of the event notifications integration.
-type GetEventNotificationsIntegrationResponse struct {
-	// A description of the instance of the event.
-	Description *string `json:"description,omitempty"`
-
-	// The name of the instance of the event.
-	Name *string `json:"name,omitempty"`
-
-	// The status of instance of the event.
-	Enabled *bool `json:"enabled,omitempty"`
-
-	// A unique ID of the instance of the event.
-	ID *string `json:"id,omitempty"`
-
-	// The type of the instance of event.
-	Type *string `json:"type,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
-
-	// The topic count of the instance of the event.
-	TopicCount *int64 `json:"topic_count,omitempty"`
-
-	// The topic names of the instance of the event.
-	TopicNames []string `json:"topic_names,omitempty"`
-}
-
-// UnmarshalGetEventNotificationsIntegrationResponse unmarshals an instance of GetEventNotificationsIntegrationResponse from the specified map of raw messages.
-func UnmarshalGetEventNotificationsIntegrationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetEventNotificationsIntegrationResponse)
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "topic_count", &obj.TopicCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "topic_names", &obj.TopicNames)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetHealthOptions : The GetHealth options.
@@ -3879,31 +3632,6 @@ func (options *GetLastOperationOptions) SetHeaders(param map[string]string) *Get
 	return options
 }
 
-// GetLastOperationResult : The result of get_last_operation call.
-type GetLastOperationResult struct {
-	// Valid values are in progress, succeeded, and failed.
-	State *string `json:"state,omitempty"`
-
-	// A user-facing message displayed to the platform API client. Can be used to tell the user details about the status of
-	// the operation.
-	Description *string `json:"description,omitempty"`
-}
-
-// UnmarshalGetLastOperationResult unmarshals an instance of GetLastOperationResult from the specified map of raw messages.
-func UnmarshalGetLastOperationResult(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetLastOperationResult)
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // GetNotificationsOptions : The GetNotifications options.
 type GetNotificationsOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -3930,23 +3658,6 @@ func (_options *GetNotificationsOptions) SetID(id string) *GetNotificationsOptio
 func (options *GetNotificationsOptions) SetHeaders(param map[string]string) *GetNotificationsOptions {
 	options.Headers = param
 	return options
-}
-
-// GetNotificationsResponse : The response from fetching notifications.
-type GetNotificationsResponse struct {
-	// Collection of the notification events with an ID.
-	Notifications []NotificationEventWithID `json:"notifications,omitempty"`
-}
-
-// UnmarshalGetNotificationsResponse unmarshals an instance of GetNotificationsResponse from the specified map of raw messages.
-func UnmarshalGetNotificationsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetNotificationsResponse)
-	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetProjectOptions : The GetProject options.
@@ -3993,58 +3704,6 @@ func (_options *GetProjectOptions) SetComplete(complete bool) *GetProjectOptions
 func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjectOptions {
 	options.Headers = param
 	return options
-}
-
-// GetProjectResponse : The project returned in the response body.
-type GetProjectResponse struct {
-	// The project name.
-	Name *string `json:"name" validate:"required"`
-
-	// A project descriptive text.
-	Description *string `json:"description,omitempty"`
-
-	// The unique ID of a project.
-	ID *string `json:"id,omitempty"`
-
-	// An IBM Cloud resource name, which uniquely identifies a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	// The project configurations.
-	Configs []ProjectConfig `json:"configs,omitempty"`
-
-	// Metadata of the project.
-	Metadata *ProjectMetadata `json:"metadata,omitempty"`
-}
-
-// UnmarshalGetProjectResponse unmarshals an instance of GetProjectResponse from the specified map of raw messages.
-func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetProjectResponse)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetSchematicsJobOptions : The GetSchematicsJob options.
@@ -4217,32 +3876,6 @@ func UnmarshalInputVariable(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "required", &obj.Required)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// InputVariableInput : InputVariableInput struct
-type InputVariableInput struct {
-	// The variable name.
-	Name *string `json:"name" validate:"required"`
-}
-
-// NewInputVariableInput : Instantiate InputVariableInput (Generic Model Constructor)
-func (*ProjectV1) NewInputVariableInput(name string) (_model *InputVariableInput, err error) {
-	_model = &InputVariableInput{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalInputVariableInput unmarshals an instance of InputVariableInput from the specified map of raw messages.
-func UnmarshalInputVariableInput(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(InputVariableInput)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
@@ -4467,10 +4100,10 @@ type NotificationEvent struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Who triggered the flow that posted the event.
+	// The user that triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
-	// Actionable URL that users can go to as a response to the event.
+	// An actionable URL that users can access in response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
@@ -4529,10 +4162,10 @@ type NotificationEventWithID struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Who triggered the flow that posted the event.
+	// The user that triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
-	// Actionable URL that users can go to as a response to the event.
+	// An actionable URL that users can access in response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
@@ -4588,10 +4221,10 @@ type NotificationEventWithStatus struct {
 	// The source of the event.
 	Source *string `json:"source,omitempty"`
 
-	// Who triggered the flow that posted the event.
+	// The user that triggered the flow that posted the event.
 	TriggeredBy *string `json:"triggered_by,omitempty"`
 
-	// Actionable URL that users can go to as a response to the event.
+	// An actionable URL that users can access in response to the event.
 	ActionURL *string `json:"action_url,omitempty"`
 
 	// Any relevant metadata to be stored.
@@ -4650,6 +4283,226 @@ func UnmarshalNotificationEventWithStatus(m map[string]json.RawMessage, result i
 	return
 }
 
+// NotificationsGetResponse : The response from fetching notifications.
+type NotificationsGetResponse struct {
+	// Collection of the notification events with an ID.
+	Notifications []NotificationEventWithID `json:"notifications,omitempty"`
+}
+
+// UnmarshalNotificationsGetResponse unmarshals an instance of NotificationsGetResponse from the specified map of raw messages.
+func UnmarshalNotificationsGetResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationsGetResponse)
+	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationsIntegrationGetResponse : The resulting response of getting the source details of the event notifications integration.
+type NotificationsIntegrationGetResponse struct {
+	// A description of the instance of the event.
+	Description *string `json:"description,omitempty"`
+
+	// The name of the instance of the event.
+	Name *string `json:"name,omitempty"`
+
+	// The status of instance of the event.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// A unique ID of the instance of the event.
+	ID *string `json:"id,omitempty"`
+
+	// The type of the instance of event.
+	Type *string `json:"type,omitempty"`
+
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The topic count of the instance of the event.
+	TopicCount *int64 `json:"topic_count,omitempty"`
+
+	// The topic names of the instance of the event.
+	TopicNames []string `json:"topic_names,omitempty"`
+}
+
+// UnmarshalNotificationsIntegrationGetResponse unmarshals an instance of NotificationsIntegrationGetResponse from the specified map of raw messages.
+func UnmarshalNotificationsIntegrationGetResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationsIntegrationGetResponse)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "topic_count", &obj.TopicCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "topic_names", &obj.TopicNames)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationsIntegrationPostResponse : The resulting response of connecting a project to a event notifications instance.
+type NotificationsIntegrationPostResponse struct {
+	// A description of the instance of the event.
+	Description *string `json:"description,omitempty"`
+
+	// A name of the instance of the event.
+	Name *string `json:"name,omitempty"`
+
+	// A status of the instance of the event.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// A unique ID of the instance of the event.
+	ID *string `json:"id,omitempty"`
+
+	// The type of instance of the event.
+	Type *string `json:"type,omitempty"`
+
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+}
+
+// UnmarshalNotificationsIntegrationPostResponse unmarshals an instance of NotificationsIntegrationPostResponse from the specified map of raw messages.
+func UnmarshalNotificationsIntegrationPostResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationsIntegrationPostResponse)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationsIntegrationTestPostResponse : The response for posting a test notification to the event notifications instance.
+type NotificationsIntegrationTestPostResponse struct {
+	// The data content type of the instance of the event.
+	Datacontenttype *string `json:"datacontenttype,omitempty"`
+
+	// The IBM default long message for the instance of the event.
+	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
+
+	// The IBM default short message for the instance of the event.
+	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
+
+	// The IBM source ID for the instance of the event.
+	Ibmensourceid *string `json:"ibmensourceid,omitempty"`
+
+	// A unique ID of the instance of the event.
+	ID *string `json:"id" validate:"required"`
+
+	// The source of the instance of the event.
+	Source *string `json:"source" validate:"required"`
+
+	// The spec version of the instance of the event.
+	Specversion *string `json:"specversion,omitempty"`
+
+	// The type of instance of the event.
+	Type *string `json:"type,omitempty"`
+}
+
+// UnmarshalNotificationsIntegrationTestPostResponse unmarshals an instance of NotificationsIntegrationTestPostResponse from the specified map of raw messages.
+func UnmarshalNotificationsIntegrationTestPostResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationsIntegrationTestPostResponse)
+	err = core.UnmarshalPrimitive(m, "datacontenttype", &obj.Datacontenttype)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmendefaultlong", &obj.Ibmendefaultlong)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmendefaultshort", &obj.Ibmendefaultshort)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibmensourceid", &obj.Ibmensourceid)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "specversion", &obj.Specversion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// NotificationsPrototypePostResponse : The result of a notification post.
+type NotificationsPrototypePostResponse struct {
+	// The collection of the notification events with status.
+	Notifications []NotificationEventWithStatus `json:"notifications,omitempty"`
+}
+
+// UnmarshalNotificationsPrototypePostResponse unmarshals an instance of NotificationsPrototypePostResponse from the specified map of raw messages.
+func UnmarshalNotificationsPrototypePostResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(NotificationsPrototypePostResponse)
+	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithStatus)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // OutputValue : OutputValue struct
 type OutputValue struct {
 	// The variable name.
@@ -4683,7 +4536,7 @@ func UnmarshalOutputValue(m map[string]json.RawMessage, result interface{}) (err
 
 // PaginationLink : A pagination link.
 type PaginationLink struct {
-	// The url of the pull request, which uniquely identifies it.
+	// The URL of the pull request, which uniquely identifies it.
 	Href *string `json:"href" validate:"required"`
 
 	// A pagination token.
@@ -4744,7 +4597,7 @@ type PostEventNotificationsIntegrationOptions struct {
 	// A description of the instance of the event.
 	Description *string `json:"description,omitempty"`
 
-	// The name of the source this project is on the event notifications instance.
+	// The name of the project source for the event notifications instance.
 	EventNotificationsSourceName *string `json:"event_notifications_source_name,omitempty"`
 
 	// A status of the instance of the event.
@@ -4798,59 +4651,6 @@ func (options *PostEventNotificationsIntegrationOptions) SetHeaders(param map[st
 	return options
 }
 
-// PostEventNotificationsIntegrationResponse : The resulting response of connecting a project to a event notifications instance.
-type PostEventNotificationsIntegrationResponse struct {
-	// A description of the instance of the event.
-	Description *string `json:"description,omitempty"`
-
-	// A name of the instance of the event.
-	Name *string `json:"name,omitempty"`
-
-	// A status of the instance of the event.
-	Enabled *bool `json:"enabled,omitempty"`
-
-	// A unique ID of the instance of the event.
-	ID *string `json:"id,omitempty"`
-
-	// The type of instance of the event.
-	Type *string `json:"type,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-}
-
-// UnmarshalPostEventNotificationsIntegrationResponse unmarshals an instance of PostEventNotificationsIntegrationResponse from the specified map of raw messages.
-func UnmarshalPostEventNotificationsIntegrationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PostEventNotificationsIntegrationResponse)
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PostNotificationOptions : The PostNotification options.
 type PostNotificationOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -4888,32 +4688,15 @@ func (options *PostNotificationOptions) SetHeaders(param map[string]string) *Pos
 	return options
 }
 
-// PostNotificationsResponse : The result of a notification post.
-type PostNotificationsResponse struct {
-	// The collection of the notification events with status.
-	Notifications []NotificationEventWithStatus `json:"notifications,omitempty"`
-}
-
-// UnmarshalPostNotificationsResponse unmarshals an instance of PostNotificationsResponse from the specified map of raw messages.
-func UnmarshalPostNotificationsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PostNotificationsResponse)
-	err = core.UnmarshalModel(m, "notifications", &obj.Notifications, UnmarshalNotificationEventWithStatus)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // PostTestEventNotificationOptions : The PostTestEventNotification options.
 type PostTestEventNotificationOptions struct {
 	// The ID of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// IBM default long message of the instance of the event.
+	// The IBM default long message for the instance of an event.
 	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
 
-	// IBM default short message of the instance of the event.
+	// The IBM default long message for the instance of an event.
 	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -4951,49 +4734,35 @@ func (options *PostTestEventNotificationOptions) SetHeaders(param map[string]str
 	return options
 }
 
-// PostTestEventNotificationResponse : The response for posting a test notification to the event notifications instance.
-type PostTestEventNotificationResponse struct {
-	// The data content type of the instance of the event.
-	Datacontenttype *string `json:"datacontenttype,omitempty"`
+// Project : The project returned in the response body.
+type Project struct {
+	// The project name.
+	Name *string `json:"name" validate:"required"`
 
-	// IBM default long message of the instance of the event.
-	Ibmendefaultlong *string `json:"ibmendefaultlong,omitempty"`
+	// A project descriptive text.
+	Description *string `json:"description,omitempty"`
 
-	// IBM default short message of the instance of the event.
-	Ibmendefaultshort *string `json:"ibmendefaultshort,omitempty"`
+	// The unique ID of a project.
+	ID *string `json:"id,omitempty"`
 
-	// IBM source ID of the instance of the event.
-	Ibmensourceid *string `json:"ibmensourceid,omitempty"`
+	// An IBM Cloud resource name, which uniquely identifies a resource.
+	Crn *string `json:"crn,omitempty"`
 
-	// A unique ID of the instance of the event.
-	ID *string `json:"id" validate:"required"`
+	// The project configurations.
+	Configs []ProjectConfig `json:"configs,omitempty"`
 
-	// The source of the instance of the event.
-	Source *string `json:"source" validate:"required"`
-
-	// The spec version of the instance of the event.
-	Specversion *string `json:"specversion,omitempty"`
-
-	// The type of instance of the event.
-	Type *string `json:"type,omitempty"`
+	// The metadata of the project.
+	Metadata *ProjectMetadata `json:"metadata,omitempty"`
 }
 
-// UnmarshalPostTestEventNotificationResponse unmarshals an instance of PostTestEventNotificationResponse from the specified map of raw messages.
-func UnmarshalPostTestEventNotificationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PostTestEventNotificationResponse)
-	err = core.UnmarshalPrimitive(m, "datacontenttype", &obj.Datacontenttype)
+// UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
+func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Project)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "ibmendefaultlong", &obj.Ibmendefaultlong)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibmendefaultshort", &obj.Ibmendefaultshort)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibmensourceid", &obj.Ibmensourceid)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
@@ -5001,19 +4770,65 @@ func UnmarshalPostTestEventNotificationResponse(m map[string]json.RawMessage, re
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source", &obj.Source)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "specversion", &obj.Specversion)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
 	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*ProjectV1) NewProjectPatch(project *Project) (_patch []JSONPatchOperation) {
+	if (project.Name != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/name"),
+			Value: project.Name,
+		})
+	}
+	if (project.Description != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/description"),
+			Value: project.Description,
+		})
+	}
+	if (project.ID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/id"),
+			Value: project.ID,
+		})
+	}
+	if (project.Crn != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/crn"),
+			Value: project.Crn,
+		})
+	}
+	if (project.Configs != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/configs"),
+			Value: project.Configs,
+		})
+	}
+	if (project.Metadata != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/metadata"),
+			Value: project.Metadata,
+		})
+	}
 	return
 }
 
@@ -5041,6 +4856,111 @@ func UnmarshalProjectCRNTokenResponse(m map[string]json.RawMessage, result inter
 	return
 }
 
+// ProjectCollection : Projects list.
+type ProjectCollection struct {
+	// A pagination limit.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// Get the occurrencies of the total projects.
+	TotalCount *int64 `json:"total_count" validate:"required"`
+
+	// A pagination link.
+	First *PaginationLink `json:"first" validate:"required"`
+
+	// A pagination link.
+	Last *PaginationLink `json:"last,omitempty"`
+
+	// A pagination link.
+	Previous *PaginationLink `json:"previous,omitempty"`
+
+	// A pagination link.
+	Next *PaginationLink `json:"next,omitempty"`
+
+	// An array of projects.
+	Projects []ProjectCollectionMemberWithMetadata `json:"projects,omitempty"`
+}
+
+// UnmarshalProjectCollection unmarshals an instance of ProjectCollection from the specified map of raw messages.
+func UnmarshalProjectCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectCollection)
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPaginationLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationLink)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProjectCollectionMemberWithMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *ProjectCollection) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
+}
+
+// ProjectCollectionMemberWithMetadata : ProjectCollectionMemberWithMetadata struct
+type ProjectCollectionMemberWithMetadata struct {
+	// The unique ID of a project.
+	ID *string `json:"id,omitempty"`
+
+	// The project name.
+	Name *string `json:"name,omitempty"`
+
+	// The project description.
+	Description *string `json:"description,omitempty"`
+
+	// The metadata of the project.
+	Metadata *ProjectMetadata `json:"metadata,omitempty"`
+}
+
+// UnmarshalProjectCollectionMemberWithMetadata unmarshals an instance of ProjectCollectionMemberWithMetadata from the specified map of raw messages.
+func UnmarshalProjectCollectionMemberWithMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectCollectionMemberWithMetadata)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectConfig : The project configuration.
 type ProjectConfig struct {
 	// The unique ID of a project.
@@ -5052,13 +4972,13 @@ type ProjectConfig struct {
 	// A collection of configuration labels.
 	Labels []string `json:"labels,omitempty"`
 
-	// A project configuration description.
+	// The project configuration description.
 	Description *string `json:"description,omitempty"`
 
-	// The location ID of a Project configuration manual property.
+	// The location ID of a project configuration manual property.
 	LocatorID *string `json:"locator_id" validate:"required"`
 
-	// The type of a Project Config Manual Property.
+	// The type of a project configuration manual property.
 	Type *string `json:"type" validate:"required"`
 
 	// The outputs of a Schematics template property.
@@ -5067,12 +4987,12 @@ type ProjectConfig struct {
 	// The outputs of a Schematics template property.
 	Output []OutputValue `json:"output,omitempty"`
 
-	// An optional setting object That is passed to the cart API.
-	Setting []ConfigSettingItems `json:"setting,omitempty"`
+	// An optional setting object that's passed to the cart API.
+	Setting []ProjectConfigSettingCollection `json:"setting,omitempty"`
 }
 
 // Constants associated with the ProjectConfig.Type property.
-// The type of a Project Config Manual Property.
+// The type of a project configuration manual property.
 const (
 	ProjectConfig_Type_SchematicsBlueprint = "schematics_blueprint"
 	ProjectConfig_Type_TerraformTemplate = "terraform_template"
@@ -5113,7 +5033,7 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItems)
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalProjectConfigSettingCollection)
 	if err != nil {
 		return
 	}
@@ -5188,6 +5108,47 @@ func (*ProjectV1) NewProjectConfigPatch(projectConfig *ProjectConfig) (_patch []
 	return
 }
 
+// ProjectConfigCollection : The project configuration list.
+type ProjectConfigCollection struct {
+	// The collection list operation response schema that should define the array property with the name "configs".
+	Configs []ProjectConfig `json:"configs,omitempty"`
+}
+
+// UnmarshalProjectConfigCollection unmarshals an instance of ProjectConfigCollection from the specified map of raw messages.
+func UnmarshalProjectConfigCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigCollection)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigDelete : Deletes the configuration response.
+type ProjectConfigDelete struct {
+	// The unique ID of a project.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the configuration being deleted.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalProjectConfigDelete unmarshals an instance of ProjectConfigDelete from the specified map of raw messages.
+func UnmarshalProjectConfigDelete(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigDelete)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectConfigDiff : The project configuration diff summary.
 type ProjectConfigDiff struct {
 	// The additions to configurations in the diff summary.
@@ -5221,7 +5182,7 @@ func UnmarshalProjectConfigDiff(m map[string]json.RawMessage, result interface{}
 
 // ProjectConfigDiffAdded : The additions to configurations in the diff summary.
 type ProjectConfigDiffAdded struct {
-	// Collection of additions to configurations in the diff summary.
+	// The collection of additions to the configurations in the diff summary.
 	Input []ProjectConfigDiffInputVariable `json:"input,omitempty"`
 }
 
@@ -5238,7 +5199,7 @@ func UnmarshalProjectConfigDiffAdded(m map[string]json.RawMessage, result interf
 
 // ProjectConfigDiffChanged : The changes to configurations in the diff summary.
 type ProjectConfigDiffChanged struct {
-	// Collection of changes to configurations in the diff summary.
+	// The collection of changes to configurations in the diff summary.
 	Input []ProjectConfigDiffInputVariable `json:"input,omitempty"`
 }
 
@@ -5292,7 +5253,7 @@ func UnmarshalProjectConfigDiffInputVariable(m map[string]json.RawMessage, resul
 
 // ProjectConfigDiffRemoved : The deletions to configurations in the diff summary.
 type ProjectConfigDiffRemoved struct {
-	// Collection of deletions to configurations in the diff summary.
+	// The collection of deletions to configurations in the diff summary.
 	Input []ProjectConfigDiffInputVariable `json:"input,omitempty"`
 }
 
@@ -5307,8 +5268,34 @@ func UnmarshalProjectConfigDiffRemoved(m map[string]json.RawMessage, result inte
 	return
 }
 
-// ProjectConfigInput : The input of a project configuration.
-type ProjectConfigInput struct {
+// ProjectConfigInputVariable : ProjectConfigInputVariable struct
+type ProjectConfigInputVariable struct {
+	// The variable name.
+	Name *string `json:"name" validate:"required"`
+}
+
+// NewProjectConfigInputVariable : Instantiate ProjectConfigInputVariable (Generic Model Constructor)
+func (*ProjectV1) NewProjectConfigInputVariable(name string) (_model *ProjectConfigInputVariable, err error) {
+	_model = &ProjectConfigInputVariable{
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalProjectConfigInputVariable unmarshals an instance of ProjectConfigInputVariable from the specified map of raw messages.
+func UnmarshalProjectConfigInputVariable(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigInputVariable)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectConfigPrototype : The input of a project configuration.
+type ProjectConfigPrototype struct {
 	// The unique ID of a project.
 	ID *string `json:"id,omitempty"`
 
@@ -5318,22 +5305,22 @@ type ProjectConfigInput struct {
 	// A collection of configuration labels.
 	Labels []string `json:"labels,omitempty"`
 
-	// A project configuration description.
+	// The project configuration description.
 	Description *string `json:"description,omitempty"`
 
 	// The location ID of a project configuration manual property.
 	LocatorID *string `json:"locator_id" validate:"required"`
 
 	// The inputs of a Schematics template property.
-	Input []InputVariableInput `json:"input,omitempty"`
+	Input []ProjectConfigInputVariable `json:"input,omitempty"`
 
-	// An optional setting object That is passed to the cart API.
-	Setting []ConfigSettingItems `json:"setting,omitempty"`
+	// An optional setting object that's passed to the cart API.
+	Setting []ProjectConfigSettingCollection `json:"setting,omitempty"`
 }
 
-// NewProjectConfigInput : Instantiate ProjectConfigInput (Generic Model Constructor)
-func (*ProjectV1) NewProjectConfigInput(name string, locatorID string) (_model *ProjectConfigInput, err error) {
-	_model = &ProjectConfigInput{
+// NewProjectConfigPrototype : Instantiate ProjectConfigPrototype (Generic Model Constructor)
+func (*ProjectV1) NewProjectConfigPrototype(name string, locatorID string) (_model *ProjectConfigPrototype, err error) {
+	_model = &ProjectConfigPrototype{
 		Name: core.StringPtr(name),
 		LocatorID: core.StringPtr(locatorID),
 	}
@@ -5341,9 +5328,9 @@ func (*ProjectV1) NewProjectConfigInput(name string, locatorID string) (_model *
 	return
 }
 
-// UnmarshalProjectConfigInput unmarshals an instance of ProjectConfigInput from the specified map of raw messages.
-func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigInput)
+// UnmarshalProjectConfigPrototype unmarshals an instance of ProjectConfigPrototype from the specified map of raw messages.
+func UnmarshalProjectConfigPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigPrototype)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
@@ -5364,28 +5351,11 @@ func UnmarshalProjectConfigInput(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalInputVariableInput)
+	err = core.UnmarshalModel(m, "input", &obj.Input, UnmarshalProjectConfigInputVariable)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalConfigSettingItems)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ProjectConfigList : The project configuration list.
-type ProjectConfigList struct {
-	// Collection list operation response schema should define array property with name "configs".
-	Configs []ProjectConfig `json:"configs,omitempty"`
-}
-
-// UnmarshalProjectConfigList unmarshals an instance of ProjectConfigList from the specified map of raw messages.
-func UnmarshalProjectConfigList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectConfigList)
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	err = core.UnmarshalModel(m, "setting", &obj.Setting, UnmarshalProjectConfigSettingCollection)
 	if err != nil {
 		return
 	}
@@ -5393,37 +5363,33 @@ func UnmarshalProjectConfigList(m map[string]json.RawMessage, result interface{}
 	return
 }
 
-// ProjectListItem : ProjectListItem struct
-type ProjectListItem struct {
-	// The unique ID of a project.
-	ID *string `json:"id,omitempty"`
+// ProjectConfigSettingCollection : ProjectConfigSettingCollection struct
+type ProjectConfigSettingCollection struct {
+	// The name of the configuration setting.
+	Name *string `json:"name" validate:"required"`
 
-	// The project name.
-	Name *string `json:"name,omitempty"`
-
-	// The project description.
-	Description *string `json:"description,omitempty"`
-
-	// Metadata of the project.
-	Metadata *ProjectMetadata `json:"metadata,omitempty"`
+	// The value of a the configuration setting.
+	Value *string `json:"value" validate:"required"`
 }
 
-// UnmarshalProjectListItem unmarshals an instance of ProjectListItem from the specified map of raw messages.
-func UnmarshalProjectListItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectListItem)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
+// NewProjectConfigSettingCollection : Instantiate ProjectConfigSettingCollection (Generic Model Constructor)
+func (*ProjectV1) NewProjectConfigSettingCollection(name string, value string) (_model *ProjectConfigSettingCollection, err error) {
+	_model = &ProjectConfigSettingCollection{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
 	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalProjectConfigSettingCollection unmarshals an instance of ProjectConfigSettingCollection from the specified map of raw messages.
+func UnmarshalProjectConfigSettingCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigSettingCollection)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalProjectMetadata)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
 		return
 	}
@@ -5431,74 +5397,7 @@ func UnmarshalProjectListItem(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// ProjectListResponseSchema : Projects list.
-type ProjectListResponseSchema struct {
-	// A pagination limit.
-	Limit *int64 `json:"limit" validate:"required"`
-
-	// Get the occurrencies of the total projects.
-	TotalCount *int64 `json:"total_count" validate:"required"`
-
-	// A pagination link.
-	First *PaginationLink `json:"first" validate:"required"`
-
-	// A pagination link.
-	Last *PaginationLink `json:"last,omitempty"`
-
-	// A pagination link.
-	Previous *PaginationLink `json:"previous,omitempty"`
-
-	// A pagination link.
-	Next *PaginationLink `json:"next,omitempty"`
-
-	// An array of projects.
-	Projects []ProjectListItem `json:"projects,omitempty"`
-}
-
-// UnmarshalProjectListResponseSchema unmarshals an instance of ProjectListResponseSchema from the specified map of raw messages.
-func UnmarshalProjectListResponseSchema(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectListResponseSchema)
-	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationLink)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProjectListItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Retrieve the value to be passed to a request to access the next page of results
-func (resp *ProjectListResponseSchema) GetNextStart() (*string, error) {
-	if core.IsNil(resp.Next) {
-		return nil, nil
-	}
-	return resp.Next.Start, nil
-}
-
-// ProjectMetadata : Metadata of the project.
+// ProjectMetadata : The metadata of the project.
 type ProjectMetadata struct {
 	// An IBM Cloud resource name, which uniquely identifies a resource.
 	Crn *string `json:"crn,omitempty"`
@@ -5507,16 +5406,16 @@ type ProjectMetadata struct {
 	// specified by RFC 3339.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
-	// The cumulative list of needs attention items of a project.
+	// The cumulative list of needs attention items for a project.
 	CumulativeNeedsAttentionView []CumulativeNeedsAttention `json:"cumulative_needs_attention_view,omitempty"`
 
-	// True to indicate the fetch of needs attention items that failed.
+	// "True" indicates that the fetch of the needs attention items failed.
 	CumulativeNeedsAttentionViewErr *string `json:"cumulative_needs_attention_view_err,omitempty"`
 
-	// The location of where the project was created.
+	// The location where the project was created.
 	Location *string `json:"location,omitempty"`
 
-	// The resource group of where the project was created.
+	// The resource group where the project was created.
 	ResourceGroup *string `json:"resource_group,omitempty"`
 
 	// The project status value.
@@ -5565,50 +5464,8 @@ func UnmarshalProjectMetadata(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// ProjectUpdate : The project update request.
-type ProjectUpdate struct {
-	// The project name.
-	Name *string `json:"name,omitempty"`
-
-	// A project descriptive text.
-	Description *string `json:"description,omitempty"`
-}
-
-// UnmarshalProjectUpdate unmarshals an instance of ProjectUpdate from the specified map of raw messages.
-func UnmarshalProjectUpdate(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectUpdate)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-func (*ProjectV1) NewProjectUpdatePatch(projectUpdate *ProjectUpdate) (_patch []JSONPatchOperation) {
-	if (projectUpdate.Name != nil) {
-		_patch = append(_patch, JSONPatchOperation{
-			Op: core.StringPtr(JSONPatchOperation_Op_Add),
-			Path: core.StringPtr("/name"),
-			Value: projectUpdate.Name,
-		})
-	}
-	if (projectUpdate.Description != nil) {
-		_patch = append(_patch, JSONPatchOperation{
-			Op: core.StringPtr(JSONPatchOperation_Op_Add),
-			Path: core.StringPtr("/description"),
-			Value: projectUpdate.Description,
-		})
-	}
-	return
-}
-
-// PulsarEventItems : PulsarEventItems struct
-type PulsarEventItems struct {
+// PulsarEventPrototypeCollection : PulsarEventPrototypeCollection struct
+type PulsarEventPrototypeCollection struct {
 	// The type of the event that is published and written in dot notation.
 	EventType *string `json:"event_type" validate:"required"`
 
@@ -5619,7 +5476,7 @@ type PulsarEventItems struct {
 	// The publisher of the events, preferably written as the service's CRN.
 	Publisher *string `json:"publisher" validate:"required"`
 
-	// The IBM Cloud ID that the event is scoped to.
+	// The IBMid that the event is scoped to.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The version of the payload.
@@ -5635,9 +5492,9 @@ type PulsarEventItems struct {
 	additionalProperties map[string]interface{}
 }
 
-// NewPulsarEventItems : Instantiate PulsarEventItems (Generic Model Constructor)
-func (*ProjectV1) NewPulsarEventItems(eventType string, timestamp *strfmt.DateTime, publisher string, accountID string, version string) (_model *PulsarEventItems, err error) {
-	_model = &PulsarEventItems{
+// NewPulsarEventPrototypeCollection : Instantiate PulsarEventPrototypeCollection (Generic Model Constructor)
+func (*ProjectV1) NewPulsarEventPrototypeCollection(eventType string, timestamp *strfmt.DateTime, publisher string, accountID string, version string) (_model *PulsarEventPrototypeCollection, err error) {
+	_model = &PulsarEventPrototypeCollection{
 		EventType: core.StringPtr(eventType),
 		Timestamp: timestamp,
 		Publisher: core.StringPtr(publisher),
@@ -5648,34 +5505,34 @@ func (*ProjectV1) NewPulsarEventItems(eventType string, timestamp *strfmt.DateTi
 	return
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of PulsarEventItems
-func (o *PulsarEventItems) SetProperty(key string, value interface{}) {
+// SetProperty allows the user to set an arbitrary property on an instance of PulsarEventPrototypeCollection
+func (o *PulsarEventPrototypeCollection) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
 	}
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of PulsarEventItems
-func (o *PulsarEventItems) SetProperties(m map[string]interface{}) {
+// SetProperties allows the user to set a map of arbitrary properties on an instance of PulsarEventPrototypeCollection
+func (o *PulsarEventPrototypeCollection) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
 		o.additionalProperties[k] = v
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of PulsarEventItems
-func (o *PulsarEventItems) GetProperty(key string) interface{} {
+// GetProperty allows the user to retrieve an arbitrary property from an instance of PulsarEventPrototypeCollection
+func (o *PulsarEventPrototypeCollection) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of PulsarEventItems
-func (o *PulsarEventItems) GetProperties() map[string]interface{} {
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of PulsarEventPrototypeCollection
+func (o *PulsarEventPrototypeCollection) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
 
-// MarshalJSON performs custom serialization for instances of PulsarEventItems
-func (o *PulsarEventItems) MarshalJSON() (buffer []byte, err error) {
+// MarshalJSON performs custom serialization for instances of PulsarEventPrototypeCollection
+func (o *PulsarEventPrototypeCollection) MarshalJSON() (buffer []byte, err error) {
 	m := make(map[string]interface{})
 	if len(o.additionalProperties) > 0 {
 		for k, v := range o.additionalProperties {
@@ -5707,9 +5564,9 @@ func (o *PulsarEventItems) MarshalJSON() (buffer []byte, err error) {
 	return
 }
 
-// UnmarshalPulsarEventItems unmarshals an instance of PulsarEventItems from the specified map of raw messages.
-func UnmarshalPulsarEventItems(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PulsarEventItems)
+// UnmarshalPulsarEventPrototypeCollection unmarshals an instance of PulsarEventPrototypeCollection from the specified map of raw messages.
+func UnmarshalPulsarEventPrototypeCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PulsarEventPrototypeCollection)
 	err = core.UnmarshalPrimitive(m, "event_type", &obj.EventType)
 	if err != nil {
 		return
@@ -5761,21 +5618,21 @@ func UnmarshalPulsarEventItems(m map[string]json.RawMessage, result interface{})
 // ReceivePulsarCatalogEventsOptions : The ReceivePulsarCatalogEvents options.
 type ReceivePulsarCatalogEventsOptions struct {
 	// A pulsar event.
-	PulsarCatalogEvents []PulsarEventItems `json:"pulsar_catalog_events" validate:"required"`
+	PulsarCatalogEvents []PulsarEventPrototypeCollection `json:"pulsar_catalog_events" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewReceivePulsarCatalogEventsOptions : Instantiate ReceivePulsarCatalogEventsOptions
-func (*ProjectV1) NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents []PulsarEventItems) *ReceivePulsarCatalogEventsOptions {
+func (*ProjectV1) NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents []PulsarEventPrototypeCollection) *ReceivePulsarCatalogEventsOptions {
 	return &ReceivePulsarCatalogEventsOptions{
 		PulsarCatalogEvents: pulsarCatalogEvents,
 	}
 }
 
 // SetPulsarCatalogEvents : Allow user to set PulsarCatalogEvents
-func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarCatalogEvents(pulsarCatalogEvents []PulsarEventItems) *ReceivePulsarCatalogEventsOptions {
+func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarCatalogEvents(pulsarCatalogEvents []PulsarEventPrototypeCollection) *ReceivePulsarCatalogEventsOptions {
 	_options.PulsarCatalogEvents = pulsarCatalogEvents
 	return _options
 }
@@ -5799,7 +5656,7 @@ type ReplaceServiceInstanceOptions struct {
 	// broker.
 	PlanID *string `json:"plan_id" validate:"required"`
 
-	// Platform specific contextual information under which the service instance is to be provisioned.
+	// Platform specific contextual information where the service instance will be provisioned.
 	Context []string `json:"context,omitempty"`
 
 	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
@@ -5983,6 +5840,224 @@ func (options *ReplaceServiceInstanceStateOptions) SetHeaders(param map[string]s
 	return options
 }
 
+// ResourceCreateResponse : Result of the provision call.
+type ResourceCreateResponse struct {
+	// The URL of a web-based management user interface for the service instance. The URL MUST contain enough information
+	// for the dashboard to identify the resource being accessed.
+	DashboardURL *string `json:"dashboard_url,omitempty"`
+
+	// For asynchronous responses, service brokers can return an identifier representing the operation. The value of this
+	// field MUST be provided by the platform with requests to the last_operation endpoint in a URL encoded query
+	// parameter. If present, it MUST be a non-empty string.
+	Operation *string `json:"operation,omitempty"`
+}
+
+// UnmarshalResourceCreateResponse unmarshals an instance of ResourceCreateResponse from the specified map of raw messages.
+func UnmarshalResourceCreateResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceCreateResponse)
+	err = core.UnmarshalPrimitive(m, "dashboard_url", &obj.DashboardURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceDeleteResponse : The result of deprovisioning a service instance.
+type ResourceDeleteResponse struct {
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceDeleteResponse
+func (o *ResourceDeleteResponse) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceDeleteResponse
+func (o *ResourceDeleteResponse) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceDeleteResponse
+func (o *ResourceDeleteResponse) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceDeleteResponse
+func (o *ResourceDeleteResponse) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of ResourceDeleteResponse
+func (o *ResourceDeleteResponse) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalResourceDeleteResponse unmarshals an instance of ResourceDeleteResponse from the specified map of raw messages.
+func UnmarshalResourceDeleteResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceDeleteResponse)
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceLastOperationGetResponse : The result of get_last_operation call.
+type ResourceLastOperationGetResponse struct {
+	// Valid values are in progress, succeeded, and failed.
+	State *string `json:"state,omitempty"`
+
+	// A user-facing message displayed to the platform API client. Can be used to tell the user details about the status of
+	// the operation.
+	Description *string `json:"description,omitempty"`
+}
+
+// UnmarshalResourceLastOperationGetResponse unmarshals an instance of ResourceLastOperationGetResponse from the specified map of raw messages.
+func UnmarshalResourceLastOperationGetResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceLastOperationGetResponse)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceStateResponse : The result of Get instance status call.
+type ResourceStateResponse struct {
+	// Indicates whether the service instance is active and is meaningful if enabled is true. The default value is true if
+	// not specified.
+	Active *string `json:"active,omitempty"`
+
+	// Indicates the current state of the service instance.
+	Enabled *string `json:"enabled,omitempty"`
+
+	// Indicates when the service instance was last accessed/modified/etc., and it is meaningful if enabled is true and
+	// active is false. Represented as milliseconds since the epoch, but does not need to be accurate to the second/hour.
+	LastActive *string `json:"last_active,omitempty"`
+}
+
+// UnmarshalResourceStateResponse unmarshals an instance of ResourceStateResponse from the specified map of raw messages.
+func UnmarshalResourceStateResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceStateResponse)
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enabled", &obj.Enabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_active", &obj.LastActive)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceUpdateResult : The result of deprovisioning service instance.
+type ResourceUpdateResult struct {
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
+}
+
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceUpdateResult
+func (o *ResourceUpdateResult) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceUpdateResult
+func (o *ResourceUpdateResult) SetProperties(m map[string]interface{}) {
+	o.additionalProperties = make(map[string]interface{})
+	for k, v := range m {
+		o.additionalProperties[k] = v
+	}
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceUpdateResult
+func (o *ResourceUpdateResult) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceUpdateResult
+func (o *ResourceUpdateResult) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of ResourceUpdateResult
+func (o *ResourceUpdateResult) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
+
+// UnmarshalResourceUpdateResult unmarshals an instance of ResourceUpdateResult from the specified map of raw messages.
+func UnmarshalResourceUpdateResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceUpdateResult)
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*ProjectV1) NewResourceUpdateResultPatch(resourceUpdateResult *ResourceUpdateResult) (_patch []JSONPatchOperation) {
+	for key, value := range resourceUpdateResult.additionalProperties {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperation_Op_Add),
+			Path: core.StringPtr("/" + key),
+			Value: value,
+		})
+	}
+	return
+}
+
 // UninstallConfigOptions : The UninstallConfig options.
 type UninstallConfigOptions struct {
 	// The ID of the project, which uniquely identifies it.
@@ -6116,78 +6191,6 @@ func (options *UpdateProjectOptions) SetHeaders(param map[string]string) *Update
 	return options
 }
 
-// UpdateResult : The result of deprovisioning service instance.
-type UpdateResult struct {
-
-	// Allows users to set arbitrary properties
-	additionalProperties map[string]interface{}
-}
-
-// SetProperty allows the user to set an arbitrary property on an instance of UpdateResult
-func (o *UpdateResult) SetProperty(key string, value interface{}) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]interface{})
-	}
-	o.additionalProperties[key] = value
-}
-
-// SetProperties allows the user to set a map of arbitrary properties on an instance of UpdateResult
-func (o *UpdateResult) SetProperties(m map[string]interface{}) {
-	o.additionalProperties = make(map[string]interface{})
-	for k, v := range m {
-		o.additionalProperties[k] = v
-	}
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of UpdateResult
-func (o *UpdateResult) GetProperty(key string) interface{} {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of UpdateResult
-func (o *UpdateResult) GetProperties() map[string]interface{} {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of UpdateResult
-func (o *UpdateResult) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	buffer, err = json.Marshal(m)
-	return
-}
-
-// UnmarshalUpdateResult unmarshals an instance of UpdateResult from the specified map of raw messages.
-func UnmarshalUpdateResult(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UpdateResult)
-	for k := range m {
-		var v interface{}
-		e := core.UnmarshalPrimitive(m, k, &v)
-		if e != nil {
-			err = e
-			return
-		}
-		obj.SetProperty(k, v)
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-func (*ProjectV1) NewUpdateResultPatch(updateResult *UpdateResult) (_patch []JSONPatchOperation) {
-	for key, value := range updateResult.additionalProperties {
-		_patch = append(_patch, JSONPatchOperation{
-			Op: core.StringPtr(JSONPatchOperation_Op_Add),
-			Path: core.StringPtr("/" + key),
-			Value: value,
-		})
-	}
-	return
-}
-
 // UpdateServiceInstanceOptions : The UpdateServiceInstance options.
 type UpdateServiceInstanceOptions struct {
 	// The ID of a previously provisioned service instance.
@@ -6289,7 +6292,7 @@ func (pager *ProjectsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []ProjectListItem, err error) {
+func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []ProjectCollectionMemberWithMetadata, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -6314,9 +6317,9 @@ func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Proj
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []ProjectListItem, err error) {
+func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []ProjectCollectionMemberWithMetadata, err error) {
 	for pager.HasNext() {
-		var nextPage []ProjectListItem
+		var nextPage []ProjectCollectionMemberWithMetadata
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -6327,11 +6330,11 @@ func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []P
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetNext() (page []ProjectListItem, err error) {
+func (pager *ProjectsPager) GetNext() (page []ProjectCollectionMemberWithMetadata, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetAll() (allItems []ProjectListItem, err error) {
+func (pager *ProjectsPager) GetAll() (allItems []ProjectCollectionMemberWithMetadata, err error) {
 	return pager.GetAllWithContext(context.Background())
 }

@@ -189,30 +189,30 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.Configs = []projectv1.ProjectConfigInput{*projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -281,30 +281,30 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 				projectService.EnableRetries(0, 0)
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.Configs = []projectv1.ProjectConfigInput{*projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -381,30 +381,30 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.Configs = []projectv1.ProjectConfigInput{*projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -424,30 +424,30 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.Configs = []projectv1.ProjectConfigInput{*projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -488,30 +488,30 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.Configs = []projectv1.ProjectConfigInput{*projectConfigInputModel}
+				createProjectOptionsModel.Configs = []projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}
 				createProjectOptionsModel.ResourceGroup = core.StringPtr("Default")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -754,7 +754,7 @@ var _ = Describe(`ProjectV1`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(projectv1.ProjectListResponseSchema)
+				responseObject := new(projectv1.ProjectCollection)
 				nextObject := new(projectv1.PaginationLink)
 				nextObject.Start = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
@@ -764,7 +764,7 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
-				responseObject := new(projectv1.ProjectListResponseSchema)
+				responseObject := new(projectv1.ProjectCollection)
 	
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
@@ -811,7 +811,7 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []projectv1.ProjectListItem
+				var allResults []projectv1.ProjectCollectionMemberWithMetadata
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -1158,7 +1158,7 @@ var _ = Describe(`ProjectV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": [{"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}], "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "event_notifications_crn": "EventNotificationsCrn"}}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully with retries`, func() {
@@ -1236,7 +1236,7 @@ var _ = Describe(`ProjectV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "configs": [{"id": "ID", "name": "Name", "labels": ["Labels"], "description": "Description", "locator_id": "LocatorID", "type": "terraform_template", "input": [{"name": "Name", "type": "array", "required": true}], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "setting": [{"name": "Name", "value": "Value"}]}], "metadata": {"crn": "crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::", "created_at": "2019-01-01T12:00:00.000Z", "cumulative_needs_attention_view": [{"event": "Event", "event_id": "EventID", "config_id": "ConfigID", "config_version": 13}], "cumulative_needs_attention_view_err": "CumulativeNeedsAttentionViewErr", "location": "Location", "resource_group": "ResourceGroup", "state": "State", "event_notifications_crn": "EventNotificationsCrn"}}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully`, func() {
@@ -1450,14 +1450,14 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("account_id")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectv1.CreateConfigOptions)
@@ -1467,8 +1467,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.NewID = core.StringPtr("testString")
 				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
 				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.NewInput = []projectv1.InputVariableInput{*inputVariableInputModel}
-				createConfigOptionsModel.NewSetting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				createConfigOptionsModel.NewInput = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectService.CreateConfig(createConfigOptionsModel)
@@ -1533,14 +1533,14 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(projectService).ToNot(BeNil())
 				projectService.EnableRetries(0, 0)
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("account_id")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectv1.CreateConfigOptions)
@@ -1550,8 +1550,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.NewID = core.StringPtr("testString")
 				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
 				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.NewInput = []projectv1.InputVariableInput{*inputVariableInputModel}
-				createConfigOptionsModel.NewSetting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				createConfigOptionsModel.NewInput = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1624,14 +1624,14 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("account_id")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectv1.CreateConfigOptions)
@@ -1641,8 +1641,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.NewID = core.StringPtr("testString")
 				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
 				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.NewInput = []projectv1.InputVariableInput{*inputVariableInputModel}
-				createConfigOptionsModel.NewSetting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				createConfigOptionsModel.NewInput = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1660,14 +1660,14 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("account_id")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectv1.CreateConfigOptions)
@@ -1677,8 +1677,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.NewID = core.StringPtr("testString")
 				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
 				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.NewInput = []projectv1.InputVariableInput{*inputVariableInputModel}
-				createConfigOptionsModel.NewSetting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				createConfigOptionsModel.NewInput = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectService.SetServiceURL("")
@@ -1717,14 +1717,14 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				inputVariableInputModel.Name = core.StringPtr("account_id")
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
 
 				// Construct an instance of the CreateConfigOptions model
 				createConfigOptionsModel := new(projectv1.CreateConfigOptions)
@@ -1734,8 +1734,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.NewID = core.StringPtr("testString")
 				createConfigOptionsModel.NewLabels = []string{"env:stage", "governance:test", "build:0"}
 				createConfigOptionsModel.NewDescription = core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.NewInput = []projectv1.InputVariableInput{*inputVariableInputModel}
-				createConfigOptionsModel.NewSetting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				createConfigOptionsModel.NewInput = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				createConfigOptionsModel.NewSetting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 				createConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -5238,20 +5238,20 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the PulsarEventItems model
-				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
-				pulsarEventItemsModel.EventType = core.StringPtr("testString")
-				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemsModel.Version = core.StringPtr("testString")
-				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemsModel.EventID = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
 				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}
 				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5267,20 +5267,20 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectService).ToNot(BeNil())
 
-				// Construct an instance of the PulsarEventItems model
-				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
-				pulsarEventItemsModel.EventType = core.StringPtr("testString")
-				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemsModel.Version = core.StringPtr("testString")
-				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemsModel.EventID = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
 				receivePulsarCatalogEventsOptionsModel := new(projectv1.ReceivePulsarCatalogEventsOptions)
-				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventItems{*pulsarEventItemsModel}
+				receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents = []projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}
 				receivePulsarCatalogEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectService.SetServiceURL("")
@@ -8181,27 +8181,20 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(checkConfigOptionsModel.Complete).To(Equal(core.BoolPtr(false)))
 				Expect(checkConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewConfigSettingItems successfully`, func() {
-				name := "testString"
-				value := "testString"
-				_model, err := projectService.NewConfigSettingItems(name, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewCreateConfigOptions successfully`, func() {
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				Expect(inputVariableInputModel).ToNot(BeNil())
-				inputVariableInputModel.Name = core.StringPtr("account_id")
-				Expect(inputVariableInputModel.Name).To(Equal(core.StringPtr("account_id")))
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				Expect(projectConfigInputVariableModel).ToNot(BeNil())
+				projectConfigInputVariableModel.Name = core.StringPtr("account_id")
+				Expect(projectConfigInputVariableModel.Name).To(Equal(core.StringPtr("account_id")))
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				Expect(configSettingItemsModel).ToNot(BeNil())
-				configSettingItemsModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
-				configSettingItemsModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
-				Expect(configSettingItemsModel.Name).To(Equal(core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")))
-				Expect(configSettingItemsModel.Value).To(Equal(core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")))
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				Expect(projectConfigSettingCollectionModel).ToNot(BeNil())
+				projectConfigSettingCollectionModel.Name = core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")
+				Expect(projectConfigSettingCollectionModel.Name).To(Equal(core.StringPtr("IBMCLOUD_TOOLCHAIN_ENDPOINT")))
+				Expect(projectConfigSettingCollectionModel.Value).To(Equal(core.StringPtr("https://api.us-south.devops.dev.cloud.ibm.com")))
 
 				// Construct an instance of the CreateConfigOptions model
 				id := "testString"
@@ -8214,8 +8207,8 @@ var _ = Describe(`ProjectV1`, func() {
 				createConfigOptionsModel.SetNewID("testString")
 				createConfigOptionsModel.SetNewLabels([]string{"env:stage", "governance:test", "build:0"})
 				createConfigOptionsModel.SetNewDescription("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")
-				createConfigOptionsModel.SetNewInput([]projectv1.InputVariableInput{*inputVariableInputModel})
-				createConfigOptionsModel.SetNewSetting([]projectv1.ConfigSettingItems{*configSettingItemsModel})
+				createConfigOptionsModel.SetNewInput([]projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel})
+				createConfigOptionsModel.SetNewSetting([]projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel})
 				createConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createConfigOptionsModel).ToNot(BeNil())
 				Expect(createConfigOptionsModel.ID).To(Equal(core.StringPtr("testString")))
@@ -8224,56 +8217,56 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(createConfigOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
 				Expect(createConfigOptionsModel.NewLabels).To(Equal([]string{"env:stage", "governance:test", "build:0"}))
 				Expect(createConfigOptionsModel.NewDescription).To(Equal(core.StringPtr("Stage environment configuration, which includes services common to all the environment regions. There must be a blueprint configuring all the services common to the stage regions. It is a terraform_template type of configuration that points to a Github repo hosting the terraform modules that can be deployed by a Schematics Workspace.")))
-				Expect(createConfigOptionsModel.NewInput).To(Equal([]projectv1.InputVariableInput{*inputVariableInputModel}))
-				Expect(createConfigOptionsModel.NewSetting).To(Equal([]projectv1.ConfigSettingItems{*configSettingItemsModel}))
+				Expect(createConfigOptionsModel.NewInput).To(Equal([]projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}))
+				Expect(createConfigOptionsModel.NewSetting).To(Equal([]projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}))
 				Expect(createConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProjectOptions successfully`, func() {
-				// Construct an instance of the InputVariableInput model
-				inputVariableInputModel := new(projectv1.InputVariableInput)
-				Expect(inputVariableInputModel).ToNot(BeNil())
-				inputVariableInputModel.Name = core.StringPtr("testString")
-				Expect(inputVariableInputModel.Name).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ProjectConfigInputVariable model
+				projectConfigInputVariableModel := new(projectv1.ProjectConfigInputVariable)
+				Expect(projectConfigInputVariableModel).ToNot(BeNil())
+				projectConfigInputVariableModel.Name = core.StringPtr("testString")
+				Expect(projectConfigInputVariableModel.Name).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				Expect(configSettingItemsModel).ToNot(BeNil())
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
-				Expect(configSettingItemsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(configSettingItemsModel.Value).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				Expect(projectConfigSettingCollectionModel).ToNot(BeNil())
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
+				Expect(projectConfigSettingCollectionModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigSettingCollectionModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the ProjectConfigInput model
-				projectConfigInputModel := new(projectv1.ProjectConfigInput)
-				Expect(projectConfigInputModel).ToNot(BeNil())
-				projectConfigInputModel.ID = core.StringPtr("testString")
-				projectConfigInputModel.Name = core.StringPtr("common-variables")
-				projectConfigInputModel.Labels = []string{"testString"}
-				projectConfigInputModel.Description = core.StringPtr("testString")
-				projectConfigInputModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
-				projectConfigInputModel.Input = []projectv1.InputVariableInput{*inputVariableInputModel}
-				projectConfigInputModel.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
-				Expect(projectConfigInputModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigInputModel.Name).To(Equal(core.StringPtr("common-variables")))
-				Expect(projectConfigInputModel.Labels).To(Equal([]string{"testString"}))
-				Expect(projectConfigInputModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(projectConfigInputModel.LocatorID).To(Equal(core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")))
-				Expect(projectConfigInputModel.Input).To(Equal([]projectv1.InputVariableInput{*inputVariableInputModel}))
-				Expect(projectConfigInputModel.Setting).To(Equal([]projectv1.ConfigSettingItems{*configSettingItemsModel}))
+				// Construct an instance of the ProjectConfigPrototype model
+				projectConfigPrototypeModel := new(projectv1.ProjectConfigPrototype)
+				Expect(projectConfigPrototypeModel).ToNot(BeNil())
+				projectConfigPrototypeModel.ID = core.StringPtr("testString")
+				projectConfigPrototypeModel.Name = core.StringPtr("common-variables")
+				projectConfigPrototypeModel.Labels = []string{"testString"}
+				projectConfigPrototypeModel.Description = core.StringPtr("testString")
+				projectConfigPrototypeModel.LocatorID = core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")
+				projectConfigPrototypeModel.Input = []projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}
+				projectConfigPrototypeModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
+				Expect(projectConfigPrototypeModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigPrototypeModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigPrototypeModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigPrototypeModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigPrototypeModel.LocatorID).To(Equal(core.StringPtr("1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.018edf04-e772-4ca2-9785-03e8e03bef72-global")))
+				Expect(projectConfigPrototypeModel.Input).To(Equal([]projectv1.ProjectConfigInputVariable{*projectConfigInputVariableModel}))
+				Expect(projectConfigPrototypeModel.Setting).To(Equal([]projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}))
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsName := "acme-microservice"
 				createProjectOptionsModel := projectService.NewCreateProjectOptions(createProjectOptionsName)
 				createProjectOptionsModel.SetName("acme-microservice")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure.")
-				createProjectOptionsModel.SetConfigs([]projectv1.ProjectConfigInput{*projectConfigInputModel})
+				createProjectOptionsModel.SetConfigs([]projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel})
 				createProjectOptionsModel.SetResourceGroup("Default")
 				createProjectOptionsModel.SetLocation("us-south")
 				createProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure.")))
-				Expect(createProjectOptionsModel.Configs).To(Equal([]projectv1.ProjectConfigInput{*projectConfigInputModel}))
+				Expect(createProjectOptionsModel.Configs).To(Equal([]projectv1.ProjectConfigPrototype{*projectConfigPrototypeModel}))
 				Expect(createProjectOptionsModel.ResourceGroup).To(Equal(core.StringPtr("Default")))
 				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))
 				Expect(createProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -8501,12 +8494,6 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(getServiceInstanceOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1.0")))
 				Expect(getServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewInputVariableInput successfully`, func() {
-				name := "testString"
-				_model, err := projectService.NewInputVariableInput(name)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewInstallConfigOptions successfully`, func() {
 				// Construct an instance of the InstallConfigOptions model
 				id := "testString"
@@ -8634,6 +8621,108 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(postTestEventNotificationOptionsModel.Ibmendefaultshort).To(Equal(core.StringPtr("Test notification")))
 				Expect(postTestEventNotificationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewProjectPatch successfully`, func() {
+				// Construct an instance of the InputVariable model
+				inputVariableModel := new(projectv1.InputVariable)
+				inputVariableModel.Name = core.StringPtr("testString")
+				inputVariableModel.Type = core.StringPtr("array")
+				inputVariableModel.Required = core.BoolPtr(true)
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("testString")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"testString"}
+
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the ProjectConfig model
+				projectConfigModel := new(projectv1.ProjectConfig)
+				projectConfigModel.ID = core.StringPtr("testString")
+				projectConfigModel.Name = core.StringPtr("testString")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Description = core.StringPtr("testString")
+				projectConfigModel.LocatorID = core.StringPtr("testString")
+				projectConfigModel.Type = core.StringPtr("terraform_template")
+				projectConfigModel.Input = []projectv1.InputVariable{*inputVariableModel}
+				projectConfigModel.Output = []projectv1.OutputValue{*outputValueModel}
+				projectConfigModel.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
+
+				// Construct an instance of the CumulativeNeedsAttention model
+				cumulativeNeedsAttentionModel := new(projectv1.CumulativeNeedsAttention)
+				cumulativeNeedsAttentionModel.Event = core.StringPtr("testString")
+				cumulativeNeedsAttentionModel.EventID = core.StringPtr("testString")
+				cumulativeNeedsAttentionModel.ConfigID = core.StringPtr("testString")
+				cumulativeNeedsAttentionModel.ConfigVersion = core.Int64Ptr(int64(38))
+
+				// Construct an instance of the ProjectMetadata model
+				projectMetadataModel := new(projectv1.ProjectMetadata)
+				projectMetadataModel.Crn = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				projectMetadataModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				projectMetadataModel.CumulativeNeedsAttentionView = []projectv1.CumulativeNeedsAttention{*cumulativeNeedsAttentionModel}
+				projectMetadataModel.CumulativeNeedsAttentionViewErr = core.StringPtr("testString")
+				projectMetadataModel.Location = core.StringPtr("testString")
+				projectMetadataModel.ResourceGroup = core.StringPtr("testString")
+				projectMetadataModel.State = core.StringPtr("testString")
+				projectMetadataModel.EventNotificationsCrn = core.StringPtr("testString")
+
+				// Construct an instance of the Project model
+				project := new(projectv1.Project)
+				project.Name = core.StringPtr("testString")
+				project.Description = core.StringPtr("testString")
+				project.ID = core.StringPtr("testString")
+				project.Crn = core.StringPtr("crn:v1:staging:public:project:global:a/4e1c48fcf8ac33c0a2441e4139f189ae:bf40ad13-b107-446a-8286-c6d576183bb1::")
+				project.Configs = []projectv1.ProjectConfig{*projectConfigModel}
+				project.Metadata = projectMetadataModel
+
+				projectPatch := projectService.NewProjectPatch(project)
+				Expect(projectPatch).ToNot(BeNil())
+
+				_path := func(op interface{}) string {
+					return *op.(projectv1.JSONPatchOperation).Path
+				}
+				Expect(projectPatch).To(MatchAllElements(_path, Elements{
+				"/name": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/name")),
+					"From": BeNil(),
+					"Value": Equal(project.Name),
+					}),
+				"/description": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/description")),
+					"From": BeNil(),
+					"Value": Equal(project.Description),
+					}),
+				"/id": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/id")),
+					"From": BeNil(),
+					"Value": Equal(project.ID),
+					}),
+				"/crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/crn")),
+					"From": BeNil(),
+					"Value": Equal(project.Crn),
+					}),
+				"/configs": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/configs")),
+					"From": BeNil(),
+					"Value": Equal(project.Configs),
+					}),
+				"/metadata": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/metadata")),
+					"From": BeNil(),
+					"Value": Equal(project.Metadata),
+					}),
+				}))
+			})
 			It(`Invoke NewProjectConfigPatch successfully`, func() {
 				// Construct an instance of the InputVariable model
 				inputVariableModel := new(projectv1.InputVariable)
@@ -8647,10 +8736,10 @@ var _ = Describe(`ProjectV1`, func() {
 				outputValueModel.Description = core.StringPtr("testString")
 				outputValueModel.Value = []string{"testString"}
 
-				// Construct an instance of the ConfigSettingItems model
-				configSettingItemsModel := new(projectv1.ConfigSettingItems)
-				configSettingItemsModel.Name = core.StringPtr("testString")
-				configSettingItemsModel.Value = core.StringPtr("testString")
+				// Construct an instance of the ProjectConfigSettingCollection model
+				projectConfigSettingCollectionModel := new(projectv1.ProjectConfigSettingCollection)
+				projectConfigSettingCollectionModel.Name = core.StringPtr("testString")
+				projectConfigSettingCollectionModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ProjectConfig model
 				projectConfig := new(projectv1.ProjectConfig)
@@ -8662,7 +8751,7 @@ var _ = Describe(`ProjectV1`, func() {
 				projectConfig.Type = core.StringPtr("terraform_template")
 				projectConfig.Input = []projectv1.InputVariable{*inputVariableModel}
 				projectConfig.Output = []projectv1.OutputValue{*outputValueModel}
-				projectConfig.Setting = []projectv1.ConfigSettingItems{*configSettingItemsModel}
+				projectConfig.Setting = []projectv1.ProjectConfigSettingCollection{*projectConfigSettingCollectionModel}
 
 				projectConfigPatch := projectService.NewProjectConfigPatch(projectConfig)
 				Expect(projectConfigPatch).ToNot(BeNil())
@@ -8727,88 +8816,74 @@ var _ = Describe(`ProjectV1`, func() {
 					}),
 				}))
 			})
-			It(`Invoke NewProjectConfigInput successfully`, func() {
+			It(`Invoke NewProjectConfigInputVariable successfully`, func() {
 				name := "testString"
-				locatorID := "testString"
-				_model, err := projectService.NewProjectConfigInput(name, locatorID)
+				_model, err := projectService.NewProjectConfigInputVariable(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewProjectUpdatePatch successfully`, func() {
-				// Construct an instance of the ProjectUpdate model
-				projectUpdate := new(projectv1.ProjectUpdate)
-				projectUpdate.Name = core.StringPtr("testString")
-				projectUpdate.Description = core.StringPtr("testString")
-
-				projectUpdatePatch := projectService.NewProjectUpdatePatch(projectUpdate)
-				Expect(projectUpdatePatch).ToNot(BeNil())
-
-				_path := func(op interface{}) string {
-					return *op.(projectv1.JSONPatchOperation).Path
-				}
-				Expect(projectUpdatePatch).To(MatchAllElements(_path, Elements{
-				"/name": MatchAllFields(Fields{
-					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
-					"Path": PointTo(Equal("/name")),
-					"From": BeNil(),
-					"Value": Equal(projectUpdate.Name),
-					}),
-				"/description": MatchAllFields(Fields{
-					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
-					"Path": PointTo(Equal("/description")),
-					"From": BeNil(),
-					"Value": Equal(projectUpdate.Description),
-					}),
-				}))
+			It(`Invoke NewProjectConfigPrototype successfully`, func() {
+				name := "testString"
+				locatorID := "testString"
+				_model, err := projectService.NewProjectConfigPrototype(name, locatorID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewPulsarEventItems successfully`, func() {
+			It(`Invoke NewProjectConfigSettingCollection successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := projectService.NewProjectConfigSettingCollection(name, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewPulsarEventPrototypeCollection successfully`, func() {
 				eventType := "testString"
 				timestamp := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 				publisher := "testString"
 				accountID := "testString"
 				version := "testString"
-				_model, err := projectService.NewPulsarEventItems(eventType, timestamp, publisher, accountID, version)
+				_model, err := projectService.NewPulsarEventPrototypeCollection(eventType, timestamp, publisher, accountID, version)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewReceivePulsarCatalogEventsOptions successfully`, func() {
-				// Construct an instance of the PulsarEventItems model
-				pulsarEventItemsModel := new(projectv1.PulsarEventItems)
-				Expect(pulsarEventItemsModel).ToNot(BeNil())
-				pulsarEventItemsModel.EventType = core.StringPtr("testString")
-				pulsarEventItemsModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				pulsarEventItemsModel.Publisher = core.StringPtr("testString")
-				pulsarEventItemsModel.AccountID = core.StringPtr("testString")
-				pulsarEventItemsModel.Version = core.StringPtr("testString")
-				pulsarEventItemsModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
-				pulsarEventItemsModel.EventID = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperty("foo", core.StringPtr("testString"))
-				Expect(pulsarEventItemsModel.EventType).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemsModel.Timestamp).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-				Expect(pulsarEventItemsModel.Publisher).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemsModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemsModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(pulsarEventItemsModel.EventID).To(Equal(core.StringPtr("testString")))
-				Expect(pulsarEventItemsModel.GetProperties()).ToNot(BeEmpty())
-				Expect(pulsarEventItemsModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				Expect(pulsarEventPrototypeCollectionModel).ToNot(BeNil())
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(pulsarEventPrototypeCollectionModel.EventType).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.Timestamp).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
+				Expect(pulsarEventPrototypeCollectionModel.Publisher).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(pulsarEventPrototypeCollectionModel.EventID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.GetProperties()).ToNot(BeEmpty())
+				Expect(pulsarEventPrototypeCollectionModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
-				pulsarEventItemsModel.SetProperties(nil)
-				Expect(pulsarEventItemsModel.GetProperties()).To(BeEmpty())
+				pulsarEventPrototypeCollectionModel.SetProperties(nil)
+				Expect(pulsarEventPrototypeCollectionModel.GetProperties()).To(BeEmpty())
 
-				pulsarEventItemsModelExpectedMap := make(map[string]interface{})
-				pulsarEventItemsModelExpectedMap["foo"] = core.StringPtr("testString")
-				pulsarEventItemsModel.SetProperties(pulsarEventItemsModelExpectedMap)
-				pulsarEventItemsModelActualMap := pulsarEventItemsModel.GetProperties()
-				Expect(pulsarEventItemsModelActualMap).To(Equal(pulsarEventItemsModelExpectedMap))
+				pulsarEventPrototypeCollectionModelExpectedMap := make(map[string]interface{})
+				pulsarEventPrototypeCollectionModelExpectedMap["foo"] = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperties(pulsarEventPrototypeCollectionModelExpectedMap)
+				pulsarEventPrototypeCollectionModelActualMap := pulsarEventPrototypeCollectionModel.GetProperties()
+				Expect(pulsarEventPrototypeCollectionModelActualMap).To(Equal(pulsarEventPrototypeCollectionModelExpectedMap))
 
 				// Construct an instance of the ReceivePulsarCatalogEventsOptions model
-				pulsarCatalogEvents := []projectv1.PulsarEventItems{}
+				pulsarCatalogEvents := []projectv1.PulsarEventPrototypeCollection{}
 				receivePulsarCatalogEventsOptionsModel := projectService.NewReceivePulsarCatalogEventsOptions(pulsarCatalogEvents)
-				receivePulsarCatalogEventsOptionsModel.SetPulsarCatalogEvents([]projectv1.PulsarEventItems{*pulsarEventItemsModel})
+				receivePulsarCatalogEventsOptionsModel.SetPulsarCatalogEvents([]projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel})
 				receivePulsarCatalogEventsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(receivePulsarCatalogEventsOptionsModel).ToNot(BeNil())
-				Expect(receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents).To(Equal([]projectv1.PulsarEventItems{*pulsarEventItemsModel}))
+				Expect(receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents).To(Equal([]projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}))
 				Expect(receivePulsarCatalogEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceServiceInstanceOptions successfully`, func() {
@@ -8861,6 +8936,26 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(replaceServiceInstanceStateOptionsModel.PreviousValues).To(Equal([]string{"testString"}))
 				Expect(replaceServiceInstanceStateOptionsModel.XBrokerApiVersion).To(Equal(core.StringPtr("1.0")))
 				Expect(replaceServiceInstanceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewResourceUpdateResultPatch successfully`, func() {
+				// Construct an instance of the ResourceUpdateResult model
+				resourceUpdateResult := new(projectv1.ResourceUpdateResult)
+				resourceUpdateResult.SetProperty("foo", core.StringPtr("testString"))
+
+				resourceUpdateResultPatch := projectService.NewResourceUpdateResultPatch(resourceUpdateResult)
+				Expect(resourceUpdateResultPatch).ToNot(BeNil())
+
+				_path := func(op interface{}) string {
+					return *op.(projectv1.JSONPatchOperation).Path
+				}
+				Expect(resourceUpdateResultPatch).To(MatchAllElements(_path, Elements{
+				"/foo": MatchAllFields(Fields{
+					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
+					"Path": PointTo(Equal("/foo")),
+					"From": BeNil(),
+					"Value": Equal(resourceUpdateResult.GetProperty("foo")),
+					}),
+				}))
 			})
 			It(`Invoke NewUninstallConfigOptions successfully`, func() {
 				// Construct an instance of the UninstallConfigOptions model
@@ -8929,26 +9024,6 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(updateProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.JSONPatchOperation).To(Equal([]projectv1.JSONPatchOperation{*jsonPatchOperationModel}))
 				Expect(updateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewUpdateResultPatch successfully`, func() {
-				// Construct an instance of the UpdateResult model
-				updateResult := new(projectv1.UpdateResult)
-				updateResult.SetProperty("foo", core.StringPtr("testString"))
-
-				updateResultPatch := projectService.NewUpdateResultPatch(updateResult)
-				Expect(updateResultPatch).ToNot(BeNil())
-
-				_path := func(op interface{}) string {
-					return *op.(projectv1.JSONPatchOperation).Path
-				}
-				Expect(updateResultPatch).To(MatchAllElements(_path, Elements{
-				"/foo": MatchAllFields(Fields{
-					"Op": PointTo(Equal(projectv1.JSONPatchOperation_Op_Add)),
-					"Path": PointTo(Equal("/foo")),
-					"From": BeNil(),
-					"Value": Equal(updateResult.GetProperty("foo")),
-					}),
-				}))
 			})
 			It(`Invoke NewUpdateServiceInstanceOptions successfully`, func() {
 				// Construct an instance of the JSONPatchOperation model
