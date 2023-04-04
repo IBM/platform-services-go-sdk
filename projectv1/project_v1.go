@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
+ * IBM OpenAPI SDK Code Generator Version: 3.67.0-df2073a1-20230222-221157
  */
 
 // Package projectv1 : Operations and models for the ProjectV1 service
@@ -30,7 +30,7 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
+	common "github.com/damianovesperini/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 )
 

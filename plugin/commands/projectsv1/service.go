@@ -17,14 +17,15 @@
 package projectsv1
 
 import (
+	"io"
+
 	"github.com/IBM-Cloud/ibm-cloud-cli-sdk/bluemix/terminal"
 	"github.com/IBM-Cloud/ibm-cloud-cli-sdk/plugin"
 	"github.com/IBM/go-sdk-core/v5/core"
 	translation "github.com/IBM/platform-services-go-sdk/i18n"
-	"github.com/IBM/platform-services-go-sdk/projectsv1"
+	"github.com/damianovesperini/platform-services-go-sdk/projectsv1"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"io"
 )
 
 type Utilities interface {
@@ -63,7 +64,7 @@ var ServiceInstance *projectsv1.ProjectsV1
 
 type ProjectsV1CommandHelper struct {
 	RequiredFlags []string
-	utils Utilities
+	utils         Utilities
 }
 
 type ServiceCommandHelper interface {
@@ -99,9 +100,9 @@ func GetProjectsV1Command(utils Utilities) *cobra.Command {
 	}
 
 	projectsCommand := &cobra.Command{
-		Use: "project [command] [options]",
-		Short: translation.T("project-short-description"),
-		Long: translation.T("project-long-description"),
+		Use:                   "project [command] [options]",
+		Short:                 translation.T("project-short-description"),
+		Long:                  translation.T("project-long-description"),
 		DisableFlagsInUseLine: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			// ignore the error passed here - it just checks for a faulty implementation of the quiet flag
