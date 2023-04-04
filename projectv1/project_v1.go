@@ -162,8 +162,8 @@ func (project *ProjectV1) DisableRetries() {
 }
 
 // CreateProject : Create a project
-// Create a new project and asynchronously setup the tools to manage it. An initial pull request is created on the
-// project Git repo. After approving the pull request, the user can deploy the resources that the project configures.
+// Create a new project and asynchronously setup the tools to manage it. Add a deployable architecture by customizing
+// the configuration. After the changes are validated and approved, deploy the resources that the project configures.
 func (project *ProjectV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
 	return project.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
@@ -1608,6 +1608,56 @@ func (project *ProjectV1) ReceivePulsarCatalogEventsWithContext(ctx context.Cont
 	builder.AddHeader("Content-Type", "application/json")
 
 	_, err = builder.SetBodyContentJSON(receivePulsarCatalogEventsOptions.PulsarCatalogEvents)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = project.Service.Request(request, nil)
+
+	return
+}
+
+// ReceivePulsarEventNotificationEvents : Webhook for event notifications events
+// This is a webhook for event notifications events.
+func (project *ProjectV1) ReceivePulsarEventNotificationEvents(receivePulsarEventNotificationEventsOptions *ReceivePulsarEventNotificationEventsOptions) (response *core.DetailedResponse, err error) {
+	return project.ReceivePulsarEventNotificationEventsWithContext(context.Background(), receivePulsarEventNotificationEventsOptions)
+}
+
+// ReceivePulsarEventNotificationEventsWithContext is an alternate form of the ReceivePulsarEventNotificationEvents method which supports a Context parameter
+func (project *ProjectV1) ReceivePulsarEventNotificationEventsWithContext(ctx context.Context, receivePulsarEventNotificationEventsOptions *ReceivePulsarEventNotificationEventsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(receivePulsarEventNotificationEventsOptions, "receivePulsarEventNotificationEventsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(receivePulsarEventNotificationEventsOptions, "receivePulsarEventNotificationEventsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = project.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(project.Service.Options.URL, `/v1/pulsar/event_notification_events`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range receivePulsarEventNotificationEventsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("project", "V1", "ReceivePulsarEventNotificationEvents")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	_, err = builder.SetBodyContentJSON(receivePulsarEventNotificationEventsOptions.PulsarEventNotificationEvents)
 	if err != nil {
 		return
 	}
@@ -5639,6 +5689,34 @@ func (_options *ReceivePulsarCatalogEventsOptions) SetPulsarCatalogEvents(pulsar
 
 // SetHeaders : Allow user to set Headers
 func (options *ReceivePulsarCatalogEventsOptions) SetHeaders(param map[string]string) *ReceivePulsarCatalogEventsOptions {
+	options.Headers = param
+	return options
+}
+
+// ReceivePulsarEventNotificationEventsOptions : The ReceivePulsarEventNotificationEvents options.
+type ReceivePulsarEventNotificationEventsOptions struct {
+	// A pulsar event.
+	PulsarEventNotificationEvents []PulsarEventPrototypeCollection `json:"pulsar_event_notification_events" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewReceivePulsarEventNotificationEventsOptions : Instantiate ReceivePulsarEventNotificationEventsOptions
+func (*ProjectV1) NewReceivePulsarEventNotificationEventsOptions(pulsarEventNotificationEvents []PulsarEventPrototypeCollection) *ReceivePulsarEventNotificationEventsOptions {
+	return &ReceivePulsarEventNotificationEventsOptions{
+		PulsarEventNotificationEvents: pulsarEventNotificationEvents,
+	}
+}
+
+// SetPulsarEventNotificationEvents : Allow user to set PulsarEventNotificationEvents
+func (_options *ReceivePulsarEventNotificationEventsOptions) SetPulsarEventNotificationEvents(pulsarEventNotificationEvents []PulsarEventPrototypeCollection) *ReceivePulsarEventNotificationEventsOptions {
+	_options.PulsarEventNotificationEvents = pulsarEventNotificationEvents
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReceivePulsarEventNotificationEventsOptions) SetHeaders(param map[string]string) *ReceivePulsarEventNotificationEventsOptions {
 	options.Headers = param
 	return options
 }

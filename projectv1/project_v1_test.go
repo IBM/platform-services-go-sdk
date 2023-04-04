@@ -5301,6 +5301,112 @@ var _ = Describe(`ProjectV1`, func() {
 			})
 		})
 	})
+	Describe(`ReceivePulsarEventNotificationEvents(receivePulsarEventNotificationEventsOptions *ReceivePulsarEventNotificationEventsOptions)`, func() {
+		receivePulsarEventNotificationEventsPath := "/v1/pulsar/event_notification_events"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(receivePulsarEventNotificationEventsPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke ReceivePulsarEventNotificationEvents successfully`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectService.ReceivePulsarEventNotificationEvents(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarEventNotificationEventsOptions model
+				receivePulsarEventNotificationEventsOptionsModel := new(projectv1.ReceivePulsarEventNotificationEventsOptions)
+				receivePulsarEventNotificationEventsOptionsModel.PulsarEventNotificationEvents = []projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}
+				receivePulsarEventNotificationEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectService.ReceivePulsarEventNotificationEvents(receivePulsarEventNotificationEventsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke ReceivePulsarEventNotificationEvents with error: Operation validation and request error`, func() {
+				projectService, serviceErr := projectv1.NewProjectV1(&projectv1.ProjectV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectService).ToNot(BeNil())
+
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the ReceivePulsarEventNotificationEventsOptions model
+				receivePulsarEventNotificationEventsOptionsModel := new(projectv1.ReceivePulsarEventNotificationEventsOptions)
+				receivePulsarEventNotificationEventsOptionsModel.PulsarEventNotificationEvents = []projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}
+				receivePulsarEventNotificationEventsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectService.ReceivePulsarEventNotificationEvents(receivePulsarEventNotificationEventsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the ReceivePulsarEventNotificationEventsOptions model with no property values
+				receivePulsarEventNotificationEventsOptionsModelNew := new(projectv1.ReceivePulsarEventNotificationEventsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectService.ReceivePulsarEventNotificationEvents(receivePulsarEventNotificationEventsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetHealth(getHealthOptions *GetHealthOptions) - Operation response error`, func() {
 		getHealthPath := "/v1/health"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -8885,6 +8991,46 @@ var _ = Describe(`ProjectV1`, func() {
 				Expect(receivePulsarCatalogEventsOptionsModel).ToNot(BeNil())
 				Expect(receivePulsarCatalogEventsOptionsModel.PulsarCatalogEvents).To(Equal([]projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}))
 				Expect(receivePulsarCatalogEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewReceivePulsarEventNotificationEventsOptions successfully`, func() {
+				// Construct an instance of the PulsarEventPrototypeCollection model
+				pulsarEventPrototypeCollectionModel := new(projectv1.PulsarEventPrototypeCollection)
+				Expect(pulsarEventPrototypeCollectionModel).ToNot(BeNil())
+				pulsarEventPrototypeCollectionModel.EventType = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Timestamp = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				pulsarEventPrototypeCollectionModel.Publisher = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.AccountID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.Version = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.EventProperties = map[string]interface{}{"anyKey": "anyValue"}
+				pulsarEventPrototypeCollectionModel.EventID = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperty("foo", core.StringPtr("testString"))
+				Expect(pulsarEventPrototypeCollectionModel.EventType).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.Timestamp).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
+				Expect(pulsarEventPrototypeCollectionModel.Publisher).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.EventProperties).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(pulsarEventPrototypeCollectionModel.EventID).To(Equal(core.StringPtr("testString")))
+				Expect(pulsarEventPrototypeCollectionModel.GetProperties()).ToNot(BeEmpty())
+				Expect(pulsarEventPrototypeCollectionModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+
+				pulsarEventPrototypeCollectionModel.SetProperties(nil)
+				Expect(pulsarEventPrototypeCollectionModel.GetProperties()).To(BeEmpty())
+
+				pulsarEventPrototypeCollectionModelExpectedMap := make(map[string]interface{})
+				pulsarEventPrototypeCollectionModelExpectedMap["foo"] = core.StringPtr("testString")
+				pulsarEventPrototypeCollectionModel.SetProperties(pulsarEventPrototypeCollectionModelExpectedMap)
+				pulsarEventPrototypeCollectionModelActualMap := pulsarEventPrototypeCollectionModel.GetProperties()
+				Expect(pulsarEventPrototypeCollectionModelActualMap).To(Equal(pulsarEventPrototypeCollectionModelExpectedMap))
+
+				// Construct an instance of the ReceivePulsarEventNotificationEventsOptions model
+				pulsarEventNotificationEvents := []projectv1.PulsarEventPrototypeCollection{}
+				receivePulsarEventNotificationEventsOptionsModel := projectService.NewReceivePulsarEventNotificationEventsOptions(pulsarEventNotificationEvents)
+				receivePulsarEventNotificationEventsOptionsModel.SetPulsarEventNotificationEvents([]projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel})
+				receivePulsarEventNotificationEventsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(receivePulsarEventNotificationEventsOptionsModel).ToNot(BeNil())
+				Expect(receivePulsarEventNotificationEventsOptionsModel.PulsarEventNotificationEvents).To(Equal([]projectv1.PulsarEventPrototypeCollection{*pulsarEventPrototypeCollectionModel}))
+				Expect(receivePulsarEventNotificationEventsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceServiceInstanceOptions successfully`, func() {
 				// Construct an instance of the ReplaceServiceInstanceOptions model
