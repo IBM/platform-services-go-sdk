@@ -196,38 +196,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceInstances request example`, func() {
 			fmt.Println("\nListResourceInstances() result:")
 			// begin-list_resource_instances
-
-			listResourceInstancesOptions := resourceControllerService.NewListResourceInstancesOptions()
-			listResourceInstancesOptions = listResourceInstancesOptions.SetName(resourceInstanceName)
-			listResourceInstancesOptions = listResourceInstancesOptions.SetLimit(2) // Setting the limit to 2 as a caution to not fetch all paginated records
-
-			resources := make([]resourcecontrollerv2.ResourceInstance, 0)
-			resourceInstancesList, response, err := resourceControllerService.ListResourceInstances(listResourceInstancesOptions)
-			loopCounter := 0
-			for err == nil && resourceInstancesList.NextURL != nil && *resourceInstancesList.NextURL != "" && loopCounter < 3 {
-				resourceInstancesList, response, err = resourceControllerService.ListResourceInstances(listResourceInstancesOptions)
-				resources = append(resources, resourceInstancesList.Resources...)
-				startString, err2 := core.GetQueryParam(resourceInstancesList.NextURL, "start")
-				if err2 != nil || startString == nil {
-					fmt.Println("Error in fetching start value from next_url:", err2)
-					break
-				}
-				listResourceInstancesOptions.SetStart(*startString)
-				loopCounter = loopCounter + 1 // Adding the loopCounter as a caution to not fetch all paginated records
+			listResourceInstancesOptions := &resourcecontrollerv2.ListResourceInstancesOptions{
+				Name: &resourceInstanceName,
 			}
+
+			pager, err := resourceControllerService.NewResourceInstancesPager(listResourceInstancesOptions)
 			if err != nil {
 				panic(err)
-			} else {
-				resources = append(resources, resourceInstancesList.Resources...)
 			}
-			b, _ := json.MarshalIndent(resources, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceInstance
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_instances
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceInstancesList).ToNot(BeNil())
 		})
 		It(`UpdateResourceInstance request example`, func() {
 			fmt.Println("\nUpdateResourceInstance() result:")
@@ -302,22 +290,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceAliases request example`, func() {
 			fmt.Println("\nListResourceAliases() result:")
 			// begin-list_resource_aliases
+			listResourceAliasesOptions := &resourcecontrollerv2.ListResourceAliasesOptions{
+				Name: &aliasName,
+			}
 
-			listResourceAliasesOptions := resourceControllerService.NewListResourceAliasesOptions()
-			listResourceAliasesOptions = listResourceAliasesOptions.SetName(aliasName)
-
-			resourceAliasesList, response, err := resourceControllerService.ListResourceAliases(listResourceAliasesOptions)
+			pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceAlias
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_aliases
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceAliasesList).ToNot(BeNil())
 		})
 		It(`UpdateResourceAlias request example`, func() {
 			fmt.Println("\nUpdateResourceAlias() result:")
@@ -344,23 +336,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceAliasesForInstance request example`, func() {
 			fmt.Println("\nListResourceAliasesForInstance() result:")
 			// begin-list_resource_aliases_for_instance
+			listResourceAliasesForInstanceOptions := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
+				ID: &instanceGUID,
+			}
 
-			listResourceAliasesForInstanceOptions := resourceControllerService.NewListResourceAliasesForInstanceOptions(
-				instanceGUID,
-			)
-
-			resourceAliasesList, response, err := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions)
+			pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceAlias
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_aliases_for_instance
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceAliasesList).ToNot(BeNil())
 		})
 		It(`CreateResourceBinding request example`, func() {
 			fmt.Println("\nCreateResourceBinding() result:")
@@ -419,22 +414,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceBindings request example`, func() {
 			fmt.Println("\nListResourceBindings() result:")
 			// begin-list_resource_bindings
+			listResourceBindingsOptions := &resourcecontrollerv2.ListResourceBindingsOptions{
+				Name: &bindingName,
+			}
 
-			listResourceBindingsOptions := resourceControllerService.NewListResourceBindingsOptions()
-			listResourceBindingsOptions = listResourceBindingsOptions.SetName(bindingName)
-
-			resourceBindingsList, response, err := resourceControllerService.ListResourceBindings(listResourceBindingsOptions)
+			pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceBinding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_bindings
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceBindingsList).ToNot(BeNil())
 		})
 		It(`UpdateResourceBinding request example`, func() {
 			fmt.Println("\nUpdateResourceBinding() result:")
@@ -461,23 +460,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceBindingsForAlias request example`, func() {
 			fmt.Println("\nListResourceBindingsForAlias() result:")
 			// begin-list_resource_bindings_for_alias
+			listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
+				ID: &aliasGUID,
+			}
 
-			listResourceBindingsForAliasOptions := resourceControllerService.NewListResourceBindingsForAliasOptions(
-				aliasGUID,
-			)
-
-			resourceBindingsList, response, err := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptions)
+			pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceBinding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_bindings_for_alias
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceBindingsList).ToNot(BeNil())
 		})
 		It(`CreateResourceKey request example`, func() {
 			fmt.Println("\nCreateResourceKey() result:")
@@ -534,22 +536,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceKeys request example`, func() {
 			fmt.Println("\nListResourceKeys() result:")
 			// begin-list_resource_keys
+			listResourceKeysOptions := &resourcecontrollerv2.ListResourceKeysOptions{
+				Name: &keyName,
+			}
 
-			listResourceKeysOptions := resourceControllerService.NewListResourceKeysOptions()
-			listResourceKeysOptions = listResourceKeysOptions.SetName(keyName)
-
-			resourceKeysList, response, err := resourceControllerService.ListResourceKeys(listResourceKeysOptions)
+			pager, err := resourceControllerService.NewResourceKeysPager(listResourceKeysOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceKey
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_keys
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceKeysList).ToNot(BeNil())
 		})
 		It(`UpdateResourceKey request example`, func() {
 			fmt.Println("\nUpdateResourceKey() result:")
@@ -576,24 +582,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		It(`ListResourceKeysForInstance request example`, func() {
 			fmt.Println("\nListResourceKeysForInstance() result:")
 			// begin-list_resource_keys_for_instance
+			listResourceKeysForInstanceOptions := &resourcecontrollerv2.ListResourceKeysForInstanceOptions{
+				ID: &instanceGUID,
+			}
 
-			listResourceKeysForInstanceOptions := resourceControllerService.NewListResourceKeysForInstanceOptions(
-				instanceGUID,
-			)
-
-			resourceKeysList, response, err := resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptions)
+			pager, err := resourceControllerService.NewResourceKeysForInstancePager(listResourceKeysForInstanceOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
+
+			var allResults []resourcecontrollerv2.ResourceKey
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_resource_keys_for_instance
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceKeysList).ToNot(BeNil())
-
 		})
 		It(`DeleteResourceBinding request example`, func() {
 			// begin-delete_resource_binding

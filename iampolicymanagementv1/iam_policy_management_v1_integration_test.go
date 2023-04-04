@@ -25,6 +25,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	. "github.com/onsi/ginkgo"
@@ -47,7 +48,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testAccountID     string
 		etagHeader        string = "ETag"
 		testPolicyETag    string = ""
+		testV2PolicyETag  string = ""
 		testPolicyId      string = ""
+		testV2PolicyId    string = ""
 		testUserId        string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
 		testViewerRoleCrn string = "crn:v1:bluemix:public:iam::::role:Viewer"
 		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
@@ -56,6 +59,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testCustomRoleId   string = ""
 		testCustomRoleETag string = ""
 		testCustomRoleName string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
 	)
 
 	var shouldSkipTest = func() {
@@ -217,7 +221,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			policySubject.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttribute}
 
 			// Construct an instance of the CreatePolicyOptions model
-			options := new(iampolicymanagementv1.UpdatePolicyOptions)
+			options := new(iampolicymanagementv1.ReplacePolicyOptions)
 			options.PolicyID = core.StringPtr(testPolicyId)
 			options.IfMatch = core.StringPtr(testPolicyETag)
 			options.Type = core.StringPtr("access")
@@ -225,11 +229,11 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			options.Roles = []iampolicymanagementv1.PolicyRole{*policyRole}
 			options.Resources = []iampolicymanagementv1.PolicyResource{*policyResource}
 
-			policy, detailedResponse, err := service.UpdatePolicy(options)
+			policy, detailedResponse, err := service.ReplacePolicy(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "UpdatePolicy() result:\n%s\n", common.ToJSON(policy))
+			fmt.Fprintf(GinkgoWriter, "ReplacePolicy() result:\n%s\n", common.ToJSON(policy))
 			Expect(*policy.ID).To(Equal(testPolicyId))
 			Expect(policy.Type).To(Equal(options.Type))
 			Expect(policy.Subjects).To(Equal(options.Subjects))
@@ -248,17 +252,17 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(testPolicyId).To(Not(BeNil()))
 			Expect(testPolicyETag).To(Not(BeNil()))
 
-			// Construct an instance of the PatchPolicyOptions model
-			options := new(iampolicymanagementv1.PatchPolicyOptions)
+			// Construct an instance of the UpdatePolicyStateOptions model
+			options := new(iampolicymanagementv1.UpdatePolicyStateOptions)
 			options.PolicyID = &testPolicyId
 			options.IfMatch = core.StringPtr(testPolicyETag)
 			options.State = core.StringPtr("active")
 
-			policy, detailedResponse, err := service.PatchPolicy(options)
+			policy, detailedResponse, err := service.UpdatePolicyState(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "PatchPolicy() result:\n%s\n", common.ToJSON(policy))
+			fmt.Fprintf(GinkgoWriter, "UpdatePolicyState() result:\n%s\n", common.ToJSON(policy))
 			Expect(*policy.ID).To(Equal(testPolicyId))
 			Expect(policy.State).To(Equal(options.State))
 
@@ -283,6 +287,234 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			testPolicyPresent := false
 			for _, policy := range result.Policies {
 				if *policy.ID == testPolicyId {
+					testPolicyPresent = true
+				}
+			}
+			Expect(testPolicyPresent).To(BeTrue())
+		})
+	})
+
+	Describe("Create a v2 access policy", func() {
+
+		It("Successfully created a v2 access policy", func() {
+			shouldSkipTest()
+
+			// Construct an instance of the ResourceAttribute model
+			accountIdResourceAttribute := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+			accountIdResourceAttribute.Key = core.StringPtr("accountId")
+			accountIdResourceAttribute.Value = core.StringPtr(testAccountID)
+			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
+
+			serviceNameResourceAttribute := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+			serviceNameResourceAttribute.Key = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
+			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
+
+			policyResourceTag := new(iampolicymanagementv1.V2PolicyResourceTag)
+			policyResourceTag.Key = core.StringPtr("project")
+			policyResourceTag.Value = core.StringPtr("prototype")
+			policyResourceTag.Operator = core.StringPtr("stringEquals")
+
+			// Construct an instance of the SubjectAttribute model
+			subjectAttribute := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+			subjectAttribute.Key = core.StringPtr("iam_id")
+			subjectAttribute.Operator = core.StringPtr("stringEquals")
+			subjectAttribute.Value = core.StringPtr(testUserId)
+
+			// Construct an instance of the V2PolicyResource model
+			policyResource := new(iampolicymanagementv1.V2PolicyResource)
+			policyResource.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+			policyResource.Tags = []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag}
+
+			// Construct an instance of the Roles model
+			policyRole := new(iampolicymanagementv1.Roles)
+			policyRole.RoleID = core.StringPtr(testViewerRoleCrn)
+
+			// Construct an instance of the PolicySubject model
+			policySubject := new(iampolicymanagementv1.V2PolicySubject)
+			policySubject.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute}
+
+			// Contruct and instance of PolicyControl model
+			control := new(iampolicymanagementv1.Control)
+			grant := new(iampolicymanagementv1.Grant)
+			grant.Roles = []iampolicymanagementv1.Roles{*policyRole}
+			control.Grant = grant
+
+			// Construct an instance of Policy Rule Attribute
+			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
+			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
+			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
+
+			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
+			startConditionAttribute.Operator = core.StringPtr("timeGreaterThanOrEquals")
+			startConditionAttribute.Value = core.StringPtr("09:00:00+00:00")
+
+			endConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			endConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
+			endConditionAttribute.Operator = core.StringPtr("timeLessThanOrEquals")
+			endConditionAttribute.Value = core.StringPtr("17:00:00+00:00")
+
+			policyRule := new(iampolicymanagementv1.V2PolicyRule)
+			policyRule.Operator = core.StringPtr("and")
+			policyRule.Conditions = []iampolicymanagementv1.RuleAttribute{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
+
+			// Construct an instance of the CreateV2PolicyOptions model
+			options := new(iampolicymanagementv1.CreateV2PolicyOptions)
+			options.Type = core.StringPtr("access")
+			options.Subject = policySubject
+			options.Control = control
+			options.Resource = policyResource
+			options.Pattern = core.StringPtr("time-based-conditions:weekly:custom-hours")
+			options.Rule = policyRule
+			options.AcceptLanguage = core.StringPtr("en")
+
+			policy, detailedResponse, err := service.CreateV2Policy(options)
+			controlResponse := new(iampolicymanagementv1.ControlResponse)
+			controlResponse.Grant = grant
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(201))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateV2Policy() result:\n%s\n", common.ToJSON(policy))
+			Expect(policy.Type).To(Equal(options.Type))
+			Expect(policy.Subject.Attributes[0].Value).To(Equal(&testUserId))
+			Expect(policy.Control).To(Equal(controlResponse))
+			Expect(policy.Resource.Attributes[0].Value).To(Equal(testAccountID))
+
+			testV2PolicyId = *policy.ID
+		})
+	})
+
+	Describe("Get a v2 access policy", func() {
+
+		It("Successfully retrieved a v2 access policy", func() {
+			shouldSkipTest()
+			Expect(testPolicyId).To(Not(BeNil()))
+
+			options := service.NewGetV2PolicyOptions(testV2PolicyId)
+			policy, detailedResponse, err := service.GetV2Policy(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetV2Policy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(testV2PolicyId))
+
+			testV2PolicyETag = detailedResponse.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe("Update a v2 access policy", func() {
+
+		It("Successfully updated a v2 access policy", func() {
+			shouldSkipTest()
+			Expect(testV2PolicyId).To(Not(BeNil()))
+			Expect(testV2PolicyETag).To(Not(BeNil()))
+
+			// Construct an instance of the ResourceAttribute model
+			accountIdResourceAttribute := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+			accountIdResourceAttribute.Key = core.StringPtr("accountId")
+			accountIdResourceAttribute.Value = core.StringPtr(testAccountID)
+			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
+
+			serviceNameResourceAttribute := new(iampolicymanagementv1.V2PolicyResourceAttribute)
+			serviceNameResourceAttribute.Key = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
+			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
+
+			// Construct an instance of the SubjectAttribute model
+			subjectAttribute := new(iampolicymanagementv1.V2PolicySubjectAttribute)
+			subjectAttribute.Key = core.StringPtr("iam_id")
+			subjectAttribute.Operator = core.StringPtr("stringEquals")
+			subjectAttribute.Value = core.StringPtr(testUserId)
+
+			// Construct an instance of the V2PolicyBaseResource model
+			policyResource := new(iampolicymanagementv1.V2PolicyResource)
+			policyResource.Attributes = []iampolicymanagementv1.V2PolicyResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+
+			// Construct an instance of the Roles model
+			policyRole := new(iampolicymanagementv1.Roles)
+			policyRole.RoleID = core.StringPtr(testViewerRoleCrn)
+
+			// Construct an instance of the PolicySubject model
+			policySubject := new(iampolicymanagementv1.V2PolicySubject)
+			policySubject.Attributes = []iampolicymanagementv1.V2PolicySubjectAttribute{*subjectAttribute}
+
+			// Contruct and instance of PolicyControl model
+			control := new(iampolicymanagementv1.Control)
+			grant := new(iampolicymanagementv1.Grant)
+			grant.Roles = []iampolicymanagementv1.Roles{*policyRole}
+			control.Grant = grant
+
+			// Construct an instance of Policy Rule Attribute
+			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
+			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
+			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
+
+			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
+			startConditionAttribute.Operator = core.StringPtr("timeGreaterThanOrEquals")
+			startConditionAttribute.Value = core.StringPtr("09:00:00+00:00")
+
+			endConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			endConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
+			endConditionAttribute.Operator = core.StringPtr("timeLessThanOrEquals")
+			endConditionAttribute.Value = core.StringPtr("17:00:00+00:00")
+
+			policyRule := new(iampolicymanagementv1.V2PolicyRule)
+			policyRule.Operator = core.StringPtr("and")
+			policyRule.Conditions = []iampolicymanagementv1.RuleAttribute{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
+
+			// Construct an instance of the ReplaceV2PolicyOptions model
+			options := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
+			options.ID = core.StringPtr(testV2PolicyId)
+			options.IfMatch = core.StringPtr(testV2PolicyETag)
+			options.Type = core.StringPtr("access")
+			options.Subject = policySubject
+			options.Control = control
+			options.Resource = policyResource
+			options.Pattern = core.StringPtr("time-based-conditions:weekly:custom-hours")
+			options.Rule = policyRule
+
+			policy, detailedResponse, err := service.ReplaceV2Policy(options)
+			controlResponse := new(iampolicymanagementv1.ControlResponse)
+			controlResponse.Grant = grant
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ReplaceV2Policy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(testV2PolicyId))
+			Expect(policy.Type).To(Equal(options.Type))
+			Expect(policy.Subject.Attributes[0].Value).To(Equal(&testUserId))
+			Expect(policy.Control).To(Equal(controlResponse))
+			Expect(policy.Resource.Attributes[0].Value).To(Equal(testAccountID))
+
+			newV2PolicyEtag := detailedResponse.GetHeaders().Get(etagHeader)
+			Expect(newV2PolicyEtag).ToNot(Equal(testV2PolicyETag))
+
+		})
+	})
+
+	Describe("List v2 access policies", func() {
+
+		It("Successfully listed the account's v2 access policies", func() {
+			shouldSkipTest()
+			Expect(testV2PolicyId).To(Not(BeNil()))
+
+			options := service.NewListV2PoliciesOptions(testAccountID)
+			options.SetIamID(testUserId)
+			options.SetSort("-id")
+			result, detailedResponse, err := service.ListV2Policies(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListV2Policies() result:\n%s\n", common.ToJSON(result))
+
+			// confirm the test policy is present
+			testPolicyPresent := false
+			for _, policy := range result.Policies {
+				if *policy.ID == testV2PolicyId {
 					testPolicyPresent = true
 				}
 			}
@@ -335,15 +567,19 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(testCustomRoleId).To(Not(BeNil()))
 			Expect(testPolicyETag).To(Not(BeNil()))
 
-			options := service.NewUpdateRoleOptions(
+			actions := []string{"iam-groups.groups.read"}
+			options := service.NewReplaceRoleOptions(
 				testCustomRoleId,
-				testCustomRoleETag)
+				testCustomRoleETag,
+				testCustomRoleName,
+				actions,
+			)
 			options.SetDescription("GO SDK test role udpated")
 			options.SetDisplayName("GO SDK test role udpated")
-			result, detailedResponse, err := service.UpdateRole(options)
+			result, detailedResponse, err := service.ReplaceRole(options)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "UpdateRole() result:\n%s\n", common.ToJSON(result))
+			fmt.Fprintf(GinkgoWriter, "ReplaceRole() result:\n%s\n", common.ToJSON(result))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testCustomRoleId))
 
@@ -374,6 +610,39 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe("List V2 roles", func() {
+		It("Successfully listed the roles when account_id and service_group_id present", func() {
+			shouldSkipTest()
+
+			options := service.NewListRolesOptions()
+			options.SetAccountID(testAccountID)
+			options.SetServiceGroupID("IAM")
+			result, detailedResponse, err := service.ListRoles(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListRoles() result:\n%s\n", common.ToJSON(result))
+
+			// confirm the system's viewer and service roles are present
+			testSystemRolePresent := false
+			testServiceRolePresent := false
+			for _, role := range result.SystemRoles {
+				if *role.CRN == testViewerRoleCrn {
+					testSystemRolePresent = true
+				}
+			}
+
+			for _, role := range result.ServiceRoles {
+				if *role.CRN == testServiceRoleCrn {
+					testServiceRolePresent = true
+				}
+			}
+
+			Expect(testSystemRolePresent).To(BeTrue())
+			Expect(testServiceRolePresent).To(BeTrue())
+		})
+	})
+
 	// clean up all test groups
 	AfterSuite(func() {
 		if !configLoaded {
@@ -399,12 +668,20 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 				continue
 			}
 			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
-
-			if *policy.ID == testPolicyId || createdAt.Before(fiveMinutesAgo) {
-				options := service.NewDeletePolicyOptions(*policy.ID)
-				detailedResponse, err := service.DeletePolicy(options)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(204))
+			if strings.Contains(*policy.Href, "v2/policies") {
+				if *policy.ID == testV2PolicyId || createdAt.Before(fiveMinutesAgo) {
+					options := service.NewDeleteV2PolicyOptions(*policy.ID)
+					detailedResponse, err := service.DeleteV2Policy(options)
+					Expect(err).To(BeNil())
+					Expect(detailedResponse.StatusCode).To(Equal(204))
+				}
+			} else {
+				if *policy.ID == testPolicyId || createdAt.Before(fiveMinutesAgo) {
+					options := service.NewDeletePolicyOptions(*policy.ID)
+					detailedResponse, err := service.DeletePolicy(options)
+					Expect(err).To(BeNil())
+					Expect(detailedResponse.StatusCode).To(Equal(204))
+				}
 			}
 		}
 

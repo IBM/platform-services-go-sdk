@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,22 +174,26 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 		It(`ListAccountGroups request example`, func() {
 			fmt.Println("\nListAccountGroups() result:")
 			// begin-list_account_groups
+			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
+				EnterpriseID: &enterpriseID,
+			}
 
-			listAccountGroupsOptions := enterpriseManagementService.NewListAccountGroupsOptions()
-			listAccountGroupsOptions.SetEnterpriseID(enterpriseID)
-
-			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
+			pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(listAccountGroupsResponse, "", "  ")
+
+			var allResults []enterprisemanagementv1.AccountGroup
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_account_groups
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(listAccountGroupsResponse).ToNot(BeNil())
 		})
 		It(`GetAccountGroup request example`, func() {
 			fmt.Println("\nGetAccountGroup() result:")
@@ -282,22 +286,26 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 		It(`ListAccounts request example`, func() {
 			fmt.Println("\nListAccounts() result:")
 			// begin-list_accounts
+			listAccountsOptions := &enterprisemanagementv1.ListAccountsOptions{
+				EnterpriseID: &enterpriseID,
+			}
 
-			listAccountsOptions := enterpriseManagementService.NewListAccountsOptions()
-			listAccountsOptions.SetEnterpriseID(enterpriseID)
-
-			listAccountsResponse, response, err := enterpriseManagementService.ListAccounts(listAccountsOptions)
+			pager, err := enterpriseManagementService.NewAccountsPager(listAccountsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(listAccountsResponse, "", "  ")
+
+			var allResults []enterprisemanagementv1.Account
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_accounts
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(listAccountsResponse).ToNot(BeNil())
 		})
 		It(`GetAccount request example`, func() {
 			fmt.Println("\nGetAccount() result:")
@@ -372,22 +380,26 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 		It(`ListEnterprises request example`, func() {
 			fmt.Println("\nListEnterprises() result:")
 			// begin-list_enterprises
+			listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
+				EnterpriseAccountID: &enterpriseAccountID,
+			}
 
-			listEnterprisesOptions := enterpriseManagementService.NewListEnterprisesOptions()
-			listEnterprisesOptions.SetAccountID(enterpriseAccountID)
-
-			listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
+			pager, err := enterpriseManagementService.NewEnterprisesPager(listEnterprisesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(listEnterprisesResponse, "", "  ")
+
+			var allResults []enterprisemanagementv1.Enterprise
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-list_enterprises
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(listEnterprisesResponse).ToNot(BeNil())
 		})
 		It(`GetEnterprise request example`, func() {
 			fmt.Println("\nGetEnterprise() result:")

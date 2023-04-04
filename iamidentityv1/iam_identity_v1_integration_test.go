@@ -52,6 +52,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		profileName2  string = "Go-SDK-IT-Profile-2"
 		accountID     string
 		iamID         string
+		iamIDMember   string
 		iamAPIKey     string
 		claimRuleType string = "Profile-SAML"
 		realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
@@ -82,7 +83,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 		accountSettingEtag string
 
-		reportId string
+		reportId           string
+		reportReferenceMfa string
 	)
 
 	var shouldSkipTest = func() {
@@ -111,6 +113,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
+
+			iamIDMember = config["IAM_ID_MEMBER"]
+			Expect(iamIDMember).ToNot(BeEmpty())
 
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
@@ -1303,7 +1308,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.SystemRefreshTokenExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.Mfa).ToNot(BeNil())
+			Expect(accountSettingsResponse.UserMfa).ToNot(BeNil())
 
 			accountSettingEtag = response.GetHeaders().Get("Etag")
 			Expect(accountSettingEtag).ToNot(BeEmpty())
@@ -1316,16 +1324,23 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
+			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
+			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
+			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+
 			accountSettingsRequestOptions := &iamidentityv1.UpdateAccountSettingsOptions{
 				IfMatch:                      core.StringPtr(accountSettingEtag),
 				AccountID:                    core.StringPtr(accountID),
 				RestrictCreateServiceID:      core.StringPtr("NOT_RESTRICTED"),
 				RestrictCreatePlatformApikey: core.StringPtr("NOT_RESTRICTED"),
-				//AllowedIPAddresses:           core.StringPtr("testString"),
-				Mfa:                          core.StringPtr("NONE"),
-				SessionExpirationInSeconds:   core.StringPtr("86400"),
-				SessionInvalidationInSeconds: core.StringPtr("7200"),
-				MaxSessionsPerIdentity:       core.StringPtr("10"),
+				//AllowedIPAddresses:                  core.StringPtr("testString"),
+				Mfa:                                   core.StringPtr("NONE"),
+				UserMfa:                               []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA},
+				SessionExpirationInSeconds:            core.StringPtr("86400"),
+				SessionInvalidationInSeconds:          core.StringPtr("7200"),
+				MaxSessionsPerIdentity:                core.StringPtr("10"),
+				SystemAccessTokenExpirationInSeconds:  core.StringPtr("3600"),
+				SystemRefreshTokenExpirationInSeconds: core.StringPtr("259200"),
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
@@ -1336,11 +1351,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
 			Expect(accountSettingsResponse.EntityTag).ToNot(Equal(accountSettingEtag))
 			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
+			Expect(accountSettingsResponse.UserMfa).To(Equal(accountSettingsRequestOptions.UserMfa))
 			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
 			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).To(Equal(accountSettingsRequestOptions.RestrictCreatePlatformApikey))
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
+			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemAccessTokenExpirationInSeconds))
+			Expect(accountSettingsResponse.SystemRefreshTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemRefreshTokenExpirationInSeconds))
 			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
 		})
 	})
@@ -1439,6 +1457,95 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(report).To(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
 			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateReportMfa - Create an mfa report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateReportMfa(createMfReportOptions *createMfReportOptions)`, func() {
+
+			createMfaReportOptions := &iamidentityv1.CreateMfaReportOptions{
+				AccountID: &accountID,
+				Type:      core.StringPtr("mfa_status"),
+			}
+
+			reportRef, response, err := iamIdentityService.CreateMfaReport(createMfaReportOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(reportRef).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateMfaReport response:\n%s\n", common.ToJSON(reportRef))
+
+			reportReferenceMfa = *reportRef.Reference
+			Expect(reportReferenceMfa).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetReportMfaComplete - Get a complete mfa report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetMfaReport(getMfaReportOptions *GetMfaReportOptions)`, func() {
+			Expect(reportId).ToNot(BeEmpty())
+			getMfaReportOptions := &iamidentityv1.GetMfaReportOptions{
+				AccountID: &accountID,
+				Reference: &reportReferenceMfa,
+			}
+
+			for i := 0; i < 30; i++ {
+				report, response, err := iamIdentityService.GetMfaReport(getMfaReportOptions)
+				Expect(err).To(BeNil())
+				if response.StatusCode != 204 {
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(report).ToNot(BeNil())
+					Expect(report.CreatedBy).ToNot(BeNil())
+					Expect(*report.CreatedBy).To(Equal(iamID))
+					Expect(report.Reference).ToNot(BeNil())
+					Expect(*report.Reference).To(Equal(reportReferenceMfa))
+					break
+				}
+				time.Sleep(1 * time.Second)
+			}
+		})
+	})
+
+	Describe(`GetReportMfaNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReportMfaNotFound(getMfaReportOptions *GetMfaReportOptions)`, func() {
+
+			getMfaReportOptions := &iamidentityv1.GetMfaReportOptions{
+				AccountID: &accountID,
+				Reference: core.StringPtr("1234567890"),
+			}
+
+			report, response, err := iamIdentityService.GetMfaReport(getMfaReportOptions)
+
+			Expect(report).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetMfaStatus`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetMfaStatus(getMfaStatusOptions *getMfaStatusOptions)`, func() {
+
+			getMfaStatusOptions := &iamidentityv1.GetMfaStatusOptions{
+				AccountID: &accountID,
+				IamID:     &iamID,
+			}
+
+			mfaStatusResponse, response, err := iamIdentityService.GetMfaStatus(getMfaStatusOptions)
+
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(mfaStatusResponse).ToNot(BeNil())
 		})
 	})
 

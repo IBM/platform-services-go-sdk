@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6095,7 +6095,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -6151,7 +6151,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -6275,6 +6275,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6283,9 +6288,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
@@ -6340,7 +6348,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully with retries`, func() {
@@ -6352,6 +6360,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(iamIdentityService).ToNot(BeNil())
 				iamIdentityService.EnableRetries(0, 0)
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6360,9 +6373,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6420,7 +6436,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully`, func() {
@@ -6437,6 +6453,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6445,9 +6466,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6465,6 +6489,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6473,9 +6502,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -6514,6 +6546,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
 				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
@@ -6522,13 +6559,673 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
 				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("86400")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("7200")
 				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
 				result, response, operationErr := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMfaStatus(getMfaStatusOptions *GetMfaStatusOptions) - Operation response error`, func() {
+		getMfaStatusPath := "/v1/mfa/accounts/testString/status"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetMfaStatus with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaStatusOptions model
+				getMfaStatusOptionsModel := new(iamidentityv1.GetMfaStatusOptions)
+				getMfaStatusOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.IamID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMfaStatus(getMfaStatusOptions *GetMfaStatusOptions)`, func() {
+		getMfaStatusPath := "/v1/mfa/accounts/testString/status"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
+				}))
+			})
+			It(`Invoke GetMfaStatus successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetMfaStatusOptions model
+				getMfaStatusOptionsModel := new(iamidentityv1.GetMfaStatusOptions)
+				getMfaStatusOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.IamID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetMfaStatusWithContext(ctx, getMfaStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetMfaStatusWithContext(ctx, getMfaStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaStatusPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
+				}))
+			})
+			It(`Invoke GetMfaStatus successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetMfaStatus(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetMfaStatusOptions model
+				getMfaStatusOptionsModel := new(iamidentityv1.GetMfaStatusOptions)
+				getMfaStatusOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.IamID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetMfaStatus with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaStatusOptions model
+				getMfaStatusOptionsModel := new(iamidentityv1.GetMfaStatusOptions)
+				getMfaStatusOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.IamID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetMfaStatusOptions model with no property values
+				getMfaStatusOptionsModelNew := new(iamidentityv1.GetMfaStatusOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetMfaStatus(getMfaStatusOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetMfaStatus successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaStatusOptions model
+				getMfaStatusOptionsModel := new(iamidentityv1.GetMfaStatusOptions)
+				getMfaStatusOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.IamID = core.StringPtr("testString")
+				getMfaStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetMfaStatus(getMfaStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateMfaReport(createMfaReportOptions *CreateMfaReportOptions) - Operation response error`, func() {
+		createMfaReportPath := "/v1/mfa/accounts/testString/report"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createMfaReportPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateMfaReport with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateMfaReportOptions model
+				createMfaReportOptionsModel := new(iamidentityv1.CreateMfaReportOptions)
+				createMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				createMfaReportOptionsModel.Type = core.StringPtr("testString")
+				createMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateMfaReport(createMfaReportOptions *CreateMfaReportOptions)`, func() {
+		createMfaReportPath := "/v1/mfa/accounts/testString/report"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createMfaReportPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"reference": "Reference"}`)
+				}))
+			})
+			It(`Invoke CreateMfaReport successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateMfaReportOptions model
+				createMfaReportOptionsModel := new(iamidentityv1.CreateMfaReportOptions)
+				createMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				createMfaReportOptionsModel.Type = core.StringPtr("testString")
+				createMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateMfaReportWithContext(ctx, createMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateMfaReportWithContext(ctx, createMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createMfaReportPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"reference": "Reference"}`)
+				}))
+			})
+			It(`Invoke CreateMfaReport successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateMfaReport(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateMfaReportOptions model
+				createMfaReportOptionsModel := new(iamidentityv1.CreateMfaReportOptions)
+				createMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				createMfaReportOptionsModel.Type = core.StringPtr("testString")
+				createMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateMfaReport with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateMfaReportOptions model
+				createMfaReportOptionsModel := new(iamidentityv1.CreateMfaReportOptions)
+				createMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				createMfaReportOptionsModel.Type = core.StringPtr("testString")
+				createMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateMfaReportOptions model with no property values
+				createMfaReportOptionsModelNew := new(iamidentityv1.CreateMfaReportOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateMfaReport(createMfaReportOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke CreateMfaReport successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateMfaReportOptions model
+				createMfaReportOptionsModel := new(iamidentityv1.CreateMfaReportOptions)
+				createMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				createMfaReportOptionsModel.Type = core.StringPtr("testString")
+				createMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateMfaReport(createMfaReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMfaReport(getMfaReportOptions *GetMfaReportOptions) - Operation response error`, func() {
+		getMfaReportPath := "/v1/mfa/accounts/testString/report/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaReportPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetMfaReport with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaReportOptions model
+				getMfaReportOptionsModel := new(iamidentityv1.GetMfaReportOptions)
+				getMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaReportOptionsModel.Reference = core.StringPtr("testString")
+				getMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetMfaReport(getMfaReportOptions *GetMfaReportOptions)`, func() {
+		getMfaReportPath := "/v1/mfa/accounts/testString/report/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaReportPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
+				}))
+			})
+			It(`Invoke GetMfaReport successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetMfaReportOptions model
+				getMfaReportOptionsModel := new(iamidentityv1.GetMfaReportOptions)
+				getMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaReportOptionsModel.Reference = core.StringPtr("testString")
+				getMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetMfaReportWithContext(ctx, getMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetMfaReportWithContext(ctx, getMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getMfaReportPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
+				}))
+			})
+			It(`Invoke GetMfaReport successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetMfaReport(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetMfaReportOptions model
+				getMfaReportOptionsModel := new(iamidentityv1.GetMfaReportOptions)
+				getMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaReportOptionsModel.Reference = core.StringPtr("testString")
+				getMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetMfaReport with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaReportOptions model
+				getMfaReportOptionsModel := new(iamidentityv1.GetMfaReportOptions)
+				getMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaReportOptionsModel.Reference = core.StringPtr("testString")
+				getMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetMfaReportOptions model with no property values
+				getMfaReportOptionsModelNew := new(iamidentityv1.GetMfaReportOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetMfaReport(getMfaReportOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetMfaReport successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetMfaReportOptions model
+				getMfaReportOptionsModel := new(iamidentityv1.GetMfaReportOptions)
+				getMfaReportOptionsModel.AccountID = core.StringPtr("testString")
+				getMfaReportOptionsModel.Reference = core.StringPtr("testString")
+				getMfaReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetMfaReport(getMfaReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -6991,6 +7688,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				URL:           "http://iamidentityv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
+			It(`Invoke NewAccountSettingsUserMfa successfully`, func() {
+				iamID := "testString"
+				mfa := "NONE"
+				_model, err := iamIdentityService.NewAccountSettingsUserMfa(iamID, mfa)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewAPIKeyInsideCreateServiceIDRequest successfully`, func() {
 				name := "testString"
 				_model, err := iamIdentityService.NewAPIKeyInsideCreateServiceIDRequest(name)
@@ -7109,6 +7813,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createLinkOptionsModel.Link).To(Equal(createProfileLinkRequestLinkModel))
 				Expect(createLinkOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createLinkOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateMfaReportOptions successfully`, func() {
+				// Construct an instance of the CreateMfaReportOptions model
+				accountID := "testString"
+				createMfaReportOptionsModel := iamIdentityService.NewCreateMfaReportOptions(accountID)
+				createMfaReportOptionsModel.SetAccountID("testString")
+				createMfaReportOptionsModel.SetType("testString")
+				createMfaReportOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createMfaReportOptionsModel).ToNot(BeNil())
+				Expect(createMfaReportOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createMfaReportOptionsModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(createMfaReportOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProfileLinkRequestLink successfully`, func() {
 				crn := "testString"
@@ -7298,6 +8014,32 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getLinkOptionsModel.LinkID).To(Equal(core.StringPtr("testString")))
 				Expect(getLinkOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetMfaReportOptions successfully`, func() {
+				// Construct an instance of the GetMfaReportOptions model
+				accountID := "testString"
+				reference := "testString"
+				getMfaReportOptionsModel := iamIdentityService.NewGetMfaReportOptions(accountID, reference)
+				getMfaReportOptionsModel.SetAccountID("testString")
+				getMfaReportOptionsModel.SetReference("testString")
+				getMfaReportOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getMfaReportOptionsModel).ToNot(BeNil())
+				Expect(getMfaReportOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getMfaReportOptionsModel.Reference).To(Equal(core.StringPtr("testString")))
+				Expect(getMfaReportOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetMfaStatusOptions successfully`, func() {
+				// Construct an instance of the GetMfaStatusOptions model
+				accountID := "testString"
+				iamID := "testString"
+				getMfaStatusOptionsModel := iamIdentityService.NewGetMfaStatusOptions(accountID, iamID)
+				getMfaStatusOptionsModel.SetAccountID("testString")
+				getMfaStatusOptionsModel.SetIamID("testString")
+				getMfaStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getMfaStatusOptionsModel).ToNot(BeNil())
+				Expect(getMfaStatusOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getMfaStatusOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(getMfaStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetProfileOptions successfully`, func() {
 				// Construct an instance of the GetProfileOptions model
 				profileID := "testString"
@@ -7474,6 +8216,14 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(unlockServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAccountSettingsOptions successfully`, func() {
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				Expect(accountSettingsUserMfaModel).ToNot(BeNil())
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+				Expect(accountSettingsUserMfaModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsUserMfaModel.Mfa).To(Equal(core.StringPtr("NONE")))
+
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				ifMatch := "testString"
 				accountID := "testString"
@@ -7484,9 +8234,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.SetRestrictCreatePlatformApikey("RESTRICTED")
 				updateAccountSettingsOptionsModel.SetAllowedIPAddresses("testString")
 				updateAccountSettingsOptionsModel.SetMfa("NONE")
+				updateAccountSettingsOptionsModel.SetUserMfa([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel})
 				updateAccountSettingsOptionsModel.SetSessionExpirationInSeconds("86400")
 				updateAccountSettingsOptionsModel.SetSessionInvalidationInSeconds("7200")
 				updateAccountSettingsOptionsModel.SetMaxSessionsPerIdentity("testString")
+				updateAccountSettingsOptionsModel.SetSystemAccessTokenExpirationInSeconds("3600")
+				updateAccountSettingsOptionsModel.SetSystemRefreshTokenExpirationInSeconds("259200")
 				updateAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAccountSettingsOptionsModel).ToNot(BeNil())
 				Expect(updateAccountSettingsOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
@@ -7495,9 +8248,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey).To(Equal(core.StringPtr("RESTRICTED")))
 				Expect(updateAccountSettingsOptionsModel.AllowedIPAddresses).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.Mfa).To(Equal(core.StringPtr("NONE")))
+				Expect(updateAccountSettingsOptionsModel.UserMfa).To(Equal([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}))
 				Expect(updateAccountSettingsOptionsModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("86400")))
 				Expect(updateAccountSettingsOptionsModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("7200")))
 				Expect(updateAccountSettingsOptionsModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
+				Expect(updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("259200")))
 				Expect(updateAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAPIKeyOptions successfully`, func() {

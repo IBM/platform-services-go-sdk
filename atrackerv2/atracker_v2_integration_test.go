@@ -45,7 +45,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
 
-	const notFoundRouteID =  "ffffffff-2222-2222-2222-222222222222"
+	const notFoundRouteID = "ffffffff-2222-2222-2222-222222222222"
 
 	const badTargetType = "bad_target_type"
 
@@ -61,6 +61,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		routeIDLink   string
 		targetIDLink  string
 		targetIDLink2 string
+		targetIDLink3 string
 	)
 
 	var shouldSkipTest = func() {
@@ -172,6 +173,31 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			targetIDLink2 = *target.ID
 			fmt.Fprintf(GinkgoWriter, "Saved logdna targetIDLink value: %v\n", targetIDLink)
+		})
+
+		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
+
+			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic:     core.StringPtr("my-test-topic"),
+				Brokers:   []string{"kafka-x:9094"},
+				APIKey:    core.StringPtr("xxxxxxxxxxx"),
+			}
+
+			createTargetOptions := &atrackerv2.CreateTargetOptions{
+				Name:                 core.StringPtr("my-ies-target"),
+				TargetType:           core.StringPtr("event_streams"),
+				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.CreateTarget(createTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(target).ToNot(BeNil())
+
+			targetIDLink3 = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved event streams targetIDLink value: %v\n", targetIDLink)
 		})
 
 		It(`Returns 400 when backend input validation fails`, func() {
@@ -383,6 +409,27 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				ID:             &targetIDLink2,
 				Name:           core.StringPtr("my-logdna-target-modified"),
 				LogdnaEndpoint: logdnaEndpointPrototypeModel,
+			}
+
+			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for event streams type of target`, func() {
+
+			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic:     core.StringPtr("my-test-topic"),
+				Brokers:   []string{"kafka-x:9094"},
+				APIKey:    core.StringPtr("xxxxxxxxxxxxx"),
+			}
+
+			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
+				ID:                   &targetIDLink3,
+				Name:                 core.StringPtr("my-ies-target-modified"),
+				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -799,6 +846,16 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink2,
+			}
+
+			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+
+			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
+				ID: &targetIDLink3,
 			}
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)

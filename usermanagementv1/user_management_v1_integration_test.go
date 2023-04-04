@@ -22,7 +22,6 @@ package usermanagementv1_test
 import (
 	"fmt"
 	"log"
-	"net/url"
 	"os"
 	"time"
 
@@ -197,13 +196,44 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				results = append(results, result.Resources...)
 
 				if result.NextURL != nil {
-					pageStart = getStartTokenFromURL(result.NextURL)
+					pageStart, err = core.GetQueryParam(result.NextURL, "_start")
+					Expect(err).To(BeNil())
 				} else {
 					moreResults = false
 				}
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Received a total of %d user profiles.\n", len(results))
+		})
+		It(`ListUsers(listUsersOptions *ListUsersOptions) using UsersPager`, func() {
+			listUsersOptions := &usermanagementv1.ListUsersOptions{
+				AccountID: &accountID,
+			}
+
+			// Test GetNext().
+			pager, err := userManagementService.NewUsersPager(listUsersOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []usermanagementv1.UserProfile
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = userManagementService.NewUsersPager(listUsersOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListUsers() returned a total of %d item(s) using UsersPager.\n", len(allResults))
 		})
 	})
 
@@ -321,34 +351,3 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		})
 	})
 })
-
-func getStartTokenFromURL(sptr *string) *string {
-	if sptr == nil {
-		return nil
-	}
-
-	s := *sptr
-	if s == "" {
-		return nil
-	}
-
-	u, err := url.Parse(s)
-	if err != nil {
-		return nil
-	}
-
-	if u.RawQuery == "" {
-		return nil
-	}
-
-	q, err := url.ParseQuery(u.RawQuery)
-	if err != nil {
-		return nil
-	}
-
-	token := q.Get("_start")
-	if token == "" {
-		return nil
-	}
-	return &token
-}

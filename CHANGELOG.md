@@ -1,3 +1,185 @@
+# [0.35.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.34.0...v0.35.0) (2023-03-29)
+
+
+### Features
+
+* **Enterprise Billing Units:** add start and limit parameters to billing unit list APIs ([#230](https://github.com/IBM/platform-services-go-sdk/issues/230)) ([19296ca](https://github.com/IBM/platform-services-go-sdk/commit/19296caa99eafe3544f748b5115ef37ca4344cca))
+
+# [0.34.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.33.0...v0.34.0) (2023-03-27)
+
+
+### Features
+
+* **Catalog Management:** re-gen service after recent API changes ([#241](https://github.com/IBM/platform-services-go-sdk/issues/241)) ([99105cf](https://github.com/IBM/platform-services-go-sdk/commit/99105cfb3b2ce324460b835883a5ff9c37d60861))
+
+# [0.33.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.2...v0.33.0) (2023-03-27)
+
+
+### Features
+
+* **IAM Policy Management:** support of new query param source_group_id for v2/roles ([#243](https://github.com/IBM/platform-services-go-sdk/issues/243)) ([f89b2ba](https://github.com/IBM/platform-services-go-sdk/commit/f89b2ba1b34bc2a964fb22f342ac7847367b137e))
+
+## [0.32.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.1...v0.32.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* **Global Search:** remove is_hidden param from search operation ([#239](https://github.com/IBM/platform-services-go-sdk/issues/239)) ([67937e4](https://github.com/IBM/platform-services-go-sdk/commit/67937e4421759cd009300b3be24fc4f242819e20))
+
+## [0.32.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.32.0...v0.32.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add sort query parameter to List V2 Policies ([#238](https://github.com/IBM/platform-services-go-sdk/issues/238)) ([be7c94e](https://github.com/IBM/platform-services-go-sdk/commit/be7c94ec3ba8d919e5443a1903a5a5b26568815c))
+
+# [0.32.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.6...v0.32.0) (2023-02-24)
+
+
+### Features
+
+* bump minimum go version to 1.18 ([#235](https://github.com/IBM/platform-services-go-sdk/issues/235)) ([a5b12e5](https://github.com/IBM/platform-services-go-sdk/commit/a5b12e54fec71478e0a054e61a9c8a5dd0d2aa78))
+
+## [0.31.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.5...v0.31.6) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen with latest API definition ([#232](https://github.com/IBM/platform-services-go-sdk/issues/232)) ([922f9ad](https://github.com/IBM/platform-services-go-sdk/commit/922f9ad7b7d80016173293c5830b87374c9b93ef))
+
+## [0.31.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.4...v0.31.5) (2023-02-15)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** Add format query parameter to GET by ID ([#233](https://github.com/IBM/platform-services-go-sdk/issues/233)) ([216a92c](https://github.com/IBM/platform-services-go-sdk/commit/216a92c530662e45448c7cc153f69a3b2e6c00ea))
+
+## [0.31.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.3...v0.31.4) (2023-01-25)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update time-based condition example and pattern, ([#231](https://github.com/IBM/platform-services-go-sdk/issues/231)) ([92d5126](https://github.com/IBM/platform-services-go-sdk/commit/92d51260d7aed93924362f949d8e98c3cb60418d))
+
+## [0.31.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.2...v0.31.3) (2023-01-17)
+
+
+### Bug Fixes
+
+* **Global Search & Tagging:** regen services with latest API definition ([#228](https://github.com/IBM/platform-services-go-sdk/issues/228)) ([a76ab70](https://github.com/IBM/platform-services-go-sdk/commit/a76ab709d33688c5b0f921695e1ba2a1e76eed10))
+
+## [0.31.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.1...v0.31.2) (2022-12-19)
+
+
+### Bug Fixes
+
+* **Activity Tracker v2:** add message field Settings struct ([#226](https://github.com/IBM/platform-services-go-sdk/issues/226)) ([ccf59a3](https://github.com/IBM/platform-services-go-sdk/commit/ccf59a35034e93852783cf7bf55ff14edfdeac4b))
+
+## [0.31.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.31.0...v0.31.1) (2022-12-05)
+
+
+### Bug Fixes
+
+* **Usage Reports:** rename Account_Summary billing_month property ([#222](https://github.com/IBM/platform-services-go-sdk/issues/222)) ([8d3a404](https://github.com/IBM/platform-services-go-sdk/commit/8d3a404f3283533302324cea3217ebf703ae2d15))
+
+# [0.31.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.30.0...v0.31.0) (2022-11-23)
+
+
+### Features
+
+* **IAM Identity:** adding userExpm list and token lifetime ([#221](https://github.com/IBM/platform-services-go-sdk/issues/221)) ([c9d55a8](https://github.com/IBM/platform-services-go-sdk/commit/c9d55a8d93f32a3195986b946a9c9f883103e086))
+
+# [0.30.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.5...v0.30.0) (2022-11-17)
+
+
+### Features
+
+* **IAM Policy Management:** add support for v2/policies API from IAM ([#220](https://github.com/IBM/platform-services-go-sdk/issues/220)) ([23d81fd](https://github.com/IBM/platform-services-go-sdk/commit/23d81fdd775cdc736c02b95f29916693a68fdc68))
+
+## [0.29.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.4...v0.29.5) (2022-11-07)
+
+
+### Bug Fixes
+
+* **User Management:** re-gen service to get new Pagers ([#219](https://github.com/IBM/platform-services-go-sdk/issues/219)) ([fc4128f](https://github.com/IBM/platform-services-go-sdk/commit/fc4128f84f8933b8f1e81dbf76557933368f089a))
+
+## [0.29.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.3...v0.29.4) (2022-11-04)
+
+
+### Bug Fixes
+
+* **Enterprise Management:** re-gen service to get new Pagers ([#218](https://github.com/IBM/platform-services-go-sdk/issues/218)) ([d89854f](https://github.com/IBM/platform-services-go-sdk/commit/d89854f98b49c4e68f0f4229ecc2bbea1035018c))
+
+## [0.29.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.2...v0.29.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* **Resource Controller:** re-gen service to get new Pagers ([#216](https://github.com/IBM/platform-services-go-sdk/issues/216)) ([352c902](https://github.com/IBM/platform-services-go-sdk/commit/352c9025e6d9bbf707a8c1c880dfa96e7a3dbb5a))
+
+## [0.29.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.1...v0.29.2) (2022-11-02)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** change password field name to api_key ([#217](https://github.com/IBM/platform-services-go-sdk/issues/217)) ([39d2d43](https://github.com/IBM/platform-services-go-sdk/commit/39d2d4369dd69b398b41c1f8bc001cab431197f6))
+
+## [0.29.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.29.0...v0.29.1) (2022-10-31)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** regen service to get Pager ([#212](https://github.com/IBM/platform-services-go-sdk/issues/212)) ([f774345](https://github.com/IBM/platform-services-go-sdk/commit/f77434526e9bed6b162c722dde867d3bd490a10f))
+
+# [0.29.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.8...v0.29.0) (2022-10-28)
+
+
+### Features
+
+* remove scc-related services from project ([#215](https://github.com/IBM/platform-services-go-sdk/issues/215)) ([6a2c910](https://github.com/IBM/platform-services-go-sdk/commit/6a2c91005aae8f568993b1f78047a1b8fab94b27))
+
+## [0.28.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.7...v0.28.8) (2022-10-26)
+
+
+### Bug Fixes
+
+* **Enterprise Usage Reports:** regen service to get Pager ([#211](https://github.com/IBM/platform-services-go-sdk/issues/211)) ([699e762](https://github.com/IBM/platform-services-go-sdk/commit/699e762d8b47c5e9fce91978653ae88a545a9d1e))
+
+## [0.28.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.6...v0.28.7) (2022-10-24)
+
+
+### Bug Fixes
+
+* **Case Management:** regen service to add Pager ([#210](https://github.com/IBM/platform-services-go-sdk/issues/210)) ([82c3482](https://github.com/IBM/platform-services-go-sdk/commit/82c348214ea53d19f8474f1c3863747e8690ed59))
+
+## [0.28.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.5...v0.28.6) (2022-10-14)
+
+
+### Bug Fixes
+
+* **Context Based Restrictions:** add list rule with service_group_id test ([#208](https://github.com/IBM/platform-services-go-sdk/issues/208)) ([e3b7581](https://github.com/IBM/platform-services-go-sdk/commit/e3b758138cbe45bfba7d698fef39d34e40136498))
+
+## [0.28.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.4...v0.28.5) (2022-09-29)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** add remapping to other regions ([#207](https://github.com/IBM/platform-services-go-sdk/issues/207)) ([6674728](https://github.com/IBM/platform-services-go-sdk/commit/6674728e1e20285e2f0bea2534b899bc50540925))
+
+## [0.28.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.3...v0.28.4) (2022-09-21)
+
+
+### Bug Fixes
+
+* **Catalog Management:** re-gen service and tests with latest API ([#205](https://github.com/IBM/platform-services-go-sdk/issues/205)) ([b955e79](https://github.com/IBM/platform-services-go-sdk/commit/b955e79dd983e72bcae5fbdc136c40d65c70d94d))
+
+## [0.28.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.2...v0.28.3) (2022-09-15)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** add support for event streams targets in Atracker v2 API ([#206](https://github.com/IBM/platform-services-go-sdk/issues/206)) ([cc063b3](https://github.com/IBM/platform-services-go-sdk/commit/cc063b3e4a5fb0aff1a2f19de8dd54bd2ed747c3))
+
 ## [0.28.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.28.1...v0.28.2) (2022-08-02)
 
 

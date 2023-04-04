@@ -22,7 +22,9 @@ package catalogmanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
@@ -51,13 +53,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 	const externalConfigFile = "../catalog_mgmt.env"
 
 	var (
+		err                       error
 		catalogManagementService  *catalogmanagementv1.CatalogManagementV1
+		serviceURL                string
 		config                    map[string]string
-		configLoaded              bool = false
 		accountID                 string
 		bearerToken               string
 		gitAuthTokenForPublicRepo string
 		catalogID                 string
+		objectCatalogID           string
 		offeringID                string
 		clusterID                 string
 		objectID                  string
@@ -66,14 +70,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 	)
 
 	var shouldSkipTest = func() {
-		if !configLoaded {
-			Skip("External configuration is not available, skipping tests...")
-		}
+		Skip("External configuration is not available, skipping tests...")
 	}
 
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
-			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
 				Skip("External configuration file not found, skipping tests: " + err.Error())
@@ -84,17 +85,16 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
-
-			configLoaded = len(config) > 0
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
 
 			accountID = config["ACCOUNT_ID"]
-			Expect(accountID).NotTo(BeEmpty())
+			Expect(accountID).NotTo(BeNil())
 
-			clusterID = config["CLUSTER_ID"]
-			Expect(clusterID).NotTo(BeEmpty())
-
-			gitAuthTokenForPublicRepo = config["GIT_TOKEN"]
-			Expect(gitAuthTokenForPublicRepo).NotTo(BeEmpty())
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
+			shouldSkipTest = func() {}
 		})
 	})
 
@@ -103,23 +103,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			// begin-common
-
 			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
 
-			catalogManagementService, err := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
-
-			if err != nil {
-				panic(err)
-			}
-
-			// end-common
-
-			Expect(catalogManagementService).ToNot(BeNil())
-
-			bearerToken, err := catalogManagementService.Service.Options.Authenticator.(*core.IamAuthenticator).GetToken()
+			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
 			Expect(err).To(BeNil())
-			Expect(bearerToken).NotTo(BeNil())
+			Expect(catalogManagementService).ToNot(BeNil())
+			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			catalogManagementService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -128,7 +120,33 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 
-		It(`CreateCatalog request example`, func() {
+		It(`CreateCatalog for offerings request example`, func() {
+			fmt.Println("\nCreateCatalog() result:")
+			// begin-create_catalog
+
+			createCatalogOptions := catalogManagementService.NewCreateCatalogOptions()
+			createCatalogOptions.Label = core.StringPtr("Catalog Management Service")
+			createCatalogOptions.Tags = []string{"go", "sdk"}
+			createCatalogOptions.Kind = core.StringPtr("offering")
+			createCatalogOptions.OwningAccount = &accountID
+
+			catalog, response, err := catalogManagementService.CreateCatalog(createCatalogOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(catalog, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_catalog
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(catalog).ToNot(BeNil())
+
+			catalogID = *catalog.ID
+		})
+
+		It(`CreateCatalog for objects request example`, func() {
 			fmt.Println("\nCreateCatalog() result:")
 			// begin-create_catalog
 
@@ -151,7 +169,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(catalog).ToNot(BeNil())
 
-			catalogID = *catalog.ID
+			objectCatalogID = *catalog.ID
 		})
 
 		It(`GetCatalog request example`, func() {
@@ -326,11 +344,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 				catalogID,
 			)
 			importOfferingOptions.Tags = []string{"go", "sdk"}
-			importOfferingOptions.TargetKinds = []string{"roks"}
-			importOfferingOptions.Zipurl = core.StringPtr("https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml")
+			importOfferingOptions.TargetKinds = []string{"terraform"}
+			importOfferingOptions.Zipurl = core.StringPtr("https://github.com/IBM-Cloud/terraform-sample/archive/refs/tags/v1.1.0.tar.gz")
 			importOfferingOptions.OfferingID = &offeringID
 			importOfferingOptions.TargetVersion = core.StringPtr("0.0.2")
-			importOfferingOptions.RepoType = core.StringPtr("git_public")
+			importOfferingOptions.Repotype = core.StringPtr("git_public")
 			importOfferingOptions.XAuthToken = &gitAuthTokenForPublicRepo
 
 			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)
@@ -393,9 +411,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			}
 
 			createObjectOptions := catalogManagementService.NewCreateObjectOptions(
-				catalogID,
+				objectCatalogID,
 			)
-			createObjectOptions.CatalogID = &catalogID
+			createObjectOptions.CatalogID = &objectCatalogID
 			createObjectOptions.Name = core.StringPtr("object_in_ibm_cloud")
 			createObjectOptions.CRN = core.StringPtr("crn:v1:bluemix:public:iam-global-endpoint:global:::endpoint:private.iam.cloud.ibm.com")
 			createObjectOptions.ParentID = core.StringPtr("us-south")
@@ -417,29 +435,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(catalogObject).ToNot(BeNil())
 
 			objectID = *catalogObject.ID
-		})
-
-		It(`GetOfferingAudit request example`, func() {
-			fmt.Println("\nGetOfferingAudit() result:")
-			// begin-get_offering_audit
-
-			getOfferingAuditOptions := catalogManagementService.NewGetOfferingAuditOptions(
-				catalogID,
-				offeringID,
-			)
-
-			auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(auditLog, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_offering_audit
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(auditLog).ToNot(BeNil())
 		})
 
 		It(`GetCatalogAccount request example`, func() {
@@ -473,7 +468,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			updateCatalogAccountOptions.AccountFilters = includeAllFilter
 			updateCatalogAccountOptions.ID = &accountID
 
-			response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			_, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -483,26 +478,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-		})
-
-		It(`GetCatalogAccountAudit request example`, func() {
-			fmt.Println("\nGetCatalogAccountAudit() result:")
-			// begin-get_catalog_account_audit
-
-			getCatalogAccountAuditOptions := catalogManagementService.NewGetCatalogAccountAuditOptions()
-
-			auditLog, response, err := catalogManagementService.GetCatalogAccountAudit(getCatalogAccountAuditOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(auditLog, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_catalog_account_audit
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(auditLog).ToNot(BeNil())
 		})
 
 		It(`GetCatalogAccountFilters request example`, func() {
@@ -523,28 +498,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accumulatedFilters).ToNot(BeNil())
-		})
-
-		It(`GetCatalogAudit request example`, func() {
-			fmt.Println("\nGetCatalogAudit() result:")
-			// begin-get_catalog_audit
-
-			getCatalogAuditOptions := catalogManagementService.NewGetCatalogAuditOptions(
-				catalogID,
-			)
-
-			auditLog, response, err := catalogManagementService.GetCatalogAudit(getCatalogAuditOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(auditLog, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_catalog_audit
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(auditLog).ToNot(BeNil())
 		})
 
 		It(`GetConsumptionOfferings request example`, func() {
@@ -578,7 +531,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			importOfferingVersionOptions.TargetKinds = []string{"roks"}
 			importOfferingVersionOptions.Zipurl = core.StringPtr("https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml")
 			importOfferingVersionOptions.TargetVersion = core.StringPtr("0.0.3")
-			importOfferingVersionOptions.RepoType = core.StringPtr("git_public")
+			importOfferingVersionOptions.Repotype = core.StringPtr("git_public")
 
 			offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
 			if err != nil {
@@ -594,59 +547,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 		})
 
-		It(`ReplaceOfferingIcon request example`, func() {
-			Skip("Skipped by desing.")
-			fmt.Println("\nReplaceOfferingIcon() result:")
-			// begin-replace_offering_icon
-
-			replaceOfferingIconOptions := catalogManagementService.NewReplaceOfferingIconOptions(
-				catalogID,
-				offeringID,
-				"offering_icon.png",
-			)
-
-			offering, response, err := catalogManagementService.ReplaceOfferingIcon(replaceOfferingIconOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(offering, "", "  ")
-			fmt.Println(string(b))
-
-			// end-replace_offering_icon
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(offering).ToNot(BeNil())
-		})
-
-		It(`UpdateOfferingIBM request example`, func() {
-			Skip("Skipped by desing.")
-			fmt.Println("\nUpdateOfferingIBM() result:")
-			// begin-update_offering_ibm
-
-			updateOfferingIBMOptions := catalogManagementService.NewUpdateOfferingIBMOptions(
-				catalogID,
-				offeringID,
-				"allow_request",
-				"true",
-			)
-
-			approvalResult, response, err := catalogManagementService.UpdateOfferingIBM(updateOfferingIBMOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(approvalResult, "", "  ")
-			fmt.Println(string(b))
-
-			// end-update_offering_ibm
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(approvalResult).ToNot(BeNil())
-		})
-
 		It(`GetOfferingUpdates request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOfferingUpdates() result:")
 			// begin-get_offering_updates
 
@@ -676,7 +578,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingAbout request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOfferingAbout() result:")
 			// begin-get_offering_about
 
@@ -699,7 +601,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingLicense request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOfferingLicense() result:")
 			// begin-get_offering_license
 
@@ -723,6 +625,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingContainerImages request example`, func() {
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOfferingContainerImages() result:")
 			// begin-get_offering_container_images
 
@@ -745,7 +648,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeprecateVersion request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-deprecate_version
 
 			deprecateVersionOptions := catalogManagementService.NewDeprecateVersionOptions(
@@ -764,68 +667,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 		})
 
-		It(`AccountPublishVersion request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-account_publish_version
-
-			accountPublishVersionOptions := catalogManagementService.NewAccountPublishVersionOptions(
-				versionLocatorID,
-			)
-
-			response, err := catalogManagementService.AccountPublishVersion(accountPublishVersionOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-account_publish_version
-			fmt.Printf("\nAccountPublishVersion() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`IBMPublishVersion request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-ibm_publish_version
-
-			ibmPublishVersionOptions := catalogManagementService.NewIBMPublishVersionOptions(
-				versionLocatorID,
-			)
-
-			response, err := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-ibm_publish_version
-			fmt.Printf("\nIBMPublishVersion() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`PublicPublishVersion request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-public_publish_version
-
-			publicPublishVersionOptions := catalogManagementService.NewPublicPublishVersionOptions(
-				versionLocatorID,
-			)
-
-			response, err := catalogManagementService.PublicPublishVersion(publicPublishVersionOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-public_publish_version
-			fmt.Printf("\nPublicPublishVersion() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
 		It(`CommitVersion request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-commit_version
 
 			commitVersionOptions := catalogManagementService.NewCommitVersionOptions(
@@ -845,7 +688,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`CopyVersion request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-copy_version
 
 			copyVersionOptions := catalogManagementService.NewCopyVersionOptions(
@@ -866,7 +709,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingWorkingCopy request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOfferingWorkingCopy() result:")
 			// begin-get_offering_working_copy
 
@@ -911,7 +754,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetCluster request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetCluster() result:")
 			// begin-get_cluster
 
@@ -936,7 +779,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetNamespaces request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetNamespaces() result:")
 			// begin-get_namespaces
 
@@ -961,7 +804,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeployOperators request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nDeployOperators() result:")
 			// begin-deploy_operators
 
@@ -988,7 +831,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ListOperators request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nListOperators() result:")
 			// begin-list_operators
 
@@ -1014,7 +857,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ReplaceOperators request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nReplaceOperators() result:")
 			// begin-replace_operators
 
@@ -1041,7 +884,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`InstallVersion request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-install_version
 
 			installVersionOptions := catalogManagementService.NewInstallVersionOptions(
@@ -1062,7 +905,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`PreinstallVersion request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-preinstall_version
 
 			preinstallVersionOptions := catalogManagementService.NewPreinstallVersionOptions(
@@ -1083,7 +926,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetPreinstall request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetPreinstall() result:")
 			// begin-get_preinstall
 
@@ -1107,7 +950,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ValidateInstall request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-validate_install
 
 			validateInstallOptions := catalogManagementService.NewValidateInstallOptions(
@@ -1128,6 +971,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetValidationStatus request example`, func() {
+			Skip("Skipped by design.")
 			fmt.Println("\nGetValidationStatus() result:")
 			// begin-get_validation_status
 
@@ -1151,7 +995,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOverrideValues request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nGetOverrideValues() result:")
 			// begin-get_override_values
 
@@ -1204,7 +1048,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-list_objects
 
 			listObjectsOptions := catalogManagementService.NewListObjectsOptions(
-				catalogID,
+				objectCatalogID,
 			)
 			listObjectsOptions.Limit = core.Int64Ptr(100)
 			listObjectsOptions.Offset = core.Int64Ptr(0)
@@ -1224,19 +1068,19 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ReplaceObject request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nReplaceObject() result:")
 			// begin-replace_object
 
 			replaceObjectOptions := catalogManagementService.NewReplaceObjectOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 			)
 			replaceObjectOptions.ID = &objectID
 			replaceObjectOptions.Name = core.StringPtr("updated-object-name")
 			replaceObjectOptions.ParentID = core.StringPtr("us-south")
 			replaceObjectOptions.Kind = core.StringPtr("vpe")
-			replaceObjectOptions.CatalogID = &catalogID
+			replaceObjectOptions.CatalogID = &objectCatalogID
 
 			catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
 			if err != nil {
@@ -1257,7 +1101,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_object
 
 			getObjectOptions := catalogManagementService.NewGetObjectOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 			)
 
@@ -1275,139 +1119,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(catalogObject).ToNot(BeNil())
 		})
 
-		It(`GetObjectAudit request example`, func() {
-			fmt.Println("\nGetObjectAudit() result:")
-			// begin-get_object_audit
-
-			getObjectAuditOptions := catalogManagementService.NewGetObjectAuditOptions(
-				catalogID,
-				objectID,
-			)
-
-			auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(auditLog, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_object_audit
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(auditLog).ToNot(BeNil())
-		})
-
-		It(`AccountPublishObject request example`, func() {
-			// begin-account_publish_object
-
-			accountPublishObjectOptions := catalogManagementService.NewAccountPublishObjectOptions(
-				catalogID,
-				objectID,
-			)
-
-			response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-account_publish_object
-			fmt.Printf("\nAccountPublishObject() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`SharedPublishObject request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-shared_publish_object
-
-			sharedPublishObjectOptions := catalogManagementService.NewSharedPublishObjectOptions(
-				catalogID,
-				objectID,
-			)
-
-			response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-shared_publish_object
-			fmt.Printf("\nSharedPublishObject() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`IBMPublishObject request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-ibm_publish_object
-
-			ibmPublishObjectOptions := catalogManagementService.NewIBMPublishObjectOptions(
-				catalogID,
-				objectID,
-			)
-
-			response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-ibm_publish_object
-			fmt.Printf("\nIBMPublishObject() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`PublicPublishObject request example`, func() {
-			Skip("Skipped by desing.")
-			// begin-public_publish_object
-
-			publicPublishObjectOptions := catalogManagementService.NewPublicPublishObjectOptions(
-				catalogID,
-				objectID,
-			)
-
-			response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-public_publish_object
-			fmt.Printf("\nPublicPublishObject() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-		})
-
-		It(`CreateObjectAccess request example`, func() {
-			// begin-create_object_access
-
-			createObjectAccessOptions := catalogManagementService.NewCreateObjectAccessOptions(
-				catalogID,
-				objectID,
-				accountID,
-			)
-
-			response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-create_object_access
-			fmt.Printf("\nCreateObjectAccess() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-		})
-
 		It(`GetObjectAccess request example`, func() {
 			fmt.Println("\nGetObjectAccess() result:")
 			// begin-get_object_access
 
 			getObjectAccessOptions := catalogManagementService.NewGetObjectAccessOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 				accountID,
 			)
@@ -1431,7 +1148,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-add_object_access_list
 
 			addObjectAccessListOptions := catalogManagementService.NewAddObjectAccessListOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 				[]string{accountID},
 			)
@@ -1451,11 +1168,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetObjectAccessList request example`, func() {
+			Skip("Skipped by design.")
 			fmt.Println("\nGetObjectAccessList() result:")
 			// begin-get_object_access_list
 
 			getObjectAccessListOptions := catalogManagementService.NewGetObjectAccessListOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 			)
 
@@ -1474,7 +1192,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`CreateOfferingInstance request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nCreateOfferingInstance() result:")
 			// begin-create_offering_instance
 
@@ -1508,7 +1226,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		It(`GetOfferingInstance request example`, func() {
 			fmt.Println("\nGetOfferingInstance() result:")
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-get_offering_instance
 
 			getOfferingInstanceOptions := catalogManagementService.NewGetOfferingInstanceOptions(
@@ -1530,7 +1248,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`PutOfferingInstance request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			fmt.Println("\nPutOfferingInstance() result:")
 			// begin-put_offering_instance
 
@@ -1581,7 +1299,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeleteOperators request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-delete_operators
 
 			deleteOperatorsOptions := catalogManagementService.NewDeleteOperatorsOptions(
@@ -1604,7 +1322,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeleteOfferingInstance request example`, func() {
-			Skip("Skipped by desing.")
+			Skip("Skipped by design.")
 			// begin-delete_offering_instance
 
 			deleteOfferingInstanceOptions := catalogManagementService.NewDeleteOfferingInstanceOptions(
@@ -1629,7 +1347,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_object_access_list
 
 			deleteObjectAccessListOptions := catalogManagementService.NewDeleteObjectAccessListOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 				[]string{accountID},
 			)
@@ -1648,32 +1366,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(accessListBulkResponse).ToNot(BeNil())
 		})
 
-		It(`DeleteObjectAccess request example`, func() {
-			// begin-delete_object_access
-
-			deleteObjectAccessOptions := catalogManagementService.NewDeleteObjectAccessOptions(
-				catalogID,
-				objectID,
-				accountID,
-			)
-
-			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_object_access
-			fmt.Printf("\nDeleteObjectAccess() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-		})
-
 		It(`DeleteObject request example`, func() {
 			// begin-delete_object
 
 			deleteObjectOptions := catalogManagementService.NewDeleteObjectOptions(
-				catalogID,
+				objectCatalogID,
 				objectID,
 			)
 
@@ -1709,11 +1406,30 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 		})
 
-		It(`DeleteCatalog request example`, func() {
+		It(`DeleteCatalog for offerings request example`, func() {
 			// begin-delete_catalog
 
 			deleteCatalogOptions := catalogManagementService.NewDeleteCatalogOptions(
 				catalogID,
+			)
+
+			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_catalog
+			fmt.Printf("\nDeleteCatalog() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+
+		It(`DeleteCatalog for objects request example`, func() {
+			// begin-delete_catalog
+
+			deleteCatalogOptions := catalogManagementService.NewDeleteCatalogOptions(
+				objectCatalogID,
 			)
 
 			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)

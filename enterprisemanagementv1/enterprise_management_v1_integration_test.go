@@ -1,7 +1,8 @@
+//go:build integration
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -211,6 +212,36 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			fmt.Printf("Received a total of %d account groups.", len(accountGroupList))
 		})
+		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions) using AccountGroupsPager`, func() {
+			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
+				EnterpriseID: &enterpriseID,
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []enterprisemanagementv1.AccountGroup
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseManagementService.NewAccountGroupsPager(listAccountGroupsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListAccountGroups() returned a total of %d item(s) using AccountGroupsPager.\n", len(allResults))
+		})
 	})
 
 	Describe(`GetAccountGroup - Get account group by ID`, func() {
@@ -320,6 +351,36 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			fmt.Printf("Received a total of %d accounts.", len(accountsList))
 		})
+		It(`ListAccounts(listAccountsOptions *ListAccountsOptions) using AccountsPager`, func() {
+			listAccountsOptions := &enterprisemanagementv1.ListAccountsOptions{
+				AccountGroupID: &accountGroupID,
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseManagementService.NewAccountsPager(listAccountsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []enterprisemanagementv1.Account
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseManagementService.NewAccountsPager(listAccountsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListAccounts() returned a total of %d item(s) using AccountsPager.\n", len(allResults))
+		})
 	})
 
 	Describe(`GetAccount - Get account by ID`, func() {
@@ -404,6 +465,36 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			}
 			Expect(found).To(BeTrue())
 			fmt.Printf("Received a total of %d enterprises.", len(enterpriseList))
+		})
+		It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions) using EnterprisesPager`, func() {
+			listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
+				AccountID: &accountID,
+			}
+
+			// Test GetNext().
+			pager, err := enterpriseManagementService.NewEnterprisesPager(listEnterprisesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []enterprisemanagementv1.Enterprise
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = enterpriseManagementService.NewEnterprisesPager(listEnterprisesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListEnterprises() returned a total of %d item(s) using EnterprisesPager.\n", len(allResults))
 		})
 	})
 

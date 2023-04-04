@@ -7,7 +7,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/IBM/platform-services-go-sdk)](https://cla-assistant.io/IBM/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.28.2
+# IBM Cloud Platform Services Go SDK Version 0.35.0
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -49,7 +49,6 @@ Service Name | Package name
 [Activity Tracker v1 [deprecated]](https://cloud.ibm.com/apidocs/atracker/atracker-v1) | atrackerv1
 [Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
-[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
 [Context Based Restrictions](https://cloud.ibm.com/apidocs/context-based-restrictions?code=go) | contextbasedrestrictionsv1
 [Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit?code=go) | enterprisebillingunitsv1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise?code=go) | enterprisemanagementv1
@@ -62,12 +61,19 @@ Service Name | Package name
 [IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management?code=go) | iampolicymanagementv1
 [IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
-[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture?code=go) | posturemanagementv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
 [Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting?code=go) | usagereportsv4
 [User Management](https://cloud.ibm.com/apidocs/user-management?code=go) | usermanagementv1
+
+The following services have been relocated to a different SDK project.
+Please consult the documentation for each service to determine the new location:
+
+Service Name | Package name 
+--- | --- 
+[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
+[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture?code=go) | posturemanagementv1
 
 ## Prerequisites
 
@@ -76,10 +82,10 @@ Service Name | Package name
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one
 [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.16 or above.
+* Go version 1.18 or above.
 
 ## Installation
-The current version of this SDK: 0.28.2
+The current version of this SDK: 0.35.0
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 

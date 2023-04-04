@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -188,26 +188,26 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`GetCases request example`, func() {
 			fmt.Println("\nGetCases() result:")
 			// begin-getCases
+			getCasesOptions := &casemanagementv1.GetCasesOptions{
+				Search: core.StringPtr("Example"),
+			}
 
-			getCasesOptions := caseManagementService.NewGetCasesOptions()
-			getCasesOptions.SetSearch("blocker")
-			getCasesOptions.SetSort(casemanagementv1.GetCasesOptionsFieldsUpdatedAtConst)
-			getCasesOptions.SetOffset(0)
-			getCasesOptions.SetLimit(100)
-
-			caseList, response, err := caseManagementService.GetCases(getCasesOptions)
+			pager, err := caseManagementService.NewGetCasesPager(getCasesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(caseList, "", "  ")
+
+			var allResults []casemanagementv1.Case
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
-
 			// end-getCases
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(caseList).ToNot(BeNil())
-
 		})
 		It(`AddComment request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())

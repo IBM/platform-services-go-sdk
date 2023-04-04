@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,7 +175,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccountSummary with error: Operation response processing error`, func() {
@@ -226,7 +226,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "billing_month": "BillingMonth", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
 				}))
 			})
 			It(`Invoke GetAccountSummary successfully with retries`, func() {
@@ -281,7 +281,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "billing_month": "BillingMonth", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
 				}))
 			})
 			It(`Invoke GetAccountSummary successfully`, func() {
@@ -395,7 +395,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// TODO: Add check for _names query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccountUsage with error: Operation response processing error`, func() {
@@ -631,7 +631,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// TODO: Add check for _names query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceGroupUsage with error: Operation response processing error`, func() {
@@ -880,7 +880,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceUsageAccount with error: Operation response processing error`, func() {
@@ -1156,6 +1156,125 @@ var _ = Describe(`UsageReportsV4`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextStart without any query params in the "Next" URL`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetResourceUsageAccountPager.GetNext successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
+					AccountID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceGroupID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []usagereportsv4.InstanceUsage
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetResourceUsageAccountPager.GetAll successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
+					AccountID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceGroupID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) - Operation response error`, func() {
 		getResourceUsageResourceGroupPath := "/v4/accounts/testString/resource_groups/testString/resource_instances/usage/testString"
@@ -1178,7 +1297,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceUsageResourceGroup with error: Operation response processing error`, func() {
@@ -1445,6 +1564,123 @@ var _ = Describe(`UsageReportsV4`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextStart without any query params in the "Next" URL`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageResourceGroupPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetResourceUsageResourceGroupPager.GetNext successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
+					AccountID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []usagereportsv4.InstanceUsage
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetResourceUsageResourceGroupPager.GetAll successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
+					AccountID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) - Operation response error`, func() {
 		getResourceUsageOrgPath := "/v4/accounts/testString/organizations/testString/resource_instances/usage/testString"
@@ -1467,7 +1703,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceUsageOrg with error: Operation response processing error`, func() {
@@ -1734,6 +1970,123 @@ var _ = Describe(`UsageReportsV4`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextStart without any query params in the "Next" URL`, func() {
+				responseObject := new(usagereportsv4.InstancesUsage)
+				nextObject := new(usagereportsv4.InstancesUsageNext)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceUsageOrgPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}]}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetResourceUsageOrgPager.GetNext successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
+					AccountID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []usagereportsv4.InstanceUsage
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetResourceUsageOrgPager.GetAll successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
+					AccountID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1)),
+					ResourceInstanceID: core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+				}
+
+				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`GetOrgUsage(getOrgUsageOptions *GetOrgUsageOptions) - Operation response error`, func() {
 		getOrgUsagePath := "/v4/accounts/testString/organizations/testString/usage/testString"
@@ -1750,7 +2103,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// TODO: Add check for _names query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetOrgUsage with error: Operation response processing error`, func() {

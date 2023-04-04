@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 3.60.0-13f6e1ba-20221019-164457
  */
 
 // Package enterpriseusagereportsv1 : Operations and models for the EnterpriseUsageReportsV1 service
@@ -35,7 +35,7 @@ import (
 
 // EnterpriseUsageReportsV1 : Usage reports for IBM Cloud enterprise entities
 //
-// Version: 1.0.0-beta.1
+// API Version: 1.0.0-beta.1
 type EnterpriseUsageReportsV1 struct {
 	Service *core.BaseService
 }
@@ -226,11 +226,13 @@ func (enterpriseUsageReports *EnterpriseUsageReportsV1) GetResourceUsageReportWi
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReports)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReports)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -278,51 +280,51 @@ func (*EnterpriseUsageReportsV1) NewGetResourceUsageReportOptions() *GetResource
 }
 
 // SetEnterpriseID : Allow user to set EnterpriseID
-func (options *GetResourceUsageReportOptions) SetEnterpriseID(enterpriseID string) *GetResourceUsageReportOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
+func (_options *GetResourceUsageReportOptions) SetEnterpriseID(enterpriseID string) *GetResourceUsageReportOptions {
+	_options.EnterpriseID = core.StringPtr(enterpriseID)
+	return _options
 }
 
 // SetAccountGroupID : Allow user to set AccountGroupID
-func (options *GetResourceUsageReportOptions) SetAccountGroupID(accountGroupID string) *GetResourceUsageReportOptions {
-	options.AccountGroupID = core.StringPtr(accountGroupID)
-	return options
+func (_options *GetResourceUsageReportOptions) SetAccountGroupID(accountGroupID string) *GetResourceUsageReportOptions {
+	_options.AccountGroupID = core.StringPtr(accountGroupID)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetResourceUsageReportOptions) SetAccountID(accountID string) *GetResourceUsageReportOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetResourceUsageReportOptions) SetAccountID(accountID string) *GetResourceUsageReportOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetChildren : Allow user to set Children
-func (options *GetResourceUsageReportOptions) SetChildren(children bool) *GetResourceUsageReportOptions {
-	options.Children = core.BoolPtr(children)
-	return options
+func (_options *GetResourceUsageReportOptions) SetChildren(children bool) *GetResourceUsageReportOptions {
+	_options.Children = core.BoolPtr(children)
+	return _options
 }
 
 // SetMonth : Allow user to set Month
-func (options *GetResourceUsageReportOptions) SetMonth(month string) *GetResourceUsageReportOptions {
-	options.Month = core.StringPtr(month)
-	return options
+func (_options *GetResourceUsageReportOptions) SetMonth(month string) *GetResourceUsageReportOptions {
+	_options.Month = core.StringPtr(month)
+	return _options
 }
 
 // SetBillingUnitID : Allow user to set BillingUnitID
-func (options *GetResourceUsageReportOptions) SetBillingUnitID(billingUnitID string) *GetResourceUsageReportOptions {
-	options.BillingUnitID = core.StringPtr(billingUnitID)
-	return options
+func (_options *GetResourceUsageReportOptions) SetBillingUnitID(billingUnitID string) *GetResourceUsageReportOptions {
+	_options.BillingUnitID = core.StringPtr(billingUnitID)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetResourceUsageReportOptions) SetLimit(limit int64) *GetResourceUsageReportOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetResourceUsageReportOptions) SetLimit(limit int64) *GetResourceUsageReportOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *GetResourceUsageReportOptions) SetOffset(offset string) *GetResourceUsageReportOptions {
-	options.Offset = core.StringPtr(offset)
-	return options
+func (_options *GetResourceUsageReportOptions) SetOffset(offset string) *GetResourceUsageReportOptions {
+	_options.Offset = core.StringPtr(offset)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -369,7 +371,7 @@ type MetricUsage struct {
 	RatedCost *float64 `json:"rated_cost" validate:"required"`
 
 	// The price with which cost was calculated.
-	Price []interface{} `json:"price,omitempty"`
+	Price []map[string]interface{} `json:"price,omitempty"`
 }
 
 // UnmarshalMetricUsage unmarshals an instance of MetricUsage from the specified map of raw messages.
@@ -502,6 +504,18 @@ func UnmarshalReports(m map[string]json.RawMessage, result interface{}) (err err
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *Reports) GetNextOffset() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	return offset, nil
 }
 
 // ResourceUsage : A container for all the plans in the resource.
@@ -677,4 +691,91 @@ func UnmarshalResourceUsageReport(m map[string]json.RawMessage, result interface
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+//
+// GetResourceUsageReportPager can be used to simplify the use of the "GetResourceUsageReport" method.
+//
+type GetResourceUsageReportPager struct {
+	hasNext     bool
+	options     *GetResourceUsageReportOptions
+	client      *EnterpriseUsageReportsV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewGetResourceUsageReportPager returns a new GetResourceUsageReportPager instance.
+func (enterpriseUsageReports *EnterpriseUsageReportsV1) NewGetResourceUsageReportPager(options *GetResourceUsageReportOptions) (pager *GetResourceUsageReportPager, err error) {
+	if options.Offset != nil && *options.Offset != "" {
+		err = fmt.Errorf("the 'options.Offset' field should not be set")
+		return
+	}
+
+	var optionsCopy GetResourceUsageReportOptions = *options
+	pager = &GetResourceUsageReportPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  enterpriseUsageReports,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetResourceUsageReportPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetResourceUsageReportPager) GetNextWithContext(ctx context.Context) (page []ResourceUsageReport, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Offset = pager.pageContext.next
+
+	result, _, err := pager.client.GetResourceUsageReportWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		var offset *string
+		offset, err = core.GetQueryParam(result.Next.Href, "offset")
+		if err != nil {
+			err = fmt.Errorf("error retrieving 'offset' query parameter from URL '%s': %s", *result.Next.Href, err.Error())
+			return
+		}
+		next = offset
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Reports
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetResourceUsageReportPager) GetAllWithContext(ctx context.Context) (allItems []ResourceUsageReport, err error) {
+	for pager.HasNext() {
+		var nextPage []ResourceUsageReport
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageReportPager) GetNext() (page []ResourceUsageReport, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetResourceUsageReportPager) GetAll() (allItems []ResourceUsageReport, err error) {
+	return pager.GetAllWithContext(context.Background())
 }

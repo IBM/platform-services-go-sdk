@@ -1,7 +1,8 @@
+//go:build integration
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +21,12 @@ package catalogmanagementv1_test
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -38,36 +39,37 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
-
+var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 	const (
 		externalConfigFile   = "../catalog_mgmt.env"
-		expectedShortDesc    = "test"
-		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
-		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
+		formatKindTerraform  = "terraform"
+		installKindTerraform = "terraform"
+		targetKindTerraform  = "terraform"
+		tgzURL               = "https://github.com/IBM-Cloud/terraform-sample/archive/refs/tags/v1.1.0.tar.gz"
 	)
 
 	var (
 		err                      error
 		catalogManagementService *catalogmanagementv1.CatalogManagementV1
-		configLoaded             bool = false
 		serviceURL               string
 		config                   map[string]string
-		testCatalogID            string
-		testOfferingID           string
-		expectedLabel            = fmt.Sprintf("integration-test-%d", time.Now().Unix())
-		gitToken                 string
-		refreshToken             string
-		testOfferingInstanceID   string
-		testOfferingInstanceRev  string
-		targetAccountID          string
-		targetClusterID          string
+		accountID                string
+
+		// Variables to hold link values
+		accountRevLink     string
+		catalogIDLink      string
+		catalogRevLink     string
+		objectIDLink       string
+		objectRevLink      string
+		offeringIDLink     string
+		offeringRevLink    string
+		versionIDLink      string
+		versionLocatorLink string
+		versionRevLink     string
 	)
 
 	var shouldSkipTest = func() {
-		if !configLoaded {
-			Skip("External configuration is not available, skipping...")
-		}
+		Skip("External configuration is not available, skipping tests...")
 	}
 
 	Describe(`External configuration`, func() {
@@ -79,7 +81,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(catalogmanagementv1.DefaultServiceName)
-
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -87,36 +88,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
-			gitToken = config["GIT_TOKEN"]
-			if serviceURL == "" {
-				Skip("Unable to load service URL configuration property, skipping tests")
-			}
-			targetAccountID = config["ACCOUNT_ID"]
-			if targetAccountID == "" {
-				Skip("Unable to load account ID configuration property, skipping tests")
-			}
-			targetClusterID = config["CLUSTER_ID"]
-			if targetClusterID == "" {
-				Skip("Unable to load cluster ID configuration property, skipping tests")
-			}
 
-			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).NotTo(BeNil())
+
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
 			shouldSkipTest = func() {}
-		})
-	})
-
-	Describe(`Get Refresh Token`, func() {
-		It("successfully creates a refresh token", func() {
-			authenticator, err := core.GetAuthenticatorFromEnvironment("catalog_management")
-			iamAuthenticator := authenticator.(*core.IamAuthenticator)
-
-			Expect(err).To(BeNil())
-
-			tokenServerResponse, err := iamAuthenticator.RequestToken()
-			refreshToken = tokenServerResponse.RefreshToken
-
-			Expect(err).To(BeNil())
-			Expect(refreshToken).ToNot(BeNil())
 		})
 	})
 
@@ -125,2006 +102,2668 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-
 			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
 
 			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(catalogManagementService).ToNot(BeNil())
 			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
 
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			catalogManagementService.EnableRetries(4, 30*time.Second)
 		})
 	})
-	/*
-		Describe(`GetCatalogAccount - Get catalog account settings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
 
-				getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{
-				}
-
-				account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(account).ToNot(BeNil())
-
-			})
+	Describe(`GetCatalogAccount - Get catalog account settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
+			getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{}
 
-		Describe(`UpdateCatalogAccount - Update account settings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`UpdateCatalogAccount(updateCatalogAccountOptions *UpdateCatalogAccountOptions)`, func() {
+			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
 
-				filterTermsModel := &catalogmanagementv1.FilterTerms{
-					FilterTerms: []string{"testString"},
-				}
-
-				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
-					Include: core.BoolPtr(true),
-					Filter: filterTermsModel,
-				}
-
-				idFilterModel := &catalogmanagementv1.IDFilter{
-					Include: filterTermsModel,
-					Exclude: filterTermsModel,
-				}
-
-				filtersModel := &catalogmanagementv1.Filters{
-					IncludeAll: core.BoolPtr(true),
-					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-					IDFilters: idFilterModel,
-				}
-				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
-
-				updateCatalogAccountOptions := &catalogmanagementv1.UpdateCatalogAccountOptions{
-					ID: core.StringPtr("testString"),
-					HideIBMCloudCatalog: core.BoolPtr(true),
-					AccountFilters: filtersModel,
-				}
-
-				response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-
-			})
+			accountRevLink = *account.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
 		})
+	})
 
-		Describe(`GetCatalogAccountAudit - Get catalog account audit log`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCatalogAccountAudit(getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions)`, func() {
-
-				getCatalogAccountAuditOptions := &catalogmanagementv1.GetCatalogAccountAuditOptions{
-				}
-
-				auditLog, response, err := catalogManagementService.GetCatalogAccountAudit(getCatalogAccountAuditOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(auditLog).ToNot(BeNil())
-
-			})
+	Describe(`UpdateCatalogAccount - Update account settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`UpdateCatalogAccount(updateCatalogAccountOptions *UpdateCatalogAccountOptions)`, func() {
+			filterTermsModel := &catalogmanagementv1.FilterTerms{
+				FilterTerms: []string{"testString"},
+			}
 
-		Describe(`GetCatalogAccountFilters - Get catalog account filters`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCatalogAccountFilters(getCatalogAccountFiltersOptions *GetCatalogAccountFiltersOptions)`, func() {
+			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+				Include: core.BoolPtr(true),
+				Filter:  filterTermsModel,
+			}
 
-				getCatalogAccountFiltersOptions := &catalogmanagementv1.GetCatalogAccountFiltersOptions{
-					Catalog: core.StringPtr("testString"),
-				}
+			idFilterModel := &catalogmanagementv1.IDFilter{
+				Include: filterTermsModel,
+				Exclude: filterTermsModel,
+			}
 
-				accumulatedFilters, response, err := catalogManagementService.GetCatalogAccountFilters(getCatalogAccountFiltersOptions)
+			filtersModel := &catalogmanagementv1.Filters{
+				IncludeAll:      core.BoolPtr(true),
+				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+				IDFilters:       idFilterModel,
+			}
+			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(accumulatedFilters).ToNot(BeNil())
+			updateCatalogAccountOptions := &catalogmanagementv1.UpdateCatalogAccountOptions{
+				ID:                  core.StringPtr(accountID),
+				Rev:                 &accountRevLink,
+				HideIBMCloudCatalog: core.BoolPtr(true),
+				AccountFilters:      filtersModel,
+			}
 
-			})
+			account, response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
+
+			accountRevLink = *account.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
 		})
+	})
 
-		Describe(`ListCatalogs - Get list of catalogs`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ListCatalogs(listCatalogsOptions *ListCatalogsOptions)`, func() {
-
-				listCatalogsOptions := &catalogmanagementv1.ListCatalogsOptions{
-				}
-
-				catalogSearchResult, response, err := catalogManagementService.ListCatalogs(listCatalogsOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(catalogSearchResult).ToNot(BeNil())
-
-			})
-		})
-	*/
 	Describe(`CreateCatalog - Create a catalog`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`CreateCatalog(createCatalogOptions *CreateCatalogOptions)`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
 
-			options := catalogManagementService.NewCreateCatalogOptions()
-			options.SetLabel(expectedLabel)
-			options.SetShortDescription(expectedShortDesc)
-			result, response, err := catalogManagementService.CreateCatalog(options)
+			filterTermsModel := &catalogmanagementv1.FilterTerms{
+				FilterTerms: []string{"testString"},
+			}
 
+			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+				Include: core.BoolPtr(true),
+				Filter:  filterTermsModel,
+			}
+
+			idFilterModel := &catalogmanagementv1.IDFilter{
+				Include: filterTermsModel,
+				Exclude: filterTermsModel,
+			}
+
+			filtersModel := &catalogmanagementv1.Filters{
+				IncludeAll:      core.BoolPtr(true),
+				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+				IDFilters:       idFilterModel,
+			}
+			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
+
+			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
+				Region:            core.StringPtr("testString"),
+				ID:                core.StringPtr("testString"),
+				Name:              core.StringPtr("testString"),
+				ResourceGroupName: core.StringPtr("testString"),
+				Type:              core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+			}
+
+			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
+				Namespaces: []string{"testString"},
+				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
+				Token:   core.StringPtr("testString"),
+				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
+				RemoveRelatedComponents: core.BoolPtr(true),
+				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				History:                 syndicationHistoryModel,
+				Authorization:           syndicationAuthorizationModel,
+			}
+
+			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
+				Label:                core.StringPtr("testString"),
+				LabelI18n:            make(map[string]string),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				CatalogIconURL:       core.StringPtr("testString"),
+				CatalogBannerURL:     core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				Disabled:             core.BoolPtr(true),
+				OwningAccount:        core.StringPtr("testString"),
+				CatalogFilters:       filtersModel,
+				SyndicationSettings:  syndicationResourceModel,
+				Kind:                 core.StringPtr("offering"),
+				Metadata:             make(map[string]interface{}),
+			}
+
+			catalog, response, err := catalogManagementService.CreateCatalog(createCatalogOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "CreateCatalog() result:\n%s\n", common.ToJSON(result))
+			Expect(catalog).ToNot(BeNil())
 
-			Expect(*result.Label).To(Equal(expectedLabel))
-			Expect(*result.ShortDescription).To(Equal(expectedShortDesc))
-			Expect(*result.URL).To(Equal(fmt.Sprintf(expectedURL, *result.ID)))
-			Expect(*result.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *result.ID)))
-			Expect(*result.OwningAccount).To(Equal(targetAccountID))
-			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
-			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
-			Expect(result.CatalogFilters.IDFilters.Exclude).To(BeNil())
-
-			Expect(result.ID).ToNot(BeNil())
-			testCatalogID = *result.ID
+			catalogIDLink = *catalog.ID
+			fmt.Fprintf(GinkgoWriter, "Saved catalogIDLink value: %v\n", catalogIDLink)
+			catalogRevLink = *catalog.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved catalogRevLink value: %v\n", catalogRevLink)
 		})
 	})
-	/*
-		Describe(`GetCatalog - Get catalog`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCatalog(getCatalogOptions *GetCatalogOptions)`, func() {
 
-				getCatalogOptions := &catalogmanagementv1.GetCatalogOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-				}
-
-				catalog, response, err := catalogManagementService.GetCatalog(getCatalogOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(catalog).ToNot(BeNil())
-
-			})
+	Describe(`GetCatalog - Get catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetCatalog(getCatalogOptions *GetCatalogOptions)`, func() {
+			getCatalogOptions := &catalogmanagementv1.GetCatalogOptions{
+				CatalogIdentifier: &catalogIDLink,
+			}
 
-		Describe(`ReplaceCatalog - Update catalog`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReplaceCatalog(replaceCatalogOptions *ReplaceCatalogOptions)`, func() {
+			catalog, response, err := catalogManagementService.GetCatalog(getCatalogOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalog).ToNot(BeNil())
 
-				featureModel := &catalogmanagementv1.Feature{
-					Title: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-				}
-
-				filterTermsModel := &catalogmanagementv1.FilterTerms{
-					FilterTerms: []string{"testString"},
-				}
-
-				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
-					Include: core.BoolPtr(true),
-					Filter: filterTermsModel,
-				}
-
-				idFilterModel := &catalogmanagementv1.IDFilter{
-					Include: filterTermsModel,
-					Exclude: filterTermsModel,
-				}
-
-				filtersModel := &catalogmanagementv1.Filters{
-					IncludeAll: core.BoolPtr(true),
-					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-					IDFilters: idFilterModel,
-				}
-				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
-
-				syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-					Region: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					ResourceGroupName: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					Namespaces: []string{"testString"},
-					AllNamespaces: core.BoolPtr(true),
-				}
-
-				syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-					Namespaces: []string{"testString"},
-					Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-					LastRun: CreateMockDateTime(),
-				}
-
-				syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-					Token: core.StringPtr("testString"),
-					LastRun: CreateMockDateTime(),
-				}
-
-				syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-					RemoveRelatedComponents: core.BoolPtr(true),
-					Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-					History: syndicationHistoryModel,
-					Authorization: syndicationAuthorizationModel,
-				}
-
-				replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					ShortDescription: core.StringPtr("testString"),
-					CatalogIconURL: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					Features: []catalogmanagementv1.Feature{*featureModel},
-					Disabled: core.BoolPtr(true),
-					ResourceGroupID: core.StringPtr("testString"),
-					OwningAccount: core.StringPtr("testString"),
-					CatalogFilters: filtersModel,
-					SyndicationSettings: syndicationResourceModel,
-				}
-
-				catalog, response, err := catalogManagementService.ReplaceCatalog(replaceCatalogOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(catalog).ToNot(BeNil())
-
-			})
+			catalogRevLink = *catalog.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved catalogRevLink value: %v\n", catalogRevLink)
 		})
+	})
 
-		Describe(`GetCatalogAudit - Get catalog audit log`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCatalogAudit(getCatalogAuditOptions *GetCatalogAuditOptions)`, func() {
-
-				getCatalogAuditOptions := &catalogmanagementv1.GetCatalogAuditOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-				}
-
-				auditLog, response, err := catalogManagementService.GetCatalogAudit(getCatalogAuditOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(auditLog).ToNot(BeNil())
-
-			})
+	Describe(`ReplaceCatalog - Update catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ReplaceCatalog(replaceCatalogOptions *ReplaceCatalogOptions)`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
 
-		Describe(`GetEnterprise - Get enterprise settings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
+			filterTermsModel := &catalogmanagementv1.FilterTerms{
+				FilterTerms: []string{"testString"},
+			}
 
-				getEnterpriseOptions := &catalogmanagementv1.GetEnterpriseOptions{
-					EnterpriseID: core.StringPtr("testString"),
-				}
+			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+				Include: core.BoolPtr(true),
+				Filter:  filterTermsModel,
+			}
 
-				enterprise, response, err := catalogManagementService.GetEnterprise(getEnterpriseOptions)
+			idFilterModel := &catalogmanagementv1.IDFilter{
+				Include: filterTermsModel,
+				Exclude: filterTermsModel,
+			}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(enterprise).ToNot(BeNil())
+			filtersModel := &catalogmanagementv1.Filters{
+				IncludeAll:      core.BoolPtr(true),
+				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+				IDFilters:       idFilterModel,
+			}
+			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			})
+			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
+				Region:            core.StringPtr("testString"),
+				ID:                core.StringPtr("testString"),
+				Name:              core.StringPtr("testString"),
+				ResourceGroupName: core.StringPtr("testString"),
+				Type:              core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+			}
+
+			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
+				Namespaces: []string{"testString"},
+				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
+				Token:   core.StringPtr("testString"),
+				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
+				RemoveRelatedComponents: core.BoolPtr(true),
+				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				History:                 syndicationHistoryModel,
+				Authorization:           syndicationAuthorizationModel,
+			}
+
+			replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
+				CatalogIdentifier:    &catalogIDLink,
+				ID:                   &catalogIDLink,
+				Rev:                  &catalogRevLink,
+				Label:                core.StringPtr("testString"),
+				LabelI18n:            make(map[string]string),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				CatalogIconURL:       core.StringPtr("testString"),
+				CatalogBannerURL:     core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				Disabled:             core.BoolPtr(true),
+				OwningAccount:        core.StringPtr("testString"),
+				CatalogFilters:       filtersModel,
+				SyndicationSettings:  syndicationResourceModel,
+				Kind:                 core.StringPtr("offering"),
+				Metadata:             make(map[string]interface{}),
+			}
+
+			catalog, response, err := catalogManagementService.ReplaceCatalog(replaceCatalogOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalog).ToNot(BeNil())
+
+			catalogRevLink = *catalog.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved catalogRevLink value: %v\n", catalogRevLink)
 		})
+	})
 
-		Describe(`UpdateEnterprise - Update enterprise settings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions)`, func() {
-
-				filterTermsModel := &catalogmanagementv1.FilterTerms{
-					FilterTerms: []string{"testString"},
-				}
-
-				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
-					Include: core.BoolPtr(true),
-					Filter: filterTermsModel,
-				}
-
-				idFilterModel := &catalogmanagementv1.IDFilter{
-					Include: filterTermsModel,
-					Exclude: filterTermsModel,
-				}
-
-				filtersModel := &catalogmanagementv1.Filters{
-					IncludeAll: core.BoolPtr(true),
-					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-					IDFilters: idFilterModel,
-				}
-				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
-
-				accountGroupModel := &catalogmanagementv1.AccountGroup{
-					ID: core.StringPtr("testString"),
-					AccountFilters: filtersModel,
-				}
-
-				enterpriseAccountGroupsModel := &catalogmanagementv1.EnterpriseAccountGroups{
-					Keys: accountGroupModel,
-				}
-
-				updateEnterpriseOptions := &catalogmanagementv1.UpdateEnterpriseOptions{
-					EnterpriseID: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					AccountFilters: filtersModel,
-					AccountGroups: enterpriseAccountGroupsModel,
-				}
-
-				response, err := catalogManagementService.UpdateEnterprise(updateEnterpriseOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-
-			})
+	Describe(`CreateOffering - Create offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`CreateOffering(createOfferingOptions *CreateOfferingOptions)`, func() {
+			ratingModel := &catalogmanagementv1.Rating{
+				OneStarCount:   core.Int64Ptr(int64(38)),
+				TwoStarCount:   core.Int64Ptr(int64(38)),
+				ThreeStarCount: core.Int64Ptr(int64(38)),
+				FourStarCount:  core.Int64Ptr(int64(38)),
+			}
 
-		Describe(`GetEnterpriseAudit - Get enterprise audit log`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetEnterpriseAudit(getEnterpriseAuditOptions *GetEnterpriseAuditOptions)`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
 
-				getEnterpriseAuditOptions := &catalogmanagementv1.GetEnterpriseAuditOptions{
-					EnterpriseID: core.StringPtr("testString"),
-				}
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
 
-				auditLog, response, err := catalogManagementService.GetEnterpriseAudit(getEnterpriseAuditOptions)
+			renderTypeAssociationsParametersItemModel := &catalogmanagementv1.RenderTypeAssociationsParametersItem{
+				Name:           core.StringPtr("testString"),
+				OptionsRefresh: core.BoolPtr(true),
+			}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(auditLog).ToNot(BeNil())
+			renderTypeAssociationsModel := &catalogmanagementv1.RenderTypeAssociations{
+				Parameters: []catalogmanagementv1.RenderTypeAssociationsParametersItem{*renderTypeAssociationsParametersItemModel},
+			}
 
-			})
+			renderTypeModel := &catalogmanagementv1.RenderType{
+				Type:              core.StringPtr("testString"),
+				Grouping:          core.StringPtr("testString"),
+				OriginalGrouping:  core.StringPtr("testString"),
+				GroupingIndex:     core.Int64Ptr(int64(38)),
+				ConfigConstraints: map[string]interface{}{"anyKey": "anyValue"},
+				Associations:      renderTypeAssociationsModel,
+			}
+
+			configurationModel := &catalogmanagementv1.Configuration{
+				Key:             core.StringPtr("testString"),
+				Type:            core.StringPtr("testString"),
+				DefaultValue:    core.StringPtr("testString"),
+				DisplayName:     core.StringPtr("testString"),
+				ValueConstraint: core.StringPtr("testString"),
+				Description:     core.StringPtr("testString"),
+				Required:        core.BoolPtr(true),
+				Options:         []interface{}{"testString"},
+				Hidden:          core.BoolPtr(true),
+				CustomConfig:    renderTypeModel,
+				TypeMetadata:    core.StringPtr("testString"),
+			}
+
+			outputModel := &catalogmanagementv1.Output{
+				Key:         core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+			}
+
+			iamResourceModel := &catalogmanagementv1.IamResource{
+				Name:        core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				RoleCrns:    []string{"testString"},
+			}
+
+			iamPermissionModel := &catalogmanagementv1.IamPermission{
+				ServiceName: core.StringPtr("testString"),
+				RoleCrns:    []string{"testString"},
+				Resources:   []catalogmanagementv1.IamResource{*iamResourceModel},
+			}
+
+			validationModel := &catalogmanagementv1.Validation{
+				Validated:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Requested:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				State:         core.StringPtr("testString"),
+				LastOperation: core.StringPtr("testString"),
+				Target:        make(map[string]interface{}),
+				Message:       core.StringPtr("testString"),
+			}
+
+			resourceModel := &catalogmanagementv1.Resource{
+				Type:  core.StringPtr("mem"),
+				Value: core.StringPtr("testString"),
+			}
+
+			scriptModel := &catalogmanagementv1.Script{
+				Instructions:     core.StringPtr("testString"),
+				InstructionsI18n: make(map[string]string),
+				Script:           core.StringPtr("testString"),
+				ScriptPermission: core.StringPtr("testString"),
+				DeleteScript:     core.StringPtr("testString"),
+				Scope:            core.StringPtr("testString"),
+			}
+
+			versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
+				ProviderName:  core.StringPtr("testString"),
+				ProviderID:    core.StringPtr("testString"),
+				ProductID:     core.StringPtr("testString"),
+				PartNumbers:   []string{"testString"},
+				ImageRepoName: core.StringPtr("testString"),
+			}
+
+			licenseModel := &catalogmanagementv1.License{
+				ID:          core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				URL:         core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+			}
+
+			stateModel := &catalogmanagementv1.State{
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
+				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Previous:         core.StringPtr("testString"),
+			}
+
+			deprecatePendingModel := &catalogmanagementv1.DeprecatePending{
+				DeprecateDate:  CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				DeprecateState: core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+			}
+
+			mediaItemModel := &catalogmanagementv1.MediaItem{
+				URL:          core.StringPtr("testString"),
+				APIURL:       core.StringPtr("testString"),
+				Caption:      core.StringPtr("testString"),
+				CaptionI18n:  make(map[string]string),
+				Type:         core.StringPtr("image/svg+xml"),
+				ThumbnailURL: core.StringPtr("testString"),
+			}
+
+			architectureDiagramModel := &catalogmanagementv1.ArchitectureDiagram{
+				Diagram:         mediaItemModel,
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			costComponentModel := &catalogmanagementv1.CostComponent{
+				Name:            core.StringPtr("testString"),
+				Unit:            core.StringPtr("testString"),
+				HourlyQuantity:  core.StringPtr("testString"),
+				MonthlyQuantity: core.StringPtr("testString"),
+				Price:           core.StringPtr("testString"),
+				HourlyCost:      core.StringPtr("testString"),
+				MonthlyCost:     core.StringPtr("testString"),
+			}
+
+			costResourceModel := &catalogmanagementv1.CostResource{
+				Name:           core.StringPtr("testString"),
+				Metadata:       make(map[string]interface{}),
+				HourlyCost:     core.StringPtr("testString"),
+				MonthlyCost:    core.StringPtr("testString"),
+				CostComponents: []catalogmanagementv1.CostComponent{*costComponentModel},
+			}
+
+			costBreakdownModel := &catalogmanagementv1.CostBreakdown{
+				TotalHourlyCost:  core.StringPtr("testString"),
+				TotalMonthlyCost: core.StringPtr("testString"),
+				Resources:        []catalogmanagementv1.CostResource{*costResourceModel},
+			}
+
+			costSummaryModel := &catalogmanagementv1.CostSummary{
+				TotalDetectedResources:    core.Int64Ptr(int64(38)),
+				TotalSupportedResources:   core.Int64Ptr(int64(38)),
+				TotalUnsupportedResources: core.Int64Ptr(int64(38)),
+				TotalUsageBasedResources:  core.Int64Ptr(int64(38)),
+				TotalNoPriceResources:     core.Int64Ptr(int64(38)),
+				UnsupportedResourceCounts: make(map[string]int64),
+				NoPriceResourceCounts:     make(map[string]int64),
+			}
+
+			projectModel := &catalogmanagementv1.Project{
+				Name:          core.StringPtr("testString"),
+				Metadata:      make(map[string]interface{}),
+				PastBreakdown: costBreakdownModel,
+				Breakdown:     costBreakdownModel,
+				Diff:          costBreakdownModel,
+				Summary:       costSummaryModel,
+			}
+
+			costEstimateModel := &catalogmanagementv1.CostEstimate{
+				Version:              core.StringPtr("testString"),
+				Currency:             core.StringPtr("testString"),
+				Projects:             []catalogmanagementv1.Project{*projectModel},
+				Summary:              costSummaryModel,
+				TotalHourlyCost:      core.StringPtr("testString"),
+				TotalMonthlyCost:     core.StringPtr("testString"),
+				PastTotalHourlyCost:  core.StringPtr("testString"),
+				PastTotalMonthlyCost: core.StringPtr("testString"),
+				DiffTotalHourlyCost:  core.StringPtr("testString"),
+				DiffTotalMonthlyCost: core.StringPtr("testString"),
+				TimeGenerated:        CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			dependencyModel := &catalogmanagementv1.OfferingReference{
+				CatalogID: core.StringPtr("testString"),
+				ID:        core.StringPtr("testString"),
+				Name:      core.StringPtr("testString"),
+				Version:   core.StringPtr("testString"),
+				Flavors:   []string{"testString"},
+			}
+
+			solutionInfoModel := &catalogmanagementv1.SolutionInfo{
+				ArchitectureDiagrams: []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel},
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				CostEstimate:         costEstimateModel,
+				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
+			}
+
+			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
+				Type: core.StringPtr("testString"),
+			}
+
+			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+				ID:          core.StringPtr("testString"),
+				ExternalID:  core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			goalModel := &catalogmanagementv1.Goal{
+				ID:          core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
+				Certified: core.BoolPtr(true),
+				Results:   make(map[string]interface{}),
+			}
+
+			complianceModel := &catalogmanagementv1.ComplianceControl{
+				SccProfile: complianceControlSCCProfileModel,
+				Family:     complianceControlFamilyModel,
+				Goals:      []catalogmanagementv1.Goal{*goalModel},
+				Validation: complianceControlValidationModel,
+			}
+
+			versionModel := &catalogmanagementv1.Version{
+				ID:                  &versionIDLink,
+				Rev:                 &versionRevLink,
+				CRN:                 core.StringPtr("testString"),
+				Version:             core.StringPtr("1.0.0"),
+				Flavor:              flavorModel,
+				Sha:                 core.StringPtr("testString"),
+				Created:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				OfferingID:          &offeringIDLink,
+				CatalogID:           &catalogIDLink,
+				KindID:              core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				RepoURL:             core.StringPtr("testString"),
+				SourceURL:           core.StringPtr("testString"),
+				TgzURL:              core.StringPtr(tgzURL),
+				Configuration:       []catalogmanagementv1.Configuration{*configurationModel},
+				Outputs:             []catalogmanagementv1.Output{*outputModel},
+				IamPermissions:      []catalogmanagementv1.IamPermission{*iamPermissionModel},
+				Metadata:            make(map[string]interface{}),
+				Validation:          validationModel,
+				RequiredResources:   []catalogmanagementv1.Resource{*resourceModel},
+				SingleInstance:      core.BoolPtr(true),
+				Install:             scriptModel,
+				PreInstall:          []catalogmanagementv1.Script{*scriptModel},
+				Entitlement:         versionEntitlementModel,
+				Licenses:            []catalogmanagementv1.License{*licenseModel},
+				ImageManifestURL:    core.StringPtr("testString"),
+				Deprecated:          core.BoolPtr(true),
+				PackageVersion:      core.StringPtr("testString"),
+				State:               stateModel,
+				LongDescription:     core.StringPtr("testString"),
+				LongDescriptionI18n: make(map[string]string),
+				WhitelistedAccounts: []string{"testString"},
+				DeprecatePending:    deprecatePendingModel,
+				SolutionInfo:        solutionInfoModel,
+				IsConsumable:        core.BoolPtr(true),
+				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
+			}
+
+			deploymentModel := &catalogmanagementv1.Deployment{
+				ID:               core.StringPtr("testString"),
+				Label:            core.StringPtr("testString"),
+				Name:             core.StringPtr("testString"),
+				ShortDescription: core.StringPtr("testString"),
+				LongDescription:  core.StringPtr("testString"),
+				Metadata:         make(map[string]interface{}),
+				Tags:             []string{"testString"},
+				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			planModel := &catalogmanagementv1.Plan{
+				ID:                 core.StringPtr("testString"),
+				Label:              core.StringPtr("testString"),
+				Name:               core.StringPtr("testString"),
+				ShortDescription:   core.StringPtr("testString"),
+				LongDescription:    core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
+				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
+			}
+
+			kindModel := &catalogmanagementv1.Kind{
+				ID:                 core.StringPtr("testString"),
+				FormatKind:         core.StringPtr(formatKindTerraform),
+				InstallKind:        core.StringPtr(installKindTerraform),
+				TargetKind:         core.StringPtr(targetKindTerraform),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
+				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Versions:           []catalogmanagementv1.Version{*versionModel},
+				Plans:              []catalogmanagementv1.Plan{*planModel},
+			}
+
+			providerInfoModel := &catalogmanagementv1.ProviderInfo{
+				ID:   core.StringPtr("testString"),
+				Name: core.StringPtr("testString"),
+			}
+
+			supportWaitTimeModel := &catalogmanagementv1.SupportWaitTime{
+				Value: core.Int64Ptr(int64(38)),
+				Type:  core.StringPtr("testString"),
+			}
+
+			supportTimeModel := &catalogmanagementv1.SupportTime{
+				Day:       core.Int64Ptr(int64(38)),
+				StartTime: core.StringPtr("testString"),
+				EndTime:   core.StringPtr("testString"),
+			}
+
+			supportAvailabilityModel := &catalogmanagementv1.SupportAvailability{
+				Times:           []catalogmanagementv1.SupportTime{*supportTimeModel},
+				Timezone:        core.StringPtr("testString"),
+				AlwaysAvailable: core.BoolPtr(true),
+			}
+
+			supportDetailModel := &catalogmanagementv1.SupportDetail{
+				Type:             core.StringPtr("testString"),
+				Contact:          core.StringPtr("testString"),
+				ResponseWaitTime: supportWaitTimeModel,
+				Availability:     supportAvailabilityModel,
+			}
+
+			supportEscalationModel := &catalogmanagementv1.SupportEscalation{
+				EscalationWaitTime: supportWaitTimeModel,
+				ResponseWaitTime:   supportWaitTimeModel,
+				Contact:            core.StringPtr("testString"),
+			}
+
+			supportModel := &catalogmanagementv1.Support{
+				URL:               core.StringPtr("testString"),
+				Process:           core.StringPtr("testString"),
+				ProcessI18n:       make(map[string]string),
+				Locations:         []string{"testString"},
+				SupportDetails:    []catalogmanagementv1.SupportDetail{*supportDetailModel},
+				SupportEscalation: supportEscalationModel,
+				SupportType:       core.StringPtr("testString"),
+			}
+
+			learnMoreLinksModel := &catalogmanagementv1.LearnMoreLinks{
+				FirstParty: core.StringPtr("testString"),
+				ThirdParty: core.StringPtr("testString"),
+			}
+
+			constraintModel := &catalogmanagementv1.Constraint{
+				Type: core.StringPtr("testString"),
+				Rule: core.StringPtr("testString"),
+			}
+
+			badgeModel := &catalogmanagementv1.Badge{
+				ID:              core.StringPtr("testString"),
+				Label:           core.StringPtr("testString"),
+				LabelI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+				Icon:            core.StringPtr("testString"),
+				Authority:       core.StringPtr("testString"),
+				Tag:             core.StringPtr("testString"),
+				LearnMoreLinks:  learnMoreLinksModel,
+				Constraints:     []catalogmanagementv1.Constraint{*constraintModel},
+			}
+
+			createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
+				CatalogIdentifier:             &catalogIDLink,
+				URL:                           core.StringPtr("testString"),
+				CRN:                           core.StringPtr("testString"),
+				Label:                         core.StringPtr("testString"),
+				LabelI18n:                     make(map[string]string),
+				Name:                          core.StringPtr("testString"),
+				OfferingIconURL:               core.StringPtr("testString"),
+				OfferingDocsURL:               core.StringPtr("testString"),
+				OfferingSupportURL:            core.StringPtr("testString"),
+				Tags:                          []string{"testString"},
+				Keywords:                      []string{"testString"},
+				Rating:                        ratingModel,
+				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:              core.StringPtr("testString"),
+				ShortDescriptionI18n:          make(map[string]string),
+				LongDescription:               core.StringPtr("testString"),
+				LongDescriptionI18n:           make(map[string]string),
+				Features:                      []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
+				PcManaged:                     core.BoolPtr(true),
+				PublishApproved:               core.BoolPtr(true),
+				ShareWithAll:                  core.BoolPtr(true),
+				ShareWithIBM:                  core.BoolPtr(true),
+				ShareEnabled:                  core.BoolPtr(true),
+				PermitRequestIBMPublicPublish: core.BoolPtr(true),
+				IBMPublishApproved:            core.BoolPtr(true),
+				PublicPublishApproved:         core.BoolPtr(true),
+				PublicOriginalCRN:             core.StringPtr("testString"),
+				PublishPublicCRN:              core.StringPtr("testString"),
+				PortalApprovalRecord:          core.StringPtr("testString"),
+				PortalUIURL:                   core.StringPtr("testString"),
+				CatalogID:                     &catalogIDLink,
+				CatalogName:                   core.StringPtr("testString"),
+				Metadata:                      make(map[string]interface{}),
+				Disclaimer:                    core.StringPtr("testString"),
+				Hidden:                        core.BoolPtr(true),
+				Provider:                      core.StringPtr("testString"),
+				ProviderInfo:                  providerInfoModel,
+				Support:                       supportModel,
+				Media:                         []catalogmanagementv1.MediaItem{*mediaItemModel},
+				DeprecatePending:              deprecatePendingModel,
+				ProductKind:                   core.StringPtr("solution"),
+				Badges:                        []catalogmanagementv1.Badge{*badgeModel},
+			}
+
+			offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(offering).ToNot(BeNil())
+
+			offeringIDLink = *offering.ID
+			fmt.Fprintf(GinkgoWriter, "Saved offeringIDLink value: %v\n", offeringIDLink)
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionLocatorLink value: %v\n", versionLocatorLink)
+			versionIDLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
+			versionRevLink = *offering.Kinds[0].Versions[0].Rev
+			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
 		})
+	})
 
-		Describe(`GetConsumptionOfferings - Get consumption offerings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetConsumptionOfferings(getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions)`, func() {
-
-				getConsumptionOfferingsOptions := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-					Digest: core.BoolPtr(true),
-					Catalog: core.StringPtr("testString"),
-					Select: core.StringPtr("all"),
-					IncludeHidden: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
-				}
-
-				offeringSearchResult, response, err := catalogManagementService.GetConsumptionOfferings(getConsumptionOfferingsOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offeringSearchResult).ToNot(BeNil())
-
-			})
+	Describe(`ImportOfferingVersion - Import offering version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ImportOfferingVersion(importOfferingVersionOptions *ImportOfferingVersionOptions)`, func() {
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
 
-		Describe(`ListOfferings - Get list of offerings`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ListOfferings(listOfferingsOptions *ListOfferingsOptions)`, func() {
+			importOfferingVersionOptions := &catalogmanagementv1.ImportOfferingVersionOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Tags:              []string{"testString"},
+				Name:              core.StringPtr("testString"),
+				Label:             core.StringPtr("testString"),
+				InstallKind:       core.StringPtr(installKindTerraform),
+				TargetKinds:       []string{targetKindTerraform},
+				FormatKind:        core.StringPtr(formatKindTerraform),
+				ProductKind:       core.StringPtr("solution"),
+				Flavor:            flavorModel,
+				Zipurl:            core.StringPtr(tgzURL),
+				TargetVersion:     core.StringPtr("1.0.1"),
+			}
 
-				listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-				}
+			offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(offering).ToNot(BeNil())
 
-				offeringSearchResult, response, err := catalogManagementService.ListOfferings(listOfferingsOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offeringSearchResult).ToNot(BeNil())
-
-			})
+			offeringIDLink = *offering.ID
+			fmt.Fprintf(GinkgoWriter, "Saved offeringIDLink value: %v\n", offeringIDLink)
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionLocatorLink value: %v\n", versionLocatorLink)
+			versionIDLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
+			versionRevLink = *offering.Kinds[0].Versions[0].Rev
+			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
 		})
+	})
 
-		Describe(`CreateOffering - Create offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CreateOffering(createOfferingOptions *CreateOfferingOptions)`, func() {
-
-				ratingModel := &catalogmanagementv1.Rating{
-					OneStarCount: core.Int64Ptr(int64(38)),
-					TwoStarCount: core.Int64Ptr(int64(38)),
-					ThreeStarCount: core.Int64Ptr(int64(38)),
-					FourStarCount: core.Int64Ptr(int64(38)),
-				}
-
-				featureModel := &catalogmanagementv1.Feature{
-					Title: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-				}
-
-				configurationModel := &catalogmanagementv1.Configuration{
-					Key: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					DefaultValue: core.StringPtr("testString"),
-					ValueConstraint: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-					Required: core.BoolPtr(true),
-					Options: []interface{}{"testString"},
-					Hidden: core.BoolPtr(true),
-				}
-
-				validationModel := &catalogmanagementv1.Validation{
-					Validated: CreateMockDateTime(),
-					Requested: CreateMockDateTime(),
-					State: core.StringPtr("testString"),
-					LastOperation: core.StringPtr("testString"),
-					Target: make(map[string]interface{}),
-				}
-
-				resourceModel := &catalogmanagementv1.Resource{
-					Type: core.StringPtr("mem"),
-					Value: core.StringPtr("testString"),
-				}
-
-				scriptModel := &catalogmanagementv1.Script{
-					Instructions: core.StringPtr("testString"),
-					Script: core.StringPtr("testString"),
-					ScriptPermission: core.StringPtr("testString"),
-					DeleteScript: core.StringPtr("testString"),
-					Scope: core.StringPtr("testString"),
-				}
-
-				versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
-					ProviderName: core.StringPtr("testString"),
-					ProviderID: core.StringPtr("testString"),
-					ProductID: core.StringPtr("testString"),
-					PartNumbers: []string{"testString"},
-					ImageRepoName: core.StringPtr("testString"),
-				}
-
-				licenseModel := &catalogmanagementv1.License{
-					ID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-				}
-
-				stateModel := &catalogmanagementv1.State{
-					Current: core.StringPtr("testString"),
-					CurrentEntered: CreateMockDateTime(),
-					Pending: core.StringPtr("testString"),
-					PendingRequested: CreateMockDateTime(),
-					Previous: core.StringPtr("testString"),
-				}
-
-				versionModel := &catalogmanagementv1.Version{
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					Version: core.StringPtr("testString"),
-					Sha: core.StringPtr("testString"),
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					OfferingID: core.StringPtr("testString"),
-					CatalogID: core.StringPtr("testString"),
-					KindID: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					RepoURL: core.StringPtr("testString"),
-					SourceURL: core.StringPtr("testString"),
-					TgzURL: core.StringPtr("testString"),
-					Configuration: []catalogmanagementv1.Configuration{*configurationModel},
-					Metadata: make(map[string]interface{}),
-					Validation: validationModel,
-					RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
-					SingleInstance: core.BoolPtr(true),
-					Install: scriptModel,
-					PreInstall: []catalogmanagementv1.Script{*scriptModel},
-					Entitlement: versionEntitlementModel,
-					Licenses: []catalogmanagementv1.License{*licenseModel},
-					ImageManifestURL: core.StringPtr("testString"),
-					Deprecated: core.BoolPtr(true),
-					PackageVersion: core.StringPtr("testString"),
-					State: stateModel,
-					VersionLocator: core.StringPtr("testString"),
-					ConsoleURL: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					WhitelistedAccounts: []string{"testString"},
-				}
-
-				deploymentModel := &catalogmanagementv1.Deployment{
-					ID: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Tags: []string{"testString"},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-				}
-
-				planModel := &catalogmanagementv1.Plan{
-					ID: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Tags: []string{"testString"},
-					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
-				}
-
-				kindModel := &catalogmanagementv1.Kind{
-					ID: core.StringPtr("testString"),
-					FormatKind: core.StringPtr("testString"),
-					TargetKind: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					InstallDescription: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					Versions: []catalogmanagementv1.Version{*versionModel},
-					Plans: []catalogmanagementv1.Plan{*planModel},
-				}
-
-				repoInfoModel := &catalogmanagementv1.RepoInfo{
-					Token: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-				}
-
-				createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					OfferingIconURL: core.StringPtr("testString"),
-					OfferingDocsURL: core.StringPtr("testString"),
-					OfferingSupportURL: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					Rating: ratingModel,
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Features: []catalogmanagementv1.Feature{*featureModel},
-					Kinds: []catalogmanagementv1.Kind{*kindModel},
-					PermitRequestIBMPublicPublish: core.BoolPtr(true),
-					IBMPublishApproved: core.BoolPtr(true),
-					PublicPublishApproved: core.BoolPtr(true),
-					PublicOriginalCRN: core.StringPtr("testString"),
-					PublishPublicCRN: core.StringPtr("testString"),
-					PortalApprovalRecord: core.StringPtr("testString"),
-					PortalUIURL: core.StringPtr("testString"),
-					CatalogID: core.StringPtr("testString"),
-					CatalogName: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Disclaimer: core.StringPtr("testString"),
-					Hidden: core.BoolPtr(true),
-					Provider: core.StringPtr("testString"),
-					RepoInfo: repoInfoModel,
-				}
-
-				offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(201))
-				Expect(offering).ToNot(BeNil())
-
-			})
-		})
-
-		Describe(`ImportOfferingVersion - Import offering version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ImportOfferingVersion(importOfferingVersionOptions *ImportOfferingVersionOptions)`, func() {
-
-				importOfferingVersionOptions := &catalogmanagementv1.ImportOfferingVersionOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					TargetKinds: []string{"testString"},
-					Content: CreateMockByteArray("This is a mock byte array value."),
-					Zipurl: core.StringPtr("testString"),
-					TargetVersion: core.StringPtr("testString"),
-					IncludeConfig: core.BoolPtr(true),
-					RepoType: core.StringPtr("testString"),
-				}
-
-				offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(201))
-				Expect(offering).ToNot(BeNil())
-
-			})
-		})
-	*/
 	Describe(`ImportOffering - Import offering`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`ImportOffering(importOfferingOptions *ImportOfferingOptions)`, func() {
-			Expect(testCatalogID).ToNot(BeEmpty())
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
 
-			const (
-				expectedOfferingName       = "node-red-operator-certified"
-				expectedOfferingLabel      = "Node-RED Operator"
-				expectedOfferingTargetKind = "roks"
-				expectedOfferingVersion    = "0.0.2"
-				expectedOfferingVersions   = 1
-				expectedOfferingKinds      = 1
-				expectedOfferingShortDesc  = "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways."
-				expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-				expectedOfferingZipURL     = "https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml"
-			)
-			offeringOptions := catalogManagementService.NewImportOfferingOptions(testCatalogID)
-			offeringOptions.SetZipurl(expectedOfferingZipURL)
-			offeringOptions.SetXAuthToken(gitToken)
-			offeringOptions.SetTargetKinds([]string{"roks"})
-			offeringOptions.SetTargetVersion("0.0.2")
-			offeringOptions.SetRepoType("public_git")
-			offering, response, err := catalogManagementService.ImportOffering(offeringOptions)
+			importOfferingOptions := &catalogmanagementv1.ImportOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				Tags:              []string{"testString"},
+				Name:              core.StringPtr("testString"),
+				Label:             core.StringPtr("testString"),
+				InstallKind:       core.StringPtr(installKindTerraform),
+				TargetKinds:       []string{targetKindTerraform},
+				FormatKind:        core.StringPtr(formatKindTerraform),
+				ProductKind:       core.StringPtr("solution"),
+				Version:           core.StringPtr("1.0.2"),
+				Flavor:            flavorModel,
+				Zipurl:            core.StringPtr(tgzURL),
+				OfferingID:        &offeringIDLink,
+				TargetVersion:     core.StringPtr("1.1.0"),
+			}
 
+			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)
 			Expect(err).To(BeNil())
-			Expect(offering).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ImportOffering() result:\n%s\n", common.ToJSON(offering))
-
-			Expect(offering.ID).ToNot(BeNil())
-			testOfferingID = *offering.ID
-
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(*offering.Name).To(Equal(expectedOfferingName))
-			Expect(*offering.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, testCatalogID, testOfferingID)))
-			Expect(*offering.Label).To(Equal(expectedOfferingLabel))
-			Expect(*offering.ShortDescription).To(Equal(expectedOfferingShortDesc))
-			Expect(*offering.CatalogName).To(Equal(expectedLabel))
-			Expect(*offering.CatalogID).To(Equal(testCatalogID))
-			Expect(len(offering.Kinds)).To(Equal(expectedOfferingKinds))
-			Expect(*offering.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
-			Expect(len(offering.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
-			Expect(*offering.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion))
-			Expect(*offering.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
+			Expect(offering).ToNot(BeNil())
+
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionLocatorLink value: %v\n", versionLocatorLink)
 		})
 	})
-	/*
-		Describe(`ReloadOffering - Reload offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReloadOffering(reloadOfferingOptions *ReloadOfferingOptions)`, func() {
 
-				reloadOfferingOptions := &catalogmanagementv1.ReloadOfferingOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					TargetVersion: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					TargetKinds: []string{"testString"},
-					Content: CreateMockByteArray("This is a mock byte array value."),
-					Zipurl: core.StringPtr("testString"),
-					RepoType: core.StringPtr("testString"),
-				}
-
-				offering, response, err := catalogManagementService.ReloadOffering(reloadOfferingOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(201))
-				Expect(offering).ToNot(BeNil())
-
-			})
+	Describe(`ReloadOffering - Reload offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ReloadOffering(reloadOfferingOptions *ReloadOfferingOptions)`, func() {
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
 
-		Describe(`GetOffering - Get offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetOffering(getOfferingOptions *GetOfferingOptions)`, func() {
+			reloadOfferingOptions := &catalogmanagementv1.ReloadOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				TargetVersion:     core.StringPtr("1.0.1"),
+				Tags:              []string{"testString"},
+				TargetKinds:       []string{targetKindTerraform},
+				FormatKind:        core.StringPtr(formatKindTerraform),
+				Flavor:            flavorModel,
+				Zipurl:            core.StringPtr(tgzURL),
+			}
 
-				getOfferingOptions := &catalogmanagementv1.GetOfferingOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-				}
+			offering, response, err := catalogManagementService.ReloadOffering(reloadOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
 
-				offering, response, err := catalogManagementService.GetOffering(getOfferingOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offering).ToNot(BeNil())
-
-			})
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
 		})
+	})
 
-		Describe(`ReplaceOffering - Update offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReplaceOffering(replaceOfferingOptions *ReplaceOfferingOptions)`, func() {
-
-				ratingModel := &catalogmanagementv1.Rating{
-					OneStarCount: core.Int64Ptr(int64(38)),
-					TwoStarCount: core.Int64Ptr(int64(38)),
-					ThreeStarCount: core.Int64Ptr(int64(38)),
-					FourStarCount: core.Int64Ptr(int64(38)),
-				}
-
-				featureModel := &catalogmanagementv1.Feature{
-					Title: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-				}
-
-				configurationModel := &catalogmanagementv1.Configuration{
-					Key: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					DefaultValue: core.StringPtr("testString"),
-					ValueConstraint: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-					Required: core.BoolPtr(true),
-					Options: []interface{}{"testString"},
-					Hidden: core.BoolPtr(true),
-				}
-
-				validationModel := &catalogmanagementv1.Validation{
-					Validated: CreateMockDateTime(),
-					Requested: CreateMockDateTime(),
-					State: core.StringPtr("testString"),
-					LastOperation: core.StringPtr("testString"),
-					Target: make(map[string]interface{}),
-				}
-
-				resourceModel := &catalogmanagementv1.Resource{
-					Type: core.StringPtr("mem"),
-					Value: core.StringPtr("testString"),
-				}
-
-				scriptModel := &catalogmanagementv1.Script{
-					Instructions: core.StringPtr("testString"),
-					Script: core.StringPtr("testString"),
-					ScriptPermission: core.StringPtr("testString"),
-					DeleteScript: core.StringPtr("testString"),
-					Scope: core.StringPtr("testString"),
-				}
-
-				versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
-					ProviderName: core.StringPtr("testString"),
-					ProviderID: core.StringPtr("testString"),
-					ProductID: core.StringPtr("testString"),
-					PartNumbers: []string{"testString"},
-					ImageRepoName: core.StringPtr("testString"),
-				}
-
-				licenseModel := &catalogmanagementv1.License{
-					ID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-				}
-
-				stateModel := &catalogmanagementv1.State{
-					Current: core.StringPtr("testString"),
-					CurrentEntered: CreateMockDateTime(),
-					Pending: core.StringPtr("testString"),
-					PendingRequested: CreateMockDateTime(),
-					Previous: core.StringPtr("testString"),
-				}
-
-				versionModel := &catalogmanagementv1.Version{
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					Version: core.StringPtr("testString"),
-					Sha: core.StringPtr("testString"),
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					OfferingID: core.StringPtr("testString"),
-					CatalogID: core.StringPtr("testString"),
-					KindID: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					RepoURL: core.StringPtr("testString"),
-					SourceURL: core.StringPtr("testString"),
-					TgzURL: core.StringPtr("testString"),
-					Configuration: []catalogmanagementv1.Configuration{*configurationModel},
-					Metadata: make(map[string]interface{}),
-					Validation: validationModel,
-					RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
-					SingleInstance: core.BoolPtr(true),
-					Install: scriptModel,
-					PreInstall: []catalogmanagementv1.Script{*scriptModel},
-					Entitlement: versionEntitlementModel,
-					Licenses: []catalogmanagementv1.License{*licenseModel},
-					ImageManifestURL: core.StringPtr("testString"),
-					Deprecated: core.BoolPtr(true),
-					PackageVersion: core.StringPtr("testString"),
-					State: stateModel,
-					VersionLocator: core.StringPtr("testString"),
-					ConsoleURL: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					WhitelistedAccounts: []string{"testString"},
-				}
-
-				deploymentModel := &catalogmanagementv1.Deployment{
-					ID: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Tags: []string{"testString"},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-				}
-
-				planModel := &catalogmanagementv1.Plan{
-					ID: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Tags: []string{"testString"},
-					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
-				}
-
-				kindModel := &catalogmanagementv1.Kind{
-					ID: core.StringPtr("testString"),
-					FormatKind: core.StringPtr("testString"),
-					TargetKind: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					InstallDescription: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					Versions: []catalogmanagementv1.Version{*versionModel},
-					Plans: []catalogmanagementv1.Plan{*planModel},
-				}
-
-				repoInfoModel := &catalogmanagementv1.RepoInfo{
-					Token: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-				}
-
-				replaceOfferingOptions := &catalogmanagementv1.ReplaceOfferingOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					OfferingIconURL: core.StringPtr("testString"),
-					OfferingDocsURL: core.StringPtr("testString"),
-					OfferingSupportURL: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					Rating: ratingModel,
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					ShortDescription: core.StringPtr("testString"),
-					LongDescription: core.StringPtr("testString"),
-					Features: []catalogmanagementv1.Feature{*featureModel},
-					Kinds: []catalogmanagementv1.Kind{*kindModel},
-					PermitRequestIBMPublicPublish: core.BoolPtr(true),
-					IBMPublishApproved: core.BoolPtr(true),
-					PublicPublishApproved: core.BoolPtr(true),
-					PublicOriginalCRN: core.StringPtr("testString"),
-					PublishPublicCRN: core.StringPtr("testString"),
-					PortalApprovalRecord: core.StringPtr("testString"),
-					PortalUIURL: core.StringPtr("testString"),
-					CatalogID: core.StringPtr("testString"),
-					CatalogName: core.StringPtr("testString"),
-					Metadata: make(map[string]interface{}),
-					Disclaimer: core.StringPtr("testString"),
-					Hidden: core.BoolPtr(true),
-					Provider: core.StringPtr("testString"),
-					RepoInfo: repoInfoModel,
-				}
-
-				offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offering).ToNot(BeNil())
-
-			})
+	Describe(`GetOffering - Get offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOffering(getOfferingOptions *GetOfferingOptions)`, func() {
+			getOfferingOptions := &catalogmanagementv1.GetOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Type:              core.StringPtr("id"),
+				Digest:            core.BoolPtr(false),
+			}
 
-		Describe(`GetOfferingAudit - Get offering audit log`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetOfferingAudit(getOfferingAuditOptions *GetOfferingAuditOptions)`, func() {
+			offering, response, err := catalogManagementService.GetOffering(getOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
 
-				getOfferingAuditOptions := &catalogmanagementv1.GetOfferingAuditOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-				}
-
-				auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(auditLog).ToNot(BeNil())
-
-			})
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionLocatorLink value: %v\n", versionLocatorLink)
+			versionIDLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
+			versionRevLink = *offering.Kinds[0].Versions[0].Rev
+			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
 		})
+	})
 
-		Describe(`ReplaceOfferingIcon - Upload icon for offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReplaceOfferingIcon(replaceOfferingIconOptions *ReplaceOfferingIconOptions)`, func() {
-
-				replaceOfferingIconOptions := &catalogmanagementv1.ReplaceOfferingIconOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					FileName: core.StringPtr("testString"),
-				}
-
-				offering, response, err := catalogManagementService.ReplaceOfferingIcon(replaceOfferingIconOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offering).ToNot(BeNil())
-
-			})
+	Describe(`UpdateOffering - Update offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`UpdateOffering(updateOfferingOptions *UpdateOfferingOptions)`, func() {
+			jsonPatchOperationModel := &catalogmanagementv1.JSONPatchOperation{
+				Op:    core.StringPtr("add"),
+				Path:  core.StringPtr("/tags/-"),
+				Value: core.StringPtr("dev_ops"),
+			}
 
-		Describe(`UpdateOfferingIBM - Allow offering to be published`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`UpdateOfferingIBM(updateOfferingIBMOptions *UpdateOfferingIBMOptions)`, func() {
+			updateOfferingOptions := &catalogmanagementv1.UpdateOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				IfMatch:           core.StringPtr(fmt.Sprintf("\"%s\"", offeringRevLink)),
+				Updates:           []catalogmanagementv1.JSONPatchOperation{*jsonPatchOperationModel},
+			}
 
-				updateOfferingIBMOptions := &catalogmanagementv1.UpdateOfferingIBMOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					ApprovalType: core.StringPtr("allow_request"),
-					Approved: core.StringPtr("true"),
-				}
+			offering, response, err := catalogManagementService.UpdateOffering(updateOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
 
-				approvalResult, response, err := catalogManagementService.UpdateOfferingIBM(updateOfferingIBMOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(approvalResult).ToNot(BeNil())
-
-			})
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
 		})
+	})
 
-		Describe(`GetVersionUpdates - Get version updates`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions)`, func() {
-
-				getVersionUpdatesOptions := &catalogmanagementv1.GetVersionUpdatesOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Kind: core.StringPtr("testString"),
-					Version: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Namespace: core.StringPtr("testString"),
-				}
-
-				versionUpdateDescriptor, response, err := catalogManagementService.GetVersionUpdates(getVersionUpdatesOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(versionUpdateDescriptor).ToNot(BeNil())
-
-			})
+	Describe(`ReplaceOffering - Update offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ReplaceOffering(replaceOfferingOptions *ReplaceOfferingOptions)`, func() {
+			//Skip("")
+			ratingModel := &catalogmanagementv1.Rating{
+				OneStarCount:   core.Int64Ptr(int64(38)),
+				TwoStarCount:   core.Int64Ptr(int64(38)),
+				ThreeStarCount: core.Int64Ptr(int64(38)),
+				FourStarCount:  core.Int64Ptr(int64(38)),
+			}
 
-		Describe(`GetVersionAbout - Get version about information`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersionAbout(getVersionAboutOptions *GetVersionAboutOptions)`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
 
-				getVersionAboutOptions := &catalogmanagementv1.GetVersionAboutOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
 
-				result, response, err := catalogManagementService.GetVersionAbout(getVersionAboutOptions)
+			renderTypeAssociationsParametersItemModel := &catalogmanagementv1.RenderTypeAssociationsParametersItem{
+				Name:           core.StringPtr("testString"),
+				OptionsRefresh: core.BoolPtr(true),
+			}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
+			renderTypeAssociationsModel := &catalogmanagementv1.RenderTypeAssociations{
+				Parameters: []catalogmanagementv1.RenderTypeAssociationsParametersItem{*renderTypeAssociationsParametersItemModel},
+			}
 
-			})
+			renderTypeModel := &catalogmanagementv1.RenderType{
+				Type:              core.StringPtr("testString"),
+				Grouping:          core.StringPtr("testString"),
+				OriginalGrouping:  core.StringPtr("testString"),
+				GroupingIndex:     core.Int64Ptr(int64(38)),
+				ConfigConstraints: map[string]interface{}{"anyKey": "anyValue"},
+				Associations:      renderTypeAssociationsModel,
+			}
+
+			configurationModel := &catalogmanagementv1.Configuration{
+				Key:             core.StringPtr("testString"),
+				Type:            core.StringPtr("testString"),
+				DefaultValue:    core.StringPtr("testString"),
+				DisplayName:     core.StringPtr("testString"),
+				ValueConstraint: core.StringPtr("testString"),
+				Description:     core.StringPtr("testString"),
+				Required:        core.BoolPtr(true),
+				Options:         []interface{}{"testString"},
+				Hidden:          core.BoolPtr(true),
+				CustomConfig:    renderTypeModel,
+				TypeMetadata:    core.StringPtr("testString"),
+			}
+
+			outputModel := &catalogmanagementv1.Output{
+				Key:         core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+			}
+
+			iamResourceModel := &catalogmanagementv1.IamResource{
+				Name:        core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				RoleCrns:    []string{"testString"},
+			}
+
+			iamPermissionModel := &catalogmanagementv1.IamPermission{
+				ServiceName: core.StringPtr("testString"),
+				RoleCrns:    []string{"testString"},
+				Resources:   []catalogmanagementv1.IamResource{*iamResourceModel},
+			}
+
+			validationModel := &catalogmanagementv1.Validation{
+				Validated:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Requested:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				State:         core.StringPtr("testString"),
+				LastOperation: core.StringPtr("testString"),
+				Target:        make(map[string]interface{}),
+				Message:       core.StringPtr("testString"),
+			}
+
+			resourceModel := &catalogmanagementv1.Resource{
+				Type:  core.StringPtr("mem"),
+				Value: core.StringPtr("testString"),
+			}
+
+			scriptModel := &catalogmanagementv1.Script{
+				Instructions:     core.StringPtr("testString"),
+				InstructionsI18n: make(map[string]string),
+				Script:           core.StringPtr("testString"),
+				ScriptPermission: core.StringPtr("testString"),
+				DeleteScript:     core.StringPtr("testString"),
+				Scope:            core.StringPtr("testString"),
+			}
+
+			versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
+				ProviderName:  core.StringPtr("testString"),
+				ProviderID:    core.StringPtr("testString"),
+				ProductID:     core.StringPtr("testString"),
+				PartNumbers:   []string{"testString"},
+				ImageRepoName: core.StringPtr("testString"),
+			}
+
+			licenseModel := &catalogmanagementv1.License{
+				ID:          core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				URL:         core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+			}
+
+			stateModel := &catalogmanagementv1.State{
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
+				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Previous:         core.StringPtr("testString"),
+			}
+
+			deprecatePendingModel := &catalogmanagementv1.DeprecatePending{
+				DeprecateDate:  CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				DeprecateState: core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+			}
+
+			mediaItemModel := &catalogmanagementv1.MediaItem{
+				URL:          core.StringPtr("testString"),
+				APIURL:       core.StringPtr("testString"),
+				Caption:      core.StringPtr("testString"),
+				CaptionI18n:  make(map[string]string),
+				Type:         core.StringPtr("image/svg+xml"),
+				ThumbnailURL: core.StringPtr("testString"),
+			}
+
+			architectureDiagramModel := &catalogmanagementv1.ArchitectureDiagram{
+				Diagram:         mediaItemModel,
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			costComponentModel := &catalogmanagementv1.CostComponent{
+				Name:            core.StringPtr("testString"),
+				Unit:            core.StringPtr("testString"),
+				HourlyQuantity:  core.StringPtr("testString"),
+				MonthlyQuantity: core.StringPtr("testString"),
+				Price:           core.StringPtr("testString"),
+				HourlyCost:      core.StringPtr("testString"),
+				MonthlyCost:     core.StringPtr("testString"),
+			}
+
+			costResourceModel := &catalogmanagementv1.CostResource{
+				Name:           core.StringPtr("testString"),
+				Metadata:       make(map[string]interface{}),
+				HourlyCost:     core.StringPtr("testString"),
+				MonthlyCost:    core.StringPtr("testString"),
+				CostComponents: []catalogmanagementv1.CostComponent{*costComponentModel},
+			}
+
+			costBreakdownModel := &catalogmanagementv1.CostBreakdown{
+				TotalHourlyCost:  core.StringPtr("testString"),
+				TotalMonthlyCost: core.StringPtr("testString"),
+				Resources:        []catalogmanagementv1.CostResource{*costResourceModel},
+			}
+
+			costSummaryModel := &catalogmanagementv1.CostSummary{
+				TotalDetectedResources:    core.Int64Ptr(int64(38)),
+				TotalSupportedResources:   core.Int64Ptr(int64(38)),
+				TotalUnsupportedResources: core.Int64Ptr(int64(38)),
+				TotalUsageBasedResources:  core.Int64Ptr(int64(38)),
+				TotalNoPriceResources:     core.Int64Ptr(int64(38)),
+				UnsupportedResourceCounts: make(map[string]int64),
+				NoPriceResourceCounts:     make(map[string]int64),
+			}
+
+			projectModel := &catalogmanagementv1.Project{
+				Name:          core.StringPtr("testString"),
+				Metadata:      make(map[string]interface{}),
+				PastBreakdown: costBreakdownModel,
+				Breakdown:     costBreakdownModel,
+				Diff:          costBreakdownModel,
+				Summary:       costSummaryModel,
+			}
+
+			costEstimateModel := &catalogmanagementv1.CostEstimate{
+				Version:              core.StringPtr("testString"),
+				Currency:             core.StringPtr("testString"),
+				Projects:             []catalogmanagementv1.Project{*projectModel},
+				Summary:              costSummaryModel,
+				TotalHourlyCost:      core.StringPtr("testString"),
+				TotalMonthlyCost:     core.StringPtr("testString"),
+				PastTotalHourlyCost:  core.StringPtr("testString"),
+				PastTotalMonthlyCost: core.StringPtr("testString"),
+				DiffTotalHourlyCost:  core.StringPtr("testString"),
+				DiffTotalMonthlyCost: core.StringPtr("testString"),
+				TimeGenerated:        CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			dependencyModel := &catalogmanagementv1.OfferingReference{
+				CatalogID: core.StringPtr("testString"),
+				ID:        core.StringPtr("testString"),
+				Name:      core.StringPtr("testString"),
+				Version:   core.StringPtr("testString"),
+				Flavors:   []string{"testString"},
+			}
+
+			solutionInfoModel := &catalogmanagementv1.SolutionInfo{
+				ArchitectureDiagrams: []catalogmanagementv1.ArchitectureDiagram{*architectureDiagramModel},
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				CostEstimate:         costEstimateModel,
+				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
+			}
+
+			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
+				Type: core.StringPtr("testString"),
+			}
+
+			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+				ID:          core.StringPtr("testString"),
+				ExternalID:  core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			goalModel := &catalogmanagementv1.Goal{
+				ID:          core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				UIHref:      core.StringPtr("testString"),
+			}
+
+			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
+				Certified: core.BoolPtr(true),
+				Results:   make(map[string]interface{}),
+			}
+
+			complianceModel := &catalogmanagementv1.ComplianceControl{
+				SccProfile: complianceControlSCCProfileModel,
+				Family:     complianceControlFamilyModel,
+				Goals:      []catalogmanagementv1.Goal{*goalModel},
+				Validation: complianceControlValidationModel,
+			}
+
+			versionModel := &catalogmanagementv1.Version{
+				//ID:                  &versionIDLink,
+				//Rev:                 &versionRevLink,
+				CRN:                 core.StringPtr("testString"),
+				Version:             core.StringPtr("1.0.0"),
+				Flavor:              flavorModel,
+				Sha:                 core.StringPtr("testString"),
+				Created:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				OfferingID:          &offeringIDLink,
+				CatalogID:           &catalogIDLink,
+				KindID:              core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				RepoURL:             core.StringPtr("testString"),
+				SourceURL:           core.StringPtr("testString"),
+				TgzURL:              core.StringPtr(tgzURL),
+				Configuration:       []catalogmanagementv1.Configuration{*configurationModel},
+				Outputs:             []catalogmanagementv1.Output{*outputModel},
+				IamPermissions:      []catalogmanagementv1.IamPermission{*iamPermissionModel},
+				Metadata:            make(map[string]interface{}),
+				Validation:          validationModel,
+				RequiredResources:   []catalogmanagementv1.Resource{*resourceModel},
+				SingleInstance:      core.BoolPtr(true),
+				Install:             scriptModel,
+				PreInstall:          []catalogmanagementv1.Script{*scriptModel},
+				Entitlement:         versionEntitlementModel,
+				Licenses:            []catalogmanagementv1.License{*licenseModel},
+				ImageManifestURL:    core.StringPtr("testString"),
+				Deprecated:          core.BoolPtr(true),
+				PackageVersion:      core.StringPtr("testString"),
+				State:               stateModel,
+				VersionLocator:      &versionLocatorLink,
+				LongDescription:     core.StringPtr("testString"),
+				LongDescriptionI18n: make(map[string]string),
+				WhitelistedAccounts: []string{"testString"},
+				DeprecatePending:    deprecatePendingModel,
+				SolutionInfo:        solutionInfoModel,
+				IsConsumable:        core.BoolPtr(true),
+				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
+			}
+
+			deploymentModel := &catalogmanagementv1.Deployment{
+				ID:               core.StringPtr("testString"),
+				Label:            core.StringPtr("testString"),
+				Name:             core.StringPtr("testString"),
+				ShortDescription: core.StringPtr("testString"),
+				LongDescription:  core.StringPtr("testString"),
+				Metadata:         make(map[string]interface{}),
+				Tags:             []string{"testString"},
+				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			planModel := &catalogmanagementv1.Plan{
+				ID:                 core.StringPtr("testString"),
+				Label:              core.StringPtr("testString"),
+				Name:               core.StringPtr("testString"),
+				ShortDescription:   core.StringPtr("testString"),
+				LongDescription:    core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
+				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
+			}
+
+			kindModel := &catalogmanagementv1.Kind{
+				ID:                 core.StringPtr("testString"),
+				FormatKind:         core.StringPtr(formatKindTerraform),
+				InstallKind:        core.StringPtr(installKindTerraform),
+				TargetKind:         core.StringPtr(targetKindTerraform),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
+				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Versions:           []catalogmanagementv1.Version{*versionModel},
+				Plans:              []catalogmanagementv1.Plan{*planModel},
+			}
+
+			providerInfoModel := &catalogmanagementv1.ProviderInfo{
+				ID:   core.StringPtr("testString"),
+				Name: core.StringPtr("testString"),
+			}
+
+			supportWaitTimeModel := &catalogmanagementv1.SupportWaitTime{
+				Value: core.Int64Ptr(int64(38)),
+				Type:  core.StringPtr("testString"),
+			}
+
+			supportTimeModel := &catalogmanagementv1.SupportTime{
+				Day:       core.Int64Ptr(int64(38)),
+				StartTime: core.StringPtr("testString"),
+				EndTime:   core.StringPtr("testString"),
+			}
+
+			supportAvailabilityModel := &catalogmanagementv1.SupportAvailability{
+				Times:           []catalogmanagementv1.SupportTime{*supportTimeModel},
+				Timezone:        core.StringPtr("testString"),
+				AlwaysAvailable: core.BoolPtr(true),
+			}
+
+			supportDetailModel := &catalogmanagementv1.SupportDetail{
+				Type:             core.StringPtr("testString"),
+				Contact:          core.StringPtr("testString"),
+				ResponseWaitTime: supportWaitTimeModel,
+				Availability:     supportAvailabilityModel,
+			}
+
+			supportEscalationModel := &catalogmanagementv1.SupportEscalation{
+				EscalationWaitTime: supportWaitTimeModel,
+				ResponseWaitTime:   supportWaitTimeModel,
+				Contact:            core.StringPtr("testString"),
+			}
+
+			supportModel := &catalogmanagementv1.Support{
+				URL:               core.StringPtr("testString"),
+				Process:           core.StringPtr("testString"),
+				ProcessI18n:       make(map[string]string),
+				Locations:         []string{"testString"},
+				SupportDetails:    []catalogmanagementv1.SupportDetail{*supportDetailModel},
+				SupportEscalation: supportEscalationModel,
+				SupportType:       core.StringPtr("testString"),
+			}
+
+			learnMoreLinksModel := &catalogmanagementv1.LearnMoreLinks{
+				FirstParty: core.StringPtr("testString"),
+				ThirdParty: core.StringPtr("testString"),
+			}
+
+			constraintModel := &catalogmanagementv1.Constraint{
+				Type: core.StringPtr("testString"),
+				Rule: core.StringPtr("testString"),
+			}
+
+			badgeModel := &catalogmanagementv1.Badge{
+				ID:              core.StringPtr("testString"),
+				Label:           core.StringPtr("testString"),
+				LabelI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+				Icon:            core.StringPtr("testString"),
+				Authority:       core.StringPtr("testString"),
+				Tag:             core.StringPtr("testString"),
+				LearnMoreLinks:  learnMoreLinksModel,
+				Constraints:     []catalogmanagementv1.Constraint{*constraintModel},
+			}
+
+			replaceOfferingOptions := &catalogmanagementv1.ReplaceOfferingOptions{
+				CatalogIdentifier:             &catalogIDLink,
+				OfferingID:                    &offeringIDLink,
+				ID:                            &offeringIDLink,
+				Rev:                           &offeringRevLink,
+				URL:                           core.StringPtr("testString"),
+				CRN:                           core.StringPtr("testString"),
+				Label:                         core.StringPtr("testString"),
+				LabelI18n:                     make(map[string]string),
+				Name:                          core.StringPtr("testString"),
+				OfferingIconURL:               core.StringPtr("testString"),
+				OfferingDocsURL:               core.StringPtr("testString"),
+				OfferingSupportURL:            core.StringPtr("testString"),
+				Tags:                          []string{"testString"},
+				Keywords:                      []string{"testString"},
+				Rating:                        ratingModel,
+				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:              core.StringPtr("testString"),
+				ShortDescriptionI18n:          make(map[string]string),
+				LongDescription:               core.StringPtr("testString"),
+				LongDescriptionI18n:           make(map[string]string),
+				Features:                      []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
+				PcManaged:                     core.BoolPtr(true),
+				PublishApproved:               core.BoolPtr(true),
+				ShareWithAll:                  core.BoolPtr(true),
+				ShareWithIBM:                  core.BoolPtr(true),
+				ShareEnabled:                  core.BoolPtr(true),
+				PermitRequestIBMPublicPublish: core.BoolPtr(true),
+				IBMPublishApproved:            core.BoolPtr(true),
+				PublicPublishApproved:         core.BoolPtr(true),
+				PublicOriginalCRN:             core.StringPtr("testString"),
+				PublishPublicCRN:              core.StringPtr("testString"),
+				PortalApprovalRecord:          core.StringPtr("testString"),
+				PortalUIURL:                   core.StringPtr("testString"),
+				CatalogID:                     &catalogIDLink,
+				CatalogName:                   core.StringPtr("testString"),
+				Metadata:                      make(map[string]interface{}),
+				Disclaimer:                    core.StringPtr("testString"),
+				Hidden:                        core.BoolPtr(true),
+				Provider:                      core.StringPtr("testString"),
+				ProviderInfo:                  providerInfoModel,
+				Support:                       supportModel,
+				Media:                         []catalogmanagementv1.MediaItem{*mediaItemModel},
+				DeprecatePending:              deprecatePendingModel,
+				ProductKind:                   core.StringPtr("solution"),
+				Badges:                        []catalogmanagementv1.Badge{*badgeModel},
+			}
+
+			offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringIDLink = *offering.ID
+			fmt.Fprintf(GinkgoWriter, "Saved offeringIDLink value: %v\n", offeringIDLink)
+			offeringRevLink = *offering.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
+			fmt.Fprintf(GinkgoWriter, "Saved versionLocatorLink value: %v\n", versionLocatorLink)
+			versionIDLink = *offering.Kinds[0].Versions[0].ID
+			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
+			versionRevLink = *offering.Kinds[0].Versions[0].Rev
+			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
 		})
+	})
 
-		Describe(`GetVersionLicense - Get version license content`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersionLicense(getVersionLicenseOptions *GetVersionLicenseOptions)`, func() {
-
-				getVersionLicenseOptions := &catalogmanagementv1.GetVersionLicenseOptions{
-					VersionLocID: core.StringPtr("testString"),
-					LicenseID: core.StringPtr("testString"),
-				}
-
-				result, response, err := catalogManagementService.GetVersionLicense(getVersionLicenseOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-
-			})
+	Describe(`ListCatalogAccountAudits - Get catalog account audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ListCatalogAccountAudits(listCatalogAccountAuditsOptions *ListCatalogAccountAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listCatalogAccountAuditsOptions := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
+				Start:       core.StringPtr(""),
+				Limit:       core.Int64Ptr(int64(10)),
+				Lookupnames: core.BoolPtr(true),
+			}
 
-		Describe(`GetVersionContainerImages - Get version's container images`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions)`, func() {
+			listCatalogAccountAuditsOptions.Start = nil
+			listCatalogAccountAuditsOptions.Limit = core.Int64Ptr(1)
 
-				getVersionContainerImagesOptions := &catalogmanagementv1.GetVersionContainerImagesOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				imageManifest, response, err := catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(imageManifest).ToNot(BeNil())
-
-			})
-		})
-
-		Describe(`DeprecateVersion - Deprecate version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions)`, func() {
-
-				deprecateVersionOptions := &catalogmanagementv1.DeprecateVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.DeprecateVersion(deprecateVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
-		})
-
-		Describe(`AccountPublishVersion - Publish version to account members`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions)`, func() {
-
-				accountPublishVersionOptions := &catalogmanagementv1.AccountPublishVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.AccountPublishVersion(accountPublishVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
-		})
-
-		Describe(`IBMPublishVersion - Publish version to IBMers in public catalog`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`IBMPublishVersion(ibmPublishVersionOptions *IBMPublishVersionOptions)`, func() {
-
-				ibmPublishVersionOptions := &catalogmanagementv1.IBMPublishVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
-		})
-
-		Describe(`PublicPublishVersion - Publish version to all users in public catalog`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions)`, func() {
-
-				publicPublishVersionOptions := &catalogmanagementv1.PublicPublishVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.PublicPublishVersion(publicPublishVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
-		})
-
-		Describe(`CommitVersion - Commit version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CommitVersion(commitVersionOptions *CommitVersionOptions)`, func() {
-
-				commitVersionOptions := &catalogmanagementv1.CommitVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.CommitVersion(commitVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-
-			})
-		})
-
-		Describe(`CopyVersion - Copy version to new target kind`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CopyVersion(copyVersionOptions *CopyVersionOptions)`, func() {
-
-				copyVersionOptions := &catalogmanagementv1.CopyVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					TargetKinds: []string{"testString"},
-					Content: CreateMockByteArray("This is a mock byte array value."),
-				}
-
-				response, err := catalogManagementService.CopyVersion(copyVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-
-			})
-		})
-
-		Describe(`GetVersionWorkingCopy - Create working copy of version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions)`, func() {
-
-				getVersionWorkingCopyOptions := &catalogmanagementv1.GetVersionWorkingCopyOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				version, response, err := catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(version).ToNot(BeNil())
-
-			})
-		})
-
-		Describe(`GetVersion - Get offering/kind/version 'branch'`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetVersion(getVersionOptions *GetVersionOptions)`, func() {
-
-				getVersionOptions := &catalogmanagementv1.GetVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(offering).ToNot(BeNil())
-
-			})
-		})
-
-		Describe(`GetRepos - List a repository's entries`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetRepos(getReposOptions *GetReposOptions)`, func() {
-
-				getReposOptions := &catalogmanagementv1.GetReposOptions{
-					Type: core.StringPtr("testString"),
-					Repourl: core.StringPtr("testString"),
-				}
-
-				helmRepoList, response, err := catalogManagementService.GetRepos(getReposOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(helmRepoList).ToNot(BeNil())
-
-			})
-		})
-
-		Describe(`GetRepo - Get repository contents`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetRepo(getRepoOptions *GetRepoOptions)`, func() {
-
-				getRepoOptions := &catalogmanagementv1.GetRepoOptions{
-					Type: core.StringPtr("testString"),
-					Charturl: core.StringPtr("testString"),
-				}
-
-				helmPackage, response, err := catalogManagementService.GetRepo(getRepoOptions)
-
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListCatalogAccountAudits(listCatalogAccountAuditsOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
-				Expect(helmPackage).ToNot(BeNil())
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
 
-			})
-		})
+				listCatalogAccountAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
 
-		Describe(`GetCluster - Get kubernetes cluster`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
-
-				getClusterOptions := &catalogmanagementv1.GetClusterOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
+				if listCatalogAccountAuditsOptions.Start == nil {
+					break
 				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListCatalogAccountAudits(listCatalogAccountAuditsOptions *ListCatalogAccountAuditsOptions) using CatalogAccountAuditsPager`, func() {
+			Skip("Not testing")
+			listCatalogAccountAuditsOptions := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
+				Limit:       core.Int64Ptr(int64(10)),
+				Lookupnames: core.BoolPtr(true),
+			}
 
-				clusterInfo, response, err := catalogManagementService.GetCluster(getClusterOptions)
+			// Test GetNext().
+			pager, err := catalogManagementService.NewCatalogAccountAuditsPager(listCatalogAccountAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
 
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewCatalogAccountAuditsPager(listCatalogAccountAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListCatalogAccountAudits() returned a total of %d item(s) using CatalogAccountAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetCatalogAccountAudit - Get a catalog account audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCatalogAccountAudit(getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions)`, func() {
+			Skip("Not testing")
+			getCatalogAccountAuditOptions := &catalogmanagementv1.GetCatalogAccountAuditOptions{
+				AuditlogIdentifier: core.StringPtr("testString"),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetCatalogAccountAudit(getCatalogAccountAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetCatalogAccountFilters - Get catalog account filters`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCatalogAccountFilters(getCatalogAccountFiltersOptions *GetCatalogAccountFiltersOptions)`, func() {
+			getCatalogAccountFiltersOptions := &catalogmanagementv1.GetCatalogAccountFiltersOptions{
+				Catalog: &catalogIDLink,
+			}
+
+			accumulatedFilters, response, err := catalogManagementService.GetCatalogAccountFilters(getCatalogAccountFiltersOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accumulatedFilters).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListCatalogs - Get list of catalogs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListCatalogs(listCatalogsOptions *ListCatalogsOptions)`, func() {
+			listCatalogsOptions := &catalogmanagementv1.ListCatalogsOptions{}
+
+			catalogSearchResult, response, err := catalogManagementService.ListCatalogs(listCatalogsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListCatalogAudits - Get catalog audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListCatalogAudits(listCatalogAuditsOptions *ListCatalogAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listCatalogAuditsOptions := &catalogmanagementv1.ListCatalogAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				Start:             core.StringPtr(""),
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
+
+			listCatalogAuditsOptions.Start = nil
+			listCatalogAuditsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListCatalogAudits(listCatalogAuditsOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
-				Expect(clusterInfo).ToNot(BeNil())
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
 
-			})
-		})
+				listCatalogAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
 
-		Describe(`GetNamespaces - Get cluster namespaces`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetNamespaces(getNamespacesOptions *GetNamespacesOptions)`, func() {
-
-				getNamespacesOptions := &catalogmanagementv1.GetNamespacesOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
+				if listCatalogAuditsOptions.Start == nil {
+					break
 				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListCatalogAudits(listCatalogAuditsOptions *ListCatalogAuditsOptions) using CatalogAuditsPager`, func() {
+			Skip("Not testing")
+			listCatalogAuditsOptions := &catalogmanagementv1.ListCatalogAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
 
-				namespaceSearchResult, response, err := catalogManagementService.GetNamespaces(getNamespacesOptions)
+			// Test GetNext().
+			pager, err := catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
 
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListCatalogAudits() returned a total of %d item(s) using CatalogAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetCatalogAudit - Get a catalog audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCatalogAudit(getCatalogAuditOptions *GetCatalogAuditOptions)`, func() {
+			Skip("Not testing")
+			getCatalogAuditOptions := &catalogmanagementv1.GetCatalogAuditOptions{
+				CatalogIdentifier:  &catalogIDLink,
+				AuditlogIdentifier: core.StringPtr("testString"),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetCatalogAudit(getCatalogAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListEnterpriseAudits - Get enterprise audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListEnterpriseAudits(listEnterpriseAuditsOptions *ListEnterpriseAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listEnterpriseAuditsOptions := &catalogmanagementv1.ListEnterpriseAuditsOptions{
+				EnterpriseIdentifier: core.StringPtr("testString"),
+				Start:                core.StringPtr(""),
+				Limit:                core.Int64Ptr(int64(10)),
+				Lookupnames:          core.BoolPtr(true),
+			}
+
+			listEnterpriseAuditsOptions.Start = nil
+			listEnterpriseAuditsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListEnterpriseAudits(listEnterpriseAuditsOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
-				Expect(namespaceSearchResult).ToNot(BeNil())
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
 
-			})
-		})
+				listEnterpriseAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
 
-		Describe(`DeployOperators - Deploy operators`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`DeployOperators(deployOperatorsOptions *DeployOperatorsOptions)`, func() {
-
-				deployOperatorsOptions := &catalogmanagementv1.DeployOperatorsOptions{
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespaces: []string{"testString"},
-					AllNamespaces: core.BoolPtr(true),
-					VersionLocatorID: core.StringPtr("testString"),
+				if listEnterpriseAuditsOptions.Start == nil {
+					break
 				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListEnterpriseAudits(listEnterpriseAuditsOptions *ListEnterpriseAuditsOptions) using EnterpriseAuditsPager`, func() {
+			Skip("Not testing")
+			listEnterpriseAuditsOptions := &catalogmanagementv1.ListEnterpriseAuditsOptions{
+				EnterpriseIdentifier: core.StringPtr("testString"),
+				Limit:                core.Int64Ptr(int64(10)),
+				Lookupnames:          core.BoolPtr(true),
+			}
 
-				operatorDeployResult, response, err := catalogManagementService.DeployOperators(deployOperatorsOptions)
+			// Test GetNext().
+			pager, err := catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
 
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListEnterpriseAudits() returned a total of %d item(s) using EnterpriseAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetEnterpriseAudit - Get an enterprise audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetEnterpriseAudit(getEnterpriseAuditOptions *GetEnterpriseAuditOptions)`, func() {
+			Skip("Not testing")
+			getEnterpriseAuditOptions := &catalogmanagementv1.GetEnterpriseAuditOptions{
+				EnterpriseIdentifier: core.StringPtr("testString"),
+				AuditlogIdentifier:   core.StringPtr("testString"),
+				Lookupnames:          core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetEnterpriseAudit(getEnterpriseAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetConsumptionOfferings - Get consumption offerings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetConsumptionOfferings(getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions)`, func() {
+			getConsumptionOfferingsOptions := &catalogmanagementv1.GetConsumptionOfferingsOptions{
+				Digest:        core.BoolPtr(true),
+				Catalog:       &catalogIDLink,
+				Select:        core.StringPtr("all"),
+				IncludeHidden: core.BoolPtr(true),
+				Limit:         core.Int64Ptr(int64(1000)),
+				Offset:        core.Int64Ptr(int64(38)),
+			}
+
+			offeringSearchResult, response, err := catalogManagementService.GetConsumptionOfferings(getConsumptionOfferingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offeringSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListOfferings - Get list of offerings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListOfferings(listOfferingsOptions *ListOfferingsOptions)`, func() {
+			listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				Digest:            core.BoolPtr(true),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+				Name:              core.StringPtr("testString"),
+				Sort:              core.StringPtr("name"),
+				IncludeHidden:     core.BoolPtr(true),
+			}
+
+			offeringSearchResult, response, err := catalogManagementService.ListOfferings(listOfferingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offeringSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListOfferingAudits - Get offering audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListOfferingAudits(listOfferingAuditsOptions *ListOfferingAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listOfferingAuditsOptions := &catalogmanagementv1.ListOfferingAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Start:             core.StringPtr(""),
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
+
+			listOfferingAuditsOptions.Start = nil
+			listOfferingAuditsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListOfferingAudits(listOfferingAuditsOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
-				Expect(operatorDeployResult).ToNot(BeNil())
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
 
-			})
-		})
+				listOfferingAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
 
-		Describe(`ListOperators - List operators`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ListOperators(listOperatorsOptions *ListOperatorsOptions)`, func() {
-
-				listOperatorsOptions := &catalogmanagementv1.ListOperatorsOptions{
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					VersionLocatorID: core.StringPtr("testString"),
+				if listOfferingAuditsOptions.Start == nil {
+					break
 				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListOfferingAudits(listOfferingAuditsOptions *ListOfferingAuditsOptions) using OfferingAuditsPager`, func() {
+			Skip("Not testing")
+			listOfferingAuditsOptions := &catalogmanagementv1.ListOfferingAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
 
-				operatorDeployResult, response, err := catalogManagementService.ListOperators(listOperatorsOptions)
+			// Test GetNext().
+			pager, err := catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
 
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListOfferingAudits() returned a total of %d item(s) using OfferingAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetOfferingAudit - Get an offering audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingAudit(getOfferingAuditOptions *GetOfferingAuditOptions)`, func() {
+			Skip("Not testing")
+			getOfferingAuditOptions := &catalogmanagementv1.GetOfferingAuditOptions{
+				CatalogIdentifier:  &catalogIDLink,
+				OfferingID:         &offeringIDLink,
+				AuditlogIdentifier: core.StringPtr("testString"),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`SetOfferingPublish - Set offering publish approval settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetOfferingPublish(setOfferingPublishOptions *SetOfferingPublishOptions)`, func() {
+			Skip("Not testing")
+			setOfferingPublishOptions := &catalogmanagementv1.SetOfferingPublishOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				ApprovalType:      core.StringPtr("pc_managed"),
+				Approved:          core.StringPtr("true"),
+				PortalRecord:      core.StringPtr("testString"),
+				PortalURL:         core.StringPtr("testString"),
+				XApproverToken:    core.StringPtr("testString"),
+			}
+
+			approvalResult, response, err := catalogManagementService.SetOfferingPublish(setOfferingPublishOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(approvalResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeprecateOffering - Allows offering to be deprecated`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeprecateOffering(deprecateOfferingOptions *DeprecateOfferingOptions)`, func() {
+			Skip("Not testing")
+			deprecateOfferingOptions := &catalogmanagementv1.DeprecateOfferingOptions{
+				CatalogIdentifier:  &catalogIDLink,
+				OfferingID:         &offeringIDLink,
+				Setting:            core.StringPtr("true"),
+				Description:        core.StringPtr("testString"),
+				DaysUntilDeprecate: core.Int64Ptr(int64(38)),
+			}
+
+			response, err := catalogManagementService.DeprecateOffering(deprecateOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`ShareOffering - Allows offering to be shared`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ShareOffering(shareOfferingOptions *ShareOfferingOptions)`, func() {
+			Skip("Not testing")
+			shareOfferingOptions := &catalogmanagementv1.ShareOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				IBM:               core.BoolPtr(true),
+				Public:            core.BoolPtr(true),
+				Enabled:           core.BoolPtr(true),
+			}
+
+			shareSetting, response, err := catalogManagementService.ShareOffering(shareOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(shareSetting).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOfferingAccess - Check for account ID in offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingAccess(getOfferingAccessOptions *GetOfferingAccessOptions)`, func() {
+			getOfferingAccessOptions := &catalogmanagementv1.GetOfferingAccessOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				AccessIdentifier:  core.StringPtr(accountID),
+			}
+
+			access, response, err := catalogManagementService.GetOfferingAccess(getOfferingAccessOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(access).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOfferingAccessList - Get offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingAccessList(getOfferingAccessListOptions *GetOfferingAccessListOptions) with pagination`, func() {
+			Skip("Not testing")
+			getOfferingAccessListOptions := &catalogmanagementv1.GetOfferingAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Start:             core.StringPtr(""),
+				Limit:             core.Int64Ptr(int64(10)),
+			}
+
+			getOfferingAccessListOptions.Start = nil
+			getOfferingAccessListOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.Access
+			for {
+				accessListResult, response, err := catalogManagementService.GetOfferingAccessList(getOfferingAccessListOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
-				Expect(operatorDeployResult).ToNot(BeNil())
+				Expect(accessListResult).ToNot(BeNil())
+				allResults = append(allResults, accessListResult.Resources...)
 
-			})
-		})
-
-		Describe(`ReplaceOperators - Update operators`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReplaceOperators(replaceOperatorsOptions *ReplaceOperatorsOptions)`, func() {
-
-				replaceOperatorsOptions := &catalogmanagementv1.ReplaceOperatorsOptions{
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespaces: []string{"testString"},
-					AllNamespaces: core.BoolPtr(true),
-					VersionLocatorID: core.StringPtr("testString"),
-				}
-
-				operatorDeployResult, response, err := catalogManagementService.ReplaceOperators(replaceOperatorsOptions)
-
+				getOfferingAccessListOptions.Start, err = accessListResult.GetNextStart()
 				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(operatorDeployResult).ToNot(BeNil())
 
-			})
+				if getOfferingAccessListOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
+		It(`GetOfferingAccessList(getOfferingAccessListOptions *GetOfferingAccessListOptions) using GetOfferingAccessListPager`, func() {
+			Skip("Not testing")
+			getOfferingAccessListOptions := &catalogmanagementv1.GetOfferingAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Limit:             core.Int64Ptr(int64(10)),
+			}
 
-		Describe(`InstallVersion - Install version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`InstallVersion(installVersionOptions *InstallVersionOptions)`, func() {
+			// Test GetNext().
+			pager, err := catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
 
-				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-					Name: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					ResourceGroupID: core.StringPtr("testString"),
-				}
-
-				installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespace: core.StringPtr("testString"),
-					OverrideValues: make(map[string]interface{}),
-					EntitlementApikey: core.StringPtr("testString"),
-					Schematics: deployRequestBodySchematicsModel,
-					Script: core.StringPtr("testString"),
-					ScriptID: core.StringPtr("testString"),
-					VersionLocatorID: core.StringPtr("testString"),
-					VcenterID: core.StringPtr("testString"),
-					VcenterUser: core.StringPtr("testString"),
-					VcenterPassword: core.StringPtr("testString"),
-					VcenterLocation: core.StringPtr("testString"),
-					VcenterDatastore: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.InstallVersion(installVersionOptions)
-
+			var allResults []catalogmanagementv1.Access
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
 
-			})
+			// Test GetAll().
+			pager, err = catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetOfferingAccessList() returned a total of %d item(s) using GetOfferingAccessListPager.\n", len(allResults))
 		})
+	})
 
-		Describe(`PreinstallVersion - Pre-install version`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`PreinstallVersion(preinstallVersionOptions *PreinstallVersionOptions)`, func() {
-
-				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-					Name: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					ResourceGroupID: core.StringPtr("testString"),
-				}
-
-				preinstallVersionOptions := &catalogmanagementv1.PreinstallVersionOptions{
-					VersionLocID: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespace: core.StringPtr("testString"),
-					OverrideValues: make(map[string]interface{}),
-					EntitlementApikey: core.StringPtr("testString"),
-					Schematics: deployRequestBodySchematicsModel,
-					Script: core.StringPtr("testString"),
-					ScriptID: core.StringPtr("testString"),
-					VersionLocatorID: core.StringPtr("testString"),
-					VcenterID: core.StringPtr("testString"),
-					VcenterUser: core.StringPtr("testString"),
-					VcenterPassword: core.StringPtr("testString"),
-					VcenterLocation: core.StringPtr("testString"),
-					VcenterDatastore: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.PreinstallVersion(preinstallVersionOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+	Describe(`AddOfferingAccessList - Add accesses to offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`AddOfferingAccessList(addOfferingAccessListOptions *AddOfferingAccessListOptions)`, func() {
+			addOfferingAccessListOptions := &catalogmanagementv1.AddOfferingAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Accesses:          []string{accountID},
+			}
 
-		Describe(`GetPreinstall - Get version pre-install status`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetPreinstall(getPreinstallOptions *GetPreinstallOptions)`, func() {
-
-				getPreinstallOptions := &catalogmanagementv1.GetPreinstallOptions{
-					VersionLocID: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespace: core.StringPtr("testString"),
-				}
-
-				installStatus, response, err := catalogManagementService.GetPreinstall(getPreinstallOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(installStatus).ToNot(BeNil())
-
-			})
+			accessListResult, response, err := catalogManagementService.AddOfferingAccessList(addOfferingAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(accessListResult).ToNot(BeNil())
 		})
+	})
 
-		Describe(`ValidateInstall - Validate offering`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ValidateInstall(validateInstallOptions *ValidateInstallOptions)`, func() {
-
-				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-					Name: core.StringPtr("testString"),
-					Description: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					ResourceGroupID: core.StringPtr("testString"),
-				}
-
-				validateInstallOptions := &catalogmanagementv1.ValidateInstallOptions{
-					VersionLocID: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
-					Namespace: core.StringPtr("testString"),
-					OverrideValues: make(map[string]interface{}),
-					EntitlementApikey: core.StringPtr("testString"),
-					Schematics: deployRequestBodySchematicsModel,
-					Script: core.StringPtr("testString"),
-					ScriptID: core.StringPtr("testString"),
-					VersionLocatorID: core.StringPtr("testString"),
-					VcenterID: core.StringPtr("testString"),
-					VcenterUser: core.StringPtr("testString"),
-					VcenterPassword: core.StringPtr("testString"),
-					VcenterLocation: core.StringPtr("testString"),
-					VcenterDatastore: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.ValidateInstall(validateInstallOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+	Describe(`GetOfferingUpdates - Get version updates`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingUpdates(getOfferingUpdatesOptions *GetOfferingUpdatesOptions)`, func() {
+			getOfferingUpdatesOptions := &catalogmanagementv1.GetOfferingUpdatesOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Kind:              core.StringPtr("testString"),
+				XAuthRefreshToken: core.StringPtr("testString"),
+				Target:            core.StringPtr("testString"),
+				Version:           core.StringPtr("1.0.0"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				ResourceGroupID:   core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
+				Sha:               core.StringPtr("testString"),
+				Channel:           core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+			}
 
-		Describe(`GetValidationStatus - Get offering install status`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetValidationStatus(getValidationStatusOptions *GetValidationStatusOptions)`, func() {
-
-				getValidationStatusOptions := &catalogmanagementv1.GetValidationStatusOptions{
-					VersionLocID: core.StringPtr("testString"),
-					XAuthRefreshToken: core.StringPtr("testString"),
-				}
-
-				validation, response, err := catalogManagementService.GetValidationStatus(getValidationStatusOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(validation).ToNot(BeNil())
-
-			})
+			versionUpdateDescriptor, response, err := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(versionUpdateDescriptor).ToNot(BeNil())
 		})
+	})
 
-		Describe(`GetOverrideValues - Get override values`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions)`, func() {
-
-				getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
-					VersionLocID: core.StringPtr("testString"),
-				}
-
-				result, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
-
-			})
+	Describe(`GetOfferingSource - Get offering source`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingSource(getOfferingSourceOptions *GetOfferingSourceOptions)`, func() {
+			Skip("Not testing")
+			getOfferingSourceOptions := &catalogmanagementv1.GetOfferingSourceOptions{
+				Version:   core.StringPtr("testString"),
+				Accept:    core.StringPtr("application/yaml"),
+				CatalogID: core.StringPtr("testString"),
+				Name:      core.StringPtr("testString"),
+				ID:        core.StringPtr("testString"),
+				Kind:      core.StringPtr("testString"),
+				Channel:   core.StringPtr("testString"),
+			}
 
-		Describe(`CreateLicenseEntitlement - Create license entitlement`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CreateLicenseEntitlement(createLicenseEntitlementOptions *CreateLicenseEntitlementOptions)`, func() {
-
-				createLicenseEntitlementOptions := &catalogmanagementv1.CreateLicenseEntitlementOptions{
-					Name: core.StringPtr("testString"),
-					EffectiveFrom: core.StringPtr("testString"),
-					EffectiveUntil: core.StringPtr("testString"),
-					VersionID: core.StringPtr("testString"),
-					LicenseID: core.StringPtr("testString"),
-					LicenseOwnerID: core.StringPtr("testString"),
-					LicenseProviderID: core.StringPtr("testString"),
-					LicenseProductID: core.StringPtr("testString"),
-					AccountID: core.StringPtr("testString"),
-				}
-
-				licenseEntitlement, response, err := catalogManagementService.CreateLicenseEntitlement(createLicenseEntitlementOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(licenseEntitlement).ToNot(BeNil())
-
-			})
+			result, response, err := catalogManagementService.GetOfferingSource(getOfferingSourceOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
+	})
 
-		Describe(`SearchObjects - List objects across catalogs`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`SearchObjects(searchObjectsOptions *SearchObjectsOptions)`, func() {
-
-				searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
-					Query: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
-					Collapse: core.BoolPtr(true),
-				}
-
-				objectSearchResult, response, err := catalogManagementService.SearchObjects(searchObjectsOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(objectSearchResult).ToNot(BeNil())
-
-			})
+	Describe(`GetOfferingSourceURL - Get offering source URL`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingSourceURL(getOfferingSourceURLOptions *GetOfferingSourceURLOptions)`, func() {
+			Skip("Not testing")
+			getOfferingSourceURLOptions := &catalogmanagementv1.GetOfferingSourceURLOptions{
+				KeyIdentifier: core.StringPtr("testString"),
+				Accept:        core.StringPtr("application/yaml"),
+				CatalogID:     core.StringPtr("testString"),
+				Name:          core.StringPtr("testString"),
+				ID:            core.StringPtr("testString"),
+			}
 
-		Describe(`ListObjects - List objects within a catalog`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ListObjects(listObjectsOptions *ListObjectsOptions)`, func() {
-
-				listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-				}
-
-				objectListResult, response, err := catalogManagementService.ListObjects(listObjectsOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(objectListResult).ToNot(BeNil())
-
-			})
+			result, response, err := catalogManagementService.GetOfferingSourceURL(getOfferingSourceURLOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
+	})
 
-		Describe(`CreateObject - Create catalog object`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CreateObject(createObjectOptions *CreateObjectOptions)`, func() {
-
-				publishObjectModel := &catalogmanagementv1.PublishObject{
-					PermitIBMPublicPublish: core.BoolPtr(true),
-					IBMApproved: core.BoolPtr(true),
-					PublicApproved: core.BoolPtr(true),
-					PortalApprovalRecord: core.StringPtr("testString"),
-					PortalURL: core.StringPtr("testString"),
-				}
-
-				stateModel := &catalogmanagementv1.State{
-					Current: core.StringPtr("testString"),
-					CurrentEntered: CreateMockDateTime(),
-					Pending: core.StringPtr("testString"),
-					PendingRequested: CreateMockDateTime(),
-					Previous: core.StringPtr("testString"),
-				}
-
-				createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					ParentID: core.StringPtr("testString"),
-					LabelI18n: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					ShortDescription: core.StringPtr("testString"),
-					ShortDescriptionI18n: core.StringPtr("testString"),
-					Kind: core.StringPtr("testString"),
-					Publish: publishObjectModel,
-					State: stateModel,
-					CatalogID: core.StringPtr("testString"),
-					CatalogName: core.StringPtr("testString"),
-					Data: make(map[string]interface{}),
-				}
-
-				catalogObject, response, err := catalogManagementService.CreateObject(createObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(201))
-				Expect(catalogObject).ToNot(BeNil())
-
-			})
+	Describe(`GetOfferingAbout - Get version about information`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingAbout(getOfferingAboutOptions *GetOfferingAboutOptions)`, func() {
+			getOfferingAboutOptions := &catalogmanagementv1.GetOfferingAboutOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
 
-		Describe(`GetObject - Get catalog object`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetObject(getObjectOptions *GetObjectOptions)`, func() {
-
-				getObjectOptions := &catalogmanagementv1.GetObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				catalogObject, response, err := catalogManagementService.GetObject(getObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(catalogObject).ToNot(BeNil())
-
-			})
+			result, response, err := catalogManagementService.GetOfferingAbout(getOfferingAboutOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
+	})
 
-		Describe(`ReplaceObject - Update catalog object`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`ReplaceObject(replaceObjectOptions *ReplaceObjectOptions)`, func() {
-
-				publishObjectModel := &catalogmanagementv1.PublishObject{
-					PermitIBMPublicPublish: core.BoolPtr(true),
-					IBMApproved: core.BoolPtr(true),
-					PublicApproved: core.BoolPtr(true),
-					PortalApprovalRecord: core.StringPtr("testString"),
-					PortalURL: core.StringPtr("testString"),
-				}
-
-				stateModel := &catalogmanagementv1.State{
-					Current: core.StringPtr("testString"),
-					CurrentEntered: CreateMockDateTime(),
-					Pending: core.StringPtr("testString"),
-					PendingRequested: CreateMockDateTime(),
-					Previous: core.StringPtr("testString"),
-				}
-
-				replaceObjectOptions := &catalogmanagementv1.ReplaceObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					ID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
-					Rev: core.StringPtr("testString"),
-					CRN: core.StringPtr("testString"),
-					URL: core.StringPtr("testString"),
-					ParentID: core.StringPtr("testString"),
-					LabelI18n: core.StringPtr("testString"),
-					Label: core.StringPtr("testString"),
-					Tags: []string{"testString"},
-					Created: CreateMockDateTime(),
-					Updated: CreateMockDateTime(),
-					ShortDescription: core.StringPtr("testString"),
-					ShortDescriptionI18n: core.StringPtr("testString"),
-					Kind: core.StringPtr("testString"),
-					Publish: publishObjectModel,
-					State: stateModel,
-					CatalogID: core.StringPtr("testString"),
-					CatalogName: core.StringPtr("testString"),
-					Data: make(map[string]interface{}),
-				}
-
-				catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(catalogObject).ToNot(BeNil())
-
-			})
+	Describe(`GetOfferingLicense - Get version license content`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingLicense(getOfferingLicenseOptions *GetOfferingLicenseOptions)`, func() {
+			Skip("Not testing")
+			getOfferingLicenseOptions := &catalogmanagementv1.GetOfferingLicenseOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+				LicenseID:    core.StringPtr("testString"),
+			}
 
-		Describe(`GetObjectAudit - Get catalog object audit log`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetObjectAudit(getObjectAuditOptions *GetObjectAuditOptions)`, func() {
-
-				getObjectAuditOptions := &catalogmanagementv1.GetObjectAuditOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(auditLog).ToNot(BeNil())
-
-			})
+			result, response, err := catalogManagementService.GetOfferingLicense(getOfferingLicenseOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
+	})
 
-		Describe(`AccountPublishObject - Publish object to account`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`AccountPublishObject(accountPublishObjectOptions *AccountPublishObjectOptions)`, func() {
-
-				accountPublishObjectOptions := &catalogmanagementv1.AccountPublishObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+	Describe(`GetOfferingContainerImages - Get version's container images`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`GetOfferingContainerImages(getOfferingContainerImagesOptions *GetOfferingContainerImagesOptions)`, func() {
+			Skip("Not testing")
+			getOfferingContainerImagesOptions := &catalogmanagementv1.GetOfferingContainerImagesOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
 
-		Describe(`SharedPublishObject - Publish object to share with allow list`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`SharedPublishObject(sharedPublishObjectOptions *SharedPublishObjectOptions)`, func() {
-
-				sharedPublishObjectOptions := &catalogmanagementv1.SharedPublishObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+			imageManifest, response, err := catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(imageManifest).ToNot(BeNil())
 		})
+	})
 
-		Describe(`IBMPublishObject - Publish object to share with IBMers`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`IBMPublishObject(ibmPublishObjectOptions *IBMPublishObjectOptions)`, func() {
-
-				ibmPublishObjectOptions := &catalogmanagementv1.IBMPublishObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+	Describe(`ArchiveVersion - Archive version immediately`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ArchiveVersion(archiveVersionOptions *ArchiveVersionOptions)`, func() {
+			Skip("Not testing")
+			archiveVersionOptions := &catalogmanagementv1.ArchiveVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
 
-		Describe(`PublicPublishObject - Publish object to share with all users`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`PublicPublishObject(publicPublishObjectOptions *PublicPublishObjectOptions)`, func() {
-
-				publicPublishObjectOptions := &catalogmanagementv1.PublicPublishObjectOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(202))
-
-			})
+			response, err := catalogManagementService.ArchiveVersion(archiveVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
 		})
+	})
 
-		Describe(`CreateObjectAccess - Add account ID to object access list`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`CreateObjectAccess(createObjectAccessOptions *CreateObjectAccessOptions)`, func() {
-
-				createObjectAccessOptions := &catalogmanagementv1.CreateObjectAccessOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					AccountIdentifier: core.StringPtr("testString"),
-				}
-
-				response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(201))
-
-			})
+	Describe(`SetDeprecateVersion - Sets version to be deprecated in a certain time period`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`SetDeprecateVersion(setDeprecateVersionOptions *SetDeprecateVersionOptions)`, func() {
+			Skip("Not testing")
+			setDeprecateVersionOptions := &catalogmanagementv1.SetDeprecateVersionOptions{
+				VersionLocID:       core.StringPtr(versionLocatorLink),
+				Setting:            core.StringPtr("true"),
+				Description:        core.StringPtr("testString"),
+				DaysUntilDeprecate: core.Int64Ptr(int64(38)),
+			}
 
-		Describe(`GetObjectAccess - Check for account ID in object access list`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetObjectAccess(getObjectAccessOptions *GetObjectAccessOptions)`, func() {
-
-				getObjectAccessOptions := &catalogmanagementv1.GetObjectAccessOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					AccountIdentifier: core.StringPtr("testString"),
-				}
-
-				objectAccess, response, err := catalogManagementService.GetObjectAccess(getObjectAccessOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(objectAccess).ToNot(BeNil())
-
-			})
+			response, err := catalogManagementService.SetDeprecateVersion(setDeprecateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
 		})
+	})
 
-		Describe(`GetObjectAccessList - Get object access list`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`GetObjectAccessList(getObjectAccessListOptions *GetObjectAccessListOptions)`, func() {
-
-				getObjectAccessListOptions := &catalogmanagementv1.GetObjectAccessListOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1000)),
-					Offset: core.Int64Ptr(int64(38)),
-				}
-
-				objectAccessListResult, response, err := catalogManagementService.GetObjectAccessList(getObjectAccessListOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(objectAccessListResult).ToNot(BeNil())
-
-			})
+	Describe(`ConsumableVersion - Make version consumable for sharing`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
 		})
+		It(`ConsumableVersion(consumableVersionOptions *ConsumableVersionOptions)`, func() {
+			Skip("Not testing")
+			consumableVersionOptions := &catalogmanagementv1.ConsumableVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
 
-		Describe(`AddObjectAccessList - Add accounts to object access list`, func() {
-			BeforeEach(func() {
-				shouldSkipTest()
-			})
-			It(`AddObjectAccessList(addObjectAccessListOptions *AddObjectAccessListOptions)`, func() {
-
-				addObjectAccessListOptions := &catalogmanagementv1.AddObjectAccessListOptions{
-					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Accounts: []string{"testString"},
-				}
-
-				accessListBulkResponse, response, err := catalogManagementService.AddObjectAccessList(addObjectAccessListOptions)
-
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(accessListBulkResponse).ToNot(BeNil())
-
-			})
+			response, err := catalogManagementService.ConsumableVersion(consumableVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
 		})
-	*/
-	Describe(`CreateOfferingInstance - Create an offering instance`, func() {
+	})
+
+	Describe(`SuspendVersion - Suspend a version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SuspendVersion(suspendVersionOptions *SuspendVersionOptions)`, func() {
+			Skip("Not testing")
+			suspendVersionOptions := &catalogmanagementv1.SuspendVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			response, err := catalogManagementService.SuspendVersion(suspendVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`CommitVersion - Commit version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitVersion(commitVersionOptions *CommitVersionOptions)`, func() {
+			Skip("Not testing")
+			commitVersionOptions := &catalogmanagementv1.CommitVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			response, err := catalogManagementService.CommitVersion(commitVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`CopyVersion - Copy version to new target kind`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CopyVersion(copyVersionOptions *CopyVersionOptions)`, func() {
+			Skip("Not testing")
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
+
+			copyVersionOptions := &catalogmanagementv1.CopyVersionOptions{
+				VersionLocID:     core.StringPtr(versionLocatorLink),
+				Tags:             []string{"testString"},
+				Content:          CreateMockByteArray("This is a mock byte array value."),
+				TargetKinds:      []string{targetKindTerraform},
+				FormatKind:       core.StringPtr(formatKindTerraform),
+				Flavor:           flavorModel,
+				WorkingDirectory: core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.CopyVersion(copyVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`GetOfferingWorkingCopy - Create working copy of version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingWorkingCopy(getOfferingWorkingCopyOptions *GetOfferingWorkingCopyOptions)`, func() {
+			Skip("Not testing")
+			getOfferingWorkingCopyOptions := &catalogmanagementv1.GetOfferingWorkingCopyOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			version, response, err := catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(version).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CopyFromPreviousVersion - Copy values from a previous version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CopyFromPreviousVersion(copyFromPreviousVersionOptions *CopyFromPreviousVersionOptions)`, func() {
+			Skip("Not testing")
+			copyFromPreviousVersionOptions := &catalogmanagementv1.CopyFromPreviousVersionOptions{
+				VersionLocID:           core.StringPtr(versionLocatorLink),
+				Type:                   core.StringPtr("testString"),
+				VersionLocIDToCopyFrom: core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.CopyFromPreviousVersion(copyFromPreviousVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`GetVersion - Get offering/kind/version 'branch'`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVersion(getVersionOptions *GetVersionOptions)`, func() {
+			getVersionOptions := &catalogmanagementv1.GetVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeprecateVersion - Deprecate version immediately - use /archive instead`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions)`, func() {
+			Skip("Not testing")
+			deprecateVersionOptions := &catalogmanagementv1.DeprecateVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			response, err := catalogManagementService.DeprecateVersion(deprecateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`GetCluster - Get kubernetes cluster`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
+			Skip("Not testing")
+			getClusterOptions := &catalogmanagementv1.GetClusterOptions{
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				XAuthRefreshToken: core.StringPtr("testString"),
+			}
+
+			clusterInfo, response, err := catalogManagementService.GetCluster(getClusterOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(clusterInfo).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetNamespaces - Get cluster namespaces`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetNamespaces(getNamespacesOptions *GetNamespacesOptions)`, func() {
+			Skip("Not testing")
+			getNamespacesOptions := &catalogmanagementv1.GetNamespacesOptions{
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				XAuthRefreshToken: core.StringPtr("testString"),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+			}
+
+			namespaceSearchResult, response, err := catalogManagementService.GetNamespaces(getNamespacesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(namespaceSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeployOperators - Deploy operators`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeployOperators(deployOperatorsOptions *DeployOperatorsOptions)`, func() {
+			Skip("Not testing")
+			deployOperatorsOptions := &catalogmanagementv1.DeployOperatorsOptions{
+				XAuthRefreshToken: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+				VersionLocatorID:  core.StringPtr("testString"),
+				Channel:           core.StringPtr("testString"),
+				InstallPlan:       core.StringPtr("testString"),
+			}
+
+			operatorDeployResult, response, err := catalogManagementService.DeployOperators(deployOperatorsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operatorDeployResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListOperators - List operators`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListOperators(listOperatorsOptions *ListOperatorsOptions)`, func() {
+			Skip("Not testing")
+			listOperatorsOptions := &catalogmanagementv1.ListOperatorsOptions{
+				XAuthRefreshToken: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
+			}
+
+			operatorDeployResult, response, err := catalogManagementService.ListOperators(listOperatorsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operatorDeployResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ReplaceOperators - Update operators`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceOperators(replaceOperatorsOptions *ReplaceOperatorsOptions)`, func() {
+			Skip("Not testing")
+			replaceOperatorsOptions := &catalogmanagementv1.ReplaceOperatorsOptions{
+				XAuthRefreshToken: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+				VersionLocatorID:  core.StringPtr("testString"),
+				Channel:           core.StringPtr("testString"),
+				InstallPlan:       core.StringPtr("testString"),
+			}
+
+			operatorDeployResult, response, err := catalogManagementService.ReplaceOperators(replaceOperatorsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operatorDeployResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`InstallVersion - Install version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`InstallVersion(installVersionOptions *InstallVersionOptions)`, func() {
+			Skip("Not testing")
+			deployRequestBodyOverrideValuesModel := &catalogmanagementv1.DeployRequestBodyOverrideValues{
+				VsiInstanceName: core.StringPtr("testString"),
+				VPCProfile:      core.StringPtr("testString"),
+				SubnetID:        core.StringPtr("testString"),
+				VPCID:           core.StringPtr("testString"),
+				SubnetZone:      core.StringPtr("testString"),
+				SSHKeyID:        core.StringPtr("testString"),
+				VPCRegion:       core.StringPtr("testString"),
+			}
+			deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+
+			deployRequestBodyEnvironmentVariablesItemModel := &catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{
+				Name:   core.StringPtr("testString"),
+				Value:  core.StringPtr("testString"),
+				Secure: core.BoolPtr(true),
+			}
+
+			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+				Name:             core.StringPtr("testString"),
+				Description:      core.StringPtr("testString"),
+				Tags:             []string{"testString"},
+				ResourceGroupID:  core.StringPtr("testString"),
+				TerraformVersion: core.StringPtr("testString"),
+				Region:           core.StringPtr("testString"),
+			}
+
+			installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
+				VersionLocID:         core.StringPtr(versionLocatorLink),
+				XAuthRefreshToken:    core.StringPtr("testString"),
+				ClusterID:            core.StringPtr("testString"),
+				Region:               core.StringPtr("testString"),
+				Namespace:            core.StringPtr("testString"),
+				OverrideValues:       deployRequestBodyOverrideValuesModel,
+				EnvironmentVariables: []catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{*deployRequestBodyEnvironmentVariablesItemModel},
+				EntitlementApikey:    core.StringPtr("testString"),
+				Schematics:           deployRequestBodySchematicsModel,
+				Script:               core.StringPtr("testString"),
+				ScriptID:             core.StringPtr("testString"),
+				VersionLocatorID:     core.StringPtr("testString"),
+				VcenterID:            core.StringPtr("testString"),
+				VcenterLocation:      core.StringPtr("testString"),
+				VcenterUser:          core.StringPtr("testString"),
+				VcenterPassword:      core.StringPtr("testString"),
+				VcenterDatastore:     core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.InstallVersion(installVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`PreinstallVersion - Pre-install version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`PreinstallVersion(preinstallVersionOptions *PreinstallVersionOptions)`, func() {
+			Skip("Not testing")
+			deployRequestBodyOverrideValuesModel := &catalogmanagementv1.DeployRequestBodyOverrideValues{
+				VsiInstanceName: core.StringPtr("testString"),
+				VPCProfile:      core.StringPtr("testString"),
+				SubnetID:        core.StringPtr("testString"),
+				VPCID:           core.StringPtr("testString"),
+				SubnetZone:      core.StringPtr("testString"),
+				SSHKeyID:        core.StringPtr("testString"),
+				VPCRegion:       core.StringPtr("testString"),
+			}
+			deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+
+			deployRequestBodyEnvironmentVariablesItemModel := &catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{
+				Name:   core.StringPtr("testString"),
+				Value:  core.StringPtr("testString"),
+				Secure: core.BoolPtr(true),
+			}
+
+			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+				Name:             core.StringPtr("testString"),
+				Description:      core.StringPtr("testString"),
+				Tags:             []string{"testString"},
+				ResourceGroupID:  core.StringPtr("testString"),
+				TerraformVersion: core.StringPtr("testString"),
+				Region:           core.StringPtr("testString"),
+			}
+
+			preinstallVersionOptions := &catalogmanagementv1.PreinstallVersionOptions{
+				VersionLocID:         core.StringPtr(versionLocatorLink),
+				XAuthRefreshToken:    core.StringPtr("testString"),
+				ClusterID:            core.StringPtr("testString"),
+				Region:               core.StringPtr("testString"),
+				Namespace:            core.StringPtr("testString"),
+				OverrideValues:       deployRequestBodyOverrideValuesModel,
+				EnvironmentVariables: []catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{*deployRequestBodyEnvironmentVariablesItemModel},
+				EntitlementApikey:    core.StringPtr("testString"),
+				Schematics:           deployRequestBodySchematicsModel,
+				Script:               core.StringPtr("testString"),
+				ScriptID:             core.StringPtr("testString"),
+				VersionLocatorID:     core.StringPtr("testString"),
+				VcenterID:            core.StringPtr("testString"),
+				VcenterLocation:      core.StringPtr("testString"),
+				VcenterUser:          core.StringPtr("testString"),
+				VcenterPassword:      core.StringPtr("testString"),
+				VcenterDatastore:     core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.PreinstallVersion(preinstallVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`GetPreinstall - Get version pre-install status`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPreinstall(getPreinstallOptions *GetPreinstallOptions)`, func() {
+			Skip("Not testing")
+			getPreinstallOptions := &catalogmanagementv1.GetPreinstallOptions{
+				VersionLocID:      core.StringPtr(versionLocatorLink),
+				XAuthRefreshToken: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
+			}
+
+			installStatus, response, err := catalogManagementService.GetPreinstall(getPreinstallOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(installStatus).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ValidateInstall - Validate offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ValidateInstall(validateInstallOptions *ValidateInstallOptions)`, func() {
+			Skip("Not testing")
+			deployRequestBodyOverrideValuesModel := &catalogmanagementv1.DeployRequestBodyOverrideValues{
+				VsiInstanceName: core.StringPtr("testString"),
+				VPCProfile:      core.StringPtr("testString"),
+				SubnetID:        core.StringPtr("testString"),
+				VPCID:           core.StringPtr("testString"),
+				SubnetZone:      core.StringPtr("testString"),
+				SSHKeyID:        core.StringPtr("testString"),
+				VPCRegion:       core.StringPtr("testString"),
+			}
+			deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+
+			deployRequestBodyEnvironmentVariablesItemModel := &catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{
+				Name:   core.StringPtr("testString"),
+				Value:  core.StringPtr("testString"),
+				Secure: core.BoolPtr(true),
+			}
+
+			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+				Name:             core.StringPtr("testString"),
+				Description:      core.StringPtr("testString"),
+				Tags:             []string{"testString"},
+				ResourceGroupID:  core.StringPtr("testString"),
+				TerraformVersion: core.StringPtr("testString"),
+				Region:           core.StringPtr("testString"),
+			}
+
+			validateInstallOptions := &catalogmanagementv1.ValidateInstallOptions{
+				VersionLocID:         core.StringPtr(versionLocatorLink),
+				XAuthRefreshToken:    core.StringPtr("testString"),
+				ClusterID:            core.StringPtr("testString"),
+				Region:               core.StringPtr("testString"),
+				Namespace:            core.StringPtr("testString"),
+				OverrideValues:       deployRequestBodyOverrideValuesModel,
+				EnvironmentVariables: []catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem{*deployRequestBodyEnvironmentVariablesItemModel},
+				EntitlementApikey:    core.StringPtr("testString"),
+				Schematics:           deployRequestBodySchematicsModel,
+				Script:               core.StringPtr("testString"),
+				ScriptID:             core.StringPtr("testString"),
+				VersionLocatorID:     core.StringPtr("testString"),
+				VcenterID:            core.StringPtr("testString"),
+				VcenterLocation:      core.StringPtr("testString"),
+				VcenterUser:          core.StringPtr("testString"),
+				VcenterPassword:      core.StringPtr("testString"),
+				VcenterDatastore:     core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.ValidateInstall(validateInstallOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`GetValidationStatus - Get offering install status`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetValidationStatus(getValidationStatusOptions *GetValidationStatusOptions)`, func() {
+			Skip("Not testing")
+			getValidationStatusOptions := &catalogmanagementv1.GetValidationStatusOptions{
+				VersionLocID:      core.StringPtr(versionLocatorLink),
+				XAuthRefreshToken: core.StringPtr("testString"),
+			}
+
+			validation, response, err := catalogManagementService.GetValidationStatus(getValidationStatusOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(validation).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOverrideValues - Get override values`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions)`, func() {
+			Skip("Not testing")
+			getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			result, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateOfferingInstance - Create an offering resource instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions)`, func() {
-			Expect(testCatalogID).ToNot(BeEmpty())
-			Expect(testOfferingID).ToNot(BeEmpty())
+			Skip("Not testing")
+			offeringInstanceLastOperationModel := &catalogmanagementv1.OfferingInstanceLastOperation{
+				Operation:     core.StringPtr("testString"),
+				State:         core.StringPtr("testString"),
+				Message:       core.StringPtr("testString"),
+				TransactionID: core.StringPtr("testString"),
+				Updated:       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Code:          core.StringPtr("testString"),
+			}
 
-			offeringInstanceOptions := catalogManagementService.NewCreateOfferingInstanceOptions(refreshToken)
-			offeringInstanceOptions.SetCatalogID(testCatalogID)
-			offeringInstanceOptions.SetOfferingID(testOfferingID)
-			offeringInstanceOptions.SetKindFormat("operator")
-			offeringInstanceOptions.SetVersion("0.0.2")
-			offeringInstanceOptions.SetClusterID(targetClusterID)
-			offeringInstanceOptions.SetClusterRegion("us-south")
-			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
-			offeringInstanceOptions.SetSchematicsWorkspaceID("test-id")
-			offeringInstanceOptions.SetResourceGroupID("24a205592b2845c7a992efa55fe33ee0")
-			offeringInstanceOptions.SetChannel("stable")
-			offeringInstanceOptions.SetInstallPlan("automatic")
+			createOfferingInstanceOptions := &catalogmanagementv1.CreateOfferingInstanceOptions{
+				XAuthRefreshToken:     core.StringPtr("testString"),
+				ID:                    core.StringPtr("testString"),
+				Rev:                   core.StringPtr("testString"),
+				URL:                   core.StringPtr("testString"),
+				CRN:                   core.StringPtr("testString"),
+				Label:                 core.StringPtr("testString"),
+				CatalogID:             core.StringPtr("testString"),
+				OfferingID:            core.StringPtr("testString"),
+				KindFormat:            core.StringPtr("testString"),
+				Version:               core.StringPtr("testString"),
+				VersionID:             core.StringPtr("testString"),
+				ClusterID:             core.StringPtr("testString"),
+				ClusterRegion:         core.StringPtr("testString"),
+				ClusterNamespaces:     []string{"testString"},
+				ClusterAllNamespaces:  core.BoolPtr(true),
+				SchematicsWorkspaceID: core.StringPtr("testString"),
+				InstallPlan:           core.StringPtr("testString"),
+				Channel:               core.StringPtr("testString"),
+				Created:               CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:               CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Metadata:              make(map[string]interface{}),
+				ResourceGroupID:       core.StringPtr("testString"),
+				Location:              core.StringPtr("testString"),
+				Disabled:              core.BoolPtr(true),
+				Account:               core.StringPtr("testString"),
+				LastOperation:         offeringInstanceLastOperationModel,
+				KindTarget:            core.StringPtr("testString"),
+				Sha:                   core.StringPtr("testString"),
+			}
 
-			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
-
+			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
+			Expect(response.StatusCode).To(Equal(201))
 			Expect(offeringInstance).ToNot(BeNil())
-			Expect(*offeringInstance.LastOperation.State).To(Equal("in progress"))
-			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
-
-			Expect(offeringInstance.ID).ToNot(BeNil())
-			testOfferingInstanceID = *offeringInstance.ID
-			testOfferingInstanceRev = *offeringInstance.Rev
-			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 		})
 	})
-	Describe(`GetOfferingInstance - Get Offering Instrance`, func() {
+
+	Describe(`GetOfferingInstance - Get Offering Instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetOfferingInstance(getOfferingInstanceOptions *GetOfferingInstanceOptions)`, func() {
-			Expect(testOfferingInstanceID).ToNot(BeEmpty())
-
+			Skip("Not testing")
 			getOfferingInstanceOptions := &catalogmanagementv1.GetOfferingInstanceOptions{
-				InstanceIdentifier: &testOfferingInstanceID,
+				InstanceIdentifier: core.StringPtr("testString"),
 			}
 
 			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
-
-			Expect(offeringInstance.Metadata).ToNot(BeNil())
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
@@ -2133,201 +2772,803 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			shouldSkipTest()
 		})
 		It(`PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions)`, func() {
-			Expect(testOfferingInstanceID).ToNot(BeEmpty())
+			Skip("Not testing")
+			offeringInstanceLastOperationModel := &catalogmanagementv1.OfferingInstanceLastOperation{
+				Operation:     core.StringPtr("testString"),
+				State:         core.StringPtr("testString"),
+				Message:       core.StringPtr("testString"),
+				TransactionID: core.StringPtr("testString"),
+				Updated:       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Code:          core.StringPtr("testString"),
+			}
 
-			putOfferingInstanceOptions := catalogManagementService.NewPutOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
-			putOfferingInstanceOptions.SetID(testOfferingInstanceID)
-			putOfferingInstanceOptions.SetRev(testOfferingInstanceRev)
-			putOfferingInstanceOptions.SetCatalogID(testCatalogID)
-			putOfferingInstanceOptions.SetOfferingID(testOfferingID)
-			putOfferingInstanceOptions.SetKindFormat("operator")
-			putOfferingInstanceOptions.SetVersion("0.0.2")
-			putOfferingInstanceOptions.SetClusterID(targetClusterID)
-			putOfferingInstanceOptions.SetClusterRegion("us-south")
-			putOfferingInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
-			putOfferingInstanceOptions.SetChannel("beta")
-			putOfferingInstanceOptions.SetInstallPlan("manual")
+			putOfferingInstanceOptions := &catalogmanagementv1.PutOfferingInstanceOptions{
+				InstanceIdentifier:    core.StringPtr("testString"),
+				XAuthRefreshToken:     core.StringPtr("testString"),
+				ID:                    core.StringPtr("testString"),
+				Rev:                   core.StringPtr("testString"),
+				URL:                   core.StringPtr("testString"),
+				CRN:                   core.StringPtr("testString"),
+				Label:                 core.StringPtr("testString"),
+				CatalogID:             core.StringPtr("testString"),
+				OfferingID:            core.StringPtr("testString"),
+				KindFormat:            core.StringPtr("testString"),
+				Version:               core.StringPtr("testString"),
+				VersionID:             core.StringPtr("testString"),
+				ClusterID:             core.StringPtr("testString"),
+				ClusterRegion:         core.StringPtr("testString"),
+				ClusterNamespaces:     []string{"testString"},
+				ClusterAllNamespaces:  core.BoolPtr(true),
+				SchematicsWorkspaceID: core.StringPtr("testString"),
+				InstallPlan:           core.StringPtr("testString"),
+				Channel:               core.StringPtr("testString"),
+				Created:               CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:               CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Metadata:              make(map[string]interface{}),
+				ResourceGroupID:       core.StringPtr("testString"),
+				Location:              core.StringPtr("testString"),
+				Disabled:              core.BoolPtr(true),
+				Account:               core.StringPtr("testString"),
+				LastOperation:         offeringInstanceLastOperationModel,
+				KindTarget:            core.StringPtr("testString"),
+				Sha:                   core.StringPtr("testString"),
+			}
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "PutOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
-	Describe(`DeleteOfferingInstance - Delete an offering instance`, func() {
+	Describe(`ListOfferingInstanceAudits - Get offering instance audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListOfferingInstanceAudits(listOfferingInstanceAuditsOptions *ListOfferingInstanceAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listOfferingInstanceAuditsOptions := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
+				InstanceIdentifier: core.StringPtr("testString"),
+				Start:              core.StringPtr(""),
+				Limit:              core.Int64Ptr(int64(10)),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			listOfferingInstanceAuditsOptions.Start = nil
+			listOfferingInstanceAuditsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListOfferingInstanceAudits(listOfferingInstanceAuditsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
+
+				listOfferingInstanceAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listOfferingInstanceAuditsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListOfferingInstanceAudits(listOfferingInstanceAuditsOptions *ListOfferingInstanceAuditsOptions) using OfferingInstanceAuditsPager`, func() {
+			Skip("Not testing")
+			listOfferingInstanceAuditsOptions := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
+				InstanceIdentifier: core.StringPtr("testString"),
+				Limit:              core.Int64Ptr(int64(10)),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			// Test GetNext().
+			pager, err := catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListOfferingInstanceAudits() returned a total of %d item(s) using OfferingInstanceAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetOfferingInstanceAudit - Get an offering instance audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingInstanceAudit(getOfferingInstanceAuditOptions *GetOfferingInstanceAuditOptions)`, func() {
+			Skip("Not testing")
+			getOfferingInstanceAuditOptions := &catalogmanagementv1.GetOfferingInstanceAuditOptions{
+				InstanceIdentifier: core.StringPtr("testString"),
+				AuditlogIdentifier: core.StringPtr("testString"),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetOfferingInstanceAudit(getOfferingInstanceAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteOfferingAccessList - Delete accesses from offering access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteOfferingAccessList(deleteOfferingAccessListOptions *DeleteOfferingAccessListOptions)`, func() {
+			deleteOfferingAccessListOptions := &catalogmanagementv1.DeleteOfferingAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+				Accesses:          []string{accountID},
+			}
+
+			accessListBulkResponse, response, err := catalogManagementService.DeleteOfferingAccessList(deleteOfferingAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteOperators - Delete operators`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteOperators(deleteOperatorsOptions *DeleteOperatorsOptions)`, func() {
+			Skip("Not testing")
+			deleteOperatorsOptions := &catalogmanagementv1.DeleteOperatorsOptions{
+				XAuthRefreshToken: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
+			}
+
+			response, err := catalogManagementService.DeleteOperators(deleteOperatorsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`DeleteOfferingInstance - Delete a version instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`DeleteOfferingInstance(deleteOfferingInstanceOptions *DeleteOfferingInstanceOptions)`, func() {
-			Expect(testOfferingInstanceID).ToNot(BeEmpty())
-
-			deleteOfferingInstanceOptions := catalogManagementService.NewDeleteOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
+			Skip("Not testing")
+			deleteOfferingInstanceOptions := &catalogmanagementv1.DeleteOfferingInstanceOptions{
+				InstanceIdentifier: core.StringPtr("testString"),
+				XAuthRefreshToken:  core.StringPtr("testString"),
+			}
 
 			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
-
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
+			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 
-	/* 	Describe(`DeleteVersion - Delete version`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteVersion(deleteVersionOptions *DeleteVersionOptions)`, func() {
+	Describe(`DeleteVersion - Delete version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteVersion(deleteVersionOptions *DeleteVersionOptions)`, func() {
+			deleteVersionOptions := &catalogmanagementv1.DeleteVersionOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
 
-	   			deleteVersionOptions := &catalogmanagementv1.DeleteVersionOptions{
-	   				VersionLocID: core.StringPtr("testString"),
-	   			}
+			response, err := catalogManagementService.DeleteVersion(deleteVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
 
-	   			response, err := catalogManagementService.DeleteVersion(deleteVersionOptions)
+	Describe(`DeleteOffering - Delete offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteOffering(deleteOfferingOptions *DeleteOfferingOptions)`, func() {
+			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+			}
 
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteOperators - Delete operators`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteOperators(deleteOperatorsOptions *DeleteOperatorsOptions)`, func() {
-
-	   			deleteOperatorsOptions := &catalogmanagementv1.DeleteOperatorsOptions{
-	   				XAuthRefreshToken: core.StringPtr("testString"),
-	   				ClusterID: core.StringPtr("testString"),
-	   				Region: core.StringPtr("testString"),
-	   				VersionLocatorID: core.StringPtr("testString"),
-	   			}
-
-	   			response, err := catalogManagementService.DeleteOperators(deleteOperatorsOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteOffering - Delete offering`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteOffering(deleteOfferingOptions *DeleteOfferingOptions)`, func() {
-
-	   			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
-	   				CatalogIdentifier: core.StringPtr("testString"),
-	   				OfferingID: core.StringPtr("testString"),
-	   			}
-
-	   			response, err := catalogManagementService.DeleteOffering(deleteOfferingOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteObjectAccessList - Delete accounts from object access list`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteObjectAccessList(deleteObjectAccessListOptions *DeleteObjectAccessListOptions)`, func() {
-
-	   			deleteObjectAccessListOptions := &catalogmanagementv1.DeleteObjectAccessListOptions{
-	   				CatalogIdentifier: core.StringPtr("testString"),
-	   				ObjectIdentifier: core.StringPtr("testString"),
-	   				Accounts: []string{"testString"},
-	   			}
-
-	   			accessListBulkResponse, response, err := catalogManagementService.DeleteObjectAccessList(deleteObjectAccessListOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-	   			Expect(accessListBulkResponse).ToNot(BeNil())
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteObjectAccess - Remove account ID from object access list`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteObjectAccess(deleteObjectAccessOptions *DeleteObjectAccessOptions)`, func() {
-
-	   			deleteObjectAccessOptions := &catalogmanagementv1.DeleteObjectAccessOptions{
-	   				CatalogIdentifier: core.StringPtr("testString"),
-	   				ObjectIdentifier: core.StringPtr("testString"),
-	   				AccountIdentifier: core.StringPtr("testString"),
-	   			}
-
-	   			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteObject - Delete catalog object`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteObject(deleteObjectOptions *DeleteObjectOptions)`, func() {
-
-	   			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
-	   				CatalogIdentifier: core.StringPtr("testString"),
-	   				ObjectIdentifier: core.StringPtr("testString"),
-	   			}
-
-	   			response, err := catalogManagementService.DeleteObject(deleteObjectOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-
-	   	Describe(`DeleteLicenseEntitlement - Delete license entitlement`, func() {
-	   		BeforeEach(func() {
-	   			shouldSkipTest()
-	   		})
-	   		It(`DeleteLicenseEntitlement(deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions)`, func() {
-
-	   			deleteLicenseEntitlementOptions := &catalogmanagementv1.DeleteLicenseEntitlementOptions{
-	   				EntitlementID: core.StringPtr("testString"),
-	   				AccountID: core.StringPtr("testString"),
-	   			}
-
-	   			response, err := catalogManagementService.DeleteLicenseEntitlement(deleteLicenseEntitlementOptions)
-
-	   			Expect(err).To(BeNil())
-	   			Expect(response.StatusCode).To(Equal(200))
-
-	   		})
-	   	})
-	*/
+			response, err := catalogManagementService.DeleteOffering(deleteOfferingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
 
 	Describe(`DeleteCatalog - Delete catalog`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`DeleteCatalog(deleteCatalogOptions *DeleteCatalogOptions)`, func() {
-			Expect(testCatalogID).ToNot(BeEmpty())
-
 			deleteCatalogOptions := &catalogmanagementv1.DeleteCatalogOptions{
-				CatalogIdentifier: &testCatalogID,
+				CatalogIdentifier: &catalogIDLink,
 			}
 
 			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
 
+	Describe(`CreateCatalog - Create a catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateCatalog(createCatalogOptions *CreateCatalogOptions)`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			filterTermsModel := &catalogmanagementv1.FilterTerms{
+				FilterTerms: []string{"testString"},
+			}
+
+			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+				Include: core.BoolPtr(true),
+				Filter:  filterTermsModel,
+			}
+
+			idFilterModel := &catalogmanagementv1.IDFilter{
+				Include: filterTermsModel,
+				Exclude: filterTermsModel,
+			}
+
+			filtersModel := &catalogmanagementv1.Filters{
+				IncludeAll:      core.BoolPtr(true),
+				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+				IDFilters:       idFilterModel,
+			}
+			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
+
+			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
+				Region:            core.StringPtr("testString"),
+				ID:                core.StringPtr("testString"),
+				Name:              core.StringPtr("testString"),
+				ResourceGroupName: core.StringPtr("testString"),
+				Type:              core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+			}
+
+			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
+				Namespaces: []string{"testString"},
+				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
+				Token:   core.StringPtr("testString"),
+				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+			}
+
+			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
+				RemoveRelatedComponents: core.BoolPtr(true),
+				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				History:                 syndicationHistoryModel,
+				Authorization:           syndicationAuthorizationModel,
+			}
+
+			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
+				Label:                core.StringPtr("testString"),
+				LabelI18n:            make(map[string]string),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				CatalogIconURL:       core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				Disabled:             core.BoolPtr(true),
+				OwningAccount:        core.StringPtr("testString"),
+				CatalogFilters:       filtersModel,
+				SyndicationSettings:  syndicationResourceModel,
+				Kind:                 core.StringPtr("vpe"),
+				Metadata:             make(map[string]interface{}),
+			}
+
+			catalog, response, err := catalogManagementService.CreateCatalog(createCatalogOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(catalog).ToNot(BeNil())
+
+			catalogIDLink = *catalog.ID
+			fmt.Fprintf(GinkgoWriter, "Saved catalogIDLink value: %v\n", catalogIDLink)
+			catalogRevLink = *catalog.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved catalogRevLink value: %v\n", catalogRevLink)
+		})
+	})
+
+	Describe(`CreateObject - Create catalog object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateObject(createObjectOptions *CreateObjectOptions)`, func() {
+			publishObjectModel := &catalogmanagementv1.PublishObject{
+				PermitIBMPublicPublish: core.BoolPtr(true),
+				IBMApproved:            core.BoolPtr(true),
+				PublicApproved:         core.BoolPtr(true),
+				PortalApprovalRecord:   core.StringPtr("testString"),
+				PortalURL:              core.StringPtr("testString"),
+			}
+
+			stateModel := &catalogmanagementv1.State{
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
+				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Previous:         core.StringPtr("testString"),
+			}
+
+			createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
+				CatalogIdentifier:    &catalogIDLink,
+				Name:                 core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				ParentID:             core.StringPtr("us-south"),
+				LabelI18n:            make(map[string]string),
+				Label:                core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				Kind:                 core.StringPtr("vpe"),
+				Publish:              publishObjectModel,
+				State:                stateModel,
+				CatalogID:            &catalogIDLink,
+				CatalogName:          core.StringPtr("testString"),
+				Data:                 make(map[string]interface{}),
+			}
+
+			catalogObject, response, err := catalogManagementService.CreateObject(createObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(catalogObject).ToNot(BeNil())
+
+			objectIDLink = *catalogObject.ID
+			fmt.Fprintf(GinkgoWriter, "Saved objectIDLink value: %v\n", objectIDLink)
+			objectRevLink = *catalogObject.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved objectRevLink value: %v\n", objectRevLink)
+		})
+	})
+
+	Describe(`GetObject - Get catalog object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetObject(getObjectOptions *GetObjectOptions)`, func() {
+			getObjectOptions := &catalogmanagementv1.GetObjectOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+			}
+
+			catalogObject, response, err := catalogManagementService.GetObject(getObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogObject).ToNot(BeNil())
+
+			objectRevLink = *catalogObject.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved objectRevLink value: %v\n", objectRevLink)
+		})
+	})
+
+	Describe(`ReplaceObject - Update catalog object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceObject(replaceObjectOptions *ReplaceObjectOptions)`, func() {
+			publishObjectModel := &catalogmanagementv1.PublishObject{
+				PermitIBMPublicPublish: core.BoolPtr(true),
+				IBMApproved:            core.BoolPtr(true),
+				PublicApproved:         core.BoolPtr(true),
+				PortalApprovalRecord:   core.StringPtr("testString"),
+				PortalURL:              core.StringPtr("testString"),
+			}
+
+			stateModel := &catalogmanagementv1.State{
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
+				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Previous:         core.StringPtr("testString"),
+			}
+
+			replaceObjectOptions := &catalogmanagementv1.ReplaceObjectOptions{
+				CatalogIdentifier:    &catalogIDLink,
+				ObjectIdentifier:     &objectIDLink,
+				ID:                   &objectIDLink,
+				Name:                 core.StringPtr("testString"),
+				Rev:                  &objectRevLink,
+				CRN:                  core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				ParentID:             core.StringPtr("us-south"),
+				LabelI18n:            make(map[string]string),
+				Label:                core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				Kind:                 core.StringPtr("vpe"),
+				Publish:              publishObjectModel,
+				State:                stateModel,
+				CatalogID:            &catalogIDLink,
+				CatalogName:          core.StringPtr("testString"),
+				Data:                 make(map[string]interface{}),
+			}
+
+			catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogObject).ToNot(BeNil())
+
+			objectRevLink = *catalogObject.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved objectRevLink value: %v\n", objectRevLink)
+		})
+	})
+
+	Describe(`SearchObjects - List objects across catalogs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SearchObjects(searchObjectsOptions *SearchObjectsOptions)`, func() {
+			searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
+				Query:    core.StringPtr("testString"),
+				Kind:     core.StringPtr("vpe"),
+				Limit:    core.Int64Ptr(int64(1000)),
+				Offset:   core.Int64Ptr(int64(38)),
+				Collapse: core.BoolPtr(true),
+				Digest:   core.BoolPtr(true),
+			}
+
+			objectSearchResult, response, err := catalogManagementService.SearchObjects(searchObjectsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(objectSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListObjects - List objects within a catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListObjects(listObjectsOptions *ListObjectsOptions)`, func() {
+			listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+				Name:              core.StringPtr("testString"),
+				Sort:              core.StringPtr("name"),
+			}
+
+			objectListResult, response, err := catalogManagementService.ListObjects(listObjectsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(objectListResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListObjectAudits - Get object audit logs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListObjectAudits(listObjectAuditsOptions *ListObjectAuditsOptions) with pagination`, func() {
+			Skip("Not testing")
+			listObjectAuditsOptions := &catalogmanagementv1.ListObjectAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Start:             core.StringPtr(""),
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
+
+			listObjectAuditsOptions.Start = nil
+			listObjectAuditsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for {
+				auditLogs, response, err := catalogManagementService.ListObjectAudits(listObjectAuditsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLogs).ToNot(BeNil())
+				allResults = append(allResults, auditLogs.Audits...)
+
+				listObjectAuditsOptions.Start, err = auditLogs.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if listObjectAuditsOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListObjectAudits(listObjectAuditsOptions *ListObjectAuditsOptions) using ObjectAuditsPager`, func() {
+			Skip("Not testing")
+			listObjectAuditsOptions := &catalogmanagementv1.ListObjectAuditsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Limit:             core.Int64Ptr(int64(10)),
+				Lookupnames:       core.BoolPtr(true),
+			}
+
+			// Test GetNext().
+			pager, err := catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []catalogmanagementv1.AuditLogDigest
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListObjectAudits() returned a total of %d item(s) using ObjectAuditsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetObjectAudit - Get an object audit log entry`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetObjectAudit(getObjectAuditOptions *GetObjectAuditOptions)`, func() {
+			Skip("Not testing")
+			getObjectAuditOptions := &catalogmanagementv1.GetObjectAuditOptions{
+				CatalogIdentifier:  &catalogIDLink,
+				ObjectIdentifier:   &objectIDLink,
+				AuditlogIdentifier: core.StringPtr("testString"),
+				Lookupnames:        core.BoolPtr(true),
+			}
+
+			auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditLog).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ConsumableShareObject - Make object consumable for sharing`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ConsumableShareObject(consumableShareObjectOptions *ConsumableShareObjectOptions)`, func() {
+			Skip("Not testing")
+			consumableShareObjectOptions := &catalogmanagementv1.ConsumableShareObjectOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+			}
+
+			response, err := catalogManagementService.ConsumableShareObject(consumableShareObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`ShareObject - Allows object to be shared`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ShareObject(shareObjectOptions *ShareObjectOptions)`, func() {
+			Skip("Not testing")
+			shareObjectOptions := &catalogmanagementv1.ShareObjectOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				IBM:               core.BoolPtr(true),
+				Public:            core.BoolPtr(true),
+				Enabled:           core.BoolPtr(true),
+			}
+
+			shareSetting, response, err := catalogManagementService.ShareObject(shareObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(shareSetting).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetObjectAccessList - Get object access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetObjectAccessList(getObjectAccessListOptions *GetObjectAccessListOptions) with pagination`, func() {
+			Skip("Not testing")
+			getObjectAccessListOptions := &catalogmanagementv1.GetObjectAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Start:             core.StringPtr(""),
+				Limit:             core.Int64Ptr(int64(10)),
+			}
+
+			getObjectAccessListOptions.Start = nil
+			getObjectAccessListOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []catalogmanagementv1.Access
+			for {
+				accessListResult, response, err := catalogManagementService.GetObjectAccessList(getObjectAccessListOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(accessListResult).ToNot(BeNil())
+				allResults = append(allResults, accessListResult.Resources...)
+
+				getObjectAccessListOptions.Start, err = accessListResult.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getObjectAccessListOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetObjectAccessList(getObjectAccessListOptions *GetObjectAccessListOptions) using GetObjectAccessListPager`, func() {
+			Skip("Not testing")
+			getObjectAccessListOptions := &catalogmanagementv1.GetObjectAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Limit:             core.Int64Ptr(int64(10)),
+			}
+
+			// Test GetNext().
+			pager, err := catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []catalogmanagementv1.Access
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetObjectAccessList() returned a total of %d item(s) using GetObjectAccessListPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetObjectAccess - Check for account ID in object access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetObjectAccess(getObjectAccessOptions *GetObjectAccessOptions)`, func() {
+			getObjectAccessOptions := &catalogmanagementv1.GetObjectAccessOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				AccessIdentifier:  core.StringPtr(accountID),
+			}
+
+			access, response, err := catalogManagementService.GetObjectAccess(getObjectAccessOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(access).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetObjectAccessListDeprecated - Get object access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetObjectAccessListDeprecated(getObjectAccessListDeprecatedOptions *GetObjectAccessListDeprecatedOptions)`, func() {
+			Skip("Not testing")
+			getObjectAccessListDeprecatedOptions := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+			}
+
+			objectAccessListResult, response, err := catalogManagementService.GetObjectAccessListDeprecated(getObjectAccessListDeprecatedOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(objectAccessListResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`AddObjectAccessList - Add accesses to object access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddObjectAccessList(addObjectAccessListOptions *AddObjectAccessListOptions)`, func() {
+			addObjectAccessListOptions := &catalogmanagementv1.AddObjectAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Accesses:          []string{accountID},
+			}
+
+			accessListBulkResponse, response, err := catalogManagementService.AddObjectAccessList(addObjectAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteObjectAccessList - Delete accesses from object access list`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteObjectAccessList(deleteObjectAccessListOptions *DeleteObjectAccessListOptions)`, func() {
+			deleteObjectAccessListOptions := &catalogmanagementv1.DeleteObjectAccessListOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+				Accesses:          []string{accountID},
+			}
+
+			accessListBulkResponse, response, err := catalogManagementService.DeleteObjectAccessList(deleteObjectAccessListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteObject - Delete catalog object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteObject(deleteObjectOptions *DeleteObjectOptions)`, func() {
+			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
+				CatalogIdentifier: &catalogIDLink,
+				ObjectIdentifier:  &objectIDLink,
+			}
+
+			response, err := catalogManagementService.DeleteObject(deleteObjectOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`DeleteCatalog - Delete catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteCatalog(deleteCatalogOptions *DeleteCatalogOptions)`, func() {
+			deleteCatalogOptions := &catalogmanagementv1.DeleteCatalogOptions{
+				CatalogIdentifier: &catalogIDLink,
+			}
+
+			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 })
+
+//
+// Utility functions are declared in the unit test file
+//

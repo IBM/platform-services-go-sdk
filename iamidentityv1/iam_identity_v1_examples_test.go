@@ -62,6 +62,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		profileName   string = "Example-Profile"
 		accountID     string
 		iamID         string
+		iamIDMember   string
 		iamAPIKey     string
 
 		apikeyID   string
@@ -112,6 +113,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
+
+			iamIDMember = config["IAM_ID_MEMBER"]
+			Expect(iamIDMember).ToNot(BeEmpty())
 
 			iamAPIKey = config["APIKEY"]
 			Expect(iamAPIKey).ToNot(BeEmpty())
@@ -757,6 +761,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-updateAccountSettings
 
+			accountSettingsUserMFA := new(iamidentityv1.AccountSettingsUserMfa)
+			accountSettingsUserMFA.IamID = core.StringPtr(iamIDMember)
+			accountSettingsUserMFA.Mfa = core.StringPtr("NONE")
+
 			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
 				accountSettingEtag,
 				accountID,
@@ -764,8 +772,11 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
 			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
 			updateAccountSettingsOptions.SetMfa("NONE")
+			updateAccountSettingsOptions.SetUserMfa([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMFA})
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
 			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetSystemAccessTokenExpirationInSeconds("3600")
+			updateAccountSettingsOptions.SetSystemRefreshTokenExpirationInSeconds("259200")
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
 			if err != nil {
@@ -819,6 +830,64 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(report).ToNot(BeNil())
+		})
+		It(`CreateMfaReport request example`, func() {
+			fmt.Println("\nCreateMfaReport() result:")
+			// begin-create_mfa_report
+
+			createMfaReportOptions := iamIdentityService.NewCreateMfaReportOptions(accountID)
+			createMfaReportOptions.SetType("mfa_status")
+
+			report, response, err := iamIdentityService.CreateMfaReport(createMfaReportOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(report, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_mfa_report
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(report).ToNot(BeNil())
+		})
+		It(`GetMfaReport request example`, func() {
+			fmt.Println("\nGetMfaReport() result:")
+			// begin-get_mfa_report
+
+			getMfaReportOptions := iamIdentityService.NewGetMfaReportOptions(accountID, "latest")
+
+			report, response, err := iamIdentityService.GetMfaReport(getMfaReportOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(report, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_mfa_report
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(report).ToNot(BeNil())
+		})
+		It(`GetMfaStatus request example`, func() {
+			fmt.Println("\nGetMfaStatus() result:")
+			// begin-get_mfa_status
+
+			getMfaStatusOptions := iamIdentityService.NewGetMfaStatusOptions(accountID, iamID)
+
+			mfaStatusResponse, response, err := iamIdentityService.GetMfaStatus(getMfaStatusOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(mfaStatusResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_mfa_status
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(mfaStatusResponse).ToNot(BeNil())
 		})
 	})
 })

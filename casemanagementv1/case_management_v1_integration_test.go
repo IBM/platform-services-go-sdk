@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -168,70 +168,62 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			Expect(detailedResponse.StatusCode).To(Not(Equal(200)))
 		})
 	})
-
-	Describe("Get Cases", func() {
-		var options *casemanagementv1.GetCasesOptions
-
+	Describe(`GetCases - Get cases in account`, func() {
 		BeforeEach(func() {
-			options = service.NewGetCasesOptions()
-		})
-
-		It("Successfully got cases with default params", func() {
 			shouldSkipTest()
+		})
+		It(`GetCases(getCasesOptions *GetCasesOptions) with pagination`, func() {
+			getCasesOptions := &casemanagementv1.GetCasesOptions{}
+			getCasesOptions.Limit = core.Int64Ptr(100)
+			getCasesOptions.Search = core.StringPtr("Go SDK")
 
-			result, detailedResponse, err := service.GetCases(options)
+			var allResults []casemanagementv1.Case
+			for {
+				caseList, response, err := service.GetCases(getCasesOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(caseList).ToNot(BeNil())
+				allResults = append(allResults, caseList.Cases...)
+				fmt.Fprintf(GinkgoWriter, "Retrieved page with %d items", len(caseList.Cases))
+
+				getCasesOptions.Offset, err = caseList.GetNextOffset()
+				Expect(err).To(BeNil())
+
+				if getCasesOptions.Offset == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetCases(getCasesOptions *GetCasesOptions) using GetCasesPager`, func() {
+			getCasesOptions := &casemanagementv1.GetCasesOptions{}
+			getCasesOptions.Limit = core.Int64Ptr(100)
+			getCasesOptions.Search = core.StringPtr("Go SDK")
+
+			// Test GetNext().
+			pager, err := service.NewGetCasesPager(getCasesOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetCases(default params) result:\n%s\n", common.ToJSON(result))
-			Expect(*result.TotalCount).To(Not(BeNil()))
-			Expect(*result.First).To(Not(BeNil()))
-			Expect(*result.Next).To(Not(BeNil()))
-			Expect(*result.Last).To(Not(BeNil()))
-			Expect(result.Cases).To(Not(BeNil()))
-		})
+			Expect(pager).ToNot(BeNil())
 
-		It("Successfully got cases with non-default params", func() {
-			shouldSkipTest()
+			var allResults []casemanagementv1.Case
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
 
-			options.SetOffset(10)
-			options.SetLimit(20)
-			options.SetFields([]string{
-				casemanagementv1.GetCasesOptionsFieldsNumberConst,
-				casemanagementv1.GetCasesOptionsFieldsCommentsConst,
-				casemanagementv1.GetCasesOptionsFieldsCreatedAtConst,
-			})
-
-			result, detailedResponse, err := service.GetCases(options)
+			// Test GetAll().
+			pager, err = service.NewGetCasesPager(getCasesOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetCases(non-default params) result:\n%s\n", common.ToJSON(result))
-			Expect(*result.TotalCount).To(Not(BeNil()))
-			Expect(*result.First).To(Not(BeNil()))
-			Expect(*result.Next).To(Not(BeNil()))
-			Expect(*result.Last).To(Not(BeNil()))
-			Expect(result.Cases).To(Not(BeNil()))
+			Expect(pager).ToNot(BeNil())
 
-			testCase := result.Cases[0]
-			Expect(testCase).To(Not(BeNil()))
-			Expect(testCase.Number).To(Not(BeNil()))
-			Expect(testCase.Comments).To(Not(BeNil()))
-			Expect(testCase.CreatedAt).To(Not(BeNil()))
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
 
-			// extra properties should be excluded in the response
-			Expect(testCase.Severity).To(BeNil())
-			Expect(testCase.Contact).To(BeNil())
-		})
-
-		It("Failed to get cases with bad params", func() {
-			shouldSkipTest()
-
-			options.SetFields([]string{"invalid_fields"})
-
-			_, detailedResponse, err := service.GetCases(options)
-			Expect(err).To(Not(BeNil()))
-			Expect(detailedResponse.StatusCode).To(Not(Equal(200)))
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetCases() returned a total of %d item(s) using GetCasesPager.\n", len(allResults))
 		})
 	})
 
