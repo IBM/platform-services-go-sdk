@@ -467,7 +467,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 
 	pathParamsMap := map[string]string{
 		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
-		"account_id": *importAccountToEnterpriseOptions.AccountID,
+		"account_id":    *importAccountToEnterpriseOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -558,6 +558,9 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountWithContext(ctx
 	}
 	if createAccountOptions.OwnerIamID != nil {
 		body["owner_iam_id"] = createAccountOptions.OwnerIamID
+	}
+	if createAccountOptions.Traits != nil {
+		body["traits"] = createAccountOptions.Traits
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1422,8 +1425,8 @@ type CreateAccountGroupOptions struct {
 // NewCreateAccountGroupOptions : Instantiate CreateAccountGroupOptions
 func (*EnterpriseManagementV1) NewCreateAccountGroupOptions(parent string, name string, primaryContactIamID string) *CreateAccountGroupOptions {
 	return &CreateAccountGroupOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:              core.StringPtr(parent),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1481,6 +1484,10 @@ type CreateAccountOptions struct {
 	// The IAM ID of the account owner, such as `IBMid-0123ABC`. The IAM ID must already exist.
 	OwnerIamID *string `json:"owner_iam_id" validate:"required"`
 
+	// The traits object can be used to opt-out of Multi-Factor Authentication setting when creating a child account in the
+	// enterprise. This is an optional field.
+	Traits map[string]interface{} `json:"traits,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1488,8 +1495,8 @@ type CreateAccountOptions struct {
 // NewCreateAccountOptions : Instantiate CreateAccountOptions
 func (*EnterpriseManagementV1) NewCreateAccountOptions(parent string, name string, ownerIamID string) *CreateAccountOptions {
 	return &CreateAccountOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:     core.StringPtr(parent),
+		Name:       core.StringPtr(name),
 		OwnerIamID: core.StringPtr(ownerIamID),
 	}
 }
@@ -1509,6 +1516,12 @@ func (_options *CreateAccountOptions) SetName(name string) *CreateAccountOptions
 // SetOwnerIamID : Allow user to set OwnerIamID
 func (_options *CreateAccountOptions) SetOwnerIamID(ownerIamID string) *CreateAccountOptions {
 	_options.OwnerIamID = core.StringPtr(ownerIamID)
+	return _options
+}
+
+// SetTraits : Allow user to set Traits
+func (_options *CreateAccountOptions) SetTraits(traits map[string]interface{}) *CreateAccountOptions {
+	_options.Traits = traits
 	return _options
 }
 
@@ -1556,8 +1569,8 @@ type CreateEnterpriseOptions struct {
 // NewCreateEnterpriseOptions : Instantiate CreateEnterpriseOptions
 func (*EnterpriseManagementV1) NewCreateEnterpriseOptions(sourceAccountID string, name string, primaryContactIamID string) *CreateEnterpriseOptions {
 	return &CreateEnterpriseOptions{
-		SourceAccountID: core.StringPtr(sourceAccountID),
-		Name: core.StringPtr(name),
+		SourceAccountID:     core.StringPtr(sourceAccountID),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1882,7 +1895,7 @@ type ImportAccountToEnterpriseOptions struct {
 func (*EnterpriseManagementV1) NewImportAccountToEnterpriseOptions(enterpriseID string, accountID string) *ImportAccountToEnterpriseOptions {
 	return &ImportAccountToEnterpriseOptions{
 		EnterpriseID: core.StringPtr(enterpriseID),
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 	}
 }
 
@@ -2314,7 +2327,7 @@ type UpdateAccountOptions struct {
 func (*EnterpriseManagementV1) NewUpdateAccountOptions(accountID string, parent string) *UpdateAccountOptions {
 	return &UpdateAccountOptions{
 		AccountID: core.StringPtr(accountID),
-		Parent: core.StringPtr(parent),
+		Parent:    core.StringPtr(parent),
 	}
 }
 
@@ -2391,13 +2404,11 @@ func (options *UpdateEnterpriseOptions) SetHeaders(param map[string]string) *Upd
 	return options
 }
 
-//
 // EnterprisesPager can be used to simplify the use of the "ListEnterprises" method.
-//
 type EnterprisesPager struct {
-	hasNext bool
-	options *ListEnterprisesOptions
-	client  *EnterpriseManagementV1
+	hasNext     bool
+	options     *ListEnterprisesOptions
+	client      *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2478,13 +2489,11 @@ func (pager *EnterprisesPager) GetAll() (allItems []Enterprise, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // AccountsPager can be used to simplify the use of the "ListAccounts" method.
-//
 type AccountsPager struct {
-	hasNext bool
-	options *ListAccountsOptions
-	client  *EnterpriseManagementV1
+	hasNext     bool
+	options     *ListAccountsOptions
+	client      *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2565,13 +2574,11 @@ func (pager *AccountsPager) GetAll() (allItems []Account, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // AccountGroupsPager can be used to simplify the use of the "ListAccountGroups" method.
-//
 type AccountGroupsPager struct {
-	hasNext bool
-	options *ListAccountGroupsOptions
-	client  *EnterpriseManagementV1
+	hasNext     bool
+	options     *ListAccountGroupsOptions
+	client      *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
