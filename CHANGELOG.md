@@ -1,3 +1,17 @@
+## [0.35.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.35.0...v0.35.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* **Usage Reports:** regen usage reports with latest API def ([#245](https://github.com/IBM/platform-services-go-sdk/issues/245)) ([0e1ddc8](https://github.com/IBM/platform-services-go-sdk/commit/0e1ddc84e000eb2f9c0a51f5bd12930c57f705ce))
+
+# [0.35.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.34.0...v0.35.0) (2023-03-29)
+
+
+### Features
+
+* **Enterprise Billing Units:** add start and limit parameters to billing unit list APIs ([#230](https://github.com/IBM/platform-services-go-sdk/issues/230)) ([19296ca](https://github.com/IBM/platform-services-go-sdk/commit/19296caa99eafe3544f748b5115ef37ca4344cca))
+
 # [0.34.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.33.0...v0.34.0) (2023-03-27)
 
 

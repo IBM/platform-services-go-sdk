@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,18 +145,26 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			listBillingUnitsOptions := enterpriseBillingUnitsService.NewListBillingUnitsOptions()
 			listBillingUnitsOptions.SetEnterpriseID(enterpriseID)
 
-			billingUnitsList, response, err := enterpriseBillingUnitsService.ListBillingUnits(listBillingUnitsOptions)
+			pager, err := enterpriseBillingUnitsService.NewBillingUnitsPager(listBillingUnitsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(billingUnitsList, "", "  ")
+
+			var allResults []enterprisebillingunitsv1.BillingUnit
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_billing_units
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingUnitsList).ToNot(BeNil())
+			Expect(allResults).ToNot(BeNil())
 
 		})
 		It(`ListBillingOptions request example`, func() {
@@ -167,18 +175,26 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				billingUnitID,
 			)
 
-			billingOption, response, err := enterpriseBillingUnitsService.ListBillingOptions(listBillingOptionsOptions)
+			pager, err := enterpriseBillingUnitsService.NewBillingOptionsPager(listBillingOptionsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(billingOption, "", "  ")
+
+			var allResults []enterprisebillingunitsv1.BillingOption
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_billing_options
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(billingOption).ToNot(BeNil())
+			Expect(allResults).ToNot(BeNil())
 
 		})
 		It(`GetCreditPools request example`, func() {
