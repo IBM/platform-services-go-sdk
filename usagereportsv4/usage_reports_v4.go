@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.62.0-a2a22f95-20221115-162524
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -781,6 +781,9 @@ type AccountUsage struct {
 
 	// All the resource used in the account.
 	Resources []Resource `json:"resources" validate:"required"`
+
+	// The value of the account's currency in USD.
+	CurrencyRate *float64 `json:"currency_rate,omitempty"`
 }
 
 // UnmarshalAccountUsage unmarshals an instance of AccountUsage from the specified map of raw messages.
@@ -803,6 +806,10 @@ func UnmarshalAccountUsage(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "currency_rate", &obj.CurrencyRate)
 	if err != nil {
 		return
 	}
@@ -1506,6 +1513,12 @@ type InstanceUsage struct {
 
 	// All the resource used in the account.
 	Usage []Metric `json:"usage" validate:"required"`
+
+	// Pending charge from classic infrastructure.
+	Pending *bool `json:"pending,omitempty"`
+
+	// The value of the account's currency in USD.
+	CurrencyRate *float64 `json:"currency_rate,omitempty"`
 }
 
 // UnmarshalInstanceUsage unmarshals an instance of InstanceUsage from the specified map of raw messages.
@@ -1592,6 +1605,14 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalModel(m, "usage", &obj.Usage, UnmarshalMetric)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pending", &obj.Pending)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "currency_rate", &obj.CurrencyRate)
 	if err != nil {
 		return
 	}
@@ -1889,6 +1910,9 @@ type OrgUsage struct {
 
 	// All the resource used in the account.
 	Resources []Resource `json:"resources" validate:"required"`
+
+	// The value of the account's currency in USD.
+	CurrencyRate *float64 `json:"currency_rate,omitempty"`
 }
 
 // UnmarshalOrgUsage unmarshals an instance of OrgUsage from the specified map of raw messages.
@@ -1922,6 +1946,10 @@ func UnmarshalOrgUsage(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "currency_rate", &obj.CurrencyRate)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1951,6 +1979,9 @@ type Plan struct {
 
 	// All the discounts applicable to the plan.
 	Discounts []Discount `json:"discounts" validate:"required"`
+
+	// Pending charge from classic infrastructure.
+	Pending *bool `json:"pending,omitempty"`
 }
 
 // UnmarshalPlan unmarshals an instance of Plan from the specified map of raw messages.
@@ -1985,6 +2016,10 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 		return
 	}
 	err = core.UnmarshalModel(m, "discounts", &obj.Discounts, UnmarshalDiscount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pending", &obj.Pending)
 	if err != nil {
 		return
 	}
@@ -2080,6 +2115,9 @@ type ResourceGroupUsage struct {
 
 	// All the resource used in the account.
 	Resources []Resource `json:"resources" validate:"required"`
+
+	// The value of the account's currency in USD.
+	CurrencyRate *float64 `json:"currency_rate,omitempty"`
 }
 
 // UnmarshalResourceGroupUsage unmarshals an instance of ResourceGroupUsage from the specified map of raw messages.
@@ -2110,6 +2148,10 @@ func UnmarshalResourceGroupUsage(m map[string]json.RawMessage, result interface{
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "currency_rate", &obj.CurrencyRate)
 	if err != nil {
 		return
 	}
