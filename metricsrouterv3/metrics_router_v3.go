@@ -213,7 +213,6 @@ func (metricsRouter *MetricsRouterV3) CreateTargetWithContext(ctx context.Contex
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	body := make(map[string]interface{})
 	if createTargetOptions.Name != nil {
@@ -281,7 +280,6 @@ func (metricsRouter *MetricsRouterV3) ListTargetsWithContext(ctx context.Context
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -342,7 +340,6 @@ func (metricsRouter *MetricsRouterV3) GetTargetWithContext(ctx context.Context, 
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -404,7 +401,6 @@ func (metricsRouter *MetricsRouterV3) UpdateTargetWithContext(ctx context.Contex
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	body := make(map[string]interface{})
 	if updateTargetOptions.Name != nil {
@@ -476,7 +472,6 @@ func (metricsRouter *MetricsRouterV3) DeleteTargetWithContext(ctx context.Contex
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -523,7 +518,6 @@ func (metricsRouter *MetricsRouterV3) CreateRouteWithContext(ctx context.Context
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	body := make(map[string]interface{})
 	if createRouteOptions.Name != nil {
@@ -588,7 +582,6 @@ func (metricsRouter *MetricsRouterV3) ListRoutesWithContext(ctx context.Context,
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -649,7 +642,6 @@ func (metricsRouter *MetricsRouterV3) GetRouteWithContext(ctx context.Context, g
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -711,7 +703,6 @@ func (metricsRouter *MetricsRouterV3) UpdateRouteWithContext(ctx context.Context
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	body := make(map[string]interface{})
 	if updateRouteOptions.Name != nil {
@@ -784,8 +775,6 @@ func (metricsRouter *MetricsRouterV3) DeleteRouteWithContext(ctx context.Context
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	builder.AddHeader("X-API-Maturity", "ga")
-
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -826,7 +815,6 @@ func (metricsRouter *MetricsRouterV3) GetSettingsWithContext(ctx context.Context
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	request, err := builder.Build()
 	if err != nil {
@@ -885,7 +873,6 @@ func (metricsRouter *MetricsRouterV3) UpdateSettingsWithContext(ctx context.Cont
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	builder.AddHeader("X-API-Maturity", "ga")
 
 	body := make(map[string]interface{})
 	if updateSettingsOptions.DefaultTargets != nil {
