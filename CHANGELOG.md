@@ -1,3 +1,10 @@
+# [0.36.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.35.1...v0.36.0) (2023-04-21)
+
+
+### Features
+
+* **EnterpriseManagementv1:** re-gen service after recent API changes ([#237](https://github.com/IBM/platform-services-go-sdk/issues/237)) ([5efc6b6](https://github.com/IBM/platform-services-go-sdk/commit/5efc6b601859e965afcb721929df14f928007c4f))
+
 ## [0.35.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.35.0...v0.35.1) (2023-04-05)
 
 
