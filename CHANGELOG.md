@@ -1,3 +1,10 @@
+## [0.37.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.1...v0.37.2) (2023-04-27)
+
+
+### Bug Fixes
+
+* **Example Service:** re-gen service after traits schema change ([#250](https://github.com/IBM/platform-services-go-sdk/issues/250)) ([92d698c](https://github.com/IBM/platform-services-go-sdk/commit/92d698c046f32d0392030e33f4804ef957451aab))
+
 ## [0.37.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.0...v0.37.1) (2023-04-27)
 
 
