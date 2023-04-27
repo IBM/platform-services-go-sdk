@@ -14570,6 +14570,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["channel"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["flavor"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for asIs query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -14598,6 +14599,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.Flavor = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14643,6 +14645,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.Query()["id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["channel"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["flavor"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for asIs query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/yaml")
@@ -14673,6 +14676,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.Flavor = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -14700,6 +14704,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.Flavor = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -14748,6 +14753,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.ID = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Kind = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.Channel = core.StringPtr("testString")
+				getOfferingSourceOptionsModel.Flavor = core.StringPtr("testString")
 				getOfferingSourceOptionsModel.AsIs = core.BoolPtr(true)
 				getOfferingSourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26990,6 +26996,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				getOfferingSourceOptionsModel.SetID("testString")
 				getOfferingSourceOptionsModel.SetKind("testString")
 				getOfferingSourceOptionsModel.SetChannel("testString")
+				getOfferingSourceOptionsModel.SetFlavor("testString")
 				getOfferingSourceOptionsModel.SetAsIs(true)
 				getOfferingSourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getOfferingSourceOptionsModel).ToNot(BeNil())
@@ -27000,6 +27007,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getOfferingSourceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingSourceOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingSourceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingSourceOptionsModel.Flavor).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingSourceOptionsModel.AsIs).To(Equal(core.BoolPtr(true)))
 				Expect(getOfferingSourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
