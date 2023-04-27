@@ -1,3 +1,10 @@
+## [0.37.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.0...v0.37.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* **Global Catalog:** avoid unmarshalling error ([#251](https://github.com/IBM/platform-services-go-sdk/issues/251)) ([db31348](https://github.com/IBM/platform-services-go-sdk/commit/db31348f12a624d9444261585f77dfb211e1cb73))
+
 # [0.37.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.36.0...v0.37.0) (2023-04-27)
 
 
