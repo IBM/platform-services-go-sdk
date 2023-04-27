@@ -1178,12 +1178,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
-				createAccountOptionsModel.Traits = map[string]interface{}{"anyKey": "anyValue"}
+				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseManagementService.CreateAccount(createAccountOptionsModel)
@@ -1248,12 +1252,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				enterpriseManagementService.EnableRetries(0, 0)
 
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
-				createAccountOptionsModel.Traits = map[string]interface{}{"anyKey": "anyValue"}
+				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1326,12 +1334,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
-				createAccountOptionsModel.Traits = map[string]interface{}{"anyKey": "anyValue"}
+				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1349,12 +1361,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
-				createAccountOptionsModel.Traits = map[string]interface{}{"anyKey": "anyValue"}
+				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseManagementService.SetServiceURL("")
@@ -1393,12 +1409,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
 
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
-				createAccountOptionsModel.Traits = map[string]interface{}{"anyKey": "anyValue"}
+				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3127,6 +3147,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(createAccountGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateAccountOptions successfully`, func() {
+				// Construct an instance of the CreateAccountRequestTraits model
+				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
+				Expect(createAccountRequestTraitsModel).ToNot(BeNil())
+				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				Expect(createAccountRequestTraitsModel.Mfa).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsParent := "testString"
 				createAccountOptionsName := "testString"
@@ -3135,13 +3161,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsModel.SetParent("testString")
 				createAccountOptionsModel.SetName("testString")
 				createAccountOptionsModel.SetOwnerIamID("testString")
-				createAccountOptionsModel.SetTraits(map[string]interface{}{"anyKey": "anyValue"})
+				createAccountOptionsModel.SetTraits(createAccountRequestTraitsModel)
 				createAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAccountOptionsModel).ToNot(BeNil())
 				Expect(createAccountOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountOptionsModel.OwnerIamID).To(Equal(core.StringPtr("testString")))
-				Expect(createAccountOptionsModel.Traits).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(createAccountOptionsModel.Traits).To(Equal(createAccountRequestTraitsModel))
 				Expect(createAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateEnterpriseOptions successfully`, func() {

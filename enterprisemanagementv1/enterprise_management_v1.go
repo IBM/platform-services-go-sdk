@@ -1486,7 +1486,7 @@ type CreateAccountOptions struct {
 
 	// The traits object can be used to opt-out of Multi-Factor Authentication setting when creating a child account in the
 	// enterprise. This is an optional field.
-	Traits map[string]interface{} `json:"traits,omitempty"`
+	Traits *CreateAccountRequestTraits `json:"traits,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1520,7 +1520,7 @@ func (_options *CreateAccountOptions) SetOwnerIamID(ownerIamID string) *CreateAc
 }
 
 // SetTraits : Allow user to set Traits
-func (_options *CreateAccountOptions) SetTraits(traits map[string]interface{}) *CreateAccountOptions {
+func (_options *CreateAccountOptions) SetTraits(traits *CreateAccountRequestTraits) *CreateAccountOptions {
 	_options.Traits = traits
 	return _options
 }
@@ -1529,6 +1529,25 @@ func (_options *CreateAccountOptions) SetTraits(traits map[string]interface{}) *
 func (options *CreateAccountOptions) SetHeaders(param map[string]string) *CreateAccountOptions {
 	options.Headers = param
 	return options
+}
+
+// CreateAccountRequestTraits : The traits object can be used to opt-out of Multi-Factor Authentication setting when creating a child account in the
+// enterprise. This is an optional field.
+type CreateAccountRequestTraits struct {
+	// By default MFA will be set on the account. To opt out, pass the traits object with the mfa field set to empty
+	// string.
+	Mfa *string `json:"mfa,omitempty"`
+}
+
+// UnmarshalCreateAccountRequestTraits unmarshals an instance of CreateAccountRequestTraits from the specified map of raw messages.
+func UnmarshalCreateAccountRequestTraits(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateAccountRequestTraits)
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // CreateAccountResponse : A newly-created account.
