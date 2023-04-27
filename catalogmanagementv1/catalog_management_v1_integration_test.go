@@ -2099,6 +2099,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ID:        core.StringPtr("testString"),
 				Kind:      core.StringPtr("testString"),
 				Channel:   core.StringPtr("testString"),
+				Flavor:    core.StringPtr("testString"),
 			}
 
 			result, response, err := catalogManagementService.GetOfferingSource(getOfferingSourceOptions)

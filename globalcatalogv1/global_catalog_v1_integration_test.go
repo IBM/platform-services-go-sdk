@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,542 +20,842 @@
 package globalcatalogv1_test
 
 import (
-	"bytes"
 	"fmt"
-	"io"
 	"log"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Global Catalog - Integration Tests", func() {
+/**
+ * This file contains an integration test for the globalcatalogv1 package.
+ *
+ * Notes:
+ *
+ * The integration test will automatically skip tests if the required config file is not available.
+ */
 
-	const (
-		externalConfigFile    = "../global_catalog.env"
-		visibilityRestriction = "private"
-		artifact              = `{"someKey": "someValue"}`
-	)
+var _ = Describe(`GlobalCatalogV1 Integration Tests`, func() {
+	const externalConfigFile = "../global_catalog.env"
 
 	var (
-		service                     *globalcatalogv1.GlobalCatalogV1
-		defaultCreate               *globalcatalogv1.CreateCatalogEntryOptions
-		defaultDelete               *globalcatalogv1.DeleteCatalogEntryOptions
-		forceDelete                 *globalcatalogv1.DeleteCatalogEntryOptions
-		defaultGet                  *globalcatalogv1.GetCatalogEntryOptions
-		defaultUpdate               *globalcatalogv1.UpdateCatalogEntryOptions
-		defaultList                 *globalcatalogv1.ListCatalogEntriesOptions
-		defaultChild                *globalcatalogv1.CreateCatalogEntryOptions
-		getChild                    *globalcatalogv1.GetChildObjectsOptions
-		defaultRestore              *globalcatalogv1.RestoreCatalogEntryOptions
-		bogusRestore                *globalcatalogv1.RestoreCatalogEntryOptions
-		getVisibility               *globalcatalogv1.GetVisibilityOptions
-		updateVisibility            *globalcatalogv1.UpdateVisibilityOptions
-		getPricing                  *globalcatalogv1.GetPricingOptions
-		defaultArtifact             *globalcatalogv1.UploadArtifactOptions
-		uploadArtifactList          *globalcatalogv1.UploadArtifactOptions
-		uploadArtifactCreate        *globalcatalogv1.UploadArtifactOptions
-		uploadArtifactCreateFailure *globalcatalogv1.UploadArtifactOptions
-		uploadArtifactDelete        *globalcatalogv1.UploadArtifactOptions
-		listArtifacts               *globalcatalogv1.ListArtifactsOptions
-		getArtifact                 *globalcatalogv1.GetArtifactOptions
-		deleteArtifact              *globalcatalogv1.DeleteArtifactOptions
-		config                      map[string]string
-		configLoaded                bool = false
+		err                  error
+		globalCatalogService *globalcatalogv1.GlobalCatalogV1
+		serviceURL           string
+		config               map[string]string
 	)
 
 	var shouldSkipTest = func() {
-		if !configLoaded {
-			Skip("External configuration is not available, skipping...")
-		}
+		Skip("External configuration is not available, skipping tests...")
 	}
 
-	It("Successfully load the configuration", func() {
-		var err error
-		_, err = os.Stat(externalConfigFile)
-		if err != nil {
-			Skip("External configuration file not found, skipping tests: " + err.Error())
-		}
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
+			}
 
-		os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-		config, err = core.GetServiceProperties(globalcatalogv1.DefaultServiceName)
-		if err != nil {
-			Skip("Error loading service properties, skipping tests: " + err.Error())
-		}
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(globalcatalogv1.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
 
-		configLoaded = len(config) > 0
+			fmt.Fprintf(GinkgoWriter, "Service URL: %v\n", serviceURL)
+			shouldSkipTest = func() {}
+		})
 	})
 
-	It(`Successfully created GlobalCatalogV1 service instance`, func() {
-		const (
-			kind                   = "service"
-			disabled               = false
-			email                  = "bogus@us.ibm.com"
-			displayName            = "display"
-			displayLongDesc        = "long"
-			displayDesc            = "desc"
-			displayNameUpdated     = "displayUpdated"
-			displayLongDescUpdated = "longUpdated"
-			displayDescUpdated     = "descUpdated"
-			en                     = "en"
-			providerName           = "someName"
-			providerNameUpdated    = "someNameUpdated"
-			artifactId             = "someArtifactId.json"
-		)
+	Describe(`Client initialization`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It("Successfully construct the service client instance", func() {
+			globalCatalogServiceOptions := &globalcatalogv1.GlobalCatalogV1Options{}
 
-		var (
-			id                  = fmt.Sprintf("someId%d", time.Now().Unix())
-			idChild             = fmt.Sprintf("someChildId%d", time.Now().Unix())
-			name                = fmt.Sprintf("someName%d", time.Now().Unix())
-			nameChild           = fmt.Sprintf("someChildName%d", time.Now().Unix())
-			nameUpdated         = fmt.Sprintf("someNameUpdated%d", time.Now().Unix())
-			image               = "image"
-			imageUpdated        = "image"
-			smallImage          = "small"
-			smallImageUpdated   = "small"
-			mediumImage         = "medium"
-			mediumImageUpdated  = "medium"
-			featureImage        = "feature"
-			featureImageUpdated = "feature"
-			tags                = []string{"a", "b", "c"}
-			tagsUpdated         = []string{"x", "y", "z"}
-			overviewUi          = make(map[string]globalcatalogv1.Overview)
-			overviewUiUpdated   = make(map[string]globalcatalogv1.Overview)
-			overview, _         = service.NewOverview(displayName, displayLongDesc, displayDesc)
-			overviewUpdated, _  = service.NewOverview(displayNameUpdated, displayLongDescUpdated, displayDescUpdated)
-			images              = &globalcatalogv1.Image{Image: &image,
-				SmallImage:   &smallImage,
-				MediumImage:  &mediumImage,
-				FeatureImage: &featureImage,
-			}
-			imagesUpdated = &globalcatalogv1.Image{Image: &imageUpdated,
-				SmallImage:   &smallImageUpdated,
-				MediumImage:  &mediumImageUpdated,
-				FeatureImage: &featureImageUpdated,
-			}
-			provider, _        = service.NewProvider(email, providerName)
-			providerUpdated, _ = service.NewProvider(email, providerNameUpdated)
-			err                error
-		)
+			globalCatalogService, err = globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(globalCatalogServiceOptions)
+			Expect(err).To(BeNil())
+			Expect(globalCatalogService).ToNot(BeNil())
+			Expect(globalCatalogService.Service.Options.URL).To(Equal(serviceURL))
 
-		shouldSkipTest()
-
-		service, err = globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(
-			&globalcatalogv1.GlobalCatalogV1Options{},
-		)
-
-		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
-
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
-		service.EnableRetries(4, 30*time.Second)
-
-		overviewUi[en] = *overview
-		overviewUiUpdated[en] = *overviewUpdated
-
-		defaultCreate = service.NewCreateCatalogEntryOptions(name,
-			kind,
-			overviewUi,
-			images,
-			disabled,
-			tags,
-			provider,
-			id)
-		defaultDelete = service.NewDeleteCatalogEntryOptions(id)
-		forceDelete = service.NewDeleteCatalogEntryOptions(id)
-		defaultGet = service.NewGetCatalogEntryOptions(id)
-		defaultUpdate = service.NewUpdateCatalogEntryOptions(id,
-			nameUpdated,
-			kind,
-			overviewUiUpdated,
-			imagesUpdated,
-			disabled,
-			tagsUpdated,
-			providerUpdated)
-		defaultList = service.NewListCatalogEntriesOptions()
-		defaultChild = service.NewCreateCatalogEntryOptions(nameChild,
-			kind,
-			overviewUi,
-			images,
-			disabled,
-			tags,
-			provider,
-			idChild)
-		getChild = service.NewGetChildObjectsOptions(id, kind)
-		defaultRestore = service.NewRestoreCatalogEntryOptions(id)
-		bogusRestore = service.NewRestoreCatalogEntryOptions("bogus")
-		getVisibility = service.NewGetVisibilityOptions(id)
-		updateVisibility = service.NewUpdateVisibilityOptions(id)
-		getPricing = service.NewGetPricingOptions(id)
-		defaultArtifact = service.NewUploadArtifactOptions(id, artifactId)
-		uploadArtifactList = service.NewUploadArtifactOptions(id, artifactId)
-		uploadArtifactCreate = service.NewUploadArtifactOptions(id, artifactId)
-		uploadArtifactCreateFailure = service.NewUploadArtifactOptions(id, artifactId)
-		uploadArtifactDelete = service.NewUploadArtifactOptions(id, artifactId)
-		listArtifacts = service.NewListArtifactsOptions(id)
-		getArtifact = service.NewGetArtifactOptions(id, artifactId)
-		deleteArtifact = service.NewDeleteArtifactOptions(id, artifactId)
-
-		defaultChild.SetParentID(id)
-		defaultArtifact.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactList.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactCreate.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactCreateFailure.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactDelete.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		forceDelete.SetForce(true)
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			globalCatalogService.EnableRetries(4, 30*time.Second)
+		})
 	})
 
-	Describe("Run integration tests", func() {
-		JustBeforeEach(func() {
+	Describe(`ListCatalogEntries - Returns parent catalog entries`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			_, _ = service.DeleteCatalogEntry(forceDelete)
 		})
+		It(`ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions)`, func() {
+			listCatalogEntriesOptions := &globalcatalogv1.ListCatalogEntriesOptions{
+				Include:    core.StringPtr("testString"),
+				Q:          core.StringPtr("testString"),
+				Descending: core.StringPtr("testString"),
+				Languages:  core.StringPtr("testString"),
+				Catalog:    core.BoolPtr(true),
+				Complete:   core.BoolPtr(true),
+				Offset:     core.Int64Ptr(int64(38)),
+				Limit:      core.Int64Ptr(int64(200)),
+			}
 
-		JustAfterEach(func() {
-			shouldSkipTest()
-
-			_, _ = service.DeleteCatalogEntry(forceDelete)
-		})
-
-		It("Create a catalog entry", func() {
-			shouldSkipTest()
-
-			result, detailedResponse, err := service.CreateCatalogEntry(defaultCreate)
+			entrySearchResult, response, err := globalCatalogService.ListCatalogEntries(listCatalogEntriesOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(201))
-			Expect(result.ID).To(Equal(defaultCreate.ID))
-			Expect(result.Name).To(Equal(defaultCreate.Name))
-			Expect(result.Kind).To(Equal(defaultCreate.Kind))
-			Expect(result.Images).To(Equal(defaultCreate.Images))
-			Expect(result.Tags).To(Equal(defaultCreate.Tags))
-			Expect(result.Provider).To(Equal(defaultCreate.Provider))
-
-			fmt.Fprintf(GinkgoWriter, "CreateCatalogEntry() result:\n%s", common.ToJSON(result))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(entrySearchResult).ToNot(BeNil())
 		})
+	})
 
-		It("Get a catalog entry", func() {
+	Describe(`CreateCatalogEntry - Create a catalog entry`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`CreateCatalogEntry(createCatalogEntryOptions *CreateCatalogEntryOptions)`, func() {
+			overviewModel := &globalcatalogv1.Overview{
+				DisplayName:         core.StringPtr("testString"),
+				LongDescription:     core.StringPtr("testString"),
+				Description:         core.StringPtr("testString"),
+				FeaturedDescription: core.StringPtr("testString"),
+			}
 
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			result, detailedResponse, err := service.GetCatalogEntry(defaultGet)
+			imageModel := &globalcatalogv1.Image{
+				Image:        core.StringPtr("testString"),
+				SmallImage:   core.StringPtr("testString"),
+				MediumImage:  core.StringPtr("testString"),
+				FeatureImage: core.StringPtr("testString"),
+			}
+
+			providerModel := &globalcatalogv1.Provider{
+				Email:        core.StringPtr("testString@ibm.com"),
+				Name:         core.StringPtr("testString"),
+				Contact:      core.StringPtr("testString"),
+				SupportEmail: core.StringPtr("testString@ibm.com"),
+				Phone:        core.StringPtr("testString"),
+			}
+
+			cfMetaDataModel := &globalcatalogv1.CfMetaData{
+				Type:                         core.StringPtr("testString"),
+				IamCompatible:                core.BoolPtr(true),
+				UniqueAPIKey:                 core.BoolPtr(true),
+				Provisionable:                core.BoolPtr(true),
+				Bindable:                     core.BoolPtr(true),
+				AsyncProvisioningSupported:   core.BoolPtr(true),
+				AsyncUnprovisioningSupported: core.BoolPtr(true),
+				Requires:                     []string{"testString"},
+				PlanUpdateable:               core.BoolPtr(true),
+				State:                        core.StringPtr("testString"),
+				ServiceCheckEnabled:          core.BoolPtr(true),
+				TestCheckInterval:            core.Int64Ptr(int64(38)),
+				ServiceKeySupported:          core.BoolPtr(true),
+				CfGUID:                       make(map[string]string),
+			}
+
+			planMetaDataModel := &globalcatalogv1.PlanMetaData{
+				Bindable:                     core.BoolPtr(true),
+				Reservable:                   core.BoolPtr(true),
+				AllowInternalUsers:           core.BoolPtr(true),
+				AsyncProvisioningSupported:   core.BoolPtr(true),
+				AsyncUnprovisioningSupported: core.BoolPtr(true),
+				TestCheckInterval:            core.Int64Ptr(int64(38)),
+				SingleScopeInstance:          core.StringPtr("testString"),
+				ServiceCheckEnabled:          core.BoolPtr(true),
+				CfGUID:                       make(map[string]string),
+			}
+
+			aliasMetaDataModel := &globalcatalogv1.AliasMetaData{
+				Type:   core.StringPtr("testString"),
+				PlanID: core.StringPtr("testString"),
+			}
+
+			sourceMetaDataModel := &globalcatalogv1.SourceMetaData{
+				Path: core.StringPtr("testString"),
+				Type: core.StringPtr("testString"),
+				URL:  core.StringPtr("testString"),
+			}
+
+			templateMetaDataModel := &globalcatalogv1.TemplateMetaData{
+				Services:             []string{"testString"},
+				DefaultMemory:        core.Int64Ptr(int64(38)),
+				StartCmd:             core.StringPtr("testString"),
+				Source:               sourceMetaDataModel,
+				RuntimeCatalogID:     core.StringPtr("testString"),
+				CfRuntimeID:          core.StringPtr("testString"),
+				TemplateID:           core.StringPtr("testString"),
+				ExecutableFile:       core.StringPtr("testString"),
+				Buildpack:            core.StringPtr("testString"),
+				EnvironmentVariables: make(map[string]string),
+			}
+
+			bulletsModel := &globalcatalogv1.Bullets{
+				Title:       core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				Icon:        core.StringPtr("testString"),
+				Quantity:    core.Int64Ptr(int64(38)),
+			}
+
+			uiMediaSourceMetaDataModel := &globalcatalogv1.UIMediaSourceMetaData{
+				Type: core.StringPtr("testString"),
+				URL:  core.StringPtr("testString"),
+			}
+
+			uiMetaMediaModel := &globalcatalogv1.UIMetaMedia{
+				Caption:      core.StringPtr("testString"),
+				ThumbnailURL: core.StringPtr("testString"),
+				Type:         core.StringPtr("testString"),
+				URL:          core.StringPtr("testString"),
+				Source:       []globalcatalogv1.UIMediaSourceMetaData{*uiMediaSourceMetaDataModel},
+			}
+
+			stringsModel := &globalcatalogv1.Strings{
+				Bullets:              []globalcatalogv1.Bullets{*bulletsModel},
+				Media:                []globalcatalogv1.UIMetaMedia{*uiMetaMediaModel},
+				NotCreatableMsg:      core.StringPtr("testString"),
+				NotCreatableRobotMsg: core.StringPtr("testString"),
+				DeprecationWarning:   core.StringPtr("testString"),
+				PopupWarningMessage:  core.StringPtr("testString"),
+				Instruction:          core.StringPtr("testString"),
+			}
+
+			urlsModel := &globalcatalogv1.Urls{
+				DocURL:              core.StringPtr("testString"),
+				InstructionsURL:     core.StringPtr("testString"),
+				APIURL:              core.StringPtr("testString"),
+				CreateURL:           core.StringPtr("testString"),
+				SdkDownloadURL:      core.StringPtr("testString"),
+				TermsURL:            core.StringPtr("testString"),
+				CustomCreatePageURL: core.StringPtr("testString"),
+				CatalogDetailsURL:   core.StringPtr("testString"),
+				DeprecationDocURL:   core.StringPtr("testString"),
+				DashboardURL:        core.StringPtr("testString"),
+				RegistrationURL:     core.StringPtr("testString"),
+				Apidocsurl:          core.StringPtr("testString"),
+			}
+
+			uiMetaDataModel := &globalcatalogv1.UIMetaData{
+				Strings:                      make(map[string]globalcatalogv1.Strings),
+				Urls:                         urlsModel,
+				EmbeddableDashboard:          core.StringPtr("testString"),
+				EmbeddableDashboardFullWidth: core.BoolPtr(true),
+				NavigationOrder:              []string{"testString"},
+				NotCreatable:                 core.BoolPtr(true),
+				PrimaryOfferingID:            core.StringPtr("testString"),
+				AccessibleDuringProvision:    core.BoolPtr(true),
+				SideBySideIndex:              core.Int64Ptr(int64(38)),
+				EndOfServiceTime:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Hidden:                       core.BoolPtr(true),
+				HideLiteMetering:             core.BoolPtr(true),
+				NoUpgradeNextStep:            core.BoolPtr(true),
+			}
+			uiMetaDataModel.Strings["en"] = *stringsModel
+
+			drMetaDataModel := &globalcatalogv1.DrMetaData{
+				Dr:          core.BoolPtr(true),
+				Description: core.StringPtr("testString"),
+			}
+
+			slaMetaDataModel := &globalcatalogv1.SLAMetaData{
+				Terms:          core.StringPtr("testString"),
+				Tenancy:        core.StringPtr("testString"),
+				Provisioning:   core.Float64Ptr(float64(72.5)),
+				Responsiveness: core.Float64Ptr(float64(72.5)),
+				Dr:             drMetaDataModel,
+			}
+
+			callbacksModel := &globalcatalogv1.Callbacks{
+				ControllerURL:            core.StringPtr("testString"),
+				BrokerURL:                core.StringPtr("testString"),
+				BrokerProxyURL:           core.StringPtr("testString"),
+				DashboardURL:             core.StringPtr("testString"),
+				DashboardDataURL:         core.StringPtr("testString"),
+				DashboardDetailTabURL:    core.StringPtr("testString"),
+				DashboardDetailTabExtURL: core.StringPtr("testString"),
+				ServiceMonitorAPI:        core.StringPtr("testString"),
+				ServiceMonitorApp:        core.StringPtr("testString"),
+				APIEndpoint:              make(map[string]string),
+			}
+
+			priceModel := &globalcatalogv1.Price{
+				QuantityTier: core.Int64Ptr(int64(38)),
+				Price:        core.Float64Ptr(float64(72.5)),
+			}
+
+			amountModel := &globalcatalogv1.Amount{
+				Country:  core.StringPtr("testString"),
+				Currency: core.StringPtr("testString"),
+				Prices:   []globalcatalogv1.Price{*priceModel},
+			}
+
+			startingPriceModel := &globalcatalogv1.StartingPrice{
+				PlanID:       core.StringPtr("testString"),
+				DeploymentID: core.StringPtr("testString"),
+				Unit:         core.StringPtr("testString"),
+				Amount:       []globalcatalogv1.Amount{*amountModel},
+			}
+
+			pricingSetModel := &globalcatalogv1.PricingSet{
+				Type:          core.StringPtr("testString"),
+				Origin:        core.StringPtr("testString"),
+				StartingPrice: startingPriceModel,
+			}
+
+			brokerModel := &globalcatalogv1.Broker{
+				Name: core.StringPtr("testString"),
+				GUID: core.StringPtr("testString"),
+			}
+
+			deploymentBaseModel := &globalcatalogv1.DeploymentBase{
+				Location:            core.StringPtr("testString"),
+				LocationURL:         core.StringPtr("testString"),
+				OriginalLocation:    core.StringPtr("testString"),
+				TargetCRN:           core.StringPtr("testString"),
+				ServiceCRN:          core.StringPtr("testString"),
+				MccpID:              core.StringPtr("testString"),
+				Broker:              brokerModel,
+				SupportsRcMigration: core.BoolPtr(true),
+				TargetNetwork:       core.StringPtr("testString"),
+			}
+
+			objectMetadataSetModel := &globalcatalogv1.ObjectMetadataSet{
+				RcCompatible: core.BoolPtr(true),
+				Service:      cfMetaDataModel,
+				Plan:         planMetaDataModel,
+				Alias:        aliasMetaDataModel,
+				Template:     templateMetaDataModel,
+				UI:           uiMetaDataModel,
+				Compliance:   []string{"testString"},
+				SLA:          slaMetaDataModel,
+				Callbacks:    callbacksModel,
+				OriginalName: core.StringPtr("testString"),
+				Version:      core.StringPtr("testString"),
+				Other:        map[string]interface{}{"anyKey": "anyValue"},
+				Pricing:      pricingSetModel,
+				Deployment:   deploymentBaseModel,
+			}
+
+			createCatalogEntryOptions := &globalcatalogv1.CreateCatalogEntryOptions{
+				Name:       core.StringPtr("testString"),
+				Kind:       core.StringPtr("service"),
+				OverviewUI: make(map[string]globalcatalogv1.Overview),
+				Images:     imageModel,
+				Disabled:   core.BoolPtr(false),
+				Tags:       []string{"testString"},
+				Provider:   providerModel,
+				ID:         core.StringPtr("testString"),
+				Group:      core.BoolPtr(true),
+				Active:     core.BoolPtr(true),
+				Metadata:   objectMetadataSetModel,
+			}
+			createCatalogEntryOptions.OverviewUI["en"] = *overviewModel
+
+			catalogEntry, response, err := globalCatalogService.CreateCatalogEntry(createCatalogEntryOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result.ID).To(Equal(defaultCreate.ID))
-			Expect(result.Name).To(Equal(defaultCreate.Name))
-			Expect(result.Kind).To(Equal(defaultCreate.Kind))
-			Expect(result.Images).To(Equal(defaultCreate.Images))
-			Expect(result.Tags).To(Equal(defaultCreate.Tags))
-			Expect(result.Provider).To(Equal(defaultCreate.Provider))
-
-			fmt.Fprintf(GinkgoWriter, "GetCatalogEntry() result:\n%s", common.ToJSON(result))
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(catalogEntry).ToNot(BeNil())
 		})
+	})
 
-		It("Update a catalog entry", func() {
+	Describe(`GetCatalogEntry - Get a specific catalog object`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`GetCatalogEntry(getCatalogEntryOptions *GetCatalogEntryOptions)`, func() {
+			getCatalogEntryOptions := &globalcatalogv1.GetCatalogEntryOptions{
+				ID:        core.StringPtr("testString"),
+				Include:   core.StringPtr("testString"),
+				Languages: core.StringPtr("testString"),
+				Complete:  core.BoolPtr(true),
+				Depth:     core.Int64Ptr(int64(38)),
+			}
 
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			result, detailedResponse, err := service.UpdateCatalogEntry(defaultUpdate)
+			catalogEntry, response, err := globalCatalogService.GetCatalogEntry(getCatalogEntryOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result.ID).To(Equal(defaultUpdate.ID))
-			Expect(result.Name).To(Equal(defaultUpdate.Name))
-			Expect(result.Kind).To(Equal(defaultUpdate.Kind))
-			Expect(result.Images).To(Equal(defaultUpdate.Images))
-			Expect(result.Tags).To(Equal(defaultUpdate.Tags))
-			Expect(result.Provider).To(Equal(defaultUpdate.Provider))
-
-			fmt.Fprintf(GinkgoWriter, "UpdateCatalogEntry() result:\n%s", common.ToJSON(result))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogEntry).ToNot(BeNil())
 		})
+	})
 
-		It("Delete a catalog entry", func() {
+	Describe(`UpdateCatalogEntry - Update a catalog entry`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`UpdateCatalogEntry(updateCatalogEntryOptions *UpdateCatalogEntryOptions)`, func() {
+			overviewModel := &globalcatalogv1.Overview{
+				DisplayName:         core.StringPtr("testString"),
+				LongDescription:     core.StringPtr("testString"),
+				Description:         core.StringPtr("testString"),
+				FeaturedDescription: core.StringPtr("testString"),
+			}
 
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			detailedResponse, err := service.DeleteCatalogEntry(forceDelete)
+			imageModel := &globalcatalogv1.Image{
+				Image:        core.StringPtr("testString"),
+				SmallImage:   core.StringPtr("testString"),
+				MediumImage:  core.StringPtr("testString"),
+				FeatureImage: core.StringPtr("testString"),
+			}
+
+			providerModel := &globalcatalogv1.Provider{
+				Email:        core.StringPtr("testString@ibm.com"),
+				Name:         core.StringPtr("testString"),
+				Contact:      core.StringPtr("testString"),
+				SupportEmail: core.StringPtr("testString@ibm.com"),
+				Phone:        core.StringPtr("testString"),
+			}
+
+			cfMetaDataModel := &globalcatalogv1.CfMetaData{
+				Type:                         core.StringPtr("testString"),
+				IamCompatible:                core.BoolPtr(true),
+				UniqueAPIKey:                 core.BoolPtr(true),
+				Provisionable:                core.BoolPtr(true),
+				Bindable:                     core.BoolPtr(true),
+				AsyncProvisioningSupported:   core.BoolPtr(true),
+				AsyncUnprovisioningSupported: core.BoolPtr(true),
+				Requires:                     []string{"testString"},
+				PlanUpdateable:               core.BoolPtr(true),
+				State:                        core.StringPtr("testString"),
+				ServiceCheckEnabled:          core.BoolPtr(true),
+				TestCheckInterval:            core.Int64Ptr(int64(38)),
+				ServiceKeySupported:          core.BoolPtr(true),
+				CfGUID:                       make(map[string]string),
+			}
+
+			planMetaDataModel := &globalcatalogv1.PlanMetaData{
+				Bindable:                     core.BoolPtr(true),
+				Reservable:                   core.BoolPtr(true),
+				AllowInternalUsers:           core.BoolPtr(true),
+				AsyncProvisioningSupported:   core.BoolPtr(true),
+				AsyncUnprovisioningSupported: core.BoolPtr(true),
+				TestCheckInterval:            core.Int64Ptr(int64(38)),
+				SingleScopeInstance:          core.StringPtr("testString"),
+				ServiceCheckEnabled:          core.BoolPtr(true),
+				CfGUID:                       make(map[string]string),
+			}
+
+			aliasMetaDataModel := &globalcatalogv1.AliasMetaData{
+				Type:   core.StringPtr("testString"),
+				PlanID: core.StringPtr("testString"),
+			}
+
+			sourceMetaDataModel := &globalcatalogv1.SourceMetaData{
+				Path: core.StringPtr("testString"),
+				Type: core.StringPtr("testString"),
+				URL:  core.StringPtr("testString"),
+			}
+
+			templateMetaDataModel := &globalcatalogv1.TemplateMetaData{
+				Services:             []string{"testString"},
+				DefaultMemory:        core.Int64Ptr(int64(38)),
+				StartCmd:             core.StringPtr("testString"),
+				Source:               sourceMetaDataModel,
+				RuntimeCatalogID:     core.StringPtr("testString"),
+				CfRuntimeID:          core.StringPtr("testString"),
+				TemplateID:           core.StringPtr("testString"),
+				ExecutableFile:       core.StringPtr("testString"),
+				Buildpack:            core.StringPtr("testString"),
+				EnvironmentVariables: make(map[string]string),
+			}
+
+			bulletsModel := &globalcatalogv1.Bullets{
+				Title:       core.StringPtr("testString"),
+				Description: core.StringPtr("testString"),
+				Icon:        core.StringPtr("testString"),
+				Quantity:    core.Int64Ptr(int64(38)),
+			}
+
+			uiMediaSourceMetaDataModel := &globalcatalogv1.UIMediaSourceMetaData{
+				Type: core.StringPtr("testString"),
+				URL:  core.StringPtr("testString"),
+			}
+
+			uiMetaMediaModel := &globalcatalogv1.UIMetaMedia{
+				Caption:      core.StringPtr("testString"),
+				ThumbnailURL: core.StringPtr("testString"),
+				Type:         core.StringPtr("testString"),
+				URL:          core.StringPtr("testString"),
+				Source:       []globalcatalogv1.UIMediaSourceMetaData{*uiMediaSourceMetaDataModel},
+			}
+
+			stringsModel := &globalcatalogv1.Strings{
+				Bullets:              []globalcatalogv1.Bullets{*bulletsModel},
+				Media:                []globalcatalogv1.UIMetaMedia{*uiMetaMediaModel},
+				NotCreatableMsg:      core.StringPtr("testString"),
+				NotCreatableRobotMsg: core.StringPtr("testString"),
+				DeprecationWarning:   core.StringPtr("testString"),
+				PopupWarningMessage:  core.StringPtr("testString"),
+				Instruction:          core.StringPtr("testString"),
+			}
+
+			urlsModel := &globalcatalogv1.Urls{
+				DocURL:              core.StringPtr("testString"),
+				InstructionsURL:     core.StringPtr("testString"),
+				APIURL:              core.StringPtr("testString"),
+				CreateURL:           core.StringPtr("testString"),
+				SdkDownloadURL:      core.StringPtr("testString"),
+				TermsURL:            core.StringPtr("testString"),
+				CustomCreatePageURL: core.StringPtr("testString"),
+				CatalogDetailsURL:   core.StringPtr("testString"),
+				DeprecationDocURL:   core.StringPtr("testString"),
+				DashboardURL:        core.StringPtr("testString"),
+				RegistrationURL:     core.StringPtr("testString"),
+				Apidocsurl:          core.StringPtr("testString"),
+			}
+
+			uiMetaDataModel := &globalcatalogv1.UIMetaData{
+				Strings:                      make(map[string]globalcatalogv1.Strings),
+				Urls:                         urlsModel,
+				EmbeddableDashboard:          core.StringPtr("testString"),
+				EmbeddableDashboardFullWidth: core.BoolPtr(true),
+				NavigationOrder:              []string{"testString"},
+				NotCreatable:                 core.BoolPtr(true),
+				PrimaryOfferingID:            core.StringPtr("testString"),
+				AccessibleDuringProvision:    core.BoolPtr(true),
+				SideBySideIndex:              core.Int64Ptr(int64(38)),
+				EndOfServiceTime:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Hidden:                       core.BoolPtr(true),
+				HideLiteMetering:             core.BoolPtr(true),
+				NoUpgradeNextStep:            core.BoolPtr(true),
+			}
+			uiMetaDataModel.Strings["en"] = *stringsModel
+
+			drMetaDataModel := &globalcatalogv1.DrMetaData{
+				Dr:          core.BoolPtr(true),
+				Description: core.StringPtr("testString"),
+			}
+
+			slaMetaDataModel := &globalcatalogv1.SLAMetaData{
+				Terms:          core.StringPtr("testString"),
+				Tenancy:        core.StringPtr("testString"),
+				Provisioning:   core.Float64Ptr(float64(72.5)),
+				Responsiveness: core.Float64Ptr(float64(72.5)),
+				Dr:             drMetaDataModel,
+			}
+
+			callbacksModel := &globalcatalogv1.Callbacks{
+				ControllerURL:            core.StringPtr("testString"),
+				BrokerURL:                core.StringPtr("testString"),
+				BrokerProxyURL:           core.StringPtr("testString"),
+				DashboardURL:             core.StringPtr("testString"),
+				DashboardDataURL:         core.StringPtr("testString"),
+				DashboardDetailTabURL:    core.StringPtr("testString"),
+				DashboardDetailTabExtURL: core.StringPtr("testString"),
+				ServiceMonitorAPI:        core.StringPtr("testString"),
+				ServiceMonitorApp:        core.StringPtr("testString"),
+				APIEndpoint:              make(map[string]string),
+			}
+
+			priceModel := &globalcatalogv1.Price{
+				QuantityTier: core.Int64Ptr(int64(38)),
+				Price:        core.Float64Ptr(float64(72.5)),
+			}
+
+			amountModel := &globalcatalogv1.Amount{
+				Country:  core.StringPtr("testString"),
+				Currency: core.StringPtr("testString"),
+				Prices:   []globalcatalogv1.Price{*priceModel},
+			}
+
+			startingPriceModel := &globalcatalogv1.StartingPrice{
+				PlanID:       core.StringPtr("testString"),
+				DeploymentID: core.StringPtr("testString"),
+				Unit:         core.StringPtr("testString"),
+				Amount:       []globalcatalogv1.Amount{*amountModel},
+			}
+
+			pricingSetModel := &globalcatalogv1.PricingSet{
+				Type:          core.StringPtr("testString"),
+				Origin:        core.StringPtr("testString"),
+				StartingPrice: startingPriceModel,
+			}
+
+			brokerModel := &globalcatalogv1.Broker{
+				Name: core.StringPtr("testString"),
+				GUID: core.StringPtr("testString"),
+			}
+
+			deploymentBaseModel := &globalcatalogv1.DeploymentBase{
+				Location:            core.StringPtr("testString"),
+				LocationURL:         core.StringPtr("testString"),
+				OriginalLocation:    core.StringPtr("testString"),
+				TargetCRN:           core.StringPtr("testString"),
+				ServiceCRN:          core.StringPtr("testString"),
+				MccpID:              core.StringPtr("testString"),
+				Broker:              brokerModel,
+				SupportsRcMigration: core.BoolPtr(true),
+				TargetNetwork:       core.StringPtr("testString"),
+			}
+
+			objectMetadataSetModel := &globalcatalogv1.ObjectMetadataSet{
+				RcCompatible: core.BoolPtr(true),
+				Service:      cfMetaDataModel,
+				Plan:         planMetaDataModel,
+				Alias:        aliasMetaDataModel,
+				Template:     templateMetaDataModel,
+				UI:           uiMetaDataModel,
+				Compliance:   []string{"testString"},
+				SLA:          slaMetaDataModel,
+				Callbacks:    callbacksModel,
+				OriginalName: core.StringPtr("testString"),
+				Version:      core.StringPtr("testString"),
+				Other:        map[string]interface{}{"anyKey": "anyValue"},
+				Pricing:      pricingSetModel,
+				Deployment:   deploymentBaseModel,
+			}
+
+			updateCatalogEntryOptions := &globalcatalogv1.UpdateCatalogEntryOptions{
+				ID:         core.StringPtr("testString"),
+				Name:       core.StringPtr("testString"),
+				Kind:       core.StringPtr("service"),
+				OverviewUI: make(map[string]globalcatalogv1.Overview),
+				Images:     imageModel,
+				Disabled:   core.BoolPtr(false),
+				Tags:       []string{"testString"},
+				Provider:   providerModel,
+				Group:      core.BoolPtr(true),
+				Active:     core.BoolPtr(true),
+				Metadata:   objectMetadataSetModel,
+				Move:       core.StringPtr("testString"),
+			}
+			updateCatalogEntryOptions.OverviewUI["en"] = *overviewModel
+
+			catalogEntry, response, err := globalCatalogService.UpdateCatalogEntry(updateCatalogEntryOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogEntry).ToNot(BeNil())
 		})
+	})
 
-		It("Fail to get a catalog entry after deletion", func() {
+	Describe(`GetChildObjects - Get child catalog entries of a specific kind`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _ = service.DeleteCatalogEntry(forceDelete)
-
-			_, detailedResponse, err := service.GetCatalogEntry(defaultGet)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
 		})
+		It(`GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions)`, func() {
+			getChildObjectsOptions := &globalcatalogv1.GetChildObjectsOptions{
+				ID:         core.StringPtr("testString"),
+				Kind:       core.StringPtr("testString"),
+				Include:    core.StringPtr("testString"),
+				Q:          core.StringPtr("testString"),
+				Descending: core.StringPtr("testString"),
+				Languages:  core.StringPtr("testString"),
+				Complete:   core.BoolPtr(true),
+				Offset:     core.Int64Ptr(int64(38)),
+				Limit:      core.Int64Ptr(int64(200)),
+			}
 
-		It("Fail to get a catalog entry that does not exist", func() {
-			shouldSkipTest()
-
-			_, detailedResponse, err := service.GetCatalogEntry(defaultGet)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Fail to delete a catalog entry that does not exist", func() {
-			shouldSkipTest()
-
-			detailedResponse, err := service.DeleteCatalogEntry(forceDelete)
+			entrySearchResult, response, err := globalCatalogService.GetChildObjects(getChildObjectsOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(entrySearchResult).ToNot(BeNil())
 		})
+	})
 
-		It("Fail to update a catalog entry that does not exist", func() {
+	Describe(`RestoreCatalogEntry - Restore archived catalog entry`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			_, detailedResponse, err := service.UpdateCatalogEntry(defaultUpdate)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
 		})
+		It(`RestoreCatalogEntry(restoreCatalogEntryOptions *RestoreCatalogEntryOptions)`, func() {
+			restoreCatalogEntryOptions := &globalcatalogv1.RestoreCatalogEntryOptions{
+				ID: core.StringPtr("testString"),
+			}
 
-		It("Fail to create a catalog entry that already exists", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			_, detailedResponse, err := service.CreateCatalogEntry(defaultCreate)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(409))
-		})
-
-		It("List catalog entries", func() {
-			shouldSkipTest()
-
-			result, detailedResponse, err := service.ListCatalogEntries(defaultList)
+			response, err := globalCatalogService.RestoreCatalogEntry(restoreCatalogEntryOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`GetVisibility - Get the visibility constraints for an object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVisibility(getVisibilityOptions *GetVisibilityOptions)`, func() {
+			getVisibilityOptions := &globalcatalogv1.GetVisibilityOptions{
+				ID: core.StringPtr("testString"),
+			}
+
+			visibility, response, err := globalCatalogService.GetVisibility(getVisibilityOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(visibility).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateVisibility - Update visibility`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateVisibility(updateVisibilityOptions *UpdateVisibilityOptions)`, func() {
+			Skip("Not testing")
+			visibilityDetailAccountsModel := &globalcatalogv1.VisibilityDetailAccounts{
+				Accountid: core.StringPtr("testString"),
+			}
+
+			visibilityDetailModel := &globalcatalogv1.VisibilityDetail{
+				Accounts: visibilityDetailAccountsModel,
+			}
+
+			updateVisibilityOptions := &globalcatalogv1.UpdateVisibilityOptions{
+				ID:         core.StringPtr("testString"),
+				Extendable: core.BoolPtr(true),
+				Include:    visibilityDetailModel,
+				Exclude:    visibilityDetailModel,
+			}
+
+			response, err := globalCatalogService.UpdateVisibility(updateVisibilityOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`GetPricing - Get the pricing for an object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPricing(getPricingOptions *GetPricingOptions)`, func() {
+			getPricingOptions := &globalcatalogv1.GetPricingOptions{
+				ID: core.StringPtr("testString"),
+			}
+
+			pricingGet, response, err := globalCatalogService.GetPricing(getPricingOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(pricingGet).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetPricingDeployments - Get the pricing deployments for a plan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPricingDeployments(getPricingDeploymentsOptions *GetPricingDeploymentsOptions)`, func() {
+			getPricingDeploymentsOptions := &globalcatalogv1.GetPricingDeploymentsOptions{
+				ID: core.StringPtr("testString"),
+			}
+
+			pricingSearchResult, response, err := globalCatalogService.GetPricingDeployments(getPricingDeploymentsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(pricingSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetAuditLogs - Get the audit logs for an object`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions)`, func() {
+			Skip("Not testing")
+			getAuditLogsOptions := &globalcatalogv1.GetAuditLogsOptions{
+				ID:        core.StringPtr("testString"),
+				Ascending: core.StringPtr("false"),
+				Startat:   core.StringPtr("testString"),
+				Offset:    core.Int64Ptr(int64(38)),
+				Limit:     core.Int64Ptr(int64(200)),
+			}
+
+			auditSearchResult, response, err := globalCatalogService.GetAuditLogs(getAuditLogsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(auditSearchResult).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListArtifacts - Get artifacts`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListArtifacts(listArtifactsOptions *ListArtifactsOptions)`, func() {
+			Skip("Not testing")
+			listArtifactsOptions := &globalcatalogv1.ListArtifactsOptions{
+				ObjectID: core.StringPtr("testString"),
+			}
+
+			artifacts, response, err := globalCatalogService.ListArtifacts(listArtifactsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(artifacts).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetArtifact - Get artifact`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetArtifact(getArtifactOptions *GetArtifactOptions)`, func() {
+			Skip("Not testing")
+			getArtifactOptions := &globalcatalogv1.GetArtifactOptions{
+				ObjectID:   core.StringPtr("testString"),
+				ArtifactID: core.StringPtr("testString"),
+				Accept:     core.StringPtr("testString"),
+			}
+
+			result, response, err := globalCatalogService.GetArtifact(getArtifactOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListCatalogEntries() result:\n%s", common.ToJSON(result))
-			Expect(result.Resources).NotTo(BeNil())
-			Expect(len(result.Resources)).NotTo(BeZero())
 		})
+	})
 
-		It("Get child catalog entry", func() {
-			const expectedOffset int64 = 0
-			const expectedCount int64 = 1
-			const expectedResourceCount int64 = 1
-
+	Describe(`UploadArtifact - Upload artifact`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`UploadArtifact(uploadArtifactOptions *UploadArtifactOptions)`, func() {
+			Skip("Not testing")
+			uploadArtifactOptions := &globalcatalogv1.UploadArtifactOptions{
+				ObjectID:    core.StringPtr("testString"),
+				ArtifactID:  core.StringPtr("testString"),
+				Artifact:    CreateMockReader("This is a mock file."),
+				ContentType: core.StringPtr("testString"),
+			}
 
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _, _ = service.CreateCatalogEntry(defaultChild)
-
-			result, detailedResponse, err := service.GetChildObjects(getChild)
+			response, err := globalCatalogService.UploadArtifact(uploadArtifactOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetChildObjects() result:\n%s", common.ToJSON(result))
-			Expect(*result.Offset).To(Equal(expectedOffset))
-			Expect(*result.Count).To(Equal(expectedCount))
-			Expect(*result.ResourceCount).To(Equal(expectedResourceCount))
-			Expect(result.Resources[0].Name).To(Equal(defaultChild.Name))
-			Expect(result.Resources[0].Kind).To(Equal(defaultChild.Kind))
-			Expect(result.Resources[0].Images).To(Equal(defaultChild.Images))
-			Expect(result.Resources[0].Tags).To(Equal(defaultChild.Tags))
-			Expect(result.Resources[0].Provider).To(Equal(defaultChild.Provider))
+			Expect(response.StatusCode).To(Equal(200))
 		})
+	})
 
-		It("Fail to get a child catalog entry that does not exist", func() {
+	Describe(`DeleteCatalogEntry - Delete a catalog entry`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			_, detailedResponse, err := service.GetChildObjects(getChild)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
 		})
+		It(`DeleteCatalogEntry(deleteCatalogEntryOptions *DeleteCatalogEntryOptions)`, func() {
+			deleteCatalogEntryOptions := &globalcatalogv1.DeleteCatalogEntryOptions{
+				ID:    core.StringPtr("testString"),
+				Force: core.BoolPtr(true),
+			}
 
-		It("Restore a catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _ = service.DeleteCatalogEntry(defaultDelete)
-
-			detailedResponseRestore, errRestore := service.RestoreCatalogEntry(defaultRestore)
-			Expect(errRestore).To(BeNil())
-			Expect(detailedResponseRestore.StatusCode).To(Equal(200))
-
-			result, detailedResponseGet, errGet := service.GetCatalogEntry(defaultGet)
-			Expect(errGet).To(BeNil())
-			Expect(detailedResponseGet.StatusCode).To(Equal(200))
-			Expect(result.ID).To(Equal(defaultCreate.ID))
-			Expect(result.Name).To(Equal(defaultCreate.Name))
-			Expect(result.Kind).To(Equal(defaultCreate.Kind))
-			Expect(result.Images).To(Equal(defaultCreate.Images))
-			Expect(result.Tags).To(Equal(defaultCreate.Tags))
-			Expect(result.Provider).To(Equal(defaultCreate.Provider))
-		})
-
-		It("Fail to restore catalog entry that never existed", func() {
-			shouldSkipTest()
-
-			detailedResponse, err := service.RestoreCatalogEntry(bogusRestore)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Get visibility for catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			result, detailedResponse, err := service.GetVisibility(getVisibility)
+			response, err := globalCatalogService.DeleteCatalogEntry(deleteCatalogEntryOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetVisibility() result:\n%s", common.ToJSON(result))
-			Expect(*result.Restrictions).To(Equal(visibilityRestriction))
+			Expect(response.StatusCode).To(Equal(200))
 		})
+	})
 
-		It("Fail to get visibility of catalog entry that does not exist", func() {
+	Describe(`DeleteArtifact - Delete artifact`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			_, detailedResponse, err := service.GetVisibility(getVisibility)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
 		})
+		It(`DeleteArtifact(deleteArtifactOptions *DeleteArtifactOptions)`, func() {
+			Skip("Not testing")
+			deleteArtifactOptions := &globalcatalogv1.DeleteArtifactOptions{
+				ObjectID:   core.StringPtr("testString"),
+				ArtifactID: core.StringPtr("testString"),
+			}
 
-		It("Update visibility for catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			detailedResponse, err := service.UpdateVisibility(updateVisibility)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(403))
-		})
-
-		It("Fail to update visibility for catalog entry that does not exist", func() {
-			shouldSkipTest()
-
-			detailedResponse, err := service.UpdateVisibility(updateVisibility)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Fail to get pricing", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			_, detailedResponseExists, errExists := service.GetPricing(getPricing)
-			Expect(errExists).NotTo(BeNil())
-			Expect(detailedResponseExists.StatusCode).To(Equal(404))
-
-			_, _ = service.DeleteCatalogEntry(forceDelete)
-
-			_, detailedResponseNotExists, errNotExists := service.GetPricing(getPricing)
-			Expect(errNotExists).NotTo(BeNil())
-			Expect(detailedResponseNotExists.StatusCode).To(Equal(404))
-		})
-
-		It("List artifacts for a catalog entry", func() {
-			const expectedCount int64 = 1
-			const expectedSize int64 = 24
-
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _ = service.UploadArtifact(uploadArtifactList)
-
-			result, detailedResponse, err := service.ListArtifacts(listArtifacts)
+			response, err := globalCatalogService.DeleteArtifact(deleteArtifactOptions)
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListArtifacts() result:\n%s", common.ToJSON(result))
-			Expect(*result.Count).To(Equal(expectedCount))
-			Expect(len(result.Resources)).To(Equal(1))
-			Expect(result.Resources[0].Name).To(Equal(uploadArtifactList.ArtifactID))
-			Expect(*result.Resources[0].URL).To(Equal(fmt.Sprintf("%s/%s/artifacts/%s", "https://globalcatalog.test.cloud.ibm.com/api/v1", *defaultCreate.ID, *uploadArtifactList.ArtifactID)))
-			Expect(*result.Resources[0].Size).To(Equal(expectedSize))
-		})
-
-		It("Fail to list artifacts for a catalog entry that does not exist", func() {
-			const expectedCount int64 = 0
-
-			shouldSkipTest()
-
-			result, detailedResponse, err := service.ListArtifacts(listArtifacts)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(*result.Count).To(Equal(expectedCount))
-		})
-
-		It("Get artifact for a catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _ = service.UploadArtifact(defaultArtifact)
-
-			result, detailedResponse, err := service.GetArtifact(getArtifact)
-			Expect(result).NotTo(BeNil())
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			buf := new(bytes.Buffer)
-			_, _ = buf.ReadFrom(result)
-			Expect(buf.String()).To(Equal(artifact))
-		})
-
-		It("Fail to get artifacts that do not exists", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			_, detailedResponseExists, errExists := service.GetArtifact(getArtifact)
-			Expect(errExists).NotTo(BeNil())
-			Expect(detailedResponseExists.StatusCode).To(Equal(404))
-
-			_, _ = service.DeleteCatalogEntry(forceDelete)
-
-			_, detailedResponseNotExists, errNotExists := service.GetArtifact(getArtifact)
-			Expect(errNotExists).NotTo(BeNil())
-			Expect(detailedResponseNotExists.StatusCode).To(Equal(404))
-		})
-
-		It("Create artifact for a catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-
-			detailedResponse, err := service.UploadArtifact(uploadArtifactCreate)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-		})
-
-		It("Fail to artifact for a catalog entry that does not exist", func() {
-			shouldSkipTest()
-
-			detailedResponse, err := service.UploadArtifact(uploadArtifactCreateFailure)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Delete artifact for a catalog entry", func() {
-			shouldSkipTest()
-
-			_, _, _ = service.CreateCatalogEntry(defaultCreate)
-			_, _ = service.UploadArtifact(uploadArtifactDelete)
-
-			detailedResponse, err := service.DeleteArtifact(deleteArtifact)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-		})
-
-		It("Fail to delete artifact for a catalog entry that does not exist", func() {
-			shouldSkipTest()
-
-			detailedResponse, err := service.DeleteArtifact(deleteArtifact)
-			Expect(err).NotTo(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(404))
+			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 })
+
+//
+// Utility functions are declared in the unit test file
+//
