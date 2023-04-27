@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
+ * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -2986,6 +2986,9 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceWithContext(ctx c
 	}
 	if getOfferingSourceOptions.Channel != nil {
 		builder.AddQuery("channel", fmt.Sprint(*getOfferingSourceOptions.Channel))
+	}
+	if getOfferingSourceOptions.Flavor != nil {
+		builder.AddQuery("flavor", fmt.Sprint(*getOfferingSourceOptions.Flavor))
 	}
 	if getOfferingSourceOptions.AsIs != nil {
 		builder.AddQuery("asIs", fmt.Sprint(*getOfferingSourceOptions.AsIs))
@@ -11683,6 +11686,9 @@ type GetOfferingSourceOptions struct {
 	// The channel value of the specified version.
 	Channel *string `json:"channel,omitempty"`
 
+	// The programmatic flavor name of the specified version.
+	Flavor *string `json:"flavor,omitempty"`
+
 	// If false (the default), the root folder from the original onboarded tgz file is removed.  If true, the root folder
 	// is returned.
 	AsIs *bool `json:"asIs,omitempty"`
@@ -11737,6 +11743,12 @@ func (_options *GetOfferingSourceOptions) SetKind(kind string) *GetOfferingSourc
 // SetChannel : Allow user to set Channel
 func (_options *GetOfferingSourceOptions) SetChannel(channel string) *GetOfferingSourceOptions {
 	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetFlavor : Allow user to set Flavor
+func (_options *GetOfferingSourceOptions) SetFlavor(flavor string) *GetOfferingSourceOptions {
+	_options.Flavor = core.StringPtr(flavor)
 	return _options
 }
 
