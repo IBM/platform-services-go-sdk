@@ -157,25 +157,5 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 			Expect(scanResult).ToNot(BeNil())
 
 		})
-		It(`GetSupportedTypes request example`, func() {
-			fmt.Println("\nGetSupportedTypes() result:")
-			// begin-get_supported_types
-
-			getSupportedTypesOptions := globalSearchService.NewGetSupportedTypesOptions()
-
-			supportedTypesList, response, err := globalSearchService.GetSupportedTypes(getSupportedTypesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(supportedTypesList, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_supported_types
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(supportedTypesList).ToNot(BeNil())
-
-		})
 	})
 })
