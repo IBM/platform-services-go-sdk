@@ -176,7 +176,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
@@ -204,7 +203,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
@@ -262,7 +260,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
@@ -295,7 +292,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
@@ -359,7 +355,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["boundary"]).To(Equal([]string{"global"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["is_deleted"]).To(Equal([]string{"false"}))
@@ -394,7 +389,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
@@ -427,7 +421,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
@@ -474,7 +467,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Boundary = core.StringPtr("global")
 				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
 				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
@@ -498,218 +490,11 @@ var _ = Describe(`GlobalSearchV2`, func() {
 			})
 		})
 	})
-	Describe(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) - Operation response error`, func() {
-		getSupportedTypesPath := "/v2/resources/supported_types"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSupportedTypesPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetSupportedTypes with error: Operation response processing error`, func() {
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService).ToNot(BeNil())
-
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
-				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				globalSearchService.EnableRetries(0, 0)
-				result, response, operationErr = globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions)`, func() {
-		getSupportedTypesPath := "/v2/resources/supported_types"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSupportedTypesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"supported_types": ["SupportedTypes"]}`)
-				}))
-			})
-			It(`Invoke GetSupportedTypes successfully with retries`, func() {
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService).ToNot(BeNil())
-				globalSearchService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
-				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := globalSearchService.GetSupportedTypesWithContext(ctx, getSupportedTypesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				globalSearchService.DisableRetries()
-				result, response, operationErr := globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = globalSearchService.GetSupportedTypesWithContext(ctx, getSupportedTypesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getSupportedTypesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"supported_types": ["SupportedTypes"]}`)
-				}))
-			})
-			It(`Invoke GetSupportedTypes successfully`, func() {
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := globalSearchService.GetSupportedTypes(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
-				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetSupportedTypes with error: Operation request error`, func() {
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService).ToNot(BeNil())
-
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
-				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := globalSearchService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetSupportedTypes successfully`, func() {
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService).ToNot(BeNil())
-
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
-				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			globalSearchService, _ := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
 				URL:           "http://globalsearchv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			It(`Invoke NewGetSupportedTypesOptions successfully`, func() {
-				// Construct an instance of the GetSupportedTypesOptions model
-				getSupportedTypesOptionsModel := globalSearchService.NewGetSupportedTypesOptions()
-				getSupportedTypesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getSupportedTypesOptionsModel).ToNot(BeNil())
-				Expect(getSupportedTypesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewSearchOptions successfully`, func() {
 				// Construct an instance of the SearchOptions model
@@ -719,7 +504,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SetSearchCursor("testString")
 				searchOptionsModel.SetTransactionID("testString")
 				searchOptionsModel.SetAccountID("testString")
-				searchOptionsModel.SetBoundary("global")
 				searchOptionsModel.SetLimit(int64(1))
 				searchOptionsModel.SetTimeout(int64(0))
 				searchOptionsModel.SetSort([]string{"testString"})
@@ -735,7 +519,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(searchOptionsModel.SearchCursor).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(searchOptionsModel.Boundary).To(Equal(core.StringPtr("global")))
 				Expect(searchOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(searchOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(searchOptionsModel.Sort).To(Equal([]string{"testString"}))
