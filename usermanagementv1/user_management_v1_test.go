@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,6 +174,8 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_settings query parameter
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["user_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
@@ -193,6 +195,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listUsersOptionsModel.IncludeSettings = core.BoolPtr(true)
+				listUsersOptionsModel.Search = core.StringPtr("testString")
 				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.UserID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -226,6 +230,8 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_settings query parameter
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["user_id"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
@@ -250,6 +256,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listUsersOptionsModel.IncludeSettings = core.BoolPtr(true)
+				listUsersOptionsModel.Search = core.StringPtr("testString")
 				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.UserID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -289,6 +297,8 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
+					// TODO: Add check for include_settings query parameter
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["user_id"]).To(Equal([]string{"testString"}))
 					// Set mock response
@@ -315,6 +325,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listUsersOptionsModel.IncludeSettings = core.BoolPtr(true)
+				listUsersOptionsModel.Search = core.StringPtr("testString")
 				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.UserID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -338,6 +350,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listUsersOptionsModel.IncludeSettings = core.BoolPtr(true)
+				listUsersOptionsModel.Search = core.StringPtr("testString")
 				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.UserID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -382,6 +396,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.Limit = core.Int64Ptr(int64(10))
+				listUsersOptionsModel.IncludeSettings = core.BoolPtr(true)
+				listUsersOptionsModel.Search = core.StringPtr("testString")
 				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.UserID = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -457,6 +473,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := &usermanagementv1.ListUsersOptions{
 					AccountID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeSettings: core.BoolPtr(true),
+					Search: core.StringPtr("testString"),
 					UserID: core.StringPtr("testString"),
 				}
 
@@ -484,6 +502,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := &usermanagementv1.ListUsersOptions{
 					AccountID: core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
+					IncludeSettings: core.BoolPtr(true),
+					Search: core.StringPtr("testString"),
 					UserID: core.StringPtr("testString"),
 				}
 
@@ -1840,12 +1860,16 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := userManagementService.NewListUsersOptions(accountID)
 				listUsersOptionsModel.SetAccountID("testString")
 				listUsersOptionsModel.SetLimit(int64(10))
+				listUsersOptionsModel.SetIncludeSettings(true)
+				listUsersOptionsModel.SetSearch("testString")
 				listUsersOptionsModel.SetStart("testString")
 				listUsersOptionsModel.SetUserID("testString")
 				listUsersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listUsersOptionsModel).ToNot(BeNil())
 				Expect(listUsersOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
+				Expect(listUsersOptionsModel.IncludeSettings).To(Equal(core.BoolPtr(true)))
+				Expect(listUsersOptionsModel.Search).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.UserID).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))

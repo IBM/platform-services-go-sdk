@@ -22,13 +22,12 @@ package usermanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"time"
-
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"os"
+	"time"
 )
 
 var _ = Describe(`UserManagementV1 Examples Tests`, func() {
@@ -192,14 +191,15 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			fmt.Println("\nListUsers() result:")
 			// begin-list_users
 			listUsersOptions := &usermanagementv1.ListUsersOptions{
-				AccountID: &accountID,
+				AccountID:       &accountID,
+				IncludeSettings: core.BoolPtr(true),
+				Search:          core.StringPtr("state:ACTIVE"),
 			}
 
 			pager, err := userManagementService.NewUsersPager(listUsersOptions)
 			if err != nil {
 				panic(err)
 			}
-
 			var allResults []usermanagementv1.UserProfile
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
