@@ -119,7 +119,6 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 					TransactionID: &transactionID,
 					Limit:         &limit,
 				}
-
 				scanResult, response, err := globalSearchService.Search(searchOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
@@ -134,7 +133,6 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 					moreResults = false
 				}
 			}
-
 			fmt.Fprintf(GinkgoWriter, "Total results returned by Search(): %d\n", len(searchResults))
 		})
 	})
