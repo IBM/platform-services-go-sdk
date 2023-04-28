@@ -138,22 +138,4 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Total results returned by Search(): %d\n", len(searchResults))
 		})
 	})
-
-	Describe(`GetSupportedTypes - Get all supported resource types`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions)`, func() {
-
-			getSupportedTypesOptions := &globalsearchv2.GetSupportedTypesOptions{}
-
-			supportedTypesList, response, err := globalSearchService.GetSupportedTypes(getSupportedTypesOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(supportedTypesList).ToNot(BeNil())
-
-			fmt.Fprintf(GinkgoWriter, "GetSupportedTypes() result:\n%s\n", common.ToJSON(supportedTypesList))
-		})
-	})
 })
