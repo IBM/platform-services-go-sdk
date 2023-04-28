@@ -1,3 +1,10 @@
+## [0.37.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.2...v0.37.3) (2023-04-28)
+
+
+### Bug Fixes
+
+* **Global Search:** remove deprecated method getSupportedTypes ([#253](https://github.com/IBM/platform-services-go-sdk/issues/253)) ([3d3307c](https://github.com/IBM/platform-services-go-sdk/commit/3d3307cfaf18079ca8e62e847004541728a9734a))
+
 ## [0.37.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.1...v0.37.2) (2023-04-27)
 
 
