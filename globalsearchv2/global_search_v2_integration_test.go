@@ -134,7 +134,6 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 					moreResults = false
 				}
 			}
-
 			fmt.Fprintf(GinkgoWriter, "Total results returned by Search(): %d\n", len(searchResults))
 		})
 	})
