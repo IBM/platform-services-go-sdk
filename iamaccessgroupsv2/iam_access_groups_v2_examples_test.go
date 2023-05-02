@@ -1,8 +1,7 @@
-//go:build examples
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,15 +48,11 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 	var (
 		iamAccessGroupsService *iamaccessgroupsv2.IamAccessGroupsV2
-		config                 map[string]string
+		config       map[string]string
 
 		// Variables to hold link values
 		accessGroupETagLink string
-		accessGroupIDLink   string
-		testAccountID       string
-		testProfileID       string
-		testClaimRuleID     string
-		testClaimRuleEtag   string
+		accessGroupIDLink string
 	)
 
 	var shouldSkipTest = func() {
@@ -80,8 +75,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				Skip("Unable to load service properties, skipping examples")
 			}
 
-			testAccountID = config["TEST_ACCOUNT_ID"]
-			testProfileID = config["TEST_PROFILE_ID"]
 			shouldSkipTest = func() {}
 		})
 	})
@@ -118,7 +111,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			// begin-create_access_group
 
 			createAccessGroupOptions := iamAccessGroupsService.NewCreateAccessGroupOptions(
-				testAccountID,
+				"testString",
 				"Managers",
 			)
 			createAccessGroupOptions.SetDescription("Group for managers")
@@ -138,7 +131,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			accessGroupIDLink = *group.ID
 			fmt.Fprintf(GinkgoWriter, "Saved accessGroupIDLink value: %v\n", accessGroupIDLink)
-
 		})
 		It(`GetAccessGroup request example`, func() {
 			fmt.Println("\nGetAccessGroup() result:")
@@ -163,7 +155,38 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			accessGroupETagLink = response.Headers.Get("ETag")
 			fmt.Fprintf(GinkgoWriter, "Saved accessGroupETagLink value: %v\n", accessGroupETagLink)
+		})
+		It(`ListAccessGroups request example`, func() {
+			fmt.Println("\nListAccessGroups() result:")
+			// begin-list_access_groups
+			listAccessGroupsOptions := &iamaccessgroupsv2.ListAccessGroupsOptions{
+				AccountID: core.StringPtr("testString"),
+				TransactionID: core.StringPtr("testString"),
+				IamID: core.StringPtr("testString"),
+				Search: core.StringPtr("testString"),
+				MembershipType: core.StringPtr("static"),
+				Limit: core.Int64Ptr(int64(10)),
+				Sort: core.StringPtr("name"),
+				ShowFederated: core.BoolPtr(false),
+				HidePublicAccess: core.BoolPtr(false),
+			}
 
+			pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iamaccessgroupsv2.Group
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_access_groups
 		})
 		It(`UpdateAccessGroup request example`, func() {
 			fmt.Println("\nUpdateAccessGroup() result:")
@@ -188,76 +211,13 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(group).ToNot(BeNil())
-
-		})
-		It(`ListAccessGroups request example`, func() {
-			fmt.Println("\nListAccessGroups() result:")
-			// begin-list_access_groups
-			listAccessGroupsOptions := &iamaccessgroupsv2.ListAccessGroupsOptions{
-				AccountID: &testAccountID,
-			}
-
-			pager, err := iamAccessGroupsService.NewAccessGroupsPager(listAccessGroupsOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			var allResults []iamaccessgroupsv2.Group
-			for pager.HasNext() {
-				nextPage, err := pager.GetNext()
-				if err != nil {
-					panic(err)
-				}
-				allResults = append(allResults, nextPage...)
-			}
-			b, _ := json.MarshalIndent(allResults, "", "  ")
-			fmt.Println(string(b))
-			// end-list_access_groups
-		})
-		It(`AddMembersToAccessGroup request example`, func() {
-			fmt.Println("\nAddMembersToAccessGroup() result:")
-			// begin-add_members_to_access_group
-
-			groupMembers := []iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
-					IamID: core.StringPtr("IBMid-user1"),
-					Type:  core.StringPtr("user"),
-				},
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
-					IamID: core.StringPtr("iam-ServiceId-123"),
-					Type:  core.StringPtr("service"),
-				},
-				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
-					IamID: core.StringPtr(testProfileID),
-					Type:  core.StringPtr("profile"),
-				},
-			}
-
-			addMembersToAccessGroupOptions := iamAccessGroupsService.NewAddMembersToAccessGroupOptions(
-				accessGroupIDLink,
-			)
-			addMembersToAccessGroupOptions.SetMembers(groupMembers)
-
-			addGroupMembersResponse, response, err := iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(addGroupMembersResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-add_members_to_access_group
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(207))
-			Expect(addGroupMembersResponse).ToNot(BeNil())
-
 		})
 		It(`IsMemberOfAccessGroup request example`, func() {
 			// begin-is_member_of_access_group
 
 			isMemberOfAccessGroupOptions := iamAccessGroupsService.NewIsMemberOfAccessGroupOptions(
 				accessGroupIDLink,
-				"IBMid-user1",
+				"testString",
 			)
 
 			response, err := iamAccessGroupsService.IsMemberOfAccessGroup(isMemberOfAccessGroupOptions)
@@ -272,13 +232,45 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`AddMembersToAccessGroup request example`, func() {
+			fmt.Println("\nAddMembersToAccessGroup() result:")
+			// begin-add_members_to_access_group
 
+			addGroupMembersRequestMembersItemModel := &iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
+				IamID: core.StringPtr("IBMid-user1"),
+				Type: core.StringPtr("user"),
+			}
+
+			addMembersToAccessGroupOptions := iamAccessGroupsService.NewAddMembersToAccessGroupOptions(
+				accessGroupIDLink,
+			)
+			addMembersToAccessGroupOptions.SetMembers([]iamaccessgroupsv2.AddGroupMembersRequestMembersItem{*addGroupMembersRequestMembersItemModel})
+
+			addGroupMembersResponse, response, err := iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(addGroupMembersResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-add_members_to_access_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(207))
+			Expect(addGroupMembersResponse).ToNot(BeNil())
 		})
 		It(`ListAccessGroupMembers request example`, func() {
 			fmt.Println("\nListAccessGroupMembers() result:")
 			// begin-list_access_group_members
 			listAccessGroupMembersOptions := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
 				AccessGroupID: &accessGroupIDLink,
+				TransactionID: core.StringPtr("testString"),
+				MembershipType: core.StringPtr("static"),
+				Limit: core.Int64Ptr(int64(10)),
+				Type: core.StringPtr("testString"),
+				Verbose: core.BoolPtr(false),
+				Sort: core.StringPtr("testString"),
 			}
 
 			pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptions)
@@ -298,83 +290,38 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			fmt.Println(string(b))
 			// end-list_access_group_members
 		})
-		It(`RemoveMemberFromAccessGroup request example`, func() {
-			// begin-remove_member_from_access_group
+		It(`RemoveMembersFromAccessGroup request example`, func() {
+			fmt.Println("\nRemoveMembersFromAccessGroup() result:")
+			// begin-remove_members_from_access_group
 
-			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
+			removeMembersFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(
 				accessGroupIDLink,
-				"IBMid-user1",
 			)
+			removeMembersFromAccessGroupOptions.SetMembers([]string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"})
 
-			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
+			deleteGroupBulkMembersResponse, response, err := iamAccessGroupsService.RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions)
 			if err != nil {
 				panic(err)
 			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
-			}
+			b, _ := json.MarshalIndent(deleteGroupBulkMembersResponse, "", "  ")
+			fmt.Println(string(b))
 
-			// end-remove_member_from_access_group
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
-		It(`RemoveMemberFromAccessGroup request example`, func() {
-			// begin-remove_member_from_access_group
-
-			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
-				accessGroupIDLink,
-				"iam-ServiceId-123",
-			)
-
-			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
-			}
-
-			// end-remove_member_from_access_group
+			// end-remove_members_from_access_group
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
-		It(`RemoveMemberFromAccessGroup request example`, func() {
-			// begin-remove_member_from_access_group
-
-			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
-				accessGroupIDLink,
-				testProfileID,
-			)
-
-			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
-			}
-
-			// end-remove_member_from_access_group
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
+			Expect(response.StatusCode).To(Equal(207))
+			Expect(deleteGroupBulkMembersResponse).ToNot(BeNil())
 		})
 		It(`AddMemberToMultipleAccessGroups request example`, func() {
 			fmt.Println("\nAddMemberToMultipleAccessGroups() result:")
 			// begin-add_member_to_multiple_access_groups
 
 			addMemberToMultipleAccessGroupsOptions := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(
-				testAccountID,
-				"IBMid-user1",
+				"testString",
+				"testString",
 			)
-
 			addMemberToMultipleAccessGroupsOptions.SetType("user")
-			addMemberToMultipleAccessGroupsOptions.SetGroups([]string{accessGroupIDLink})
+			addMemberToMultipleAccessGroupsOptions.SetGroups([]string{"access-group-id-1"})
 
 			addMembershipMultipleGroupsResponse, response, err := iamAccessGroupsService.AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions)
 			if err != nil {
@@ -388,45 +335,21 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(addMembershipMultipleGroupsResponse).ToNot(BeNil())
-
-		})
-		It(`RemoveMemberFromAllAccessGroups request example`, func() {
-			fmt.Println("\nRemoveMemberFromAllAccessGroups() result:")
-			// begin-remove_member_from_all_access_groups
-
-			removeMemberFromAllAccessGroupsOptions := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(
-				testAccountID,
-				"IBMid-user1",
-			)
-
-			deleteFromAllGroupsResponse, response, err := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(deleteFromAllGroupsResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-remove_member_from_all_access_groups
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(207))
-			Expect(deleteFromAllGroupsResponse).ToNot(BeNil())
-
 		})
 		It(`AddAccessGroupRule request example`, func() {
 			fmt.Println("\nAddAccessGroupRule() result:")
 			// begin-add_access_group_rule
 
 			ruleConditionsModel := &iamaccessgroupsv2.RuleConditions{
-				Claim:    core.StringPtr("isManager"),
+				Claim: core.StringPtr("isManager"),
 				Operator: core.StringPtr("EQUALS"),
-				Value:    core.StringPtr("true"),
+				Value: core.StringPtr("true"),
 			}
 
 			addAccessGroupRuleOptions := iamAccessGroupsService.NewAddAccessGroupRuleOptions(
 				accessGroupIDLink,
 				int64(12),
-				"https://idp.example.org/SAML2a",
+				"https://idp.example.org/SAML2",
 				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
 			)
 			addAccessGroupRuleOptions.SetName("Manager group rule")
@@ -443,65 +366,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(rule).ToNot(BeNil())
-			testClaimRuleID = *rule.ID
-		})
-		It(`GetAccessGroupRule request example`, func() {
-			fmt.Println("\nGetAccessGroupRule() result:")
-			// begin-get_access_group_rule
-
-			getAccessGroupRuleOptions := iamAccessGroupsService.NewGetAccessGroupRuleOptions(
-				accessGroupIDLink,
-				testClaimRuleID,
-			)
-
-			rule, response, err := iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_access_group_rule
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(rule).ToNot(BeNil())
-
-			testClaimRuleEtag = response.GetHeaders().Get("Etag")
-		})
-		It(`ReplaceAccessGroupRule request example`, func() {
-			fmt.Println("\nReplaceAccessGroupRule() result:")
-			// begin-replace_access_group_rule
-
-			ruleConditionsModel := &iamaccessgroupsv2.RuleConditions{
-				Claim:    core.StringPtr("isManager"),
-				Operator: core.StringPtr("EQUALS"),
-				Value:    core.StringPtr("true"),
-			}
-
-			replaceAccessGroupRuleOptions := iamAccessGroupsService.NewReplaceAccessGroupRuleOptions(
-				accessGroupIDLink,
-				testClaimRuleID,
-				testClaimRuleEtag,
-				int64(12),
-				"https://idp.example.org/SAML2",
-				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
-			)
-			replaceAccessGroupRuleOptions.SetName("Manager group rule")
-
-			rule, response, err := iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Println(string(b))
-
-			// end-replace_access_group_rule
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(rule).ToNot(BeNil())
-
 		})
 		It(`ListAccessGroupRules request example`, func() {
 			fmt.Println("\nListAccessGroupRules() result:")
@@ -523,36 +387,456 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(rulesList).ToNot(BeNil())
-
 		})
-		It(`RemoveAccessGroupRule request example`, func() {
-			// begin-remove_access_group_rule
+		It(`GetAccessGroupRule request example`, func() {
+			fmt.Println("\nGetAccessGroupRule() result:")
+			// begin-get_access_group_rule
 
-			removeAccessGroupRuleOptions := iamAccessGroupsService.NewRemoveAccessGroupRuleOptions(
+			getAccessGroupRuleOptions := iamAccessGroupsService.NewGetAccessGroupRuleOptions(
 				accessGroupIDLink,
-				testClaimRuleID,
+				"testString",
 			)
 
-			response, err := iamAccessGroupsService.RemoveAccessGroupRule(removeAccessGroupRuleOptions)
+			rule, response, err := iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptions)
 			if err != nil {
 				panic(err)
 			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from RemoveAccessGroupRule(): %d\n", response.StatusCode)
-			}
+			b, _ := json.MarshalIndent(rule, "", "  ")
+			fmt.Println(string(b))
 
-			// end-remove_access_group_rule
+			// end-get_access_group_rule
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(rule).ToNot(BeNil())
+		})
+		It(`ReplaceAccessGroupRule request example`, func() {
+			fmt.Println("\nReplaceAccessGroupRule() result:")
+			// begin-replace_access_group_rule
 
+			ruleConditionsModel := &iamaccessgroupsv2.RuleConditions{
+				Claim: core.StringPtr("isManager"),
+				Operator: core.StringPtr("EQUALS"),
+				Value: core.StringPtr("true"),
+			}
+
+			replaceAccessGroupRuleOptions := iamAccessGroupsService.NewReplaceAccessGroupRuleOptions(
+				accessGroupIDLink,
+				"testString",
+				"testString",
+				int64(12),
+				"https://idp.example.org/SAML2",
+				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
+			)
+			replaceAccessGroupRuleOptions.SetName("Manager group rule")
+
+			rule, response, err := iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(rule, "", "  ")
+			fmt.Println(string(b))
+
+			// end-replace_access_group_rule
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(rule).ToNot(BeNil())
+		})
+		It(`CreateTemplate request example`, func() {
+			fmt.Println("\nCreateTemplate() result:")
+			// begin-create_template
+
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add: core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.MembersInput{
+				Users: []string{"IBMid-123", "IBMid-234"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.ConditionInput{
+				Claim: core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value: core.StringPtr("test-bluegroup-saml"),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RulesActionControls{
+				Remove: core.BoolPtr(false),
+				Update: core.BoolPtr(false),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.RuleInput{
+				Name: core.StringPtr("Manager group rule"),
+				Expiration: core.Int64Ptr(int64(12)),
+				RealmName: core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions: []iamaccessgroupsv2.ConditionInput{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add: core.BoolPtr(false),
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.AssertionsInput{
+				Rules: []iamaccessgroupsv2.RuleInput{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			accessGroupActionControlsModel := &iamaccessgroupsv2.AccessGroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupInput{
+				Name: core.StringPtr("IAM Admin Group"),
+				Description: core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members: membersInputModel,
+				Assertions: assertionsInputModel,
+				ActionControls: accessGroupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplatesInput{
+				ID: core.StringPtr("policyTemplateId-123"),
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateOptions := iamAccessGroupsService.NewCreateTemplateOptions(
+				"IAM Admin Group template",
+				"This access group template allows admin access to all IAM platform services in the account.",
+				"accountID-123",
+			)
+			createTemplateOptions.SetAccessGroup(accessGroupInputModel)
+			createTemplateOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplate(createTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`ListTemplate request example`, func() {
+			fmt.Println("\nListTemplate() result:")
+			// begin-list_template
+			listTemplateOptions := &iamaccessgroupsv2.ListTemplateOptions{
+				AccountID: core.StringPtr("accountID-123"),
+				TransactionID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(50)),
+				Verbose: core.BoolPtr(true),
+			}
+
+			pager, err := iamAccessGroupsService.NewTemplatePager(listTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iamaccessgroupsv2.TemplateItem
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_template
+		})
+		It(`CreateTemplateVersion request example`, func() {
+			fmt.Println("\nCreateTemplateVersion() result:")
+			// begin-create_template_version
+
+			membersInputModel := &iamaccessgroupsv2.MembersInput{
+				Users: []string{"IBMid-123", "IBMid-234"},
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.ConditionInput{
+				Claim: core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value: core.StringPtr("test-bluegroup-saml"),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.RuleInput{
+				Name: core.StringPtr("Manager group rule"),
+				Expiration: core.Int64Ptr(int64(12)),
+				RealmName: core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions: []iamaccessgroupsv2.ConditionInput{*conditionInputModel},
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.AssertionsInput{
+				Rules: []iamaccessgroupsv2.RuleInput{*ruleInputModel},
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupInput{
+				Name: core.StringPtr("IAM Admin Group 8"),
+				Description: core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members: membersInputModel,
+				Assertions: assertionsInputModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplatesInput{
+				ID: core.StringPtr("policyTemplateId-123"),
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateVersionOptions := iamAccessGroupsService.NewCreateTemplateVersionOptions(
+				"testString",
+			)
+			createTemplateVersionOptions.SetName("IAM Admin Group template 2")
+			createTemplateVersionOptions.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+			createTemplateVersionOptions.SetAccessGroup(accessGroupInputModel)
+			createTemplateVersionOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`ListTemplateVersions request example`, func() {
+			fmt.Println("\nListTemplateVersions() result:")
+			// begin-list_template_versions
+			listTemplateVersionsOptions := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+				TemplateID: core.StringPtr("testString"),
+				Limit: core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iamaccessgroupsv2.ListTemplatesVersionsResponse
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_template_versions
+		})
+		It(`GetTemplateSpecificVersion request example`, func() {
+			fmt.Println("\nGetTemplateSpecificVersion() result:")
+			// begin-get_template_specific_version
+
+			getTemplateSpecificVersionOptions := iamAccessGroupsService.NewGetTemplateSpecificVersionOptions(
+				"testString",
+				"testString",
+			)
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetTemplateSpecificVersion(getTemplateSpecificVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_template_specific_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`ReplaceTemplateVersion request example`, func() {
+			fmt.Println("\nReplaceTemplateVersion() result:")
+			// begin-replace_template_version
+
+			membersInputModel := &iamaccessgroupsv2.MembersInput{
+				Users: []string{"IBMid-5500085Q21"},
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.ConditionInput{
+				Claim: core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value: core.StringPtr("test-bluegroup-saml"),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.RuleInput{
+				Name: core.StringPtr("Manager group rule"),
+				Expiration: core.Int64Ptr(int64(12)),
+				RealmName: core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions: []iamaccessgroupsv2.ConditionInput{*conditionInputModel},
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.AssertionsInput{
+				Rules: []iamaccessgroupsv2.RuleInput{*ruleInputModel},
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupInput{
+				Name: core.StringPtr("IAM Admin Group 8"),
+				Description: core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members: membersInputModel,
+				Assertions: assertionsInputModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplatesInput{
+				ID: core.StringPtr("policyTemplateId-123"),
+				Version: core.StringPtr("1"),
+			}
+
+			replaceTemplateVersionOptions := iamAccessGroupsService.NewReplaceTemplateVersionOptions(
+				"testString",
+				"testString",
+				"testString",
+			)
+			replaceTemplateVersionOptions.SetName("IAM Admin Group template 2")
+			replaceTemplateVersionOptions.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+			replaceTemplateVersionOptions.SetAccessGroup(accessGroupInputModel)
+			replaceTemplateVersionOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+			replaceTemplateVersionOptions.SetTransactionID("83adf5bd-de790caa3")
+
+			createTemplateResponse, response, err := iamAccessGroupsService.ReplaceTemplateVersion(replaceTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-replace_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`CommitTemplate request example`, func() {
+			fmt.Println("\nCommitTemplate() result:")
+			// begin-commit_template
+
+			commitTemplateOptions := iamAccessGroupsService.NewCommitTemplateOptions(
+				"testString",
+				"testString",
+				"testString",
+			)
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CommitTemplate(commitTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-commit_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`GetTemplateLatestVersion request example`, func() {
+			fmt.Println("\nGetTemplateLatestVersion() result:")
+			// begin-get_template_latest_version
+
+			getTemplateLatestVersionOptions := iamAccessGroupsService.NewGetTemplateLatestVersionOptions(
+				"testString",
+			)
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetTemplateLatestVersion(getTemplateLatestVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_template_latest_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`CreateAssignTemplate request example`, func() {
+			fmt.Println("\nCreateAssignTemplate() result:")
+			// begin-create_assign_template
+
+			createAssignTemplateOptions := iamAccessGroupsService.NewCreateAssignTemplateOptions(
+				"AccessGroupTemplateId-4be4",
+				"1",
+				"accountGroup",
+				"0a45594d0f-123",
+			)
+
+			templateCreateAssignmentResponse, response, err := iamAccessGroupsService.CreateAssignTemplate(createAssignTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(templateCreateAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_assign_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(templateCreateAssignmentResponse).ToNot(BeNil())
+		})
+		It(`ListAssignment request example`, func() {
+			fmt.Println("\nListAssignment() result:")
+			// begin-list_assignment
+
+			listAssignmentOptions := iamAccessGroupsService.NewListAssignmentOptions()
+			listAssignmentOptions.SetAccountID("accountID-123")
+
+			templatesListAssignmentResponse, response, err := iamAccessGroupsService.ListAssignment(listAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(templatesListAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(templatesListAssignmentResponse).ToNot(BeNil())
+		})
+		It(`GetAssignment request example`, func() {
+			fmt.Println("\nGetAssignment() result:")
+			// begin-get_assignment
+
+			getAssignmentOptions := iamAccessGroupsService.NewGetAssignmentOptions(
+				"testString",
+			)
+
+			getTemplateAssignmentResponse, response, err := iamAccessGroupsService.GetAssignment(getAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(getTemplateAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(getTemplateAssignmentResponse).ToNot(BeNil())
 		})
 		It(`GetAccountSettings request example`, func() {
 			fmt.Println("\nGetAccountSettings() result:")
 			// begin-get_account_settings
 
 			getAccountSettingsOptions := iamAccessGroupsService.NewGetAccountSettingsOptions(
-				testAccountID,
+				"testString",
 			)
 
 			accountSettings, response, err := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptions)
@@ -567,14 +851,13 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
-
 		})
 		It(`UpdateAccountSettings request example`, func() {
 			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-update_account_settings
 
 			updateAccountSettingsOptions := iamAccessGroupsService.NewUpdateAccountSettingsOptions(
-				testAccountID,
+				"testString",
 			)
 			updateAccountSettingsOptions.SetPublicAccessEnabled(true)
 
@@ -590,9 +873,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
-
 		})
-
 		It(`DeleteAccessGroup request example`, func() {
 			// begin-delete_access_group
 
@@ -612,7 +893,131 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`RemoveMemberFromAccessGroup request example`, func() {
+			// begin-remove_member_from_access_group
 
+			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
+				accessGroupIDLink,
+				"testString",
+			)
+
+			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
+			}
+
+			// end-remove_member_from_access_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`RemoveAccessGroupRule request example`, func() {
+			// begin-remove_access_group_rule
+
+			removeAccessGroupRuleOptions := iamAccessGroupsService.NewRemoveAccessGroupRuleOptions(
+				accessGroupIDLink,
+				"testString",
+			)
+
+			response, err := iamAccessGroupsService.RemoveAccessGroupRule(removeAccessGroupRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveAccessGroupRule(): %d\n", response.StatusCode)
+			}
+
+			// end-remove_access_group_rule
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`RemoveMemberFromAllAccessGroups request example`, func() {
+			fmt.Println("\nRemoveMemberFromAllAccessGroups() result:")
+			// begin-remove_member_from_all_access_groups
+
+			removeMemberFromAllAccessGroupsOptions := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(
+				"testString",
+				"testString",
+			)
+
+			deleteFromAllGroupsResponse, response, err := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(deleteFromAllGroupsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-remove_member_from_all_access_groups
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(207))
+			Expect(deleteFromAllGroupsResponse).ToNot(BeNil())
+		})
+		It(`DeleteTemplateVersion request example`, func() {
+			// begin-delete_template_version
+
+			deleteTemplateVersionOptions := iamAccessGroupsService.NewDeleteTemplateVersionOptions(
+				"testString",
+				"testString",
+			)
+
+			response, err := iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTemplateVersion(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTemplate request example`, func() {
+			// begin-delete_template
+
+			deleteTemplateOptions := iamAccessGroupsService.NewDeleteTemplateOptions(
+				"testString",
+			)
+
+			response, err := iamAccessGroupsService.DeleteTemplate(deleteTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteAssignment request example`, func() {
+			// begin-delete_assignment
+
+			deleteAssignmentOptions := iamAccessGroupsService.NewDeleteAssignmentOptions(
+				"testString",
+			)
+
+			response, err := iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteAssignment(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
