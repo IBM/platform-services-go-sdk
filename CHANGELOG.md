@@ -1,3 +1,10 @@
+## [0.37.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.3...v0.37.4) (2023-05-05)
+
+
+### Bug Fixes
+
+* **deps:** bump various dependencies ([#256](https://github.com/IBM/platform-services-go-sdk/issues/256)) ([450de25](https://github.com/IBM/platform-services-go-sdk/commit/450de25feb7d25990a837c4f390f1557814e667e))
+
 ## [0.37.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.2...v0.37.3) (2023-04-28)
 
 
