@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -445,6 +445,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
@@ -469,6 +470,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Search = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
@@ -509,6 +511,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
@@ -538,6 +541,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Search = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
@@ -584,6 +588,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
@@ -615,6 +620,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Search = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
@@ -643,6 +649,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Search = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
@@ -692,6 +699,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Search = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
@@ -786,6 +794,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					AccountID: core.StringPtr("testString"),
 					TransactionID: core.StringPtr("testString"),
 					IamID: core.StringPtr("testString"),
+					Search: core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
 					Limit: core.Int64Ptr(int64(10)),
 					Sort: core.StringPtr("name"),
@@ -818,6 +827,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					AccountID: core.StringPtr("testString"),
 					TransactionID: core.StringPtr("testString"),
 					IamID: core.StringPtr("testString"),
+					Search: core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
 					Limit: core.Int64Ptr(int64(10)),
 					Sort: core.StringPtr("name"),
@@ -4647,11 +4657,4146 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
+	Describe(`CreateTemplate(createTemplateOptions *CreateTemplateOptions) - Operation response error`, func() {
+		createTemplatePath := "/v1/group_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateTemplate with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(false)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsModel := new(iamaccessgroupsv2.CreateTemplateOptions)
+				createTemplateOptionsModel.Name = core.StringPtr("IAM Admin Group template")
+				createTemplateOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.AccountID = core.StringPtr("accountID-123")
+				createTemplateOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTemplate(createTemplateOptions *CreateTemplateOptions)`, func() {
+		createTemplatePath := "/v1/group_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateTemplate successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(false)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsModel := new(iamaccessgroupsv2.CreateTemplateOptions)
+				createTemplateOptionsModel.Name = core.StringPtr("IAM Admin Group template")
+				createTemplateOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.AccountID = core.StringPtr("accountID-123")
+				createTemplateOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.CreateTemplateWithContext(ctx, createTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.CreateTemplateWithContext(ctx, createTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateTemplate successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.CreateTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(false)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsModel := new(iamaccessgroupsv2.CreateTemplateOptions)
+				createTemplateOptionsModel.Name = core.StringPtr("IAM Admin Group template")
+				createTemplateOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.AccountID = core.StringPtr("accountID-123")
+				createTemplateOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateTemplate with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(false)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsModel := new(iamaccessgroupsv2.CreateTemplateOptions)
+				createTemplateOptionsModel.Name = core.StringPtr("IAM Admin Group template")
+				createTemplateOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.AccountID = core.StringPtr("accountID-123")
+				createTemplateOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateTemplateOptions model with no property values
+				createTemplateOptionsModelNew := new(iamaccessgroupsv2.CreateTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplate(createTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateTemplate successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(false)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsModel := new(iamaccessgroupsv2.CreateTemplateOptions)
+				createTemplateOptionsModel.Name = core.StringPtr("IAM Admin Group template")
+				createTemplateOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.AccountID = core.StringPtr("accountID-123")
+				createTemplateOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.CreateTemplate(createTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTemplates(listTemplatesOptions *ListTemplatesOptions) - Operation response error`, func() {
+		listTemplatesPath := "/v1/group_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					// TODO: Add check for verbose query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListTemplates with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplatesOptions model
+				listTemplatesOptionsModel := new(iamaccessgroupsv2.ListTemplatesOptions)
+				listTemplatesOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listTemplatesOptionsModel.TransactionID = core.StringPtr("testString")
+				listTemplatesOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listTemplatesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplatesOptionsModel.Verbose = core.BoolPtr(true)
+				listTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTemplates(listTemplatesOptions *ListTemplatesOptions)`, func() {
+		listTemplatesPath := "/v1/group_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					// TODO: Add check for verbose query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href"}]}`)
+				}))
+			})
+			It(`Invoke ListTemplates successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListTemplatesOptions model
+				listTemplatesOptionsModel := new(iamaccessgroupsv2.ListTemplatesOptions)
+				listTemplatesOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listTemplatesOptionsModel.TransactionID = core.StringPtr("testString")
+				listTemplatesOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listTemplatesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplatesOptionsModel.Verbose = core.BoolPtr(true)
+				listTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.ListTemplatesWithContext(ctx, listTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.ListTemplatesWithContext(ctx, listTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(50))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					// TODO: Add check for verbose query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href"}]}`)
+				}))
+			})
+			It(`Invoke ListTemplates successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.ListTemplates(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListTemplatesOptions model
+				listTemplatesOptionsModel := new(iamaccessgroupsv2.ListTemplatesOptions)
+				listTemplatesOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listTemplatesOptionsModel.TransactionID = core.StringPtr("testString")
+				listTemplatesOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listTemplatesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplatesOptionsModel.Verbose = core.BoolPtr(true)
+				listTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListTemplates with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplatesOptions model
+				listTemplatesOptionsModel := new(iamaccessgroupsv2.ListTemplatesOptions)
+				listTemplatesOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listTemplatesOptionsModel.TransactionID = core.StringPtr("testString")
+				listTemplatesOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listTemplatesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplatesOptionsModel.Verbose = core.BoolPtr(true)
+				listTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListTemplatesOptions model with no property values
+				listTemplatesOptionsModelNew := new(iamaccessgroupsv2.ListTemplatesOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.ListTemplates(listTemplatesOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTemplates successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplatesOptions model
+				listTemplatesOptionsModel := new(iamaccessgroupsv2.ListTemplatesOptions)
+				listTemplatesOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listTemplatesOptionsModel.TransactionID = core.StringPtr("testString")
+				listTemplatesOptionsModel.Limit = core.Int64Ptr(int64(50))
+				listTemplatesOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplatesOptionsModel.Verbose = core.BoolPtr(true)
+				listTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListTemplates(listTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1,"groups_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID","href":"Href"}]}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"groups_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID","href":"Href"}]}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use TemplatesPager.GetNext successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
+					AccountID: core.StringPtr("accountID-123"),
+					TransactionID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(50)),
+					Verbose: core.BoolPtr(true),
+				}
+
+				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iamaccessgroupsv2.TemplateItem
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use TemplatesPager.GetAll successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
+					AccountID: core.StringPtr("accountID-123"),
+					TransactionID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(50)),
+					Verbose: core.BoolPtr(true),
+				}
+
+				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`CreateTemplateVersion(createTemplateVersionOptions *CreateTemplateVersionOptions) - Operation response error`, func() {
+		createTemplateVersionPath := "/v1/group_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateTemplateVersion with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				createTemplateVersionOptionsModel := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				createTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTemplateVersion(createTemplateVersionOptions *CreateTemplateVersionOptions)`, func() {
+		createTemplateVersionPath := "/v1/group_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateTemplateVersion successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				createTemplateVersionOptionsModel := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				createTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.CreateTemplateVersionWithContext(ctx, createTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.CreateTemplateVersionWithContext(ctx, createTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.CreateTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				createTemplateVersionOptionsModel := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				createTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateTemplateVersion with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				createTemplateVersionOptionsModel := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				createTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateTemplateVersionOptions model with no property values
+				createTemplateVersionOptionsModelNew := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				createTemplateVersionOptionsModel := new(iamaccessgroupsv2.CreateTemplateVersionOptions)
+				createTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				createTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				createTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				createTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTemplateVersions(listTemplateVersionsOptions *ListTemplateVersionsOptions) - Operation response error`, func() {
+		listTemplateVersionsPath := "/v1/group_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListTemplateVersions with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplateVersionsOptions model
+				listTemplateVersionsOptionsModel := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				listTemplateVersionsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listTemplateVersionsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTemplateVersions(listTemplateVersionsOptions *ListTemplateVersionsOptions)`, func() {
+		listTemplateVersionsPath := "/v1/group_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListTemplateVersions successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListTemplateVersionsOptions model
+				listTemplateVersionsOptionsModel := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				listTemplateVersionsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listTemplateVersionsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.ListTemplateVersionsWithContext(ctx, listTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.ListTemplateVersionsWithContext(ctx, listTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListTemplateVersions successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.ListTemplateVersions(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListTemplateVersionsOptions model
+				listTemplateVersionsOptionsModel := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				listTemplateVersionsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listTemplateVersionsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListTemplateVersions with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplateVersionsOptions model
+				listTemplateVersionsOptionsModel := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				listTemplateVersionsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listTemplateVersionsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListTemplateVersionsOptions model with no property values
+				listTemplateVersionsOptionsModelNew := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTemplateVersions successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListTemplateVersionsOptions model
+				listTemplateVersionsOptionsModel := new(iamaccessgroupsv2.ListTemplateVersionsOptions)
+				listTemplateVersionsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTemplateVersionsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listTemplateVersionsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
+	
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTemplateVersionsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"access_group":{"name":"Name","description":"Description","members":{"users":["Users"],"service_ids":["ServiceIds"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_templates":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"access_group":{"name":"Name","description":"Description","members":{"users":["Users"],"service_ids":["ServiceIds"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_templates":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use TemplateVersionsPager.GetNext successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+					TemplateID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []iamaccessgroupsv2.ListTemplatesVersionsResponse
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use TemplateVersionsPager.GetAll successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+					TemplateID: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(100)),
+				}
+
+				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
+	})
+	Describe(`GetTemplateVersion(getTemplateVersionOptions *GetTemplateVersionOptions) - Operation response error`, func() {
+		getTemplateVersionPath := "/v1/group_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetTemplateVersion with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetTemplateVersionOptions model
+				getTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				getTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetTemplateVersion(getTemplateVersionOptions *GetTemplateVersionOptions)`, func() {
+		getTemplateVersionPath := "/v1/group_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetTemplateVersion successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetTemplateVersionOptions model
+				getTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				getTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.GetTemplateVersionWithContext(ctx, getTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.GetTemplateVersionWithContext(ctx, getTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.GetTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetTemplateVersionOptions model
+				getTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				getTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetTemplateVersion with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetTemplateVersionOptions model
+				getTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				getTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetTemplateVersionOptions model with no property values
+				getTemplateVersionOptionsModelNew := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetTemplateVersionOptions model
+				getTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetTemplateVersionOptions)
+				getTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTemplateVersion(updateTemplateVersionOptions *UpdateTemplateVersionOptions) - Operation response error`, func() {
+		updateTemplateVersionPath := "/v1/group_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "83adf5bd-de790caa3")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateTemplateVersion with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				updateTemplateVersionOptionsModel := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				updateTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.ID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				updateTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				updateTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				updateTemplateVersionOptionsModel.Href = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.CreatedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.LastModifiedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.LastModifiedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.TransactionID = core.StringPtr("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTemplateVersion(updateTemplateVersionOptions *UpdateTemplateVersionOptions)`, func() {
+		updateTemplateVersionPath := "/v1/group_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "83adf5bd-de790caa3")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateTemplateVersion successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				updateTemplateVersionOptionsModel := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				updateTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.ID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				updateTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				updateTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				updateTemplateVersionOptionsModel.Href = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.CreatedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.LastModifiedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.LastModifiedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.TransactionID = core.StringPtr("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.UpdateTemplateVersionWithContext(ctx, updateTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.UpdateTemplateVersionWithContext(ctx, updateTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "83adf5bd-de790caa3")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.UpdateTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				updateTemplateVersionOptionsModel := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				updateTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.ID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				updateTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				updateTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				updateTemplateVersionOptionsModel.Href = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.CreatedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.LastModifiedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.LastModifiedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.TransactionID = core.StringPtr("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateTemplateVersion with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				updateTemplateVersionOptionsModel := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				updateTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.ID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				updateTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				updateTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				updateTemplateVersionOptionsModel.Href = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.CreatedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.LastModifiedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.LastModifiedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.TransactionID = core.StringPtr("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateTemplateVersionOptions model with no property values
+				updateTemplateVersionOptionsModelNew := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				accessActionControlsModel.Add = core.BoolPtr(true)
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				groupActionControlsModel.Access = accessActionControlsModel
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				updateTemplateVersionOptionsModel := new(iamaccessgroupsv2.UpdateTemplateVersionOptions)
+				updateTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.ID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Name = core.StringPtr("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
+				updateTemplateVersionOptionsModel.AccessGroup = accessGroupInputModel
+				updateTemplateVersionOptionsModel.PolicyTemplates = []iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}
+				updateTemplateVersionOptionsModel.Href = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.CreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.CreatedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.LastModifiedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				updateTemplateVersionOptionsModel.LastModifiedByID = core.StringPtr("testString")
+				updateTemplateVersionOptionsModel.TransactionID = core.StringPtr("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTemplateVersion(deleteTemplateVersionOptions *DeleteTemplateVersionOptions)`, func() {
+		deleteTemplateVersionPath := "/v1/group_templates/testString/versions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTemplateVersionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamAccessGroupsService.DeleteTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteTemplateVersionOptions model
+				deleteTemplateVersionOptionsModel := new(iamaccessgroupsv2.DeleteTemplateVersionOptions)
+				deleteTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteTemplateVersion with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTemplateVersionOptions model
+				deleteTemplateVersionOptionsModel := new(iamaccessgroupsv2.DeleteTemplateVersionOptions)
+				deleteTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.VersionNum = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteTemplateVersionOptions model with no property values
+				deleteTemplateVersionOptionsModelNew := new(iamaccessgroupsv2.DeleteTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitTemplate(commitTemplateOptions *CommitTemplateOptions) - Operation response error`, func() {
+		commitTemplatePath := "/v1/group_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CommitTemplate with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CommitTemplateOptions model
+				commitTemplateOptionsModel := new(iamaccessgroupsv2.CommitTemplateOptions)
+				commitTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitTemplateOptionsModel.VersionNum = core.StringPtr("testString")
+				commitTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				commitTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				commitTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitTemplate(commitTemplateOptions *CommitTemplateOptions)`, func() {
+		commitTemplatePath := "/v1/group_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CommitTemplate successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the CommitTemplateOptions model
+				commitTemplateOptionsModel := new(iamaccessgroupsv2.CommitTemplateOptions)
+				commitTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitTemplateOptionsModel.VersionNum = core.StringPtr("testString")
+				commitTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				commitTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				commitTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.CommitTemplateWithContext(ctx, commitTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.CommitTemplateWithContext(ctx, commitTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CommitTemplate successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.CommitTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CommitTemplateOptions model
+				commitTemplateOptionsModel := new(iamaccessgroupsv2.CommitTemplateOptions)
+				commitTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitTemplateOptionsModel.VersionNum = core.StringPtr("testString")
+				commitTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				commitTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				commitTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CommitTemplate with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CommitTemplateOptions model
+				commitTemplateOptionsModel := new(iamaccessgroupsv2.CommitTemplateOptions)
+				commitTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitTemplateOptionsModel.VersionNum = core.StringPtr("testString")
+				commitTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				commitTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				commitTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CommitTemplateOptions model with no property values
+				commitTemplateOptionsModelNew := new(iamaccessgroupsv2.CommitTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CommitTemplate successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CommitTemplateOptions model
+				commitTemplateOptionsModel := new(iamaccessgroupsv2.CommitTemplateOptions)
+				commitTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitTemplateOptionsModel.VersionNum = core.StringPtr("testString")
+				commitTemplateOptionsModel.IfMatch = core.StringPtr("testString")
+				commitTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				commitTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.CommitTemplate(commitTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestTemplateVersion(getLatestTemplateVersionOptions *GetLatestTemplateVersionOptions) - Operation response error`, func() {
+		getLatestTemplateVersionPath := "/v1/group_templates/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetLatestTemplateVersion with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				getLatestTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				getLatestTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestTemplateVersion(getLatestTemplateVersionOptions *GetLatestTemplateVersionOptions)`, func() {
+		getLatestTemplateVersionPath := "/v1/group_templates/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestTemplateVersion successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				getLatestTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				getLatestTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.GetLatestTemplateVersionWithContext(ctx, getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.GetLatestTemplateVersionWithContext(ctx, getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "access_group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "service_ids": ["ServiceIds"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_templates": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.GetLatestTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				getLatestTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				getLatestTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetLatestTemplateVersion with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				getLatestTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				getLatestTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetLatestTemplateVersionOptions model with no property values
+				getLatestTemplateVersionOptionsModelNew := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetLatestTemplateVersion successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				getLatestTemplateVersionOptionsModel := new(iamaccessgroupsv2.GetLatestTemplateVersionOptions)
+				getLatestTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.TransactionID = core.StringPtr("testString")
+				getLatestTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTemplate(deleteTemplateOptions *DeleteTemplateOptions)`, func() {
+		deleteTemplatePath := "/v1/group_templates/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTemplatePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteTemplate successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamAccessGroupsService.DeleteTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteTemplateOptions model
+				deleteTemplateOptionsModel := new(iamaccessgroupsv2.DeleteTemplateOptions)
+				deleteTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.DeleteTemplate(deleteTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteTemplate with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTemplateOptions model
+				deleteTemplateOptionsModel := new(iamaccessgroupsv2.DeleteTemplateOptions)
+				deleteTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteTemplateOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamAccessGroupsService.DeleteTemplate(deleteTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteTemplateOptions model with no property values
+				deleteTemplateOptionsModelNew := new(iamaccessgroupsv2.DeleteTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamAccessGroupsService.DeleteTemplate(deleteTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAssignment(createAssignmentOptions *CreateAssignmentOptions) - Operation response error`, func() {
+		createAssignmentPath := "/v1/group_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateAssignment with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsModel := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				createAssignmentOptionsModel.TemplateID = core.StringPtr("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.TemplateVersion = core.StringPtr("1")
+				createAssignmentOptionsModel.TargetType = core.StringPtr("accountGroup")
+				createAssignmentOptionsModel.Target = core.StringPtr("0a45594d0f-123")
+				createAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				createAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAssignment(createAssignmentOptions *CreateAssignmentOptions)`, func() {
+		createAssignmentPath := "/v1/group_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke CreateAssignment successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsModel := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				createAssignmentOptionsModel.TemplateID = core.StringPtr("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.TemplateVersion = core.StringPtr("1")
+				createAssignmentOptionsModel.TargetType = core.StringPtr("accountGroup")
+				createAssignmentOptionsModel.Target = core.StringPtr("0a45594d0f-123")
+				createAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				createAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.CreateAssignmentWithContext(ctx, createAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.CreateAssignmentWithContext(ctx, createAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke CreateAssignment successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.CreateAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsModel := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				createAssignmentOptionsModel.TemplateID = core.StringPtr("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.TemplateVersion = core.StringPtr("1")
+				createAssignmentOptionsModel.TargetType = core.StringPtr("accountGroup")
+				createAssignmentOptionsModel.Target = core.StringPtr("0a45594d0f-123")
+				createAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				createAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateAssignment with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsModel := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				createAssignmentOptionsModel.TemplateID = core.StringPtr("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.TemplateVersion = core.StringPtr("1")
+				createAssignmentOptionsModel.TargetType = core.StringPtr("accountGroup")
+				createAssignmentOptionsModel.Target = core.StringPtr("0a45594d0f-123")
+				createAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				createAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateAssignmentOptions model with no property values
+				createAssignmentOptionsModelNew := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke CreateAssignment successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsModel := new(iamaccessgroupsv2.CreateAssignmentOptions)
+				createAssignmentOptionsModel.TemplateID = core.StringPtr("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.TemplateVersion = core.StringPtr("1")
+				createAssignmentOptionsModel.TargetType = core.StringPtr("accountGroup")
+				createAssignmentOptionsModel.Target = core.StringPtr("0a45594d0f-123")
+				createAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				createAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.CreateAssignment(createAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAssignments(listAssignmentsOptions *ListAssignmentsOptions) - Operation response error`, func() {
+		listAssignmentsPath := "/v1/group_assignments"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAssignments with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := new(iamaccessgroupsv2.ListAssignmentsOptions)
+				listAssignmentsOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAssignments(listAssignmentsOptions *ListAssignmentsOptions)`, func() {
+		listAssignmentsPath := "/v1/group_assignments"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"total": 5, "limit": 5, "offset": 6, "groups_assignment": [{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListAssignments successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := new(iamaccessgroupsv2.ListAssignmentsOptions)
+				listAssignmentsOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.ListAssignmentsWithContext(ctx, listAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.ListAssignmentsWithContext(ctx, listAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"accountID-123"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"total": 5, "limit": 5, "offset": 6, "groups_assignment": [{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListAssignments successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.ListAssignments(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := new(iamaccessgroupsv2.ListAssignmentsOptions)
+				listAssignmentsOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAssignments with error: Operation request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := new(iamaccessgroupsv2.ListAssignmentsOptions)
+				listAssignmentsOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAssignments successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := new(iamaccessgroupsv2.ListAssignmentsOptions)
+				listAssignmentsOptionsModel.AccountID = core.StringPtr("accountID-123")
+				listAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListAssignments(listAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAssignment(getAssignmentOptions *GetAssignmentOptions) - Operation response error`, func() {
+		getAssignmentPath := "/v1/group_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAssignment with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAssignmentOptions model
+				getAssignmentOptionsModel := new(iamaccessgroupsv2.GetAssignmentOptions)
+				getAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				getAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAssignment(getAssignmentOptions *GetAssignmentOptions)`, func() {
+		getAssignmentPath := "/v1/group_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "resources": [{"target": "Target", "access_group": {"group": {"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}, "members": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}], "rules": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}]}, "policy_templates": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke GetAssignment successfully with retries`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAssignmentOptions model
+				getAssignmentOptionsModel := new(iamaccessgroupsv2.GetAssignmentOptions)
+				getAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				getAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamAccessGroupsService.GetAssignmentWithContext(ctx, getAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr := iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamAccessGroupsService.GetAssignmentWithContext(ctx, getAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": "TemplateVersion", "target_type": "TargetType", "target": "Target", "operation": "Operation", "status": "Status", "resources": [{"target": "Target", "access_group": {"group": {"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}, "members": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}], "rules": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}]}, "policy_templates": [{"id": "ID", "name": "Name", "version": "Version", "resource": "Resource", "error": "Error", "operation": "Operation", "status": "Status"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke GetAssignment successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.GetAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAssignmentOptions model
+				getAssignmentOptionsModel := new(iamaccessgroupsv2.GetAssignmentOptions)
+				getAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				getAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAssignment with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAssignmentOptions model
+				getAssignmentOptionsModel := new(iamaccessgroupsv2.GetAssignmentOptions)
+				getAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				getAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAssignmentOptions model with no property values
+				getAssignmentOptionsModelNew := new(iamaccessgroupsv2.GetAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.GetAssignment(getAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke GetAssignment successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAssignmentOptions model
+				getAssignmentOptionsModel := new(iamaccessgroupsv2.GetAssignmentOptions)
+				getAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				getAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetAssignment(getAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAssignment(deleteAssignmentOptions *DeleteAssignmentOptions)`, func() {
+		deleteAssignmentPath := "/v1/group_assignments/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAssignment successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamAccessGroupsService.DeleteAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAssignmentOptions model
+				deleteAssignmentOptionsModel := new(iamaccessgroupsv2.DeleteAssignmentOptions)
+				deleteAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAssignment with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAssignmentOptions model
+				deleteAssignmentOptionsModel := new(iamaccessgroupsv2.DeleteAssignmentOptions)
+				deleteAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAssignmentOptionsModel.TransactionID = core.StringPtr("testString")
+				deleteAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAssignmentOptions model with no property values
+				deleteAssignmentOptionsModelNew := new(iamaccessgroupsv2.DeleteAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamAccessGroupsService, _ := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
 				URL:           "http://iamaccessgroupsv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewAccessGroupInput successfully`, func() {
+				name := "testString"
+				_model, err := iamAccessGroupsService.NewAccessGroupInput(name)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewAddAccessGroupRuleOptions successfully`, func() {
 				// Construct an instance of the RuleConditions model
@@ -4734,6 +8879,24 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(addMembersToAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(addMembersToAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCommitTemplateOptions successfully`, func() {
+				// Construct an instance of the CommitTemplateOptions model
+				templateID := "testString"
+				versionNum := "testString"
+				ifMatch := "testString"
+				commitTemplateOptionsModel := iamAccessGroupsService.NewCommitTemplateOptions(templateID, versionNum, ifMatch)
+				commitTemplateOptionsModel.SetTemplateID("testString")
+				commitTemplateOptionsModel.SetVersionNum("testString")
+				commitTemplateOptionsModel.SetIfMatch("testString")
+				commitTemplateOptionsModel.SetTransactionID("testString")
+				commitTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(commitTemplateOptionsModel).ToNot(BeNil())
+				Expect(commitTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(commitTemplateOptionsModel.VersionNum).To(Equal(core.StringPtr("testString")))
+				Expect(commitTemplateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(commitTemplateOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(commitTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCreateAccessGroupOptions successfully`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				accountID := "testString"
@@ -4751,6 +8914,273 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(createAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCreateAssignmentOptions successfully`, func() {
+				// Construct an instance of the CreateAssignmentOptions model
+				createAssignmentOptionsTemplateID := "AccessGroupTemplateId-4be4"
+				createAssignmentOptionsTemplateVersion := "1"
+				createAssignmentOptionsTargetType := "accountGroup"
+				createAssignmentOptionsTarget := "0a45594d0f-123"
+				createAssignmentOptionsModel := iamAccessGroupsService.NewCreateAssignmentOptions(createAssignmentOptionsTemplateID, createAssignmentOptionsTemplateVersion, createAssignmentOptionsTargetType, createAssignmentOptionsTarget)
+				createAssignmentOptionsModel.SetTemplateID("AccessGroupTemplateId-4be4")
+				createAssignmentOptionsModel.SetTemplateVersion("1")
+				createAssignmentOptionsModel.SetTargetType("accountGroup")
+				createAssignmentOptionsModel.SetTarget("0a45594d0f-123")
+				createAssignmentOptionsModel.SetTransactionID("testString")
+				createAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createAssignmentOptionsModel).ToNot(BeNil())
+				Expect(createAssignmentOptionsModel.TemplateID).To(Equal(core.StringPtr("AccessGroupTemplateId-4be4")))
+				Expect(createAssignmentOptionsModel.TemplateVersion).To(Equal(core.StringPtr("1")))
+				Expect(createAssignmentOptionsModel.TargetType).To(Equal(core.StringPtr("accountGroup")))
+				Expect(createAssignmentOptionsModel.Target).To(Equal(core.StringPtr("0a45594d0f-123")))
+				Expect(createAssignmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(createAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateTemplateOptions successfully`, func() {
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				Expect(membersActionControlsModel).ToNot(BeNil())
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(false)
+				Expect(membersActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(membersActionControlsModel.Remove).To(Equal(core.BoolPtr(false)))
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				Expect(membersInputModel).ToNot(BeNil())
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+				Expect(membersInputModel.Users).To(Equal([]string{"IBMid-123", "IBMid-234"}))
+				Expect(membersInputModel.ServiceIds).To(Equal([]string{"testString"}))
+				Expect(membersInputModel.ActionControls).To(Equal(membersActionControlsModel))
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				Expect(conditionInputModel).ToNot(BeNil())
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+				Expect(conditionInputModel.Claim).To(Equal(core.StringPtr("blueGroup")))
+				Expect(conditionInputModel.Operator).To(Equal(core.StringPtr("CONTAINS")))
+				Expect(conditionInputModel.Value).To(Equal(core.StringPtr("test-bluegroup-saml")))
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				Expect(rulesActionControlsModel).ToNot(BeNil())
+				rulesActionControlsModel.Remove = core.BoolPtr(false)
+				rulesActionControlsModel.Update = core.BoolPtr(false)
+				Expect(rulesActionControlsModel.Remove).To(Equal(core.BoolPtr(false)))
+				Expect(rulesActionControlsModel.Update).To(Equal(core.BoolPtr(false)))
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				Expect(ruleInputModel).ToNot(BeNil())
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+				Expect(ruleInputModel.Name).To(Equal(core.StringPtr("Manager group rule")))
+				Expect(ruleInputModel.Expiration).To(Equal(core.Int64Ptr(int64(12))))
+				Expect(ruleInputModel.RealmName).To(Equal(core.StringPtr("https://idp.example.org/SAML2")))
+				Expect(ruleInputModel.Conditions).To(Equal([]iamaccessgroupsv2.ConditionInput{*conditionInputModel}))
+				Expect(ruleInputModel.ActionControls).To(Equal(rulesActionControlsModel))
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				Expect(assertionsActionControlsModel).ToNot(BeNil())
+				assertionsActionControlsModel.Add = core.BoolPtr(false)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(false)))
+				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				Expect(assertionsInputModel).ToNot(BeNil())
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+				Expect(assertionsInputModel.Rules).To(Equal([]iamaccessgroupsv2.RuleInput{*ruleInputModel}))
+				Expect(assertionsInputModel.ActionControls).To(Equal(assertionsActionControlsModel))
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				Expect(accessActionControlsModel).ToNot(BeNil())
+				accessActionControlsModel.Add = core.BoolPtr(false)
+				Expect(accessActionControlsModel.Add).To(Equal(core.BoolPtr(false)))
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				Expect(groupActionControlsModel).ToNot(BeNil())
+				groupActionControlsModel.Access = accessActionControlsModel
+				Expect(groupActionControlsModel.Access).To(Equal(accessActionControlsModel))
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				Expect(accessGroupInputModel).ToNot(BeNil())
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+				Expect(accessGroupInputModel.Name).To(Equal(core.StringPtr("IAM Admin Group")))
+				Expect(accessGroupInputModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(accessGroupInputModel.Members).To(Equal(membersInputModel))
+				Expect(accessGroupInputModel.Assertions).To(Equal(assertionsInputModel))
+				Expect(accessGroupInputModel.ActionControls).To(Equal(groupActionControlsModel))
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				Expect(policyTemplatesInputModel).ToNot(BeNil())
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+				Expect(policyTemplatesInputModel.ID).To(Equal(core.StringPtr("policyTemplateId-123")))
+				Expect(policyTemplatesInputModel.Version).To(Equal(core.StringPtr("1")))
+
+				// Construct an instance of the CreateTemplateOptions model
+				createTemplateOptionsName := "IAM Admin Group template"
+				createTemplateOptionsDescription := "This access group template allows admin access to all IAM platform services in the account."
+				createTemplateOptionsAccountID := "accountID-123"
+				createTemplateOptionsModel := iamAccessGroupsService.NewCreateTemplateOptions(createTemplateOptionsName, createTemplateOptionsDescription, createTemplateOptionsAccountID)
+				createTemplateOptionsModel.SetName("IAM Admin Group template")
+				createTemplateOptionsModel.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateOptionsModel.SetAccountID("accountID-123")
+				createTemplateOptionsModel.SetAccessGroup(accessGroupInputModel)
+				createTemplateOptionsModel.SetPolicyTemplates([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+				createTemplateOptionsModel.SetTransactionID("testString")
+				createTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createTemplateOptionsModel).ToNot(BeNil())
+				Expect(createTemplateOptionsModel.Name).To(Equal(core.StringPtr("IAM Admin Group template")))
+				Expect(createTemplateOptionsModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(createTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("accountID-123")))
+				Expect(createTemplateOptionsModel.AccessGroup).To(Equal(accessGroupInputModel))
+				Expect(createTemplateOptionsModel.PolicyTemplates).To(Equal([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}))
+				Expect(createTemplateOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(createTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				Expect(membersActionControlsModel).ToNot(BeNil())
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+				Expect(membersActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(membersActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				Expect(membersInputModel).ToNot(BeNil())
+				membersInputModel.Users = []string{"IBMid-123", "IBMid-234"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+				Expect(membersInputModel.Users).To(Equal([]string{"IBMid-123", "IBMid-234"}))
+				Expect(membersInputModel.ServiceIds).To(Equal([]string{"testString"}))
+				Expect(membersInputModel.ActionControls).To(Equal(membersActionControlsModel))
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				Expect(conditionInputModel).ToNot(BeNil())
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+				Expect(conditionInputModel.Claim).To(Equal(core.StringPtr("blueGroup")))
+				Expect(conditionInputModel.Operator).To(Equal(core.StringPtr("CONTAINS")))
+				Expect(conditionInputModel.Value).To(Equal(core.StringPtr("test-bluegroup-saml")))
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				Expect(rulesActionControlsModel).ToNot(BeNil())
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+				Expect(rulesActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+				Expect(rulesActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				Expect(ruleInputModel).ToNot(BeNil())
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+				Expect(ruleInputModel.Name).To(Equal(core.StringPtr("Manager group rule")))
+				Expect(ruleInputModel.Expiration).To(Equal(core.Int64Ptr(int64(12))))
+				Expect(ruleInputModel.RealmName).To(Equal(core.StringPtr("https://idp.example.org/SAML2")))
+				Expect(ruleInputModel.Conditions).To(Equal([]iamaccessgroupsv2.ConditionInput{*conditionInputModel}))
+				Expect(ruleInputModel.ActionControls).To(Equal(rulesActionControlsModel))
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				Expect(assertionsActionControlsModel).ToNot(BeNil())
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				Expect(assertionsInputModel).ToNot(BeNil())
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+				Expect(assertionsInputModel.Rules).To(Equal([]iamaccessgroupsv2.RuleInput{*ruleInputModel}))
+				Expect(assertionsInputModel.ActionControls).To(Equal(assertionsActionControlsModel))
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				Expect(accessActionControlsModel).ToNot(BeNil())
+				accessActionControlsModel.Add = core.BoolPtr(true)
+				Expect(accessActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				Expect(groupActionControlsModel).ToNot(BeNil())
+				groupActionControlsModel.Access = accessActionControlsModel
+				Expect(groupActionControlsModel.Access).To(Equal(accessActionControlsModel))
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				Expect(accessGroupInputModel).ToNot(BeNil())
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+				Expect(accessGroupInputModel.Name).To(Equal(core.StringPtr("IAM Admin Group 8")))
+				Expect(accessGroupInputModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(accessGroupInputModel.Members).To(Equal(membersInputModel))
+				Expect(accessGroupInputModel.Assertions).To(Equal(assertionsInputModel))
+				Expect(accessGroupInputModel.ActionControls).To(Equal(groupActionControlsModel))
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				Expect(policyTemplatesInputModel).ToNot(BeNil())
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+				Expect(policyTemplatesInputModel.ID).To(Equal(core.StringPtr("policyTemplateId-123")))
+				Expect(policyTemplatesInputModel.Version).To(Equal(core.StringPtr("1")))
+
+				// Construct an instance of the CreateTemplateVersionOptions model
+				templateID := "testString"
+				createTemplateVersionOptionsModel := iamAccessGroupsService.NewCreateTemplateVersionOptions(templateID)
+				createTemplateVersionOptionsModel.SetTemplateID("testString")
+				createTemplateVersionOptionsModel.SetName("IAM Admin Group template 2")
+				createTemplateVersionOptionsModel.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+				createTemplateVersionOptionsModel.SetAccessGroup(accessGroupInputModel)
+				createTemplateVersionOptionsModel.SetPolicyTemplates([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+				createTemplateVersionOptionsModel.SetTransactionID("testString")
+				createTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(createTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("IAM Admin Group template 2")))
+				Expect(createTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(createTemplateVersionOptionsModel.AccessGroup).To(Equal(accessGroupInputModel))
+				Expect(createTemplateVersionOptionsModel.PolicyTemplates).To(Equal([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}))
+				Expect(createTemplateVersionOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(createTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteAccessGroupOptions successfully`, func() {
 				// Construct an instance of the DeleteAccessGroupOptions model
 				accessGroupID := "testString"
@@ -4764,6 +9194,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(deleteAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteAccessGroupOptionsModel.Force).To(Equal(core.BoolPtr(false)))
 				Expect(deleteAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAssignmentOptions successfully`, func() {
+				// Construct an instance of the DeleteAssignmentOptions model
+				assignmentID := "testString"
+				deleteAssignmentOptionsModel := iamAccessGroupsService.NewDeleteAssignmentOptions(assignmentID)
+				deleteAssignmentOptionsModel.SetAssignmentID("testString")
+				deleteAssignmentOptionsModel.SetTransactionID("testString")
+				deleteAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAssignmentOptionsModel).ToNot(BeNil())
+				Expect(deleteAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAssignmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteTemplateOptions successfully`, func() {
+				// Construct an instance of the DeleteTemplateOptions model
+				templateID := "testString"
+				deleteTemplateOptionsModel := iamAccessGroupsService.NewDeleteTemplateOptions(templateID)
+				deleteTemplateOptionsModel.SetTemplateID("testString")
+				deleteTemplateOptionsModel.SetTransactionID("testString")
+				deleteTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteTemplateOptionsModel).ToNot(BeNil())
+				Expect(deleteTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTemplateOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the DeleteTemplateVersionOptions model
+				templateID := "testString"
+				versionNum := "testString"
+				deleteTemplateVersionOptionsModel := iamAccessGroupsService.NewDeleteTemplateVersionOptions(templateID, versionNum)
+				deleteTemplateVersionOptionsModel.SetTemplateID("testString")
+				deleteTemplateVersionOptionsModel.SetVersionNum("testString")
+				deleteTemplateVersionOptionsModel.SetTransactionID("testString")
+				deleteTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(deleteTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTemplateVersionOptionsModel.VersionNum).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTemplateVersionOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccessGroupOptions successfully`, func() {
 				// Construct an instance of the GetAccessGroupOptions model
@@ -4805,6 +9274,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(getAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAssignmentOptions successfully`, func() {
+				// Construct an instance of the GetAssignmentOptions model
+				assignmentID := "testString"
+				getAssignmentOptionsModel := iamAccessGroupsService.NewGetAssignmentOptions(assignmentID)
+				getAssignmentOptionsModel.SetAssignmentID("testString")
+				getAssignmentOptionsModel.SetTransactionID("testString")
+				getAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAssignmentOptionsModel).ToNot(BeNil())
+				Expect(getAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(getAssignmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(getAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLatestTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetLatestTemplateVersionOptions model
+				templateID := "testString"
+				getLatestTemplateVersionOptionsModel := iamAccessGroupsService.NewGetLatestTemplateVersionOptions(templateID)
+				getLatestTemplateVersionOptionsModel.SetTemplateID("testString")
+				getLatestTemplateVersionOptionsModel.SetTransactionID("testString")
+				getLatestTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLatestTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getLatestTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getLatestTemplateVersionOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(getLatestTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetTemplateVersionOptions model
+				templateID := "testString"
+				versionNum := "testString"
+				getTemplateVersionOptionsModel := iamAccessGroupsService.NewGetTemplateVersionOptions(templateID, versionNum)
+				getTemplateVersionOptionsModel.SetTemplateID("testString")
+				getTemplateVersionOptionsModel.SetVersionNum("testString")
+				getTemplateVersionOptionsModel.SetTransactionID("testString")
+				getTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getTemplateVersionOptionsModel.VersionNum).To(Equal(core.StringPtr("testString")))
+				Expect(getTemplateVersionOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(getTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewIsMemberOfAccessGroupOptions successfully`, func() {
 				// Construct an instance of the IsMemberOfAccessGroupOptions model
@@ -4864,6 +9372,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetAccountID("testString")
 				listAccessGroupsOptionsModel.SetTransactionID("testString")
 				listAccessGroupsOptionsModel.SetIamID("testString")
+				listAccessGroupsOptionsModel.SetSearch("testString")
 				listAccessGroupsOptionsModel.SetMembershipType("static")
 				listAccessGroupsOptionsModel.SetLimit(int64(10))
 				listAccessGroupsOptionsModel.SetOffset(int64(38))
@@ -4875,6 +9384,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccessGroupsOptionsModel.Search).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.MembershipType).To(Equal(core.StringPtr("static")))
 				Expect(listAccessGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listAccessGroupsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
@@ -4882,6 +9392,47 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.HidePublicAccess).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListAssignmentsOptions successfully`, func() {
+				// Construct an instance of the ListAssignmentsOptions model
+				listAssignmentsOptionsModel := iamAccessGroupsService.NewListAssignmentsOptions()
+				listAssignmentsOptionsModel.SetAccountID("accountID-123")
+				listAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAssignmentsOptionsModel).ToNot(BeNil())
+				Expect(listAssignmentsOptionsModel.AccountID).To(Equal(core.StringPtr("accountID-123")))
+				Expect(listAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListTemplateVersionsOptions successfully`, func() {
+				// Construct an instance of the ListTemplateVersionsOptions model
+				templateID := "testString"
+				listTemplateVersionsOptionsModel := iamAccessGroupsService.NewListTemplateVersionsOptions(templateID)
+				listTemplateVersionsOptionsModel.SetTemplateID("testString")
+				listTemplateVersionsOptionsModel.SetLimit(int64(100))
+				listTemplateVersionsOptionsModel.SetOffset(int64(0))
+				listTemplateVersionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listTemplateVersionsOptionsModel).ToNot(BeNil())
+				Expect(listTemplateVersionsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listTemplateVersionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listTemplateVersionsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listTemplateVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListTemplatesOptions successfully`, func() {
+				// Construct an instance of the ListTemplatesOptions model
+				accountID := "accountID-123"
+				listTemplatesOptionsModel := iamAccessGroupsService.NewListTemplatesOptions(accountID)
+				listTemplatesOptionsModel.SetAccountID("accountID-123")
+				listTemplatesOptionsModel.SetTransactionID("testString")
+				listTemplatesOptionsModel.SetLimit(int64(50))
+				listTemplatesOptionsModel.SetOffset(int64(0))
+				listTemplatesOptionsModel.SetVerbose(true)
+				listTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listTemplatesOptionsModel).ToNot(BeNil())
+				Expect(listTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("accountID-123")))
+				Expect(listTemplatesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(listTemplatesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(50))))
+				Expect(listTemplatesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listTemplatesOptionsModel.Verbose).To(Equal(core.BoolPtr(true)))
+				Expect(listTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRemoveAccessGroupRuleOptions successfully`, func() {
 				// Construct an instance of the RemoveAccessGroupRuleOptions model
@@ -5021,6 +9572,152 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(updateAccountSettingsOptionsModel.PublicAccessEnabled).To(Equal(core.BoolPtr(true)))
 				Expect(updateAccountSettingsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the MembersActionControls model
+				membersActionControlsModel := new(iamaccessgroupsv2.MembersActionControls)
+				Expect(membersActionControlsModel).ToNot(BeNil())
+				membersActionControlsModel.Add = core.BoolPtr(true)
+				membersActionControlsModel.Remove = core.BoolPtr(true)
+				Expect(membersActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(membersActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the MembersInput model
+				membersInputModel := new(iamaccessgroupsv2.MembersInput)
+				Expect(membersInputModel).ToNot(BeNil())
+				membersInputModel.Users = []string{"IBMid-5500085Q21"}
+				membersInputModel.ServiceIds = []string{"testString"}
+				membersInputModel.ActionControls = membersActionControlsModel
+				Expect(membersInputModel.Users).To(Equal([]string{"IBMid-5500085Q21"}))
+				Expect(membersInputModel.ServiceIds).To(Equal([]string{"testString"}))
+				Expect(membersInputModel.ActionControls).To(Equal(membersActionControlsModel))
+
+				// Construct an instance of the ConditionInput model
+				conditionInputModel := new(iamaccessgroupsv2.ConditionInput)
+				Expect(conditionInputModel).ToNot(BeNil())
+				conditionInputModel.Claim = core.StringPtr("blueGroup")
+				conditionInputModel.Operator = core.StringPtr("CONTAINS")
+				conditionInputModel.Value = core.StringPtr("test-bluegroup-saml")
+				Expect(conditionInputModel.Claim).To(Equal(core.StringPtr("blueGroup")))
+				Expect(conditionInputModel.Operator).To(Equal(core.StringPtr("CONTAINS")))
+				Expect(conditionInputModel.Value).To(Equal(core.StringPtr("test-bluegroup-saml")))
+
+				// Construct an instance of the RulesActionControls model
+				rulesActionControlsModel := new(iamaccessgroupsv2.RulesActionControls)
+				Expect(rulesActionControlsModel).ToNot(BeNil())
+				rulesActionControlsModel.Remove = core.BoolPtr(true)
+				rulesActionControlsModel.Update = core.BoolPtr(true)
+				Expect(rulesActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+				Expect(rulesActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the RuleInput model
+				ruleInputModel := new(iamaccessgroupsv2.RuleInput)
+				Expect(ruleInputModel).ToNot(BeNil())
+				ruleInputModel.Name = core.StringPtr("Manager group rule")
+				ruleInputModel.Expiration = core.Int64Ptr(int64(12))
+				ruleInputModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				ruleInputModel.Conditions = []iamaccessgroupsv2.ConditionInput{*conditionInputModel}
+				ruleInputModel.ActionControls = rulesActionControlsModel
+				Expect(ruleInputModel.Name).To(Equal(core.StringPtr("Manager group rule")))
+				Expect(ruleInputModel.Expiration).To(Equal(core.Int64Ptr(int64(12))))
+				Expect(ruleInputModel.RealmName).To(Equal(core.StringPtr("https://idp.example.org/SAML2")))
+				Expect(ruleInputModel.Conditions).To(Equal([]iamaccessgroupsv2.ConditionInput{*conditionInputModel}))
+				Expect(ruleInputModel.ActionControls).To(Equal(rulesActionControlsModel))
+
+				// Construct an instance of the AssertionsActionControls model
+				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
+				Expect(assertionsActionControlsModel).ToNot(BeNil())
+				assertionsActionControlsModel.Add = core.BoolPtr(true)
+				assertionsActionControlsModel.Remove = core.BoolPtr(true)
+				assertionsActionControlsModel.Update = core.BoolPtr(true)
+				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
+				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the AssertionsInput model
+				assertionsInputModel := new(iamaccessgroupsv2.AssertionsInput)
+				Expect(assertionsInputModel).ToNot(BeNil())
+				assertionsInputModel.Rules = []iamaccessgroupsv2.RuleInput{*ruleInputModel}
+				assertionsInputModel.ActionControls = assertionsActionControlsModel
+				Expect(assertionsInputModel.Rules).To(Equal([]iamaccessgroupsv2.RuleInput{*ruleInputModel}))
+				Expect(assertionsInputModel.ActionControls).To(Equal(assertionsActionControlsModel))
+
+				// Construct an instance of the AccessActionControls model
+				accessActionControlsModel := new(iamaccessgroupsv2.AccessActionControls)
+				Expect(accessActionControlsModel).ToNot(BeNil())
+				accessActionControlsModel.Add = core.BoolPtr(true)
+				Expect(accessActionControlsModel.Add).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the GroupActionControls model
+				groupActionControlsModel := new(iamaccessgroupsv2.GroupActionControls)
+				Expect(groupActionControlsModel).ToNot(BeNil())
+				groupActionControlsModel.Access = accessActionControlsModel
+				Expect(groupActionControlsModel.Access).To(Equal(accessActionControlsModel))
+
+				// Construct an instance of the AccessGroupInput model
+				accessGroupInputModel := new(iamaccessgroupsv2.AccessGroupInput)
+				Expect(accessGroupInputModel).ToNot(BeNil())
+				accessGroupInputModel.Name = core.StringPtr("IAM Admin Group 8")
+				accessGroupInputModel.Description = core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")
+				accessGroupInputModel.Members = membersInputModel
+				accessGroupInputModel.Assertions = assertionsInputModel
+				accessGroupInputModel.ActionControls = groupActionControlsModel
+				Expect(accessGroupInputModel.Name).To(Equal(core.StringPtr("IAM Admin Group 8")))
+				Expect(accessGroupInputModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(accessGroupInputModel.Members).To(Equal(membersInputModel))
+				Expect(accessGroupInputModel.Assertions).To(Equal(assertionsInputModel))
+				Expect(accessGroupInputModel.ActionControls).To(Equal(groupActionControlsModel))
+
+				// Construct an instance of the PolicyTemplatesInput model
+				policyTemplatesInputModel := new(iamaccessgroupsv2.PolicyTemplatesInput)
+				Expect(policyTemplatesInputModel).ToNot(BeNil())
+				policyTemplatesInputModel.ID = core.StringPtr("policyTemplateId-123")
+				policyTemplatesInputModel.Version = core.StringPtr("1")
+				Expect(policyTemplatesInputModel.ID).To(Equal(core.StringPtr("policyTemplateId-123")))
+				Expect(policyTemplatesInputModel.Version).To(Equal(core.StringPtr("1")))
+
+				// Construct an instance of the UpdateTemplateVersionOptions model
+				templateID := "testString"
+				versionNum := "testString"
+				ifMatch := "testString"
+				updateTemplateVersionOptionsModel := iamAccessGroupsService.NewUpdateTemplateVersionOptions(templateID, versionNum, ifMatch)
+				updateTemplateVersionOptionsModel.SetTemplateID("testString")
+				updateTemplateVersionOptionsModel.SetVersionNum("testString")
+				updateTemplateVersionOptionsModel.SetIfMatch("testString")
+				updateTemplateVersionOptionsModel.SetID("testString")
+				updateTemplateVersionOptionsModel.SetName("IAM Admin Group template 2")
+				updateTemplateVersionOptionsModel.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+				updateTemplateVersionOptionsModel.SetAccountID("testString")
+				updateTemplateVersionOptionsModel.SetVersion("testString")
+				updateTemplateVersionOptionsModel.SetCommitted(true)
+				updateTemplateVersionOptionsModel.SetAccessGroup(accessGroupInputModel)
+				updateTemplateVersionOptionsModel.SetPolicyTemplates([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel})
+				updateTemplateVersionOptionsModel.SetHref("testString")
+				updateTemplateVersionOptionsModel.SetCreatedAt(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
+				updateTemplateVersionOptionsModel.SetCreatedByID("testString")
+				updateTemplateVersionOptionsModel.SetLastModifiedAt(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
+				updateTemplateVersionOptionsModel.SetLastModifiedByID("testString")
+				updateTemplateVersionOptionsModel.SetTransactionID("83adf5bd-de790caa3")
+				updateTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(updateTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.VersionNum).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("IAM Admin Group template 2")))
+				Expect(updateTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("This access group template allows admin access to all IAM platform services in the account.")))
+				Expect(updateTemplateVersionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
+				Expect(updateTemplateVersionOptionsModel.AccessGroup).To(Equal(accessGroupInputModel))
+				Expect(updateTemplateVersionOptionsModel.PolicyTemplates).To(Equal([]iamaccessgroupsv2.PolicyTemplatesInput{*policyTemplatesInputModel}))
+				Expect(updateTemplateVersionOptionsModel.Href).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.CreatedAt).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
+				Expect(updateTemplateVersionOptionsModel.CreatedByID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.LastModifiedAt).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
+				Expect(updateTemplateVersionOptionsModel.LastModifiedByID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTemplateVersionOptionsModel.TransactionID).To(Equal(core.StringPtr("83adf5bd-de790caa3")))
+				Expect(updateTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})
