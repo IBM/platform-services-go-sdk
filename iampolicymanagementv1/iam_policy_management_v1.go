@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
+ * IBM OpenAPI SDK Code Generator Version: 3.71.0-316eb5da-20230504-195406
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -1028,6 +1028,70 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 	return
 }
 
+// ListServices : Get services by filters
+// Get services based on the filters. While managing policies, you may want to retrieve services and filter by usages.
+// This can be done through query parameters. Only services that match the filter and that the caller has read access to
+// are returned. If the caller does not have read access to any services an empty array is returned.
+func (iamPolicyManagement *IamPolicyManagementV1) ListServices(listServicesOptions *ListServicesOptions) (result *ServiceList, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListServicesWithContext(context.Background(), listServicesOptions)
+}
+
+// ListServicesWithContext is an alternate form of the ListServices method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListServicesWithContext(ctx context.Context, listServicesOptions *ListServicesOptions) (result *ServiceList, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listServicesOptions, "listServicesOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v3/services`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listServicesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ListServices")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if listServicesOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*listServicesOptions.AcceptLanguage))
+	}
+
+	if listServicesOptions.ServiceType != nil {
+		builder.AddQuery("service_type", fmt.Sprint(*listServicesOptions.ServiceType))
+	}
+	if listServicesOptions.Fields != nil {
+		builder.AddQuery("fields", fmt.Sprint(*listServicesOptions.Fields))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ListV2Policies : Get policies by attributes
 // Get policies and filter by attributes. While managing policies, you might want to retrieve policies in the account
 // and filter by attribute values. This can be done through query parameters. The following attributes are supported:
@@ -1524,6 +1588,1051 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx 
 	return
 }
 
+// ListPolicyTemplates : Get policy templates by attributes
+// Get policy templates and filter by attributes through query parameters. The following attributes are supported:
+// account_id account_id is a required query parameter. Only policy templates that have the specified attributes and
+// that the caller has read access to are returned. If the caller does not have read access to any policy templates an
+// empty array is returned.
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplates(listPolicyTemplatesOptions *ListPolicyTemplatesOptions) (result *PolicyTemplateCollection, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListPolicyTemplatesWithContext(context.Background(), listPolicyTemplatesOptions)
+}
+
+// ListPolicyTemplatesWithContext is an alternate form of the ListPolicyTemplates method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext(ctx context.Context, listPolicyTemplatesOptions *ListPolicyTemplatesOptions) (result *PolicyTemplateCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listPolicyTemplatesOptions, "listPolicyTemplatesOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listPolicyTemplatesOptions, "listPolicyTemplatesOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listPolicyTemplatesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ListPolicyTemplates")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if listPolicyTemplatesOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*listPolicyTemplatesOptions.AcceptLanguage))
+	}
+
+	builder.AddQuery("account_id", fmt.Sprint(*listPolicyTemplatesOptions.AccountID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateCollection)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreatePolicyTemplate : Create a policy template
+// Creates a policy template.
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CreatePolicyTemplateWithContext(context.Background(), createPolicyTemplateOptions)
+}
+
+// CreatePolicyTemplateWithContext is an alternate form of the CreatePolicyTemplate method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateWithContext(ctx context.Context, createPolicyTemplateOptions *CreatePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createPolicyTemplateOptions, "createPolicyTemplateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createPolicyTemplateOptions, "createPolicyTemplateOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createPolicyTemplateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "CreatePolicyTemplate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if createPolicyTemplateOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*createPolicyTemplateOptions.AcceptLanguage))
+	}
+
+	body := make(map[string]interface{})
+	if createPolicyTemplateOptions.Name != nil {
+		body["name"] = createPolicyTemplateOptions.Name
+	}
+	if createPolicyTemplateOptions.AccountID != nil {
+		body["account_id"] = createPolicyTemplateOptions.AccountID
+	}
+	if createPolicyTemplateOptions.Policy != nil {
+		body["policy"] = createPolicyTemplateOptions.Policy
+	}
+	if createPolicyTemplateOptions.Description != nil {
+		body["description"] = createPolicyTemplateOptions.Description
+	}
+	if createPolicyTemplateOptions.Committed != nil {
+		body["committed"] = createPolicyTemplateOptions.Committed
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetPolicyTemplate : Retrieve latest policy template version by template ID
+// Retrieve the latest version of a policy template by providing a policy template ID.
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplate(getPolicyTemplateOptions *GetPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetPolicyTemplateWithContext(context.Background(), getPolicyTemplateOptions)
+}
+
+// GetPolicyTemplateWithContext is an alternate form of the GetPolicyTemplate method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateWithContext(ctx context.Context, getPolicyTemplateOptions *GetPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getPolicyTemplateOptions, "getPolicyTemplateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getPolicyTemplateOptions, "getPolicyTemplateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *getPolicyTemplateOptions.PolicyTemplateID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getPolicyTemplateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "GetPolicyTemplate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeletePolicyTemplate : Delete a policy template by ID
+// Delete a policy template by providing a policy template ID. This deletes all versions of this template. A policy
+// template cannot be deleted if the template version is assigned to an account.
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions) (response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.DeletePolicyTemplateWithContext(context.Background(), deletePolicyTemplateOptions)
+}
+
+// DeletePolicyTemplateWithContext is an alternate form of the DeletePolicyTemplate method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateWithContext(ctx context.Context, deletePolicyTemplateOptions *DeletePolicyTemplateOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deletePolicyTemplateOptions, "deletePolicyTemplateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deletePolicyTemplateOptions, "deletePolicyTemplateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *deletePolicyTemplateOptions.PolicyTemplateID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deletePolicyTemplateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "DeletePolicyTemplate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamPolicyManagement.Service.Request(request, nil)
+
+	return
+}
+
+// CreatePolicyTemplateVersion : Create a new policy template version
+// Creates a new policy template version Details TBD.
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CreatePolicyTemplateVersionWithContext(context.Background(), createPolicyTemplateVersionOptions)
+}
+
+// CreatePolicyTemplateVersionWithContext is an alternate form of the CreatePolicyTemplateVersion method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWithContext(ctx context.Context, createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createPolicyTemplateVersionOptions, "createPolicyTemplateVersionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createPolicyTemplateVersionOptions, "createPolicyTemplateVersionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *createPolicyTemplateVersionOptions.PolicyTemplateID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createPolicyTemplateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "CreatePolicyTemplateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createPolicyTemplateVersionOptions.Name != nil {
+		body["name"] = createPolicyTemplateVersionOptions.Name
+	}
+	if createPolicyTemplateVersionOptions.Policy != nil {
+		body["policy"] = createPolicyTemplateVersionOptions.Policy
+	}
+	if createPolicyTemplateVersionOptions.Description != nil {
+		body["description"] = createPolicyTemplateVersionOptions.Description
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListPolicyTemplateVerssions : Retrieve policy template versions
+// Retrieve the versions of a policy template by providing a policy template ID.
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVerssions(listPolicyTemplateVerssionsOptions *ListPolicyTemplateVerssionsOptions) (result *PolicyTemplateVersionsCollection, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListPolicyTemplateVerssionsWithContext(context.Background(), listPolicyTemplateVerssionsOptions)
+}
+
+// ListPolicyTemplateVerssionsWithContext is an alternate form of the ListPolicyTemplateVerssions method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVerssionsWithContext(ctx context.Context, listPolicyTemplateVerssionsOptions *ListPolicyTemplateVerssionsOptions) (result *PolicyTemplateVersionsCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listPolicyTemplateVerssionsOptions, "listPolicyTemplateVerssionsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listPolicyTemplateVerssionsOptions, "listPolicyTemplateVerssionsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *listPolicyTemplateVerssionsOptions.PolicyTemplateID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listPolicyTemplateVerssionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ListPolicyTemplateVerssions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateVersionsCollection)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ReplacePolicyTemplate : Update a policy template version
+// Update a policy template version  Details TBD.
+func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplate(replacePolicyTemplateOptions *ReplacePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ReplacePolicyTemplateWithContext(context.Background(), replacePolicyTemplateOptions)
+}
+
+// ReplacePolicyTemplateWithContext is an alternate form of the ReplacePolicyTemplate method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithContext(ctx context.Context, replacePolicyTemplateOptions *ReplacePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(replacePolicyTemplateOptions, "replacePolicyTemplateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(replacePolicyTemplateOptions, "replacePolicyTemplateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *replacePolicyTemplateOptions.PolicyTemplateID,
+		"version": *replacePolicyTemplateOptions.Version,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range replacePolicyTemplateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ReplacePolicyTemplate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if replacePolicyTemplateOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*replacePolicyTemplateOptions.IfMatch))
+	}
+
+	body := make(map[string]interface{})
+	if replacePolicyTemplateOptions.Name != nil {
+		body["name"] = replacePolicyTemplateOptions.Name
+	}
+	if replacePolicyTemplateOptions.Policy != nil {
+		body["policy"] = replacePolicyTemplateOptions.Policy
+	}
+	if replacePolicyTemplateOptions.Description != nil {
+		body["description"] = replacePolicyTemplateOptions.Description
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeletePolicyTemplateVersion : Delete a policy template version by ID and version
+// Delete a policy template by providing a policy template ID and version. You can't delete a policy template if the
+// template version is assigned to an account.
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions) (response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.DeletePolicyTemplateVersionWithContext(context.Background(), deletePolicyTemplateVersionOptions)
+}
+
+// DeletePolicyTemplateVersionWithContext is an alternate form of the DeletePolicyTemplateVersion method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWithContext(ctx context.Context, deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deletePolicyTemplateVersionOptions, "deletePolicyTemplateVersionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deletePolicyTemplateVersionOptions, "deletePolicyTemplateVersionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *deletePolicyTemplateVersionOptions.PolicyTemplateID,
+		"version": *deletePolicyTemplateVersionOptions.Version,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deletePolicyTemplateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "DeletePolicyTemplateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamPolicyManagement.Service.Request(request, nil)
+
+	return
+}
+
+// GetPolicyTemplateVersion : Retrieve a policy template version by ID
+// Retrieve a policy template by providing a policy template ID and version.
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersion(getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetPolicyTemplateVersionWithContext(context.Background(), getPolicyTemplateVersionOptions)
+}
+
+// GetPolicyTemplateVersionWithContext is an alternate form of the GetPolicyTemplateVersion method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithContext(ctx context.Context, getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getPolicyTemplateVersionOptions, "getPolicyTemplateVersionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getPolicyTemplateVersionOptions, "getPolicyTemplateVersionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *getPolicyTemplateVersionOptions.PolicyTemplateID,
+		"version": *getPolicyTemplateVersionOptions.Version,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getPolicyTemplateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "GetPolicyTemplateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CommitPolicyTemplate : Commit a policy template version
+// Commit a policy template version  Details TBD.
+func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplate(commitPolicyTemplateOptions *CommitPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CommitPolicyTemplateWithContext(context.Background(), commitPolicyTemplateOptions)
+}
+
+// CommitPolicyTemplateWithContext is an alternate form of the CommitPolicyTemplate method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContext(ctx context.Context, commitPolicyTemplateOptions *CommitPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(commitPolicyTemplateOptions, "commitPolicyTemplateOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(commitPolicyTemplateOptions, "commitPolicyTemplateOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_template_id": *commitPolicyTemplateOptions.PolicyTemplateID,
+		"version": *commitPolicyTemplateOptions.Version,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}/commit`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range commitPolicyTemplateOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "CommitPolicyTemplate")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if commitPolicyTemplateOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*commitPolicyTemplateOptions.IfMatch))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListPolicyAssignments : Get policies template assignments by attributes
+// Get policy template assignments by attributes. The following attributes are supported: account_id, template_id,
+// template_version, sort account_id is a required query parameter. Only policy template assignments that have the
+// specified attributes and that the caller has read access to are returned. If the caller does not have read access to
+// any policy template assignments an empty array is returned.
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignments(listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions) (result *PolcyTemplateAssignmentCollection, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListPolicyAssignmentsWithContext(context.Background(), listPolicyAssignmentsOptions)
+}
+
+// ListPolicyAssignmentsWithContext is an alternate form of the ListPolicyAssignments method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithContext(ctx context.Context, listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions) (result *PolcyTemplateAssignmentCollection, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listPolicyAssignmentsOptions, "listPolicyAssignmentsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listPolicyAssignmentsOptions, "listPolicyAssignmentsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listPolicyAssignmentsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "ListPolicyAssignments")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if listPolicyAssignmentsOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*listPolicyAssignmentsOptions.AcceptLanguage))
+	}
+
+	builder.AddQuery("account_id", fmt.Sprint(*listPolicyAssignmentsOptions.AccountID))
+	if listPolicyAssignmentsOptions.TemplateID != nil {
+		builder.AddQuery("template_id", fmt.Sprint(*listPolicyAssignmentsOptions.TemplateID))
+	}
+	if listPolicyAssignmentsOptions.TemplateVersion != nil {
+		builder.AddQuery("template_version", fmt.Sprint(*listPolicyAssignmentsOptions.TemplateVersion))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolcyTemplateAssignmentCollection)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreatePolicyTemplateAssignment : Create a policy template assignment
+// Assign a policy template.
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CreatePolicyTemplateAssignmentWithContext(context.Background(), createPolicyTemplateAssignmentOptions)
+}
+
+// CreatePolicyTemplateAssignmentWithContext is an alternate form of the CreatePolicyTemplateAssignment method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignmentWithContext(ctx context.Context, createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createPolicyTemplateAssignmentOptions, "createPolicyTemplateAssignmentOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createPolicyTemplateAssignmentOptions, "createPolicyTemplateAssignmentOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createPolicyTemplateAssignmentOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "CreatePolicyTemplateAssignment")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if createPolicyTemplateAssignmentOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*createPolicyTemplateAssignmentOptions.AcceptLanguage))
+	}
+
+	body := make(map[string]interface{})
+	if createPolicyTemplateAssignmentOptions.TemplateID != nil {
+		body["template_id"] = createPolicyTemplateAssignmentOptions.TemplateID
+	}
+	if createPolicyTemplateAssignmentOptions.TemplateVersion != nil {
+		body["template_version"] = createPolicyTemplateAssignmentOptions.TemplateVersion
+	}
+	if createPolicyTemplateAssignmentOptions.RootAssignmentID != nil {
+		body["root_assignment_id"] = createPolicyTemplateAssignmentOptions.RootAssignmentID
+	}
+	if createPolicyTemplateAssignmentOptions.TargetType != nil {
+		body["target_type"] = createPolicyTemplateAssignmentOptions.TargetType
+	}
+	if createPolicyTemplateAssignmentOptions.Target != nil {
+		body["target"] = createPolicyTemplateAssignmentOptions.Target
+	}
+	if createPolicyTemplateAssignmentOptions.Options != nil {
+		body["options"] = createPolicyTemplateAssignmentOptions.Options
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyAssignmentRecord)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetPolicyAssignment : Retrieve a policy assignment by ID
+// Retrieve a policy template assignment by providing a policy assignment ID.
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetPolicyAssignmentWithContext(context.Background(), getPolicyAssignmentOptions)
+}
+
+// GetPolicyAssignmentWithContext is an alternate form of the GetPolicyAssignment method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext(ctx context.Context, getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getPolicyAssignmentOptions, "getPolicyAssignmentOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getPolicyAssignmentOptions, "getPolicyAssignmentOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"assignment_id": *getPolicyAssignmentOptions.AssignmentID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getPolicyAssignmentOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "GetPolicyAssignment")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyAssignmentRecord)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// PatchPolicyAssignment : Update a policy assignment by ID
+// Update a policy assignment by providing a policy assignment ID.
+func (iamPolicyManagement *IamPolicyManagementV1) PatchPolicyAssignment(patchPolicyAssignmentOptions *PatchPolicyAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.PatchPolicyAssignmentWithContext(context.Background(), patchPolicyAssignmentOptions)
+}
+
+// PatchPolicyAssignmentWithContext is an alternate form of the PatchPolicyAssignment method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) PatchPolicyAssignmentWithContext(ctx context.Context, patchPolicyAssignmentOptions *PatchPolicyAssignmentOptions) (result *PolicyAssignmentRecord, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(patchPolicyAssignmentOptions, "patchPolicyAssignmentOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(patchPolicyAssignmentOptions, "patchPolicyAssignmentOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"assignment_id": *patchPolicyAssignmentOptions.AssignmentID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range patchPolicyAssignmentOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "PatchPolicyAssignment")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if patchPolicyAssignmentOptions.Version != nil {
+		body["version"] = patchPolicyAssignmentOptions.Version
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyAssignmentRecord)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeletePolicyAssignment : Remove a policy assignment by ID
+// Remove a policy template assignment by providing a policy assignment ID. A policy assignment cannot be deleted if the
+// status is "in_progress".
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignment(deletePolicyAssignmentOptions *DeletePolicyAssignmentOptions) (response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.DeletePolicyAssignmentWithContext(context.Background(), deletePolicyAssignmentOptions)
+}
+
+// DeletePolicyAssignmentWithContext is an alternate form of the DeletePolicyAssignment method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignmentWithContext(ctx context.Context, deletePolicyAssignmentOptions *DeletePolicyAssignmentOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deletePolicyAssignmentOptions, "deletePolicyAssignmentOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deletePolicyAssignmentOptions, "deletePolicyAssignmentOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"assignment_id": *deletePolicyAssignmentOptions.AssignmentID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deletePolicyAssignmentOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "DeletePolicyAssignment")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamPolicyManagement.Service.Request(request, nil)
+
+	return
+}
+
+// AssignmentResourceCreated : On success, includes the  policy assigned.
+type AssignmentResourceCreated struct {
+	// policy id.
+	ID *string `json:"id,omitempty"`
+}
+
+// UnmarshalAssignmentResourceCreated unmarshals an instance of AssignmentResourceCreated from the specified map of raw messages.
+func UnmarshalAssignmentResourceCreated(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AssignmentResourceCreated)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CommitPolicyTemplateOptions : The CommitPolicyTemplate options.
+type CommitPolicyTemplateOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// The policy template version.
+	Version *string `json:"version" validate:"required,ne="`
+
+	// The revision number for updating a policy template version and must match the ETag value of the existing policy
+	// template version. The Etag can be retrieved using the GET
+	// /v1/policy_templates/{policy_template_id}/versions/{version} API and looking at the ETag response header.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCommitPolicyTemplateOptions : Instantiate CommitPolicyTemplateOptions
+func (*IamPolicyManagementV1) NewCommitPolicyTemplateOptions(policyTemplateID string, version string, ifMatch string) *CommitPolicyTemplateOptions {
+	return &CommitPolicyTemplateOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+		Version: core.StringPtr(version),
+		IfMatch: core.StringPtr(ifMatch),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *CommitPolicyTemplateOptions) SetPolicyTemplateID(policyTemplateID string) *CommitPolicyTemplateOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *CommitPolicyTemplateOptions) SetVersion(version string) *CommitPolicyTemplateOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *CommitPolicyTemplateOptions) SetIfMatch(ifMatch string) *CommitPolicyTemplateOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CommitPolicyTemplateOptions) SetHeaders(param map[string]string) *CommitPolicyTemplateOptions {
+	options.Headers = param
+	return options
+}
+
 // Control : Specifies the type of access granted by the policy.
 type Control struct {
 	// Permission granted by the policy.
@@ -1660,6 +2769,248 @@ func (_options *CreatePolicyOptions) SetAcceptLanguage(acceptLanguage string) *C
 
 // SetHeaders : Allow user to set Headers
 func (options *CreatePolicyOptions) SetHeaders(param map[string]string) *CreatePolicyOptions {
+	options.Headers = param
+	return options
+}
+
+// CreatePolicyTemplateAssignmentOptions : The CreatePolicyTemplateAssignment options.
+type CreatePolicyTemplateAssignmentOptions struct {
+	// policy template id.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// policy template version.
+	TemplateVersion *string `json:"template_version,omitempty"`
+
+	// Passed in value to correlate with other assignments.
+	RootAssignmentID *string `json:"root_assignment_id,omitempty"`
+
+	// Assignment target type.
+	TargetType *string `json:"target_type,omitempty"`
+
+	// assignment target id.
+	Target *string `json:"target,omitempty"`
+
+	// The set of properties required for a policy assignment.
+	Options *PolicyAssignmentOptions `json:"options,omitempty"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreatePolicyTemplateAssignmentOptions.TargetType property.
+// Assignment target type.
+const (
+	CreatePolicyTemplateAssignmentOptionsTargetTypeAccountConst = "account"
+	CreatePolicyTemplateAssignmentOptionsTargetTypeAccountgroupConst = "accountGroup"
+	CreatePolicyTemplateAssignmentOptionsTargetTypeEnterpriseConst = "enterprise"
+)
+
+// NewCreatePolicyTemplateAssignmentOptions : Instantiate CreatePolicyTemplateAssignmentOptions
+func (*IamPolicyManagementV1) NewCreatePolicyTemplateAssignmentOptions() *CreatePolicyTemplateAssignmentOptions {
+	return &CreatePolicyTemplateAssignmentOptions{}
+}
+
+// SetTemplateID : Allow user to set TemplateID
+func (_options *CreatePolicyTemplateAssignmentOptions) SetTemplateID(templateID string) *CreatePolicyTemplateAssignmentOptions {
+	_options.TemplateID = core.StringPtr(templateID)
+	return _options
+}
+
+// SetTemplateVersion : Allow user to set TemplateVersion
+func (_options *CreatePolicyTemplateAssignmentOptions) SetTemplateVersion(templateVersion string) *CreatePolicyTemplateAssignmentOptions {
+	_options.TemplateVersion = core.StringPtr(templateVersion)
+	return _options
+}
+
+// SetRootAssignmentID : Allow user to set RootAssignmentID
+func (_options *CreatePolicyTemplateAssignmentOptions) SetRootAssignmentID(rootAssignmentID string) *CreatePolicyTemplateAssignmentOptions {
+	_options.RootAssignmentID = core.StringPtr(rootAssignmentID)
+	return _options
+}
+
+// SetTargetType : Allow user to set TargetType
+func (_options *CreatePolicyTemplateAssignmentOptions) SetTargetType(targetType string) *CreatePolicyTemplateAssignmentOptions {
+	_options.TargetType = core.StringPtr(targetType)
+	return _options
+}
+
+// SetTarget : Allow user to set Target
+func (_options *CreatePolicyTemplateAssignmentOptions) SetTarget(target string) *CreatePolicyTemplateAssignmentOptions {
+	_options.Target = core.StringPtr(target)
+	return _options
+}
+
+// SetOptions : Allow user to set Options
+func (_options *CreatePolicyTemplateAssignmentOptions) SetOptions(options *PolicyAssignmentOptions) *CreatePolicyTemplateAssignmentOptions {
+	_options.Options = options
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *CreatePolicyTemplateAssignmentOptions) SetAcceptLanguage(acceptLanguage string) *CreatePolicyTemplateAssignmentOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreatePolicyTemplateAssignmentOptions) SetHeaders(param map[string]string) *CreatePolicyTemplateAssignmentOptions {
+	options.Headers = param
+	return options
+}
+
+// CreatePolicyTemplateOptions : The CreatePolicyTemplate options.
+type CreatePolicyTemplateOptions struct {
+	// name of template.
+	Name *string `json:"name" validate:"required"`
+
+	// account id where this template will be created.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// The core set of properties associated with the template's policy objet.
+	Policy *TemplatePolicy `json:"policy" validate:"required"`
+
+	// description of template purpose.
+	Description *string `json:"description,omitempty"`
+
+	// committed status for the template.
+	Committed *bool `json:"committed,omitempty"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreatePolicyTemplateOptions : Instantiate CreatePolicyTemplateOptions
+func (*IamPolicyManagementV1) NewCreatePolicyTemplateOptions(name string, accountID string, policy *TemplatePolicy) *CreatePolicyTemplateOptions {
+	return &CreatePolicyTemplateOptions{
+		Name: core.StringPtr(name),
+		AccountID: core.StringPtr(accountID),
+		Policy: policy,
+	}
+}
+
+// SetName : Allow user to set Name
+func (_options *CreatePolicyTemplateOptions) SetName(name string) *CreatePolicyTemplateOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *CreatePolicyTemplateOptions) SetAccountID(accountID string) *CreatePolicyTemplateOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetPolicy : Allow user to set Policy
+func (_options *CreatePolicyTemplateOptions) SetPolicy(policy *TemplatePolicy) *CreatePolicyTemplateOptions {
+	_options.Policy = policy
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *CreatePolicyTemplateOptions) SetDescription(description string) *CreatePolicyTemplateOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetCommitted : Allow user to set Committed
+func (_options *CreatePolicyTemplateOptions) SetCommitted(committed bool) *CreatePolicyTemplateOptions {
+	_options.Committed = core.BoolPtr(committed)
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *CreatePolicyTemplateOptions) SetAcceptLanguage(acceptLanguage string) *CreatePolicyTemplateOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreatePolicyTemplateOptions) SetHeaders(param map[string]string) *CreatePolicyTemplateOptions {
+	options.Headers = param
+	return options
+}
+
+// CreatePolicyTemplateVersionOptions : The CreatePolicyTemplateVersion options.
+type CreatePolicyTemplateVersionOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// name of template.
+	Name *string `json:"name" validate:"required"`
+
+	// The core set of properties associated with the template's policy objet.
+	Policy *TemplatePolicy `json:"policy" validate:"required"`
+
+	// description of template purpose.
+	Description *string `json:"description,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreatePolicyTemplateVersionOptions : Instantiate CreatePolicyTemplateVersionOptions
+func (*IamPolicyManagementV1) NewCreatePolicyTemplateVersionOptions(policyTemplateID string, name string, policy *TemplatePolicy) *CreatePolicyTemplateVersionOptions {
+	return &CreatePolicyTemplateVersionOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+		Name: core.StringPtr(name),
+		Policy: policy,
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *CreatePolicyTemplateVersionOptions) SetPolicyTemplateID(policyTemplateID string) *CreatePolicyTemplateVersionOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreatePolicyTemplateVersionOptions) SetName(name string) *CreatePolicyTemplateVersionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetPolicy : Allow user to set Policy
+func (_options *CreatePolicyTemplateVersionOptions) SetPolicy(policy *TemplatePolicy) *CreatePolicyTemplateVersionOptions {
+	_options.Policy = policy
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *CreatePolicyTemplateVersionOptions) SetDescription(description string) *CreatePolicyTemplateVersionOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreatePolicyTemplateVersionOptions) SetHeaders(param map[string]string) *CreatePolicyTemplateVersionOptions {
 	options.Headers = param
 	return options
 }
@@ -1873,6 +3224,34 @@ func (options *CreateV2PolicyOptions) SetHeaders(param map[string]string) *Creat
 	return options
 }
 
+// DeletePolicyAssignmentOptions : The DeletePolicyAssignment options.
+type DeletePolicyAssignmentOptions struct {
+	// The policy template assignment ID.
+	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeletePolicyAssignmentOptions : Instantiate DeletePolicyAssignmentOptions
+func (*IamPolicyManagementV1) NewDeletePolicyAssignmentOptions(assignmentID string) *DeletePolicyAssignmentOptions {
+	return &DeletePolicyAssignmentOptions{
+		AssignmentID: core.StringPtr(assignmentID),
+	}
+}
+
+// SetAssignmentID : Allow user to set AssignmentID
+func (_options *DeletePolicyAssignmentOptions) SetAssignmentID(assignmentID string) *DeletePolicyAssignmentOptions {
+	_options.AssignmentID = core.StringPtr(assignmentID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeletePolicyAssignmentOptions) SetHeaders(param map[string]string) *DeletePolicyAssignmentOptions {
+	options.Headers = param
+	return options
+}
+
 // DeletePolicyOptions : The DeletePolicy options.
 type DeletePolicyOptions struct {
 	// The policy ID.
@@ -1897,6 +3276,72 @@ func (_options *DeletePolicyOptions) SetPolicyID(policyID string) *DeletePolicyO
 
 // SetHeaders : Allow user to set Headers
 func (options *DeletePolicyOptions) SetHeaders(param map[string]string) *DeletePolicyOptions {
+	options.Headers = param
+	return options
+}
+
+// DeletePolicyTemplateOptions : The DeletePolicyTemplate options.
+type DeletePolicyTemplateOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeletePolicyTemplateOptions : Instantiate DeletePolicyTemplateOptions
+func (*IamPolicyManagementV1) NewDeletePolicyTemplateOptions(policyTemplateID string) *DeletePolicyTemplateOptions {
+	return &DeletePolicyTemplateOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *DeletePolicyTemplateOptions) SetPolicyTemplateID(policyTemplateID string) *DeletePolicyTemplateOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeletePolicyTemplateOptions) SetHeaders(param map[string]string) *DeletePolicyTemplateOptions {
+	options.Headers = param
+	return options
+}
+
+// DeletePolicyTemplateVersionOptions : The DeletePolicyTemplateVersion options.
+type DeletePolicyTemplateVersionOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// The policy template version.
+	Version *string `json:"version" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeletePolicyTemplateVersionOptions : Instantiate DeletePolicyTemplateVersionOptions
+func (*IamPolicyManagementV1) NewDeletePolicyTemplateVersionOptions(policyTemplateID string, version string) *DeletePolicyTemplateVersionOptions {
+	return &DeletePolicyTemplateVersionOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+		Version: core.StringPtr(version),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *DeletePolicyTemplateVersionOptions) SetPolicyTemplateID(policyTemplateID string) *DeletePolicyTemplateVersionOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *DeletePolicyTemplateVersionOptions) SetVersion(version string) *DeletePolicyTemplateVersionOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeletePolicyTemplateVersionOptions) SetHeaders(param map[string]string) *DeletePolicyTemplateVersionOptions {
 	options.Headers = param
 	return options
 }
@@ -1997,6 +3442,34 @@ func UnmarshalEnrichedRoles(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// GetPolicyAssignmentOptions : The GetPolicyAssignment options.
+type GetPolicyAssignmentOptions struct {
+	// The policy template assignment ID.
+	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetPolicyAssignmentOptions : Instantiate GetPolicyAssignmentOptions
+func (*IamPolicyManagementV1) NewGetPolicyAssignmentOptions(assignmentID string) *GetPolicyAssignmentOptions {
+	return &GetPolicyAssignmentOptions{
+		AssignmentID: core.StringPtr(assignmentID),
+	}
+}
+
+// SetAssignmentID : Allow user to set AssignmentID
+func (_options *GetPolicyAssignmentOptions) SetAssignmentID(assignmentID string) *GetPolicyAssignmentOptions {
+	_options.AssignmentID = core.StringPtr(assignmentID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetPolicyAssignmentOptions) SetHeaders(param map[string]string) *GetPolicyAssignmentOptions {
+	options.Headers = param
+	return options
+}
+
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
@@ -2021,6 +3494,72 @@ func (_options *GetPolicyOptions) SetPolicyID(policyID string) *GetPolicyOptions
 
 // SetHeaders : Allow user to set Headers
 func (options *GetPolicyOptions) SetHeaders(param map[string]string) *GetPolicyOptions {
+	options.Headers = param
+	return options
+}
+
+// GetPolicyTemplateOptions : The GetPolicyTemplate options.
+type GetPolicyTemplateOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetPolicyTemplateOptions : Instantiate GetPolicyTemplateOptions
+func (*IamPolicyManagementV1) NewGetPolicyTemplateOptions(policyTemplateID string) *GetPolicyTemplateOptions {
+	return &GetPolicyTemplateOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *GetPolicyTemplateOptions) SetPolicyTemplateID(policyTemplateID string) *GetPolicyTemplateOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetPolicyTemplateOptions) SetHeaders(param map[string]string) *GetPolicyTemplateOptions {
+	options.Headers = param
+	return options
+}
+
+// GetPolicyTemplateVersionOptions : The GetPolicyTemplateVersion options.
+type GetPolicyTemplateVersionOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// The policy template version.
+	Version *string `json:"version" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetPolicyTemplateVersionOptions : Instantiate GetPolicyTemplateVersionOptions
+func (*IamPolicyManagementV1) NewGetPolicyTemplateVersionOptions(policyTemplateID string, version string) *GetPolicyTemplateVersionOptions {
+	return &GetPolicyTemplateVersionOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+		Version: core.StringPtr(version),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *GetPolicyTemplateVersionOptions) SetPolicyTemplateID(policyTemplateID string) *GetPolicyTemplateVersionOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *GetPolicyTemplateVersionOptions) SetVersion(version string) *GetPolicyTemplateVersionOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetPolicyTemplateVersionOptions) SetHeaders(param map[string]string) *GetPolicyTemplateVersionOptions {
 	options.Headers = param
 	return options
 }
@@ -2330,6 +3869,148 @@ func (options *ListPoliciesOptions) SetHeaders(param map[string]string) *ListPol
 	return options
 }
 
+// ListPolicyAssignmentsOptions : The ListPolicyAssignments options.
+type ListPolicyAssignmentsOptions struct {
+	// The account GUID in which the policies belong to.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Optional template id.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// Optional policy template version.
+	TemplateVersion *string `json:"template_version,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListPolicyAssignmentsOptions : Instantiate ListPolicyAssignmentsOptions
+func (*IamPolicyManagementV1) NewListPolicyAssignmentsOptions(accountID string) *ListPolicyAssignmentsOptions {
+	return &ListPolicyAssignmentsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *ListPolicyAssignmentsOptions) SetAccountID(accountID string) *ListPolicyAssignmentsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *ListPolicyAssignmentsOptions) SetAcceptLanguage(acceptLanguage string) *ListPolicyAssignmentsOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetTemplateID : Allow user to set TemplateID
+func (_options *ListPolicyAssignmentsOptions) SetTemplateID(templateID string) *ListPolicyAssignmentsOptions {
+	_options.TemplateID = core.StringPtr(templateID)
+	return _options
+}
+
+// SetTemplateVersion : Allow user to set TemplateVersion
+func (_options *ListPolicyAssignmentsOptions) SetTemplateVersion(templateVersion string) *ListPolicyAssignmentsOptions {
+	_options.TemplateVersion = core.StringPtr(templateVersion)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListPolicyAssignmentsOptions) SetHeaders(param map[string]string) *ListPolicyAssignmentsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListPolicyTemplateVerssionsOptions : The ListPolicyTemplateVerssions options.
+type ListPolicyTemplateVerssionsOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListPolicyTemplateVerssionsOptions : Instantiate ListPolicyTemplateVerssionsOptions
+func (*IamPolicyManagementV1) NewListPolicyTemplateVerssionsOptions(policyTemplateID string) *ListPolicyTemplateVerssionsOptions {
+	return &ListPolicyTemplateVerssionsOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *ListPolicyTemplateVerssionsOptions) SetPolicyTemplateID(policyTemplateID string) *ListPolicyTemplateVerssionsOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListPolicyTemplateVerssionsOptions) SetHeaders(param map[string]string) *ListPolicyTemplateVerssionsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListPolicyTemplatesOptions : The ListPolicyTemplates options.
+type ListPolicyTemplatesOptions struct {
+	// The account GUID that the policy templates belong to.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListPolicyTemplatesOptions : Instantiate ListPolicyTemplatesOptions
+func (*IamPolicyManagementV1) NewListPolicyTemplatesOptions(accountID string) *ListPolicyTemplatesOptions {
+	return &ListPolicyTemplatesOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *ListPolicyTemplatesOptions) SetAccountID(accountID string) *ListPolicyTemplatesOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *ListPolicyTemplatesOptions) SetAcceptLanguage(acceptLanguage string) *ListPolicyTemplatesOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListPolicyTemplatesOptions) SetHeaders(param map[string]string) *ListPolicyTemplatesOptions {
+	options.Headers = param
+	return options
+}
+
 // ListRolesOptions : The ListRoles options.
 type ListRolesOptions struct {
 	// Language code for translations
@@ -2408,6 +4089,61 @@ func (_options *ListRolesOptions) SetServiceGroupID(serviceGroupID string) *List
 
 // SetHeaders : Allow user to set Headers
 func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesOptions {
+	options.Headers = param
+	return options
+}
+
+// ListServicesOptions : The ListServices options.
+type ListServicesOptions struct {
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// The type of service, values: service, platform_service.
+	ServiceType *string `json:"service_type,omitempty"`
+
+	// The fields to be returned. name and href are always returned for identification.
+	Fields *string `json:"fields,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListServicesOptions : Instantiate ListServicesOptions
+func (*IamPolicyManagementV1) NewListServicesOptions() *ListServicesOptions {
+	return &ListServicesOptions{}
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *ListServicesOptions) SetAcceptLanguage(acceptLanguage string) *ListServicesOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetServiceType : Allow user to set ServiceType
+func (_options *ListServicesOptions) SetServiceType(serviceType string) *ListServicesOptions {
+	_options.ServiceType = core.StringPtr(serviceType)
+	return _options
+}
+
+// SetFields : Allow user to set Fields
+func (_options *ListServicesOptions) SetFields(fields string) *ListServicesOptions {
+	_options.Fields = core.StringPtr(fields)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListServicesOptions) SetHeaders(param map[string]string) *ListServicesOptions {
 	options.Headers = param
 	return options
 }
@@ -2594,6 +4330,290 @@ func (options *ListV2PoliciesOptions) SetHeaders(param map[string]string) *ListV
 	return options
 }
 
+// PatchPolicyAssignmentOptions : The PatchPolicyAssignment options.
+type PatchPolicyAssignmentOptions struct {
+	// The policy template assignment ID.
+	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
+
+	// The policy template version to update to.
+	Version *string `json:"version" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPatchPolicyAssignmentOptions : Instantiate PatchPolicyAssignmentOptions
+func (*IamPolicyManagementV1) NewPatchPolicyAssignmentOptions(assignmentID string, version string) *PatchPolicyAssignmentOptions {
+	return &PatchPolicyAssignmentOptions{
+		AssignmentID: core.StringPtr(assignmentID),
+		Version: core.StringPtr(version),
+	}
+}
+
+// SetAssignmentID : Allow user to set AssignmentID
+func (_options *PatchPolicyAssignmentOptions) SetAssignmentID(assignmentID string) *PatchPolicyAssignmentOptions {
+	_options.AssignmentID = core.StringPtr(assignmentID)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *PatchPolicyAssignmentOptions) SetVersion(version string) *PatchPolicyAssignmentOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PatchPolicyAssignmentOptions) SetHeaders(param map[string]string) *PatchPolicyAssignmentOptions {
+	options.Headers = param
+	return options
+}
+
+// PolcyTemplateAssignmentCollection : A collection of policies assignments.
+type PolcyTemplateAssignmentCollection struct {
+	// List of policy assignments.
+	Assignments []PolicyAssignmentRecord `json:"assignments,omitempty"`
+}
+
+// UnmarshalPolcyTemplateAssignmentCollection unmarshals an instance of PolcyTemplateAssignmentCollection from the specified map of raw messages.
+func UnmarshalPolcyTemplateAssignmentCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolcyTemplateAssignmentCollection)
+	err = core.UnmarshalModel(m, "assignments", &obj.Assignments, UnmarshalPolicyAssignmentRecord)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyAssignmentOptions : The set of properties required for a policy assignment.
+type PolicyAssignmentOptions struct {
+	// The policy subject type; either 'iam_id' or 'access_group_id'.
+	SubjectType *string `json:"subject_type" validate:"required"`
+
+	// The policy subject id.
+	SubjectID *string `json:"subject_id" validate:"required"`
+
+	// The policy assignment requester id.
+	RootRequesterID *string `json:"root_requester_id" validate:"required"`
+
+	// The template id where this policy is being assigned from.
+	RootTemplateID *string `json:"root_template_id,omitempty"`
+
+	// The template version where this policy is being assigned from.
+	RootTemplateVersion *string `json:"root_template_version,omitempty"`
+}
+
+// Constants associated with the PolicyAssignmentOptions.SubjectType property.
+// The policy subject type; either 'iam_id' or 'access_group_id'.
+const (
+	PolicyAssignmentOptionsSubjectTypeAccessGroupIDConst = "access_group_id"
+	PolicyAssignmentOptionsSubjectTypeIamIDConst = "iam_id"
+)
+
+// NewPolicyAssignmentOptions : Instantiate PolicyAssignmentOptions (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewPolicyAssignmentOptions(subjectType string, subjectID string, rootRequesterID string) (_model *PolicyAssignmentOptions, err error) {
+	_model = &PolicyAssignmentOptions{
+		SubjectType: core.StringPtr(subjectType),
+		SubjectID: core.StringPtr(subjectID),
+		RootRequesterID: core.StringPtr(rootRequesterID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalPolicyAssignmentOptions unmarshals an instance of PolicyAssignmentOptions from the specified map of raw messages.
+func UnmarshalPolicyAssignmentOptions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentOptions)
+	err = core.UnmarshalPrimitive(m, "subject_type", &obj.SubjectType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subject_id", &obj.SubjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_requester_id", &obj.RootRequesterID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_template_id", &obj.RootTemplateID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_template_version", &obj.RootTemplateVersion)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyAssignmentRecord : The set of properties associated with the policy template assignment.
+type PolicyAssignmentRecord struct {
+	// policy template id.
+	TemplateID *string `json:"template_id" validate:"required"`
+
+	// policy template version.
+	TemplateVersion *string `json:"template_version" validate:"required"`
+
+	// Passed in value to correlate with other assignments.
+	RootAssignmentID *string `json:"root_assignment_id,omitempty"`
+
+	// Assignment target type.
+	TargetType *string `json:"target_type" validate:"required"`
+
+	// assignment target id.
+	Target *string `json:"target" validate:"required"`
+
+	// Policy assignment ID.
+	ID *string `json:"id,omitempty"`
+
+	// The href URL that links to the policies assignments API by policy assignment ID.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy assignment was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy assignment.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy assignment was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy assignment.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// Object for each account assigned.
+	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
+}
+
+// Constants associated with the PolicyAssignmentRecord.TargetType property.
+// Assignment target type.
+const (
+	PolicyAssignmentRecordTargetTypeAccountConst = "account"
+	PolicyAssignmentRecordTargetTypeAccountgroupConst = "accountGroup"
+	PolicyAssignmentRecordTargetTypeEnterpriseConst = "enterprise"
+)
+
+// UnmarshalPolicyAssignmentRecord unmarshals an instance of PolicyAssignmentRecord from the specified map of raw messages.
+func UnmarshalPolicyAssignmentRecord(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentRecord)
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_assignment_id", &obj.RootAssignmentID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyAssignmentResources : The policy assignment resources.
+type PolicyAssignmentResources struct {
+	// Account ID where resources are assigned.
+	Target *string `json:"target,omitempty"`
+
+	// Set of properties for the assigned resource.
+	Policy *PolicyAssignmentResourcesPolicy `json:"policy,omitempty"`
+}
+
+// UnmarshalPolicyAssignmentResources unmarshals an instance of PolicyAssignmentResources from the specified map of raw messages.
+func UnmarshalPolicyAssignmentResources(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentResources)
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalPolicyAssignmentResourcesPolicy)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyAssignmentResourcesPolicy : Set of properties for the assigned resource.
+type PolicyAssignmentResourcesPolicy struct {
+	// On success, includes the  policy assigned.
+	ResourceCreated *AssignmentResourceCreated `json:"resource_created" validate:"required"`
+
+	// The error response from API.
+	ErrorMessage *ErrorResponse `json:"error_message,omitempty"`
+
+	// The policy assignment status.
+	Status *string `json:"status" validate:"required"`
+}
+
+// Constants associated with the PolicyAssignmentResourcesPolicy.Status property.
+// The policy assignment status.
+const (
+	PolicyAssignmentResourcesPolicyStatusFailedConst = "failed"
+	PolicyAssignmentResourcesPolicyStatusInProgressConst = "in_progress"
+	PolicyAssignmentResourcesPolicyStatusSucceedWithErrorsConst = "succeed_with_errors"
+	PolicyAssignmentResourcesPolicyStatusSucceededConst = "succeeded"
+)
+
+// UnmarshalPolicyAssignmentResourcesPolicy unmarshals an instance of PolicyAssignmentResourcesPolicy from the specified map of raw messages.
+func UnmarshalPolicyAssignmentResourcesPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentResourcesPolicy)
+	err = core.UnmarshalModel(m, "resource_created", &obj.ResourceCreated, UnmarshalAssignmentResourceCreated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "error_message", &obj.ErrorMessage, UnmarshalErrorResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PolicyRole : A role associated with a policy.
 type PolicyRole struct {
 	// The role Cloud Resource Name (CRN) granted by the policy. Example CRN: 'crn:v1:bluemix:public:iam::::role:Editor'.
@@ -2627,6 +4647,134 @@ func UnmarshalPolicyRole(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyTemplate : The core set of properties associated with the policy template.
+type PolicyTemplate struct {
+	// name of template.
+	Name *string `json:"name" validate:"required"`
+
+	// description of template purpose.
+	Description *string `json:"description,omitempty"`
+
+	// account id where this template will be created.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Template vesrsion.
+	Version *string `json:"version" validate:"required"`
+
+	// Template vesrsion committed status.
+	Committed *bool `json:"committed" validate:"required"`
+
+	// The core set of properties associated with the template's policy objet.
+	Policy *TemplatePolicy `json:"policy" validate:"required"`
+
+	// The policy template ID.
+	ID *string `json:"id,omitempty"`
+
+	// The href URL that links to the policy templates API by policy tempalte ID.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy template was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy template.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy template was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy template.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+}
+
+// UnmarshalPolicyTemplate unmarshals an instance of PolicyTemplate from the specified map of raw messages.
+func UnmarshalPolicyTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyTemplate)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "committed", &obj.Committed)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalTemplatePolicy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyTemplateCollection : A collection of policy Templates.
+type PolicyTemplateCollection struct {
+	// List of policy templates.
+	PolicyTemplates []PolicyTemplate `json:"policy_templates,omitempty"`
+}
+
+// UnmarshalPolicyTemplateCollection unmarshals an instance of PolicyTemplateCollection from the specified map of raw messages.
+func UnmarshalPolicyTemplateCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyTemplateCollection)
+	err = core.UnmarshalModel(m, "policy_templates", &obj.PolicyTemplates, UnmarshalPolicyTemplate)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyTemplateVersionsCollection : A collection of policy Template versions.
+type PolicyTemplateVersionsCollection struct {
+	// List of policy templates versions.
+	Versions []PolicyTemplate `json:"versions,omitempty"`
+}
+
+// UnmarshalPolicyTemplateVersionsCollection unmarshals an instance of PolicyTemplateVersionsCollection from the specified map of raw messages.
+func UnmarshalPolicyTemplateVersionsCollection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyTemplateVersionsCollection)
+	err = core.UnmarshalModel(m, "versions", &obj.Versions, UnmarshalPolicyTemplate)
 	if err != nil {
 		return
 	}
@@ -2718,6 +4866,85 @@ func (_options *ReplacePolicyOptions) SetDescription(description string) *Replac
 
 // SetHeaders : Allow user to set Headers
 func (options *ReplacePolicyOptions) SetHeaders(param map[string]string) *ReplacePolicyOptions {
+	options.Headers = param
+	return options
+}
+
+// ReplacePolicyTemplateOptions : The ReplacePolicyTemplate options.
+type ReplacePolicyTemplateOptions struct {
+	// The policy template ID.
+	PolicyTemplateID *string `json:"policy_template_id" validate:"required,ne="`
+
+	// The policy template version.
+	Version *string `json:"version" validate:"required,ne="`
+
+	// The revision number for updating a policy template version and must match the ETag value of the existing policy
+	// template version. The Etag can be retrieved using the GET
+	// /v1/policy_templates/{policy_template_id}/versions/{version} API and looking at the ETag response header.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// name of template.
+	Name *string `json:"name" validate:"required"`
+
+	// The core set of properties associated with the template's policy objet.
+	Policy *TemplatePolicy `json:"policy" validate:"required"`
+
+	// description of template purpose.
+	Description *string `json:"description,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewReplacePolicyTemplateOptions : Instantiate ReplacePolicyTemplateOptions
+func (*IamPolicyManagementV1) NewReplacePolicyTemplateOptions(policyTemplateID string, version string, ifMatch string, name string, policy *TemplatePolicy) *ReplacePolicyTemplateOptions {
+	return &ReplacePolicyTemplateOptions{
+		PolicyTemplateID: core.StringPtr(policyTemplateID),
+		Version: core.StringPtr(version),
+		IfMatch: core.StringPtr(ifMatch),
+		Name: core.StringPtr(name),
+		Policy: policy,
+	}
+}
+
+// SetPolicyTemplateID : Allow user to set PolicyTemplateID
+func (_options *ReplacePolicyTemplateOptions) SetPolicyTemplateID(policyTemplateID string) *ReplacePolicyTemplateOptions {
+	_options.PolicyTemplateID = core.StringPtr(policyTemplateID)
+	return _options
+}
+
+// SetVersion : Allow user to set Version
+func (_options *ReplacePolicyTemplateOptions) SetVersion(version string) *ReplacePolicyTemplateOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *ReplacePolicyTemplateOptions) SetIfMatch(ifMatch string) *ReplacePolicyTemplateOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *ReplacePolicyTemplateOptions) SetName(name string) *ReplacePolicyTemplateOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetPolicy : Allow user to set Policy
+func (_options *ReplacePolicyTemplateOptions) SetPolicy(policy *TemplatePolicy) *ReplacePolicyTemplateOptions {
+	_options.Policy = policy
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *ReplacePolicyTemplateOptions) SetDescription(description string) *ReplacePolicyTemplateOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReplacePolicyTemplateOptions) SetHeaders(param map[string]string) *ReplacePolicyTemplateOptions {
 	options.Headers = param
 	return options
 }
@@ -3018,6 +5245,247 @@ func UnmarshalRuleAttribute(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// ServiceActionsItem : The action.
+type ServiceActionsItem struct {
+	// The id of the action.
+	ID *string `json:"id,omitempty"`
+
+	// The display name of the action.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The description of the action.
+	Description *string `json:"description,omitempty"`
+
+	// The roles associated with the action.
+	Roles []string `json:"roles" validate:"required"`
+}
+
+// UnmarshalServiceActionsItem unmarshals an instance of ServiceActionsItem from the specified map of raw messages.
+func UnmarshalServiceActionsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceActionsItem)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceSupportedAnonymousAccessesItem : The supported authorization subjects.
+type ServiceSupportedAnonymousAccessesItem struct {
+	// The attributes of the supported authorization subjects.
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+
+	// The roles of the supported authorization subjects.
+	Roles []string `json:"roles,omitempty"`
+}
+
+// UnmarshalServiceSupportedAnonymousAccessesItem unmarshals an instance of ServiceSupportedAnonymousAccessesItem from the specified map of raw messages.
+func UnmarshalServiceSupportedAnonymousAccessesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceSupportedAnonymousAccessesItem)
+	err = core.UnmarshalPrimitive(m, "attributes", &obj.Attributes)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceSupportedAttributesItem : The supported attributes.
+type ServiceSupportedAttributesItem struct {
+	// The id of the attribute.
+	Key *string `json:"key,omitempty"`
+
+	// The display name of the attribute.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The description of the attribute.
+	Description *string `json:"description,omitempty"`
+
+	// The UI display info of the attribute.
+	UI map[string]interface{} `json:"ui,omitempty"`
+}
+
+// UnmarshalServiceSupportedAttributesItem unmarshals an instance of ServiceSupportedAttributesItem from the specified map of raw messages.
+func UnmarshalServiceSupportedAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceSupportedAttributesItem)
+	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ui", &obj.UI)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceSupportedAuthorizationSubjectsItem : The supported authorization subjects.
+type ServiceSupportedAuthorizationSubjectsItem struct {
+	// The attributes of the supported authorization subjects.
+	Attributes map[string]interface{} `json:"attributes,omitempty"`
+
+	// The roles of the supported authorization subjects.
+	Roles []string `json:"roles,omitempty"`
+}
+
+// UnmarshalServiceSupportedAuthorizationSubjectsItem unmarshals an instance of ServiceSupportedAuthorizationSubjectsItem from the specified map of raw messages.
+func UnmarshalServiceSupportedAuthorizationSubjectsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceSupportedAuthorizationSubjectsItem)
+	err = core.UnmarshalPrimitive(m, "attributes", &obj.Attributes)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "roles", &obj.Roles)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceSupportedRolesItem : The supported roles.
+type ServiceSupportedRolesItem struct {
+	// The id of the role.
+	ID *string `json:"id,omitempty"`
+
+	// The display name of the role.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The description of the role.
+	Description *string `json:"description,omitempty"`
+}
+
+// UnmarshalServiceSupportedRolesItem unmarshals an instance of ServiceSupportedRolesItem from the specified map of raw messages.
+func UnmarshalServiceSupportedRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceSupportedRolesItem)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "displayName", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TemplateMetada : Origin Template information.
+type TemplateMetada struct {
+	// Origin Template CRN.
+	CRN *string `json:"crn,omitempty"`
+
+	// Template version.
+	Version *string `json:"version,omitempty"`
+}
+
+// UnmarshalTemplateMetada unmarshals an instance of TemplateMetada from the specified map of raw messages.
+func UnmarshalTemplateMetada(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplateMetada)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TemplatePolicy : The core set of properties associated with the template's policy objet.
+type TemplatePolicy struct {
+	// The policy type; either 'access' or 'authorization'.
+	Type *string `json:"type" validate:"required"`
+
+	// Allows the customer to use their own words to record the purpose/context related to a policy.
+	Description *string `json:"description,omitempty"`
+
+	// The resource attributes to which the policy grants access.
+	Resource *V2PolicyResource `json:"resource,omitempty"`
+
+	// Indicates pattern of rule, either 'time-based-conditions:once', 'time-based-conditions:weekly:all-day', or
+	// 'time-based-conditions:weekly:custom-hours'.
+	Pattern *string `json:"pattern,omitempty"`
+
+	// Additional access conditions associated with the policy.
+	Rule V2PolicyRuleIntf `json:"rule,omitempty"`
+}
+
+// Constants associated with the TemplatePolicy.Type property.
+// The policy type; either 'access' or 'authorization'.
+const (
+	TemplatePolicyTypeAccessConst = "access"
+	TemplatePolicyTypeAuthorizationConst = "authorization"
+)
+
+// NewTemplatePolicy : Instantiate TemplatePolicy (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string) (_model *TemplatePolicy, err error) {
+	_model = &TemplatePolicy{
+		Type: core.StringPtr(typeVar),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalTemplatePolicy unmarshals an instance of TemplatePolicy from the specified map of raw messages.
+func UnmarshalTemplatePolicy(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplatePolicy)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resource", &obj.Resource, UnmarshalV2PolicyResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "rule", &obj.Rule, UnmarshalV2PolicyRule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // UpdatePolicyStateOptions : The UpdatePolicyState options.
 type UpdatePolicyStateOptions struct {
 	// The policy ID.
@@ -3123,6 +5591,9 @@ type V2Policy struct {
 	// The optional count of times that policy has provided a permit, when passing query parameter
 	// format=include_last_permit.
 	LastPermitFrequency *int64 `json:"last_permit_frequency,omitempty"`
+
+	// Origin Template information.
+	Template *TemplateMetada `json:"template,omitempty"`
 }
 
 // Constants associated with the V2Policy.Type property.
@@ -3203,6 +5674,10 @@ func UnmarshalV2Policy(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_permit_frequency", &obj.LastPermitFrequency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetada)
 	if err != nil {
 		return
 	}
@@ -3499,6 +5974,37 @@ func UnmarshalV2PolicySubjectAttribute(m map[string]json.RawMessage, result inte
 	return
 }
 
+// ConflictsWith : Details of conflicting resource.
+type ConflictsWith struct {
+	// The revision number of the resource.
+	Etag *string `json:"etag,omitempty"`
+
+	// The conflicting role id.
+	Role *string `json:"role,omitempty"`
+
+	// The conflicting policy id.
+	Policy *string `json:"policy,omitempty"`
+}
+
+// UnmarshalConflictsWith unmarshals an instance of ConflictsWith from the specified map of raw messages.
+func UnmarshalConflictsWith(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ConflictsWith)
+	err = core.UnmarshalPrimitive(m, "etag", &obj.Etag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "policy", &obj.Policy)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CustomRole : An additional set of properties associated with a role.
 type CustomRole struct {
 	// The role ID. Composed of hexadecimal characters.
@@ -3602,6 +6108,114 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// ErrorDetails : Additional error details.
+type ErrorDetails struct {
+	// Details of conflicting resource.
+	ConflictsWith *ConflictsWith `json:"conflicts_with,omitempty"`
+}
+
+// UnmarshalErrorDetails unmarshals an instance of ErrorDetails from the specified map of raw messages.
+func UnmarshalErrorDetails(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ErrorDetails)
+	err = core.UnmarshalModel(m, "conflicts_with", &obj.ConflictsWith, UnmarshalConflictsWith)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ErrorObject : ErrorObject struct
+type ErrorObject struct {
+	// The API error code for the error.
+	Code *string `json:"code" validate:"required"`
+
+	// The error message returned by the API.
+	Message *string `json:"message" validate:"required"`
+
+	// Additional error details.
+	Details *ErrorDetails `json:"details,omitempty"`
+
+	// Additional info for error.
+	MoreInfo *string `json:"more_info,omitempty"`
+}
+
+// Constants associated with the ErrorObject.Code property.
+// The API error code for the error.
+const (
+	ErrorObjectCodeInsufficentPermissionsConst = "insufficent_permissions"
+	ErrorObjectCodeInvalidBodyConst = "invalid_body"
+	ErrorObjectCodeInvalidTokenConst = "invalid_token"
+	ErrorObjectCodeMissingRequiredQueryParameterConst = "missing_required_query_parameter"
+	ErrorObjectCodeNotFoundConst = "not_found"
+	ErrorObjectCodePolicyAssignmentConflictErrorConst = "policy_assignment_conflict_error"
+	ErrorObjectCodePolicyAssignmentNotFoundConst = "policy_assignment_not_found"
+	ErrorObjectCodePolicyConflictErrorConst = "policy_conflict_error"
+	ErrorObjectCodePolicyNotFoundConst = "policy_not_found"
+	ErrorObjectCodePolicyTemplateConflictErrorConst = "policy_template_conflict_error"
+	ErrorObjectCodePolicyTemplateNotFoundConst = "policy_template_not_found"
+	ErrorObjectCodeRequestNotProcessedConst = "request_not_processed"
+	ErrorObjectCodeRoleConflictErrorConst = "role_conflict_error"
+	ErrorObjectCodeRoleNotFoundConst = "role_not_found"
+	ErrorObjectCodeTooManyRequestsConst = "too_many_requests"
+	ErrorObjectCodeUnableToProcessConst = "unable_to_process"
+	ErrorObjectCodeUnsupportedContentTypeConst = "unsupported_content_type"
+)
+
+// UnmarshalErrorObject unmarshals an instance of ErrorObject from the specified map of raw messages.
+func UnmarshalErrorObject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ErrorObject)
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "details", &obj.Details, UnmarshalErrorDetails)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "more_info", &obj.MoreInfo)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ErrorResponse : The error response from API.
+type ErrorResponse struct {
+	// The unique transaction id for the request.
+	Trace *string `json:"trace,omitempty"`
+
+	// The errors encountered during the response.
+	Errors []ErrorObject `json:"errors,omitempty"`
+
+	// The http error code of the response.
+	StatusCode *int64 `json:"status_code,omitempty"`
+}
+
+// UnmarshalErrorResponse unmarshals an instance of ErrorResponse from the specified map of raw messages.
+func UnmarshalErrorResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ErrorResponse)
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalErrorObject)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Policy : The core set of properties associated with a policy.
 type Policy struct {
 	// The policy ID.
@@ -3639,6 +6253,9 @@ type Policy struct {
 
 	// The policy state.
 	State *string `json:"state,omitempty"`
+
+	// Origin Template information.
+	Template *TemplateMetada `json:"template,omitempty"`
 }
 
 // Constants associated with the Policy.State property.
@@ -3696,6 +6313,10 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetada)
 	if err != nil {
 		return
 	}
@@ -3917,6 +6538,89 @@ func UnmarshalRoleList(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalModel(m, "system_roles", &obj.SystemRoles, UnmarshalRole)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Service : Service struct
+type Service struct {
+	// The service name.
+	Name *string `json:"name,omitempty"`
+
+	// The service type.
+	ServiceType *string `json:"serviceType,omitempty"`
+
+	// The actions of the service.
+	Actions []ServiceActionsItem `json:"actions,omitempty"`
+
+	// The supported roles of the service.
+	SupportedRoles []ServiceSupportedRolesItem `json:"supportedRoles,omitempty"`
+
+	// The supported attributes of the service.
+	SupportedAttributes []ServiceSupportedAttributesItem `json:"supportedAttributes,omitempty"`
+
+	// The supported authorization subjects of the service.
+	SupportedAuthorizationSubjects []ServiceSupportedAuthorizationSubjectsItem `json:"supportedAuthorizationSubjects,omitempty"`
+
+	// The supported authorization subjects of the service.
+	SupportedAnonymousAccesses []ServiceSupportedAnonymousAccessesItem `json:"supportedAnonymousAccesses,omitempty"`
+}
+
+// Constants associated with the Service.ServiceType property.
+// The service type.
+const (
+	ServiceServiceTypePlatformServiceConst = "platform_service"
+	ServiceServiceTypeServiceConst = "service"
+)
+
+// UnmarshalService unmarshals an instance of Service from the specified map of raw messages.
+func UnmarshalService(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Service)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "serviceType", &obj.ServiceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalServiceActionsItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "supportedRoles", &obj.SupportedRoles, UnmarshalServiceSupportedRolesItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "supportedAttributes", &obj.SupportedAttributes, UnmarshalServiceSupportedAttributesItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "supportedAuthorizationSubjects", &obj.SupportedAuthorizationSubjects, UnmarshalServiceSupportedAuthorizationSubjectsItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "supportedAnonymousAccesses", &obj.SupportedAnonymousAccesses, UnmarshalServiceSupportedAnonymousAccessesItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceList : A collection of services.
+type ServiceList struct {
+	// List of services.
+	Policies []Service `json:"policies,omitempty"`
+}
+
+// UnmarshalServiceList unmarshals an instance of ServiceList from the specified map of raw messages.
+func UnmarshalServiceList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceList)
+	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalService)
 	if err != nil {
 		return
 	}
