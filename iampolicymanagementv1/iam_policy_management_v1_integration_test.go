@@ -40,7 +40,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 	const externalConfigFile = "../iam_policy_management.env"
 
 	var (
-		service      *iampolicymanagementv1.IamPolicyManagementV1
+		service *iampolicymanagementv1.IamPolicyManagementV1
+
 		err          error
 		config       map[string]string
 		configLoaded bool = false
@@ -56,10 +57,13 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
 		testServiceName   string = "iam-groups"
 
-		testCustomRoleId   string = ""
-		testCustomRoleETag string = ""
-		testCustomRoleName string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-		testServiceRoleCrn string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testCustomRoleId          string = ""
+		testCustomRoleETag        string = ""
+		testCustomRoleName        string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn        string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testPolicyTemplateID      string = ""
+		testPolicyTemplateETag    string = ""
+		testPolicyTemplateVersion string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -640,6 +644,317 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			Expect(testSystemRolePresent).To(BeTrue())
 			Expect(testServiceRolePresent).To(BeTrue())
+		})
+	})
+
+	Describe(`CreatePolicyTemplate - Create a policy template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("iam-access-management"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr(testViewerRoleCrn),
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Test Policy For Template"),
+				Resource:    v2PolicyResourceModel,
+				Control:     controlModel,
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
+				Name:           core.StringPtr("PolicySampleTemplate"),
+				AccountID:      core.StringPtr(testAccountID),
+				Policy:         templatePolicyModel,
+				Description:    core.StringPtr("Test PolicySampleTemplate"),
+				Committed:      core.BoolPtr(true),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplate(createPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+
+			testPolicyTemplateID = *policyTemplate.ID
+		})
+	})
+
+	Describe(`ListPolicyTemplates - Get policy templates by attributes`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListPolicyTemplates(listPolicyTemplatesOptions *ListPolicyTemplatesOptions)`, func() {
+			listPolicyTemplatesOptions := &iampolicymanagementv1.ListPolicyTemplatesOptions{
+				AccountID:      core.StringPtr(testAccountID),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			policyTemplateCollection, response, err := service.ListPolicyTemplates(listPolicyTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplateCollection).ToNot(BeNil())
+
+			Expect(policyTemplateCollection.PolicyTemplates[0].Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(core.StringPtr(testAccountID)))
+		})
+	})
+
+	Describe(`GetPolicyTemplate - Retrieve latest policy template version by template ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPolicyTemplate(getPolicyTemplateOptions *GetPolicyTemplateOptions)`, func() {
+			getPolicyTemplateOptions := &iampolicymanagementv1.GetPolicyTemplateOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+			}
+
+			policyTemplate, response, err := service.GetPolicyTemplate(getPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+		})
+	})
+
+	Describe(`CreatePolicyTemplateVersion - Create a new policy template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("watson"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr(testEditorRoleCrn),
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Watson Policy Template"),
+				Resource:    v2PolicyResourceModel,
+				Control:     controlModel,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateVersionOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				Policy:           templatePolicyModel,
+				Description:      core.StringPtr("Watson Policy Template version"),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+
+			testPolicyTemplateVersion = *policyTemplate.Version
+			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`ListPolicyTemplateVersions - Retrieve policy template versions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions *ListPolicyTemplateVersionsOptions)`, func() {
+			listPolicyTemplateVersionsOptions := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+			}
+
+			policyTemplateVersionsCollection, response, err := service.ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplateVersionsCollection).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ReplacePolicyTemplate - Update a policy template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplacePolicyTemplate(replacePolicyTemplateOptions *ReplacePolicyTemplateOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("watson"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr(testViewerRoleCrn),
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Version Update"),
+				Resource:    v2PolicyResourceModel,
+				Control:     controlModel,
+			}
+
+			replacePolicyTemplateOptions := &iampolicymanagementv1.ReplacePolicyTemplateOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				Version:          core.StringPtr(testPolicyTemplateVersion),
+				IfMatch:          core.StringPtr(testPolicyTemplateETag),
+				Policy:           templatePolicyModel,
+				Description:      core.StringPtr("Template version update"),
+			}
+
+			policyTemplate, response, err := service.ReplacePolicyTemplate(replacePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+
+			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+
+		})
+	})
+
+	Describe(`GetPolicyTemplateVersion - Retrieve a policy template version by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPolicyTemplateVersion(getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions)`, func() {
+			getPolicyTemplateVersionOptions := &iampolicymanagementv1.GetPolicyTemplateVersionOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				Version:          core.StringPtr(testPolicyTemplateVersion),
+			}
+
+			policyTemplate, response, err := service.GetPolicyTemplateVersion(getPolicyTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+		})
+	})
+
+	Describe(`CommitPolicyTemplate - Commit a policy template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitPolicyTemplate(commitPolicyTemplateOptions *CommitPolicyTemplateOptions)`, func() {
+			commitPolicyTemplateOptions := &iampolicymanagementv1.CommitPolicyTemplateOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				Version:          core.StringPtr(testPolicyTemplateVersion),
+				IfMatch:          core.StringPtr(testPolicyTemplateETag),
+			}
+
+			response, err := service.CommitPolicyTemplate(commitPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`ListPolicyAssignments - Get policies template assignments by attributes`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListPolicyAssignments(listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions)`, func() {
+			listPolicyAssignmentsOptions := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
+				AccountID:       core.StringPtr(testAccountID),
+				AcceptLanguage:  core.StringPtr("default"),
+				TemplateID:      core.StringPtr(testPolicyTemplateID),
+				TemplateVersion: core.StringPtr(testPolicyTemplateVersion),
+			}
+
+			polcyTemplateAssignmentCollection, response, err := service.ListPolicyAssignments(listPolicyAssignmentsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(polcyTemplateAssignmentCollection).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeletePolicyTemplateVersion - Delete a policy template version by ID and version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions)`, func() {
+			deletePolicyTemplateVersionOptions := &iampolicymanagementv1.DeletePolicyTemplateVersionOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				Version:          core.StringPtr(testPolicyTemplateVersion),
+			}
+
+			response, err := service.DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeletePolicyTemplate - Delete a policy template by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
+			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
+				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+			}
+
+			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
