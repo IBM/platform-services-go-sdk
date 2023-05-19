@@ -3856,13 +3856,13 @@ func (options *ListV2PoliciesOptions) SetHeaders(param map[string]string) *ListV
 // PolcyTemplateAssignmentCollection : A collection of policies assignments.
 type PolcyTemplateAssignmentCollection struct {
 	// List of policy assignments.
-	Assignments []PolicyAssignmentRecord `json:"assignments,omitempty"`
+	PolicyAssignments []PolicyAssignmentRecord `json:"policy_assignments,omitempty"`
 }
 
 // UnmarshalPolcyTemplateAssignmentCollection unmarshals an instance of PolcyTemplateAssignmentCollection from the specified map of raw messages.
 func UnmarshalPolcyTemplateAssignmentCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolcyTemplateAssignmentCollection)
-	err = core.UnmarshalModel(m, "assignments", &obj.Assignments, UnmarshalPolicyAssignmentRecord)
+	err = core.UnmarshalModel(m, "policy_assignments", &obj.PolicyAssignments, UnmarshalPolicyAssignmentRecord)
 	if err != nil {
 		return
 	}

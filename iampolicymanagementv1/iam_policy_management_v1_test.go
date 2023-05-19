@@ -7161,7 +7161,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}, "status": "in_progress"}}]}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}, "status": "in_progress"}}]}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully with retries`, func() {
@@ -7223,7 +7223,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}, "status": "in_progress"}}]}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}, "status": "in_progress"}}]}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully`, func() {
