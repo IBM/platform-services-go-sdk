@@ -4089,7 +4089,7 @@ type PolicyTemplate struct {
 	Version *string `json:"version" validate:"required"`
 
 	// Template vesrsion committed status.
-	Committed *bool `json:"committed" validate:"required"`
+	Committed *bool `json:"committed,omitempty"`
 
 	// The core set of properties associated with the template's policy objet.
 	Policy *TemplatePolicy `json:"policy" validate:"required"`
