@@ -3870,6 +3870,58 @@ func UnmarshalPolcyTemplateAssignmentCollection(m map[string]json.RawMessage, re
 	return
 }
 
+// PolicyAssignmentOptions : The set of properties required for a policy assignment.
+type PolicyAssignmentOptions struct {
+	// The policy subject type; either 'iam_id' or 'access_group_id'.
+	SubjectType *string `json:"subject_type" validate:"required"`
+
+	// The policy subject id.
+	SubjectID *string `json:"subject_id" validate:"required"`
+
+	// The policy assignment requester id.
+	RootRequesterID *string `json:"root_requester_id" validate:"required"`
+
+	// The template id where this policy is being assigned from.
+	RootTemplateID *string `json:"root_template_id,omitempty"`
+
+	// The template version where this policy is being assigned from.
+	RootTemplateVersion *string `json:"root_template_version,omitempty"`
+}
+
+// Constants associated with the PolicyAssignmentOptions.SubjectType property.
+// The policy subject type; either 'iam_id' or 'access_group_id'.
+const (
+	PolicyAssignmentOptionsSubjectTypeAccessGroupIDConst = "access_group_id"
+	PolicyAssignmentOptionsSubjectTypeIamIDConst = "iam_id"
+)
+
+// UnmarshalPolicyAssignmentOptions unmarshals an instance of PolicyAssignmentOptions from the specified map of raw messages.
+func UnmarshalPolicyAssignmentOptions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentOptions)
+	err = core.UnmarshalPrimitive(m, "subject_type", &obj.SubjectType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "subject_id", &obj.SubjectID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_requester_id", &obj.RootRequesterID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_template_id", &obj.RootTemplateID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_template_version", &obj.RootTemplateVersion)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PolicyAssignmentRecord : The set of properties associated with the policy template assignment.
 type PolicyAssignmentRecord struct {
 	// policy template id.
@@ -3890,6 +3942,9 @@ type PolicyAssignmentRecord struct {
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
 
+	// The account GUID that the policies assignments belong to..
+	AccountID *string `json:"account_id,omitempty"`
+
 	// The href URL that links to the policies assignments API by policy assignment ID.
 	Href *string `json:"href,omitempty"`
 
@@ -3905,14 +3960,29 @@ type PolicyAssignmentRecord struct {
 	// The iam ID of the entity that last modified the policy assignment.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
 
+	// Object for each properties for a policy assignment.
+	Options []PolicyAssignmentOptions `json:"options,omitempty"`
+
 	// Object for each account assigned.
 	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
+
+	// The policy assignment status.
+	Status *string `json:"status" validate:"required"`
 }
 
 // Constants associated with the PolicyAssignmentRecord.TargetType property.
 // Assignment target type.
 const (
 	PolicyAssignmentRecordTargetTypeAccountConst = "Account"
+)
+
+// Constants associated with the PolicyAssignmentRecord.Status property.
+// The policy assignment status.
+const (
+	PolicyAssignmentRecordStatusFailedConst = "failed"
+	PolicyAssignmentRecordStatusInProgressConst = "in_progress"
+	PolicyAssignmentRecordStatusSucceedWithErrorsConst = "succeed_with_errors"
+	PolicyAssignmentRecordStatusSucceededConst = "succeeded"
 )
 
 // UnmarshalPolicyAssignmentRecord unmarshals an instance of PolicyAssignmentRecord from the specified map of raw messages.
@@ -3942,6 +4012,10 @@ func UnmarshalPolicyAssignmentRecord(m map[string]json.RawMessage, result interf
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
@@ -3962,7 +4036,15 @@ func UnmarshalPolicyAssignmentRecord(m map[string]json.RawMessage, result interf
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		return
 	}
@@ -4001,19 +4083,7 @@ type PolicyAssignmentResourcesPolicy struct {
 
 	// The error response from API.
 	ErrorMessage *ErrorResponse `json:"error_message,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status" validate:"required"`
 }
-
-// Constants associated with the PolicyAssignmentResourcesPolicy.Status property.
-// The policy assignment status.
-const (
-	PolicyAssignmentResourcesPolicyStatusFailedConst = "failed"
-	PolicyAssignmentResourcesPolicyStatusInProgressConst = "in_progress"
-	PolicyAssignmentResourcesPolicyStatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyAssignmentResourcesPolicyStatusSucceededConst = "succeeded"
-)
 
 // UnmarshalPolicyAssignmentResourcesPolicy unmarshals an instance of PolicyAssignmentResourcesPolicy from the specified map of raw messages.
 func UnmarshalPolicyAssignmentResourcesPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -4023,10 +4093,6 @@ func UnmarshalPolicyAssignmentResourcesPolicy(m map[string]json.RawMessage, resu
 		return
 	}
 	err = core.UnmarshalModel(m, "error_message", &obj.ErrorMessage, UnmarshalErrorResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		return
 	}

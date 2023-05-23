@@ -67,6 +67,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		examplePolicyTemplateID      string
 		examplePolicyTemplateETag    string
 		examplePolicyTemplateVersion string
+		// change testPolicyAssignmentId id after prod account setup
+		testPolicyAssignmentId = "442c6fc4-2f74-41b2-bf4d-98342614cd22"
 	)
 
 	var shouldSkipTest = func() {
@@ -774,7 +776,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplate).ToNot(BeNil())
 
-			// examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 
 		})
 
@@ -974,6 +976,57 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(polcyTemplateAssignmentCollection).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TemplateID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TargetType).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TemplateVersion).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Target).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].AssignmentID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Options).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Status).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].AccountID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Resources).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].CreatedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].CreatedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Href).ToNot(BeNil())
+		})
+
+		It(`GetPolicyAssignment request example`, func() {
+			fmt.Println("\nGetPolicyAssignment() result:")
+			// begin-get_policy_assignment
+
+			getPolicyAssignmentOptions := iamPolicyManagementService.NewGetPolicyAssignmentOptions(
+				testPolicyAssignmentId,
+			)
+
+			policyAssignmentRecord, response, err := iamPolicyManagementService.GetPolicyAssignment(getPolicyAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyAssignmentRecord, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyAssignmentRecord).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TargetType).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateVersion).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Target).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AssignmentID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Options).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Status).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AccountID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Resources).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
 		})
 
 		It(`DeletePolicyTemplateVersion request example`, func() {
