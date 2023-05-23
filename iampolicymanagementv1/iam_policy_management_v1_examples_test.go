@@ -774,7 +774,10 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.AccountID).ToNot(BeNil())
+			Expect(policyTemplate.Version).ToNot(BeNil())
+			Expect(policyTemplate.Name).ToNot(BeNil())
+			Expect(policyTemplate.Policy).ToNot(BeNil())
 
 			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 

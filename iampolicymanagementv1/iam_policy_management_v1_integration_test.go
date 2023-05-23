@@ -64,6 +64,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyTemplateID      string = ""
 		testPolicyTemplateETag    string = ""
 		testPolicyTemplateVersion string = ""
+		// change testPolicyAssignmentId id after prod account setup
+		testPolicyAssignmentId = "442c6fc4-2f74-41b2-bf4d-98342614cd22"
 	)
 
 	var shouldSkipTest = func() {
@@ -914,16 +916,59 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`ListPolicyAssignments(listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions)`, func() {
 			listPolicyAssignmentsOptions := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
-				AccountID:       core.StringPtr(testAccountID),
-				AcceptLanguage:  core.StringPtr("default"),
-				TemplateID:      core.StringPtr(testPolicyTemplateID),
-				TemplateVersion: core.StringPtr(testPolicyTemplateVersion),
+				AccountID:      core.StringPtr(testAccountID),
+				AcceptLanguage: core.StringPtr("default"),
 			}
 
 			polcyTemplateAssignmentCollection, response, err := service.ListPolicyAssignments(listPolicyAssignmentsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(polcyTemplateAssignmentCollection).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TemplateID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TargetType).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].TemplateVersion).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Target).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].AssignmentID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Options).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Status).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].AccountID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Resources).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].CreatedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].CreatedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Href).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetPolicyAssignment - Retrieve a policy assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions)`, func() {
+			getPolicyAssignmentOptions := &iampolicymanagementv1.GetPolicyAssignmentOptions{
+				AssignmentID: core.StringPtr(testPolicyAssignmentId),
+			}
+
+			policyAssignmentRecord, response, err := service.GetPolicyAssignment(getPolicyAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyAssignmentRecord).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TargetType).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateVersion).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Target).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AssignmentID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Options).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Status).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AccountID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Resources).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
 		})
 	})
 
