@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
+ * IBM OpenAPI SDK Code Generator Version: 3.68.2-ac7def68-20230310-195410
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -2992,6 +2992,9 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceWithContext(ctx c
 	}
 	if getOfferingSourceOptions.AsIs != nil {
 		builder.AddQuery("asIs", fmt.Sprint(*getOfferingSourceOptions.AsIs))
+	}
+	if getOfferingSourceOptions.InstallType != nil {
+		builder.AddQuery("installType", fmt.Sprint(*getOfferingSourceOptions.InstallType))
 	}
 
 	request, err := builder.Build()
@@ -11693,6 +11696,9 @@ type GetOfferingSourceOptions struct {
 	// is returned.
 	AsIs *bool `json:"asIs,omitempty"`
 
+	// The install type of the specified version.
+	InstallType *string `json:"installType,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -11755,6 +11761,12 @@ func (_options *GetOfferingSourceOptions) SetFlavor(flavor string) *GetOfferingS
 // SetAsIs : Allow user to set AsIs
 func (_options *GetOfferingSourceOptions) SetAsIs(asIs bool) *GetOfferingSourceOptions {
 	_options.AsIs = core.BoolPtr(asIs)
+	return _options
+}
+
+// SetInstallType : Allow user to set InstallType
+func (_options *GetOfferingSourceOptions) SetInstallType(installType string) *GetOfferingSourceOptions {
+	_options.InstallType = core.StringPtr(installType)
 	return _options
 }
 
@@ -17700,6 +17712,9 @@ type SolutionInfo struct {
 
 	// Dependencies for this solution.
 	Dependencies []OfferingReference `json:"dependencies,omitempty"`
+
+	// The install type for this solution.
+	InstallType *string `json:"install_type,omitempty"`
 }
 
 // UnmarshalSolutionInfo unmarshals an instance of SolutionInfo from the specified map of raw messages.
@@ -17718,6 +17733,10 @@ func UnmarshalSolutionInfo(m map[string]json.RawMessage, result interface{}) (er
 		return
 	}
 	err = core.UnmarshalModel(m, "dependencies", &obj.Dependencies, UnmarshalOfferingReference)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "install_type", &obj.InstallType)
 	if err != nil {
 		return
 	}
