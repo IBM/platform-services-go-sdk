@@ -1,3 +1,45 @@
+## [0.37.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.3...v0.37.4) (2023-05-05)
+
+
+### Bug Fixes
+
+* **deps:** bump various dependencies ([#256](https://github.com/IBM/platform-services-go-sdk/issues/256)) ([450de25](https://github.com/IBM/platform-services-go-sdk/commit/450de25feb7d25990a837c4f390f1557814e667e))
+
+## [0.37.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.2...v0.37.3) (2023-04-28)
+
+
+### Bug Fixes
+
+* **Global Search:** remove deprecated method getSupportedTypes ([#253](https://github.com/IBM/platform-services-go-sdk/issues/253)) ([3d3307c](https://github.com/IBM/platform-services-go-sdk/commit/3d3307cfaf18079ca8e62e847004541728a9734a))
+
+## [0.37.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.1...v0.37.2) (2023-04-27)
+
+
+### Bug Fixes
+
+* **Example Service:** re-gen service after traits schema change ([#250](https://github.com/IBM/platform-services-go-sdk/issues/250)) ([92d698c](https://github.com/IBM/platform-services-go-sdk/commit/92d698c046f32d0392030e33f4804ef957451aab))
+
+## [0.37.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.0...v0.37.1) (2023-04-27)
+
+
+### Bug Fixes
+
+* **Global Catalog:** avoid unmarshalling error ([#251](https://github.com/IBM/platform-services-go-sdk/issues/251)) ([db31348](https://github.com/IBM/platform-services-go-sdk/commit/db31348f12a624d9444261585f77dfb211e1cb73))
+
+# [0.37.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.36.0...v0.37.0) (2023-04-27)
+
+
+### Features
+
+* **Catalog Management:** re-gen service after recent API changes ([#249](https://github.com/IBM/platform-services-go-sdk/issues/249)) ([3b5367b](https://github.com/IBM/platform-services-go-sdk/commit/3b5367be3070455bdd1c13994a2b1e64c9dadcee))
+
+# [0.36.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.35.1...v0.36.0) (2023-04-21)
+
+
+### Features
+
+* **EnterpriseManagementv1:** re-gen service after recent API changes ([#237](https://github.com/IBM/platform-services-go-sdk/issues/237)) ([5efc6b6](https://github.com/IBM/platform-services-go-sdk/commit/5efc6b601859e965afcb721929df14f928007c4f))
+
 ## [0.35.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.35.0...v0.35.1) (2023-04-05)
 
 

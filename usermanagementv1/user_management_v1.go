@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.60.2-95dc7721-20221102-203229
+ * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
  */
 
 // Package usermanagementv1 : Operations and models for the UserManagementV1 service
@@ -28,7 +28,6 @@ import (
 	"net/http"
 	"reflect"
 	"time"
-
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 )
@@ -166,7 +165,8 @@ func (userManagement *UserManagementV1) DisableRetries() {
 // role. If restricted view is enabled and user has the viewer, editor, or administrator role on the user management
 // service, the API returns all users in the account. If unrestricted view is enabled and the user does not have these
 // roles, the API returns only the current user. Users are returned in a paginated list with a default limit of 100
-// users. You can iterate through all users by following the `next_url` field.
+// users. You can iterate through all users by following the `next_url` field. Additional substring search fields are
+// supported to filter the users.
 func (userManagement *UserManagementV1) ListUsers(listUsersOptions *ListUsersOptions) (result *UserList, response *core.DetailedResponse, err error) {
 	return userManagement.ListUsersWithContext(context.Background(), listUsersOptions)
 }
@@ -206,6 +206,12 @@ func (userManagement *UserManagementV1) ListUsersWithContext(ctx context.Context
 
 	if listUsersOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listUsersOptions.Limit))
+	}
+	if listUsersOptions.IncludeSettings != nil {
+		builder.AddQuery("include_settings", fmt.Sprint(*listUsersOptions.IncludeSettings))
+	}
+	if listUsersOptions.Search != nil {
+		builder.AddQuery("search", fmt.Sprint(*listUsersOptions.Search))
 	}
 	if listUsersOptions.Start != nil {
 		builder.AddQuery("_start", fmt.Sprint(*listUsersOptions.Start))
@@ -994,6 +1000,16 @@ type ListUsersOptions struct {
 	// The number of results to be returned.
 	Limit *int64 `json:"limit,omitempty"`
 
+	// The user settings to be returned. Set to true to view language, allowed IP address, and authentication settings.
+	IncludeSettings *bool `json:"include_settings,omitempty"`
+
+	// The desired search results to be returned. To view the list of users with the additional search filter, use the
+	// following query options: `firstname`, `lastname`, `email`, `state`, `substate`, `iam_id`, `realm`, and `userId`.
+	// HTML URL encoding for the search query and `:` must be used. For example, search=state%3AINVALID returns a list of
+	// invalid users. Multiple search queries can be combined to obtain `OR` results using `,` operator (not URL encoded).
+	// For example, search=state%3AINVALID,email%3Amail.test.ibm.com.
+	Search *string `json:"search,omitempty"`
+
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
 	// results is returned. This value is obtained from the 'next_url' field of the operation response.
 	Start *string `json:"_start,omitempty"`
@@ -1021,6 +1037,18 @@ func (_options *ListUsersOptions) SetAccountID(accountID string) *ListUsersOptio
 // SetLimit : Allow user to set Limit
 func (_options *ListUsersOptions) SetLimit(limit int64) *ListUsersOptions {
 	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetIncludeSettings : Allow user to set IncludeSettings
+func (_options *ListUsersOptions) SetIncludeSettings(includeSettings bool) *ListUsersOptions {
+	_options.IncludeSettings = core.BoolPtr(includeSettings)
+	return _options
+}
+
+// SetSearch : Allow user to set Search
+func (_options *ListUsersOptions) SetSearch(search string) *ListUsersOptions {
+	_options.Search = core.StringPtr(search)
 	return _options
 }
 

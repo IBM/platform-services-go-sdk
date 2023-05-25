@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.67.0-df2073a1-20230222-221157
+ * IBM OpenAPI SDK Code Generator Version: 3.70.0-7df966bf-20230419-195904
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -220,9 +220,6 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	if searchOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*searchOptions.AccountID))
 	}
-	if searchOptions.Boundary != nil {
-		builder.AddQuery("boundary", fmt.Sprint(*searchOptions.Boundary))
-	}
 	if searchOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*searchOptions.Limit))
 	}
@@ -282,79 +279,6 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	}
 
 	return
-}
-
-// GetSupportedTypes : DEPRECATED. Get all GhoST indexes
-// Retrieves a list of all GhoST indexes.
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
-	return globalSearch.GetSupportedTypesWithContext(context.Background(), getSupportedTypesOptions)
-}
-
-// GetSupportedTypesWithContext is an alternate form of the GetSupportedTypes method which supports a Context parameter
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (globalSearch *GlobalSearchV2) GetSupportedTypesWithContext(ctx context.Context, getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
-	core.GetLogger().Warn("A deprecated operation has been invoked: GetSupportedTypes")
-	err = core.ValidateStruct(getSupportedTypesOptions, "getSupportedTypesOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = globalSearch.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(globalSearch.Service.Options.URL, `/v2/resources/supported_types`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getSupportedTypesOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("global_search", "V2", "GetSupportedTypes")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = globalSearch.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSupportedTypesList)
-		if err != nil {
-			return
-		}
-		response.Result = result
-	}
-
-	return
-}
-
-// GetSupportedTypesOptions : The GetSupportedTypes options.
-type GetSupportedTypesOptions struct {
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetSupportedTypesOptions : Instantiate GetSupportedTypesOptions
-func (*GlobalSearchV2) NewGetSupportedTypesOptions() *GetSupportedTypesOptions {
-	return &GetSupportedTypesOptions{}
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetSupportedTypesOptions) SetHeaders(param map[string]string) *GetSupportedTypesOptions {
-	options.Headers = param
-	return options
 }
 
 // ResultItem : A resource returned in a search result, which is identified by its `crn`. It contains other properties that depend on
@@ -481,9 +405,6 @@ type SearchOptions struct {
 	// The account ID to filter resources.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// The boundary where the search performs. This parameter must be set only for the cross-account searches.
-	Boundary *string `json:"boundary,omitempty"`
-
 	// The maximum number of hits to return. Defaults to 10.
 	Limit *int64 `json:"limit,omitempty"`
 
@@ -521,13 +442,6 @@ type SearchOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
-
-// Constants associated with the SearchOptions.Boundary property.
-// The boundary where the search performs. This parameter must be set only for the cross-account searches.
-const (
-	SearchOptionsBoundaryGlobalConst = "global"
-	SearchOptionsBoundaryUsRegulatedConst = "us-regulated"
-)
 
 // Constants associated with the SearchOptions.IsDeleted property.
 // Determines if deleted documents should be included in result set or not. Possible values are false (default), true or
@@ -603,12 +517,6 @@ func (_options *SearchOptions) SetAccountID(accountID string) *SearchOptions {
 	return _options
 }
 
-// SetBoundary : Allow user to set Boundary
-func (_options *SearchOptions) SetBoundary(boundary string) *SearchOptions {
-	_options.Boundary = core.StringPtr(boundary)
-	return _options
-}
-
 // SetLimit : Allow user to set Limit
 func (_options *SearchOptions) SetLimit(limit int64) *SearchOptions {
 	_options.Limit = core.Int64Ptr(limit)
@@ -661,21 +569,4 @@ func (_options *SearchOptions) SetCanTag(canTag string) *SearchOptions {
 func (options *SearchOptions) SetHeaders(param map[string]string) *SearchOptions {
 	options.Headers = param
 	return options
-}
-
-// SupportedTypesList : A list of all GhoST indexes.
-type SupportedTypesList struct {
-	// A list of all GhoST indexes.
-	SupportedTypes []string `json:"supported_types,omitempty"`
-}
-
-// UnmarshalSupportedTypesList unmarshals an instance of SupportedTypesList from the specified map of raw messages.
-func UnmarshalSupportedTypesList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SupportedTypesList)
-	err = core.UnmarshalPrimitive(m, "supported_types", &obj.SupportedTypes)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
