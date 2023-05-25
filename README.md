@@ -60,6 +60,7 @@ Service Name | Package name
 [IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api?code=go) | iamidentityv1
 [IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management?code=go) | iampolicymanagementv1
 [IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
+[Metrics Router](https://cloud.ibm.com/apidocs/metrics-router/metrics-router-v3) | metricsrouterv3
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
