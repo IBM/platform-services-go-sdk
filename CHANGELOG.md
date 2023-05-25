@@ -1,3 +1,10 @@
+# [0.38.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.4...v0.38.0) (2023-05-25)
+
+
+### Features
+
+* **Metrics Router:** add new Metrics Router service to project ([#225](https://github.com/IBM/platform-services-go-sdk/issues/225)) ([6eb402a](https://github.com/IBM/platform-services-go-sdk/commit/6eb402a4890161484944a61517dbe97b405a50c1))
+
 ## [0.37.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.37.3...v0.37.4) (2023-05-05)
 
 
