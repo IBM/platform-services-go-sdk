@@ -67,8 +67,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		examplePolicyTemplateID      string
 		examplePolicyTemplateETag    string
 		examplePolicyTemplateVersion string
-		// change testPolicyAssignmentId id after prod account setup
-		testPolicyAssignmentId = "442c6fc4-2f74-41b2-bf4d-98342614cd22"
+		testPolicyAssignmentId       string
 	)
 
 	var shouldSkipTest = func() {
@@ -994,6 +993,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedAt).ToNot(BeNil())
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedByID).ToNot(BeNil())
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Href).ToNot(BeNil())
+
+			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.PolicyAssignments[0].ID
 		})
 
 		It(`GetPolicyAssignment request example`, func() {

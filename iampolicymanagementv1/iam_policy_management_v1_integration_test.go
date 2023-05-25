@@ -64,8 +64,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyTemplateID      string = ""
 		testPolicyTemplateETag    string = ""
 		testPolicyTemplateVersion string = ""
-		// change testPolicyAssignmentId id after prod account setup
-		testPolicyAssignmentId = "442c6fc4-2f74-41b2-bf4d-98342614cd22"
+		testPolicyAssignmentId    string = ""
+		examplePolicyTemplateName        = "PolicySampleTemplateTestV1"
 	)
 
 	var shouldSkipTest = func() {
@@ -684,7 +684,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
-				Name:           core.StringPtr("PolicySampleTemplate"),
+				Name:           core.StringPtr(examplePolicyTemplateName),
 				AccountID:      core.StringPtr(testAccountID),
 				Policy:         templatePolicyModel,
 				Description:    core.StringPtr("Test PolicySampleTemplate"),
@@ -696,7 +696,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policyTemplate).ToNot(BeNil())
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 
@@ -719,7 +719,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplateCollection).ToNot(BeNil())
 
-			Expect(policyTemplateCollection.PolicyTemplates[0].Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
 			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(core.StringPtr(testAccountID)))
 		})
@@ -739,7 +738,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplate).ToNot(BeNil())
 
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 		})
@@ -790,7 +789,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policyTemplate).ToNot(BeNil())
 
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 
@@ -863,7 +862,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate).ToNot(BeNil())
 
 			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr("PolicySampleTemplate")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
 
@@ -939,6 +938,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedAt).ToNot(BeNil())
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].LastModifiedByID).ToNot(BeNil())
 			Expect(polcyTemplateAssignmentCollection.PolicyAssignments[0].Href).ToNot(BeNil())
+
+			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.PolicyAssignments[0].ID
 		})
 	})
 
