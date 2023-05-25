@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-package common
+package metricsrouterv3_test
 
-// Version of the SDK
-const Version = "0.38.0"
+import (
+	"testing"
+
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+)
+
+func TestMetricsRouterV3(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "MetricsRouterV3 Suite")
+}
