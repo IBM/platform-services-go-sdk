@@ -2092,14 +2092,15 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetOfferingSource(getOfferingSourceOptions *GetOfferingSourceOptions)`, func() {
 			Skip("Not testing")
 			getOfferingSourceOptions := &catalogmanagementv1.GetOfferingSourceOptions{
-				Version:   core.StringPtr("testString"),
-				Accept:    core.StringPtr("application/yaml"),
-				CatalogID: core.StringPtr("testString"),
-				Name:      core.StringPtr("testString"),
-				ID:        core.StringPtr("testString"),
-				Kind:      core.StringPtr("testString"),
-				Channel:   core.StringPtr("testString"),
-				Flavor:    core.StringPtr("testString"),
+				Version:     core.StringPtr("testString"),
+				Accept:      core.StringPtr("application/yaml"),
+				CatalogID:   core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				ID:          core.StringPtr("testString"),
+				Kind:        core.StringPtr("testString"),
+				Channel:     core.StringPtr("testString"),
+				Flavor:      core.StringPtr("testString"),
+				InstallType: core.StringPtr("testString"),
 			}
 
 			result, response, err := catalogManagementService.GetOfferingSource(getOfferingSourceOptions)
