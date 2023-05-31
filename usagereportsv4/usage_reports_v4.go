@@ -704,6 +704,9 @@ type AccountSummary struct {
 	// The ID of the account.
 	AccountID *string `json:"account_id" validate:"required"`
 
+	// The list of account resources for the month.
+	AccountResources []Resource `json:"account_resources,omitempty"`
+
 	// The month in which usages were incurred. Represented in yyyy-mm format.
 	Month *string `json:"month" validate:"required"`
 
@@ -722,6 +725,9 @@ type AccountSummary struct {
 	// Support-related charges.
 	Support []SupportSummary `json:"support" validate:"required"`
 
+	// The list of support resources for the month.
+	SupportResources []interface{} `json:"support_resources,omitempty"`
+
 	// A summary of charges and credits related to a subscription.
 	Subscription *SubscriptionSummary `json:"subscription" validate:"required"`
 }
@@ -730,6 +736,10 @@ type AccountSummary struct {
 func UnmarshalAccountSummary(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountSummary)
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "account_resources", &obj.AccountResources, UnmarshalResource)
 	if err != nil {
 		return
 	}
@@ -754,6 +764,10 @@ func UnmarshalAccountSummary(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalModel(m, "support", &obj.Support, UnmarshalSupportSummary)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "support_resources", &obj.SupportResources)
 	if err != nil {
 		return
 	}
@@ -1965,6 +1979,8 @@ type Plan struct {
 	// The pricing region for the plan.
 	PricingRegion *string `json:"pricing_region,omitempty"`
 
+	PricingPlanID *string `json:"pricing_plan_id,omitempty"`
+
 	// Indicates if the plan charges are billed to the customer.
 	Billable *bool `json:"billable" validate:"required"`
 
@@ -1996,6 +2012,10 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pricing_region", &obj.PricingRegion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pricing_plan_id", &obj.PricingPlanID)
 	if err != nil {
 		return
 	}
