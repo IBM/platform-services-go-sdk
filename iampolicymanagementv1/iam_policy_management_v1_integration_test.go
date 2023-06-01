@@ -684,8 +684,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
-				Name:           core.StringPtr(examplePolicyTemplateName),
-				AccountID:      core.StringPtr(testAccountID),
+				Name:           &examplePolicyTemplateName,
+				AccountID:      &testAccountID,
 				Policy:         templatePolicyModel,
 				Description:    core.StringPtr("Test PolicySampleTemplate"),
 				Committed:      core.BoolPtr(true),
@@ -710,7 +710,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`ListPolicyTemplates(listPolicyTemplatesOptions *ListPolicyTemplatesOptions)`, func() {
 			listPolicyTemplatesOptions := &iampolicymanagementv1.ListPolicyTemplatesOptions{
-				AccountID:      core.StringPtr(testAccountID),
+				AccountID:      &testAccountID,
 				AcceptLanguage: core.StringPtr("default"),
 			}
 
@@ -720,7 +720,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplateCollection).ToNot(BeNil())
 
 			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).To(Equal(core.StringPtr("access")))
-			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(&testAccountID))
 		})
 	})
 
@@ -730,7 +730,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`GetPolicyTemplate(getPolicyTemplateOptions *GetPolicyTemplateOptions)`, func() {
 			getPolicyTemplateOptions := &iampolicymanagementv1.GetPolicyTemplateOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				PolicyTemplateID: &testPolicyTemplateID,
 			}
 
 			policyTemplate, response, err := service.GetPolicyTemplate(getPolicyTemplateOptions)
@@ -738,9 +738,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplate).ToNot(BeNil())
 
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
+			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
-			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
 		})
 	})
 
@@ -760,7 +760,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			rolesModel := &iampolicymanagementv1.Roles{
-				RoleID: core.StringPtr(testEditorRoleCrn),
+				RoleID: &testEditorRoleCrn,
 			}
 
 			grantModel := &iampolicymanagementv1.Grant{
@@ -779,7 +779,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateVersionOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				PolicyTemplateID: &testPolicyTemplateID,
 				Policy:           templatePolicyModel,
 				Description:      core.StringPtr("Watson Policy Template version"),
 			}
@@ -789,9 +789,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policyTemplate).ToNot(BeNil())
 
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
+			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
-			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
 
 			testPolicyTemplateVersion = *policyTemplate.Version
 			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
@@ -804,7 +804,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions *ListPolicyTemplateVersionsOptions)`, func() {
 			listPolicyTemplateVersionsOptions := &iampolicymanagementv1.ListPolicyTemplateVersionsOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				PolicyTemplateID: &testPolicyTemplateID,
 			}
 
 			policyTemplateVersionsCollection, response, err := service.ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions)
@@ -830,7 +830,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			rolesModel := &iampolicymanagementv1.Roles{
-				RoleID: core.StringPtr(testViewerRoleCrn),
+				RoleID: &testViewerRoleCrn,
 			}
 
 			grantModel := &iampolicymanagementv1.Grant{
@@ -849,9 +849,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			replacePolicyTemplateOptions := &iampolicymanagementv1.ReplacePolicyTemplateOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
-				Version:          core.StringPtr(testPolicyTemplateVersion),
-				IfMatch:          core.StringPtr(testPolicyTemplateETag),
+				PolicyTemplateID: &testPolicyTemplateID,
+				Version:          &testPolicyTemplateVersion,
+				IfMatch:          &testPolicyTemplateETag,
 				Policy:           templatePolicyModel,
 				Description:      core.StringPtr("Template version update"),
 			}
@@ -862,9 +862,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate).ToNot(BeNil())
 
 			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
-			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
+			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
-			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
 
 			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
 
@@ -877,8 +877,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`GetPolicyTemplateVersion(getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions)`, func() {
 			getPolicyTemplateVersionOptions := &iampolicymanagementv1.GetPolicyTemplateVersionOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
-				Version:          core.StringPtr(testPolicyTemplateVersion),
+				PolicyTemplateID: &testPolicyTemplateID,
+				Version:          &testPolicyTemplateVersion,
 			}
 
 			policyTemplate, response, err := service.GetPolicyTemplateVersion(getPolicyTemplateVersionOptions)
@@ -888,7 +888,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
-			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
 		})
 	})
 
@@ -898,9 +898,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`CommitPolicyTemplate(commitPolicyTemplateOptions *CommitPolicyTemplateOptions)`, func() {
 			commitPolicyTemplateOptions := &iampolicymanagementv1.CommitPolicyTemplateOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
-				Version:          core.StringPtr(testPolicyTemplateVersion),
-				IfMatch:          core.StringPtr(testPolicyTemplateETag),
+				PolicyTemplateID: &testPolicyTemplateID,
+				Version:          &testPolicyTemplateVersion,
+				IfMatch:          &testPolicyTemplateETag,
 			}
 
 			response, err := service.CommitPolicyTemplate(commitPolicyTemplateOptions)
@@ -979,8 +979,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions)`, func() {
 			deletePolicyTemplateVersionOptions := &iampolicymanagementv1.DeletePolicyTemplateVersionOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
-				Version:          core.StringPtr(testPolicyTemplateVersion),
+				PolicyTemplateID: &testPolicyTemplateID,
+				Version:          &testPolicyTemplateVersion,
 			}
 
 			response, err := service.DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions)
@@ -995,7 +995,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
 			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
-				PolicyTemplateID: core.StringPtr(testPolicyTemplateID),
+				PolicyTemplateID: &testPolicyTemplateID,
 			}
 
 			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
