@@ -1034,6 +1034,125 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`SetProfileIdentities - Set Profile Identities`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetProfileIdentities(setProfileIdentitiesOptions *SetProfileIdentitiesOptions)`, func() {
+
+			accounts := []string{accountID}
+			identity := &iamidentityv1.ProfileIdentity{
+				Identifier:  &iamID,
+				Accounts:    accounts,
+				Type:        core.StringPtr("user"),
+				Description: core.StringPtr("Identity description"),
+			}
+			listProfileIdentity := []iamidentityv1.ProfileIdentity{*identity}
+			setProfileIdentitiesOptions := iamidentityv1.SetProfileIdentitiesOptions{
+				ProfileID:  &profileId2,
+				Identities: listProfileIdentity,
+				IfMatch:    core.StringPtr("*"),
+			}
+
+			profileIdnetities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			Expect(profileIdnetities.Identities).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetities))
+		})
+	})
+
+	Describe(`GetProfileIdentities - Get Profile Identities`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProfileIdentities(getProfileIdentitiesOptions *GetProfileIdentitiesOptions)`, func() {
+
+			getProfileIdentitiesOptions := iamidentityv1.GetProfileIdentitiesOptions{
+				ProfileID: &profileId2,
+			}
+
+			profileIdnetities, response, err := iamIdentityService.GetProfileIdentities(&getProfileIdentitiesOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			Expect(profileIdnetities.Identities).ToNot(BeNil())
+			Expect(profileIdnetities.Identities[0].Identifier).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetities))
+		})
+	})
+
+	Describe(`SetProfileIdentity - Set single identity on Trusted Profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetProfileIdentity(setProfileIdentityOptions *SetProfileIdentityOptions)`, func() {
+
+			accounts := []string{accountID}
+
+			setProfileIdentityOptions := iamidentityv1.SetProfileIdentityOptions{
+				ProfileID:    &profileId2,
+				IdentityType: core.StringPtr("user"),
+				Identifier:   &iamIDMember,
+				Accounts:     accounts,
+				Type:         core.StringPtr("user"),
+				Description:  core.StringPtr("Identity description"),
+			}
+
+			profileIdnetity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			Expect(profileIdnetity).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetity))
+		})
+	})
+
+	Describe(`GetProfileIdentity - Get specific identity of the profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProfileIdentity(getProfileIdentityOptions *GetProfileIdentityOptions)`, func() {
+
+			getProfileIdentityOptions := iamidentityv1.GetProfileIdentityOptions{
+				ProfileID:    &profileId2,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamIDMember,
+			}
+
+			profileIdnetity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			Expect(profileIdnetity.Identifier).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetity))
+		})
+	})
+
+	Describe(`DeleteProfileIdentity - Delete specific identity of the profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfileIdentity(deleteProfileIdentityOptions *DeleteProfileIdentityOptions)`, func() {
+
+			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
+				ProfileID:    &profileId2,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamIDMember,
+			}
+
+			response, err := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
 	Describe(`DeleteProfile2 - Delete trusted profile #2`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
