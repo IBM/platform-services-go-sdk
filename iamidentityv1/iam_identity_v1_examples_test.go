@@ -719,6 +719,140 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
+		It(`GetProfileIdentities request example`, func() {
+			fmt.Println("\nGetProfileIdentities() result:")
+			// begin-get_profile_identities
+
+			getProfileIdentitiesOptions := iamidentityv1.GetProfileIdentitiesOptions{
+				ProfileID: &profileId,
+			}
+
+			profileIdentities, response, err := iamIdentityService.GetProfileIdentities(&getProfileIdentitiesOptions)
+
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profileIdentities, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_profile_identities
+			fmt.Printf("\nSetProfileIdentities() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profileIdentities).ToNot(BeNil())
+			Expect(profileEtag).ToNot(BeEmpty())
+			profileEtag = *profileIdentities.EntityTag
+		})
+		It(`SetProfileIdentities request example`, func() {
+			fmt.Println("\nSetProfileIdentities() result:")
+			// begin-set_profile_identities
+
+			accounts := []string{accountID}
+			identity := &iamidentityv1.ProfileIdentity{
+				Identifier:  &iamID,
+				Accounts:    accounts,
+				Type:        core.StringPtr("user"),
+				Description: core.StringPtr("Identity description"),
+			}
+			listProfileIdentity := []iamidentityv1.ProfileIdentity{*identity}
+			setProfileIdentitiesOptions := iamidentityv1.SetProfileIdentitiesOptions{
+				ProfileID:  &profileId,
+				Identities: listProfileIdentity,
+				IfMatch:    &profileEtag,
+			}
+
+			profileIdnetities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
+
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profileIdnetities, "", "  ")
+			fmt.Println(string(b))
+
+			// end-set_profile_identities
+			fmt.Printf("\nSetProfileIdentities() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profileIdnetities).ToNot(BeNil())
+		})
+		It(`SetProfileIdentity request example`, func() {
+			fmt.Println("\nSetProfileIdentity() result:")
+			// begin-set_profile_identity
+
+			accounts := []string{accountID}
+			setProfileIdentityOptions := iamidentityv1.SetProfileIdentityOptions{
+				ProfileID:    &profileId,
+				IdentityType: core.StringPtr("user"),
+				Identifier:   &iamIDMember,
+				Accounts:     accounts,
+				Type:         core.StringPtr("user"),
+				Description:  core.StringPtr("Identity description"),
+			}
+
+			profileIdnetity, response, err := iamIdentityService.SetProfileIdentity(&setProfileIdentityOptions)
+
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profileIdnetity, "", "  ")
+			fmt.Println(string(b))
+
+			// end-set_profile_identity
+			fmt.Printf("\nSetProfileIdentity() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profileIdnetity).ToNot(BeNil())
+		})
+		It(`GetProfileIdentity request example`, func() {
+			fmt.Println("\nGetProfileIdentity() result:")
+			// begin-get_profile_identity
+
+			getProfileIdentityOptions := iamidentityv1.GetProfileIdentityOptions{
+				ProfileID:    &profileId,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamIDMember,
+			}
+
+			profileIdnetity, response, err := iamIdentityService.GetProfileIdentity(&getProfileIdentityOptions)
+
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profileIdnetity, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_profile_identity
+			fmt.Printf("\nGetProfileIdentity() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profileIdnetity).ToNot(BeNil())
+		})
+		It(`DeleteProfileIdentity request example`, func() {
+			fmt.Println("\nDeleteProfileIdentity() result:")
+			// begin-delete_profile_identity
+
+			deleteProfileIdentityOptions := iamidentityv1.DeleteProfileIdentityOptions{
+				ProfileID:    &profileId,
+				IdentityType: core.StringPtr("user"),
+				IdentifierID: &iamIDMember,
+			}
+
+			response, err := iamIdentityService.DeleteProfileIdentity(&deleteProfileIdentityOptions)
+
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_profile_identity
+			fmt.Printf("\nGetProfileIdentity() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`DeleteProfile request example`, func() {
 			// begin-delete_profile
 
