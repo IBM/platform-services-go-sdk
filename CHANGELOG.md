@@ -1,3 +1,10 @@
+# [0.40.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.39.0...v0.40.0) (2023-06-12)
+
+
+### Features
+
+* **IAM Identity:** add trusted profile identities API ([#262](https://github.com/IBM/platform-services-go-sdk/issues/262)) ([b4dcf90](https://github.com/IBM/platform-services-go-sdk/commit/b4dcf904d30f6a61069f1828a3bf91e927063dea))
+
 # [0.39.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.38.1...v0.39.0) (2023-06-01)
 
 
