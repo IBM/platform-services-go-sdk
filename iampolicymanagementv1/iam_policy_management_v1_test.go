@@ -5621,6 +5621,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				createPolicyTemplateVersionOptionsModel.Policy = templatePolicyModel
 				createPolicyTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createPolicyTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createPolicyTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.CreatePolicyTemplateVersion(createPolicyTemplateVersionOptionsModel)
@@ -5734,6 +5735,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				createPolicyTemplateVersionOptionsModel.Policy = templatePolicyModel
 				createPolicyTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createPolicyTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createPolicyTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5855,6 +5857,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				createPolicyTemplateVersionOptionsModel.Policy = templatePolicyModel
 				createPolicyTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createPolicyTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createPolicyTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5921,6 +5924,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				createPolicyTemplateVersionOptionsModel.Policy = templatePolicyModel
 				createPolicyTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createPolicyTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createPolicyTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -6008,6 +6012,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.PolicyTemplateID = core.StringPtr("testString")
 				createPolicyTemplateVersionOptionsModel.Policy = templatePolicyModel
 				createPolicyTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createPolicyTemplateVersionOptionsModel.Committed = core.BoolPtr(true)
 				createPolicyTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6311,6 +6316,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.IfMatch = core.StringPtr("testString")
 				replacePolicyTemplateOptionsModel.Policy = templatePolicyModel
 				replacePolicyTemplateOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replacePolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ReplacePolicyTemplate(replacePolicyTemplateOptionsModel)
@@ -6428,6 +6434,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.IfMatch = core.StringPtr("testString")
 				replacePolicyTemplateOptionsModel.Policy = templatePolicyModel
 				replacePolicyTemplateOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replacePolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6553,6 +6560,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.IfMatch = core.StringPtr("testString")
 				replacePolicyTemplateOptionsModel.Policy = templatePolicyModel
 				replacePolicyTemplateOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replacePolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6621,6 +6629,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.IfMatch = core.StringPtr("testString")
 				replacePolicyTemplateOptionsModel.Policy = templatePolicyModel
 				replacePolicyTemplateOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replacePolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -6710,6 +6719,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.IfMatch = core.StringPtr("testString")
 				replacePolicyTemplateOptionsModel.Policy = templatePolicyModel
 				replacePolicyTemplateOptionsModel.Description = core.StringPtr("testString")
+				replacePolicyTemplateOptionsModel.Committed = core.BoolPtr(true)
 				replacePolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7812,11 +7822,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateVersionOptionsModel.SetPolicyTemplateID("testString")
 				createPolicyTemplateVersionOptionsModel.SetPolicy(templatePolicyModel)
 				createPolicyTemplateVersionOptionsModel.SetDescription("testString")
+				createPolicyTemplateVersionOptionsModel.SetCommitted(true)
 				createPolicyTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createPolicyTemplateVersionOptionsModel).ToNot(BeNil())
 				Expect(createPolicyTemplateVersionOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
 				Expect(createPolicyTemplateVersionOptionsModel.Policy).To(Equal(templatePolicyModel))
 				Expect(createPolicyTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createPolicyTemplateVersionOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
 				Expect(createPolicyTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateRoleOptions successfully`, func() {
@@ -8348,6 +8360,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				replacePolicyTemplateOptionsModel.SetIfMatch("testString")
 				replacePolicyTemplateOptionsModel.SetPolicy(templatePolicyModel)
 				replacePolicyTemplateOptionsModel.SetDescription("testString")
+				replacePolicyTemplateOptionsModel.SetCommitted(true)
 				replacePolicyTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replacePolicyTemplateOptionsModel).ToNot(BeNil())
 				Expect(replacePolicyTemplateOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
@@ -8355,6 +8368,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(replacePolicyTemplateOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(replacePolicyTemplateOptionsModel.Policy).To(Equal(templatePolicyModel))
 				Expect(replacePolicyTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(replacePolicyTemplateOptionsModel.Committed).To(Equal(core.BoolPtr(true)))
 				Expect(replacePolicyTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceRoleOptions successfully`, func() {

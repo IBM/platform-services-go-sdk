@@ -1825,6 +1825,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWit
 	if createPolicyTemplateVersionOptions.Description != nil {
 		body["description"] = createPolicyTemplateVersionOptions.Description
 	}
+	if createPolicyTemplateVersionOptions.Committed != nil {
+		body["committed"] = createPolicyTemplateVersionOptions.Committed
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -1961,6 +1964,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 	}
 	if replacePolicyTemplateOptions.Description != nil {
 		body["description"] = replacePolicyTemplateOptions.Description
+	}
+	if replacePolicyTemplateOptions.Committed != nil {
+		body["committed"] = replacePolicyTemplateOptions.Committed
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2585,6 +2591,9 @@ type CreatePolicyTemplateVersionOptions struct {
 	// description of template purpose.
 	Description *string `json:"description,omitempty"`
 
+	// Template vesrsion committed status.
+	Committed *bool `json:"committed,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2612,6 +2621,12 @@ func (_options *CreatePolicyTemplateVersionOptions) SetPolicy(policy *TemplatePo
 // SetDescription : Allow user to set Description
 func (_options *CreatePolicyTemplateVersionOptions) SetDescription(description string) *CreatePolicyTemplateVersionOptions {
 	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetCommitted : Allow user to set Committed
+func (_options *CreatePolicyTemplateVersionOptions) SetCommitted(committed bool) *CreatePolicyTemplateVersionOptions {
+	_options.Committed = core.BoolPtr(committed)
 	return _options
 }
 
@@ -4375,6 +4390,9 @@ type ReplacePolicyTemplateOptions struct {
 	// description of template purpose.
 	Description *string `json:"description,omitempty"`
 
+	// Template vesrsion committed status.
+	Committed *bool `json:"committed,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -4416,6 +4434,12 @@ func (_options *ReplacePolicyTemplateOptions) SetPolicy(policy *TemplatePolicy) 
 // SetDescription : Allow user to set Description
 func (_options *ReplacePolicyTemplateOptions) SetDescription(description string) *ReplacePolicyTemplateOptions {
 	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetCommitted : Allow user to set Committed
+func (_options *ReplacePolicyTemplateOptions) SetCommitted(committed bool) *ReplacePolicyTemplateOptions {
+	_options.Committed = core.BoolPtr(committed)
 	return _options
 }
 
