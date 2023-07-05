@@ -1181,6 +1181,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the CreateAccountRequestTraits model
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -1255,6 +1256,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the CreateAccountRequestTraits model
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -1337,6 +1339,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the CreateAccountRequestTraits model
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -1364,6 +1367,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the CreateAccountRequestTraits model
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -1412,6 +1416,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the CreateAccountRequestTraits model
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -3151,7 +3156,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel := new(enterprisemanagementv1.CreateAccountRequestTraits)
 				Expect(createAccountRequestTraitsModel).ToNot(BeNil())
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
+				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 				Expect(createAccountRequestTraitsModel.Mfa).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountRequestTraitsModel.EnterpriseIamManaged).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsParent := "testString"
