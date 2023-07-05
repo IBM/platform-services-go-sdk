@@ -736,18 +736,21 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			listReclamationsOptionsRgID := resourceControllerService.NewListReclamationsOptions()
 			listReclamationsOptionsRgID = listReclamationsOptionsRgID.SetResourceGroupID(resourceGroupID)
-			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptionsRgID)
-			if err != nil {
-				panic(err)
+			reclamationsListRg, responseRg, errRg := resourceControllerService.ListReclamations(listReclamationsOptionsRgID)
+			if errRg != nil {
+				panic(errRg)
 			}
-			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
-			fmt.Println(string(b))
+			c, _ := json.MarshalIndent(reclamationsListRg, "", "  ")
+			fmt.Println(string(c))
 
 			// end-list_reclamations
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(reclamationsList).ToNot(BeNil())
+			Expect(errRg).To(BeNil())
+			Expect(responseRg.StatusCode).To(Equal(200))
+			Expect(reclamationsListRg).ToNot(BeNil())
 
 			for _, res := range reclamationsList.Resources {
 				if *res.ResourceInstanceID == instanceGUID {
