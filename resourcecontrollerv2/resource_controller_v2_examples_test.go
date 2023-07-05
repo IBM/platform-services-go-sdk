@@ -734,9 +734,9 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
 			fmt.Println(string(b))
 
-			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
-			listReclamationsOptions = listReclamationsOptions.SetResourceGroupID(resourceGroupID)
-			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptions)
+			listReclamationsOptionsRgID := resourceControllerService.NewListReclamationsOptions()
+			listReclamationsOptionsRgID = listReclamationsOptionsRgID.SetResourceGroupID(resourceGroupID)
+			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptionsRgID)
 			if err != nil {
 				panic(err)
 			}
