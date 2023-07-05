@@ -78,6 +78,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		keyName                    string = "RcSdkKey1Go"
 		keyUpdateName              string = "RcSdkKeyUpdate1Go"
 		targetRegion               string = "global"
+		resourceGroupID            string = "testResourceGroupID"
 	)
 
 	var shouldSkipTest = func() {
@@ -726,6 +727,15 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
 			listReclamationsOptions = listReclamationsOptions.SetAccountID(accountID)
+			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
+			fmt.Println(string(b))
+
+			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
+			listReclamationsOptions = listReclamationsOptions.SetResourceGroupID(resourceGroupID)
 			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptions)
 			if err != nil {
 				panic(err)

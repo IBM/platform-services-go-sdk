@@ -2749,6 +2749,9 @@ type ListReclamationsOptions struct {
 	// The GUID of the resource instance.
 	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
 
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2761,6 +2764,12 @@ func (*ResourceControllerV2) NewListReclamationsOptions() *ListReclamationsOptio
 // SetAccountID : Allow user to set AccountID
 func (_options *ListReclamationsOptions) SetAccountID(accountID string) *ListReclamationsOptions {
 	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetResourceGroupID : Allow user to set ResourceGroupID
+func (_options *ListReclamationsOptions) SetResourceGroupID(resourceGroupID string) *ListReclamationsOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
 	return _options
 }
 
@@ -5109,9 +5118,7 @@ func (options *UpdateResourceKeyOptions) SetHeaders(param map[string]string) *Up
 	return options
 }
 
-//
 // ResourceInstancesPager can be used to simplify the use of the "ListResourceInstances" method.
-//
 type ResourceInstancesPager struct {
 	hasNext     bool
 	options     *ListResourceInstancesOptions
@@ -5196,9 +5203,7 @@ func (pager *ResourceInstancesPager) GetAll() (allItems []ResourceInstance, err 
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceAliasesForInstancePager can be used to simplify the use of the "ListResourceAliasesForInstance" method.
-//
 type ResourceAliasesForInstancePager struct {
 	hasNext     bool
 	options     *ListResourceAliasesForInstanceOptions
@@ -5283,9 +5288,7 @@ func (pager *ResourceAliasesForInstancePager) GetAll() (allItems []ResourceAlias
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceKeysForInstancePager can be used to simplify the use of the "ListResourceKeysForInstance" method.
-//
 type ResourceKeysForInstancePager struct {
 	hasNext     bool
 	options     *ListResourceKeysForInstanceOptions
@@ -5370,9 +5373,7 @@ func (pager *ResourceKeysForInstancePager) GetAll() (allItems []ResourceKey, err
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceKeysPager can be used to simplify the use of the "ListResourceKeys" method.
-//
 type ResourceKeysPager struct {
 	hasNext     bool
 	options     *ListResourceKeysOptions
@@ -5457,9 +5458,7 @@ func (pager *ResourceKeysPager) GetAll() (allItems []ResourceKey, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceBindingsPager can be used to simplify the use of the "ListResourceBindings" method.
-//
 type ResourceBindingsPager struct {
 	hasNext     bool
 	options     *ListResourceBindingsOptions
@@ -5544,9 +5543,7 @@ func (pager *ResourceBindingsPager) GetAll() (allItems []ResourceBinding, err er
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceAliasesPager can be used to simplify the use of the "ListResourceAliases" method.
-//
 type ResourceAliasesPager struct {
 	hasNext     bool
 	options     *ListResourceAliasesOptions
@@ -5631,9 +5628,7 @@ func (pager *ResourceAliasesPager) GetAll() (allItems []ResourceAlias, err error
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // ResourceBindingsForAliasPager can be used to simplify the use of the "ListResourceBindingsForAlias" method.
-//
 type ResourceBindingsForAliasPager struct {
 	hasNext     bool
 	options     *ListResourceBindingsForAliasOptions
