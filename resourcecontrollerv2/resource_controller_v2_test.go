@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -6586,6 +6586,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6636,6 +6637,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -6658,6 +6660,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6696,6 +6699,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -6720,6 +6724,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6741,6 +6746,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -6776,6 +6782,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -7270,10 +7277,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := resourceControllerService.NewListReclamationsOptions()
 				listReclamationsOptionsModel.SetAccountID("testString")
 				listReclamationsOptionsModel.SetResourceInstanceID("testString")
+				listReclamationsOptionsModel.SetResourceGroupID("testString")
 				listReclamationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listReclamationsOptionsModel).ToNot(BeNil())
 				Expect(listReclamationsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listReclamationsOptionsModel.ResourceInstanceID).To(Equal(core.StringPtr("testString")))
+				Expect(listReclamationsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listReclamationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceAliasesForInstanceOptions successfully`, func() {

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-f381b8c9-20221101-115055
+ * IBM OpenAPI SDK Code Generator Version: 3.72.1-43bf8bf6-20230525-193151
  */
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
@@ -1962,6 +1962,9 @@ func (resourceController *ResourceControllerV2) ListReclamationsWithContext(ctx 
 	if listReclamationsOptions.ResourceInstanceID != nil {
 		builder.AddQuery("resource_instance_id", fmt.Sprint(*listReclamationsOptions.ResourceInstanceID))
 	}
+	if listReclamationsOptions.ResourceGroupID != nil {
+		builder.AddQuery("resource_group_id", fmt.Sprint(*listReclamationsOptions.ResourceGroupID))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -2394,7 +2397,7 @@ type Credentials struct {
 // credential](https://cloud.ibm.com/docs/account?topic=account-service_credentials&interface=ui#viewing-credentials-ui).
 const (
 	CredentialsRedactedRedactedConst         = "REDACTED"
-	CredentialsRedactedRedactedExplicitConst = "REDACTED_EXPLICIT" // #nosec G101
+	CredentialsRedactedRedactedExplicitConst = "REDACTED_EXPLICIT"
 )
 
 // SetProperty allows the user to set an arbitrary property on an instance of Credentials
@@ -2767,15 +2770,15 @@ func (_options *ListReclamationsOptions) SetAccountID(accountID string) *ListRec
 	return _options
 }
 
-// SetResourceGroupID : Allow user to set ResourceGroupID
-func (_options *ListReclamationsOptions) SetResourceGroupID(resourceGroupID string) *ListReclamationsOptions {
-	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return _options
-}
-
 // SetResourceInstanceID : Allow user to set ResourceInstanceID
 func (_options *ListReclamationsOptions) SetResourceInstanceID(resourceInstanceID string) *ListReclamationsOptions {
 	_options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
+	return _options
+}
+
+// SetResourceGroupID : Allow user to set ResourceGroupID
+func (_options *ListReclamationsOptions) SetResourceGroupID(resourceGroupID string) *ListReclamationsOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
 	return _options
 }
 
