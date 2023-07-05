@@ -66,14 +66,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-			})
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(resourceControllerService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE":   "NOAuth",
+				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -462,14 +459,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceInstancesList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceInstancesList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -477,7 +474,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceInstancesList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -515,17 +512,17 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceInstancesOptionsModel := &resourcecontrollerv2.ListResourceInstancesOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					ResourcePlanID: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					SubType: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					State: core.StringPtr("active"),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					ResourceID:      core.StringPtr("testString"),
+					ResourcePlanID:  core.StringPtr("testString"),
+					Type:            core.StringPtr("testString"),
+					SubType:         core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
+					State:           core.StringPtr("active"),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceInstancesPager(listResourceInstancesOptionsModel)
@@ -550,17 +547,17 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceInstancesOptionsModel := &resourcecontrollerv2.ListResourceInstancesOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					ResourcePlanID: core.StringPtr("testString"),
-					Type: core.StringPtr("testString"),
-					SubType: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					State: core.StringPtr("active"),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					ResourceID:      core.StringPtr("testString"),
+					ResourcePlanID:  core.StringPtr("testString"),
+					Type:            core.StringPtr("testString"),
+					SubType:         core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
+					State:           core.StringPtr("active"),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceInstancesPager(listResourceInstancesOptionsModel)
@@ -1637,14 +1634,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1652,7 +1649,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1690,7 +1687,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceAliasesForInstanceOptionsModel := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -1716,7 +1713,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceAliasesForInstanceOptionsModel := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -1962,14 +1959,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1977,7 +1974,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2015,7 +2012,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceKeysForInstanceOptionsModel := &resourcecontrollerv2.ListResourceKeysForInstanceOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -2041,7 +2038,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceKeysForInstanceOptionsModel := &resourcecontrollerv2.ListResourceKeysForInstanceOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -2959,14 +2956,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2974,7 +2971,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceKeysList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -3012,13 +3009,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceKeysOptionsModel := &resourcecontrollerv2.ListResourceKeysOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					ResourceID:      core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceKeysPager(listResourceKeysOptionsModel)
@@ -3043,13 +3040,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceKeysOptionsModel := &resourcecontrollerv2.ListResourceKeysOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					ResourceID:      core.StringPtr("testString"),
+					Limit:           core.Int64Ptr(int64(10)),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceKeysPager(listResourceKeysOptionsModel)
@@ -4151,14 +4148,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -4166,7 +4163,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -4204,14 +4201,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceBindingsOptionsModel := &resourcecontrollerv2.ListResourceBindingsOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
+					ResourceID:      core.StringPtr("testString"),
 					RegionBindingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					Limit:           core.Int64Ptr(int64(10)),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptionsModel)
@@ -4236,14 +4233,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceBindingsOptionsModel := &resourcecontrollerv2.ListResourceBindingsOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:            core.StringPtr("testString"),
+					Name:            core.StringPtr("testString"),
 					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
+					ResourceID:      core.StringPtr("testString"),
 					RegionBindingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					Limit:           core.Int64Ptr(int64(10)),
+					UpdatedFrom:     core.StringPtr("2021-01-01"),
+					UpdatedTo:       core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptionsModel)
@@ -5358,14 +5355,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5373,7 +5370,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5411,15 +5408,15 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceAliasesOptionsModel := &resourcecontrollerv2.ListResourceAliasesOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:               core.StringPtr("testString"),
+					Name:               core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					RegionInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					RegionInstanceID:   core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(10)),
+					UpdatedFrom:        core.StringPtr("2021-01-01"),
+					UpdatedTo:          core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptionsModel)
@@ -5444,15 +5441,15 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceAliasesOptionsModel := &resourcecontrollerv2.ListResourceAliasesOptions{
-					GUID: core.StringPtr("testString"),
-					Name: core.StringPtr("testString"),
+					GUID:               core.StringPtr("testString"),
+					Name:               core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					RegionInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					UpdatedFrom: core.StringPtr("2021-01-01"),
-					UpdatedTo: core.StringPtr("2021-01-01"),
+					RegionInstanceID:   core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(10)),
+					UpdatedFrom:        core.StringPtr("2021-01-01"),
+					UpdatedTo:          core.StringPtr("2021-01-01"),
 				}
 
 				pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptionsModel)
@@ -6483,14 +6480,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart successfully`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
 				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6498,7 +6495,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
 				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6536,7 +6533,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceBindingsForAliasOptionsModel := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -6562,7 +6559,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				listResourceBindingsForAliasOptionsModel := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID: core.StringPtr("testString"),
+					ID:    core.StringPtr("testString"),
 					Limit: core.Int64Ptr(int64(10)),
 				}
 
@@ -6606,6 +6603,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.ListReclamations(listReclamationsOptionsModel)
