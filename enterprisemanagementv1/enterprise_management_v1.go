@@ -1484,7 +1484,8 @@ type CreateAccountOptions struct {
 	// The IAM ID of the account owner, such as `IBMid-0123ABC`. The IAM ID must already exist.
 	OwnerIamID *string `json:"owner_iam_id" validate:"required"`
 
-	// The traits object can be used to opt-out of Multi-Factor Authentication setting when creating a child account in the
+	// The traits object can be used to set properties on child accounts of an enterprise. You can pass a field to opt-out
+	// of Multi-Factor Authentication setting or setup enterprise IAM settings when creating a child account in the
 	// enterprise. This is an optional field.
 	Traits *CreateAccountRequestTraits `json:"traits,omitempty"`
 
@@ -1531,18 +1532,27 @@ func (options *CreateAccountOptions) SetHeaders(param map[string]string) *Create
 	return options
 }
 
-// CreateAccountRequestTraits : The traits object can be used to opt-out of Multi-Factor Authentication setting when creating a child account in the
+// CreateAccountRequestTraits : The traits object can be used to set properties on child accounts of an enterprise. You can pass a field to opt-out
+// of Multi-Factor Authentication setting or setup enterprise IAM settings when creating a child account in the
 // enterprise. This is an optional field.
 type CreateAccountRequestTraits struct {
-	// By default MFA will be set on the account. To opt out, pass the traits object with the mfa field set to empty
-	// string.
+	// By default MFA will be enabled on a child account. To opt out, pass the traits object with the mfa field set to
+	// empty string. This is an optional field.
 	Mfa *string `json:"mfa,omitempty"`
+
+	// The Enterprise IAM settings property will be turned off for a newly created child account by default. You can enable
+	// this property by passing 'true' in this boolean field. This is an optional field.
+	EnterpriseIamManaged *bool `json:"enterprise_iam_managed,omitempty"`
 }
 
 // UnmarshalCreateAccountRequestTraits unmarshals an instance of CreateAccountRequestTraits from the specified map of raw messages.
 func UnmarshalCreateAccountRequestTraits(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountRequestTraits)
 	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enterprise_iam_managed", &obj.EnterpriseIamManaged)
 	if err != nil {
 		return
 	}
