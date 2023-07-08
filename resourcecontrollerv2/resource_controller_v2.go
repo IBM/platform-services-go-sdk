@@ -2397,7 +2397,7 @@ type Credentials struct {
 // credential](https://cloud.ibm.com/docs/account?topic=account-service_credentials&interface=ui#viewing-credentials-ui).
 const (
 	CredentialsRedactedRedactedConst         = "REDACTED"
-	CredentialsRedactedRedactedExplicitConst = "REDACTED_EXPLICIT"
+	CredentialsRedactedRedactedExplicitConst = "REDACTED_EXPLICIT" // #nosec G101
 )
 
 // SetProperty allows the user to set an arbitrary property on an instance of Credentials

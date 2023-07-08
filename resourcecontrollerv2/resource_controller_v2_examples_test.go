@@ -726,22 +726,13 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-list_reclamations
 
 			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
-			listReclamationsOptions = listReclamationsOptions.SetAccountID(accountID)
+			listReclamationsOptions = listReclamationsOptions.SetResourceGroupID(resourceGroupID)
 			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
 			fmt.Println(string(b))
-
-			listReclamationsOptionsRgID := resourceControllerService.NewListReclamationsOptions()
-			listReclamationsOptionsRgID = listReclamationsOptionsRgID.SetResourceGroupID(resourceGroupID)
-			reclamationsListRg, responseRg, errRg := resourceControllerService.ListReclamations(listReclamationsOptionsRgID)
-			if errRg != nil {
-				panic(errRg)
-			}
-			c, _ := json.MarshalIndent(reclamationsListRg, "", "  ")
-			fmt.Println(string(c))
 
 			// end-list_reclamations
 
