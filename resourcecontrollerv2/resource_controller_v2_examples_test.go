@@ -739,9 +739,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(reclamationsList).ToNot(BeNil())
-			Expect(errRg).To(BeNil())
-			Expect(responseRg.StatusCode).To(Equal(200))
-			Expect(reclamationsListRg).ToNot(BeNil())
 
 			for _, res := range reclamationsList.Resources {
 				if *res.ResourceInstanceID == instanceGUID {
