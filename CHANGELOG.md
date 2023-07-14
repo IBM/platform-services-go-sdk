@@ -1,3 +1,10 @@
+# [0.41.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.40.0...v0.41.0) (2023-07-14)
+
+
+### Features
+
+* **Enterprise Management:** re-gen service after update trait object ([#263](https://github.com/IBM/platform-services-go-sdk/issues/263)) ([52cfdaf](https://github.com/IBM/platform-services-go-sdk/commit/52cfdaf346848e5294865df2eb76acf9e74554e4))
+
 # [0.40.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.39.0...v0.40.0) (2023-06-12)
 
 
