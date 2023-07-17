@@ -1,6 +1,6 @@
 language: go
 
-dist: bionic
+dist: jammy
 
 go:
 - 1.18.x
@@ -16,7 +16,7 @@ env:
 
 before_install:
   - sudo apt-get update
-  - pyenv global 3.8
+  - python -V
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.51.2
@@ -26,7 +26,9 @@ script:
   - make travis-ci
 
 before_deploy:
-  - nvm install 14
+  - nvm install 18
+  - node --version
+  - npm --version
   - npm install
   - pip install --user bump2version
 
