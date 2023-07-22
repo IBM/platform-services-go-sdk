@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,10 @@ import (
 	"strconv"
 	"time"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("IAM Access Groups - Integration Tests", func() {
@@ -43,15 +42,22 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		config                 map[string]string
 		configLoaded           bool = false
 
-		testAccountID        string
-		testGroupName        string = "SDK Test Group - Golang"
-		testGroupDescription string = "This group is used for integration test purposes. It can be deleted at any time."
-		testGroupEtag        string
-		testGroupID          string
-		testUserID           string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-		testClaimRuleID      string
-		testClaimRuleEtag    string
-		testAccountSettings  *iamaccessgroupsv2.AccountSettings
+		testAccountID         string
+		testGroupName         string = "SDK Test Group - Golang"
+		testGroupDescription  string = "This group is used for integration test purposes. It can be deleted at any time."
+		testGroupEtag         string
+		testGroupID           string
+		testUserID            string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
+		testClaimRuleID       string
+		testClaimRuleEtag     string
+		testAccountSettings   *iamaccessgroupsv2.AccountSettings
+		testPolicyTemplateID  string
+		testTemplateID        string
+		testTemplateEtag      string
+		testLatestVersionETag string
+		testAccountGroupID    string
+		testAssignmentID      string
+		testAssignmentEtag    string
 
 		userType   string = "user"
 		etagHeader string = "Etag"
@@ -72,6 +78,8 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
+			testPolicyTemplateID = config["TEST_POLICY_TEMPLATE_ID"]
+			testAccountGroupID = config["TEST_ACCOUNT_GROUP_ID"]
 			if testAccountID != "" {
 				configLoaded = true
 			}
@@ -484,5 +492,568 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 				}
 			}
 		}
+	})
+
+	Describe(`CreateTemplate - Create Template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateTemplate(createTemplateOptions *CreateTemplateOptions)`, func() {
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-50PJGPKYJJ", "IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr("\"test-bluegroup-saml\""),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
+				Remove: core.BoolPtr(false),
+				Update: core.BoolPtr(false),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:           core.StringPtr("Manager group rule"),
+				Expiration:     core.Int64Ptr(int64(12)),
+				RealmName:      core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions:     []iamaccessgroupsv2.Conditions{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add:    core.BoolPtr(false),
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateOptions := &iamaccessgroupsv2.CreateTemplateOptions{
+				Name:                     core.StringPtr("IAM Admin Group template"),
+				AccountID:                &testAccountID,
+				Description:              core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Group:                    accessGroupInputModel,
+				PolicyTemplateReferences: []iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel},
+				TransactionID:            core.StringPtr("testString"),
+			}
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplate(createTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+			testTemplateID = *createTemplateResponse.ID
+		})
+	})
+
+	Describe(`ListTemplates - List Templates`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListTemplates(listTemplatesOptions *ListTemplatesOptions) with pagination`, func() {
+			listTemplatesOptions := &iamaccessgroupsv2.ListTemplatesOptions{
+				AccountID:     &testAccountID,
+				TransactionID: core.StringPtr("testString"),
+				Limit:         core.Int64Ptr(int64(50)),
+				Offset:        core.Int64Ptr(int64(0)),
+				Verbose:       core.BoolPtr(true),
+			}
+
+			listTemplatesOptions.Offset = nil
+			listTemplatesOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []iamaccessgroupsv2.GroupTemplate
+			for {
+				listTemplatesResponse, response, err := iamAccessGroupsService.ListTemplates(listTemplatesOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(listTemplatesResponse).ToNot(BeNil())
+				allResults = append(allResults, listTemplatesResponse.GroupTemplates...)
+
+				listTemplatesOptions.Offset, err = listTemplatesResponse.GetNextOffset()
+				Expect(err).To(BeNil())
+
+				if listTemplatesOptions.Offset == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListTemplates(listTemplatesOptions *ListTemplatesOptions) using TemplatesPager`, func() {
+			listTemplatesOptions := &iamaccessgroupsv2.ListTemplatesOptions{
+				AccountID:     &testAccountID,
+				TransactionID: core.StringPtr("testString"),
+				Limit:         core.Int64Ptr(int64(50)),
+				Verbose:       core.BoolPtr(true),
+			}
+
+			// Test GetNext().
+			pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iamaccessgroupsv2.GroupTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = iamAccessGroupsService.NewTemplatesPager(listTemplatesOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListTemplates() returned a total of %d item(s) using TemplatesPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`CreateTemplateVersion - Create template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateTemplateVersion(createTemplateVersionOptions *CreateTemplateVersionOptions)`, func() {
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-50PJGPKYJJ", "IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr("\"test-bluegroup-saml\""),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:           core.StringPtr("Manager group rule"),
+				Expiration:     core.Int64Ptr(int64(12)),
+				RealmName:      core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions:     []iamaccessgroupsv2.Conditions{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add:    core.BoolPtr(false),
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group 8"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateVersionOptions := &iamaccessgroupsv2.CreateTemplateVersionOptions{
+				TemplateID:               &testTemplateID,
+				Name:                     core.StringPtr("IAM Admin Group template 2"),
+				Description:              core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Group:                    accessGroupInputModel,
+				PolicyTemplateReferences: []iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel},
+				TransactionID:            core.StringPtr("testString"),
+			}
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListTemplateVersions - List template versions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListTemplateVersions(listTemplateVersionsOptions *ListTemplateVersionsOptions) with pagination`, func() {
+			listTemplateVersionsOptions := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+				TemplateID: &testTemplateID,
+				Limit:      core.Int64Ptr(int64(100)),
+				Offset:     core.Int64Ptr(int64(0)),
+			}
+
+			listTemplateVersionsOptions.Offset = nil
+			listTemplateVersionsOptions.Limit = core.Int64Ptr(1)
+
+			var allResults []iamaccessgroupsv2.ListTemplateVersionResponse
+			for {
+				listTemplateVersionsResponse, response, err := iamAccessGroupsService.ListTemplateVersions(listTemplateVersionsOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(listTemplateVersionsResponse).ToNot(BeNil())
+				allResults = append(allResults, listTemplateVersionsResponse.GroupTemplateVersions...)
+
+				listTemplateVersionsOptions.Offset, err = listTemplateVersionsResponse.GetNextOffset()
+				Expect(err).To(BeNil())
+
+				if listTemplateVersionsOptions.Offset == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`ListTemplateVersions(listTemplateVersionsOptions *ListTemplateVersionsOptions) using TemplateVersionsPager`, func() {
+			listTemplateVersionsOptions := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+				TemplateID: &testTemplateID,
+				Limit:      core.Int64Ptr(int64(100)),
+			}
+
+			// Test GetNext().
+			pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []iamaccessgroupsv2.ListTemplateVersionResponse
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "ListTemplateVersions() returned a total of %d item(s) using TemplateVersionsPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetTemplateVersion - Get template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetTemplateVersion(getTemplateVersionOptions *GetTemplateVersionOptions)`, func() {
+			getTemplateVersionOptions := &iamaccessgroupsv2.GetTemplateVersionOptions{
+				TemplateID:    &testTemplateID,
+				VersionNum:    core.StringPtr("1"),
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+			testTemplateEtag = response.GetHeaders().Get(etagHeader)
+
+		})
+	})
+
+	Describe(`UpdateTemplateVersion - Update template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateTemplateVersion(updateTemplateVersionOptions *UpdateTemplateVersionOptions)`, func() {
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr("\"test-bluegroup-saml\""),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
+				Remove: core.BoolPtr(false),
+				Update: core.BoolPtr(false),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:           core.StringPtr("Manager group rule"),
+				Expiration:     core.Int64Ptr(int64(12)),
+				RealmName:      core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions:     []iamaccessgroupsv2.Conditions{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add:    core.BoolPtr(false),
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group 8"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			updateTemplateVersionOptions := &iamaccessgroupsv2.UpdateTemplateVersionOptions{
+				TemplateID:               &testTemplateID,
+				IfMatch:                  &testTemplateEtag,
+				VersionNum:               core.StringPtr("1"),
+				Name:                     core.StringPtr("IAM Admin Group template 2"),
+				Description:              core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Group:                    accessGroupInputModel,
+				PolicyTemplateReferences: []iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel},
+			}
+
+			createTemplateResponse, response, err := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLatestTemplateVersion - Get latest template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLatestTemplateVersion(getLatestTemplateVersionOptions *GetLatestTemplateVersionOptions)`, func() {
+			getLatestTemplateVersionOptions := &iamaccessgroupsv2.GetLatestTemplateVersionOptions{
+				TemplateID:    &testTemplateID,
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+			testLatestVersionETag = response.GetHeaders().Get(etagHeader)
+
+		})
+	})
+
+	Describe(`CommitTemplate - Commit a template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CommitTemplate(commitTemplateOptions *CommitTemplateOptions)`, func() {
+			commitTemplateOptions := &iamaccessgroupsv2.CommitTemplateOptions{
+				TemplateID:    &testTemplateID,
+				VersionNum:    core.StringPtr("2"),
+				IfMatch:       &testLatestVersionETag,
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			response, err := iamAccessGroupsService.CommitTemplate(commitTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`CreateAssignment - Create assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateAssignment(createAssignmentOptions *CreateAssignmentOptions)`, func() {
+			createAssignmentOptions := &iamaccessgroupsv2.CreateAssignmentOptions{
+				TemplateID:      &testTemplateID,
+				TemplateVersion: core.StringPtr("2"),
+				TargetType:      core.StringPtr("AccountGroup"),
+				Target:          &testAccountGroupID,
+				TransactionID:   core.StringPtr("testString"),
+			}
+
+			templateCreateAssignmentResponse, response, err := iamAccessGroupsService.CreateAssignment(createAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(templateCreateAssignmentResponse).ToNot(BeNil())
+			testAssignmentID = *templateCreateAssignmentResponse.ID
+			time.Sleep(90 * time.Second)
+
+		})
+	})
+
+	Describe(`ListAssignments - List Assignments`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAssignments(listAssignmentsOptions *ListAssignmentsOptions)`, func() {
+			listAssignmentsOptions := &iamaccessgroupsv2.ListAssignmentsOptions{
+				AccountID: &testAccountID,
+			}
+
+			templatesListAssignmentResponse, response, err := iamAccessGroupsService.ListAssignments(listAssignmentsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(templatesListAssignmentResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetAssignment - Get assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAssignment(getAssignmentOptions *GetAssignmentOptions)`, func() {
+			getAssignmentOptions := &iamaccessgroupsv2.GetAssignmentOptions{
+				AssignmentID:  &testAssignmentID,
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			getTemplateAssignmentResponse, response, err := iamAccessGroupsService.GetAssignment(getAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(getTemplateAssignmentResponse).ToNot(BeNil())
+			testAssignmentEtag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`UpdateAssignment - Update Assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAssignment(updateAssignmentOptions *UpdateAssignmentOptions)`, func() {
+			updateAssignmentOptions := &iamaccessgroupsv2.UpdateAssignmentOptions{
+				AssignmentID:    &testAssignmentID,
+				IfMatch:         &testAssignmentEtag,
+				TemplateVersion: core.StringPtr("2"),
+			}
+
+			getTemplateAssignmentResponse, response, err := iamAccessGroupsService.UpdateAssignment(updateAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(getTemplateAssignmentResponse).ToNot(BeNil())
+			time.Sleep(90 * time.Second)
+		})
+	})
+
+	Describe(`DeleteAssignment - Delete assignment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAssignment(deleteAssignmentOptions *DeleteAssignmentOptions)`, func() {
+			deleteAssignmentOptions := &iamaccessgroupsv2.DeleteAssignmentOptions{
+				AssignmentID:  &testAssignmentID,
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			response, err := iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			time.Sleep(90 * time.Second)
+		})
+	})
+
+	Describe(`DeleteTemplateVersion - Delete template version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTemplateVersion(deleteTemplateVersionOptions *DeleteTemplateVersionOptions)`, func() {
+			deleteTemplateVersionOptions := &iamaccessgroupsv2.DeleteTemplateVersionOptions{
+				TemplateID:    &testTemplateID,
+				VersionNum:    core.StringPtr("2"),
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			response, err := iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteTemplate - Delete template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTemplate(deleteTemplateOptions *DeleteTemplateOptions)`, func() {
+			deleteTemplateOptions := &iamaccessgroupsv2.DeleteTemplateOptions{
+				TemplateID:    &testTemplateID,
+				TransactionID: core.StringPtr("testString"),
+			}
+
+			response, err := iamAccessGroupsService.DeleteTemplate(deleteTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 	})
 })
