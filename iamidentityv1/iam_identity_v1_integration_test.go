@@ -1692,11 +1692,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateProfileTemplate`, func() {
+	Describe(`CreateProfileTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateProfileTemplate`, func() {
+		It(`CreateProfileTemplateIT`, func() {
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
 			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
@@ -1736,11 +1736,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetProfileTemplate`, func() {
+	Describe(`GetProfileTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetProfileTemplate`, func() {
+		It(`GetProfileTemplateIT`, func() {
 			getOptions := &iamidentityv1.GetProfileTemplateVersionOptions{
 				TemplateID: &profileTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
@@ -1756,11 +1756,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListProfileTemplates`, func() {
+	Describe(`ListProfileTemplatesIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfileTemplates`, func() {
+		It(`ListProfileTemplatesIT`, func() {
 			listOptions := &iamidentityv1.ListProfileTemplatesOptions{
 				AccountID: &enterpriseAccountID,
 			}
@@ -1771,11 +1771,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateProfileTemplate`, func() {
+	Describe(`UpdateProfileTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateProfileTemplate`, func() {
+		It(`UpdateProfileTemplateIT`, func() {
 			updateOptions := &iamidentityv1.UpdateProfileTemplateVersionOptions{
 				AccountID:   &enterpriseAccountID,
 				TemplateID:  &profileTemplateId,
@@ -1795,11 +1795,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`AssignProfileTemplate`, func() {
+	Describe(`AssignProfileTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`AssignProfileTemplate`, func() {
+		It(`AssignProfileTemplateIT`, func() {
 			commitOptions := &iamidentityv1.CommitProfileTemplateOptions{
 				TemplateID: &profileTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
@@ -1827,11 +1827,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListProfileTemplateAssignments`, func() {
+	Describe(`ListProfileTemplateAssignmentsIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfileTemplateAssignments`, func() {
+		It(`ListProfileTemplateAssignmentsIT`, func() {
 			listOptions := &iamidentityv1.ListTrustedProfileAssignmentsOptions{
 				AccountID:  &enterpriseAccountID,
 				TemplateID: &profileTemplateId,
@@ -1846,11 +1846,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateNewProfileTemplateVersion`, func() {
+	Describe(`CreateNewProfileTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateNewProfileTemplateVersion`, func() {
+		It(`CreateNewProfileTemplateVersionIT`, func() {
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
 			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
@@ -1886,11 +1886,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetLatestProfileTemplateVersion`, func() {
+	Describe(`GetLatestProfileTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetLatestProfileTemplateVersion`, func() {
+		It(`GetLatestProfileTemplateVersionIT`, func() {
 			getOptions := &iamidentityv1.GetLatestProfileTemplateVersionOptions{
 				TemplateID: &profileTemplateId,
 			}
@@ -1901,11 +1901,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListProfileTemplateVersions`, func() {
+	Describe(`ListProfileTemplateVersionsIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfileTemplateVersions`, func() {
+		It(`ListProfileTemplateVersionsIT`, func() {
 			listOptions := &iamidentityv1.ListVersionsOfProfileTemplateOptions{
 				TemplateID: &profileTemplateId,
 			}
@@ -1919,11 +1919,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateProfileTemplateAssignment`, func() {
+	Describe(`UpdateProfileTemplateAssignmentIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateProfileTemplateAssignment`, func() {
+		It(`UpdateProfileTemplateAssignmentIT`, func() {
 			commitOptions := &iamidentityv1.CommitProfileTemplateOptions{
 				TemplateID: &profileTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
@@ -1932,7 +1932,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(cResponse.StatusCode).To(Equal(204))
 			Expect(cErr).To(BeNil())
 
-			waitUntilTrustedProfileAssignmentFinished(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
 
 			updateOptions := &iamidentityv1.UpdateTrustedProfileAssignmentOptions{
 				AssignmentID:    &profileTemplateAssignmentId,
@@ -1950,12 +1950,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteProfileTemplateAssignment`, func() {
+	Describe(`DeleteProfileTemplateAssignmentIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteProfileTemplateAssignment`, func() {
-			waitUntilTrustedProfileAssignmentFinished(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+		It(`DeleteProfileTemplateAssignmentIT`, func() {
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
 
 			deleteOptions := &iamidentityv1.DeleteTrustedProfileAssignmentOptions{
 				AssignmentID: &profileTemplateAssignmentId,
@@ -1967,11 +1967,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteProfileTemplateVersion`, func() {
+	Describe(`DeleteProfileTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteProfileTemplateVersion`, func() {
+		It(`DeleteProfileTemplateVersionIT`, func() {
 			deleteOptions := &iamidentityv1.DeleteProfileTemplateVersionOptions{
 				TemplateID: &profileTemplateId,
 				Version:    core.StringPtr("1"),
@@ -1982,12 +1982,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteProfileTemplate`, func() {
+	Describe(`DeleteProfileTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteProfileTemplate`, func() {
-			waitUntilTrustedProfileAssignmentFinished(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+		It(`DeleteProfileTemplateIT`, func() {
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
 
 			deleteOptions := &iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions{
 				TemplateID: &profileTemplateId,
@@ -1998,11 +1998,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateAccountSettingsTemplate`, func() {
+	Describe(`CreateAccountSettingsTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateAccountSettingsTemplate`, func() {
+		It(`CreateAccountSettingsTemplateIT`, func() {
 
 			settings := &iamidentityv1.AccountSettingsComponent{
 				Mfa:                                  core.StringPtr("LEVEL1"),
@@ -2030,11 +2030,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetAccountSettingsTemplate`, func() {
+	Describe(`GetAccountSettingsTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetAccountSettingsTemplate`, func() {
+		It(`GetAccountSettingsTemplateIT`, func() {
 			getOptions := &iamidentityv1.GetAccountSettingsTemplateVersionOptions{
 				TemplateID: &accountSettingsTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
@@ -2050,11 +2050,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAccountSettingsTemplates`, func() {
+	Describe(`ListAccountSettingsTemplatesIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAccountSettingsTemplates`, func() {
+		It(`ListAccountSettingsTemplatesIT`, func() {
 			listOptions := &iamidentityv1.ListAccountSettingsTemplatesOptions{
 				AccountID: &enterpriseAccountID,
 			}
@@ -2065,11 +2065,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateAccountSettingsTemplate`, func() {
+	Describe(`UpdateAccountSettingsTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateAccountSettingsTemplate`, func() {
+		It(`UpdateAccountSettingsTemplateIT`, func() {
 			settings := &iamidentityv1.AccountSettingsComponent{
 				Mfa:                                  core.StringPtr("LEVEL1"),
 				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
@@ -2094,11 +2094,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`AssignAccountSettingsTemplate`, func() {
+	Describe(`AssignAccountSettingsTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`AssignAccountSettingsTemplate`, func() {
+		It(`AssignAccountSettingsTemplateIT`, func() {
 			commitOptions := &iamidentityv1.CommitAccountSettingsTemplateOptions{
 				TemplateID: &accountSettingsTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
@@ -2126,11 +2126,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAccountSettingsTemplateAssignments`, func() {
+	Describe(`ListAccountSettingsTemplateAssignmentsIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAccountSettingsTemplateAssignments`, func() {
+		It(`ListAccountSettingsTemplateAssignmentsIT`, func() {
 			listOptions := &iamidentityv1.ListAccountSettingsAssignmentsOptions{
 				AccountID:  &enterpriseAccountID,
 				TemplateID: &accountSettingsTemplateId,
@@ -2145,11 +2145,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateNewAccountSettingsTemplateVersion`, func() {
+	Describe(`CreateNewAccountSettingsTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateNewAccountSettingsTemplateVersion`, func() {
+		It(`CreateNewAccountSettingsTemplateVersionIT`, func() {
 			settings := &iamidentityv1.AccountSettingsComponent{
 				Mfa:                                  core.StringPtr("LEVEL1"),
 				SystemAccessTokenExpirationInSeconds: core.StringPtr("2600"),
@@ -2174,11 +2174,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetLatestAccountSettingsTemplateVersion`, func() {
+	Describe(`GetLatestAccountSettingsTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetLatestAccountSettingsTemplateVersion`, func() {
+		It(`GetLatestAccountSettingsTemplateVersionIT`, func() {
 			getOptions := &iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions{
 				TemplateID: &accountSettingsTemplateId,
 			}
@@ -2189,11 +2189,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAccountSettingsTemplateVersions`, func() {
+	Describe(`ListAccountSettingsTemplateVersionsIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAccountSettingsTemplateVersions`, func() {
+		It(`ListAccountSettingsTemplateVersionsIT`, func() {
 			listOptions := &iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions{
 				TemplateID: &accountSettingsTemplateId,
 			}
@@ -2207,11 +2207,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateAccountSettingsTemplateAssignment`, func() {
+	Describe(`UpdateAccountSettingsTemplateAssignmentIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateAccountSettingsTemplateAssignment`, func() {
+		It(`UpdateAccountSettingsTemplateAssignmentIT`, func() {
 			commitOptions := &iamidentityv1.CommitAccountSettingsTemplateOptions{
 				TemplateID: &accountSettingsTemplateId,
 				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
@@ -2220,7 +2220,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(cResponse.StatusCode).To(Equal(204))
 			Expect(cErr).To(BeNil())
 
-			waitUntilAccountSettingsAssignmentFinished(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
 
 			updateOptions := &iamidentityv1.UpdateAccountSettingsAssignmentOptions{
 				AssignmentID:    &accountSettingsTemplateAssignmentId,
@@ -2238,12 +2238,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteAccountSettingsTemplateAssignment`, func() {
+	Describe(`DeleteAccountSettingsTemplateAssignmentIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteAccountSettingsTemplateAssignment`, func() {
-			waitUntilAccountSettingsAssignmentFinished(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+		It(`DeleteAccountSettingsTemplateAssignmentIT`, func() {
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
 
 			deleteOptions := &iamidentityv1.DeleteAccountSettingsAssignmentOptions{
 				AssignmentID: &accountSettingsTemplateAssignmentId,
@@ -2255,11 +2255,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteAccountSettingsTemplateVersion`, func() {
+	Describe(`DeleteAccountSettingsTemplateVersionIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteAccountSettingsTemplateVersion`, func() {
+		It(`DeleteAccountSettingsTemplateVersionIT`, func() {
 			deleteOptions := &iamidentityv1.DeleteAccountSettingsTemplateVersionOptions{
 				TemplateID: &accountSettingsTemplateId,
 				Version:    core.StringPtr("1"),
@@ -2270,12 +2270,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`DeleteAccountSettingsTemplate`, func() {
+	Describe(`DeleteAccountSettingsTemplateIT`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteAccountSettingsTemplate`, func() {
-			waitUntilAccountSettingsAssignmentFinished(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+		It(`DeleteAccountSettingsTemplateIT`, func() {
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
 
 			deleteOptions := &iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions{
 				TemplateID: &accountSettingsTemplateId,
@@ -2335,7 +2335,7 @@ func getLink(service *iamidentityv1.IamIdentityV1, profileID string, linkID stri
 	return link
 }
 
-func isFinished(status *string) bool {
+func isFinishedIT(status *string) bool {
 	var finished = false
 	if strings.EqualFold(*status, "succeeded") || strings.EqualFold(*status, "failed") {
 		finished = true
@@ -2343,7 +2343,7 @@ func isFinished(status *string) bool {
 	return finished
 }
 
-func waitUntilTrustedProfileAssignmentFinished(service *iamidentityv1.IamIdentityV1, assignmentId *string, profileTemplateAssignmentEtag *string) {
+func waitUntilTrustedProfileAssignmentFinishedIT(service *iamidentityv1.IamIdentityV1, assignmentId *string, profileTemplateAssignmentEtag *string) {
 	getAssignmentOptions := &iamidentityv1.GetTrustedProfileAssignmentOptions{
 		AssignmentID: assignmentId,
 	}
@@ -2356,7 +2356,7 @@ func waitUntilTrustedProfileAssignmentFinished(service *iamidentityv1.IamIdentit
 			finished = true // assignment removed
 			break
 		} else {
-			finished = isFinished(assignment.Status)
+			finished = isFinishedIT(assignment.Status)
 			if finished {
 				// Grab the Etag value from the response for use in the update operation.
 				Expect(response.GetHeaders()).ToNot(BeNil())
@@ -2370,7 +2370,7 @@ func waitUntilTrustedProfileAssignmentFinished(service *iamidentityv1.IamIdentit
 	Expect(finished).To(BeTrue())
 }
 
-func waitUntilAccountSettingsAssignmentFinished(service *iamidentityv1.IamIdentityV1, assignmentId *string, accountSettingsTemplateAssignmentEtag *string) {
+func waitUntilAccountSettingsAssignmentFinishedIT(service *iamidentityv1.IamIdentityV1, assignmentId *string, accountSettingsTemplateAssignmentEtag *string) {
 	getAssignmentOptions := &iamidentityv1.GetAccountSettingsAssignmentOptions{
 		AssignmentID: assignmentId,
 	}
@@ -2383,7 +2383,7 @@ func waitUntilAccountSettingsAssignmentFinished(service *iamidentityv1.IamIdenti
 			finished = true // assignment removed
 			break
 		} else {
-			finished = isFinished(assignment.Status)
+			finished = isFinishedIT(assignment.Status)
 			if finished {
 				// Grab the Etag value from the response for use in the update operation.
 				Expect(response.GetHeaders()).ToNot(BeNil())
@@ -2534,8 +2534,8 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 				numAssignments := len(assignmentsList.Assignments)
 				if numAssignments > 0 {
 					for _, assignment := range assignmentsList.Assignments {
-						if !isFinished(assignment.Status) {
-							waitUntilTrustedProfileAssignmentFinished(service, assignment.ID, profileTemplateAssignmentEtag)
+						if !isFinishedIT(assignment.Status) {
+							waitUntilTrustedProfileAssignmentFinishedIT(service, assignment.ID, profileTemplateAssignmentEtag)
 						}
 						deleteAssignmentOptions := &iamidentityv1.DeleteTrustedProfileAssignmentOptions{
 							AssignmentID: assignment.ID,
@@ -2544,7 +2544,7 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 						Expect(exceptionRsp).To(BeNil())
 						Expect(daResponse).ToNot(BeNil())
 						Expect(daErr).To(BeNil())
-						waitUntilTrustedProfileAssignmentFinished(service, assignment.ID, profileTemplateAssignmentEtag)
+						waitUntilTrustedProfileAssignmentFinishedIT(service, assignment.ID, profileTemplateAssignmentEtag)
 					}
 				}
 
@@ -2584,8 +2584,8 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 				numAssignments := len(assignmentsList.Assignments)
 				if numAssignments > 0 {
 					for _, assignment := range assignmentsList.Assignments {
-						if !isFinished(assignment.Status) {
-							waitUntilAccountSettingsAssignmentFinished(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
+						if !isFinishedIT(assignment.Status) {
+							waitUntilAccountSettingsAssignmentFinishedIT(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
 						}
 						deleteAssignmentOptions := &iamidentityv1.DeleteAccountSettingsAssignmentOptions{
 							AssignmentID: assignment.ID,
@@ -2594,7 +2594,7 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 						Expect(exceptionRsp).To(BeNil())
 						Expect(daResponse).ToNot(BeNil())
 						Expect(daErr).To(BeNil())
-						waitUntilAccountSettingsAssignmentFinished(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
+						waitUntilAccountSettingsAssignmentFinishedIT(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
 					}
 				}
 
