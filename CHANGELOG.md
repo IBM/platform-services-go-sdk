@@ -1,3 +1,10 @@
+# [0.42.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.41.0...v0.42.0) (2023-07-24)
+
+
+### Features
+
+* **IAM Identity:** Add support for IAM enterprise ([#267](https://github.com/IBM/platform-services-go-sdk/issues/267)) ([d23f0fc](https://github.com/IBM/platform-services-go-sdk/commit/d23f0fcc1fdca57bd67f90f176273e2c74daed63))
+
 # [0.41.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.40.0...v0.41.0) (2023-07-14)
 
 
