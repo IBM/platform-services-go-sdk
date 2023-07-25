@@ -1,3 +1,17 @@
+# [0.42.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.41.0...v0.42.0) (2023-07-24)
+
+
+### Features
+
+* **IAM Identity:** Add support for IAM enterprise ([#267](https://github.com/IBM/platform-services-go-sdk/issues/267)) ([d23f0fc](https://github.com/IBM/platform-services-go-sdk/commit/d23f0fcc1fdca57bd67f90f176273e2c74daed63))
+
+# [0.41.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.40.0...v0.41.0) (2023-07-14)
+
+
+### Features
+
+* **Enterprise Management:** re-gen service after update trait object ([#263](https://github.com/IBM/platform-services-go-sdk/issues/263)) ([52cfdaf](https://github.com/IBM/platform-services-go-sdk/commit/52cfdaf346848e5294865df2eb76acf9e74554e4))
+
 # [0.40.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.39.0...v0.40.0) (2023-06-12)
 
 

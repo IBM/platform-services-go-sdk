@@ -24,6 +24,8 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -55,7 +57,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		iamIDMember   string
 		iamAPIKey     string
 		claimRuleType string = "Profile-SAML"
-		realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
+		realmName     string = "https://sdk.test.realm/1234"
 
 		iamIdentityService *iamidentityv1.IamIdentityV1
 		err                error
@@ -85,6 +87,22 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 		reportId           string
 		reportReferenceMfa string
+
+		enterpriseAccountID                   string
+		enterpriseSubAccountID                string
+		profileTemplateName                   string = "Go-SDK-IT-Profile-Template"
+		profileTemplateProfileName            string = "Go-SDK-IT-Profile-From-Template"
+		profileTemplateId                     string
+		profileTemplateVersion                int64
+		profileTemplateEtag                   string
+		profileTemplateAssignmentId           string
+		profileTemplateAssignmentEtag         string
+		accountSettingsTemplateName           string = "Go-SDK-IT-AccountSettings-Template"
+		accountSettingsTemplateId             string
+		accountSettingsTemplateVersion        int64
+		accountSettingsTemplateEtag           string
+		accountSettingsTemplateAssignmentId   string
+		accountSettingsTemplateAssignmentEtag string
 	)
 
 	var shouldSkipTest = func() {
@@ -122,6 +140,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
+
+			enterpriseAccountID = config["ENTERPRISE_ACCOUNT_ID"]
+			Expect(enterpriseAccountID).ToNot(BeEmpty())
+
+			enterpriseSubAccountID = config["ENTERPRISE_SUBACCOUNT_ID"]
+			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
 		})
 	})
 
@@ -144,7 +168,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It("Successfully setup the environment for tests", func() {
 			fmt.Fprintln(GinkgoWriter, "Setup...")
-			cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2)
+			cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2, enterpriseAccountID, profileTemplateName, &profileTemplateAssignmentEtag, accountSettingsTemplateName, &accountSettingsTemplateAssignmentEtag)
 			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
@@ -1041,26 +1065,26 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`SetProfileIdentities(setProfileIdentitiesOptions *SetProfileIdentitiesOptions)`, func() {
 
 			accounts := []string{accountID}
-			identity := &iamidentityv1.ProfileIdentity{
+			identity := &iamidentityv1.ProfileIdentityRequest{
 				Identifier:  &iamID,
 				Accounts:    accounts,
 				Type:        core.StringPtr("user"),
 				Description: core.StringPtr("Identity description"),
 			}
-			listProfileIdentity := []iamidentityv1.ProfileIdentity{*identity}
+			listProfileIdentity := []iamidentityv1.ProfileIdentityRequest{*identity}
 			setProfileIdentitiesOptions := iamidentityv1.SetProfileIdentitiesOptions{
 				ProfileID:  &profileId2,
 				Identities: listProfileIdentity,
 				IfMatch:    core.StringPtr("*"),
 			}
 
-			profileIdnetities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
+			profileIdentities, response, err := iamIdentityService.SetProfileIdentities(&setProfileIdentitiesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			Expect(profileIdnetities.Identities).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetities))
+			Expect(profileIdentities.Identities).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdentities))
 		})
 	})
 
@@ -1074,14 +1098,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				ProfileID: &profileId2,
 			}
 
-			profileIdnetities, response, err := iamIdentityService.GetProfileIdentities(&getProfileIdentitiesOptions)
+			profileIdentities, response, err := iamIdentityService.GetProfileIdentities(&getProfileIdentitiesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			Expect(profileIdnetities.Identities).ToNot(BeNil())
-			Expect(profileIdnetities.Identities[0].Identifier).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdnetities))
+			Expect(profileIdentities.Identities).ToNot(BeNil())
+			Expect(profileIdentities.Identities[0].Identifier).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "SetProfileIdentities #1 response:\n%s\n", common.ToJSON(profileIdentities))
 		})
 	})
 
@@ -1668,9 +1692,603 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreateProfileTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateProfileTemplateIT`, func() {
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"cloud-docs-dev\"")
+
+			profileTemplateClaimRule := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+			profileTemplateClaimRule.Name = core.StringPtr("My Rule")
+			profileTemplateClaimRule.RealmName = &realmName
+			profileTemplateClaimRule.Type = &claimRuleType
+			profileTemplateClaimRule.Expiration = core.Int64Ptr(int64(43200))
+			profileTemplateClaimRule.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions}
+
+			profile := new(iamidentityv1.TemplateProfileComponentRequest)
+			profile.Name = &profileTemplateProfileName
+			profile.Description = core.StringPtr("GoSDK test Profile cretaed from Profile Template")
+			profile.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*profileTemplateClaimRule}
+
+			createOptions := &iamidentityv1.CreateProfileTemplateOptions{
+				Name:        &profileTemplateName,
+				Description: core.StringPtr("GoSDK test Profile Template"),
+				AccountID:   &enterpriseAccountID,
+				Profile:     profile,
+			}
+
+			createResponse, response, err := iamIdentityService.CreateProfileTemplate(createOptions)
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(err).To(BeNil())
+			Expect(createResponse).ToNot(BeNil())
+
+			// Grab the ID and Etag value from the response for use in the update operation.
+			profileTemplateId = *createResponse.ID
+			Expect(profileTemplateId).ToNot(BeNil())
+			profileTemplateVersion = *createResponse.Version
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			profileTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(profileTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`GetProfileTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProfileTemplateIT`, func() {
+			getOptions := &iamidentityv1.GetProfileTemplateVersionOptions{
+				TemplateID: &profileTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
+			}
+			getResponse, response, err := iamIdentityService.GetProfileTemplateVersion(getOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(getResponse).ToNot(BeNil())
+			// Grab the Etag value from the response for use in the update operation.
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			profileTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(profileTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`ListProfileTemplatesIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListProfileTemplatesIT`, func() {
+			listOptions := &iamidentityv1.ListProfileTemplatesOptions{
+				AccountID: &enterpriseAccountID,
+			}
+			listResponse, response, err := iamIdentityService.ListProfileTemplates(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateProfileTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateProfileTemplateIT`, func() {
+			updateOptions := &iamidentityv1.UpdateProfileTemplateVersionOptions{
+				AccountID:   &enterpriseAccountID,
+				TemplateID:  &profileTemplateId,
+				Version:     core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
+				IfMatch:     &profileTemplateEtag,
+				Name:        &profileTemplateName,
+				Description: core.StringPtr("GoSDK test Profile Template - updated"),
+			}
+			updateResponse, response, err := iamIdentityService.UpdateProfileTemplateVersion(updateOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(updateResponse).ToNot(BeNil())
+			// Grab the Etag value from the response for use in the update operation.
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			profileTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(profileTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`AssignProfileTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AssignProfileTemplateIT`, func() {
+			commitOptions := &iamidentityv1.CommitProfileTemplateOptions{
+				TemplateID: &profileTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
+			}
+			cResponse, cErr := iamIdentityService.CommitProfileTemplate(commitOptions)
+			Expect(cResponse.StatusCode).To(Equal(204))
+			Expect(cErr).To(BeNil())
+
+			assignOptions := &iamidentityv1.CreateTrustedProfileAssignmentOptions{
+				TemplateID:      &profileTemplateId,
+				TemplateVersion: &profileTemplateVersion,
+				TargetType:      core.StringPtr("Account"),
+				Target:          &enterpriseSubAccountID,
+			}
+			assignResponse, aResponse, aErr := iamIdentityService.CreateTrustedProfileAssignment(assignOptions)
+			Expect(aResponse.StatusCode).To(Equal(202))
+			Expect(aErr).To(BeNil())
+			Expect(assignResponse).ToNot(BeNil())
+			// Grab the Etag and id for use by other test methods.
+			Expect(aResponse.GetHeaders()).ToNot(BeNil())
+			profileTemplateAssignmentEtag = aResponse.GetHeaders().Get("Etag")
+			Expect(profileTemplateAssignmentEtag).ToNot(BeEmpty())
+			profileTemplateAssignmentId = *assignResponse.ID
+			Expect(profileTemplateAssignmentId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListProfileTemplateAssignmentsIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListProfileTemplateAssignmentsIT`, func() {
+			listOptions := &iamidentityv1.ListTrustedProfileAssignmentsOptions{
+				AccountID:  &enterpriseAccountID,
+				TemplateID: &profileTemplateId,
+			}
+			listResponse, response, err := iamIdentityService.ListTrustedProfileAssignments(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+			Expect(listResponse.Assignments).ToNot(BeNil())
+			numAssignments := len(listResponse.Assignments)
+			Expect(numAssignments).ToNot(BeZero())
+		})
+	})
+
+	Describe(`CreateNewProfileTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateNewProfileTemplateVersionIT`, func() {
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"cloud-docs-dev\"")
+
+			profileTemplateClaimRule := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+			profileTemplateClaimRule.Name = core.StringPtr("My Rule")
+			profileTemplateClaimRule.RealmName = &realmName
+			profileTemplateClaimRule.Type = &claimRuleType
+			profileTemplateClaimRule.Expiration = core.Int64Ptr(int64(43200))
+			profileTemplateClaimRule.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions}
+
+			profile := new(iamidentityv1.TemplateProfileComponentRequest)
+			profile.Name = &profileTemplateProfileName
+			profile.Description = core.StringPtr("GoSDK test Profile cretaed from Profile Template - new version")
+			profile.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*profileTemplateClaimRule}
+
+			createOptions := &iamidentityv1.CreateProfileTemplateVersionOptions{
+				Name:        &profileTemplateName,
+				Description: core.StringPtr("GoSDK test Profile Template - new version"),
+				AccountID:   &enterpriseAccountID,
+				TemplateID:  &profileTemplateId,
+				Profile:     profile,
+			}
+
+			createResponse, response, err := iamIdentityService.CreateProfileTemplateVersion(createOptions)
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(err).To(BeNil())
+			Expect(createResponse).ToNot(BeNil())
+			// save the new version to be used in subsequent calls
+			profileTemplateVersion = *createResponse.Version
+			Expect(response.GetHeaders()).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLatestProfileTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLatestProfileTemplateVersionIT`, func() {
+			getOptions := &iamidentityv1.GetLatestProfileTemplateVersionOptions{
+				TemplateID: &profileTemplateId,
+			}
+			getResponse, response, err := iamIdentityService.GetLatestProfileTemplateVersion(getOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(getResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListProfileTemplateVersionsIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListProfileTemplateVersionsIT`, func() {
+			listOptions := &iamidentityv1.ListVersionsOfProfileTemplateOptions{
+				TemplateID: &profileTemplateId,
+			}
+			listResponse, response, err := iamIdentityService.ListVersionsOfProfileTemplate(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+			Expect(listResponse.ProfileTemplates).ToNot(BeNil())
+			numTemplates := len(listResponse.ProfileTemplates)
+			Expect(numTemplates).ToNot(BeZero())
+		})
+	})
+
+	Describe(`UpdateProfileTemplateAssignmentIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateProfileTemplateAssignmentIT`, func() {
+			commitOptions := &iamidentityv1.CommitProfileTemplateOptions{
+				TemplateID: &profileTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(profileTemplateVersion, 10)),
+			}
+			cResponse, cErr := iamIdentityService.CommitProfileTemplate(commitOptions)
+			Expect(cResponse.StatusCode).To(Equal(204))
+			Expect(cErr).To(BeNil())
+
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+
+			updateOptions := &iamidentityv1.UpdateTrustedProfileAssignmentOptions{
+				AssignmentID:    &profileTemplateAssignmentId,
+				TemplateVersion: &profileTemplateVersion,
+				IfMatch:         &profileTemplateAssignmentEtag,
+			}
+			updateResponse, uResponse, uErr := iamIdentityService.UpdateTrustedProfileAssignment(updateOptions)
+			Expect(uResponse.StatusCode).To(Equal(202))
+			Expect(uErr).To(BeNil())
+			Expect(updateResponse).ToNot(BeNil())
+			// Grab the Etag and id for use by other test methods.
+			Expect(uResponse.GetHeaders()).ToNot(BeNil())
+			profileTemplateAssignmentEtag = uResponse.GetHeaders().Get("Etag")
+			Expect(profileTemplateAssignmentEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`DeleteProfileTemplateAssignmentIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfileTemplateAssignmentIT`, func() {
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+
+			deleteOptions := &iamidentityv1.DeleteTrustedProfileAssignmentOptions{
+				AssignmentID: &profileTemplateAssignmentId,
+			}
+			excResponse, response, err := iamIdentityService.DeleteTrustedProfileAssignment(deleteOptions)
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(err).To(BeNil())
+			Expect(excResponse).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteProfileTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfileTemplateVersionIT`, func() {
+			deleteOptions := &iamidentityv1.DeleteProfileTemplateVersionOptions{
+				TemplateID: &profileTemplateId,
+				Version:    core.StringPtr("1"),
+			}
+			response, err := iamIdentityService.DeleteProfileTemplateVersion(deleteOptions)
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(err).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteProfileTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfileTemplateIT`, func() {
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
+
+			deleteOptions := &iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions{
+				TemplateID: &profileTemplateId,
+			}
+			response, err := iamIdentityService.DeleteAllVersionsOfProfileTemplate(deleteOptions)
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(err).To(BeNil())
+		})
+	})
+
+	Describe(`CreateAccountSettingsTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateAccountSettingsTemplateIT`, func() {
+
+			settings := &iamidentityv1.AccountSettingsComponent{
+				Mfa:                                  core.StringPtr("LEVEL1"),
+				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			}
+			createOptions := &iamidentityv1.CreateAccountSettingsTemplateOptions{
+				Name:            &accountSettingsTemplateName,
+				Description:     core.StringPtr("GoSDK test Account Settings Template"),
+				AccountID:       &enterpriseAccountID,
+				AccountSettings: settings,
+			}
+
+			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplate(createOptions)
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(err).To(BeNil())
+			Expect(createResponse).ToNot(BeNil())
+
+			// Grab the ID and Etag value from the response for use in the update operation.
+			accountSettingsTemplateId = *createResponse.ID
+			Expect(accountSettingsTemplateId).ToNot(BeNil())
+			accountSettingsTemplateVersion = *createResponse.Version
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			accountSettingsTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingsTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`GetAccountSettingsTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountSettingsTemplateIT`, func() {
+			getOptions := &iamidentityv1.GetAccountSettingsTemplateVersionOptions{
+				TemplateID: &accountSettingsTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
+			}
+			getResponse, response, err := iamIdentityService.GetAccountSettingsTemplateVersion(getOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(getResponse).ToNot(BeNil())
+			// Grab the Etag value from the response for use in the update operation.
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			accountSettingsTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingsTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`ListAccountSettingsTemplatesIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccountSettingsTemplatesIT`, func() {
+			listOptions := &iamidentityv1.ListAccountSettingsTemplatesOptions{
+				AccountID: &enterpriseAccountID,
+			}
+			listResponse, response, err := iamIdentityService.ListAccountSettingsTemplates(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateAccountSettingsTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAccountSettingsTemplateIT`, func() {
+			settings := &iamidentityv1.AccountSettingsComponent{
+				Mfa:                                  core.StringPtr("LEVEL1"),
+				SystemAccessTokenExpirationInSeconds: core.StringPtr("3000"),
+			}
+			updateOptions := &iamidentityv1.UpdateAccountSettingsTemplateVersionOptions{
+				AccountID:       &enterpriseAccountID,
+				TemplateID:      &accountSettingsTemplateId,
+				Version:         core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
+				IfMatch:         &accountSettingsTemplateEtag,
+				Name:            &accountSettingsTemplateName,
+				Description:     core.StringPtr("GoSDK test Account Settings Template - updated"),
+				AccountSettings: settings,
+			}
+			updateResponse, response, err := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(updateResponse).ToNot(BeNil())
+			// Grab the Etag value from the response for use in the update operation.
+			Expect(response.GetHeaders()).ToNot(BeNil())
+			accountSettingsTemplateEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingsTemplateEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`AssignAccountSettingsTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AssignAccountSettingsTemplateIT`, func() {
+			commitOptions := &iamidentityv1.CommitAccountSettingsTemplateOptions{
+				TemplateID: &accountSettingsTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
+			}
+			cResponse, cErr := iamIdentityService.CommitAccountSettingsTemplate(commitOptions)
+			Expect(cResponse.StatusCode).To(Equal(204))
+			Expect(cErr).To(BeNil())
+
+			assignOptions := &iamidentityv1.CreateAccountSettingsAssignmentOptions{
+				TemplateID:      &accountSettingsTemplateId,
+				TemplateVersion: &accountSettingsTemplateVersion,
+				TargetType:      core.StringPtr("Account"),
+				Target:          &enterpriseSubAccountID,
+			}
+			assignResponse, aResponse, aErr := iamIdentityService.CreateAccountSettingsAssignment(assignOptions)
+			Expect(aResponse.StatusCode).To(Equal(202))
+			Expect(aErr).To(BeNil())
+			Expect(assignResponse).ToNot(BeNil())
+			// Grab the Etag and id for use by other test methods.
+			Expect(aResponse.GetHeaders()).ToNot(BeNil())
+			accountSettingsTemplateAssignmentEtag = aResponse.GetHeaders().Get("Etag")
+			Expect(accountSettingsTemplateAssignmentEtag).ToNot(BeEmpty())
+			accountSettingsTemplateAssignmentId = *assignResponse.ID
+			Expect(accountSettingsTemplateAssignmentId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListAccountSettingsTemplateAssignmentsIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccountSettingsTemplateAssignmentsIT`, func() {
+			listOptions := &iamidentityv1.ListAccountSettingsAssignmentsOptions{
+				AccountID:  &enterpriseAccountID,
+				TemplateID: &accountSettingsTemplateId,
+			}
+			listResponse, response, err := iamIdentityService.ListAccountSettingsAssignments(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+			Expect(listResponse.Assignments).ToNot(BeNil())
+			numAssignments := len(listResponse.Assignments)
+			Expect(numAssignments).ToNot(BeZero())
+		})
+	})
+
+	Describe(`CreateNewAccountSettingsTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateNewAccountSettingsTemplateVersionIT`, func() {
+			settings := &iamidentityv1.AccountSettingsComponent{
+				Mfa:                                  core.StringPtr("LEVEL1"),
+				SystemAccessTokenExpirationInSeconds: core.StringPtr("2600"),
+				RestrictCreatePlatformApikey:         core.StringPtr("RESTRICTED"),
+				RestrictCreateServiceID:              core.StringPtr("RESTRICTED"),
+			}
+			createOptions := &iamidentityv1.CreateAccountSettingsTemplateVersionOptions{
+				Name:            &accountSettingsTemplateName,
+				Description:     core.StringPtr("GoSDK test Account Settings Template - new version"),
+				AccountID:       &enterpriseAccountID,
+				TemplateID:      &accountSettingsTemplateId,
+				AccountSettings: settings,
+			}
+
+			createResponse, response, err := iamIdentityService.CreateAccountSettingsTemplateVersion(createOptions)
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(err).To(BeNil())
+			Expect(createResponse).ToNot(BeNil())
+			// save the new version to be used in subsequent calls
+			accountSettingsTemplateVersion = *createResponse.Version
+			Expect(response.GetHeaders()).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLatestAccountSettingsTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLatestAccountSettingsTemplateVersionIT`, func() {
+			getOptions := &iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions{
+				TemplateID: &accountSettingsTemplateId,
+			}
+			getResponse, response, err := iamIdentityService.GetLatestAccountSettingsTemplateVersion(getOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(getResponse).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListAccountSettingsTemplateVersionsIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccountSettingsTemplateVersionsIT`, func() {
+			listOptions := &iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions{
+				TemplateID: &accountSettingsTemplateId,
+			}
+			listResponse, response, err := iamIdentityService.ListVersionsOfAccountSettingsTemplate(listOptions)
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(err).To(BeNil())
+			Expect(listResponse).ToNot(BeNil())
+			Expect(listResponse.AccountSettingsTemplates).ToNot(BeNil())
+			numTemplates := len(listResponse.AccountSettingsTemplates)
+			Expect(numTemplates).ToNot(BeZero())
+		})
+	})
+
+	Describe(`UpdateAccountSettingsTemplateAssignmentIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAccountSettingsTemplateAssignmentIT`, func() {
+			commitOptions := &iamidentityv1.CommitAccountSettingsTemplateOptions{
+				TemplateID: &accountSettingsTemplateId,
+				Version:    core.StringPtr(strconv.FormatInt(accountSettingsTemplateVersion, 10)),
+			}
+			cResponse, cErr := iamIdentityService.CommitAccountSettingsTemplate(commitOptions)
+			Expect(cResponse.StatusCode).To(Equal(204))
+			Expect(cErr).To(BeNil())
+
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+
+			updateOptions := &iamidentityv1.UpdateAccountSettingsAssignmentOptions{
+				AssignmentID:    &accountSettingsTemplateAssignmentId,
+				TemplateVersion: &accountSettingsTemplateVersion,
+				IfMatch:         &accountSettingsTemplateAssignmentEtag,
+			}
+			updateResponse, uResponse, uErr := iamIdentityService.UpdateAccountSettingsAssignment(updateOptions)
+			Expect(uResponse.StatusCode).To(Equal(202))
+			Expect(uErr).To(BeNil())
+			Expect(updateResponse).ToNot(BeNil())
+			// Grab the Etag and id for use by other test methods.
+			Expect(uResponse.GetHeaders()).ToNot(BeNil())
+			accountSettingsTemplateAssignmentEtag = uResponse.GetHeaders().Get("Etag")
+			Expect(accountSettingsTemplateAssignmentEtag).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`DeleteAccountSettingsTemplateAssignmentIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAccountSettingsTemplateAssignmentIT`, func() {
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+
+			deleteOptions := &iamidentityv1.DeleteAccountSettingsAssignmentOptions{
+				AssignmentID: &accountSettingsTemplateAssignmentId,
+			}
+			excResponse, response, err := iamIdentityService.DeleteAccountSettingsAssignment(deleteOptions)
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(err).To(BeNil())
+			Expect(excResponse).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteAccountSettingsTemplateVersionIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAccountSettingsTemplateVersionIT`, func() {
+			deleteOptions := &iamidentityv1.DeleteAccountSettingsTemplateVersionOptions{
+				TemplateID: &accountSettingsTemplateId,
+				Version:    core.StringPtr("1"),
+			}
+			response, err := iamIdentityService.DeleteAccountSettingsTemplateVersion(deleteOptions)
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(err).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteAccountSettingsTemplateIT`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteAccountSettingsTemplateIT`, func() {
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
+
+			deleteOptions := &iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions{
+				TemplateID: &accountSettingsTemplateId,
+			}
+			response, err := iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(deleteOptions)
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(err).To(BeNil())
+		})
+	})
+
 	AfterSuite(func() {
 		fmt.Println("\nBeginning teardown.")
-		cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2)
+		cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2, enterpriseAccountID, profileTemplateName, &profileTemplateAssignmentEtag, accountSettingsTemplateName, &accountSettingsTemplateAssignmentEtag)
 		fmt.Println("Finished teardown.")
 	})
 })
@@ -1717,6 +2335,68 @@ func getLink(service *iamidentityv1.IamIdentityV1, profileID string, linkID stri
 	return link
 }
 
+func isFinishedIT(status *string) bool {
+	var finished = false
+	if strings.EqualFold(*status, "succeeded") || strings.EqualFold(*status, "failed") {
+		finished = true
+	}
+	return finished
+}
+
+func waitUntilTrustedProfileAssignmentFinishedIT(service *iamidentityv1.IamIdentityV1, assignmentId *string, profileTemplateAssignmentEtag *string) {
+	getAssignmentOptions := &iamidentityv1.GetTrustedProfileAssignmentOptions{
+		AssignmentID: assignmentId,
+	}
+
+	var finished = true
+	for i := 0; i < 30; i++ {
+		assignment, response, err := service.GetTrustedProfileAssignment(getAssignmentOptions)
+		if response.StatusCode == 404 {
+			Expect(err).ToNot(BeNil())
+			finished = true // assignment removed
+			break
+		} else {
+			finished = isFinishedIT(assignment.Status)
+			if finished {
+				// Grab the Etag value from the response for use in the update operation.
+				Expect(response.GetHeaders()).ToNot(BeNil())
+				*profileTemplateAssignmentEtag = response.GetHeaders().Get("Etag")
+				Expect(*profileTemplateAssignmentEtag).ToNot(BeEmpty())
+				break
+			}
+		}
+		time.Sleep(10 * time.Second)
+	}
+	Expect(finished).To(BeTrue())
+}
+
+func waitUntilAccountSettingsAssignmentFinishedIT(service *iamidentityv1.IamIdentityV1, assignmentId *string, accountSettingsTemplateAssignmentEtag *string) {
+	getAssignmentOptions := &iamidentityv1.GetAccountSettingsAssignmentOptions{
+		AssignmentID: assignmentId,
+	}
+
+	var finished = true
+	for i := 0; i < 30; i++ {
+		assignment, response, err := service.GetAccountSettingsAssignment(getAssignmentOptions)
+		if response.StatusCode == 404 {
+			Expect(err).ToNot(BeNil())
+			finished = true // assignment removed
+			break
+		} else {
+			finished = isFinishedIT(assignment.Status)
+			if finished {
+				// Grab the Etag value from the response for use in the update operation.
+				Expect(response.GetHeaders()).ToNot(BeNil())
+				*accountSettingsTemplateAssignmentEtag = response.GetHeaders().Get("Etag")
+				Expect(*accountSettingsTemplateAssignmentEtag).ToNot(BeEmpty())
+				break
+			}
+		}
+		time.Sleep(10 * time.Second)
+	}
+	Expect(finished).To(BeTrue())
+}
+
 func getPageTokenFromURL(sptr *string) *string {
 	if sptr == nil {
 		return nil
@@ -1748,7 +2428,7 @@ func getPageTokenFromURL(sptr *string) *string {
 	return &token
 }
 
-func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, iamID string, apikeyName string, serviceIDName string, profileName1 string, profileName2 string) {
+func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, iamID string, apikeyName string, serviceIDName string, profileName1 string, profileName2 string, enterpriseAccountID string, profileTemplateName string, profileTemplateAssignmentEtag *string, accountSettingsTemplateName string, accountSettingsTemplateAssignmentEtag *string) {
 	if service == nil {
 		panic("'service' cannot be nil!")
 	}
@@ -1812,7 +2492,7 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 	Expect(response.StatusCode).To(Equal(200))
 
 	numProfiles := len(profileList.Profiles)
-	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d apikeys.\n", numProfiles)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d profiles.\n", numProfiles)
 
 	if numProfiles > 0 {
 		for _, element := range profileList.Profiles {
@@ -1828,4 +2508,103 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, ia
 		}
 	}
 
+	listProfileTemplateOptions := &iamidentityv1.ListProfileTemplatesOptions{
+		AccountID: &enterpriseAccountID,
+	}
+	profileTemplateList, response, err := service.ListProfileTemplates(listProfileTemplateOptions)
+	Expect(err).To(BeNil())
+	Expect(response.StatusCode).To(Equal(200))
+
+	numProfileTemplates := len(profileTemplateList.ProfileTemplates)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d profile templates.\n", numProfileTemplates)
+
+	if numProfileTemplates > 0 {
+		for _, element := range profileTemplateList.ProfileTemplates {
+			if *element.Name == profileTemplateName {
+				fmt.Fprintf(GinkgoWriter, ">>> Deleting profile template: %s\n", *element.ID)
+
+				listAssignmentsOptions := &iamidentityv1.ListTrustedProfileAssignmentsOptions{
+					AccountID:  &enterpriseAccountID,
+					TemplateID: element.ID,
+				}
+				assignmentsList, alResponse, alErr := service.ListTrustedProfileAssignments(listAssignmentsOptions)
+				Expect(alErr).To(BeNil())
+				Expect(alResponse.StatusCode).To(Equal(200))
+				Expect(assignmentsList).ToNot(BeNil())
+				numAssignments := len(assignmentsList.Assignments)
+				if numAssignments > 0 {
+					for _, assignment := range assignmentsList.Assignments {
+						if !isFinishedIT(assignment.Status) {
+							waitUntilTrustedProfileAssignmentFinishedIT(service, assignment.ID, profileTemplateAssignmentEtag)
+						}
+						deleteAssignmentOptions := &iamidentityv1.DeleteTrustedProfileAssignmentOptions{
+							AssignmentID: assignment.ID,
+						}
+						exceptionRsp, daResponse, daErr := service.DeleteTrustedProfileAssignment(deleteAssignmentOptions)
+						Expect(exceptionRsp).To(BeNil())
+						Expect(daResponse).ToNot(BeNil())
+						Expect(daErr).To(BeNil())
+						waitUntilTrustedProfileAssignmentFinishedIT(service, assignment.ID, profileTemplateAssignmentEtag)
+					}
+				}
+
+				deleteProfileTemplateOptions := &iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions{
+					TemplateID: element.ID,
+				}
+				response, err := service.DeleteAllVersionsOfProfileTemplate(deleteProfileTemplateOptions)
+				Expect(response).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			}
+		}
+	}
+
+	listAccountSettingsTemplateOptions := &iamidentityv1.ListAccountSettingsTemplatesOptions{
+		AccountID: &enterpriseAccountID,
+	}
+	AccountSettingsTemplateList, response, err := service.ListAccountSettingsTemplates(listAccountSettingsTemplateOptions)
+	Expect(err).To(BeNil())
+	Expect(response.StatusCode).To(Equal(200))
+
+	numAccountSettingsTemplates := len(AccountSettingsTemplateList.AccountSettingsTemplates)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d account settings templates.\n", numAccountSettingsTemplates)
+
+	if numAccountSettingsTemplates > 0 {
+		for _, element := range AccountSettingsTemplateList.AccountSettingsTemplates {
+			if *element.Name == accountSettingsTemplateName {
+				fmt.Fprintf(GinkgoWriter, ">>> Deleting account settings template: %s\n", *element.ID)
+
+				listAssignmentsOptions := &iamidentityv1.ListAccountSettingsAssignmentsOptions{
+					AccountID:  &enterpriseAccountID,
+					TemplateID: element.ID,
+				}
+				assignmentsList, alResponse, alErr := service.ListAccountSettingsAssignments(listAssignmentsOptions)
+				Expect(alErr).To(BeNil())
+				Expect(alResponse.StatusCode).To(Equal(200))
+				Expect(assignmentsList).ToNot(BeNil())
+				numAssignments := len(assignmentsList.Assignments)
+				if numAssignments > 0 {
+					for _, assignment := range assignmentsList.Assignments {
+						if !isFinishedIT(assignment.Status) {
+							waitUntilAccountSettingsAssignmentFinishedIT(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
+						}
+						deleteAssignmentOptions := &iamidentityv1.DeleteAccountSettingsAssignmentOptions{
+							AssignmentID: assignment.ID,
+						}
+						exceptionRsp, daResponse, daErr := service.DeleteAccountSettingsAssignment(deleteAssignmentOptions)
+						Expect(exceptionRsp).To(BeNil())
+						Expect(daResponse).ToNot(BeNil())
+						Expect(daErr).To(BeNil())
+						waitUntilAccountSettingsAssignmentFinishedIT(service, assignment.ID, accountSettingsTemplateAssignmentEtag)
+					}
+				}
+
+				deleteAccountSettingsTemplateOptions := &iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions{
+					TemplateID: element.ID,
+				}
+				response, err := service.DeleteAllVersionsOfAccountSettingsTemplate(deleteAccountSettingsTemplateOptions)
+				Expect(response).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			}
+		}
+	}
 }
