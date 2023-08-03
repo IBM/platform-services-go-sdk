@@ -7171,7 +7171,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully with retries`, func() {
@@ -7233,7 +7233,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully`, func() {
@@ -7400,7 +7400,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully with retries`, func() {
@@ -7454,7 +7454,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"template_id": "TemplateID", "template_version": "TemplateVersion", "assignment_id": "AssignmentID", "target_type": "Account", "target": "Target", "options": [{"subject_type": "iam_id", "subject_id": "SubjectID", "root_requester_id": "RootRequesterID", "root_template_id": "RootTemplateID", "root_template_version": "RootTemplateVersion"}], "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": "Target", "policy": {"resource_created": {"id": "ID"}, "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully`, func() {
@@ -8493,6 +8493,27 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(replaceV2PolicyOptionsModel.Rule).To(Equal(v2PolicyRuleModel))
 				Expect(replaceV2PolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewResourceAttribute successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := iamPolicyManagementService.NewResourceAttribute(name, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewResourceTag successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := iamPolicyManagementService.NewResourceTag(name, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewRole successfully`, func() {
+				displayName := "testString"
+				actions := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewRole(displayName, actions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewRoles successfully`, func() {
 				roleID := "testString"
 				_model, err := iamPolicyManagementService.NewRoles(roleID)
@@ -8504,6 +8525,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				operator := "timeLessThan"
 				value := core.StringPtr("testString")
 				_model, err := iamPolicyManagementService.NewRuleAttribute(key, operator, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSubjectAttribute successfully`, func() {
+				name := "testString"
+				value := "testString"
+				_model, err := iamPolicyManagementService.NewSubjectAttribute(name, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -8562,34 +8590,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				operator := "stringEquals"
 				value := "testString"
 				_model, err := iamPolicyManagementService.NewV2PolicySubjectAttribute(key, operator, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewResourceAttribute successfully`, func() {
-				name := "testString"
-				value := "testString"
-				_model, err := iamPolicyManagementService.NewResourceAttribute(name, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewResourceTag successfully`, func() {
-				name := "testString"
-				value := "testString"
-				_model, err := iamPolicyManagementService.NewResourceTag(name, value)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewRole successfully`, func() {
-				displayName := "testString"
-				actions := []string{"testString"}
-				_model, err := iamPolicyManagementService.NewRole(displayName, actions)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewSubjectAttribute successfully`, func() {
-				name := "testString"
-				value := "testString"
-				_model, err := iamPolicyManagementService.NewSubjectAttribute(name, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
