@@ -1,3 +1,10 @@
+## [0.42.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.0...v0.42.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* **IAM Identity:** enhance trusted profile response with template id and assignment id ([#268](https://github.com/IBM/platform-services-go-sdk/issues/268)) ([321fecf](https://github.com/IBM/platform-services-go-sdk/commit/321fecfaf949e6c48268c08cfba512cf06f186ba))
+
 # [0.42.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.41.0...v0.42.0) (2023-07-24)
 
 
