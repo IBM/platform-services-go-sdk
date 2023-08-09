@@ -21,7 +21,7 @@ test-int-cov:
 	${GO} test `${GO} list ./...` -tags=integration ${COVERAGE}
 
 lint:
-	${LINT} run --build-tags=integration,examples
+	${LINT} run --build-tags=integration,examples --timeout 120s
 
 scan-gosec:
 	${GOSEC} ./...

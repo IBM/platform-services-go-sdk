@@ -2979,7 +2979,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateProfile successfully with retries`, func() {
@@ -3051,7 +3051,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateProfile successfully`, func() {
@@ -3235,7 +3235,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "profiles": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "profiles": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListProfiles successfully with retries`, func() {
@@ -3302,7 +3302,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "profiles": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "profiles": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListProfiles successfully`, func() {
@@ -3481,7 +3481,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetProfile successfully with retries`, func() {
@@ -3537,7 +3537,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetProfile successfully`, func() {
@@ -3721,7 +3721,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateProfile successfully with retries`, func() {
@@ -3796,7 +3796,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "name": "Name", "description": "Description", "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "iam_id": "IamID", "account_id": "AccountID", "template_id": "TemplateID", "assignment_id": "AssignmentID", "ims_account_id": 12, "ims_user_id": 9, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateProfile successfully`, func() {
@@ -6267,19 +6267,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				setProfileIdentitiesOptionsModel := new(iamidentityv1.SetProfileIdentitiesOptions)
 				setProfileIdentitiesOptionsModel.ProfileID = core.StringPtr("testString")
 				setProfileIdentitiesOptionsModel.IfMatch = core.StringPtr("testString")
-				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentity{*profileIdentityModel}
+				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
 				setProfileIdentitiesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.SetProfileIdentities(setProfileIdentitiesOptionsModel)
@@ -6346,19 +6345,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(iamIdentityService).ToNot(BeNil())
 				iamIdentityService.EnableRetries(0, 0)
 
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				setProfileIdentitiesOptionsModel := new(iamidentityv1.SetProfileIdentitiesOptions)
 				setProfileIdentitiesOptionsModel.ProfileID = core.StringPtr("testString")
 				setProfileIdentitiesOptionsModel.IfMatch = core.StringPtr("testString")
-				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentity{*profileIdentityModel}
+				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
 				setProfileIdentitiesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6433,19 +6431,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				setProfileIdentitiesOptionsModel := new(iamidentityv1.SetProfileIdentitiesOptions)
 				setProfileIdentitiesOptionsModel.ProfileID = core.StringPtr("testString")
 				setProfileIdentitiesOptionsModel.IfMatch = core.StringPtr("testString")
-				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentity{*profileIdentityModel}
+				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
 				setProfileIdentitiesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6463,19 +6460,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				setProfileIdentitiesOptionsModel := new(iamidentityv1.SetProfileIdentitiesOptions)
 				setProfileIdentitiesOptionsModel.ProfileID = core.StringPtr("testString")
 				setProfileIdentitiesOptionsModel.IfMatch = core.StringPtr("testString")
-				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentity{*profileIdentityModel}
+				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
 				setProfileIdentitiesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -6514,19 +6510,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				setProfileIdentitiesOptionsModel := new(iamidentityv1.SetProfileIdentitiesOptions)
 				setProfileIdentitiesOptionsModel.ProfileID = core.StringPtr("testString")
 				setProfileIdentitiesOptionsModel.IfMatch = core.StringPtr("testString")
-				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentity{*profileIdentityModel}
+				setProfileIdentitiesOptionsModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
 				setProfileIdentitiesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6571,7 +6566,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.IdentityType = core.StringPtr("user")
 				setProfileIdentityOptionsModel.Identifier = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Type = core.StringPtr("user")
-				setProfileIdentityOptionsModel.IamID = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Accounts = []string{"testString"}
 				setProfileIdentityOptionsModel.Description = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6644,7 +6638,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.IdentityType = core.StringPtr("user")
 				setProfileIdentityOptionsModel.Identifier = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Type = core.StringPtr("user")
-				setProfileIdentityOptionsModel.IamID = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Accounts = []string{"testString"}
 				setProfileIdentityOptionsModel.Description = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6725,7 +6718,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.IdentityType = core.StringPtr("user")
 				setProfileIdentityOptionsModel.Identifier = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Type = core.StringPtr("user")
-				setProfileIdentityOptionsModel.IamID = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Accounts = []string{"testString"}
 				setProfileIdentityOptionsModel.Description = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6751,7 +6743,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.IdentityType = core.StringPtr("user")
 				setProfileIdentityOptionsModel.Identifier = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Type = core.StringPtr("user")
-				setProfileIdentityOptionsModel.IamID = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Accounts = []string{"testString"}
 				setProfileIdentityOptionsModel.Description = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -6798,7 +6789,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.IdentityType = core.StringPtr("user")
 				setProfileIdentityOptionsModel.Identifier = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Type = core.StringPtr("user")
-				setProfileIdentityOptionsModel.IamID = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Accounts = []string{"testString"}
 				setProfileIdentityOptionsModel.Description = core.StringPtr("testString")
 				setProfileIdentityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8317,6 +8307,3456 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptions *ListAccountSettingsAssignmentsOptions) - Operation response error`, func() {
+		listAccountSettingsAssignmentsPath := "/v1/account_settings_assignments/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsAssignments with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := new(iamidentityv1.ListAccountSettingsAssignmentsOptions)
+				listAccountSettingsAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listAccountSettingsAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAccountSettingsAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptions *ListAccountSettingsAssignmentsOptions)`, func() {
+		listAccountSettingsAssignmentsPath := "/v1/account_settings_assignments/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "assignments": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}]}`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsAssignments successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := new(iamidentityv1.ListAccountSettingsAssignmentsOptions)
+				listAccountSettingsAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listAccountSettingsAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAccountSettingsAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListAccountSettingsAssignmentsWithContext(ctx, listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListAccountSettingsAssignmentsWithContext(ctx, listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "assignments": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}]}`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsAssignments successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListAccountSettingsAssignments(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := new(iamidentityv1.ListAccountSettingsAssignmentsOptions)
+				listAccountSettingsAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listAccountSettingsAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAccountSettingsAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAccountSettingsAssignments with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := new(iamidentityv1.ListAccountSettingsAssignmentsOptions)
+				listAccountSettingsAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listAccountSettingsAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAccountSettingsAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAccountSettingsAssignments successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := new(iamidentityv1.ListAccountSettingsAssignmentsOptions)
+				listAccountSettingsAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listAccountSettingsAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listAccountSettingsAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListAccountSettingsAssignments(listAccountSettingsAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptions *CreateAccountSettingsAssignmentOptions) - Operation response error`, func() {
+		createAccountSettingsAssignmentPath := "/v1/account_settings_assignments/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsModel := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				createAccountSettingsAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createAccountSettingsAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createAccountSettingsAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptions *CreateAccountSettingsAssignmentOptions)`, func() {
+		createAccountSettingsAssignmentPath := "/v1/account_settings_assignments/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsModel := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				createAccountSettingsAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createAccountSettingsAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createAccountSettingsAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateAccountSettingsAssignmentWithContext(ctx, createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateAccountSettingsAssignmentWithContext(ctx, createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsModel := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				createAccountSettingsAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createAccountSettingsAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createAccountSettingsAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateAccountSettingsAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsModel := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				createAccountSettingsAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createAccountSettingsAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createAccountSettingsAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateAccountSettingsAssignmentOptions model with no property values
+				createAccountSettingsAssignmentOptionsModelNew := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsModel := new(iamidentityv1.CreateAccountSettingsAssignmentOptions)
+				createAccountSettingsAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createAccountSettingsAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createAccountSettingsAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsAssignment(createAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAccountSettingsAssignment(getAccountSettingsAssignmentOptions *GetAccountSettingsAssignmentOptions) - Operation response error`, func() {
+		getAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				getAccountSettingsAssignmentOptionsModel := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				getAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAccountSettingsAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAccountSettingsAssignment(getAccountSettingsAssignmentOptions *GetAccountSettingsAssignmentOptions)`, func() {
+		getAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				getAccountSettingsAssignmentOptionsModel := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				getAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAccountSettingsAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetAccountSettingsAssignmentWithContext(ctx, getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetAccountSettingsAssignmentWithContext(ctx, getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetAccountSettingsAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				getAccountSettingsAssignmentOptionsModel := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				getAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAccountSettingsAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAccountSettingsAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				getAccountSettingsAssignmentOptionsModel := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				getAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAccountSettingsAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAccountSettingsAssignmentOptions model with no property values
+				getAccountSettingsAssignmentOptionsModelNew := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				getAccountSettingsAssignmentOptionsModel := new(iamidentityv1.GetAccountSettingsAssignmentOptions)
+				getAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getAccountSettingsAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAccountSettingsAssignment(getAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptions *DeleteAccountSettingsAssignmentOptions) - Operation response error`, func() {
+		deleteAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke DeleteAccountSettingsAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				deleteAccountSettingsAssignmentOptionsModel := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				deleteAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptions *DeleteAccountSettingsAssignmentOptions)`, func() {
+		deleteAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "status_code": "StatusCode", "errors": [{"code": "Code", "message_code": "MessageCode", "message": "Message", "details": "Details"}], "trace": "Trace"}`)
+				}))
+			})
+			It(`Invoke DeleteAccountSettingsAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				deleteAccountSettingsAssignmentOptionsModel := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				deleteAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.DeleteAccountSettingsAssignmentWithContext(ctx, deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.DeleteAccountSettingsAssignmentWithContext(ctx, deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "status_code": "StatusCode", "errors": [{"code": "Code", "message_code": "MessageCode", "message": "Message", "details": "Details"}], "trace": "Trace"}`)
+				}))
+			})
+			It(`Invoke DeleteAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.DeleteAccountSettingsAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				deleteAccountSettingsAssignmentOptionsModel := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				deleteAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke DeleteAccountSettingsAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				deleteAccountSettingsAssignmentOptionsModel := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				deleteAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the DeleteAccountSettingsAssignmentOptions model with no property values
+				deleteAccountSettingsAssignmentOptionsModelNew := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				deleteAccountSettingsAssignmentOptionsModel := new(iamidentityv1.DeleteAccountSettingsAssignmentOptions)
+				deleteAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.DeleteAccountSettingsAssignment(deleteAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptions *UpdateAccountSettingsAssignmentOptions) - Operation response error`, func() {
+		updateAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				updateAccountSettingsAssignmentOptionsModel := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				updateAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptions *UpdateAccountSettingsAssignmentOptions)`, func() {
+		updateAccountSettingsAssignmentPath := "/v1/account_settings_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				updateAccountSettingsAssignmentOptionsModel := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				updateAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateAccountSettingsAssignmentWithContext(ctx, updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateAccountSettingsAssignmentWithContext(ctx, updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				updateAccountSettingsAssignmentOptionsModel := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				updateAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateAccountSettingsAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				updateAccountSettingsAssignmentOptionsModel := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				updateAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateAccountSettingsAssignmentOptions model with no property values
+				updateAccountSettingsAssignmentOptionsModelNew := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				updateAccountSettingsAssignmentOptionsModel := new(iamidentityv1.UpdateAccountSettingsAssignmentOptions)
+				updateAccountSettingsAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsAssignment(updateAccountSettingsAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAccountSettingsTemplates(listAccountSettingsTemplatesOptions *ListAccountSettingsTemplatesOptions) - Operation response error`, func() {
+		listAccountSettingsTemplatesPath := "/v1/account_settings_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsTemplates with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := new(iamidentityv1.ListAccountSettingsTemplatesOptions)
+				listAccountSettingsTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listAccountSettingsTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listAccountSettingsTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListAccountSettingsTemplates(listAccountSettingsTemplatesOptions *ListAccountSettingsTemplatesOptions)`, func() {
+		listAccountSettingsTemplatesPath := "/v1/account_settings_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "account_settings_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsTemplates successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := new(iamidentityv1.ListAccountSettingsTemplatesOptions)
+				listAccountSettingsTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listAccountSettingsTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listAccountSettingsTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListAccountSettingsTemplatesWithContext(ctx, listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListAccountSettingsTemplatesWithContext(ctx, listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountSettingsTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "account_settings_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListAccountSettingsTemplates successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListAccountSettingsTemplates(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := new(iamidentityv1.ListAccountSettingsTemplatesOptions)
+				listAccountSettingsTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listAccountSettingsTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listAccountSettingsTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListAccountSettingsTemplates with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := new(iamidentityv1.ListAccountSettingsTemplatesOptions)
+				listAccountSettingsTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listAccountSettingsTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listAccountSettingsTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAccountSettingsTemplates successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := new(iamidentityv1.ListAccountSettingsTemplatesOptions)
+				listAccountSettingsTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listAccountSettingsTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAccountSettingsTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listAccountSettingsTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listAccountSettingsTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listAccountSettingsTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListAccountSettingsTemplates(listAccountSettingsTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsTemplate(createAccountSettingsTemplateOptions *CreateAccountSettingsTemplateOptions) - Operation response error`, func() {
+		createAccountSettingsTemplatePath := "/v1/account_settings_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplate with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateOptions)
+				createAccountSettingsTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsTemplate(createAccountSettingsTemplateOptions *CreateAccountSettingsTemplateOptions)`, func() {
+		createAccountSettingsTemplatePath := "/v1/account_settings_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplate successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateOptions)
+				createAccountSettingsTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateAccountSettingsTemplateWithContext(ctx, createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateAccountSettingsTemplateWithContext(ctx, createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateOptions)
+				createAccountSettingsTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateAccountSettingsTemplate with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateOptions)
+				createAccountSettingsTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateOptions)
+				createAccountSettingsTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplate(createAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptions *GetLatestAccountSettingsTemplateVersionOptions) - Operation response error`, func() {
+		getLatestAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetLatestAccountSettingsTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				getLatestAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptions *GetLatestAccountSettingsTemplateVersionOptions)`, func() {
+		getLatestAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestAccountSettingsTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				getLatestAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersionWithContext(ctx, getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetLatestAccountSettingsTemplateVersionWithContext(ctx, getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				getLatestAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetLatestAccountSettingsTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				getLatestAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetLatestAccountSettingsTemplateVersionOptions model with no property values
+				getLatestAccountSettingsTemplateVersionOptionsModelNew := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetLatestAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				getLatestAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetLatestAccountSettingsTemplateVersionOptions)
+				getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetLatestAccountSettingsTemplateVersion(getLatestAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAllVersionsOfAccountSettingsTemplate(deleteAllVersionsOfAccountSettingsTemplateOptions *DeleteAllVersionsOfAccountSettingsTemplateOptions)`, func() {
+		deleteAllVersionsOfAccountSettingsTemplatePath := "/v1/account_settings_templates/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAllVersionsOfAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAllVersionsOfAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAllVersionsOfAccountSettingsTemplateOptions model
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions)
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(deleteAllVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAllVersionsOfAccountSettingsTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAllVersionsOfAccountSettingsTemplateOptions model
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions)
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(deleteAllVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAllVersionsOfAccountSettingsTemplateOptions model with no property values
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModelNew := new(iamidentityv1.DeleteAllVersionsOfAccountSettingsTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(deleteAllVersionsOfAccountSettingsTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptions *ListVersionsOfAccountSettingsTemplateOptions) - Operation response error`, func() {
+		listVersionsOfAccountSettingsTemplatePath := "/v1/account_settings_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListVersionsOfAccountSettingsTemplate with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				listVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptions *ListVersionsOfAccountSettingsTemplateOptions)`, func() {
+		listVersionsOfAccountSettingsTemplatePath := "/v1/account_settings_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "account_settings_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListVersionsOfAccountSettingsTemplate successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				listVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplateWithContext(ctx, listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListVersionsOfAccountSettingsTemplateWithContext(ctx, listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "account_settings_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListVersionsOfAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				listVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListVersionsOfAccountSettingsTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				listVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListVersionsOfAccountSettingsTemplateOptions model with no property values
+				listVersionsOfAccountSettingsTemplateOptionsModelNew := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListVersionsOfAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				listVersionsOfAccountSettingsTemplateOptionsModel := new(iamidentityv1.ListVersionsOfAccountSettingsTemplateOptions)
+				listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListVersionsOfAccountSettingsTemplate(listVersionsOfAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptions *CreateAccountSettingsTemplateVersionOptions) - Operation response error`, func() {
+		createAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				createAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				createAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptions *CreateAccountSettingsTemplateVersionOptions)`, func() {
+		createAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				createAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				createAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersionWithContext(ctx, createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateAccountSettingsTemplateVersionWithContext(ctx, createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				createAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				createAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateAccountSettingsTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				createAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				createAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateAccountSettingsTemplateVersionOptions model with no property values
+				createAccountSettingsTemplateVersionOptionsModelNew := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				createAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.CreateAccountSettingsTemplateVersionOptions)
+				createAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				createAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateAccountSettingsTemplateVersion(createAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptions *GetAccountSettingsTemplateVersionOptions) - Operation response error`, func() {
+		getAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				getAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				getAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptions *GetAccountSettingsTemplateVersionOptions)`, func() {
+		getAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				getAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				getAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetAccountSettingsTemplateVersionWithContext(ctx, getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetAccountSettingsTemplateVersionWithContext(ctx, getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetAccountSettingsTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				getAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				getAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetAccountSettingsTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				getAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				getAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAccountSettingsTemplateVersionOptions model with no property values
+				getAccountSettingsTemplateVersionOptionsModelNew := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				getAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.GetAccountSettingsTemplateVersionOptions)
+				getAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getAccountSettingsTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAccountSettingsTemplateVersion(getAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptions *UpdateAccountSettingsTemplateVersionOptions) - Operation response error`, func() {
+		updateAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				updateAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				updateAccountSettingsTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				updateAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptions *UpdateAccountSettingsTemplateVersionOptions)`, func() {
+		updateAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				updateAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				updateAccountSettingsTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				updateAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersionWithContext(ctx, updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateAccountSettingsTemplateVersionWithContext(ctx, updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "account_settings": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				updateAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				updateAccountSettingsTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				updateAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateAccountSettingsTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				updateAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				updateAccountSettingsTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				updateAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateAccountSettingsTemplateVersionOptions model with no property values
+				updateAccountSettingsTemplateVersionOptionsModelNew := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				updateAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.UpdateAccountSettingsTemplateVersionOptions)
+				updateAccountSettingsTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.AccountSettings = accountSettingsComponentModel
+				updateAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateAccountSettingsTemplateVersion(updateAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAccountSettingsTemplateVersion(deleteAccountSettingsTemplateVersionOptions *DeleteAccountSettingsTemplateVersionOptions)`, func() {
+		deleteAccountSettingsTemplateVersionPath := "/v1/account_settings_templates/testString/versions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAccountSettingsTemplateVersionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAccountSettingsTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteAccountSettingsTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsTemplateVersionOptions model
+				deleteAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.DeleteAccountSettingsTemplateVersionOptions)
+				deleteAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteAccountSettingsTemplateVersion(deleteAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAccountSettingsTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAccountSettingsTemplateVersionOptions model
+				deleteAccountSettingsTemplateVersionOptionsModel := new(iamidentityv1.DeleteAccountSettingsTemplateVersionOptions)
+				deleteAccountSettingsTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteAccountSettingsTemplateVersion(deleteAccountSettingsTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAccountSettingsTemplateVersionOptions model with no property values
+				deleteAccountSettingsTemplateVersionOptionsModelNew := new(iamidentityv1.DeleteAccountSettingsTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteAccountSettingsTemplateVersion(deleteAccountSettingsTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitAccountSettingsTemplate(commitAccountSettingsTemplateOptions *CommitAccountSettingsTemplateOptions)`, func() {
+		commitAccountSettingsTemplatePath := "/v1/account_settings_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitAccountSettingsTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke CommitAccountSettingsTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.CommitAccountSettingsTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the CommitAccountSettingsTemplateOptions model
+				commitAccountSettingsTemplateOptionsModel := new(iamidentityv1.CommitAccountSettingsTemplateOptions)
+				commitAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitAccountSettingsTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.CommitAccountSettingsTemplate(commitAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke CommitAccountSettingsTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CommitAccountSettingsTemplateOptions model
+				commitAccountSettingsTemplateOptionsModel := new(iamidentityv1.CommitAccountSettingsTemplateOptions)
+				commitAccountSettingsTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitAccountSettingsTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitAccountSettingsTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.CommitAccountSettingsTemplate(commitAccountSettingsTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the CommitAccountSettingsTemplateOptions model with no property values
+				commitAccountSettingsTemplateOptionsModelNew := new(iamidentityv1.CommitAccountSettingsTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.CommitAccountSettingsTemplate(commitAccountSettingsTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`CreateReport(createReportOptions *CreateReportOptions) - Operation response error`, func() {
 		createReportPath := "/v1/activity/accounts/testString/report"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -8762,6 +12202,3696 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptions *ListTrustedProfileAssignmentsOptions) - Operation response error`, func() {
+		listTrustedProfileAssignmentsPath := "/v1/profile_assignments/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTrustedProfileAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListTrustedProfileAssignments with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := new(iamidentityv1.ListTrustedProfileAssignmentsOptions)
+				listTrustedProfileAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listTrustedProfileAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listTrustedProfileAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listTrustedProfileAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listTrustedProfileAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptions *ListTrustedProfileAssignmentsOptions)`, func() {
+		listTrustedProfileAssignmentsPath := "/v1/profile_assignments/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTrustedProfileAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "assignments": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}]}`)
+				}))
+			})
+			It(`Invoke ListTrustedProfileAssignments successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := new(iamidentityv1.ListTrustedProfileAssignmentsOptions)
+				listTrustedProfileAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listTrustedProfileAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listTrustedProfileAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listTrustedProfileAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listTrustedProfileAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListTrustedProfileAssignmentsWithContext(ctx, listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListTrustedProfileAssignmentsWithContext(ctx, listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listTrustedProfileAssignmentsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["template_version"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["target_type"]).To(Equal([]string{"Account"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(20))}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "assignments": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}]}`)
+				}))
+			})
+			It(`Invoke ListTrustedProfileAssignments successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListTrustedProfileAssignments(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := new(iamidentityv1.ListTrustedProfileAssignmentsOptions)
+				listTrustedProfileAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listTrustedProfileAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listTrustedProfileAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listTrustedProfileAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listTrustedProfileAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListTrustedProfileAssignments with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := new(iamidentityv1.ListTrustedProfileAssignmentsOptions)
+				listTrustedProfileAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listTrustedProfileAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listTrustedProfileAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listTrustedProfileAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listTrustedProfileAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTrustedProfileAssignments successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := new(iamidentityv1.ListTrustedProfileAssignmentsOptions)
+				listTrustedProfileAssignmentsOptionsModel.AccountID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateID = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TemplateVersion = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Target = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.TargetType = core.StringPtr("Account")
+				listTrustedProfileAssignmentsOptionsModel.Limit = core.Int64Ptr(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listTrustedProfileAssignmentsOptionsModel.Sort = core.StringPtr("created_at")
+				listTrustedProfileAssignmentsOptionsModel.Order = core.StringPtr("asc")
+				listTrustedProfileAssignmentsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				listTrustedProfileAssignmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptions *CreateTrustedProfileAssignmentOptions) - Operation response error`, func() {
+		createTrustedProfileAssignmentPath := "/v1/profile_assignments/"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateTrustedProfileAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsModel := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				createTrustedProfileAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createTrustedProfileAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createTrustedProfileAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptions *CreateTrustedProfileAssignmentOptions)`, func() {
+		createTrustedProfileAssignmentPath := "/v1/profile_assignments/"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke CreateTrustedProfileAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsModel := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				createTrustedProfileAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createTrustedProfileAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createTrustedProfileAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateTrustedProfileAssignmentWithContext(ctx, createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateTrustedProfileAssignmentWithContext(ctx, createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke CreateTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateTrustedProfileAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsModel := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				createTrustedProfileAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createTrustedProfileAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createTrustedProfileAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateTrustedProfileAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsModel := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				createTrustedProfileAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createTrustedProfileAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createTrustedProfileAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateTrustedProfileAssignmentOptions model with no property values
+				createTrustedProfileAssignmentOptionsModelNew := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke CreateTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsModel := new(iamidentityv1.CreateTrustedProfileAssignmentOptions)
+				createTrustedProfileAssignmentOptionsModel.TemplateID = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				createTrustedProfileAssignmentOptionsModel.TargetType = core.StringPtr("Account")
+				createTrustedProfileAssignmentOptionsModel.Target = core.StringPtr("testString")
+				createTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateTrustedProfileAssignment(createTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetTrustedProfileAssignment(getTrustedProfileAssignmentOptions *GetTrustedProfileAssignmentOptions) - Operation response error`, func() {
+		getTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetTrustedProfileAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				getTrustedProfileAssignmentOptionsModel := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				getTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getTrustedProfileAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetTrustedProfileAssignment(getTrustedProfileAssignmentOptions *GetTrustedProfileAssignmentOptions)`, func() {
+		getTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke GetTrustedProfileAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				getTrustedProfileAssignmentOptionsModel := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				getTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getTrustedProfileAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetTrustedProfileAssignmentWithContext(ctx, getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetTrustedProfileAssignmentWithContext(ctx, getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke GetTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetTrustedProfileAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				getTrustedProfileAssignmentOptionsModel := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				getTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getTrustedProfileAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetTrustedProfileAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				getTrustedProfileAssignmentOptionsModel := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				getTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getTrustedProfileAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetTrustedProfileAssignmentOptions model with no property values
+				getTrustedProfileAssignmentOptionsModelNew := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				getTrustedProfileAssignmentOptionsModel := new(iamidentityv1.GetTrustedProfileAssignmentOptions)
+				getTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				getTrustedProfileAssignmentOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetTrustedProfileAssignment(getTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptions *DeleteTrustedProfileAssignmentOptions) - Operation response error`, func() {
+		deleteTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke DeleteTrustedProfileAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				deleteTrustedProfileAssignmentOptionsModel := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				deleteTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptions *DeleteTrustedProfileAssignmentOptions)`, func() {
+		deleteTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "status_code": "StatusCode", "errors": [{"code": "Code", "message_code": "MessageCode", "message": "Message", "details": "Details"}], "trace": "Trace"}`)
+				}))
+			})
+			It(`Invoke DeleteTrustedProfileAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				deleteTrustedProfileAssignmentOptionsModel := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				deleteTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.DeleteTrustedProfileAssignmentWithContext(ctx, deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.DeleteTrustedProfileAssignmentWithContext(ctx, deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "status_code": "StatusCode", "errors": [{"code": "Code", "message_code": "MessageCode", "message": "Message", "details": "Details"}], "trace": "Trace"}`)
+				}))
+			})
+			It(`Invoke DeleteTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.DeleteTrustedProfileAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				deleteTrustedProfileAssignmentOptionsModel := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				deleteTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke DeleteTrustedProfileAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				deleteTrustedProfileAssignmentOptionsModel := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				deleteTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the DeleteTrustedProfileAssignmentOptions model with no property values
+				deleteTrustedProfileAssignmentOptionsModelNew := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke DeleteTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				deleteTrustedProfileAssignmentOptionsModel := new(iamidentityv1.DeleteTrustedProfileAssignmentOptions)
+				deleteTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				deleteTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.DeleteTrustedProfileAssignment(deleteTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptions *UpdateTrustedProfileAssignmentOptions) - Operation response error`, func() {
+		updateTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateTrustedProfileAssignment with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				updateTrustedProfileAssignmentOptionsModel := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				updateTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptions *UpdateTrustedProfileAssignmentOptions)`, func() {
+		updateTrustedProfileAssignmentPath := "/v1/profile_assignments/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke UpdateTrustedProfileAssignment successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				updateTrustedProfileAssignmentOptionsModel := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				updateTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateTrustedProfileAssignmentWithContext(ctx, updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateTrustedProfileAssignmentWithContext(ctx, updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateTrustedProfileAssignmentPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "account_id": "AccountID", "template_id": "TemplateID", "template_version": 15, "target_type": "TargetType", "target": "Target", "status": "Status", "resources": [{"target": "Target", "profile": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "account_settings": {"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}, "policy_template_refs": [{"id": "ID", "version": "Version", "resource_created": {"id": "ID"}, "error_message": {"name": "Name", "errorCode": "ErrorCode", "message": "Message", "statusCode": "StatusCode"}, "status": "Status"}]}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "entity_tag": "EntityTag"}`)
+				}))
+			})
+			It(`Invoke UpdateTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateTrustedProfileAssignment(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				updateTrustedProfileAssignmentOptionsModel := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				updateTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateTrustedProfileAssignment with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				updateTrustedProfileAssignmentOptionsModel := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				updateTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateTrustedProfileAssignmentOptions model with no property values
+				updateTrustedProfileAssignmentOptionsModelNew := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateTrustedProfileAssignment successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				updateTrustedProfileAssignmentOptionsModel := new(iamidentityv1.UpdateTrustedProfileAssignmentOptions)
+				updateTrustedProfileAssignmentOptionsModel.AssignmentID = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.IfMatch = core.StringPtr("testString")
+				updateTrustedProfileAssignmentOptionsModel.TemplateVersion = core.Int64Ptr(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateTrustedProfileAssignment(updateTrustedProfileAssignmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListProfileTemplates(listProfileTemplatesOptions *ListProfileTemplatesOptions) - Operation response error`, func() {
+		listProfileTemplatesPath := "/v1/profile_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProfileTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListProfileTemplates with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := new(iamidentityv1.ListProfileTemplatesOptions)
+				listProfileTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listProfileTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listProfileTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listProfileTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listProfileTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListProfileTemplates(listProfileTemplatesOptions *ListProfileTemplatesOptions)`, func() {
+		listProfileTemplatesPath := "/v1/profile_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProfileTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListProfileTemplates successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := new(iamidentityv1.ListProfileTemplatesOptions)
+				listProfileTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listProfileTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listProfileTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listProfileTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listProfileTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListProfileTemplatesWithContext(ctx, listProfileTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListProfileTemplatesWithContext(ctx, listProfileTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listProfileTemplatesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListProfileTemplates successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListProfileTemplates(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := new(iamidentityv1.ListProfileTemplatesOptions)
+				listProfileTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listProfileTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listProfileTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listProfileTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listProfileTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListProfileTemplates with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := new(iamidentityv1.ListProfileTemplatesOptions)
+				listProfileTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listProfileTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listProfileTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listProfileTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listProfileTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListProfileTemplates successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := new(iamidentityv1.ListProfileTemplatesOptions)
+				listProfileTemplatesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Limit = core.StringPtr("20")
+				listProfileTemplatesOptionsModel.Pagetoken = core.StringPtr("testString")
+				listProfileTemplatesOptionsModel.Sort = core.StringPtr("created_at")
+				listProfileTemplatesOptionsModel.Order = core.StringPtr("asc")
+				listProfileTemplatesOptionsModel.IncludeHistory = core.StringPtr("false")
+				listProfileTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListProfileTemplates(listProfileTemplatesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateProfileTemplate(createProfileTemplateOptions *CreateProfileTemplateOptions) - Operation response error`, func() {
+		createProfileTemplatePath := "/v1/profile_templates"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplate with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
+				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateProfileTemplate(createProfileTemplateOptions *CreateProfileTemplateOptions)`, func() {
+		createProfileTemplatePath := "/v1/profile_templates"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplate successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
+				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateProfileTemplateWithContext(ctx, createProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateProfileTemplateWithContext(ctx, createProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateProfileTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
+				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateProfileTemplate with error: Operation request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
+				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
+				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptions *GetLatestProfileTemplateVersionOptions) - Operation response error`, func() {
+		getLatestProfileTemplateVersionPath := "/v1/profile_templates/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetLatestProfileTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				getLatestProfileTemplateVersionOptionsModel := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				getLatestProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptions *GetLatestProfileTemplateVersionOptions)`, func() {
+		getLatestProfileTemplateVersionPath := "/v1/profile_templates/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestProfileTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				getLatestProfileTemplateVersionOptionsModel := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				getLatestProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetLatestProfileTemplateVersionWithContext(ctx, getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetLatestProfileTemplateVersionWithContext(ctx, getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getLatestProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetLatestProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetLatestProfileTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				getLatestProfileTemplateVersionOptionsModel := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				getLatestProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetLatestProfileTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				getLatestProfileTemplateVersionOptionsModel := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				getLatestProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetLatestProfileTemplateVersionOptions model with no property values
+				getLatestProfileTemplateVersionOptionsModelNew := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetLatestProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				getLatestProfileTemplateVersionOptionsModel := new(iamidentityv1.GetLatestProfileTemplateVersionOptions)
+				getLatestProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getLatestProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getLatestProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetLatestProfileTemplateVersion(getLatestProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteAllVersionsOfProfileTemplate(deleteAllVersionsOfProfileTemplateOptions *DeleteAllVersionsOfProfileTemplateOptions)`, func() {
+		deleteAllVersionsOfProfileTemplatePath := "/v1/profile_templates/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAllVersionsOfProfileTemplatePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteAllVersionsOfProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteAllVersionsOfProfileTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteAllVersionsOfProfileTemplateOptions model
+				deleteAllVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions)
+				deleteAllVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAllVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteAllVersionsOfProfileTemplate(deleteAllVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteAllVersionsOfProfileTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteAllVersionsOfProfileTemplateOptions model
+				deleteAllVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions)
+				deleteAllVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteAllVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteAllVersionsOfProfileTemplate(deleteAllVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteAllVersionsOfProfileTemplateOptions model with no property values
+				deleteAllVersionsOfProfileTemplateOptionsModelNew := new(iamidentityv1.DeleteAllVersionsOfProfileTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteAllVersionsOfProfileTemplate(deleteAllVersionsOfProfileTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptions *ListVersionsOfProfileTemplateOptions) - Operation response error`, func() {
+		listVersionsOfProfileTemplatePath := "/v1/profile_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfProfileTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListVersionsOfProfileTemplate with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				listVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				listVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfProfileTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfProfileTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfProfileTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptions *ListVersionsOfProfileTemplateOptions)`, func() {
+		listVersionsOfProfileTemplatePath := "/v1/profile_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfProfileTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListVersionsOfProfileTemplate successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				listVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				listVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfProfileTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfProfileTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfProfileTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.ListVersionsOfProfileTemplateWithContext(ctx, listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.ListVersionsOfProfileTemplateWithContext(ctx, listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listVersionsOfProfileTemplatePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"20"}))
+					Expect(req.URL.Query()["pagetoken"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"created_at"}))
+					Expect(req.URL.Query()["order"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["include_history"]).To(Equal([]string{"false"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+				}))
+			})
+			It(`Invoke ListVersionsOfProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.ListVersionsOfProfileTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				listVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				listVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfProfileTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfProfileTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfProfileTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListVersionsOfProfileTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				listVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				listVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfProfileTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfProfileTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfProfileTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListVersionsOfProfileTemplateOptions model with no property values
+				listVersionsOfProfileTemplateOptionsModelNew := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListVersionsOfProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				listVersionsOfProfileTemplateOptionsModel := new(iamidentityv1.ListVersionsOfProfileTemplateOptions)
+				listVersionsOfProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Limit = core.StringPtr("20")
+				listVersionsOfProfileTemplateOptionsModel.Pagetoken = core.StringPtr("testString")
+				listVersionsOfProfileTemplateOptionsModel.Sort = core.StringPtr("created_at")
+				listVersionsOfProfileTemplateOptionsModel.Order = core.StringPtr("asc")
+				listVersionsOfProfileTemplateOptionsModel.IncludeHistory = core.StringPtr("false")
+				listVersionsOfProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListVersionsOfProfileTemplate(listVersionsOfProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateProfileTemplateVersion(createProfileTemplateVersionOptions *CreateProfileTemplateVersionOptions) - Operation response error`, func() {
+		createProfileTemplateVersionPath := "/v1/profile_templates/testString/versions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateProfileTemplateVersion(createProfileTemplateVersionOptions *CreateProfileTemplateVersionOptions)`, func() {
+		createProfileTemplateVersionPath := "/v1/profile_templates/testString/versions"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.CreateProfileTemplateVersionWithContext(ctx, createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.CreateProfileTemplateVersionWithContext(ctx, createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke CreateProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateProfileTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateProfileTemplateVersionOptions model with no property values
+				createProfileTemplateVersionOptionsModelNew := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
+				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProfileTemplateVersion(getProfileTemplateVersionOptions *GetProfileTemplateVersionOptions) - Operation response error`, func() {
+		getProfileTemplateVersionPath := "/v1/profile_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetProfileTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				getProfileTemplateVersionOptionsModel := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				getProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetProfileTemplateVersion(getProfileTemplateVersionOptions *GetProfileTemplateVersionOptions)`, func() {
+		getProfileTemplateVersionPath := "/v1/profile_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetProfileTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				getProfileTemplateVersionOptionsModel := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				getProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetProfileTemplateVersionWithContext(ctx, getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetProfileTemplateVersionWithContext(ctx, getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke GetProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetProfileTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				getProfileTemplateVersionOptionsModel := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				getProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetProfileTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				getProfileTemplateVersionOptionsModel := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				getProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetProfileTemplateVersionOptions model with no property values
+				getProfileTemplateVersionOptionsModelNew := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				getProfileTemplateVersionOptionsModel := new(iamidentityv1.GetProfileTemplateVersionOptions)
+				getProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				getProfileTemplateVersionOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetProfileTemplateVersion(getProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProfileTemplateVersion(updateProfileTemplateVersionOptions *UpdateProfileTemplateVersionOptions) - Operation response error`, func() {
+		updateProfileTemplateVersionPath := "/v1/profile_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateProfileTemplateVersion with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateProfileTemplateVersion(updateProfileTemplateVersionOptions *UpdateProfileTemplateVersionOptions)`, func() {
+		updateProfileTemplateVersionPath := "/v1/profile_templates/testString/versions/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateProfileTemplateVersion successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.UpdateProfileTemplateVersionWithContext(ctx, updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.UpdateProfileTemplateVersionWithContext(ctx, updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+				}))
+			})
+			It(`Invoke UpdateProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateProfileTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateProfileTemplateVersionOptions model with no property values
+				updateProfileTemplateVersionOptionsModelNew := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
+				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.AccountID = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Name = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
+				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
+				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteProfileTemplateVersion(deleteProfileTemplateVersionOptions *DeleteProfileTemplateVersionOptions)`, func() {
+		deleteProfileTemplateVersionPath := "/v1/profile_templates/testString/versions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteProfileTemplateVersionPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteProfileTemplateVersion successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DeleteProfileTemplateVersion(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteProfileTemplateVersionOptions model
+				deleteProfileTemplateVersionOptionsModel := new(iamidentityv1.DeleteProfileTemplateVersionOptions)
+				deleteProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteProfileTemplateVersion(deleteProfileTemplateVersionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteProfileTemplateVersion with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteProfileTemplateVersionOptions model
+				deleteProfileTemplateVersionOptionsModel := new(iamidentityv1.DeleteProfileTemplateVersionOptions)
+				deleteProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
+				deleteProfileTemplateVersionOptionsModel.Version = core.StringPtr("testString")
+				deleteProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DeleteProfileTemplateVersion(deleteProfileTemplateVersionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteProfileTemplateVersionOptions model with no property values
+				deleteProfileTemplateVersionOptionsModelNew := new(iamidentityv1.DeleteProfileTemplateVersionOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DeleteProfileTemplateVersion(deleteProfileTemplateVersionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CommitProfileTemplate(commitProfileTemplateOptions *CommitProfileTemplateOptions)`, func() {
+		commitProfileTemplatePath := "/v1/profile_templates/testString/versions/testString/commit"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(commitProfileTemplatePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke CommitProfileTemplate successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.CommitProfileTemplate(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the CommitProfileTemplateOptions model
+				commitProfileTemplateOptionsModel := new(iamidentityv1.CommitProfileTemplateOptions)
+				commitProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitProfileTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.CommitProfileTemplate(commitProfileTemplateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke CommitProfileTemplate with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CommitProfileTemplateOptions model
+				commitProfileTemplateOptionsModel := new(iamidentityv1.CommitProfileTemplateOptions)
+				commitProfileTemplateOptionsModel.TemplateID = core.StringPtr("testString")
+				commitProfileTemplateOptionsModel.Version = core.StringPtr("testString")
+				commitProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.CommitProfileTemplate(commitProfileTemplateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the CommitProfileTemplateOptions model with no property values
+				commitProfileTemplateOptionsModelNew := new(iamidentityv1.CommitProfileTemplateOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.CommitProfileTemplate(commitProfileTemplateOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamIdentityService, _ := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -8780,6 +15910,148 @@ var _ = Describe(`IamIdentityV1`, func() {
 				_model, err := iamIdentityService.NewAPIKeyInsideCreateServiceIDRequest(name)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewCommitAccountSettingsTemplateOptions successfully`, func() {
+				// Construct an instance of the CommitAccountSettingsTemplateOptions model
+				templateID := "testString"
+				version := "testString"
+				commitAccountSettingsTemplateOptionsModel := iamIdentityService.NewCommitAccountSettingsTemplateOptions(templateID, version)
+				commitAccountSettingsTemplateOptionsModel.SetTemplateID("testString")
+				commitAccountSettingsTemplateOptionsModel.SetVersion("testString")
+				commitAccountSettingsTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(commitAccountSettingsTemplateOptionsModel).ToNot(BeNil())
+				Expect(commitAccountSettingsTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(commitAccountSettingsTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(commitAccountSettingsTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCommitProfileTemplateOptions successfully`, func() {
+				// Construct an instance of the CommitProfileTemplateOptions model
+				templateID := "testString"
+				version := "testString"
+				commitProfileTemplateOptionsModel := iamIdentityService.NewCommitProfileTemplateOptions(templateID, version)
+				commitProfileTemplateOptionsModel.SetTemplateID("testString")
+				commitProfileTemplateOptionsModel.SetVersion("testString")
+				commitProfileTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(commitProfileTemplateOptionsModel).ToNot(BeNil())
+				Expect(commitProfileTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(commitProfileTemplateOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(commitProfileTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateAccountSettingsAssignmentOptions successfully`, func() {
+				// Construct an instance of the CreateAccountSettingsAssignmentOptions model
+				createAccountSettingsAssignmentOptionsTemplateID := "testString"
+				createAccountSettingsAssignmentOptionsTemplateVersion := int64(1)
+				createAccountSettingsAssignmentOptionsTargetType := "Account"
+				createAccountSettingsAssignmentOptionsTarget := "testString"
+				createAccountSettingsAssignmentOptionsModel := iamIdentityService.NewCreateAccountSettingsAssignmentOptions(createAccountSettingsAssignmentOptionsTemplateID, createAccountSettingsAssignmentOptionsTemplateVersion, createAccountSettingsAssignmentOptionsTargetType, createAccountSettingsAssignmentOptionsTarget)
+				createAccountSettingsAssignmentOptionsModel.SetTemplateID("testString")
+				createAccountSettingsAssignmentOptionsModel.SetTemplateVersion(int64(1))
+				createAccountSettingsAssignmentOptionsModel.SetTargetType("Account")
+				createAccountSettingsAssignmentOptionsModel.SetTarget("testString")
+				createAccountSettingsAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createAccountSettingsAssignmentOptionsModel).ToNot(BeNil())
+				Expect(createAccountSettingsAssignmentOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsAssignmentOptionsModel.TemplateVersion).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(createAccountSettingsAssignmentOptionsModel.TargetType).To(Equal(core.StringPtr("Account")))
+				Expect(createAccountSettingsAssignmentOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateAccountSettingsTemplateOptions successfully`, func() {
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				Expect(accountSettingsUserMfaModel).ToNot(BeNil())
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+				Expect(accountSettingsUserMfaModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsUserMfaModel.Mfa).To(Equal(core.StringPtr("NONE")))
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				Expect(accountSettingsComponentModel).ToNot(BeNil())
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+				Expect(accountSettingsComponentModel.RestrictCreateServiceID).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.RestrictCreatePlatformApikey).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.AllowedIPAddresses).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.Mfa).To(Equal(core.StringPtr("NONE")))
+				Expect(accountSettingsComponentModel.UserMfa).To(Equal([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}))
+				Expect(accountSettingsComponentModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("86400")))
+				Expect(accountSettingsComponentModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("7200")))
+				Expect(accountSettingsComponentModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
+				Expect(accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("259200")))
+
+				// Construct an instance of the CreateAccountSettingsTemplateOptions model
+				createAccountSettingsTemplateOptionsModel := iamIdentityService.NewCreateAccountSettingsTemplateOptions()
+				createAccountSettingsTemplateOptionsModel.SetAccountID("testString")
+				createAccountSettingsTemplateOptionsModel.SetName("testString")
+				createAccountSettingsTemplateOptionsModel.SetDescription("testString")
+				createAccountSettingsTemplateOptionsModel.SetAccountSettings(accountSettingsComponentModel)
+				createAccountSettingsTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createAccountSettingsTemplateOptionsModel).ToNot(BeNil())
+				Expect(createAccountSettingsTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateOptionsModel.AccountSettings).To(Equal(accountSettingsComponentModel))
+				Expect(createAccountSettingsTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateAccountSettingsTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				Expect(accountSettingsUserMfaModel).ToNot(BeNil())
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+				Expect(accountSettingsUserMfaModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsUserMfaModel.Mfa).To(Equal(core.StringPtr("NONE")))
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				Expect(accountSettingsComponentModel).ToNot(BeNil())
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+				Expect(accountSettingsComponentModel.RestrictCreateServiceID).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.RestrictCreatePlatformApikey).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.AllowedIPAddresses).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.Mfa).To(Equal(core.StringPtr("NONE")))
+				Expect(accountSettingsComponentModel.UserMfa).To(Equal([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}))
+				Expect(accountSettingsComponentModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("86400")))
+				Expect(accountSettingsComponentModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("7200")))
+				Expect(accountSettingsComponentModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
+				Expect(accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("259200")))
+
+				// Construct an instance of the CreateAccountSettingsTemplateVersionOptions model
+				templateID := "testString"
+				createAccountSettingsTemplateVersionOptionsModel := iamIdentityService.NewCreateAccountSettingsTemplateVersionOptions(templateID)
+				createAccountSettingsTemplateVersionOptionsModel.SetTemplateID("testString")
+				createAccountSettingsTemplateVersionOptionsModel.SetAccountID("testString")
+				createAccountSettingsTemplateVersionOptionsModel.SetName("testString")
+				createAccountSettingsTemplateVersionOptionsModel.SetDescription("testString")
+				createAccountSettingsTemplateVersionOptionsModel.SetAccountSettings(accountSettingsComponentModel)
+				createAccountSettingsTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createAccountSettingsTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(createAccountSettingsTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateVersionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createAccountSettingsTemplateVersionOptionsModel.AccountSettings).To(Equal(accountSettingsComponentModel))
+				Expect(createAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateAPIKeyOptions successfully`, func() {
 				// Construct an instance of the CreateAPIKeyOptions model
@@ -8928,6 +16200,155 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createProfileOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewCreateProfileTemplateOptions successfully`, func() {
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				Expect(profileClaimRuleConditionsModel).ToNot(BeNil())
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+				Expect(profileClaimRuleConditionsModel.Claim).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Operator).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				Expect(trustedProfileTemplateClaimRuleModel).ToNot(BeNil())
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+				Expect(trustedProfileTemplateClaimRuleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Type).To(Equal(core.StringPtr("Profile-SAML")))
+				Expect(trustedProfileTemplateClaimRuleModel.RealmName).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(trustedProfileTemplateClaimRuleModel.Conditions).To(Equal([]iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}))
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				Expect(profileIdentityRequestModel).ToNot(BeNil())
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+				Expect(profileIdentityRequestModel.Identifier).To(Equal(core.StringPtr("testString")))
+				Expect(profileIdentityRequestModel.Type).To(Equal(core.StringPtr("user")))
+				Expect(profileIdentityRequestModel.Accounts).To(Equal([]string{"testString"}))
+				Expect(profileIdentityRequestModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				Expect(templateProfileComponentRequestModel).ToNot(BeNil())
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+				Expect(templateProfileComponentRequestModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Rules).To(Equal([]iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}))
+				Expect(templateProfileComponentRequestModel.Identities).To(Equal([]iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}))
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				Expect(policyTemplateReferenceModel).ToNot(BeNil())
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateProfileTemplateOptions model
+				createProfileTemplateOptionsModel := iamIdentityService.NewCreateProfileTemplateOptions()
+				createProfileTemplateOptionsModel.SetAccountID("testString")
+				createProfileTemplateOptionsModel.SetName("testString")
+				createProfileTemplateOptionsModel.SetDescription("testString")
+				createProfileTemplateOptionsModel.SetProfile(templateProfileComponentRequestModel)
+				createProfileTemplateOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				createProfileTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createProfileTemplateOptionsModel).ToNot(BeNil())
+				Expect(createProfileTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
+				Expect(createProfileTemplateOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(createProfileTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateProfileTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				Expect(profileClaimRuleConditionsModel).ToNot(BeNil())
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+				Expect(profileClaimRuleConditionsModel.Claim).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Operator).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				Expect(trustedProfileTemplateClaimRuleModel).ToNot(BeNil())
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+				Expect(trustedProfileTemplateClaimRuleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Type).To(Equal(core.StringPtr("Profile-SAML")))
+				Expect(trustedProfileTemplateClaimRuleModel.RealmName).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(trustedProfileTemplateClaimRuleModel.Conditions).To(Equal([]iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}))
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				Expect(profileIdentityRequestModel).ToNot(BeNil())
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+				Expect(profileIdentityRequestModel.Identifier).To(Equal(core.StringPtr("testString")))
+				Expect(profileIdentityRequestModel.Type).To(Equal(core.StringPtr("user")))
+				Expect(profileIdentityRequestModel.Accounts).To(Equal([]string{"testString"}))
+				Expect(profileIdentityRequestModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				Expect(templateProfileComponentRequestModel).ToNot(BeNil())
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+				Expect(templateProfileComponentRequestModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Rules).To(Equal([]iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}))
+				Expect(templateProfileComponentRequestModel.Identities).To(Equal([]iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}))
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				Expect(policyTemplateReferenceModel).ToNot(BeNil())
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CreateProfileTemplateVersionOptions model
+				templateID := "testString"
+				createProfileTemplateVersionOptionsModel := iamIdentityService.NewCreateProfileTemplateVersionOptions(templateID)
+				createProfileTemplateVersionOptionsModel.SetTemplateID("testString")
+				createProfileTemplateVersionOptionsModel.SetAccountID("testString")
+				createProfileTemplateVersionOptionsModel.SetName("testString")
+				createProfileTemplateVersionOptionsModel.SetDescription("testString")
+				createProfileTemplateVersionOptionsModel.SetProfile(templateProfileComponentRequestModel)
+				createProfileTemplateVersionOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				createProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createProfileTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(createProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateVersionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createProfileTemplateVersionOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
+				Expect(createProfileTemplateVersionOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(createProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCreateReportOptions successfully`, func() {
 				// Construct an instance of the CreateReportOptions model
 				accountID := "testString"
@@ -8974,6 +16395,68 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createServiceIDOptionsModel.Apikey).To(Equal(apiKeyInsideCreateServiceIDRequestModel))
 				Expect(createServiceIDOptionsModel.EntityLock).To(Equal(core.StringPtr("false")))
 				Expect(createServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateTrustedProfileAssignmentOptions successfully`, func() {
+				// Construct an instance of the CreateTrustedProfileAssignmentOptions model
+				createTrustedProfileAssignmentOptionsTemplateID := "testString"
+				createTrustedProfileAssignmentOptionsTemplateVersion := int64(1)
+				createTrustedProfileAssignmentOptionsTargetType := "Account"
+				createTrustedProfileAssignmentOptionsTarget := "testString"
+				createTrustedProfileAssignmentOptionsModel := iamIdentityService.NewCreateTrustedProfileAssignmentOptions(createTrustedProfileAssignmentOptionsTemplateID, createTrustedProfileAssignmentOptionsTemplateVersion, createTrustedProfileAssignmentOptionsTargetType, createTrustedProfileAssignmentOptionsTarget)
+				createTrustedProfileAssignmentOptionsModel.SetTemplateID("testString")
+				createTrustedProfileAssignmentOptionsModel.SetTemplateVersion(int64(1))
+				createTrustedProfileAssignmentOptionsModel.SetTargetType("Account")
+				createTrustedProfileAssignmentOptionsModel.SetTarget("testString")
+				createTrustedProfileAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createTrustedProfileAssignmentOptionsModel).ToNot(BeNil())
+				Expect(createTrustedProfileAssignmentOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(createTrustedProfileAssignmentOptionsModel.TemplateVersion).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(createTrustedProfileAssignmentOptionsModel.TargetType).To(Equal(core.StringPtr("Account")))
+				Expect(createTrustedProfileAssignmentOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(createTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAccountSettingsAssignmentOptions successfully`, func() {
+				// Construct an instance of the DeleteAccountSettingsAssignmentOptions model
+				assignmentID := "testString"
+				deleteAccountSettingsAssignmentOptionsModel := iamIdentityService.NewDeleteAccountSettingsAssignmentOptions(assignmentID)
+				deleteAccountSettingsAssignmentOptionsModel.SetAssignmentID("testString")
+				deleteAccountSettingsAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAccountSettingsAssignmentOptionsModel).ToNot(BeNil())
+				Expect(deleteAccountSettingsAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAccountSettingsAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAccountSettingsTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the DeleteAccountSettingsTemplateVersionOptions model
+				templateID := "testString"
+				version := "testString"
+				deleteAccountSettingsTemplateVersionOptionsModel := iamIdentityService.NewDeleteAccountSettingsTemplateVersionOptions(templateID, version)
+				deleteAccountSettingsTemplateVersionOptionsModel.SetTemplateID("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.SetVersion("testString")
+				deleteAccountSettingsTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAccountSettingsTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(deleteAccountSettingsTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAccountSettingsTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAllVersionsOfAccountSettingsTemplateOptions successfully`, func() {
+				// Construct an instance of the DeleteAllVersionsOfAccountSettingsTemplateOptions model
+				templateID := "testString"
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel := iamIdentityService.NewDeleteAllVersionsOfAccountSettingsTemplateOptions(templateID)
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.SetTemplateID("testString")
+				deleteAllVersionsOfAccountSettingsTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAllVersionsOfAccountSettingsTemplateOptionsModel).ToNot(BeNil())
+				Expect(deleteAllVersionsOfAccountSettingsTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAllVersionsOfAccountSettingsTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteAllVersionsOfProfileTemplateOptions successfully`, func() {
+				// Construct an instance of the DeleteAllVersionsOfProfileTemplateOptions model
+				templateID := "testString"
+				deleteAllVersionsOfProfileTemplateOptionsModel := iamIdentityService.NewDeleteAllVersionsOfProfileTemplateOptions(templateID)
+				deleteAllVersionsOfProfileTemplateOptionsModel.SetTemplateID("testString")
+				deleteAllVersionsOfProfileTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteAllVersionsOfProfileTemplateOptionsModel).ToNot(BeNil())
+				Expect(deleteAllVersionsOfProfileTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteAllVersionsOfProfileTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAPIKeyOptions successfully`, func() {
 				// Construct an instance of the DeleteAPIKeyOptions model
@@ -9037,6 +16520,19 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteProfileOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteProfileTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the DeleteProfileTemplateVersionOptions model
+				templateID := "testString"
+				version := "testString"
+				deleteProfileTemplateVersionOptionsModel := iamIdentityService.NewDeleteProfileTemplateVersionOptions(templateID, version)
+				deleteProfileTemplateVersionOptionsModel.SetTemplateID("testString")
+				deleteProfileTemplateVersionOptionsModel.SetVersion("testString")
+				deleteProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteProfileTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(deleteProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteProfileTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(deleteProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteServiceIDOptions successfully`, func() {
 				// Construct an instance of the DeleteServiceIDOptions model
 				id := "testString"
@@ -9046,6 +16542,28 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteServiceIDOptionsModel).ToNot(BeNil())
 				Expect(deleteServiceIDOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteTrustedProfileAssignmentOptions successfully`, func() {
+				// Construct an instance of the DeleteTrustedProfileAssignmentOptions model
+				assignmentID := "testString"
+				deleteTrustedProfileAssignmentOptionsModel := iamIdentityService.NewDeleteTrustedProfileAssignmentOptions(assignmentID)
+				deleteTrustedProfileAssignmentOptionsModel.SetAssignmentID("testString")
+				deleteTrustedProfileAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteTrustedProfileAssignmentOptionsModel).ToNot(BeNil())
+				Expect(deleteTrustedProfileAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAccountSettingsAssignmentOptions successfully`, func() {
+				// Construct an instance of the GetAccountSettingsAssignmentOptions model
+				assignmentID := "testString"
+				getAccountSettingsAssignmentOptionsModel := iamIdentityService.NewGetAccountSettingsAssignmentOptions(assignmentID)
+				getAccountSettingsAssignmentOptionsModel.SetAssignmentID("testString")
+				getAccountSettingsAssignmentOptionsModel.SetIncludeHistory(false)
+				getAccountSettingsAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAccountSettingsAssignmentOptionsModel).ToNot(BeNil())
+				Expect(getAccountSettingsAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountSettingsAssignmentOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getAccountSettingsAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccountSettingsOptions successfully`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
@@ -9058,6 +16576,21 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(getAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAccountSettingsTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetAccountSettingsTemplateVersionOptions model
+				templateID := "testString"
+				version := "testString"
+				getAccountSettingsTemplateVersionOptionsModel := iamIdentityService.NewGetAccountSettingsTemplateVersionOptions(templateID, version)
+				getAccountSettingsTemplateVersionOptionsModel.SetTemplateID("testString")
+				getAccountSettingsTemplateVersionOptionsModel.SetVersion("testString")
+				getAccountSettingsTemplateVersionOptionsModel.SetIncludeHistory(false)
+				getAccountSettingsTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAccountSettingsTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getAccountSettingsTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountSettingsTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountSettingsTemplateVersionOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAPIKeyOptions successfully`, func() {
 				// Construct an instance of the GetAPIKeyOptions model
@@ -9096,6 +16629,30 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getClaimRuleOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(getClaimRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(getClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLatestAccountSettingsTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
+				templateID := "testString"
+				getLatestAccountSettingsTemplateVersionOptionsModel := iamIdentityService.NewGetLatestAccountSettingsTemplateVersionOptions(templateID)
+				getLatestAccountSettingsTemplateVersionOptionsModel.SetTemplateID("testString")
+				getLatestAccountSettingsTemplateVersionOptionsModel.SetIncludeHistory(false)
+				getLatestAccountSettingsTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLatestAccountSettingsTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getLatestAccountSettingsTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getLatestAccountSettingsTemplateVersionOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getLatestAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLatestProfileTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetLatestProfileTemplateVersionOptions model
+				templateID := "testString"
+				getLatestProfileTemplateVersionOptionsModel := iamIdentityService.NewGetLatestProfileTemplateVersionOptions(templateID)
+				getLatestProfileTemplateVersionOptionsModel.SetTemplateID("testString")
+				getLatestProfileTemplateVersionOptionsModel.SetIncludeHistory(false)
+				getLatestProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLatestProfileTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getLatestProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getLatestProfileTemplateVersionOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getLatestProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetLinkOptions successfully`, func() {
 				// Construct an instance of the GetLinkOptions model
@@ -9174,6 +16731,21 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getProfileOptionsModel.IncludeActivity).To(Equal(core.BoolPtr(false)))
 				Expect(getProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetProfileTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the GetProfileTemplateVersionOptions model
+				templateID := "testString"
+				version := "testString"
+				getProfileTemplateVersionOptionsModel := iamIdentityService.NewGetProfileTemplateVersionOptions(templateID, version)
+				getProfileTemplateVersionOptionsModel.SetTemplateID("testString")
+				getProfileTemplateVersionOptionsModel.SetVersion("testString")
+				getProfileTemplateVersionOptionsModel.SetIncludeHistory(false)
+				getProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getProfileTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(getProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getProfileTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(getProfileTemplateVersionOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetReportOptions successfully`, func() {
 				// Construct an instance of the GetReportOptions model
 				accountID := "testString"
@@ -9200,6 +16772,64 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getServiceIDOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(getServiceIDOptionsModel.IncludeActivity).To(Equal(core.BoolPtr(false)))
 				Expect(getServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetTrustedProfileAssignmentOptions successfully`, func() {
+				// Construct an instance of the GetTrustedProfileAssignmentOptions model
+				assignmentID := "testString"
+				getTrustedProfileAssignmentOptionsModel := iamIdentityService.NewGetTrustedProfileAssignmentOptions(assignmentID)
+				getTrustedProfileAssignmentOptionsModel.SetAssignmentID("testString")
+				getTrustedProfileAssignmentOptionsModel.SetIncludeHistory(false)
+				getTrustedProfileAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getTrustedProfileAssignmentOptionsModel).ToNot(BeNil())
+				Expect(getTrustedProfileAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(getTrustedProfileAssignmentOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListAccountSettingsAssignmentsOptions successfully`, func() {
+				// Construct an instance of the ListAccountSettingsAssignmentsOptions model
+				listAccountSettingsAssignmentsOptionsModel := iamIdentityService.NewListAccountSettingsAssignmentsOptions()
+				listAccountSettingsAssignmentsOptionsModel.SetAccountID("testString")
+				listAccountSettingsAssignmentsOptionsModel.SetTemplateID("testString")
+				listAccountSettingsAssignmentsOptionsModel.SetTemplateVersion("testString")
+				listAccountSettingsAssignmentsOptionsModel.SetTarget("testString")
+				listAccountSettingsAssignmentsOptionsModel.SetTargetType("Account")
+				listAccountSettingsAssignmentsOptionsModel.SetLimit(int64(20))
+				listAccountSettingsAssignmentsOptionsModel.SetPagetoken("testString")
+				listAccountSettingsAssignmentsOptionsModel.SetSort("created_at")
+				listAccountSettingsAssignmentsOptionsModel.SetOrder("asc")
+				listAccountSettingsAssignmentsOptionsModel.SetIncludeHistory(false)
+				listAccountSettingsAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAccountSettingsAssignmentsOptionsModel).ToNot(BeNil())
+				Expect(listAccountSettingsAssignmentsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.TargetType).To(Equal(core.StringPtr("Account")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(20))))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listAccountSettingsAssignmentsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(listAccountSettingsAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListAccountSettingsTemplatesOptions successfully`, func() {
+				// Construct an instance of the ListAccountSettingsTemplatesOptions model
+				listAccountSettingsTemplatesOptionsModel := iamIdentityService.NewListAccountSettingsTemplatesOptions()
+				listAccountSettingsTemplatesOptionsModel.SetAccountID("testString")
+				listAccountSettingsTemplatesOptionsModel.SetLimit("20")
+				listAccountSettingsTemplatesOptionsModel.SetPagetoken("testString")
+				listAccountSettingsTemplatesOptionsModel.SetSort("created_at")
+				listAccountSettingsTemplatesOptionsModel.SetOrder("asc")
+				listAccountSettingsTemplatesOptionsModel.SetIncludeHistory("false")
+				listAccountSettingsTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAccountSettingsTemplatesOptionsModel).ToNot(BeNil())
+				Expect(listAccountSettingsTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsTemplatesOptionsModel.Limit).To(Equal(core.StringPtr("20")))
+				Expect(listAccountSettingsTemplatesOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountSettingsTemplatesOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listAccountSettingsTemplatesOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listAccountSettingsTemplatesOptionsModel.IncludeHistory).To(Equal(core.StringPtr("false")))
+				Expect(listAccountSettingsTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAPIKeysOptions successfully`, func() {
 				// Construct an instance of the ListAPIKeysOptions model
@@ -9246,6 +16876,25 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listLinksOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(listLinksOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListProfileTemplatesOptions successfully`, func() {
+				// Construct an instance of the ListProfileTemplatesOptions model
+				listProfileTemplatesOptionsModel := iamIdentityService.NewListProfileTemplatesOptions()
+				listProfileTemplatesOptionsModel.SetAccountID("testString")
+				listProfileTemplatesOptionsModel.SetLimit("20")
+				listProfileTemplatesOptionsModel.SetPagetoken("testString")
+				listProfileTemplatesOptionsModel.SetSort("created_at")
+				listProfileTemplatesOptionsModel.SetOrder("asc")
+				listProfileTemplatesOptionsModel.SetIncludeHistory("false")
+				listProfileTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listProfileTemplatesOptionsModel).ToNot(BeNil())
+				Expect(listProfileTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listProfileTemplatesOptionsModel.Limit).To(Equal(core.StringPtr("20")))
+				Expect(listProfileTemplatesOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listProfileTemplatesOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listProfileTemplatesOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listProfileTemplatesOptionsModel.IncludeHistory).To(Equal(core.StringPtr("false")))
+				Expect(listProfileTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListProfilesOptions successfully`, func() {
 				// Construct an instance of the ListProfilesOptions model
 				accountID := "testString"
@@ -9289,6 +16938,73 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(listServiceIdsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
 				Expect(listServiceIdsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListTrustedProfileAssignmentsOptions successfully`, func() {
+				// Construct an instance of the ListTrustedProfileAssignmentsOptions model
+				listTrustedProfileAssignmentsOptionsModel := iamIdentityService.NewListTrustedProfileAssignmentsOptions()
+				listTrustedProfileAssignmentsOptionsModel.SetAccountID("testString")
+				listTrustedProfileAssignmentsOptionsModel.SetTemplateID("testString")
+				listTrustedProfileAssignmentsOptionsModel.SetTemplateVersion("testString")
+				listTrustedProfileAssignmentsOptionsModel.SetTarget("testString")
+				listTrustedProfileAssignmentsOptionsModel.SetTargetType("Account")
+				listTrustedProfileAssignmentsOptionsModel.SetLimit(int64(20))
+				listTrustedProfileAssignmentsOptionsModel.SetPagetoken("testString")
+				listTrustedProfileAssignmentsOptionsModel.SetSort("created_at")
+				listTrustedProfileAssignmentsOptionsModel.SetOrder("asc")
+				listTrustedProfileAssignmentsOptionsModel.SetIncludeHistory(false)
+				listTrustedProfileAssignmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listTrustedProfileAssignmentsOptionsModel).ToNot(BeNil())
+				Expect(listTrustedProfileAssignmentsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.TemplateVersion).To(Equal(core.StringPtr("testString")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Target).To(Equal(core.StringPtr("testString")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.TargetType).To(Equal(core.StringPtr("Account")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(20))))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listTrustedProfileAssignmentsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(listTrustedProfileAssignmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListVersionsOfAccountSettingsTemplateOptions successfully`, func() {
+				// Construct an instance of the ListVersionsOfAccountSettingsTemplateOptions model
+				templateID := "testString"
+				listVersionsOfAccountSettingsTemplateOptionsModel := iamIdentityService.NewListVersionsOfAccountSettingsTemplateOptions(templateID)
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetTemplateID("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetLimit("20")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetPagetoken("testString")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetSort("created_at")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetOrder("asc")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetIncludeHistory("false")
+				listVersionsOfAccountSettingsTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel).ToNot(BeNil())
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.Limit).To(Equal(core.StringPtr("20")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.IncludeHistory).To(Equal(core.StringPtr("false")))
+				Expect(listVersionsOfAccountSettingsTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListVersionsOfProfileTemplateOptions successfully`, func() {
+				// Construct an instance of the ListVersionsOfProfileTemplateOptions model
+				templateID := "testString"
+				listVersionsOfProfileTemplateOptionsModel := iamIdentityService.NewListVersionsOfProfileTemplateOptions(templateID)
+				listVersionsOfProfileTemplateOptionsModel.SetTemplateID("testString")
+				listVersionsOfProfileTemplateOptionsModel.SetLimit("20")
+				listVersionsOfProfileTemplateOptionsModel.SetPagetoken("testString")
+				listVersionsOfProfileTemplateOptionsModel.SetSort("created_at")
+				listVersionsOfProfileTemplateOptionsModel.SetOrder("asc")
+				listVersionsOfProfileTemplateOptionsModel.SetIncludeHistory("false")
+				listVersionsOfProfileTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listVersionsOfProfileTemplateOptionsModel).ToNot(BeNil())
+				Expect(listVersionsOfProfileTemplateOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.Limit).To(Equal(core.StringPtr("20")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.Pagetoken).To(Equal(core.StringPtr("testString")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.Sort).To(Equal(core.StringPtr("created_at")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.Order).To(Equal(core.StringPtr("asc")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.IncludeHistory).To(Equal(core.StringPtr("false")))
+				Expect(listVersionsOfProfileTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewLockAPIKeyOptions successfully`, func() {
 				// Construct an instance of the LockAPIKeyOptions model
 				id := "testString"
@@ -9309,6 +17025,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(lockServiceIDOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(lockServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewPolicyTemplateReference successfully`, func() {
+				id := "testString"
+				version := "testString"
+				_model, err := iamIdentityService.NewPolicyTemplateReference(id, version)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewProfileClaimRuleConditions successfully`, func() {
 				claim := "testString"
 				operator := "testString"
@@ -9317,27 +17040,25 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewProfileIdentity successfully`, func() {
+			It(`Invoke NewProfileIdentityRequest successfully`, func() {
 				identifier := "testString"
 				typeVar := "user"
-				_model, err := iamIdentityService.NewProfileIdentity(identifier, typeVar)
+				_model, err := iamIdentityService.NewProfileIdentityRequest(identifier, typeVar)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewSetProfileIdentitiesOptions successfully`, func() {
-				// Construct an instance of the ProfileIdentity model
-				profileIdentityModel := new(iamidentityv1.ProfileIdentity)
-				Expect(profileIdentityModel).ToNot(BeNil())
-				profileIdentityModel.IamID = core.StringPtr("testString")
-				profileIdentityModel.Identifier = core.StringPtr("testString")
-				profileIdentityModel.Type = core.StringPtr("user")
-				profileIdentityModel.Accounts = []string{"testString"}
-				profileIdentityModel.Description = core.StringPtr("testString")
-				Expect(profileIdentityModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(profileIdentityModel.Identifier).To(Equal(core.StringPtr("testString")))
-				Expect(profileIdentityModel.Type).To(Equal(core.StringPtr("user")))
-				Expect(profileIdentityModel.Accounts).To(Equal([]string{"testString"}))
-				Expect(profileIdentityModel.Description).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				Expect(profileIdentityRequestModel).ToNot(BeNil())
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+				Expect(profileIdentityRequestModel.Identifier).To(Equal(core.StringPtr("testString")))
+				Expect(profileIdentityRequestModel.Type).To(Equal(core.StringPtr("user")))
+				Expect(profileIdentityRequestModel.Accounts).To(Equal([]string{"testString"}))
+				Expect(profileIdentityRequestModel.Description).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the SetProfileIdentitiesOptions model
 				profileID := "testString"
@@ -9345,12 +17066,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentitiesOptionsModel := iamIdentityService.NewSetProfileIdentitiesOptions(profileID, ifMatch)
 				setProfileIdentitiesOptionsModel.SetProfileID("testString")
 				setProfileIdentitiesOptionsModel.SetIfMatch("testString")
-				setProfileIdentitiesOptionsModel.SetIdentities([]iamidentityv1.ProfileIdentity{*profileIdentityModel})
+				setProfileIdentitiesOptionsModel.SetIdentities([]iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel})
 				setProfileIdentitiesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(setProfileIdentitiesOptionsModel).ToNot(BeNil())
 				Expect(setProfileIdentitiesOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(setProfileIdentitiesOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(setProfileIdentitiesOptionsModel.Identities).To(Equal([]iamidentityv1.ProfileIdentity{*profileIdentityModel}))
+				Expect(setProfileIdentitiesOptionsModel.Identities).To(Equal([]iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}))
 				Expect(setProfileIdentitiesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewSetProfileIdentityOptions successfully`, func() {
@@ -9364,7 +17085,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 				setProfileIdentityOptionsModel.SetIdentityType("user")
 				setProfileIdentityOptionsModel.SetIdentifier("testString")
 				setProfileIdentityOptionsModel.SetType("user")
-				setProfileIdentityOptionsModel.SetIamID("testString")
 				setProfileIdentityOptionsModel.SetAccounts([]string{"testString"})
 				setProfileIdentityOptionsModel.SetDescription("testString")
 				setProfileIdentityOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -9373,10 +17093,22 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(setProfileIdentityOptionsModel.IdentityType).To(Equal(core.StringPtr("user")))
 				Expect(setProfileIdentityOptionsModel.Identifier).To(Equal(core.StringPtr("testString")))
 				Expect(setProfileIdentityOptionsModel.Type).To(Equal(core.StringPtr("user")))
-				Expect(setProfileIdentityOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
 				Expect(setProfileIdentityOptionsModel.Accounts).To(Equal([]string{"testString"}))
 				Expect(setProfileIdentityOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(setProfileIdentityOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewTemplateProfileComponentRequest successfully`, func() {
+				name := "testString"
+				_model, err := iamIdentityService.NewTemplateProfileComponentRequest(name)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewTrustedProfileTemplateClaimRule successfully`, func() {
+				typeVar := "Profile-SAML"
+				conditions := []iamidentityv1.ProfileClaimRuleConditions{}
+				_model, err := iamIdentityService.NewTrustedProfileTemplateClaimRule(typeVar, conditions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUnlockAPIKeyOptions successfully`, func() {
 				// Construct an instance of the UnlockAPIKeyOptions model
@@ -9397,6 +17129,22 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(unlockServiceIDOptionsModel).ToNot(BeNil())
 				Expect(unlockServiceIDOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unlockServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateAccountSettingsAssignmentOptions successfully`, func() {
+				// Construct an instance of the UpdateAccountSettingsAssignmentOptions model
+				assignmentID := "testString"
+				ifMatch := "testString"
+				updateAccountSettingsAssignmentOptionsTemplateVersion := int64(1)
+				updateAccountSettingsAssignmentOptionsModel := iamIdentityService.NewUpdateAccountSettingsAssignmentOptions(assignmentID, ifMatch, updateAccountSettingsAssignmentOptionsTemplateVersion)
+				updateAccountSettingsAssignmentOptionsModel.SetAssignmentID("testString")
+				updateAccountSettingsAssignmentOptionsModel.SetIfMatch("testString")
+				updateAccountSettingsAssignmentOptionsModel.SetTemplateVersion(int64(1))
+				updateAccountSettingsAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateAccountSettingsAssignmentOptionsModel).ToNot(BeNil())
+				Expect(updateAccountSettingsAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsAssignmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsAssignmentOptionsModel.TemplateVersion).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(updateAccountSettingsAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAccountSettingsOptions successfully`, func() {
 				// Construct an instance of the AccountSettingsUserMfa model
@@ -9438,6 +17186,62 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateAccountSettingsOptionsModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
 				Expect(updateAccountSettingsOptionsModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("259200")))
 				Expect(updateAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateAccountSettingsTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the AccountSettingsUserMfa model
+				accountSettingsUserMfaModel := new(iamidentityv1.AccountSettingsUserMfa)
+				Expect(accountSettingsUserMfaModel).ToNot(BeNil())
+				accountSettingsUserMfaModel.IamID = core.StringPtr("testString")
+				accountSettingsUserMfaModel.Mfa = core.StringPtr("NONE")
+				Expect(accountSettingsUserMfaModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsUserMfaModel.Mfa).To(Equal(core.StringPtr("NONE")))
+
+				// Construct an instance of the AccountSettingsComponent model
+				accountSettingsComponentModel := new(iamidentityv1.AccountSettingsComponent)
+				Expect(accountSettingsComponentModel).ToNot(BeNil())
+				accountSettingsComponentModel.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+				accountSettingsComponentModel.AllowedIPAddresses = core.StringPtr("testString")
+				accountSettingsComponentModel.Mfa = core.StringPtr("NONE")
+				accountSettingsComponentModel.UserMfa = []iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}
+				accountSettingsComponentModel.SessionExpirationInSeconds = core.StringPtr("86400")
+				accountSettingsComponentModel.SessionInvalidationInSeconds = core.StringPtr("7200")
+				accountSettingsComponentModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+				accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+				Expect(accountSettingsComponentModel.RestrictCreateServiceID).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.RestrictCreatePlatformApikey).To(Equal(core.StringPtr("NOT_SET")))
+				Expect(accountSettingsComponentModel.AllowedIPAddresses).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.Mfa).To(Equal(core.StringPtr("NONE")))
+				Expect(accountSettingsComponentModel.UserMfa).To(Equal([]iamidentityv1.AccountSettingsUserMfa{*accountSettingsUserMfaModel}))
+				Expect(accountSettingsComponentModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("86400")))
+				Expect(accountSettingsComponentModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("7200")))
+				Expect(accountSettingsComponentModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
+				Expect(accountSettingsComponentModel.SystemAccessTokenExpirationInSeconds).To(Equal(core.StringPtr("3600")))
+				Expect(accountSettingsComponentModel.SystemRefreshTokenExpirationInSeconds).To(Equal(core.StringPtr("259200")))
+
+				// Construct an instance of the UpdateAccountSettingsTemplateVersionOptions model
+				ifMatch := "testString"
+				templateID := "testString"
+				version := "testString"
+				updateAccountSettingsTemplateVersionOptionsModel := iamIdentityService.NewUpdateAccountSettingsTemplateVersionOptions(ifMatch, templateID, version)
+				updateAccountSettingsTemplateVersionOptionsModel.SetIfMatch("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetTemplateID("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetVersion("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetAccountID("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetName("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetDescription("testString")
+				updateAccountSettingsTemplateVersionOptionsModel.SetAccountSettings(accountSettingsComponentModel)
+				updateAccountSettingsTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateAccountSettingsTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.AccountSettings).To(Equal(accountSettingsComponentModel))
+				Expect(updateAccountSettingsTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAPIKeyOptions successfully`, func() {
 				// Construct an instance of the UpdateAPIKeyOptions model
@@ -9541,6 +17345,88 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateProfileOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(updateProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewUpdateProfileTemplateVersionOptions successfully`, func() {
+				// Construct an instance of the ProfileClaimRuleConditions model
+				profileClaimRuleConditionsModel := new(iamidentityv1.ProfileClaimRuleConditions)
+				Expect(profileClaimRuleConditionsModel).ToNot(BeNil())
+				profileClaimRuleConditionsModel.Claim = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Operator = core.StringPtr("testString")
+				profileClaimRuleConditionsModel.Value = core.StringPtr("testString")
+				Expect(profileClaimRuleConditionsModel.Claim).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Operator).To(Equal(core.StringPtr("testString")))
+				Expect(profileClaimRuleConditionsModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TrustedProfileTemplateClaimRule model
+				trustedProfileTemplateClaimRuleModel := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+				Expect(trustedProfileTemplateClaimRuleModel).ToNot(BeNil())
+				trustedProfileTemplateClaimRuleModel.Name = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Type = core.StringPtr("Profile-SAML")
+				trustedProfileTemplateClaimRuleModel.RealmName = core.StringPtr("testString")
+				trustedProfileTemplateClaimRuleModel.Expiration = core.Int64Ptr(int64(38))
+				trustedProfileTemplateClaimRuleModel.Conditions = []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}
+				Expect(trustedProfileTemplateClaimRuleModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Type).To(Equal(core.StringPtr("Profile-SAML")))
+				Expect(trustedProfileTemplateClaimRuleModel.RealmName).To(Equal(core.StringPtr("testString")))
+				Expect(trustedProfileTemplateClaimRuleModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(trustedProfileTemplateClaimRuleModel.Conditions).To(Equal([]iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditionsModel}))
+
+				// Construct an instance of the ProfileIdentityRequest model
+				profileIdentityRequestModel := new(iamidentityv1.ProfileIdentityRequest)
+				Expect(profileIdentityRequestModel).ToNot(BeNil())
+				profileIdentityRequestModel.Identifier = core.StringPtr("testString")
+				profileIdentityRequestModel.Type = core.StringPtr("user")
+				profileIdentityRequestModel.Accounts = []string{"testString"}
+				profileIdentityRequestModel.Description = core.StringPtr("testString")
+				Expect(profileIdentityRequestModel.Identifier).To(Equal(core.StringPtr("testString")))
+				Expect(profileIdentityRequestModel.Type).To(Equal(core.StringPtr("user")))
+				Expect(profileIdentityRequestModel.Accounts).To(Equal([]string{"testString"}))
+				Expect(profileIdentityRequestModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the TemplateProfileComponentRequest model
+				templateProfileComponentRequestModel := new(iamidentityv1.TemplateProfileComponentRequest)
+				Expect(templateProfileComponentRequestModel).ToNot(BeNil())
+				templateProfileComponentRequestModel.Name = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Description = core.StringPtr("testString")
+				templateProfileComponentRequestModel.Rules = []iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}
+				templateProfileComponentRequestModel.Identities = []iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}
+				Expect(templateProfileComponentRequestModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(templateProfileComponentRequestModel.Rules).To(Equal([]iamidentityv1.TrustedProfileTemplateClaimRule{*trustedProfileTemplateClaimRuleModel}))
+				Expect(templateProfileComponentRequestModel.Identities).To(Equal([]iamidentityv1.ProfileIdentityRequest{*profileIdentityRequestModel}))
+
+				// Construct an instance of the PolicyTemplateReference model
+				policyTemplateReferenceModel := new(iamidentityv1.PolicyTemplateReference)
+				Expect(policyTemplateReferenceModel).ToNot(BeNil())
+				policyTemplateReferenceModel.ID = core.StringPtr("testString")
+				policyTemplateReferenceModel.Version = core.StringPtr("testString")
+				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the UpdateProfileTemplateVersionOptions model
+				ifMatch := "testString"
+				templateID := "testString"
+				version := "testString"
+				updateProfileTemplateVersionOptionsModel := iamIdentityService.NewUpdateProfileTemplateVersionOptions(ifMatch, templateID, version)
+				updateProfileTemplateVersionOptionsModel.SetIfMatch("testString")
+				updateProfileTemplateVersionOptionsModel.SetTemplateID("testString")
+				updateProfileTemplateVersionOptionsModel.SetVersion("testString")
+				updateProfileTemplateVersionOptionsModel.SetAccountID("testString")
+				updateProfileTemplateVersionOptionsModel.SetName("testString")
+				updateProfileTemplateVersionOptionsModel.SetDescription("testString")
+				updateProfileTemplateVersionOptionsModel.SetProfile(templateProfileComponentRequestModel)
+				updateProfileTemplateVersionOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				updateProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateProfileTemplateVersionOptionsModel).ToNot(BeNil())
+				Expect(updateProfileTemplateVersionOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(updateProfileTemplateVersionOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
+				Expect(updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(updateProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewUpdateServiceIDOptions successfully`, func() {
 				// Construct an instance of the UpdateServiceIDOptions model
 				id := "testString"
@@ -9559,6 +17445,22 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateServiceIDOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(updateServiceIDOptionsModel.UniqueInstanceCrns).To(Equal([]string{"testString"}))
 				Expect(updateServiceIDOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateTrustedProfileAssignmentOptions successfully`, func() {
+				// Construct an instance of the UpdateTrustedProfileAssignmentOptions model
+				assignmentID := "testString"
+				ifMatch := "testString"
+				updateTrustedProfileAssignmentOptionsTemplateVersion := int64(1)
+				updateTrustedProfileAssignmentOptionsModel := iamIdentityService.NewUpdateTrustedProfileAssignmentOptions(assignmentID, ifMatch, updateTrustedProfileAssignmentOptionsTemplateVersion)
+				updateTrustedProfileAssignmentOptionsModel.SetAssignmentID("testString")
+				updateTrustedProfileAssignmentOptionsModel.SetIfMatch("testString")
+				updateTrustedProfileAssignmentOptionsModel.SetTemplateVersion(int64(1))
+				updateTrustedProfileAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateTrustedProfileAssignmentOptionsModel).ToNot(BeNil())
+				Expect(updateTrustedProfileAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateTrustedProfileAssignmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateTrustedProfileAssignmentOptionsModel.TemplateVersion).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(updateTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})
