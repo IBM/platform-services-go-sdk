@@ -1,3 +1,10 @@
+# [0.43.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.1...v0.43.0) (2023-08-09)
+
+
+### Features
+
+* **IAM Policy Management:** re-gen service after recent API changes,… ([#259](https://github.com/IBM/platform-services-go-sdk/issues/259)) ([2837a98](https://github.com/IBM/platform-services-go-sdk/commit/2837a9840c828bafbbca2410485a8678f06ba7c8))
+
 ## [0.42.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.0...v0.42.1) (2023-08-08)
 
 
