@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,13 +56,18 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		config                     map[string]string
 		configLoaded               bool = false
 
-		exampleUserID         = "IBMid-user1"
-		exampleServiceName    = "iam-groups"
-		exampleAccountID      string
-		examplePolicyID       string
-		examplePolicyETag     string
-		exampleCustomRoleID   string
-		exampleCustomRoleETag string
+		exampleUserID                = "IBMid-user1"
+		exampleServiceName           = "iam-groups"
+		exampleAccountID             string
+		examplePolicyID              string
+		examplePolicyETag            string
+		exampleCustomRoleID          string
+		exampleCustomRoleETag        string
+		examplePolicyTemplateName    = "PolicySampleTemplateTest"
+		examplePolicyTemplateID      string
+		examplePolicyTemplateETag    string
+		examplePolicyTemplateVersion string
+		testPolicyAssignmentId       string
 	)
 
 	var shouldSkipTest = func() {
@@ -676,5 +681,400 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
+		It(`ListPolicyTemplates request example`, func() {
+			fmt.Println("\nListPolicyTemplates() result:")
+			// begin-list_policy_templates
+
+			listPolicyTemplatesOptions := iamPolicyManagementService.NewListPolicyTemplatesOptions(
+				exampleAccountID,
+			)
+
+			policyTemplateCollection, response, err := iamPolicyManagementService.ListPolicyTemplates(listPolicyTemplatesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplateCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_policy_templates
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplateCollection).ToNot(BeNil())
+		})
+		It(`CreatePolicyTemplate request example`, func() {
+			fmt.Println("\nCreatePolicyTemplate() result:")
+			// begin-create_policy_template
+
+			policyRole := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
+			}
+			v2PolicyGrant := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*policyRole},
+			}
+			v2PolicyControl := &iampolicymanagementv1.Control{
+				Grant: v2PolicyGrant,
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("iam-access-management"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
+					*serviceNameResourceAttribute},
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Test Template"),
+				Resource:    policyResource,
+				Control:     v2PolicyControl,
+			}
+
+			createPolicyTemplateOptions := iamPolicyManagementService.NewCreatePolicyTemplateOptions(
+				examplePolicyTemplateName,
+				exampleAccountID,
+				templatePolicyModel,
+			)
+
+			policyTemplate, response, err := iamPolicyManagementService.CreatePolicyTemplate(createPolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			examplePolicyTemplateID = *policyTemplate.ID
+
+		})
+		It(`GetPolicyTemplate request example`, func() {
+			fmt.Println("\nGetPolicyTemplate() result:")
+			// begin-get_policy_template
+
+			getPolicyTemplateOptions := iamPolicyManagementService.NewGetPolicyTemplateOptions(
+				examplePolicyTemplateID,
+			)
+
+			policyTemplate, response, err := iamPolicyManagementService.GetPolicyTemplate(getPolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate.AccountID).ToNot(BeNil())
+			Expect(policyTemplate.Version).ToNot(BeNil())
+			Expect(policyTemplate.Name).ToNot(BeNil())
+			Expect(policyTemplate.Policy).ToNot(BeNil())
+
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
+
+		})
+
+		It(`CreatePolicyTemplateVersion request example`, func() {
+			fmt.Println("\nCreatePolicyTemplateVersion() result:")
+			// begin-create_policy_template_version
+
+			v2PolicyGrant := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{
+					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer")},
+					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Administrator")},
+				},
+			}
+
+			v2PolicyControl := &iampolicymanagementv1.Control{
+				Grant: v2PolicyGrant,
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("watson"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
+					*serviceNameResourceAttribute},
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Test Template v2"),
+				Resource:    policyResource,
+				Control:     v2PolicyControl,
+			}
+
+			createPolicyTemplateVersionOptions := iamPolicyManagementService.NewCreatePolicyTemplateVersionOptions(
+				examplePolicyTemplateID,
+				templatePolicyModel,
+			)
+
+			policyTemplate, response, err := iamPolicyManagementService.CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_policy_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			examplePolicyTemplateVersion = *policyTemplate.Version
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
+
+		})
+
+		It(`ListPolicyTemplateVersions request example`, func() {
+			fmt.Println("\nListPolicyTemplateVersions() result:")
+			// begin-list_policy_template_versions
+
+			listPolicyTemplateVersionsOptions := iamPolicyManagementService.NewListPolicyTemplateVersionsOptions(
+				examplePolicyTemplateID,
+			)
+
+			policyTemplateVersionsCollection, response, err := iamPolicyManagementService.ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplateVersionsCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_policy_template_versions
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplateVersionsCollection).ToNot(BeNil())
+		})
+
+		It(`ReplacePolicyTemplate request example`, func() {
+			fmt.Println("\nReplacePolicyTemplate() result:")
+			// begin-replace_policy_template
+			v2PolicyGrant := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{
+					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer")},
+					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Administrator")},
+				},
+			}
+
+			v2PolicyControl := &iampolicymanagementv1.Control{
+				Grant: v2PolicyGrant,
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("watson"),
+			}
+			policyResource := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
+					*serviceNameResourceAttribute},
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Test Template v2"),
+				Resource:    policyResource,
+				Control:     v2PolicyControl,
+			}
+
+			replacePolicyTemplateOptions := iamPolicyManagementService.NewReplacePolicyTemplateOptions(
+				examplePolicyTemplateID,
+				examplePolicyTemplateVersion,
+				examplePolicyTemplateETag,
+				templatePolicyModel,
+			)
+
+			policyTemplate, response, err := iamPolicyManagementService.ReplacePolicyTemplate(replacePolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-replace_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			examplePolicyTemplateVersion = *policyTemplate.Version
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
+		})
+		It(`GetPolicyTemplateVersion request example`, func() {
+			fmt.Println("\nGetPolicyTemplateVersion() result:")
+			// begin-get_policy_template_version
+
+			getPolicyTemplateVersionOptions := iamPolicyManagementService.NewGetPolicyTemplateVersionOptions(
+				examplePolicyTemplateID,
+				examplePolicyTemplateVersion,
+			)
+
+			policyTemplate, response, err := iamPolicyManagementService.GetPolicyTemplateVersion(getPolicyTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+		})
+
+		It(`CommitPolicyTemplate request example`, func() {
+			fmt.Println("\nCommitPolicyTemplate() result:")
+			// begin-commit_policy_template
+
+			commitPolicyTemplateOptions := iamPolicyManagementService.NewCommitPolicyTemplateOptions(
+				examplePolicyTemplateID,
+				examplePolicyTemplateVersion,
+				examplePolicyTemplateETag,
+			)
+
+			response, err := iamPolicyManagementService.CommitPolicyTemplate(commitPolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from CommitPolicyTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-commit_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`ListPolicyAssignments request example`, func() {
+			fmt.Println("\nListPolicyAssignments() result:")
+			// begin-list_Policy Assignments
+
+			listPolicyAssignmentsOptions := iamPolicyManagementService.NewListPolicyAssignmentsOptions(
+				exampleAccountID,
+			)
+
+			polcyTemplateAssignmentCollection, response, err := iamPolicyManagementService.ListPolicyAssignments(listPolicyAssignmentsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(polcyTemplateAssignmentCollection, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_Policy Assignments
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(polcyTemplateAssignmentCollection).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].TemplateID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].TargetType).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].TemplateVersion).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].Target).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].AssignmentID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].Options).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].Status).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].AccountID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].Resources).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].CreatedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].CreatedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].LastModifiedAt).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].LastModifiedByID).ToNot(BeNil())
+			Expect(polcyTemplateAssignmentCollection.Assignments[0].Href).ToNot(BeNil())
+
+			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.Assignments[0].ID
+		})
+
+		It(`GetPolicyAssignment request example`, func() {
+			fmt.Println("\nGetPolicyAssignment() result:")
+			// begin-get_policy_assignment
+
+			getPolicyAssignmentOptions := iamPolicyManagementService.NewGetPolicyAssignmentOptions(
+				testPolicyAssignmentId,
+			)
+
+			policyAssignmentRecord, response, err := iamPolicyManagementService.GetPolicyAssignment(getPolicyAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policyAssignmentRecord, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy_assignment
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyAssignmentRecord).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TargetType).ToNot(BeNil())
+			Expect(policyAssignmentRecord.TemplateVersion).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Target).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AssignmentID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Options).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Status).ToNot(BeNil())
+			Expect(policyAssignmentRecord.AccountID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Resources).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.CreatedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
+			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
+			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
+		})
+
+		It(`DeletePolicyTemplateVersion request example`, func() {
+			// begin-delete_policy_template_version
+
+			deletePolicyTemplateVersionOptions := iamPolicyManagementService.NewDeletePolicyTemplateVersionOptions(
+				examplePolicyTemplateID,
+				examplePolicyTemplateVersion,
+			)
+
+			response, err := iamPolicyManagementService.DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeletePolicyTemplateVersion(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_policy_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
+		It(`DeletePolicyTemplate request example`, func() {
+			// begin-delete_policy_template
+
+			deletePolicyTemplateOptions := iamPolicyManagementService.NewDeletePolicyTemplateOptions(
+				examplePolicyTemplateID,
+			)
+
+			response, err := iamPolicyManagementService.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeletePolicyTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_policy_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
 	})
 })
