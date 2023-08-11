@@ -1,8 +1,7 @@
 //go:build examples
-// +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +22,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
@@ -30,7 +30,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the iam-access-groups service.
 //
 // The following configuration properties are assumed to be defined:
@@ -42,7 +41,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../iam_access_groups_v2.env"
@@ -52,12 +50,19 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 		config                 map[string]string
 
 		// Variables to hold link values
-		accessGroupETagLink string
-		accessGroupIDLink   string
-		testAccountID       string
-		testProfileID       string
-		testClaimRuleID     string
-		testClaimRuleEtag   string
+		accessGroupETagLink           string
+		accessGroupIDLink             string
+		testAccountID                 string
+		testProfileID                 string
+		testClaimRuleID               string
+		testClaimRuleEtag             string
+		testPolicyTemplateID          string
+		testAccountGroupID            string
+		testTemplateId                string
+		testTemplateVersionEtag       string
+		testTemplateLatestVersionEtag string
+		testAssignmentID              string
+		testAssignmentEtag            string
 	)
 
 	var shouldSkipTest = func() {
@@ -82,6 +87,8 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testProfileID = config["TEST_PROFILE_ID"]
+			testPolicyTemplateID = config["TEST_POLICY_TEMPLATE_ID"]
+			testAccountGroupID = config["TEST_ACCOUNT_GROUP_ID"]
 			shouldSkipTest = func() {}
 		})
 	})
@@ -592,7 +599,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(accountSettings).ToNot(BeNil())
 
 		})
-
 		It(`DeleteAccessGroup request example`, func() {
 			// begin-delete_access_group
 
@@ -614,5 +620,531 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
+		It(`CreateTemplate request example`, func() {
+			fmt.Println("\nCreateTemplate() result:")
+			// begin-create_template
+
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-50PJGPKYJJ", "IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr(`"test-bluegroup-saml"`),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
+				Remove: core.BoolPtr(false),
+				Update: core.BoolPtr(false),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:           core.StringPtr("Manager group rule"),
+				Expiration:     core.Int64Ptr(int64(12)),
+				RealmName:      core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions:     []iamaccessgroupsv2.Conditions{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add:    core.BoolPtr(false),
+				Remove: core.BoolPtr(true),
+				Update: core.BoolPtr(true),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateOptions := iamAccessGroupsService.NewCreateTemplateOptions(
+				"IAM Admin Group template",
+				testAccountID,
+			)
+			createTemplateOptions.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+			createTemplateOptions.SetGroup(accessGroupInputModel)
+			createTemplateOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel})
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplate(createTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_template
+			testTemplateId = *createTemplateResponse.ID
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`ListTemplates request example`, func() {
+			fmt.Println("\nListTemplates() result:")
+			// begin-list_templates
+
+			listTemplatesOptions := &iamaccessgroupsv2.ListTemplatesOptions{
+				AccountID:     &testAccountID,
+				TransactionID: core.StringPtr("testString"),
+				Limit:         core.Int64Ptr(int64(50)),
+				Verbose:       core.BoolPtr(true),
+			}
+
+			pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iamaccessgroupsv2.GroupTemplate
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_templates
+		})
+		It(`CreateTemplateVersion request example`, func() {
+			fmt.Println("\nCreateTemplateVersion() result:")
+			// begin-create_template_version
+
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-50PJGPKYJJ", "IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr(`"test-bluegroup-saml"`),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:       core.StringPtr("Manager group rule"),
+				Expiration: core.Int64Ptr(int64(12)),
+				RealmName:  core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions: []iamaccessgroupsv2.Conditions{*conditionInputModel},
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group 8"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			createTemplateVersionOptions := iamAccessGroupsService.NewCreateTemplateVersionOptions(
+				testTemplateId,
+			)
+			createTemplateVersionOptions.SetName("IAM Admin Group template 2")
+			createTemplateVersionOptions.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+			createTemplateVersionOptions.SetGroup(accessGroupInputModel)
+			createTemplateVersionOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel})
+
+			createTemplateResponse, response, err := iamAccessGroupsService.CreateTemplateVersion(createTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`ListTemplateVersions request example`, func() {
+			fmt.Println("\nListTemplateVersions() result:")
+			// begin-list_template_versions
+
+			listTemplateVersionsOptions := &iamaccessgroupsv2.ListTemplateVersionsOptions{
+				TemplateID: &testTemplateId,
+				Limit:      core.Int64Ptr(int64(100)),
+			}
+
+			pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []iamaccessgroupsv2.ListTemplateVersionResponse
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_template_versions
+		})
+		It(`GetTemplateVersion request example`, func() {
+			fmt.Println("\nGetTemplateVersion() result:")
+			// begin-get_template_version
+
+			getTemplateVersionOptions := iamAccessGroupsService.NewGetTemplateVersionOptions(
+				testTemplateId,
+				"2",
+			)
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetTemplateVersion(getTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_template_version
+			testTemplateVersionEtag = response.Headers.Get("ETag")
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`UpdateTemplateVersion request example`, func() {
+			fmt.Println("\nUpdateTemplateVersion() result:")
+			// begin-update_template_version
+
+			membersActionControlsModel := &iamaccessgroupsv2.MembersActionControls{
+				Add:    core.BoolPtr(true),
+				Remove: core.BoolPtr(false),
+			}
+
+			membersInputModel := &iamaccessgroupsv2.Members{
+				Users:          []string{"IBMid-665000T8WY"},
+				ActionControls: membersActionControlsModel,
+			}
+
+			conditionInputModel := &iamaccessgroupsv2.Conditions{
+				Claim:    core.StringPtr("blueGroup"),
+				Operator: core.StringPtr("CONTAINS"),
+				Value:    core.StringPtr(`"test-bluegroup-saml"`),
+			}
+
+			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
+				Remove: core.BoolPtr(false),
+				Update: core.BoolPtr(false),
+			}
+
+			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
+				Name:           core.StringPtr("Manager group rule"),
+				Expiration:     core.Int64Ptr(int64(12)),
+				RealmName:      core.StringPtr("https://idp.example.org/SAML2"),
+				Conditions:     []iamaccessgroupsv2.Conditions{*conditionInputModel},
+				ActionControls: rulesActionControlsModel,
+			}
+
+			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			assertionsInputModel := &iamaccessgroupsv2.Assertions{
+				Rules:          []iamaccessgroupsv2.AssertionsRule{*ruleInputModel},
+				ActionControls: assertionsActionControlsModel,
+			}
+
+			accessActionControlsModel := &iamaccessgroupsv2.AccessActionControls{
+				Add: core.BoolPtr(false),
+			}
+
+			groupActionControlsModel := &iamaccessgroupsv2.GroupActionControls{
+				Access: accessActionControlsModel,
+			}
+
+			accessGroupInputModel := &iamaccessgroupsv2.AccessGroupRequest{
+				Name:           core.StringPtr("IAM Admin Group 8"),
+				Description:    core.StringPtr("This access group template allows admin access to all IAM platform services in the account."),
+				Members:        membersInputModel,
+				Assertions:     assertionsInputModel,
+				ActionControls: groupActionControlsModel,
+			}
+
+			policyTemplatesInputModel := &iamaccessgroupsv2.PolicyTemplates{
+				ID:      &testPolicyTemplateID,
+				Version: core.StringPtr("1"),
+			}
+
+			updateTemplateVersionOptions := iamAccessGroupsService.NewUpdateTemplateVersionOptions(
+				testTemplateId,
+				"2",
+				testTemplateVersionEtag,
+			)
+			updateTemplateVersionOptions.SetName("IAM Admin Group template 2")
+			updateTemplateVersionOptions.SetDescription("This access group template allows admin access to all IAM platform services in the account.")
+			updateTemplateVersionOptions.SetGroup(accessGroupInputModel)
+			updateTemplateVersionOptions.SetPolicyTemplateReferences([]iamaccessgroupsv2.PolicyTemplates{*policyTemplatesInputModel})
+			updateTemplateVersionOptions.SetTransactionID("83adf5bd-de790caa3")
+
+			createTemplateResponse, response, err := iamAccessGroupsService.UpdateTemplateVersion(updateTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`GetLatestTemplateVersion request example`, func() {
+			fmt.Println("\nGetLatestTemplateVersion() result:")
+			// begin-get_latest_template_version
+
+			getLatestTemplateVersionOptions := iamAccessGroupsService.NewGetLatestTemplateVersionOptions(
+				testTemplateId,
+			)
+
+			createTemplateResponse, response, err := iamAccessGroupsService.GetLatestTemplateVersion(getLatestTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTemplateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_latest_template_version
+			testTemplateLatestVersionEtag = response.Headers.Get("ETag")
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTemplateResponse).ToNot(BeNil())
+		})
+		It(`CommitTemplate request example`, func() {
+			// begin-commit_template
+
+			commitTemplateOptions := iamAccessGroupsService.NewCommitTemplateOptions(
+				testTemplateId,
+				"2",
+				testTemplateLatestVersionEtag,
+			)
+
+			response, err := iamAccessGroupsService.CommitTemplate(commitTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from CommitTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-commit_template
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`CreateAssignment request example`, func() {
+			fmt.Println("\nCreateAssignment() result:")
+			// begin-create_assignment
+
+			createAssignmentOptions := iamAccessGroupsService.NewCreateAssignmentOptions(
+				testTemplateId,
+				"2",
+				"AccountGroup",
+				testAccountGroupID,
+			)
+
+			templateCreateAssignmentResponse, response, err := iamAccessGroupsService.CreateAssignment(createAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(templateCreateAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_assignment
+			time.Sleep(60 * time.Second)
+			testAssignmentID = *templateCreateAssignmentResponse.ID
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(templateCreateAssignmentResponse).ToNot(BeNil())
+		})
+		It(`ListAssignments request example`, func() {
+			fmt.Println("\nListAssignments() result:")
+			// begin-list_assignments
+
+			listAssignmentsOptions := iamAccessGroupsService.NewListAssignmentsOptions(
+				testAccountID,
+			)
+
+			templatesListAssignmentResponse, response, err := iamAccessGroupsService.ListAssignments(listAssignmentsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(templatesListAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_assignments
+			time.Sleep(60 * time.Second)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(templatesListAssignmentResponse).ToNot(BeNil())
+		})
+		It(`GetAssignment request example`, func() {
+			fmt.Println("\nGetAssignment() result:")
+			// begin-get_assignment
+
+			getAssignmentOptions := iamAccessGroupsService.NewGetAssignmentOptions(
+				testAssignmentID,
+			)
+
+			getTemplateAssignmentResponse, response, err := iamAccessGroupsService.GetAssignment(getAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(getTemplateAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_assignment
+			testAssignmentEtag = response.Headers.Get("ETag")
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(getTemplateAssignmentResponse).ToNot(BeNil())
+		})
+
+		It(`UpdateAssignment request example`, func() {
+			fmt.Println("\nUpdateAssignment() result:")
+			// begin-update_assignment
+
+			updateAssignmentOptions := iamAccessGroupsService.NewUpdateAssignmentOptions(
+				testAssignmentID,
+				testAssignmentEtag,
+				"2",
+			)
+
+			getTemplateAssignmentResponse, response, err := iamAccessGroupsService.UpdateAssignment(updateAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(getTemplateAssignmentResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_assignment
+			time.Sleep(90 * time.Second)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(getTemplateAssignmentResponse).ToNot(BeNil())
+		})
+		It(`DeleteAssignment request example`, func() {
+			// begin-delete_assignment
+
+			deleteAssignmentOptions := iamAccessGroupsService.NewDeleteAssignmentOptions(
+				testAssignmentID,
+			)
+
+			response, err := iamAccessGroupsService.DeleteAssignment(deleteAssignmentOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 202 {
+				fmt.Printf("\nUnexpected response status code received from DeleteAssignment(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_assignment
+			time.Sleep(90 * time.Second)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+		It(`DeleteTemplateVersion request example`, func() {
+			// begin-delete_template_version
+
+			deleteTemplateVersionOptions := iamAccessGroupsService.NewDeleteTemplateVersionOptions(
+				testTemplateId,
+				"1",
+			)
+
+			response, err := iamAccessGroupsService.DeleteTemplateVersion(deleteTemplateVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTemplateVersion(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_template_version
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteTemplate request example`, func() {
+			// begin-delete_template
+
+			deleteTemplateOptions := iamAccessGroupsService.NewDeleteTemplateOptions(
+				testTemplateId,
+			)
+
+			response, err := iamAccessGroupsService.DeleteTemplate(deleteTemplateOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteTemplate(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_template
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+
 	})
 })
