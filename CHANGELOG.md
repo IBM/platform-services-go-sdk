@@ -1,3 +1,10 @@
+# [0.44.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.43.0...v0.44.0) (2023-08-12)
+
+
+### Features
+
+* **IAM Access Groups:** add support for access group templates ([#266](https://github.com/IBM/platform-services-go-sdk/issues/266)) ([afe6400](https://github.com/IBM/platform-services-go-sdk/commit/afe64000d437482a058d52340e644721a011d73b))
+
 # [0.43.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.1...v0.43.0) (2023-08-09)
 
 
