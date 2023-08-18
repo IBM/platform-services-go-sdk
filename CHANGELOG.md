@@ -1,3 +1,10 @@
+# [0.46.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.45.0...v0.46.0) (2023-08-18)
+
+
+### Features
+
+* bump Go versions ([#271](https://github.com/IBM/platform-services-go-sdk/issues/271)) ([d5e0092](https://github.com/IBM/platform-services-go-sdk/commit/d5e009266f93f130743de2a9e91d38219508d3c6))
+
 # [0.45.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.44.0...v0.45.0) (2023-08-15)
 
 
