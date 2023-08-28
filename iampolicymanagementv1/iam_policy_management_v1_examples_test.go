@@ -68,6 +68,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		examplePolicyTemplateETag    string
 		examplePolicyTemplateVersion string
 		testPolicyAssignmentId       string
+		assignmentPolicyID           string
 	)
 
 	var shouldSkipTest = func() {
@@ -941,7 +942,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			commitPolicyTemplateOptions := iamPolicyManagementService.NewCommitPolicyTemplateOptions(
 				examplePolicyTemplateID,
 				examplePolicyTemplateVersion,
-				examplePolicyTemplateETag,
 			)
 
 			response, err := iamPolicyManagementService.CommitPolicyTemplate(commitPolicyTemplateOptions)
@@ -1031,6 +1031,35 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
 			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
 			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
+			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
+		})
+
+		It(`GetV2Policy to get Template meta data request example`, func() {
+			fmt.Println("\nGetV2Policy() result:")
+			// begin-get_v2_policy template metadata
+
+			options := iamPolicyManagementService.NewGetV2PolicyOptions(
+				assignmentPolicyID,
+			)
+
+			policy, response, err := iamPolicyManagementService.GetV2Policy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_v2_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			Expect(policy.Template).ToNot(BeNil())
+			Expect(policy.Template.ID).ToNot(BeNil())
+			Expect(policy.Template.Version).ToNot(BeNil())
+			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+			Expect(policy.Template.RootID).ToNot(BeNil())
+			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 
 		It(`DeletePolicyTemplateVersion request example`, func() {

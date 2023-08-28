@@ -1,3 +1,10 @@
+# [0.47.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.46.0...v0.47.0) (2023-08-28)
+
+
+### Features
+
+* **IAM Policy Management:** fix  template metadata as part of policies ([#274](https://github.com/IBM/platform-services-go-sdk/issues/274)) ([542046f](https://github.com/IBM/platform-services-go-sdk/commit/542046f552aa1cbbdd744d5549f9357020840ff5))
+
 # [0.46.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.45.0...v0.46.0) (2023-08-18)
 
 
