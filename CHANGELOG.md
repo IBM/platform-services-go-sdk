@@ -1,3 +1,31 @@
+# [0.46.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.45.0...v0.46.0) (2023-08-18)
+
+
+### Features
+
+* bump Go versions ([#271](https://github.com/IBM/platform-services-go-sdk/issues/271)) ([d5e0092](https://github.com/IBM/platform-services-go-sdk/commit/d5e009266f93f130743de2a9e91d38219508d3c6))
+
+# [0.45.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.44.0...v0.45.0) (2023-08-15)
+
+
+### Features
+
+* **Catalog Management:** re-gen service after recent API changes ([#270](https://github.com/IBM/platform-services-go-sdk/issues/270)) ([a6f2d0b](https://github.com/IBM/platform-services-go-sdk/commit/a6f2d0b8793f052132b2f44a7a39810573dca2d1))
+
+# [0.44.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.43.0...v0.44.0) (2023-08-12)
+
+
+### Features
+
+* **IAM Access Groups:** add support for access group templates ([#266](https://github.com/IBM/platform-services-go-sdk/issues/266)) ([afe6400](https://github.com/IBM/platform-services-go-sdk/commit/afe64000d437482a058d52340e644721a011d73b))
+
+# [0.43.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.1...v0.43.0) (2023-08-09)
+
+
+### Features
+
+* **IAM Policy Management:** re-gen service after recent API changes,… ([#259](https://github.com/IBM/platform-services-go-sdk/issues/259)) ([2837a98](https://github.com/IBM/platform-services-go-sdk/commit/2837a9840c828bafbbca2410485a8678f06ba7c8))
+
 ## [0.42.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.42.0...v0.42.1) (2023-08-08)
 
 

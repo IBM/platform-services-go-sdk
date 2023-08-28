@@ -589,33 +589,84 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
 			}
 
-			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
-				Type: core.StringPtr("testString"),
-			}
-
-			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+			sccProfileModel := &catalogmanagementv1.SccProfile{
 				ID:          core.StringPtr("testString"),
-				ExternalID:  core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Version:     core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
 				UIHref:      core.StringPtr("testString"),
 			}
 
-			goalModel := &catalogmanagementv1.Goal{
+			claimedControlModel := &catalogmanagementv1.ClaimedControl{
+				Profile: sccProfileModel,
+				Names:   []string{"testString"},
+			}
+
+			claimsModel := &catalogmanagementv1.Claims{
+				Profiles: []catalogmanagementv1.SccProfile{*sccProfileModel},
+				Controls: []catalogmanagementv1.ClaimedControl{*claimedControlModel},
+			}
+
+			resultModel := &catalogmanagementv1.Result{
+				FailureCount:       core.Int64Ptr(int64(38)),
+				ScanTime:           CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ErrorMessage:       core.StringPtr("testString"),
+				CompleteScan:       core.BoolPtr(true),
+				UnscannedResources: []string{"testString"},
+			}
+
+			sccAssessmentModel := &catalogmanagementv1.SccAssessment{
 				ID:          core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
+				Version:     core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				Method:      core.StringPtr("testString"),
 				UIHref:      core.StringPtr("testString"),
 			}
 
-			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
-				Certified: core.BoolPtr(true),
-				Results:   make(map[string]interface{}),
+			sccSpecificationModel := &catalogmanagementv1.SccSpecification{
+				ID:            core.StringPtr("testString"),
+				Description:   core.StringPtr("testString"),
+				ComponentName: core.StringPtr("testString"),
+				Assessments:   []catalogmanagementv1.SccAssessment{*sccAssessmentModel},
+				UIHref:        core.StringPtr("testString"),
 			}
 
-			complianceModel := &catalogmanagementv1.ComplianceControl{
-				SccProfile: complianceControlSCCProfileModel,
-				Family:     complianceControlFamilyModel,
-				Goals:      []catalogmanagementv1.Goal{*goalModel},
-				Validation: complianceControlValidationModel,
+			sccControlModel := &catalogmanagementv1.SccControl{
+				ID:             core.StringPtr("testString"),
+				Name:           core.StringPtr("testString"),
+				Version:        core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+				Profile:        sccProfileModel,
+				ParentName:     core.StringPtr("testString"),
+				Specifications: []catalogmanagementv1.SccSpecification{*sccSpecificationModel},
+				UIHref:         core.StringPtr("testString"),
+			}
+
+			evaluatedControlModel := &catalogmanagementv1.EvaluatedControl{
+				ID:             core.StringPtr("testString"),
+				Name:           core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+				Specifications: []catalogmanagementv1.SccSpecification{*sccSpecificationModel},
+				FailureCount:   core.Int64Ptr(int64(38)),
+				PassCount:      core.Int64Ptr(int64(38)),
+				Parent:         sccControlModel,
+				UIHref:         core.StringPtr("testString"),
+			}
+
+			evaluationModel := &catalogmanagementv1.Evaluation{
+				ScanID:    core.StringPtr("testString"),
+				AccountID: core.StringPtr("testString"),
+				Profile:   sccProfileModel,
+				Result:    resultModel,
+				Controls:  []catalogmanagementv1.EvaluatedControl{*evaluatedControlModel},
+			}
+
+			complianceModel := &catalogmanagementv1.Compliance{
+				Authority:   core.StringPtr("testString"),
+				Claims:      claimsModel,
+				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
 			versionModel := &catalogmanagementv1.Version{
@@ -655,33 +706,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				DeprecatePending:    deprecatePendingModel,
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
-				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
-			}
-
-			deploymentModel := &catalogmanagementv1.Deployment{
-				ID:               core.StringPtr("testString"),
-				Label:            core.StringPtr("testString"),
-				Name:             core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription:  core.StringPtr("testString"),
-				Metadata:         make(map[string]interface{}),
-				Tags:             []string{"testString"},
-				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			planModel := &catalogmanagementv1.Plan{
-				ID:                 core.StringPtr("testString"),
-				Label:              core.StringPtr("testString"),
-				Name:               core.StringPtr("testString"),
-				ShortDescription:   core.StringPtr("testString"),
-				LongDescription:    core.StringPtr("testString"),
-				Metadata:           make(map[string]interface{}),
-				Tags:               []string{"testString"},
-				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
+				ComplianceV3:        complianceModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -695,7 +720,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 				Versions:           []catalogmanagementv1.Version{*versionModel},
-				Plans:              []catalogmanagementv1.Plan{*planModel},
 			}
 
 			providerInfoModel := &catalogmanagementv1.ProviderInfo{
@@ -1221,33 +1245,84 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Dependencies:         []catalogmanagementv1.OfferingReference{*dependencyModel},
 			}
 
-			complianceControlSCCProfileModel := &catalogmanagementv1.ComplianceControlSccProfile{
-				Type: core.StringPtr("testString"),
-			}
-
-			complianceControlFamilyModel := &catalogmanagementv1.ComplianceControlFamily{
+			sccProfileModel := &catalogmanagementv1.SccProfile{
 				ID:          core.StringPtr("testString"),
-				ExternalID:  core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Version:     core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
 				UIHref:      core.StringPtr("testString"),
 			}
 
-			goalModel := &catalogmanagementv1.Goal{
+			claimedControlModel := &catalogmanagementv1.ClaimedControl{
+				Profile: sccProfileModel,
+				Names:   []string{"testString"},
+			}
+
+			claimsModel := &catalogmanagementv1.Claims{
+				Profiles: []catalogmanagementv1.SccProfile{*sccProfileModel},
+				Controls: []catalogmanagementv1.ClaimedControl{*claimedControlModel},
+			}
+
+			resultModel := &catalogmanagementv1.Result{
+				FailureCount:       core.Int64Ptr(int64(38)),
+				ScanTime:           CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ErrorMessage:       core.StringPtr("testString"),
+				CompleteScan:       core.BoolPtr(true),
+				UnscannedResources: []string{"testString"},
+			}
+
+			sccAssessmentModel := &catalogmanagementv1.SccAssessment{
 				ID:          core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
+				Version:     core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				Method:      core.StringPtr("testString"),
 				UIHref:      core.StringPtr("testString"),
 			}
 
-			complianceControlValidationModel := &catalogmanagementv1.ComplianceControlValidation{
-				Certified: core.BoolPtr(true),
-				Results:   make(map[string]interface{}),
+			sccSpecificationModel := &catalogmanagementv1.SccSpecification{
+				ID:            core.StringPtr("testString"),
+				Description:   core.StringPtr("testString"),
+				ComponentName: core.StringPtr("testString"),
+				Assessments:   []catalogmanagementv1.SccAssessment{*sccAssessmentModel},
+				UIHref:        core.StringPtr("testString"),
 			}
 
-			complianceModel := &catalogmanagementv1.ComplianceControl{
-				SccProfile: complianceControlSCCProfileModel,
-				Family:     complianceControlFamilyModel,
-				Goals:      []catalogmanagementv1.Goal{*goalModel},
-				Validation: complianceControlValidationModel,
+			sccControlModel := &catalogmanagementv1.SccControl{
+				ID:             core.StringPtr("testString"),
+				Name:           core.StringPtr("testString"),
+				Version:        core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+				Profile:        sccProfileModel,
+				ParentName:     core.StringPtr("testString"),
+				Specifications: []catalogmanagementv1.SccSpecification{*sccSpecificationModel},
+				UIHref:         core.StringPtr("testString"),
+			}
+
+			evaluatedControlModel := &catalogmanagementv1.EvaluatedControl{
+				ID:             core.StringPtr("testString"),
+				Name:           core.StringPtr("testString"),
+				Description:    core.StringPtr("testString"),
+				Specifications: []catalogmanagementv1.SccSpecification{*sccSpecificationModel},
+				FailureCount:   core.Int64Ptr(int64(38)),
+				PassCount:      core.Int64Ptr(int64(38)),
+				Parent:         sccControlModel,
+				UIHref:         core.StringPtr("testString"),
+			}
+
+			evaluationModel := &catalogmanagementv1.Evaluation{
+				ScanID:    core.StringPtr("testString"),
+				AccountID: core.StringPtr("testString"),
+				Profile:   sccProfileModel,
+				Result:    resultModel,
+				Controls:  []catalogmanagementv1.EvaluatedControl{*evaluatedControlModel},
+			}
+
+			complianceModel := &catalogmanagementv1.Compliance{
+				Authority:   core.StringPtr("testString"),
+				Claims:      claimsModel,
+				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
 			versionModel := &catalogmanagementv1.Version{
@@ -1288,33 +1363,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				DeprecatePending:    deprecatePendingModel,
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
-				Compliance:          []catalogmanagementv1.ComplianceControl{*complianceModel},
-			}
-
-			deploymentModel := &catalogmanagementv1.Deployment{
-				ID:               core.StringPtr("testString"),
-				Label:            core.StringPtr("testString"),
-				Name:             core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription:  core.StringPtr("testString"),
-				Metadata:         make(map[string]interface{}),
-				Tags:             []string{"testString"},
-				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			planModel := &catalogmanagementv1.Plan{
-				ID:                 core.StringPtr("testString"),
-				Label:              core.StringPtr("testString"),
-				Name:               core.StringPtr("testString"),
-				ShortDescription:   core.StringPtr("testString"),
-				LongDescription:    core.StringPtr("testString"),
-				Metadata:           make(map[string]interface{}),
-				Tags:               []string{"testString"},
-				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
+				ComplianceV3:        complianceModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -1328,7 +1377,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 				Versions:           []catalogmanagementv1.Version{*versionModel},
-				Plans:              []catalogmanagementv1.Plan{*planModel},
 			}
 
 			providerInfoModel := &catalogmanagementv1.ProviderInfo{
@@ -2064,9 +2112,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			getOfferingUpdatesOptions := &catalogmanagementv1.GetOfferingUpdatesOptions{
 				CatalogIdentifier: &catalogIDLink,
 				OfferingID:        &offeringIDLink,
-				Kind:              core.StringPtr("testString"),
+				Kind:              core.StringPtr(formatKindTerraform),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				Target:            core.StringPtr("testString"),
+				Target:            core.StringPtr(targetKindTerraform),
 				Version:           core.StringPtr("1.0.0"),
 				ClusterID:         core.StringPtr("testString"),
 				Region:            core.StringPtr("testString"),
