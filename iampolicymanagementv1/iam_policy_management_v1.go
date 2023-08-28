@@ -5494,6 +5494,12 @@ type TemplateMetadata struct {
 
 	// policy assignment id.
 	AssignmentID *string `json:"assignment_id,omitempty"`
+
+	// orchestrator template id.
+	RootID *string `json:"root_id,omitempty"`
+
+	// orchestrator template version.
+	RootVersion *string `json:"root_version,omitempty"`
 }
 
 // UnmarshalTemplateMetadata unmarshals an instance of TemplateMetadata from the specified map of raw messages.
@@ -5508,6 +5514,14 @@ func UnmarshalTemplateMetadata(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_id", &obj.RootID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_version", &obj.RootVersion)
 	if err != nil {
 		return
 	}

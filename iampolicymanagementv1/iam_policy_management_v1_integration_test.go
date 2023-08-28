@@ -992,6 +992,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policy.Template.ID).ToNot(BeNil())
 			Expect(policy.Template.Version).ToNot(BeNil())
 			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+			Expect(policy.Template.RootID).ToNot(BeNil())
+			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 	})
 

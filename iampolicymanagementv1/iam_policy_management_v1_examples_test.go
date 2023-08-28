@@ -1058,6 +1058,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policy.Template.ID).ToNot(BeNil())
 			Expect(policy.Template.Version).ToNot(BeNil())
 			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+			Expect(policy.Template.RootID).ToNot(BeNil())
+			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 
 		It(`DeletePolicyTemplateVersion request example`, func() {
