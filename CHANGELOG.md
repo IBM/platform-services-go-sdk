@@ -1,3 +1,10 @@
+## [0.47.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.47.0...v0.47.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* enable builds on windows ([#273](https://github.com/IBM/platform-services-go-sdk/issues/273)) ([b39d2d5](https://github.com/IBM/platform-services-go-sdk/commit/b39d2d53b2b58b8b2b02335f6f0d878b33e8e712))
+
 # [0.47.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.46.0...v0.47.0) (2023-08-28)
 
 
