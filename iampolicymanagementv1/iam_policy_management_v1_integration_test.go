@@ -66,6 +66,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testPolicyTemplateVersion string = ""
 		testPolicyAssignmentId    string = ""
 		examplePolicyTemplateName        = "PolicySampleTemplateTestV1"
+		assignmentPolicyID        string
 	)
 
 	var shouldSkipTest = func() {
@@ -900,7 +901,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			commitPolicyTemplateOptions := &iampolicymanagementv1.CommitPolicyTemplateOptions{
 				PolicyTemplateID: &testPolicyTemplateID,
 				Version:          &testPolicyTemplateVersion,
-				IfMatch:          &testPolicyTemplateETag,
 			}
 
 			response, err := service.CommitPolicyTemplate(commitPolicyTemplateOptions)
@@ -970,6 +970,30 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
 			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
 			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
+
+			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
+		})
+	})
+
+	Describe("GetPolicyV2 - Retrieve Policy Template MetaData created from assignment", func() {
+
+		It("Successfully retrieved a v2 access policy", func() {
+			shouldSkipTest()
+			Expect(testPolicyId).To(Not(BeNil()))
+
+			options := service.NewGetV2PolicyOptions(assignmentPolicyID)
+			policy, detailedResponse, err := service.GetV2Policy(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetV2Policy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(assignmentPolicyID))
+			Expect(policy.Template).ToNot(BeNil())
+			Expect(policy.Template.ID).ToNot(BeNil())
+			Expect(policy.Template.Version).ToNot(BeNil())
+			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+			Expect(policy.Template.RootID).ToNot(BeNil())
+			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 	})
 

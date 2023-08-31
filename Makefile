@@ -9,16 +9,16 @@ all: tidy test lint
 travis-ci: tidy test-cov lint scan-gosec
 
 test:
-	${GO} test `${GO} list ./...`
+	${GO} test ./...
 
 test-cov:
-	${GO} test `${GO} list ./...` ${COVERAGE}
+	${GO} test ./... ${COVERAGE}
 
 test-int:
-	${GO} test `${GO} list ./...` -tags=integration
+	${GO} test ./... -tags=integration
 
 test-int-cov:
-	${GO} test `${GO} list ./...` -tags=integration ${COVERAGE}
+	${GO} test ./... -tags=integration ${COVERAGE}
 
 lint:
 	${LINT} run --build-tags=integration,examples --timeout 120s

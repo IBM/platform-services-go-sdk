@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.71.0-316eb5da-20230504-195406
+ * IBM OpenAPI SDK Code Generator Version: 3.78.0-67aec9b7-20230818-174940
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -497,12 +497,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyWithContext(ctx c
 
 // GetPolicy : Retrieve a policy by ID
 // Retrieve a policy by providing a policy ID.
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *GetPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *GetPolicyOptions) (result *PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.GetPolicyWithContext(context.Background(), getPolicyOptions)
 }
 
 // GetPolicyWithContext is an alternate form of the GetPolicy method which supports a Context parameter
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx context.Context, getPolicyOptions *GetPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx context.Context, getPolicyOptions *GetPolicyOptions) (result *PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyOptions, "getPolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -545,7 +545,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx conte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateMetaData)
 		if err != nil {
 			return
 		}
@@ -1413,12 +1413,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2PolicyWithContext(ctx
 
 // GetV2Policy : Retrieve a policy by ID
 // Retrieve a policy by providing a policy ID.
-func (iamPolicyManagement *IamPolicyManagementV1) GetV2Policy(getV2PolicyOptions *GetV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetV2Policy(getV2PolicyOptions *GetV2PolicyOptions) (result *V2PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.GetV2PolicyWithContext(context.Background(), getV2PolicyOptions)
 }
 
 // GetV2PolicyWithContext is an alternate form of the GetV2Policy method which supports a Context parameter
-func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx context.Context, getV2PolicyOptions *GetV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx context.Context, getV2PolicyOptions *GetV2PolicyOptions) (result *V2PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getV2PolicyOptions, "getV2PolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -1465,7 +1465,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx con
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Policy)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2PolicyTemplateMetaData)
 		if err != nil {
 			return
 		}
@@ -1826,6 +1826,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWit
 	if createPolicyTemplateVersionOptions.Policy != nil {
 		body["policy"] = createPolicyTemplateVersionOptions.Policy
 	}
+	if createPolicyTemplateVersionOptions.Name != nil {
+		body["name"] = createPolicyTemplateVersionOptions.Name
+	}
 	if createPolicyTemplateVersionOptions.Description != nil {
 		body["description"] = createPolicyTemplateVersionOptions.Description
 	}
@@ -1965,6 +1968,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 	body := make(map[string]interface{})
 	if replacePolicyTemplateOptions.Policy != nil {
 		body["policy"] = replacePolicyTemplateOptions.Policy
+	}
+	if replacePolicyTemplateOptions.Name != nil {
+		body["name"] = replacePolicyTemplateOptions.Name
 	}
 	if replacePolicyTemplateOptions.Description != nil {
 		body["description"] = replacePolicyTemplateOptions.Description
@@ -2149,9 +2155,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	if commitPolicyTemplateOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*commitPolicyTemplateOptions.IfMatch))
-	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -2319,21 +2322,15 @@ type CommitPolicyTemplateOptions struct {
 	// The policy template version.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// The revision number for updating a policy template version and must match the ETag value of the existing policy
-	// template version. The Etag can be retrieved using the GET
-	// /v1/policy_templates/{policy_template_id}/versions/{version} API and looking at the ETag response header.
-	IfMatch *string `json:"If-Match" validate:"required"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCommitPolicyTemplateOptions : Instantiate CommitPolicyTemplateOptions
-func (*IamPolicyManagementV1) NewCommitPolicyTemplateOptions(policyTemplateID string, version string, ifMatch string) *CommitPolicyTemplateOptions {
+func (*IamPolicyManagementV1) NewCommitPolicyTemplateOptions(policyTemplateID string, version string) *CommitPolicyTemplateOptions {
 	return &CommitPolicyTemplateOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
 		Version: core.StringPtr(version),
-		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -2346,12 +2343,6 @@ func (_options *CommitPolicyTemplateOptions) SetPolicyTemplateID(policyTemplateI
 // SetVersion : Allow user to set Version
 func (_options *CommitPolicyTemplateOptions) SetVersion(version string) *CommitPolicyTemplateOptions {
 	_options.Version = core.StringPtr(version)
-	return _options
-}
-
-// SetIfMatch : Allow user to set IfMatch
-func (_options *CommitPolicyTemplateOptions) SetIfMatch(ifMatch string) *CommitPolicyTemplateOptions {
-	_options.IfMatch = core.StringPtr(ifMatch)
 	return _options
 }
 
@@ -2628,6 +2619,10 @@ type CreatePolicyTemplateVersionOptions struct {
 	// The core set of properties associated with the template's policy objet.
 	Policy *TemplatePolicy `json:"policy" validate:"required"`
 
+	// Required field when creating a new template. Otherwise this field is optional. If the field is included it will
+	// change the name value for all existing versions of the template.
+	Name *string `json:"name,omitempty"`
+
 	// Description of the policy template. This is shown to users in the enterprise account. Use this to describe the
 	// purpose or context of the policy for enterprise users managing IAM templates.
 	Description *string `json:"description,omitempty"`
@@ -2656,6 +2651,12 @@ func (_options *CreatePolicyTemplateVersionOptions) SetPolicyTemplateID(policyTe
 // SetPolicy : Allow user to set Policy
 func (_options *CreatePolicyTemplateVersionOptions) SetPolicy(policy *TemplatePolicy) *CreatePolicyTemplateVersionOptions {
 	_options.Policy = policy
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreatePolicyTemplateVersionOptions) SetName(name string) *CreatePolicyTemplateVersionOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -4157,9 +4158,6 @@ type Policy struct {
 
 	// The policy state.
 	State *string `json:"state,omitempty"`
-
-	// Origin Template information.
-	Template *TemplateMetadata `json:"template,omitempty"`
 }
 
 // Constants associated with the Policy.State property.
@@ -4220,10 +4218,6 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -4246,7 +4240,7 @@ type PolicyAssignment struct {
 	Target *string `json:"target" validate:"required"`
 
 	// List of objects with required properties for a policy assignment.
-	Options []PolicyAssignmentRequestOptionsItem `json:"options" validate:"required"`
+	Options []PolicyAssignmentOptions `json:"options" validate:"required"`
 
 	// Policy assignment ID.
 	ID *string `json:"id,omitempty"`
@@ -4314,7 +4308,7 @@ func UnmarshalPolicyAssignment(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentRequestOptionsItem)
+	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
 	if err != nil {
 		return
 	}
@@ -4358,8 +4352,8 @@ func UnmarshalPolicyAssignment(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// PolicyAssignmentRequestOptionsItem : The set of properties required for a policy assignment.
-type PolicyAssignmentRequestOptionsItem struct {
+// PolicyAssignmentOptions : The set of properties required for a policy assignment.
+type PolicyAssignmentOptions struct {
 	// The policy subject type; either 'iam_id' or 'access_group_id'.
 	SubjectType *string `json:"subject_type" validate:"required"`
 
@@ -4376,16 +4370,16 @@ type PolicyAssignmentRequestOptionsItem struct {
 	RootTemplateVersion *string `json:"root_template_version,omitempty"`
 }
 
-// Constants associated with the PolicyAssignmentRequestOptionsItem.SubjectType property.
+// Constants associated with the PolicyAssignmentOptions.SubjectType property.
 // The policy subject type; either 'iam_id' or 'access_group_id'.
 const (
-	PolicyAssignmentRequestOptionsItemSubjectTypeAccessGroupIDConst = "access_group_id"
-	PolicyAssignmentRequestOptionsItemSubjectTypeIamIDConst = "iam_id"
+	PolicyAssignmentOptionsSubjectTypeAccessGroupIDConst = "access_group_id"
+	PolicyAssignmentOptionsSubjectTypeIamIDConst = "iam_id"
 )
 
-// UnmarshalPolicyAssignmentRequestOptionsItem unmarshals an instance of PolicyAssignmentRequestOptionsItem from the specified map of raw messages.
-func UnmarshalPolicyAssignmentRequestOptionsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentRequestOptionsItem)
+// UnmarshalPolicyAssignmentOptions unmarshals an instance of PolicyAssignmentOptions from the specified map of raw messages.
+func UnmarshalPolicyAssignmentOptions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentOptions)
 	err = core.UnmarshalPrimitive(m, "subject_type", &obj.SubjectType)
 	if err != nil {
 		return
@@ -4410,43 +4404,26 @@ func UnmarshalPolicyAssignmentRequestOptionsItem(m map[string]json.RawMessage, r
 	return
 }
 
-// PolicyAssignmentResources : The policy assignment resources.
-type PolicyAssignmentResources struct {
-	// Account ID where resources are assigned.
-	Target *string `json:"target,omitempty"`
-
-	// Set of properties for the assigned resource.
-	Policy *PolicyAssignmentResourcesPolicy `json:"policy,omitempty"`
-}
-
-// UnmarshalPolicyAssignmentResources unmarshals an instance of PolicyAssignmentResources from the specified map of raw messages.
-func UnmarshalPolicyAssignmentResources(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentResources)
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalPolicyAssignmentResourcesPolicy)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyAssignmentResourcesPolicy : Set of properties for the assigned resource.
-type PolicyAssignmentResourcesPolicy struct {
+// PolicyAssignmentResourcePolicy : Set of properties for the assigned resource.
+type PolicyAssignmentResourcePolicy struct {
 	// On success, includes the  policy assigned.
-	ResourceCreated *AssignmentResourceCreated `json:"resource_created" validate:"required"`
+	ResourceCreated *AssignmentResourceCreated `json:"resource_created,omitempty"`
+
+	// policy status.
+	Status *string `json:"status,omitempty"`
 
 	// The error response from API.
 	ErrorMessage *ErrorResponse `json:"error_message,omitempty"`
 }
 
-// UnmarshalPolicyAssignmentResourcesPolicy unmarshals an instance of PolicyAssignmentResourcesPolicy from the specified map of raw messages.
-func UnmarshalPolicyAssignmentResourcesPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyAssignmentResourcesPolicy)
+// UnmarshalPolicyAssignmentResourcePolicy unmarshals an instance of PolicyAssignmentResourcePolicy from the specified map of raw messages.
+func UnmarshalPolicyAssignmentResourcePolicy(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentResourcePolicy)
 	err = core.UnmarshalModel(m, "resource_created", &obj.ResourceCreated, UnmarshalAssignmentResourceCreated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
 		return
 	}
@@ -4458,16 +4435,40 @@ func UnmarshalPolicyAssignmentResourcesPolicy(m map[string]json.RawMessage, resu
 	return
 }
 
+// PolicyAssignmentResources : The policy assignment resources.
+type PolicyAssignmentResources struct {
+	// Account ID where resources are assigned.
+	Target *string `json:"target,omitempty"`
+
+	// Set of properties for the assigned resource.
+	Policy *PolicyAssignmentResourcePolicy `json:"policy,omitempty"`
+}
+
+// UnmarshalPolicyAssignmentResources unmarshals an instance of PolicyAssignmentResources from the specified map of raw messages.
+func UnmarshalPolicyAssignmentResources(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyAssignmentResources)
+	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalPolicyAssignmentResourcePolicy)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PolicyCollection : A collection of policies.
 type PolicyCollection struct {
 	// List of policies.
-	Policies []Policy `json:"policies,omitempty"`
+	Policies []PolicyTemplateMetaData `json:"policies,omitempty"`
 }
 
 // UnmarshalPolicyCollection unmarshals an instance of PolicyCollection from the specified map of raw messages.
 func UnmarshalPolicyCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyCollection)
-	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalPolicy)
+	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalPolicyTemplateMetaData)
 	if err != nil {
 		return
 	}
@@ -4686,6 +4687,115 @@ func UnmarshalPolicyTemplateCollection(m map[string]json.RawMessage, result inte
 	return
 }
 
+// PolicyTemplateMetaData : The core set of properties associated with a policy.
+type PolicyTemplateMetaData struct {
+	// The policy ID.
+	ID *string `json:"id,omitempty"`
+
+	// The policy type; either 'access' or 'authorization'.
+	Type *string `json:"type" validate:"required"`
+
+	// Customer-defined description.
+	Description *string `json:"description,omitempty"`
+
+	// The subjects associated with a policy.
+	Subjects []PolicySubject `json:"subjects" validate:"required"`
+
+	// A set of role cloud resource names (CRNs) granted by the policy.
+	Roles []PolicyRole `json:"roles" validate:"required"`
+
+	// The resources associated with a policy.
+	Resources []PolicyResource `json:"resources" validate:"required"`
+
+	// The href link back to the policy.
+	Href *string `json:"href,omitempty"`
+
+	// The UTC timestamp when the policy was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// The policy state.
+	State *string `json:"state,omitempty"`
+
+	// The details of the IAM template that was used to create an enterprise-managed policy in your account. When returned,
+	// this indicates that the policy is created from and managed by a template in the root enterprise account.
+	Template *TemplateMetadata `json:"template,omitempty"`
+}
+
+// Constants associated with the PolicyTemplateMetaData.State property.
+// The policy state.
+const (
+	PolicyTemplateMetaDataStateActiveConst = "active"
+	PolicyTemplateMetaDataStateDeletedConst = "deleted"
+)
+
+// UnmarshalPolicyTemplateMetaData unmarshals an instance of PolicyTemplateMetaData from the specified map of raw messages.
+func UnmarshalPolicyTemplateMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyTemplateMetaData)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "subjects", &obj.Subjects, UnmarshalPolicySubject)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRole)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PolicyTemplateVersionsCollection : A collection of versions for a specific policy template.
 type PolicyTemplateVersionsCollection struct {
 	// List of policy templates versions.
@@ -4807,6 +4917,10 @@ type ReplacePolicyTemplateOptions struct {
 	// The core set of properties associated with the template's policy objet.
 	Policy *TemplatePolicy `json:"policy" validate:"required"`
 
+	// Required field when creating a new template. Otherwise this field is optional. If the field is included it will
+	// change the name value for all existing versions of the template.
+	Name *string `json:"name,omitempty"`
+
 	// Description of the policy template. This is shown to users in the enterprise account. Use this to describe the
 	// purpose or context of the policy for enterprise users managing IAM templates.
 	Description *string `json:"description,omitempty"`
@@ -4849,6 +4963,12 @@ func (_options *ReplacePolicyTemplateOptions) SetIfMatch(ifMatch string) *Replac
 // SetPolicy : Allow user to set Policy
 func (_options *ReplacePolicyTemplateOptions) SetPolicy(policy *TemplatePolicy) *ReplacePolicyTemplateOptions {
 	_options.Policy = policy
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *ReplacePolicyTemplateOptions) SetName(name string) *ReplacePolicyTemplateOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
@@ -5363,23 +5483,45 @@ func UnmarshalSubjectAttribute(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// TemplateMetadata : Origin Template information.
+// TemplateMetadata : The details of the IAM template that was used to create an enterprise-managed policy in your account. When returned,
+// this indicates that the policy is created from and managed by a template in the root enterprise account.
 type TemplateMetadata struct {
-	// Origin Template CRN.
-	CRN *string `json:"crn,omitempty"`
+	// The policy template ID.
+	ID *string `json:"id,omitempty"`
 
 	// Template version.
 	Version *string `json:"version,omitempty"`
+
+	// policy assignment id.
+	AssignmentID *string `json:"assignment_id,omitempty"`
+
+	// orchestrator template id.
+	RootID *string `json:"root_id,omitempty"`
+
+	// orchestrator template version.
+	RootVersion *string `json:"root_version,omitempty"`
 }
 
 // UnmarshalTemplateMetadata unmarshals an instance of TemplateMetadata from the specified map of raw messages.
 func UnmarshalTemplateMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TemplateMetadata)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_id", &obj.RootID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "root_version", &obj.RootVersion)
 	if err != nil {
 		return
 	}
@@ -5397,7 +5539,7 @@ type TemplatePolicy struct {
 	Description *string `json:"description,omitempty"`
 
 	// The resource attributes to which the policy grants access.
-	Resource *V2PolicyResource `json:"resource" validate:"required"`
+	Resource *V2PolicyResource `json:"resource,omitempty"`
 
 	// Indicates pattern of rule, either 'time-based-conditions:once', 'time-based-conditions:weekly:all-day', or
 	// 'time-based-conditions:weekly:custom-hours'.
@@ -5418,10 +5560,9 @@ const (
 )
 
 // NewTemplatePolicy : Instantiate TemplatePolicy (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string, resource *V2PolicyResource, control *Control) (_model *TemplatePolicy, err error) {
+func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string, control *Control) (_model *TemplatePolicy, err error) {
 	_model = &TemplatePolicy{
 		Type: core.StringPtr(typeVar),
-		Resource: resource,
 		Control: control,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -5564,9 +5705,6 @@ type V2Policy struct {
 	// The optional count of times that policy has provided a permit, when passing query parameter
 	// format=include_last_permit.
 	LastPermitFrequency *int64 `json:"last_permit_frequency,omitempty"`
-
-	// Origin Template information.
-	Template *TemplateMetadata `json:"template,omitempty"`
 }
 
 // Constants associated with the V2Policy.Type property.
@@ -5650,10 +5788,6 @@ func UnmarshalV2Policy(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -5661,13 +5795,13 @@ func UnmarshalV2Policy(m map[string]json.RawMessage, result interface{}) (err er
 // V2PolicyCollection : A collection of policies.
 type V2PolicyCollection struct {
 	// List of policies.
-	Policies []V2Policy `json:"policies,omitempty"`
+	Policies []V2PolicyTemplateMetaData `json:"policies,omitempty"`
 }
 
 // UnmarshalV2PolicyCollection unmarshals an instance of V2PolicyCollection from the specified map of raw messages.
 func UnmarshalV2PolicyCollection(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(V2PolicyCollection)
-	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalV2Policy)
+	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalV2PolicyTemplateMetaData)
 	if err != nil {
 		return
 	}
@@ -5940,6 +6074,151 @@ func UnmarshalV2PolicySubjectAttribute(m map[string]json.RawMessage, result inte
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// V2PolicyTemplateMetaData : The core set of properties associated with the policy.
+type V2PolicyTemplateMetaData struct {
+	// The policy type; either 'access' or 'authorization'.
+	Type *string `json:"type" validate:"required"`
+
+	// Description of the policy.
+	Description *string `json:"description,omitempty"`
+
+	// The subject attributes for whom the policy grants access.
+	Subject *V2PolicySubject `json:"subject,omitempty"`
+
+	// The resource attributes to which the policy grants access.
+	Resource *V2PolicyResource `json:"resource,omitempty"`
+
+	// Indicates pattern of rule, either 'time-based-conditions:once', 'time-based-conditions:weekly:all-day', or
+	// 'time-based-conditions:weekly:custom-hours'.
+	Pattern *string `json:"pattern,omitempty"`
+
+	// Additional access conditions associated with the policy.
+	Rule V2PolicyRuleIntf `json:"rule,omitempty"`
+
+	// The policy ID.
+	ID *string `json:"id,omitempty"`
+
+	// The href URL that links to the policies API by policy ID.
+	Href *string `json:"href,omitempty"`
+
+	Control ControlResponseIntf `json:"control" validate:"required"`
+
+	// The UTC timestamp when the policy was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The iam ID of the entity that created the policy.
+	CreatedByID *string `json:"created_by_id,omitempty"`
+
+	// The UTC timestamp when the policy was last modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
+
+	// The iam ID of the entity that last modified the policy.
+	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
+
+	// The policy state, either 'deleted' or 'active'.
+	State *string `json:"state" validate:"required"`
+
+	// The optional last permit time of policy, when passing query parameter format=include_last_permit.
+	LastPermitAt *string `json:"last_permit_at,omitempty"`
+
+	// The optional count of times that policy has provided a permit, when passing query parameter
+	// format=include_last_permit.
+	LastPermitFrequency *int64 `json:"last_permit_frequency,omitempty"`
+
+	// The details of the IAM template that was used to create an enterprise-managed policy in your account. When returned,
+	// this indicates that the policy is created from and managed by a template in the root enterprise account.
+	Template *TemplateMetadata `json:"template,omitempty"`
+}
+
+// Constants associated with the V2PolicyTemplateMetaData.Type property.
+// The policy type; either 'access' or 'authorization'.
+const (
+	V2PolicyTemplateMetaDataTypeAccessConst = "access"
+	V2PolicyTemplateMetaDataTypeAuthorizationConst = "authorization"
+)
+
+// Constants associated with the V2PolicyTemplateMetaData.State property.
+// The policy state, either 'deleted' or 'active'.
+const (
+	V2PolicyTemplateMetaDataStateActiveConst = "active"
+	V2PolicyTemplateMetaDataStateDeletedConst = "deleted"
+)
+
+// UnmarshalV2PolicyTemplateMetaData unmarshals an instance of V2PolicyTemplateMetaData from the specified map of raw messages.
+func UnmarshalV2PolicyTemplateMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(V2PolicyTemplateMetaData)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalV2PolicySubject)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resource", &obj.Resource, UnmarshalV2PolicyResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "rule", &obj.Rule, UnmarshalV2PolicyRule)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "control", &obj.Control, UnmarshalControlResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_permit_at", &obj.LastPermitAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_permit_frequency", &obj.LastPermitFrequency)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
 	if err != nil {
 		return
 	}
