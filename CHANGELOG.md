@@ -1,3 +1,10 @@
+# [0.48.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.47.1...v0.48.0) (2023-09-01)
+
+
+### Features
+
+* **Resource Controller:** support resource group filter for list reclamations ([#264](https://github.com/IBM/platform-services-go-sdk/issues/264)) ([6985653](https://github.com/IBM/platform-services-go-sdk/commit/6985653a853b73e06189b40547f38afffa6513c0))
+
 ## [0.47.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.47.0...v0.47.1) (2023-08-31)
 
 
