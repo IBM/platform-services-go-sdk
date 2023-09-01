@@ -1,4 +1,4 @@
-module github.com/IBM/platform-services-go-sdk
+module github.com/manukm-ibm/platform-services-go-sdk
 
 go 1.19
 
