@@ -1,3 +1,10 @@
+## [0.48.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.48.0...v0.48.1) (2023-09-05)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** rRemove update action control from assertions ([#276](https://github.com/IBM/platform-services-go-sdk/issues/276)) ([75ec5ee](https://github.com/IBM/platform-services-go-sdk/commit/75ec5ee4d6924c7a785c1349e05cfd5060fc94ae))
+
 # [0.48.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.47.1...v0.48.0) (2023-09-01)
 
 
