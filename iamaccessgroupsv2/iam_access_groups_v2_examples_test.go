@@ -642,7 +642,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
 				Remove: core.BoolPtr(false),
-				Update: core.BoolPtr(false),
 			}
 
 			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
@@ -656,7 +655,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			assertionsActionControlsModel := &iamaccessgroupsv2.AssertionsActionControls{
 				Add:    core.BoolPtr(false),
 				Remove: core.BoolPtr(true),
-				Update: core.BoolPtr(true),
 			}
 
 			assertionsInputModel := &iamaccessgroupsv2.Assertions{
@@ -885,7 +883,6 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 
 			rulesActionControlsModel := &iamaccessgroupsv2.RuleActionControls{
 				Remove: core.BoolPtr(false),
-				Update: core.BoolPtr(false),
 			}
 
 			ruleInputModel := &iamaccessgroupsv2.AssertionsRule{
