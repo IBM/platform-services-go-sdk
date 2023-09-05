@@ -66,13 +66,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -723,14 +726,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.GroupsList)
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -740,7 +743,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -750,7 +753,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -788,14 +791,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
-					AccountID:        core.StringPtr("testString"),
-					TransactionID:    core.StringPtr("testString"),
-					IamID:            core.StringPtr("testString"),
-					Search:           core.StringPtr("testString"),
-					MembershipType:   core.StringPtr("static"),
-					Limit:            core.Int64Ptr(int64(10)),
-					Sort:             core.StringPtr("name"),
-					ShowFederated:    core.BoolPtr(false),
+					AccountID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					IamID: core.StringPtr("testString"),
+					Search: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Sort: core.StringPtr("name"),
+					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
 				}
 
@@ -821,14 +824,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupsOptionsModel := &iamaccessgroupsv2.ListAccessGroupsOptions{
-					AccountID:        core.StringPtr("testString"),
-					TransactionID:    core.StringPtr("testString"),
-					IamID:            core.StringPtr("testString"),
-					Search:           core.StringPtr("testString"),
-					MembershipType:   core.StringPtr("static"),
-					Limit:            core.Int64Ptr(int64(10)),
-					Sort:             core.StringPtr("name"),
-					ShowFederated:    core.BoolPtr(false),
+					AccountID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
+					IamID: core.StringPtr("testString"),
+					Search: core.StringPtr("testString"),
+					MembershipType: core.StringPtr("static"),
+					Limit: core.Int64Ptr(int64(10)),
+					Sort: core.StringPtr("name"),
+					ShowFederated: core.BoolPtr(false),
 					HidePublicAccess: core.BoolPtr(false),
 				}
 
@@ -2060,14 +2063,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.GroupMembersList)
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2077,7 +2080,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2087,7 +2090,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -2125,13 +2128,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
-					AccessGroupID:  core.StringPtr("testString"),
-					TransactionID:  core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
-					Limit:          core.Int64Ptr(int64(10)),
-					Type:           core.StringPtr("testString"),
-					Verbose:        core.BoolPtr(false),
-					Sort:           core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Type: core.StringPtr("testString"),
+					Verbose: core.BoolPtr(false),
+					Sort: core.StringPtr("testString"),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
@@ -2156,13 +2159,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listAccessGroupMembersOptionsModel := &iamaccessgroupsv2.ListAccessGroupMembersOptions{
-					AccessGroupID:  core.StringPtr("testString"),
-					TransactionID:  core.StringPtr("testString"),
+					AccessGroupID: core.StringPtr("testString"),
+					TransactionID: core.StringPtr("testString"),
 					MembershipType: core.StringPtr("static"),
-					Limit:          core.Int64Ptr(int64(10)),
-					Type:           core.StringPtr("testString"),
-					Verbose:        core.BoolPtr(false),
-					Sort:           core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(10)),
+					Type: core.StringPtr("testString"),
+					Verbose: core.BoolPtr(false),
+					Sort: core.StringPtr("testString"),
 				}
 
 				pager, err := iamAccessGroupsService.NewAccessGroupMembersPager(listAccessGroupMembersOptionsModel)
@@ -4699,7 +4702,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -4713,7 +4715,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -4803,7 +4804,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateTemplate successfully with retries`, func() {
@@ -4835,7 +4836,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -4849,7 +4849,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -4942,7 +4941,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateTemplate successfully`, func() {
@@ -4979,7 +4978,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -4993,7 +4991,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -5066,7 +5063,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -5080,7 +5076,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -5174,7 +5169,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -5188,7 +5182,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -5317,7 +5310,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListTemplates successfully with retries`, func() {
@@ -5381,7 +5374,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_templates": [{"id": "ID", "name": "Name", "description": "Description", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListTemplates successfully`, func() {
@@ -5494,14 +5487,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.ListTemplatesResponse)
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5511,7 +5504,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -5521,7 +5514,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -5542,9 +5535,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"group_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"group_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true}}],"action_controls":{"add":false,"remove":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"group_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"group_templates":[{"id":"ID","name":"Name","description":"Description","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true}}],"action_controls":{"add":false,"remove":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"2019-01-01T12:00:00.000Z","created_by_id":"CreatedByID","last_modified_at":"2019-01-01T12:00:00.000Z","last_modified_by_id":"LastModifiedByID"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -5559,10 +5552,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
-					AccountID:     core.StringPtr("accountID-123"),
+					AccountID: core.StringPtr("accountID-123"),
 					TransactionID: core.StringPtr("testString"),
-					Limit:         core.Int64Ptr(int64(50)),
-					Verbose:       core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(50)),
+					Verbose: core.BoolPtr(true),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
@@ -5587,10 +5580,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 
 				listTemplatesOptionsModel := &iamaccessgroupsv2.ListTemplatesOptions{
-					AccountID:     core.StringPtr("accountID-123"),
+					AccountID: core.StringPtr("accountID-123"),
 					TransactionID: core.StringPtr("testString"),
-					Limit:         core.Int64Ptr(int64(50)),
-					Verbose:       core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(50)),
+					Verbose: core.BoolPtr(true),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplatesPager(listTemplatesOptionsModel)
@@ -5648,8 +5641,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -5663,7 +5655,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -5753,7 +5744,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateTemplateVersion successfully with retries`, func() {
@@ -5784,8 +5775,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -5799,7 +5789,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -5892,7 +5881,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateTemplateVersion successfully`, func() {
@@ -5928,8 +5917,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -5943,7 +5931,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -6015,8 +6002,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -6030,7 +6016,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -6123,8 +6108,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -6138,7 +6122,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -6257,7 +6240,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_template_versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_template_versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListTemplateVersions successfully with retries`, func() {
@@ -6315,7 +6298,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_template_versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "group_template_versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListTemplateVersions successfully`, func() {
@@ -6422,14 +6405,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=135")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(iamaccessgroupsv2.ListTemplateVersionsResponse)
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6439,7 +6422,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -6449,7 +6432,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				nextObject := new(iamaccessgroupsv2.HrefStruct)
 				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
 				responseObject.Next = nextObject
-
+	
 				value, err := responseObject.GetNextOffset()
 				Expect(err).NotTo(BeNil())
 				Expect(value).To(BeNil())
@@ -6470,9 +6453,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"group_template_versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?offset=1"},"total_count":2,"group_template_versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true}}],"action_controls":{"add":false,"remove":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"group_template_versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true,"update":true}}],"action_controls":{"add":false,"remove":true,"update":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"group_template_versions":[{"name":"Name","description":"Description","account_id":"AccountID","version":"Version","committed":false,"group":{"name":"Name","description":"Description","members":{"users":["Users"],"services":["Services"],"action_controls":{"add":false,"remove":true}},"assertions":{"rules":[{"name":"Name","expiration":10,"realm_name":"RealmName","conditions":[{"claim":"Claim","operator":"Operator","value":"Value"}],"action_controls":{"remove":true}}],"action_controls":{"add":false,"remove":true}},"action_controls":{"access":{"add":false}}},"policy_template_references":[{"id":"ID","version":"Version"}],"href":"Href","created_at":"CreatedAt","created_by_id":"CreatedByID","last_modified_at":"LastModifiedAt","last_modified_by_id":"LastModifiedByID"}],"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -6488,7 +6471,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
 					TemplateID: core.StringPtr("testString"),
-					Limit:      core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
@@ -6514,7 +6497,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				listTemplateVersionsOptionsModel := &iamaccessgroupsv2.ListTemplateVersionsOptions{
 					TemplateID: core.StringPtr("testString"),
-					Limit:      core.Int64Ptr(int64(100)),
+					Limit: core.Int64Ptr(int64(100)),
 				}
 
 				pager, err := iamAccessGroupsService.NewTemplateVersionsPager(listTemplateVersionsOptionsModel)
@@ -6599,7 +6582,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetTemplateVersion successfully with retries`, func() {
@@ -6659,7 +6642,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetTemplateVersion successfully`, func() {
@@ -6811,7 +6794,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -6825,7 +6807,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -6919,7 +6900,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke UpdateTemplateVersion successfully with retries`, func() {
@@ -6951,7 +6932,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -6965,7 +6945,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -7062,7 +7041,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke UpdateTemplateVersion successfully`, func() {
@@ -7099,7 +7078,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -7113,7 +7091,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -7188,7 +7165,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -7202,7 +7178,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -7298,7 +7273,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -7312,7 +7286,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				assertionsActionControlsModel := new(iamaccessgroupsv2.AssertionsActionControls)
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -7587,7 +7560,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetLatestTemplateVersion successfully with retries`, func() {
@@ -7646,7 +7619,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true, "update": true}}], "action_controls": {"add": false, "remove": true, "update": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "group": {"name": "Name", "description": "Description", "members": {"users": ["Users"], "services": ["Services"], "action_controls": {"add": false, "remove": true}}, "assertions": {"rules": [{"name": "Name", "expiration": 10, "realm_name": "RealmName", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "action_controls": {"remove": true}}], "action_controls": {"add": false, "remove": true}}, "action_controls": {"access": {"add": false}}}, "policy_template_references": [{"id": "ID", "version": "Version"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetLatestTemplateVersion successfully`, func() {
@@ -9109,9 +9082,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				Expect(ruleActionControlsModel).ToNot(BeNil())
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 				Expect(ruleActionControlsModel.Remove).To(Equal(core.BoolPtr(false)))
-				Expect(ruleActionControlsModel.Update).To(Equal(core.BoolPtr(false)))
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -9132,10 +9103,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(assertionsActionControlsModel).ToNot(BeNil())
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(false)))
 				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
-				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -9231,10 +9200,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleActionControls model
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				Expect(ruleActionControlsModel).ToNot(BeNil())
-				ruleActionControlsModel.Remove = core.BoolPtr(true)
-				ruleActionControlsModel.Update = core.BoolPtr(true)
-				Expect(ruleActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
-				Expect(ruleActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
+				ruleActionControlsModel.Remove = core.BoolPtr(false)
+				Expect(ruleActionControlsModel.Remove).To(Equal(core.BoolPtr(false)))
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -9255,10 +9222,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(assertionsActionControlsModel).ToNot(BeNil())
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(false)))
 				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
-				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
@@ -9783,9 +9748,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				ruleActionControlsModel := new(iamaccessgroupsv2.RuleActionControls)
 				Expect(ruleActionControlsModel).ToNot(BeNil())
 				ruleActionControlsModel.Remove = core.BoolPtr(false)
-				ruleActionControlsModel.Update = core.BoolPtr(false)
 				Expect(ruleActionControlsModel.Remove).To(Equal(core.BoolPtr(false)))
-				Expect(ruleActionControlsModel.Update).To(Equal(core.BoolPtr(false)))
 
 				// Construct an instance of the AssertionsRule model
 				assertionsRuleModel := new(iamaccessgroupsv2.AssertionsRule)
@@ -9806,10 +9769,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(assertionsActionControlsModel).ToNot(BeNil())
 				assertionsActionControlsModel.Add = core.BoolPtr(false)
 				assertionsActionControlsModel.Remove = core.BoolPtr(true)
-				assertionsActionControlsModel.Update = core.BoolPtr(true)
 				Expect(assertionsActionControlsModel.Add).To(Equal(core.BoolPtr(false)))
 				Expect(assertionsActionControlsModel.Remove).To(Equal(core.BoolPtr(true)))
-				Expect(assertionsActionControlsModel.Update).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the Assertions model
 				assertionsModel := new(iamaccessgroupsv2.Assertions)
