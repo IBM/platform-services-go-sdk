@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -461,9 +461,8 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			fmt.Println("\nListAvailableServiceOperations() result:")
 			// begin-list_available_service_operations
 
-			listAvailableServiceOperationsOptions := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions(
-				"containers-kubernetes",
-			)
+			listAvailableServiceOperationsOptions := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions()
+			listAvailableServiceOperationsOptions.ServiceName = core.StringPtr("containers-kubernetes")
 
 			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
 			if err != nil {

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3381,6 +3381,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3396,9 +3397,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
 				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
@@ -3434,6 +3436,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3454,9 +3457,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
 				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3498,6 +3502,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3520,9 +3525,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
 				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3532,7 +3538,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListAvailableServiceOperations with error: Operation validation and request error`, func() {
+			It(`Invoke ListAvailableServiceOperations with error: Operation request error`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3542,9 +3548,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
 				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := contextBasedRestrictionsService.SetServiceURL("")
@@ -3552,13 +3559,6 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListAvailableServiceOperationsOptions model with no property values
-				listAvailableServiceOperationsOptionsModelNew := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -3585,9 +3585,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
 				listAvailableServiceOperationsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions)
-				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3785,16 +3786,17 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Invoke NewListAvailableServiceOperationsOptions successfully`, func() {
 				// Construct an instance of the ListAvailableServiceOperationsOptions model
-				serviceName := "testString"
-				listAvailableServiceOperationsOptionsModel := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions(serviceName)
-				listAvailableServiceOperationsOptionsModel.SetServiceName("testString")
+				listAvailableServiceOperationsOptionsModel := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions()
 				listAvailableServiceOperationsOptionsModel.SetXCorrelationID("testString")
 				listAvailableServiceOperationsOptionsModel.SetTransactionID("testString")
+				listAvailableServiceOperationsOptionsModel.SetServiceName("testString")
+				listAvailableServiceOperationsOptionsModel.SetServiceGroupID("testString")
 				listAvailableServiceOperationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAvailableServiceOperationsOptionsModel).ToNot(BeNil())
-				Expect(listAvailableServiceOperationsOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAvailableServicerefTargetsOptions successfully`, func() {
