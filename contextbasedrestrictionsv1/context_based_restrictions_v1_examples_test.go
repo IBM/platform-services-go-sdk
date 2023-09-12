@@ -462,7 +462,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			// begin-list_available_service_operations
 
 			listAvailableServiceOperationsOptions := contextBasedRestrictionsService.NewListAvailableServiceOperationsOptions()
-			listAvailableServiceOperationsOptions.ServiceName = core.StringPtr("containers-kubernetes")
+			listAvailableServiceOperationsOptions.SetServiceName("containers-kubernetes")
 
 			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
 			if err != nil {

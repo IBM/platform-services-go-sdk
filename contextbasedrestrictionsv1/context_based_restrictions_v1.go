@@ -1082,6 +1082,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 	if listAvailableServiceOperationsOptions.ServiceGroupID != nil {
 		builder.AddQuery("service_group_id", fmt.Sprint(*listAvailableServiceOperationsOptions.ServiceGroupID))
 	}
+	if listAvailableServiceOperationsOptions.ResourceType != nil {
+		builder.AddQuery("resource_type", fmt.Sprint(*listAvailableServiceOperationsOptions.ResourceType))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1778,11 +1781,14 @@ type ListAvailableServiceOperationsOptions struct {
 	// Deprecated: this field is deprecated and may be removed in a future release.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// The `serviceName` resource attribute.
+	// The name of the service.
 	ServiceName *string `json:"service_name,omitempty"`
 
-	// The rule's `service_group_id` resource attribute.
+	// The id of the service group.
 	ServiceGroupID *string `json:"service_group_id,omitempty"`
+
+	// The type of resource.
+	ResourceType *string `json:"resource_type,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1815,6 +1821,12 @@ func (_options *ListAvailableServiceOperationsOptions) SetServiceName(serviceNam
 // SetServiceGroupID : Allow user to set ServiceGroupID
 func (_options *ListAvailableServiceOperationsOptions) SetServiceGroupID(serviceGroupID string) *ListAvailableServiceOperationsOptions {
 	_options.ServiceGroupID = core.StringPtr(serviceGroupID)
+	return _options
+}
+
+// SetResourceType : Allow user to set ResourceType
+func (_options *ListAvailableServiceOperationsOptions) SetResourceType(resourceType string) *ListAvailableServiceOperationsOptions {
+	_options.ResourceType = core.StringPtr(resourceType)
 	return _options
 }
 

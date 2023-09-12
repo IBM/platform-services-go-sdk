@@ -1045,13 +1045,46 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAvailableServiceOperations - List available service operations`, func() {
+	Describe(`ListAvailableServiceOperations - List available service operations with Service Name`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
 			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
 				ServiceName:   core.StringPtr("containers-kubernetes"),
+				TransactionID: getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
+		})
+	})
+	Describe(`ListAvailableServiceOperations - List available service operations with Service Group ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceGroupID: core.StringPtr("IAM"),
+				TransactionID:  getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
+		})
+	})
+	Describe(`ListAvailableServiceOperations - List available service operations with Composite Parent`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceName:   core.StringPtr("cbr-composite-testing"),
+				ResourceType:  core.StringPtr("cbr-composite-testing-sub1"),
 				TransactionID: getTransactionID(),
 			}
 

@@ -3382,6 +3382,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_type"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3401,6 +3402,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ResourceType = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptionsModel)
@@ -3437,6 +3439,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_type"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3461,6 +3464,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ResourceType = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3503,6 +3507,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["service_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_type"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3529,6 +3534,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ResourceType = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3552,6 +3558,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ResourceType = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := contextBasedRestrictionsService.SetServiceURL("")
@@ -3589,6 +3596,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceName = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.ServiceGroupID = core.StringPtr("testString")
+				listAvailableServiceOperationsOptionsModel.ResourceType = core.StringPtr("testString")
 				listAvailableServiceOperationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3791,12 +3799,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listAvailableServiceOperationsOptionsModel.SetTransactionID("testString")
 				listAvailableServiceOperationsOptionsModel.SetServiceName("testString")
 				listAvailableServiceOperationsOptionsModel.SetServiceGroupID("testString")
+				listAvailableServiceOperationsOptionsModel.SetResourceType("testString")
 				listAvailableServiceOperationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAvailableServiceOperationsOptionsModel).ToNot(BeNil())
 				Expect(listAvailableServiceOperationsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.ServiceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServiceOperationsOptionsModel.ResourceType).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServiceOperationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAvailableServicerefTargetsOptions successfully`, func() {
