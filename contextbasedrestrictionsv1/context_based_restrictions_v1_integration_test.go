@@ -1083,8 +1083,8 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
 			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
-				ServiceName:   core.StringPtr("cbr-composite-testing"),
-				ResourceType:  core.StringPtr("cbr-composite-testing-sub1"),
+				ServiceName:   core.StringPtr("iam-access-management"),
+				ResourceType:  core.StringPtr("iam-access-management.customRole"),
 				TransactionID: getTransactionID(),
 			}
 
