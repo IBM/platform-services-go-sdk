@@ -1084,7 +1084,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
 			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
 				ServiceName:   core.StringPtr("iam-access-management"),
-				ResourceType:  core.StringPtr("iam-access-management.customRole"),
+				ResourceType:  core.StringPtr("customRole"),
 				TransactionID: getTransactionID(),
 			}
 
