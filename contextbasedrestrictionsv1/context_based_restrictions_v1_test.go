@@ -3446,7 +3446,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "type": "Type", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServiceOperations successfully with retries`, func() {
@@ -3511,7 +3511,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"api_types": [{"api_type_id": "APITypeID", "display_name": "DisplayName", "description": "Description", "type": "Type", "actions": [{"action_id": "ActionID", "description": "Description"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServiceOperations successfully`, func() {
