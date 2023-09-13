@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usagereportsv4"
@@ -60,6 +61,10 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 		resourceGroupID string
 		orgID           string
 		billingMonth    string
+		cosBucket       string
+		cosLocation     string
+		dateFrom        string
+		dateTo          string
 	)
 
 	var shouldSkipTest = func() {
@@ -93,6 +98,18 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 
 			billingMonth = config["BILLING_MONTH"]
 			Expect(billingMonth).ToNot(BeEmpty())
+
+			cosBucket = config["COS_BUCKET"]
+			Expect(cosBucket).ToNot(BeEmpty())
+
+			cosLocation = config["COS_LOCATION"]
+			Expect(cosLocation).ToNot(BeEmpty())
+
+			dateFrom = config["DATE_FROM"]
+			Expect(dateFrom).ToNot(BeEmpty())
+
+			dateTo = config["DATE_TO"]
+			Expect(dateTo).ToNot(BeEmpty())
 
 			configLoaded = len(config) > 0
 		})
@@ -282,6 +299,124 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(instancesUsage).ToNot(BeNil())
+		})
+		It(`CreateReportsSnapshotConfig request example`, func() {
+			fmt.Println("\nCreateReportsSnapshotConfig() result:")
+			// begin-create_reports_snapshot_config
+
+			createReportsSnapshotConfigOptions := usageReportsService.NewCreateReportsSnapshotConfigOptions(
+				accountID,
+				"daily",
+				cosBucket,
+				cosLocation,
+			)
+
+			snapshotConfig, response, err := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(snapshotConfig, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_reports_snapshot_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+		It(`GetReportsSnapshotConfig request example`, func() {
+			fmt.Println("\nGetReportsSnapshotConfig() result:")
+			// begin-get_reports_snapshot_config
+
+			getReportsSnapshotConfigOptions := usageReportsService.NewGetReportsSnapshotConfigOptions(
+				accountID,
+			)
+
+			snapshotConfig, response, err := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(snapshotConfig, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_reports_snapshot_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+		It(`UpdateReportsSnapshotConfig request example`, func() {
+			fmt.Println("\nUpdateReportsSnapshotConfig() result:")
+			// begin-update_reports_snapshot_config
+
+			updateReportsSnapshotConfigOptions := usageReportsService.NewUpdateReportsSnapshotConfigOptions(
+				accountID,
+			)
+
+			snapshotConfig, response, err := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(snapshotConfig, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_reports_snapshot_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+		It(`GetReportsSnapshot request example`, func() {
+			fmt.Println("\nGetReportsSnapshot() result:")
+			// begin-get_reports_snapshot
+
+			getReportsSnapshotOptions := usageReportsService.NewGetReportsSnapshotOptions(
+				accountID,
+				billingMonth,
+			)
+			from, err := strconv.ParseInt(dateFrom, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			to, err := strconv.ParseInt(dateTo, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			getReportsSnapshotOptions.SetDateFrom(from)
+			getReportsSnapshotOptions.SetDateTo(to)
+
+			snapshotList, response, err := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(snapshotList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_reports_snapshot
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotList).ToNot(BeNil())
+		})
+		It(`DeleteReportsSnapshotConfig request example`, func() {
+			// begin-delete_reports_snapshot_config
+
+			deleteReportsSnapshotConfigOptions := usageReportsService.NewDeleteReportsSnapshotConfigOptions(
+				accountID,
+			)
+
+			response, err := usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteReportsSnapshotConfig(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_reports_snapshot_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })
