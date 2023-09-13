@@ -43,6 +43,10 @@ import (
 // USAGE_REPORTS_RESOURCE_GROUP_ID=<the id of the resource group whose usage info will be retrieved>
 // USAGE_REPORTS_ORG_ID=<the id of the organization whose usage info will be retrieved>
 // USAGE_REPORTS_BILLING_MONTH=<the billing month (yyyy-mm) for which usage info will be retrieved>
+// USAGE_REPORTS_COS_BUCKET=<The name of the COS bucket to store the snapshot of the billing reports.>
+// USAGE_REPORTS_COS_LOCATION=<Region of the COS instance.>
+// USAGE_REPORTS_DATE_FROM=<Timestamp in milliseconds for which billing report snapshot is requested.>
+// USAGE_REPORTS_DATE_TO=<Timestamp in milliseconds for which billing report snapshot is requested.>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
