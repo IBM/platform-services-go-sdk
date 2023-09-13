@@ -1,8 +1,7 @@
-//go:build integration
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -688,11 +687,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(rule).ToNot(BeNil())
 
-		//list rule with service_group_id
+			//list rule with service_group_id
 			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
-				AccountID:     core.StringPtr(testAccountID),
+				AccountID:      core.StringPtr(testAccountID),
 				ServiceGroupID: core.StringPtr("IAM"),
-				TransactionID: getTransactionID(),
+				TransactionID:  getTransactionID(),
 			}
 
 			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
@@ -702,7 +701,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(*ruleList.Count).To(Equal(int64(1)))
 			Expect(*ruleList.Rules[0].ID).To(Equal(*rule.ID))
 
-		// cleanup
+			// cleanup
 			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
 				RuleID:        rule.ID,
 				TransactionID: getTransactionID(),
@@ -1046,13 +1045,46 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListAvailableServiceOperations - List available service operations`, func() {
+	Describe(`ListAvailableServiceOperations - List available service operations with Service Name`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
 			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
 				ServiceName:   core.StringPtr("containers-kubernetes"),
+				TransactionID: getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
+		})
+	})
+	Describe(`ListAvailableServiceOperations - List available service operations with Service Group ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceGroupID: core.StringPtr("IAM"),
+				TransactionID:  getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(operationsList).ToNot(BeNil())
+		})
+	})
+	Describe(`ListAvailableServiceOperations - List available service operations with Composite Parent`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceName:   core.StringPtr("iam-access-management"),
+				ResourceType:  core.StringPtr("customRole"),
 				TransactionID: getTransactionID(),
 			}
 
