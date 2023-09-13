@@ -1,3 +1,10 @@
+# [0.49.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.48.1...v0.49.0) (2023-09-13)
+
+
+### Features
+
+* **Context-Based Restrictions:** add service group support to operations ([#277](https://github.com/IBM/platform-services-go-sdk/issues/277)) ([8ecdfa5](https://github.com/IBM/platform-services-go-sdk/commit/8ecdfa520c0254fbc366b80680b4bc7eab8565d5))
+
 ## [0.48.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.48.0...v0.48.1) (2023-09-05)
 
 
