@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -22,6 +23,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -53,6 +55,10 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		resourceGroupID string
 		orgID           string
 		billingMonth    string
+		cosBucket       string
+		cosLocation     string
+		dateFrom        string
+		dateTo          string
 	)
 
 	var shouldSkipTest = func() {
@@ -89,6 +95,18 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 
 			billingMonth = config["BILLING_MONTH"]
 			Expect(billingMonth).ToNot(BeEmpty())
+
+			cosBucket = config["COS_BUCKET"]
+			Expect(cosBucket).ToNot(BeEmpty())
+
+			cosLocation = config["COS_LOCATION"]
+			Expect(cosLocation).ToNot(BeEmpty())
+
+			dateFrom = config["DATE_FROM"]
+			Expect(dateFrom).ToNot(BeEmpty())
+
+			dateTo = config["DATE_TO"]
+			Expect(dateTo).ToNot(BeEmpty())
 
 			shouldSkipTest = func() {}
 		})
@@ -353,6 +371,108 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response contained %d total resources.", len(results))
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response: %s\n", common.ToJSON(results))
 			Expect(results).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`CreateReportsSnapshotConfig - Setup the snapshot configuration`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions)`, func() {
+			createReportsSnapshotConfigOptions := &usagereportsv4.CreateReportsSnapshotConfigOptions{
+				AccountID:        &accountID,
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        &cosBucket,
+				CosLocation:      &cosLocation,
+				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
+				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning:       core.StringPtr("new"),
+			}
+
+			snapshotConfig, response, err := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetReportsSnapshotConfig - Fetch the snapshot configuration`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReportsSnapshotConfig(getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions)`, func() {
+			getReportsSnapshotConfigOptions := &usagereportsv4.GetReportsSnapshotConfigOptions{
+				AccountID: &accountID,
+			}
+
+			snapshotConfig, response, err := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateReportsSnapshotConfig - Update the snapshot configuration`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions)`, func() {
+			updateReportsSnapshotConfigOptions := &usagereportsv4.UpdateReportsSnapshotConfigOptions{
+				AccountID:        &accountID,
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        &cosBucket,
+				CosLocation:      &cosLocation,
+				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
+				ReportTypes:      []string{"account_summary"},
+				Versioning:       core.StringPtr("new"),
+			}
+
+			snapshotConfig, response, err := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfig).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetReportsSnapshot - Fetch the current or past snapshots`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions)`, func() {
+			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
+				AccountID: &accountID,
+				Month:     &billingMonth,
+			}
+			from, err := strconv.ParseInt(dateFrom, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			to, err := strconv.ParseInt(dateTo, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			getReportsSnapshotOptions.SetDateFrom(from)
+			getReportsSnapshotOptions.SetDateTo(to)
+
+			snapshotList, response, err := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotList).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteReportsSnapshotConfig - Delete the snapshot configuration`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions *DeleteReportsSnapshotConfigOptions)`, func() {
+			deleteReportsSnapshotConfigOptions := &usagereportsv4.DeleteReportsSnapshotConfigOptions{
+				AccountID: &accountID,
+			}
+
+			response, err := usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 })

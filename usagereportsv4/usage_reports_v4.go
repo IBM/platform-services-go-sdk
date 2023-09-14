@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.75.0-726bc7e3-20230713-221716
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -178,7 +178,7 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountSummaryOptions.AccountID,
+		"account_id":   *getAccountSummaryOptions.AccountID,
 		"billingmonth": *getAccountSummaryOptions.Billingmonth,
 	}
 
@@ -240,7 +240,7 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountUsageOptions.AccountID,
+		"account_id":   *getAccountUsageOptions.AccountID,
 		"billingmonth": *getAccountUsageOptions.Billingmonth,
 	}
 
@@ -309,9 +309,9 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceGroupUsageOptions.AccountID,
+		"account_id":        *getResourceGroupUsageOptions.AccountID,
 		"resource_group_id": *getResourceGroupUsageOptions.ResourceGroupID,
-		"billingmonth": *getResourceGroupUsageOptions.Billingmonth,
+		"billingmonth":      *getResourceGroupUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -379,7 +379,7 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageAccountOptions.AccountID,
+		"account_id":   *getResourceUsageAccountOptions.AccountID,
 		"billingmonth": *getResourceUsageAccountOptions.Billingmonth,
 	}
 
@@ -472,9 +472,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageResourceGroupOptions.AccountID,
+		"account_id":        *getResourceUsageResourceGroupOptions.AccountID,
 		"resource_group_id": *getResourceUsageResourceGroupOptions.ResourceGroupID,
-		"billingmonth": *getResourceUsageResourceGroupOptions.Billingmonth,
+		"billingmonth":      *getResourceUsageResourceGroupOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -560,9 +560,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageOrgOptions.AccountID,
+		"account_id":      *getResourceUsageOrgOptions.AccountID,
 		"organization_id": *getResourceUsageOrgOptions.OrganizationID,
-		"billingmonth": *getResourceUsageOrgOptions.Billingmonth,
+		"billingmonth":    *getResourceUsageOrgOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -648,9 +648,9 @@ func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getOrgUsageOptions.AccountID,
+		"account_id":      *getOrgUsageOptions.AccountID,
 		"organization_id": *getOrgUsageOptions.OrganizationID,
-		"billingmonth": *getOrgUsageOptions.Billingmonth,
+		"billingmonth":    *getOrgUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -690,6 +690,344 @@ func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, 
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOrgUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateReportsSnapshotConfig : Setup the snapshot configuration
+// Snapshots of the billing reports would be taken on a periodic interval and stored based on the configuration setup by
+// the customer for the given Account Id.
+func (usageReports *UsageReportsV4) CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	return usageReports.CreateReportsSnapshotConfigWithContext(context.Background(), createReportsSnapshotConfigOptions)
+}
+
+// CreateReportsSnapshotConfigWithContext is an alternate form of the CreateReportsSnapshotConfig method which supports a Context parameter
+func (usageReports *UsageReportsV4) CreateReportsSnapshotConfigWithContext(ctx context.Context, createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createReportsSnapshotConfigOptions, "createReportsSnapshotConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createReportsSnapshotConfigOptions, "createReportsSnapshotConfigOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshot-config`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createReportsSnapshotConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "CreateReportsSnapshotConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createReportsSnapshotConfigOptions.AccountID != nil {
+		body["account_id"] = createReportsSnapshotConfigOptions.AccountID
+	}
+	if createReportsSnapshotConfigOptions.Interval != nil {
+		body["interval"] = createReportsSnapshotConfigOptions.Interval
+	}
+	if createReportsSnapshotConfigOptions.CosBucket != nil {
+		body["cos_bucket"] = createReportsSnapshotConfigOptions.CosBucket
+	}
+	if createReportsSnapshotConfigOptions.CosLocation != nil {
+		body["cos_location"] = createReportsSnapshotConfigOptions.CosLocation
+	}
+	if createReportsSnapshotConfigOptions.CosReportsFolder != nil {
+		body["cos_reports_folder"] = createReportsSnapshotConfigOptions.CosReportsFolder
+	}
+	if createReportsSnapshotConfigOptions.ReportTypes != nil {
+		body["report_types"] = createReportsSnapshotConfigOptions.ReportTypes
+	}
+	if createReportsSnapshotConfigOptions.Versioning != nil {
+		body["versioning"] = createReportsSnapshotConfigOptions.Versioning
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSnapshotConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetReportsSnapshotConfig : Fetch the snapshot configuration
+// Returns the configuration of snapshot of the billing reports setup by the customer for the given Account Id.
+func (usageReports *UsageReportsV4) GetReportsSnapshotConfig(getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	return usageReports.GetReportsSnapshotConfigWithContext(context.Background(), getReportsSnapshotConfigOptions)
+}
+
+// GetReportsSnapshotConfigWithContext is an alternate form of the GetReportsSnapshotConfig method which supports a Context parameter
+func (usageReports *UsageReportsV4) GetReportsSnapshotConfigWithContext(ctx context.Context, getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getReportsSnapshotConfigOptions, "getReportsSnapshotConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getReportsSnapshotConfigOptions, "getReportsSnapshotConfigOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshot-config`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getReportsSnapshotConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "GetReportsSnapshotConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("account_id", fmt.Sprint(*getReportsSnapshotConfigOptions.AccountID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSnapshotConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateReportsSnapshotConfig : Update the snapshot configuration
+// Updates the configuration of snapshot of the billing reports setup by the customer for the given Account Id.
+func (usageReports *UsageReportsV4) UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	return usageReports.UpdateReportsSnapshotConfigWithContext(context.Background(), updateReportsSnapshotConfigOptions)
+}
+
+// UpdateReportsSnapshotConfigWithContext is an alternate form of the UpdateReportsSnapshotConfig method which supports a Context parameter
+func (usageReports *UsageReportsV4) UpdateReportsSnapshotConfigWithContext(ctx context.Context, updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions) (result *SnapshotConfig, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateReportsSnapshotConfigOptions, "updateReportsSnapshotConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateReportsSnapshotConfigOptions, "updateReportsSnapshotConfigOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshot-config`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateReportsSnapshotConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "UpdateReportsSnapshotConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateReportsSnapshotConfigOptions.AccountID != nil {
+		body["account_id"] = updateReportsSnapshotConfigOptions.AccountID
+	}
+	if updateReportsSnapshotConfigOptions.Interval != nil {
+		body["interval"] = updateReportsSnapshotConfigOptions.Interval
+	}
+	if updateReportsSnapshotConfigOptions.CosBucket != nil {
+		body["cos_bucket"] = updateReportsSnapshotConfigOptions.CosBucket
+	}
+	if updateReportsSnapshotConfigOptions.CosLocation != nil {
+		body["cos_location"] = updateReportsSnapshotConfigOptions.CosLocation
+	}
+	if updateReportsSnapshotConfigOptions.CosReportsFolder != nil {
+		body["cos_reports_folder"] = updateReportsSnapshotConfigOptions.CosReportsFolder
+	}
+	if updateReportsSnapshotConfigOptions.ReportTypes != nil {
+		body["report_types"] = updateReportsSnapshotConfigOptions.ReportTypes
+	}
+	if updateReportsSnapshotConfigOptions.Versioning != nil {
+		body["versioning"] = updateReportsSnapshotConfigOptions.Versioning
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSnapshotConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteReportsSnapshotConfig : Delete the snapshot configuration
+// Delete the configuration of snapshot of the billing reports setup by the customer for the given Account Id.
+func (usageReports *UsageReportsV4) DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions *DeleteReportsSnapshotConfigOptions) (response *core.DetailedResponse, err error) {
+	return usageReports.DeleteReportsSnapshotConfigWithContext(context.Background(), deleteReportsSnapshotConfigOptions)
+}
+
+// DeleteReportsSnapshotConfigWithContext is an alternate form of the DeleteReportsSnapshotConfig method which supports a Context parameter
+func (usageReports *UsageReportsV4) DeleteReportsSnapshotConfigWithContext(ctx context.Context, deleteReportsSnapshotConfigOptions *DeleteReportsSnapshotConfigOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteReportsSnapshotConfigOptions, "deleteReportsSnapshotConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteReportsSnapshotConfigOptions, "deleteReportsSnapshotConfigOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshot-config`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteReportsSnapshotConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "DeleteReportsSnapshotConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	builder.AddQuery("account_id", fmt.Sprint(*deleteReportsSnapshotConfigOptions.AccountID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = usageReports.Service.Request(request, nil)
+
+	return
+}
+
+// GetReportsSnapshot : Fetch the current or past snapshots
+// Returns the billing reports snapshots captured for the given Account Id in the specific time period.
+func (usageReports *UsageReportsV4) GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) (result *SnapshotList, response *core.DetailedResponse, err error) {
+	return usageReports.GetReportsSnapshotWithContext(context.Background(), getReportsSnapshotOptions)
+}
+
+// GetReportsSnapshotWithContext is an alternate form of the GetReportsSnapshot method which supports a Context parameter
+func (usageReports *UsageReportsV4) GetReportsSnapshotWithContext(ctx context.Context, getReportsSnapshotOptions *GetReportsSnapshotOptions) (result *SnapshotList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getReportsSnapshotOptions, "getReportsSnapshotOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getReportsSnapshotOptions, "getReportsSnapshotOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshots`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getReportsSnapshotOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "GetReportsSnapshot")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("account_id", fmt.Sprint(*getReportsSnapshotOptions.AccountID))
+	builder.AddQuery("month", fmt.Sprint(*getReportsSnapshotOptions.Month))
+	if getReportsSnapshotOptions.DateFrom != nil {
+		builder.AddQuery("date_from", fmt.Sprint(*getReportsSnapshotOptions.DateFrom))
+	}
+	if getReportsSnapshotOptions.DateTo != nil {
+		builder.AddQuery("date_to", fmt.Sprint(*getReportsSnapshotOptions.DateTo))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSnapshotList)
 		if err != nil {
 			return
 		}
@@ -831,6 +1169,142 @@ func UnmarshalAccountUsage(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
+// CreateReportsSnapshotConfigOptions : The CreateReportsSnapshotConfig options.
+type CreateReportsSnapshotConfigOptions struct {
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Frequency of taking the snapshot of the billing reports.
+	Interval *string `json:"interval" validate:"required"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	CosBucket *string `json:"cos_bucket" validate:"required"`
+
+	// Region of the COS instance.
+	CosLocation *string `json:"cos_location" validate:"required"`
+
+	// The billing reports root folder to store the billing reports snapshots. Defaults to "IBMCloud-Billing-Reports".
+	CosReportsFolder *string `json:"cos_reports_folder,omitempty"`
+
+	// The type of billing reports to take snapshot of. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	ReportTypes []string `json:"report_types,omitempty"`
+
+	// A new version of report is created or the existing report version is overwritten with every update. Defaults to
+	// "new".
+	Versioning *string `json:"versioning,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreateReportsSnapshotConfigOptions.Interval property.
+// Frequency of taking the snapshot of the billing reports.
+const (
+	CreateReportsSnapshotConfigOptionsIntervalDailyConst = "daily"
+)
+
+// Constants associated with the CreateReportsSnapshotConfigOptions.ReportTypes property.
+const (
+	CreateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	CreateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
+	CreateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// Constants associated with the CreateReportsSnapshotConfigOptions.Versioning property.
+// A new version of report is created or the existing report version is overwritten with every update. Defaults to
+// "new".
+const (
+	CreateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
+	CreateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
+)
+
+// NewCreateReportsSnapshotConfigOptions : Instantiate CreateReportsSnapshotConfigOptions
+func (*UsageReportsV4) NewCreateReportsSnapshotConfigOptions(accountID string, interval string, cosBucket string, cosLocation string) *CreateReportsSnapshotConfigOptions {
+	return &CreateReportsSnapshotConfigOptions{
+		AccountID:   core.StringPtr(accountID),
+		Interval:    core.StringPtr(interval),
+		CosBucket:   core.StringPtr(cosBucket),
+		CosLocation: core.StringPtr(cosLocation),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *CreateReportsSnapshotConfigOptions) SetAccountID(accountID string) *CreateReportsSnapshotConfigOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetInterval : Allow user to set Interval
+func (_options *CreateReportsSnapshotConfigOptions) SetInterval(interval string) *CreateReportsSnapshotConfigOptions {
+	_options.Interval = core.StringPtr(interval)
+	return _options
+}
+
+// SetCosBucket : Allow user to set CosBucket
+func (_options *CreateReportsSnapshotConfigOptions) SetCosBucket(cosBucket string) *CreateReportsSnapshotConfigOptions {
+	_options.CosBucket = core.StringPtr(cosBucket)
+	return _options
+}
+
+// SetCosLocation : Allow user to set CosLocation
+func (_options *CreateReportsSnapshotConfigOptions) SetCosLocation(cosLocation string) *CreateReportsSnapshotConfigOptions {
+	_options.CosLocation = core.StringPtr(cosLocation)
+	return _options
+}
+
+// SetCosReportsFolder : Allow user to set CosReportsFolder
+func (_options *CreateReportsSnapshotConfigOptions) SetCosReportsFolder(cosReportsFolder string) *CreateReportsSnapshotConfigOptions {
+	_options.CosReportsFolder = core.StringPtr(cosReportsFolder)
+	return _options
+}
+
+// SetReportTypes : Allow user to set ReportTypes
+func (_options *CreateReportsSnapshotConfigOptions) SetReportTypes(reportTypes []string) *CreateReportsSnapshotConfigOptions {
+	_options.ReportTypes = reportTypes
+	return _options
+}
+
+// SetVersioning : Allow user to set Versioning
+func (_options *CreateReportsSnapshotConfigOptions) SetVersioning(versioning string) *CreateReportsSnapshotConfigOptions {
+	_options.Versioning = core.StringPtr(versioning)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateReportsSnapshotConfigOptions) SetHeaders(param map[string]string) *CreateReportsSnapshotConfigOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteReportsSnapshotConfigOptions : The DeleteReportsSnapshotConfig options.
+type DeleteReportsSnapshotConfigOptions struct {
+	// Account ID for which the billing report snapshot is configured.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteReportsSnapshotConfigOptions : Instantiate DeleteReportsSnapshotConfigOptions
+func (*UsageReportsV4) NewDeleteReportsSnapshotConfigOptions(accountID string) *DeleteReportsSnapshotConfigOptions {
+	return &DeleteReportsSnapshotConfigOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *DeleteReportsSnapshotConfigOptions) SetAccountID(accountID string) *DeleteReportsSnapshotConfigOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteReportsSnapshotConfigOptions) SetHeaders(param map[string]string) *DeleteReportsSnapshotConfigOptions {
+	options.Headers = param
+	return options
+}
+
 // Discount : Information about a discount that is associated with a metric.
 type Discount struct {
 	// The reference ID of the discount.
@@ -884,7 +1358,7 @@ type GetAccountSummaryOptions struct {
 // NewGetAccountSummaryOptions : Instantiate GetAccountSummaryOptions
 func (*UsageReportsV4) NewGetAccountSummaryOptions(accountID string, billingmonth string) *GetAccountSummaryOptions {
 	return &GetAccountSummaryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -903,6 +1377,797 @@ func (_options *GetAccountSummaryOptions) SetBillingmonth(billingmonth string) *
 
 // SetHeaders : Allow user to set Headers
 func (options *GetAccountSummaryOptions) SetHeaders(param map[string]string) *GetAccountSummaryOptions {
+	options.Headers = param
+	return options
+}
+
+// GetReportsSnapshotConfigOptions : The GetReportsSnapshotConfig options.
+type GetReportsSnapshotConfigOptions struct {
+	// Account ID for which the billing report snapshot is configured.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetReportsSnapshotConfigOptions : Instantiate GetReportsSnapshotConfigOptions
+func (*UsageReportsV4) NewGetReportsSnapshotConfigOptions(accountID string) *GetReportsSnapshotConfigOptions {
+	return &GetReportsSnapshotConfigOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetReportsSnapshotConfigOptions) SetAccountID(accountID string) *GetReportsSnapshotConfigOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetReportsSnapshotConfigOptions) SetHeaders(param map[string]string) *GetReportsSnapshotConfigOptions {
+	options.Headers = param
+	return options
+}
+
+// GetReportsSnapshotOptions : The GetReportsSnapshot options.
+type GetReportsSnapshotOptions struct {
+	// Account ID for which the billing report snapshot is requested.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// The month for which billing report snapshot is requested.  Format is yyyy-mm.
+	Month *string `json:"month" validate:"required"`
+
+	// Timestamp in milliseconds for which billing report snapshot is requested.
+	DateFrom *int64 `json:"date_from,omitempty"`
+
+	// Timestamp in milliseconds for which billing report snapshot is requested.
+	DateTo *int64 `json:"date_to,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetReportsSnapshotOptions : Instantiate GetReportsSnapshotOptions
+func (*UsageReportsV4) NewGetReportsSnapshotOptions(accountID string, month string) *GetReportsSnapshotOptions {
+	return &GetReportsSnapshotOptions{
+		AccountID: core.StringPtr(accountID),
+		Month:     core.StringPtr(month),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetReportsSnapshotOptions) SetAccountID(accountID string) *GetReportsSnapshotOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetMonth : Allow user to set Month
+func (_options *GetReportsSnapshotOptions) SetMonth(month string) *GetReportsSnapshotOptions {
+	_options.Month = core.StringPtr(month)
+	return _options
+}
+
+// SetDateFrom : Allow user to set DateFrom
+func (_options *GetReportsSnapshotOptions) SetDateFrom(dateFrom int64) *GetReportsSnapshotOptions {
+	_options.DateFrom = core.Int64Ptr(dateFrom)
+	return _options
+}
+
+// SetDateTo : Allow user to set DateTo
+func (_options *GetReportsSnapshotOptions) SetDateTo(dateTo int64) *GetReportsSnapshotOptions {
+	_options.DateTo = core.Int64Ptr(dateTo)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetReportsSnapshotOptions) SetHeaders(param map[string]string) *GetReportsSnapshotOptions {
+	options.Headers = param
+	return options
+}
+
+// SnapshotConfigHistoryItem : SnapshotConfigHistoryItem struct
+type SnapshotConfigHistoryItem struct {
+	// Timestamp in milliseconds when the snapshot configuration was created.
+	StartTime *int64 `json:"start_time,omitempty"`
+
+	// Timestamp in milliseconds when the snapshot configuration ends.
+	EndTime *int64 `json:"end_time,omitempty"`
+
+	// Account that updated the billing snapshot configuration.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+	State *string `json:"state,omitempty"`
+
+	// Type of account. Possible values [enterprise, account].
+	AccountType *string `json:"account_type,omitempty"`
+
+	// Frequency of taking the snapshot of the billing reports.
+	Interval *string `json:"interval,omitempty"`
+
+	// A new version of report is created or the existing report version is overwritten with every update.
+	Versioning *string `json:"versioning,omitempty"`
+
+	// The type of billing reports to take snapshot of. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	ReportTypes []string `json:"report_types,omitempty"`
+
+	// Compression format of the snapshot report.
+	Compression *string `json:"compression,omitempty"`
+
+	// Type of content stored in snapshot report.
+	ContentType *string `json:"content_type,omitempty"`
+
+	// The billing reports root folder to store the billing reports snapshots. Defaults to "IBMCloud-Billing-Reports".
+	CosReportsFolder *string `json:"cos_reports_folder,omitempty"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	CosBucket *string `json:"cos_bucket,omitempty"`
+
+	// Region of the COS instance.
+	CosLocation *string `json:"cos_location,omitempty"`
+
+	// The endpoint of the COS instance.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+}
+
+// Constants associated with the SnapshotConfigHistoryItem.State property.
+// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+const (
+	SnapshotConfigHistoryItemStateDisabledConst = "disabled"
+	SnapshotConfigHistoryItemStateEnabledConst  = "enabled"
+)
+
+// Constants associated with the SnapshotConfigHistoryItem.AccountType property.
+// Type of account. Possible values [enterprise, account].
+const (
+	SnapshotConfigHistoryItemAccountTypeAccountConst    = "account"
+	SnapshotConfigHistoryItemAccountTypeEnterpriseConst = "enterprise"
+)
+
+// Constants associated with the SnapshotConfigHistoryItem.Interval property.
+// Frequency of taking the snapshot of the billing reports.
+const (
+	SnapshotConfigHistoryItemIntervalDailyConst = "daily"
+)
+
+// Constants associated with the SnapshotConfigHistoryItem.Versioning property.
+// A new version of report is created or the existing report version is overwritten with every update.
+const (
+	SnapshotConfigHistoryItemVersioningNewConst       = "new"
+	SnapshotConfigHistoryItemVersioningOverwriteConst = "overwrite"
+)
+
+// Constants associated with the SnapshotConfigHistoryItem.ReportTypes property.
+const (
+	SnapshotConfigHistoryItemReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	SnapshotConfigHistoryItemReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotConfigHistoryItemReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// UnmarshalSnapshotConfigHistoryItem unmarshals an instance of SnapshotConfigHistoryItem from the specified map of raw messages.
+func UnmarshalSnapshotConfigHistoryItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotConfigHistoryItem)
+	err = core.UnmarshalPrimitive(m, "start_time", &obj.StartTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end_time", &obj.EndTime)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_type", &obj.AccountType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "versioning", &obj.Versioning)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "report_types", &obj.ReportTypes)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "compression", &obj.Compression)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "content_type", &obj.ContentType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_reports_folder", &obj.CosReportsFolder)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_bucket", &obj.CosBucket)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_location", &obj.CosLocation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotList : List of billing reports snapshots.
+type SnapshotList struct {
+	// Number of total snapshots.
+	Count *int64 `json:"count,omitempty"`
+
+	// Reference to the first page of the search query.
+	First *SnapshotListFirst `json:"first,omitempty"`
+
+	// Reference to the next page of the search query if any.
+	Next *SnapshotListNext `json:"next,omitempty"`
+
+	Snapshots []SnapshotListSnapshotsItem `json:"snapshots,omitempty"`
+}
+
+// UnmarshalSnapshotList unmarshals an instance of SnapshotList from the specified map of raw messages.
+func UnmarshalSnapshotList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotList)
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalSnapshotListFirst)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalSnapshotListNext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "snapshots", &obj.Snapshots, UnmarshalSnapshotListSnapshotsItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListFirst : Reference to the first page of the search query.
+type SnapshotListFirst struct {
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalSnapshotListFirst unmarshals an instance of SnapshotListFirst from the specified map of raw messages.
+func UnmarshalSnapshotListFirst(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListFirst)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListNext : Reference to the next page of the search query if any.
+type SnapshotListNext struct {
+	Href *string `json:"href,omitempty"`
+}
+
+// UnmarshalSnapshotListNext unmarshals an instance of SnapshotListNext from the specified map of raw messages.
+func UnmarshalSnapshotListNext(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListNext)
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListSnapshotsItem : Snapshot Schema.
+type SnapshotListSnapshotsItem struct {
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Month of captured snapshot.
+	Month *string `json:"month,omitempty"`
+
+	// Type of account. Possible values are [enterprise, account].
+	AccountType *string `json:"account_type,omitempty"`
+
+	// Timestamp of snapshot processed.
+	ExpectedProcessedAt *int64 `json:"expected_processed_at,omitempty"`
+
+	// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+	State *string `json:"state,omitempty"`
+
+	// Period of billing in snapshot.
+	BillingPeriod *SnapshotListSnapshotsItemBillingPeriod `json:"billing_period,omitempty"`
+
+	// Id of the snapshot captured.
+	SnapshotID *string `json:"snapshot_id,omitempty"`
+
+	// Character encoding used.
+	Charset *string `json:"charset,omitempty"`
+
+	// Compression format of the snapshot report.
+	Compression *string `json:"compression,omitempty"`
+
+	// Type of content stored in snapshot report.
+	ContentType *string `json:"content_type,omitempty"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	Bucket *string `json:"bucket,omitempty"`
+
+	// Version of the snapshot.
+	Version *string `json:"version,omitempty"`
+
+	// Date and time of creation of snapshot.
+	CreatedOn *string `json:"created_on,omitempty"`
+
+	// List of report types configured for the snapshot.
+	ReportTypes []SnapshotListSnapshotsItemReportTypesItem `json:"report_types,omitempty"`
+
+	// List of location of reports.
+	Files []SnapshotListSnapshotsItemFilesItem `json:"files,omitempty"`
+
+	// Timestamp at which snapshot is captured.
+	ProcessedAt *int64 `json:"processed_at,omitempty"`
+}
+
+// Constants associated with the SnapshotListSnapshotsItem.AccountType property.
+// Type of account. Possible values are [enterprise, account].
+const (
+	SnapshotListSnapshotsItemAccountTypeAccountConst    = "account"
+	SnapshotListSnapshotsItemAccountTypeEnterpriseConst = "enterprise"
+)
+
+// Constants associated with the SnapshotListSnapshotsItem.State property.
+// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+const (
+	SnapshotListSnapshotsItemStateDisabledConst = "disabled"
+	SnapshotListSnapshotsItemStateEnabledConst  = "enabled"
+)
+
+// UnmarshalSnapshotListSnapshotsItem unmarshals an instance of SnapshotListSnapshotsItem from the specified map of raw messages.
+func UnmarshalSnapshotListSnapshotsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListSnapshotsItem)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "month", &obj.Month)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_type", &obj.AccountType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "expected_processed_at", &obj.ExpectedProcessedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "billing_period", &obj.BillingPeriod, UnmarshalSnapshotListSnapshotsItemBillingPeriod)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "snapshot_id", &obj.SnapshotID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "charset", &obj.Charset)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "compression", &obj.Compression)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "content_type", &obj.ContentType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bucket", &obj.Bucket)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_on", &obj.CreatedOn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "report_types", &obj.ReportTypes, UnmarshalSnapshotListSnapshotsItemReportTypesItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "files", &obj.Files, UnmarshalSnapshotListSnapshotsItemFilesItem)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "processed_at", &obj.ProcessedAt)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListSnapshotsItemBillingPeriod : Period of billing in snapshot.
+type SnapshotListSnapshotsItemBillingPeriod struct {
+	// Date and time of start of billing in the respective snapshot.
+	Start *string `json:"start,omitempty"`
+
+	// Date and time of end of billing in the respective snapshot.
+	End *string `json:"end,omitempty"`
+}
+
+// UnmarshalSnapshotListSnapshotsItemBillingPeriod unmarshals an instance of SnapshotListSnapshotsItemBillingPeriod from the specified map of raw messages.
+func UnmarshalSnapshotListSnapshotsItemBillingPeriod(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListSnapshotsItemBillingPeriod)
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "end", &obj.End)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListSnapshotsItemFilesItem : SnapshotListSnapshotsItemFilesItem struct
+type SnapshotListSnapshotsItemFilesItem struct {
+	// The type of billing report stored. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	ReportTypes *string `json:"report_types,omitempty"`
+
+	// Absolute path of the billing report in the COS instance.
+	Location *string `json:"location,omitempty"`
+
+	// Account ID for which billing report is captured.
+	AccountID *string `json:"account_id,omitempty"`
+}
+
+// Constants associated with the SnapshotListSnapshotsItemFilesItem.ReportTypes property.
+// The type of billing report stored. Possible values are [account_summary, enterprise_summary,
+// account_resource_instance_usage].
+const (
+	SnapshotListSnapshotsItemFilesItemReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	SnapshotListSnapshotsItemFilesItemReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotListSnapshotsItemFilesItemReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// UnmarshalSnapshotListSnapshotsItemFilesItem unmarshals an instance of SnapshotListSnapshotsItemFilesItem from the specified map of raw messages.
+func UnmarshalSnapshotListSnapshotsItemFilesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListSnapshotsItemFilesItem)
+	err = core.UnmarshalPrimitive(m, "report_types", &obj.ReportTypes)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotListSnapshotsItemReportTypesItem : SnapshotListSnapshotsItemReportTypesItem struct
+type SnapshotListSnapshotsItemReportTypesItem struct {
+	// The type of billing report of the snapshot. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	Type *string `json:"type,omitempty"`
+
+	// Version of the snapshot.
+	Version *string `json:"version,omitempty"`
+}
+
+// Constants associated with the SnapshotListSnapshotsItemReportTypesItem.Type property.
+// The type of billing report of the snapshot. Possible values are [account_summary, enterprise_summary,
+// account_resource_instance_usage].
+const (
+	SnapshotListSnapshotsItemReportTypesItemTypeAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	SnapshotListSnapshotsItemReportTypesItemTypeAccountSummaryConst               = "account_summary"
+	SnapshotListSnapshotsItemReportTypesItemTypeEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// UnmarshalSnapshotListSnapshotsItemReportTypesItem unmarshals an instance of SnapshotListSnapshotsItemReportTypesItem from the specified map of raw messages.
+func UnmarshalSnapshotListSnapshotsItemReportTypesItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotListSnapshotsItemReportTypesItem)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SnapshotConfig : Billing reports snapshot configuration.
+type SnapshotConfig struct {
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+	State *string `json:"state,omitempty"`
+
+	// Type of account. Possible values are [enterprise, account].
+	AccountType *string `json:"account_type,omitempty"`
+
+	// Frequency of taking the snapshot of the billing reports.
+	Interval *string `json:"interval,omitempty"`
+
+	// A new version of report is created or the existing report version is overwritten with every update.
+	Versioning *string `json:"versioning,omitempty"`
+
+	// The type of billing reports to take snapshot of. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	ReportTypes []string `json:"report_types,omitempty"`
+
+	// Compression format of the snapshot report.
+	Compression *string `json:"compression,omitempty"`
+
+	// Type of content stored in snapshot report.
+	ContentType *string `json:"content_type,omitempty"`
+
+	// The billing reports root folder to store the billing reports snapshots. Defaults to "IBMCloud-Billing-Reports".
+	CosReportsFolder *string `json:"cos_reports_folder,omitempty"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	CosBucket *string `json:"cos_bucket,omitempty"`
+
+	// Region of the COS instance.
+	CosLocation *string `json:"cos_location,omitempty"`
+
+	// The endpoint of the COS instance.
+	CosEndpoint *string `json:"cos_endpoint,omitempty"`
+
+	// Timestamp in milliseconds when the snapshot configuration was created.
+	CreatedAt *int64 `json:"created_at,omitempty"`
+
+	// Timestamp in milliseconds when the snapshot configuration was last updated.
+	LastUpdatedAt *int64 `json:"last_updated_at,omitempty"`
+
+	// List of previous versions of the snapshot configurations.
+	History []SnapshotConfigHistoryItem `json:"history,omitempty"`
+}
+
+// Constants associated with the SnapshotConfig.State property.
+// Status of the billing snapshot configuration. Possible values are [enabled, disabled].
+const (
+	SnapshotConfigStateDisabledConst = "disabled"
+	SnapshotConfigStateEnabledConst  = "enabled"
+)
+
+// Constants associated with the SnapshotConfig.AccountType property.
+// Type of account. Possible values are [enterprise, account].
+const (
+	SnapshotConfigAccountTypeAccountConst    = "account"
+	SnapshotConfigAccountTypeEnterpriseConst = "enterprise"
+)
+
+// Constants associated with the SnapshotConfig.Interval property.
+// Frequency of taking the snapshot of the billing reports.
+const (
+	SnapshotConfigIntervalDailyConst = "daily"
+)
+
+// Constants associated with the SnapshotConfig.Versioning property.
+// A new version of report is created or the existing report version is overwritten with every update.
+const (
+	SnapshotConfigVersioningNewConst       = "new"
+	SnapshotConfigVersioningOverwriteConst = "overwrite"
+)
+
+// Constants associated with the SnapshotConfig.ReportTypes property.
+const (
+	SnapshotConfigReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	SnapshotConfigReportTypesAccountSummaryConst               = "account_summary"
+	SnapshotConfigReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// UnmarshalSnapshotConfig unmarshals an instance of SnapshotConfig from the specified map of raw messages.
+func UnmarshalSnapshotConfig(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotConfig)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_type", &obj.AccountType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "interval", &obj.Interval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "versioning", &obj.Versioning)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "report_types", &obj.ReportTypes)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "compression", &obj.Compression)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "content_type", &obj.ContentType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_reports_folder", &obj.CosReportsFolder)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_bucket", &obj.CosBucket)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_location", &obj.CosLocation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_endpoint", &obj.CosEndpoint)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_updated_at", &obj.LastUpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalSnapshotConfigHistoryItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// UpdateReportsSnapshotConfigOptions : The UpdateReportsSnapshotConfig options.
+type UpdateReportsSnapshotConfigOptions struct {
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Frequency of taking the snapshot of the billing reports.
+	Interval *string `json:"interval,omitempty"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	CosBucket *string `json:"cos_bucket,omitempty"`
+
+	// Region of the COS instance.
+	CosLocation *string `json:"cos_location,omitempty"`
+
+	// The billing reports root folder to store the billing reports snapshots.
+	CosReportsFolder *string `json:"cos_reports_folder,omitempty"`
+
+	// The type of billing reports to take snapshot of. Possible values are [account_summary, enterprise_summary,
+	// account_resource_instance_usage].
+	ReportTypes []string `json:"report_types,omitempty"`
+
+	// A new version of report is created or the existing report version is overwritten with every update.
+	Versioning *string `json:"versioning,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the UpdateReportsSnapshotConfigOptions.Interval property.
+// Frequency of taking the snapshot of the billing reports.
+const (
+	UpdateReportsSnapshotConfigOptionsIntervalDailyConst = "daily"
+)
+
+// Constants associated with the UpdateReportsSnapshotConfigOptions.ReportTypes property.
+const (
+	UpdateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
+	UpdateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
+	UpdateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+)
+
+// Constants associated with the UpdateReportsSnapshotConfigOptions.Versioning property.
+// A new version of report is created or the existing report version is overwritten with every update.
+const (
+	UpdateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
+	UpdateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
+)
+
+// NewUpdateReportsSnapshotConfigOptions : Instantiate UpdateReportsSnapshotConfigOptions
+func (*UsageReportsV4) NewUpdateReportsSnapshotConfigOptions(accountID string) *UpdateReportsSnapshotConfigOptions {
+	return &UpdateReportsSnapshotConfigOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *UpdateReportsSnapshotConfigOptions) SetAccountID(accountID string) *UpdateReportsSnapshotConfigOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetInterval : Allow user to set Interval
+func (_options *UpdateReportsSnapshotConfigOptions) SetInterval(interval string) *UpdateReportsSnapshotConfigOptions {
+	_options.Interval = core.StringPtr(interval)
+	return _options
+}
+
+// SetCosBucket : Allow user to set CosBucket
+func (_options *UpdateReportsSnapshotConfigOptions) SetCosBucket(cosBucket string) *UpdateReportsSnapshotConfigOptions {
+	_options.CosBucket = core.StringPtr(cosBucket)
+	return _options
+}
+
+// SetCosLocation : Allow user to set CosLocation
+func (_options *UpdateReportsSnapshotConfigOptions) SetCosLocation(cosLocation string) *UpdateReportsSnapshotConfigOptions {
+	_options.CosLocation = core.StringPtr(cosLocation)
+	return _options
+}
+
+// SetCosReportsFolder : Allow user to set CosReportsFolder
+func (_options *UpdateReportsSnapshotConfigOptions) SetCosReportsFolder(cosReportsFolder string) *UpdateReportsSnapshotConfigOptions {
+	_options.CosReportsFolder = core.StringPtr(cosReportsFolder)
+	return _options
+}
+
+// SetReportTypes : Allow user to set ReportTypes
+func (_options *UpdateReportsSnapshotConfigOptions) SetReportTypes(reportTypes []string) *UpdateReportsSnapshotConfigOptions {
+	_options.ReportTypes = reportTypes
+	return _options
+}
+
+// SetVersioning : Allow user to set Versioning
+func (_options *UpdateReportsSnapshotConfigOptions) SetVersioning(versioning string) *UpdateReportsSnapshotConfigOptions {
+	_options.Versioning = core.StringPtr(versioning)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateReportsSnapshotConfigOptions) SetHeaders(param map[string]string) *UpdateReportsSnapshotConfigOptions {
 	options.Headers = param
 	return options
 }
@@ -928,7 +2193,7 @@ type GetAccountUsageOptions struct {
 // NewGetAccountUsageOptions : Instantiate GetAccountUsageOptions
 func (*UsageReportsV4) NewGetAccountUsageOptions(accountID string, billingmonth string) *GetAccountUsageOptions {
 	return &GetAccountUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -987,9 +2252,9 @@ type GetOrgUsageOptions struct {
 // NewGetOrgUsageOptions : Instantiate GetOrgUsageOptions
 func (*UsageReportsV4) NewGetOrgUsageOptions(accountID string, organizationID string, billingmonth string) *GetOrgUsageOptions {
 	return &GetOrgUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1053,9 +2318,9 @@ type GetResourceGroupUsageOptions struct {
 // NewGetResourceGroupUsageOptions : Instantiate GetResourceGroupUsageOptions
 func (*UsageReportsV4) NewGetResourceGroupUsageOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceGroupUsageOptions {
 	return &GetResourceGroupUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -1140,7 +2405,7 @@ type GetResourceUsageAccountOptions struct {
 // NewGetResourceUsageAccountOptions : Instantiate GetResourceUsageAccountOptions
 func (*UsageReportsV4) NewGetResourceUsageAccountOptions(accountID string, billingmonth string) *GetResourceUsageAccountOptions {
 	return &GetResourceUsageAccountOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -1265,9 +2530,9 @@ type GetResourceUsageOrgOptions struct {
 // NewGetResourceUsageOrgOptions : Instantiate GetResourceUsageOrgOptions
 func (*UsageReportsV4) NewGetResourceUsageOrgOptions(accountID string, organizationID string, billingmonth string) *GetResourceUsageOrgOptions {
 	return &GetResourceUsageOrgOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1385,9 +2650,9 @@ type GetResourceUsageResourceGroupOptions struct {
 // NewGetResourceUsageResourceGroupOptions : Instantiate GetResourceUsageResourceGroupOptions
 func (*UsageReportsV4) NewGetResourceUsageResourceGroupOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceUsageResourceGroupOptions {
 	return &GetResourceUsageResourceGroupOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -2393,13 +3658,11 @@ func UnmarshalSupportSummary(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-//
 // GetResourceUsageAccountPager can be used to simplify the use of the "GetResourceUsageAccount" method.
-//
 type GetResourceUsageAccountPager struct {
-	hasNext bool
-	options *GetResourceUsageAccountOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageAccountOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
@@ -2480,13 +3743,11 @@ func (pager *GetResourceUsageAccountPager) GetAll() (allItems []InstanceUsage, e
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // GetResourceUsageResourceGroupPager can be used to simplify the use of the "GetResourceUsageResourceGroup" method.
-//
 type GetResourceUsageResourceGroupPager struct {
-	hasNext bool
-	options *GetResourceUsageResourceGroupOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageResourceGroupOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
@@ -2567,13 +3828,11 @@ func (pager *GetResourceUsageResourceGroupPager) GetAll() (allItems []InstanceUs
 	return pager.GetAllWithContext(context.Background())
 }
 
-//
 // GetResourceUsageOrgPager can be used to simplify the use of the "GetResourceUsageOrg" method.
-//
 type GetResourceUsageOrgPager struct {
-	hasNext bool
-	options *GetResourceUsageOrgOptions
-	client  *UsageReportsV4
+	hasNext     bool
+	options     *GetResourceUsageOrgOptions
+	client      *UsageReportsV4
 	pageContext struct {
 		next *string
 	}
