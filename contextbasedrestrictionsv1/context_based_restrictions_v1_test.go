@@ -190,7 +190,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -272,7 +272,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -362,7 +362,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -393,7 +393,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -438,7 +438,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -983,7 +983,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1069,7 +1069,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1163,7 +1163,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1196,7 +1196,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1250,7 +1250,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -3698,9 +3698,9 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
-				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
+				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")))
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := contextBasedRestrictionsService.NewCreateZoneOptions()
@@ -3972,9 +3972,9 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
-				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.Value = core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
-				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
+				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234, 3ffe:1900:fe21:4545::")))
 
 				// Construct an instance of the ReplaceZoneOptions model
 				zoneID := "testString"

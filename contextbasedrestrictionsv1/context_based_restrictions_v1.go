@@ -3081,7 +3081,7 @@ func UnmarshalZoneSummary(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// AddressIPAddress : A single IP address.
+// AddressIPAddress : A single IP address. IPv4 and IPv6 are supported.
 // This model "extends" Address
 type AddressIPAddress struct {
 	// The type of address.
@@ -3126,7 +3126,7 @@ func UnmarshalAddressIPAddress(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// AddressIPAddressRange : An IP address range.
+// AddressIPAddressRange : An IP address range. IPv4 and IPv6 are supported.
 // This model "extends" Address
 type AddressIPAddressRange struct {
 	// The type of address.
