@@ -379,8 +379,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions)`, func() {
-			fmt.Printf("TEST VALUES: %s", cosBucket)
-			fmt.Printf("TEST VALUES:%s", cosLocation)
 			createReportsSnapshotConfigOptions := &usagereportsv4.CreateReportsSnapshotConfigOptions{
 				AccountID:        &accountID,
 				Interval:         core.StringPtr("daily"),
