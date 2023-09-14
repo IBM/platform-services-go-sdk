@@ -66,14 +66,13 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-				})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 				Expect(usageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-				})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 				err := usageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(usageReportsService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
-			})
+			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(usageReportsService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
+				"USAGE_REPORTS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1162,14 +1159,14 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(usagereportsv4.InstancesUsage)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1179,7 +1176,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1217,17 +1214,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
-					ResourceGroupID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
+					AccountID:          core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
+					ResourceGroupID:    core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1252,17 +1249,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
-					ResourceGroupID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
+					AccountID:          core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
+					ResourceGroupID:    core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1570,14 +1567,14 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(usagereportsv4.InstancesUsage)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1587,7 +1584,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1625,16 +1622,16 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
+					AccountID:          core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -1659,16 +1656,16 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID: core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
+					AccountID:          core.StringPtr("testString"),
+					ResourceGroupID:    core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -1976,14 +1973,14 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
 				responseObject := new(usagereportsv4.InstancesUsage)
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1993,7 +1990,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 				nextObject := new(usagereportsv4.InstancesUsageNext)
 				nextObject.Href = core.StringPtr("ibm.com")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextStart()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2031,16 +2028,16 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
+					AccountID:          core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -2065,16 +2062,16 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID: core.StringPtr("testString"),
-					OrganizationID: core.StringPtr("testString"),
-					Billingmonth: core.StringPtr("testString"),
-					Names: core.BoolPtr(true),
-					AcceptLanguage: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(1)),
+					AccountID:          core.StringPtr("testString"),
+					OrganizationID:     core.StringPtr("testString"),
+					Billingmonth:       core.StringPtr("testString"),
+					Names:              core.BoolPtr(true),
+					AcceptLanguage:     core.StringPtr("testString"),
+					Limit:              core.Int64Ptr(int64(1)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID: core.StringPtr("testString"),
-					PlanID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ResourceID:         core.StringPtr("testString"),
+					PlanID:             core.StringPtr("testString"),
+					Region:             core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -2318,6 +2315,1077 @@ var _ = Describe(`UsageReportsV4`, func() {
 
 				// Invoke operation
 				result, response, operationErr := usageReportsService.GetOrgUsage(getOrgUsageOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions) - Operation response error`, func() {
+		createReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateReportsSnapshotConfig with error: Operation response processing error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsModel := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				createReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				createReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				createReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				createReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				createReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				createReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				createReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				usageReportsService.EnableRetries(0, 0)
+				result, response, operationErr = usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions)`, func() {
+		createReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke CreateReportsSnapshotConfig successfully with retries`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+				usageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsModel := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				createReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				createReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				createReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				createReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				createReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				createReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				createReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := usageReportsService.CreateReportsSnapshotConfigWithContext(ctx, createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				usageReportsService.DisableRetries()
+				result, response, operationErr := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = usageReportsService.CreateReportsSnapshotConfigWithContext(ctx, createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke CreateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := usageReportsService.CreateReportsSnapshotConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsModel := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				createReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				createReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				createReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				createReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				createReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				createReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				createReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CreateReportsSnapshotConfig with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsModel := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				createReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				createReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				createReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				createReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				createReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				createReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				createReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateReportsSnapshotConfigOptions model with no property values
+				createReportsSnapshotConfigOptionsModelNew := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsModel := new(usagereportsv4.CreateReportsSnapshotConfigOptions)
+				createReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				createReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				createReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				createReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				createReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				createReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				createReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetReportsSnapshotConfig(getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions) - Operation response error`, func() {
+		getReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshotConfig with error: Operation response processing error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				getReportsSnapshotConfigOptionsModel := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				getReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				usageReportsService.EnableRetries(0, 0)
+				result, response, operationErr = usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetReportsSnapshotConfig(getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions)`, func() {
+		getReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshotConfig successfully with retries`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+				usageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				getReportsSnapshotConfigOptionsModel := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				getReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := usageReportsService.GetReportsSnapshotConfigWithContext(ctx, getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				usageReportsService.DisableRetries()
+				result, response, operationErr := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = usageReportsService.GetReportsSnapshotConfigWithContext(ctx, getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := usageReportsService.GetReportsSnapshotConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				getReportsSnapshotConfigOptionsModel := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				getReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetReportsSnapshotConfig with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				getReportsSnapshotConfigOptionsModel := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				getReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetReportsSnapshotConfigOptions model with no property values
+				getReportsSnapshotConfigOptionsModelNew := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				getReportsSnapshotConfigOptionsModel := new(usagereportsv4.GetReportsSnapshotConfigOptions)
+				getReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions) - Operation response error`, func() {
+		updateReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateReportsSnapshotConfig with error: Operation response processing error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsModel := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				updateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				updateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				updateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				updateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				updateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				updateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				usageReportsService.EnableRetries(0, 0)
+				result, response, operationErr = usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions)`, func() {
+		updateReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke UpdateReportsSnapshotConfig successfully with retries`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+				usageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsModel := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				updateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				updateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				updateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				updateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				updateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				updateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := usageReportsService.UpdateReportsSnapshotConfigWithContext(ctx, updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				usageReportsService.DisableRetries()
+				result, response, operationErr := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = usageReportsService.UpdateReportsSnapshotConfigWithContext(ctx, updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud", "created_at": 1687469854342, "last_updated_at": 1687469989326, "history": [{"start_time": 1687469854342, "end_time": 1687469989326, "updated_by": "IBMid-506PR16K14", "account_id": "abc", "state": "enabled", "account_type": "account", "interval": "daily", "versioning": "new", "report_types": ["account_summary"], "compression": "GZIP", "content_type": "text/csv", "cos_reports_folder": "IBMCloud-Billing-Reports", "cos_bucket": "bucket_name", "cos_location": "us-south", "cos_endpoint": "https://s3.us-west.cloud-object-storage.test.appdomain.cloud"}]}`)
+				}))
+			})
+			It(`Invoke UpdateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := usageReportsService.UpdateReportsSnapshotConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsModel := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				updateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				updateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				updateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				updateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				updateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				updateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateReportsSnapshotConfig with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsModel := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				updateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				updateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				updateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				updateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				updateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				updateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateReportsSnapshotConfigOptions model with no property values
+				updateReportsSnapshotConfigOptionsModelNew := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsModel := new(usagereportsv4.UpdateReportsSnapshotConfigOptions)
+				updateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				updateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				updateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				updateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				updateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				updateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions *DeleteReportsSnapshotConfigOptions)`, func() {
+		deleteReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeleteReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := usageReportsService.DeleteReportsSnapshotConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteReportsSnapshotConfigOptions model
+				deleteReportsSnapshotConfigOptionsModel := new(usagereportsv4.DeleteReportsSnapshotConfigOptions)
+				deleteReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				deleteReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteReportsSnapshotConfig with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteReportsSnapshotConfigOptions model
+				deleteReportsSnapshotConfigOptionsModel := new(usagereportsv4.DeleteReportsSnapshotConfigOptions)
+				deleteReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				deleteReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteReportsSnapshotConfigOptions model with no property values
+				deleteReportsSnapshotConfigOptionsModelNew := new(usagereportsv4.DeleteReportsSnapshotConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) - Operation response error`, func() {
+		getReportsSnapshotPath := "/v1/billing-reports-snapshots"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
+					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
+					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshot with error: Operation response processing error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotOptions model
+				getReportsSnapshotOptionsModel := new(usagereportsv4.GetReportsSnapshotOptions)
+				getReportsSnapshotOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
+				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
+				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				usageReportsService.EnableRetries(0, 0)
+				result, response, operationErr = usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions)`, func() {
+		getReportsSnapshotPath := "/v1/billing-reports-snapshots"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
+					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
+					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshot successfully with retries`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+				usageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetReportsSnapshotOptions model
+				getReportsSnapshotOptionsModel := new(usagereportsv4.GetReportsSnapshotOptions)
+				getReportsSnapshotOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
+				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
+				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := usageReportsService.GetReportsSnapshotWithContext(ctx, getReportsSnapshotOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				usageReportsService.DisableRetries()
+				result, response, operationErr := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = usageReportsService.GetReportsSnapshotWithContext(ctx, getReportsSnapshotOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"abc"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
+					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
+					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
+				}))
+			})
+			It(`Invoke GetReportsSnapshot successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := usageReportsService.GetReportsSnapshot(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotOptions model
+				getReportsSnapshotOptionsModel := new(usagereportsv4.GetReportsSnapshotOptions)
+				getReportsSnapshotOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
+				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
+				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetReportsSnapshot with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotOptions model
+				getReportsSnapshotOptionsModel := new(usagereportsv4.GetReportsSnapshotOptions)
+				getReportsSnapshotOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
+				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
+				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetReportsSnapshotOptions model with no property values
+				getReportsSnapshotOptionsModelNew := new(usagereportsv4.GetReportsSnapshotOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetReportsSnapshot successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the GetReportsSnapshotOptions model
+				getReportsSnapshotOptionsModel := new(usagereportsv4.GetReportsSnapshotOptions)
+				getReportsSnapshotOptionsModel.AccountID = core.StringPtr("abc")
+				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
+				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
+				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
