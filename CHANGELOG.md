@@ -1,3 +1,10 @@
+## [0.50.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.0...v0.50.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** fix output to Operations ([#278](https://github.com/IBM/platform-services-go-sdk/issues/278)) ([424b6b5](https://github.com/IBM/platform-services-go-sdk/commit/424b6b5024456d870e3a4461c310716ff18124b0))
+
 # [0.50.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.49.0...v0.50.0) (2023-09-14)
 
 
