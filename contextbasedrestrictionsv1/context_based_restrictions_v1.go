@@ -1118,6 +1118,9 @@ type APIType struct {
 	// The description of the API type.
 	Description *string `json:"description" validate:"required"`
 
+	// The type of the API type.
+	Type *string `json:"type" validate:"required"`
+
 	// The actions available for the API type.
 	Actions []Action `json:"actions" validate:"required"`
 }
@@ -1134,6 +1137,10 @@ func UnmarshalAPIType(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
@@ -3074,7 +3081,7 @@ func UnmarshalZoneSummary(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// AddressIPAddress : A single IP address.
+// AddressIPAddress : A single IP address. IPv4 and IPv6 are supported.
 // This model "extends" Address
 type AddressIPAddress struct {
 	// The type of address.
@@ -3119,7 +3126,7 @@ func UnmarshalAddressIPAddress(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// AddressIPAddressRange : An IP address range.
+// AddressIPAddressRange : An IP address range. IPv4 and IPv6 are supported.
 // This model "extends" Address
 type AddressIPAddressRange struct {
 	// The type of address.

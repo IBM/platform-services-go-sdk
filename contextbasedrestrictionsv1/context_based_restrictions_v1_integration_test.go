@@ -1059,6 +1059,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operationsList).ToNot(BeNil())
+			for _, apiType := range operationsList.APITypes {
+				Expect(*apiType.Type).ToNot(BeEmpty())
+			}
 		})
 	})
 	Describe(`ListAvailableServiceOperations - List available service operations with Service Group ID`, func() {
@@ -1075,9 +1078,12 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operationsList).ToNot(BeNil())
+			for _, apiType := range operationsList.APITypes {
+				Expect(*apiType.Type).ToNot(BeEmpty())
+			}
 		})
 	})
-	Describe(`ListAvailableServiceOperations - List available service operations with Composite Parent`, func() {
+	Describe(`ListAvailableServiceOperations - List available service operations for subresource`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -1092,6 +1098,26 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operationsList).ToNot(BeNil())
+			for _, apiType := range operationsList.APITypes {
+				Expect(*apiType.Type).ToNot(BeEmpty())
+			}
+		})
+	})
+	Describe(`ListAvailableServiceOperations - List available service operations with 'mutually exclusive parameters' Error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceOperations(listAvailableServiceOperationsOptions *ListAvailableServiceOperationsOptions)`, func() {
+			listAvailableServiceOperationsOptions := &contextbasedrestrictionsv1.ListAvailableServiceOperationsOptions{
+				ServiceName:    core.StringPtr("iam-access-management"),
+				ServiceGroupID: core.StringPtr("IAM"),
+				TransactionID:  getTransactionID(),
+			}
+
+			operationsList, response, err := contextBasedRestrictionsService.ListAvailableServiceOperations(listAvailableServiceOperationsOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(operationsList).To(BeNil())
 		})
 	})
 
