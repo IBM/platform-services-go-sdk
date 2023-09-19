@@ -173,6 +173,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -181,7 +185,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// TODO: Add check for full_data query parameter
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for attached_only query parameter
@@ -200,6 +204,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.XRequestID = core.StringPtr("testString")
+				listTagsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listTagsOptionsModel.TransactionID = core.StringPtr("testString")
 				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				listTagsOptionsModel.AccountID = core.StringPtr("testString")
@@ -208,7 +214,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(false)
@@ -242,6 +248,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -250,7 +260,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// TODO: Add check for full_data query parameter
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for attached_only query parameter
@@ -274,6 +284,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.XRequestID = core.StringPtr("testString")
+				listTagsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listTagsOptionsModel.TransactionID = core.StringPtr("testString")
 				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				listTagsOptionsModel.AccountID = core.StringPtr("testString")
@@ -282,7 +294,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(false)
@@ -322,6 +334,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -330,7 +346,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// TODO: Add check for full_data query parameter
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 					// TODO: Add check for attached_only query parameter
@@ -356,6 +372,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.XRequestID = core.StringPtr("testString")
+				listTagsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listTagsOptionsModel.TransactionID = core.StringPtr("testString")
 				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				listTagsOptionsModel.AccountID = core.StringPtr("testString")
@@ -364,7 +382,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(false)
@@ -387,6 +405,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.XRequestID = core.StringPtr("testString")
+				listTagsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listTagsOptionsModel.TransactionID = core.StringPtr("testString")
 				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				listTagsOptionsModel.AccountID = core.StringPtr("testString")
@@ -395,7 +415,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(false)
@@ -432,6 +452,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.XRequestID = core.StringPtr("testString")
+				listTagsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listTagsOptionsModel.TransactionID = core.StringPtr("testString")
 				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				listTagsOptionsModel.AccountID = core.StringPtr("testString")
@@ -440,7 +462,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(false)
@@ -469,6 +491,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -491,6 +517,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
 				createTagOptionsModel.TagNames = []string{"testString"}
 				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.XRequestID = core.StringPtr("testString")
+				createTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createTagOptionsModel.TransactionID = core.StringPtr("testString")
 				createTagOptionsModel.AccountID = core.StringPtr("testString")
 				createTagOptionsModel.TagType = core.StringPtr("access")
@@ -540,6 +568,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -567,6 +599,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
 				createTagOptionsModel.TagNames = []string{"testString"}
 				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.XRequestID = core.StringPtr("testString")
+				createTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createTagOptionsModel.TransactionID = core.StringPtr("testString")
 				createTagOptionsModel.AccountID = core.StringPtr("testString")
 				createTagOptionsModel.TagType = core.StringPtr("access")
@@ -622,6 +656,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -651,6 +689,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
 				createTagOptionsModel.TagNames = []string{"testString"}
 				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.XRequestID = core.StringPtr("testString")
+				createTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createTagOptionsModel.TransactionID = core.StringPtr("testString")
 				createTagOptionsModel.AccountID = core.StringPtr("testString")
 				createTagOptionsModel.TagType = core.StringPtr("access")
@@ -675,6 +715,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
 				createTagOptionsModel.TagNames = []string{"testString"}
 				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.XRequestID = core.StringPtr("testString")
+				createTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createTagOptionsModel.TransactionID = core.StringPtr("testString")
 				createTagOptionsModel.AccountID = core.StringPtr("testString")
 				createTagOptionsModel.TagType = core.StringPtr("access")
@@ -720,6 +762,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
 				createTagOptionsModel.TagNames = []string{"testString"}
 				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.XRequestID = core.StringPtr("testString")
+				createTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createTagOptionsModel.TransactionID = core.StringPtr("testString")
 				createTagOptionsModel.AccountID = core.StringPtr("testString")
 				createTagOptionsModel.TagType = core.StringPtr("access")
@@ -748,6 +792,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
@@ -769,6 +817,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -804,6 +854,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
@@ -830,6 +884,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -871,6 +927,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
@@ -899,6 +959,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -923,6 +985,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -961,6 +1025,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -991,6 +1057,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1012,6 +1082,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -1047,6 +1119,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1073,6 +1149,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -1114,6 +1192,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1142,6 +1224,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -1167,6 +1251,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -1213,6 +1299,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.XRequestID = core.StringPtr("testString")
+				deleteTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteTagOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
@@ -1243,6 +1331,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1271,6 +1363,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1321,6 +1415,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1354,6 +1452,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1410,6 +1510,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1445,6 +1549,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1476,6 +1582,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1528,6 +1636,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				attachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1557,6 +1667,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1585,6 +1699,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1635,6 +1751,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1668,6 +1788,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1724,6 +1846,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Request-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Request-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
@@ -1759,6 +1885,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1790,6 +1918,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1842,6 +1972,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.XRequestID = core.StringPtr("testString")
+				detachTagOptionsModel.XCorrelationID = core.StringPtr("testString")
 				detachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
 				detachTagOptionsModel.AccountID = core.StringPtr("testString")
@@ -1882,6 +2014,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				attachTagOptionsModel.SetTagName("testString")
 				attachTagOptionsModel.SetTagNames([]string{"testString"})
+				attachTagOptionsModel.SetXRequestID("testString")
+				attachTagOptionsModel.SetXCorrelationID("testString")
 				attachTagOptionsModel.SetTransactionID("testString")
 				attachTagOptionsModel.SetImpersonateUser("testString")
 				attachTagOptionsModel.SetAccountID("testString")
@@ -1891,6 +2025,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(attachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(attachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(attachTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(attachTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -1903,6 +2039,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				createTagOptionsModel := globalTaggingService.NewCreateTagOptions(createTagOptionsTagNames)
 				createTagOptionsModel.SetTagNames([]string{"testString"})
 				createTagOptionsModel.SetImpersonateUser("testString")
+				createTagOptionsModel.SetXRequestID("testString")
+				createTagOptionsModel.SetXCorrelationID("testString")
 				createTagOptionsModel.SetTransactionID("testString")
 				createTagOptionsModel.SetAccountID("testString")
 				createTagOptionsModel.SetTagType("access")
@@ -1910,6 +2048,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(createTagOptionsModel).ToNot(BeNil())
 				Expect(createTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
 				Expect(createTagOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
+				Expect(createTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(createTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(createTagOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(createTagOptionsModel.TagType).To(Equal(core.StringPtr("access")))
@@ -1918,6 +2058,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			It(`Invoke NewDeleteTagAllOptions successfully`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := globalTaggingService.NewDeleteTagAllOptions()
+				deleteTagAllOptionsModel.SetXRequestID("testString")
+				deleteTagAllOptionsModel.SetXCorrelationID("testString")
 				deleteTagAllOptionsModel.SetTransactionID("testString")
 				deleteTagAllOptionsModel.SetProviders("ghost")
 				deleteTagAllOptionsModel.SetImpersonateUser("testString")
@@ -1925,6 +2067,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagAllOptionsModel.SetTagType("user")
 				deleteTagAllOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteTagAllOptionsModel).ToNot(BeNil())
+				Expect(deleteTagAllOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTagAllOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTagAllOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTagAllOptionsModel.Providers).To(Equal(core.StringPtr("ghost")))
 				Expect(deleteTagAllOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
@@ -1937,6 +2081,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				tagName := "testString"
 				deleteTagOptionsModel := globalTaggingService.NewDeleteTagOptions(tagName)
 				deleteTagOptionsModel.SetTagName("testString")
+				deleteTagOptionsModel.SetXRequestID("testString")
+				deleteTagOptionsModel.SetXCorrelationID("testString")
 				deleteTagOptionsModel.SetTransactionID("testString")
 				deleteTagOptionsModel.SetProviders([]string{"ghost"})
 				deleteTagOptionsModel.SetImpersonateUser("testString")
@@ -1945,6 +2091,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteTagOptionsModel).ToNot(BeNil())
 				Expect(deleteTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTagOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTagOptionsModel.Providers).To(Equal([]string{"ghost"}))
 				Expect(deleteTagOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
@@ -1967,6 +2115,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				detachTagOptionsModel.SetTagName("testString")
 				detachTagOptionsModel.SetTagNames([]string{"testString"})
+				detachTagOptionsModel.SetXRequestID("testString")
+				detachTagOptionsModel.SetXCorrelationID("testString")
 				detachTagOptionsModel.SetTransactionID("testString")
 				detachTagOptionsModel.SetImpersonateUser("testString")
 				detachTagOptionsModel.SetAccountID("testString")
@@ -1976,6 +2126,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(detachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(detachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(detachTagOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(detachTagOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -1985,6 +2137,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			It(`Invoke NewListTagsOptions successfully`, func() {
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := globalTaggingService.NewListTagsOptions()
+				listTagsOptionsModel.SetXRequestID("testString")
+				listTagsOptionsModel.SetXCorrelationID("testString")
 				listTagsOptionsModel.SetTransactionID("testString")
 				listTagsOptionsModel.SetImpersonateUser("testString")
 				listTagsOptionsModel.SetAccountID("testString")
@@ -1993,12 +2147,14 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.SetProviders([]string{"ghost"})
 				listTagsOptionsModel.SetAttachedTo("testString")
 				listTagsOptionsModel.SetOffset(int64(0))
-				listTagsOptionsModel.SetLimit(int64(1))
+				listTagsOptionsModel.SetLimit(int64(100))
 				listTagsOptionsModel.SetTimeout(int64(0))
 				listTagsOptionsModel.SetOrderByName("asc")
 				listTagsOptionsModel.SetAttachedOnly(false)
 				listTagsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listTagsOptionsModel).ToNot(BeNil())
+				Expect(listTagsOptionsModel.XRequestID).To(Equal(core.StringPtr("testString")))
+				Expect(listTagsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(listTagsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listTagsOptionsModel.ImpersonateUser).To(Equal(core.StringPtr("testString")))
 				Expect(listTagsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -2007,7 +2163,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(listTagsOptionsModel.Providers).To(Equal([]string{"ghost"}))
 				Expect(listTagsOptionsModel.AttachedTo).To(Equal(core.StringPtr("testString")))
 				Expect(listTagsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
-				Expect(listTagsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listTagsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listTagsOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listTagsOptionsModel.OrderByName).To(Equal(core.StringPtr("asc")))
 				Expect(listTagsOptionsModel.AttachedOnly).To(Equal(core.BoolPtr(false)))
