@@ -1,3 +1,10 @@
+## [0.50.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.1...v0.50.2) (2023-09-19)
+
+
+### Bug Fixes
+
+* **Global Search/Tagging:** regen services with latest API definitions ([#279](https://github.com/IBM/platform-services-go-sdk/issues/279)) ([87e0507](https://github.com/IBM/platform-services-go-sdk/commit/87e050773ada196f3f61612f467f9243f3a5cc12))
+
 ## [0.50.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.0...v0.50.1) (2023-09-15)
 
 
