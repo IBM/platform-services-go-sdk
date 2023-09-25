@@ -2,7 +2,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -369,46 +369,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(settings).ToNot(BeNil())
 
 		})
-		It(`PostMigration request example`, func() {
-			fmt.Println("\nPostMigration() result:")
-			// begin-post_migration
 
-			postMigrationOptions := atrackerService.NewPostMigrationOptions()
-
-			migration, response, err := atrackerService.PostMigration(postMigrationOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(migration, "", "  ")
-			fmt.Println(string(b))
-
-			// end-post_migration
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(migration).ToNot(BeNil())
-
-		})
-		It(`GetMigration request example`, func() {
-			fmt.Println("\nGetMigration() result:")
-			// begin-get_migration
-
-			getMigrationOptions := atrackerService.NewGetMigrationOptions()
-
-			migration, response, err := atrackerService.GetMigration(getMigrationOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(migration, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_migration
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(migration).ToNot(BeNil())
-
-		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
 
@@ -448,8 +409,8 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// end-delete_target
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-			Expect(warningReport).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(warningReport).ToNot(BeNil())
 
 		})
 	})

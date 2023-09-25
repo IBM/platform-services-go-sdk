@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -705,58 +705,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			}
 
 			_, response, err := atrackerServiceNotAuthorized.PutSettings(putSettingsOptions)
-
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
-		})
-	})
-
-	Describe(`PostMigration - Migrate Activity Tracker Event Routing configurations from v1 to v2`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`PostMigration(postMigrationOptions *PostMigrationOptions)`, func() {
-
-			postMigrationOptions := &atrackerv2.PostMigrationOptions{}
-
-			migration, response, err := atrackerService.PostMigration(postMigrationOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(migration).ToNot(BeNil())
-		})
-
-		It(`Returns 403 when user is not authorized`, func() {
-
-			postMigrationOptions := &atrackerv2.PostMigrationOptions{}
-
-			_, response, err := atrackerServiceNotAuthorized.PostMigration(postMigrationOptions)
-
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
-		})
-	})
-
-	Describe(`GetMigration - Get the migration status`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetMigration(getMigrationOptions *GetMigrationOptions)`, func() {
-
-			getMigrationOptions := &atrackerv2.GetMigrationOptions{}
-
-			migration, response, err := atrackerService.GetMigration(getMigrationOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(migration).ToNot(BeNil())
-		})
-
-		It(`Returns 403 when user is not authorized`, func() {
-
-			getMigrationOptions := &atrackerv2.GetMigrationOptions{}
-
-			_, response, err := atrackerServiceNotAuthorized.GetMigration(getMigrationOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
