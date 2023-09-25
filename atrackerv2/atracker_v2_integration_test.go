@@ -798,7 +798,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(200))
 		})
 		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
 
