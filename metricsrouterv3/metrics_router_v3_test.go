@@ -178,6 +178,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 			Expect(url).To(Equal("https://private.eu-gb.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-es")
+			Expect(url).To(Equal("https://eu-es.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-es")
+			Expect(url).To(Equal("https://private.eu-es.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
 			url, err = metricsrouterv3.GetServiceURLForRegion("us-east")
 			Expect(url).To(Equal("https://us-east.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
