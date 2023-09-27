@@ -1,3 +1,10 @@
+## [0.50.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.2...v0.50.3) (2023-09-27)
+
+
+### Bug Fixes
+
+* **Metrics Router:** add new region eu-es ([#280](https://github.com/IBM/platform-services-go-sdk/issues/280)) ([b8834b8](https://github.com/IBM/platform-services-go-sdk/commit/b8834b89da0986c2f1a328cbfedd9427a404acf4))
+
 ## [0.50.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.1...v0.50.2) (2023-09-19)
 
 
