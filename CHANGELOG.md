@@ -1,3 +1,10 @@
+## [0.50.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.3...v0.50.4) (2023-09-27)
+
+
+### Bug Fixes
+
+* **ATracker:** add eu-es region, remove migration code ([#281](https://github.com/IBM/platform-services-go-sdk/issues/281)) ([3dd6978](https://github.com/IBM/platform-services-go-sdk/commit/3dd6978257db5d723d7f217533704f882fec0d96))
+
 ## [0.50.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.2...v0.50.3) (2023-09-27)
 
 
