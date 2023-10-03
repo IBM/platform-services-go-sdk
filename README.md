@@ -46,7 +46,6 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 Service Name | Package name 
 --- | --- 
 [Activity Tracker](https://cloud.ibm.com/apidocs/atracker/atracker-v2) | atrackerv2
-[Activity Tracker v1 [deprecated]](https://cloud.ibm.com/apidocs/atracker/atracker-v1) | atrackerv1
 [Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
 [Context Based Restrictions](https://cloud.ibm.com/apidocs/context-based-restrictions?code=go) | contextbasedrestrictionsv1
