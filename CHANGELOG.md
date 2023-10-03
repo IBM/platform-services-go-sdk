@@ -1,3 +1,10 @@
+# [0.51.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.4...v0.51.0) (2023-10-03)
+
+
+### Features
+
+* **ATracker V1:** remove deprecated atrackerv1 service from project ([#282](https://github.com/IBM/platform-services-go-sdk/issues/282)) ([1b7cff8](https://github.com/IBM/platform-services-go-sdk/commit/1b7cff84720599ba5ed06380fb96b73cd0f23037))
+
 ## [0.50.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.50.3...v0.50.4) (2023-09-27)
 
 
