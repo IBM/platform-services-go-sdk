@@ -3172,6 +3172,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
 					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
 					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -3191,6 +3193,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
 				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
 				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Limit = core.Int64Ptr(int64(30))
+				getReportsSnapshotOptionsModel.Start = core.StringPtr("testString")
 				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptionsModel)
@@ -3225,13 +3229,15 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
 					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
 					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06", "offset": "g1AAAAHyeJzLYWBgYMtgTmHQSklKzi9KdUhJMtRLytVNTtZNSU3JTE4sSU0xMjTUS87JL01JzCvRy0styQHqYUpSAJJJ-v___88C892cKtZ"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
 				}))
 			})
 			It(`Invoke GetReportsSnapshot successfully with retries`, func() {
@@ -3249,6 +3255,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
 				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
 				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Limit = core.Int64Ptr(int64(30))
+				getReportsSnapshotOptionsModel.Start = core.StringPtr("testString")
 				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3289,10 +3297,12 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.URL.Query()["month"]).To(Equal([]string{"2023-02"}))
 					Expect(req.URL.Query()["date_from"]).To(Equal([]string{fmt.Sprint(int64(1675209600000))}))
 					Expect(req.URL.Query()["date_to"]).To(Equal([]string{fmt.Sprint(int64(1675987200000))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 3, "first": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06"}, "next": {"href": "/v1/billing-reports-snapshots?_limit=10&account_id=272b9a4f73e11030d0ba037daee47a35&date_from=-Infinity&date_to=Infinity&month=2023-06", "offset": "g1AAAAHyeJzLYWBgYMtgTmHQSklKzi9KdUhJMtRLytVNTtZNSU3JTE4sSU0xMjTUS87JL01JzCvRy0styQHqYUpSAJJJ-v___88C892cKtZ"}, "snapshots": [{"account_id": "abc", "month": "2023-06", "account_type": "account", "expected_processed_at": 1687470383610, "state": "enabled", "billing_period": {"start": "2023-06-01T00:00:00.000Z", "end": "2023-06-30T23:59:59.999Z"}, "snapshot_id": "1685577600000", "charset": "UTF-8", "compression": "GZIP", "content_type": "text/csv", "bucket": "bucket_name", "version": "1.0", "created_on": "2023-06-22T21:47:28.297Z", "report_types": [{"type": "account_summary", "version": "1.0"}], "files": [{"report_types": "account_summary", "location": "june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz", "account_id": "abc"}], "processed_at": 1687470448297}]}`)
 				}))
 			})
 			It(`Invoke GetReportsSnapshot successfully`, func() {
@@ -3315,6 +3325,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
 				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
 				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Limit = core.Int64Ptr(int64(30))
+				getReportsSnapshotOptionsModel.Start = core.StringPtr("testString")
 				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3338,6 +3350,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
 				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
 				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Limit = core.Int64Ptr(int64(30))
+				getReportsSnapshotOptionsModel.Start = core.StringPtr("testString")
 				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := usageReportsService.SetServiceURL("")
@@ -3382,6 +3396,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getReportsSnapshotOptionsModel.Month = core.StringPtr("2023-02")
 				getReportsSnapshotOptionsModel.DateFrom = core.Int64Ptr(int64(1675209600000))
 				getReportsSnapshotOptionsModel.DateTo = core.Int64Ptr(int64(1675987200000))
+				getReportsSnapshotOptionsModel.Limit = core.Int64Ptr(int64(30))
+				getReportsSnapshotOptionsModel.Start = core.StringPtr("testString")
 				getReportsSnapshotOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3396,12 +3412,154 @@ var _ = Describe(`UsageReportsV4`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextStart successfully`, func() {
+				responseObject := new(usagereportsv4.SnapshotList)
+				nextObject := new(usagereportsv4.SnapshotListNext)
+				nextObject.Href = core.StringPtr("ibm.com?_start=abc-123")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.StringPtr("abc-123")))
+			})
+			It(`Invoke GetNextStart without a "Next" property in the response`, func() {
+				responseObject := new(usagereportsv4.SnapshotList)
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextStart without any query params in the "Next" URL`, func() {
+				responseObject := new(usagereportsv4.SnapshotList)
+				nextObject := new(usagereportsv4.SnapshotListNext)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
+
+				value, err := responseObject.GetNextStart()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+		})
+		Context(`Using mock server endpoint - paginated response`, func() {
+			BeforeEach(func() {
+				var requestNumber int = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getReportsSnapshotPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					requestNumber++
+					if requestNumber == 1 {
+						fmt.Fprintf(res, "%s", `{"snapshots":[{"account_id":"abc","month":"2023-06","account_type":"account","expected_processed_at":1687470383610,"state":"enabled","billing_period":{"start":"2023-06-01T00:00:00.000Z","end":"2023-06-30T23:59:59.999Z"},"snapshot_id":"1685577600000","charset":"UTF-8","compression":"GZIP","content_type":"text/csv","bucket":"bucket_name","version":"1.0","created_on":"2023-06-22T21:47:28.297Z","report_types":[{"type":"account_summary","version":"1.0"}],"files":[{"report_types":"account_summary","location":"june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz","account_id":"abc"}],"processed_at":1687470448297}],"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1}`)
+					} else if requestNumber == 2 {
+						fmt.Fprintf(res, "%s", `{"snapshots":[{"account_id":"abc","month":"2023-06","account_type":"account","expected_processed_at":1687470383610,"state":"enabled","billing_period":{"start":"2023-06-01T00:00:00.000Z","end":"2023-06-30T23:59:59.999Z"},"snapshot_id":"1685577600000","charset":"UTF-8","compression":"GZIP","content_type":"text/csv","bucket":"bucket_name","version":"1.0","created_on":"2023-06-22T21:47:28.297Z","report_types":[{"type":"account_summary","version":"1.0"}],"files":[{"report_types":"account_summary","location":"june/2023-06/1685577600000/2023-06-account-summary-272b9a4f73e11030d0ba037daee47a35.csv.gz","account_id":"abc"}],"processed_at":1687470448297}],"total_count":2,"limit":1}`)
+					} else {
+						res.WriteHeader(400)
+					}
+				}))
+			})
+			It(`Use GetReportsSnapshotPager.GetNext successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getReportsSnapshotOptionsModel := &usagereportsv4.GetReportsSnapshotOptions{
+					AccountID: core.StringPtr("abc"),
+					Month:     core.StringPtr("2023-02"),
+					DateFrom:  core.Int64Ptr(int64(1675209600000)),
+					DateTo:    core.Int64Ptr(int64(1675987200000)),
+					Limit:     core.Int64Ptr(int64(30)),
+				}
+
+				pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				var allResults []usagereportsv4.SnapshotListSnapshotsItem
+				for pager.HasNext() {
+					nextPage, err := pager.GetNext()
+					Expect(err).To(BeNil())
+					Expect(nextPage).ToNot(BeNil())
+					allResults = append(allResults, nextPage...)
+				}
+				Expect(len(allResults)).To(Equal(2))
+			})
+			It(`Use GetReportsSnapshotPager.GetAll successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				getReportsSnapshotOptionsModel := &usagereportsv4.GetReportsSnapshotOptions{
+					AccountID: core.StringPtr("abc"),
+					Month:     core.StringPtr("2023-02"),
+					DateFrom:  core.Int64Ptr(int64(1675209600000)),
+					DateTo:    core.Int64Ptr(int64(1675987200000)),
+					Limit:     core.Int64Ptr(int64(30)),
+				}
+
+				pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptionsModel)
+				Expect(err).To(BeNil())
+				Expect(pager).ToNot(BeNil())
+
+				allResults, err := pager.GetAll()
+				Expect(err).To(BeNil())
+				Expect(allResults).ToNot(BeNil())
+				Expect(len(allResults)).To(Equal(2))
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			usageReportsService, _ := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
 				URL:           "http://usagereportsv4modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewCreateReportsSnapshotConfigOptions successfully`, func() {
+				// Construct an instance of the CreateReportsSnapshotConfigOptions model
+				createReportsSnapshotConfigOptionsAccountID := "abc"
+				createReportsSnapshotConfigOptionsInterval := "daily"
+				createReportsSnapshotConfigOptionsCosBucket := "bucket_name"
+				createReportsSnapshotConfigOptionsCosLocation := "us-south"
+				createReportsSnapshotConfigOptionsModel := usageReportsService.NewCreateReportsSnapshotConfigOptions(createReportsSnapshotConfigOptionsAccountID, createReportsSnapshotConfigOptionsInterval, createReportsSnapshotConfigOptionsCosBucket, createReportsSnapshotConfigOptionsCosLocation)
+				createReportsSnapshotConfigOptionsModel.SetAccountID("abc")
+				createReportsSnapshotConfigOptionsModel.SetInterval("daily")
+				createReportsSnapshotConfigOptionsModel.SetCosBucket("bucket_name")
+				createReportsSnapshotConfigOptionsModel.SetCosLocation("us-south")
+				createReportsSnapshotConfigOptionsModel.SetCosReportsFolder("IBMCloud-Billing-Reports")
+				createReportsSnapshotConfigOptionsModel.SetReportTypes([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"})
+				createReportsSnapshotConfigOptionsModel.SetVersioning("new")
+				createReportsSnapshotConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createReportsSnapshotConfigOptionsModel).ToNot(BeNil())
+				Expect(createReportsSnapshotConfigOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(createReportsSnapshotConfigOptionsModel.Interval).To(Equal(core.StringPtr("daily")))
+				Expect(createReportsSnapshotConfigOptionsModel.CosBucket).To(Equal(core.StringPtr("bucket_name")))
+				Expect(createReportsSnapshotConfigOptionsModel.CosLocation).To(Equal(core.StringPtr("us-south")))
+				Expect(createReportsSnapshotConfigOptionsModel.CosReportsFolder).To(Equal(core.StringPtr("IBMCloud-Billing-Reports")))
+				Expect(createReportsSnapshotConfigOptionsModel.ReportTypes).To(Equal([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}))
+				Expect(createReportsSnapshotConfigOptionsModel.Versioning).To(Equal(core.StringPtr("new")))
+				Expect(createReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteReportsSnapshotConfigOptions successfully`, func() {
+				// Construct an instance of the DeleteReportsSnapshotConfigOptions model
+				accountID := "abc"
+				deleteReportsSnapshotConfigOptionsModel := usageReportsService.NewDeleteReportsSnapshotConfigOptions(accountID)
+				deleteReportsSnapshotConfigOptionsModel.SetAccountID("abc")
+				deleteReportsSnapshotConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteReportsSnapshotConfigOptionsModel).ToNot(BeNil())
+				Expect(deleteReportsSnapshotConfigOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(deleteReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccountSummaryOptions successfully`, func() {
 				// Construct an instance of the GetAccountSummaryOptions model
@@ -3452,6 +3610,37 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(getOrgUsageOptionsModel.Names).To(Equal(core.BoolPtr(true)))
 				Expect(getOrgUsageOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
 				Expect(getOrgUsageOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetReportsSnapshotConfigOptions successfully`, func() {
+				// Construct an instance of the GetReportsSnapshotConfigOptions model
+				accountID := "abc"
+				getReportsSnapshotConfigOptionsModel := usageReportsService.NewGetReportsSnapshotConfigOptions(accountID)
+				getReportsSnapshotConfigOptionsModel.SetAccountID("abc")
+				getReportsSnapshotConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getReportsSnapshotConfigOptionsModel).ToNot(BeNil())
+				Expect(getReportsSnapshotConfigOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(getReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetReportsSnapshotOptions successfully`, func() {
+				// Construct an instance of the GetReportsSnapshotOptions model
+				accountID := "abc"
+				month := "2023-02"
+				getReportsSnapshotOptionsModel := usageReportsService.NewGetReportsSnapshotOptions(accountID, month)
+				getReportsSnapshotOptionsModel.SetAccountID("abc")
+				getReportsSnapshotOptionsModel.SetMonth("2023-02")
+				getReportsSnapshotOptionsModel.SetDateFrom(int64(1675209600000))
+				getReportsSnapshotOptionsModel.SetDateTo(int64(1675987200000))
+				getReportsSnapshotOptionsModel.SetLimit(int64(30))
+				getReportsSnapshotOptionsModel.SetStart("testString")
+				getReportsSnapshotOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getReportsSnapshotOptionsModel).ToNot(BeNil())
+				Expect(getReportsSnapshotOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(getReportsSnapshotOptionsModel.Month).To(Equal(core.StringPtr("2023-02")))
+				Expect(getReportsSnapshotOptionsModel.DateFrom).To(Equal(core.Int64Ptr(int64(1675209600000))))
+				Expect(getReportsSnapshotOptionsModel.DateTo).To(Equal(core.Int64Ptr(int64(1675987200000))))
+				Expect(getReportsSnapshotOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
+				Expect(getReportsSnapshotOptionsModel.Start).To(Equal(core.StringPtr("testString")))
+				Expect(getReportsSnapshotOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetResourceGroupUsageOptions successfully`, func() {
 				// Construct an instance of the GetResourceGroupUsageOptions model
@@ -3569,6 +3758,28 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(getResourceUsageResourceGroupOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateReportsSnapshotConfigOptions successfully`, func() {
+				// Construct an instance of the UpdateReportsSnapshotConfigOptions model
+				updateReportsSnapshotConfigOptionsAccountID := "abc"
+				updateReportsSnapshotConfigOptionsModel := usageReportsService.NewUpdateReportsSnapshotConfigOptions(updateReportsSnapshotConfigOptionsAccountID)
+				updateReportsSnapshotConfigOptionsModel.SetAccountID("abc")
+				updateReportsSnapshotConfigOptionsModel.SetInterval("daily")
+				updateReportsSnapshotConfigOptionsModel.SetCosBucket("bucket_name")
+				updateReportsSnapshotConfigOptionsModel.SetCosLocation("us-south")
+				updateReportsSnapshotConfigOptionsModel.SetCosReportsFolder("IBMCloud-Billing-Reports")
+				updateReportsSnapshotConfigOptionsModel.SetReportTypes([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"})
+				updateReportsSnapshotConfigOptionsModel.SetVersioning("new")
+				updateReportsSnapshotConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateReportsSnapshotConfigOptionsModel).ToNot(BeNil())
+				Expect(updateReportsSnapshotConfigOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(updateReportsSnapshotConfigOptionsModel.Interval).To(Equal(core.StringPtr("daily")))
+				Expect(updateReportsSnapshotConfigOptionsModel.CosBucket).To(Equal(core.StringPtr("bucket_name")))
+				Expect(updateReportsSnapshotConfigOptionsModel.CosLocation).To(Equal(core.StringPtr("us-south")))
+				Expect(updateReportsSnapshotConfigOptionsModel.CosReportsFolder).To(Equal(core.StringPtr("IBMCloud-Billing-Reports")))
+				Expect(updateReportsSnapshotConfigOptionsModel.ReportTypes).To(Equal([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}))
+				Expect(updateReportsSnapshotConfigOptionsModel.Versioning).To(Equal(core.StringPtr("new")))
+				Expect(updateReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})
