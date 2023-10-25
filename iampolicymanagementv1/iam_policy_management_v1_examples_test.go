@@ -371,24 +371,24 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 				Tags: []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag},
 			}
-			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.day_of_week}}"),
 				Operator: core.StringPtr("dayOfWeekAnyOf"),
 				Value:    []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"},
 			}
-			startConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			startConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeGreaterThanOrEquals"),
 				Value:    core.StringPtr("09:00:00+00:00"),
 			}
-			endConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			endConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeLessThanOrEquals"),
 				Value:    core.StringPtr("17:00:00+00:00"),
 			}
 			policyRule := &iampolicymanagementv1.V2PolicyRule{
 				Operator: core.StringPtr("and"),
-				Conditions: []iampolicymanagementv1.RuleAttribute{
+				Conditions: []iampolicymanagementv1.RuleAttributeWithConditions{
 					*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute},
 			}
 
@@ -481,24 +481,24 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				v2PolicyControl,
 				"access",
 			)
-			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.day_of_week}}"),
 				Operator: core.StringPtr("dayOfWeekAnyOf"),
 				Value:    []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00"},
 			}
-			startConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			startConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeGreaterThanOrEquals"),
 				Value:    core.StringPtr("09:00:00+00:00"),
 			}
-			endConditionAttribute := &iampolicymanagementv1.RuleAttribute{
+			endConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeLessThanOrEquals"),
 				Value:    core.StringPtr("17:00:00+00:00"),
 			}
 			policyRule := &iampolicymanagementv1.V2PolicyRule{
 				Operator: core.StringPtr("and"),
-				Conditions: []iampolicymanagementv1.RuleAttribute{
+				Conditions: []iampolicymanagementv1.RuleAttributeWithConditions{
 					*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute},
 			}
 			options.SetRule(policyRule)
@@ -1058,8 +1058,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policy.Template.ID).ToNot(BeNil())
 			Expect(policy.Template.Version).ToNot(BeNil())
 			Expect(policy.Template.AssignmentID).ToNot(BeNil())
-			Expect(policy.Template.RootID).ToNot(BeNil())
-			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 
 		It(`DeletePolicyTemplateVersion request example`, func() {
