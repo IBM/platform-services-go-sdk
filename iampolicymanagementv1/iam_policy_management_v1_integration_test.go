@@ -348,24 +348,24 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			control.Grant = grant
 
 			// Construct an instance of Policy Rule Attribute
-			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
 			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
 			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
 
-			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			startConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
 			startConditionAttribute.Operator = core.StringPtr("timeGreaterThanOrEquals")
 			startConditionAttribute.Value = core.StringPtr("09:00:00+00:00")
 
-			endConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			endConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			endConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
 			endConditionAttribute.Operator = core.StringPtr("timeLessThanOrEquals")
 			endConditionAttribute.Value = core.StringPtr("17:00:00+00:00")
 
 			policyRule := new(iampolicymanagementv1.V2PolicyRule)
 			policyRule.Operator = core.StringPtr("and")
-			policyRule.Conditions = []iampolicymanagementv1.RuleAttribute{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
+			policyRule.Conditions = []iampolicymanagementv1.RuleAttributeWithConditions{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
 
 			// Construct an instance of the CreateV2PolicyOptions model
 			options := new(iampolicymanagementv1.CreateV2PolicyOptions)
@@ -454,24 +454,24 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			control.Grant = grant
 
 			// Construct an instance of Policy Rule Attribute
-			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			weeklyConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			weeklyConditionAttribute.Key = core.StringPtr("{{environment.attributes.day_of_week}}")
 			weeklyConditionAttribute.Operator = core.StringPtr("dayOfWeekAnyOf")
 			weeklyConditionAttribute.Value = []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"}
 
-			startConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			startConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			startConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
 			startConditionAttribute.Operator = core.StringPtr("timeGreaterThanOrEquals")
 			startConditionAttribute.Value = core.StringPtr("09:00:00+00:00")
 
-			endConditionAttribute := new(iampolicymanagementv1.RuleAttribute)
+			endConditionAttribute := new(iampolicymanagementv1.RuleAttributeWithConditions)
 			endConditionAttribute.Key = core.StringPtr("{{environment.attributes.current_time}}")
 			endConditionAttribute.Operator = core.StringPtr("timeLessThanOrEquals")
 			endConditionAttribute.Value = core.StringPtr("17:00:00+00:00")
 
 			policyRule := new(iampolicymanagementv1.V2PolicyRule)
 			policyRule.Operator = core.StringPtr("and")
-			policyRule.Conditions = []iampolicymanagementv1.RuleAttribute{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
+			policyRule.Conditions = []iampolicymanagementv1.RuleAttributeWithConditions{*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute}
 
 			// Construct an instance of the ReplaceV2PolicyOptions model
 			options := new(iampolicymanagementv1.ReplaceV2PolicyOptions)
@@ -992,8 +992,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policy.Template.ID).ToNot(BeNil())
 			Expect(policy.Template.Version).ToNot(BeNil())
 			Expect(policy.Template.AssignmentID).ToNot(BeNil())
-			Expect(policy.Template.RootID).ToNot(BeNil())
-			Expect(policy.Template.RootVersion).ToNot(BeNil())
 		})
 	})
 
