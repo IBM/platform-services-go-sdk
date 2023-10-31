@@ -1,3 +1,10 @@
+## [0.52.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.52.0...v0.52.1) (2023-10-31)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add nested conditions to rule.conditions ([#285](https://github.com/IBM/platform-services-go-sdk/issues/285)) ([df59e07](https://github.com/IBM/platform-services-go-sdk/commit/df59e070f78155e481a673d62b8a155115806abb))
+
 # [0.52.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.51.0...v0.52.0) (2023-10-17)
 
 
