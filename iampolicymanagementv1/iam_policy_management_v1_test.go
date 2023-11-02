@@ -8535,12 +8535,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewRuleAttributeWithConditions successfully`, func() {
-				operator := "timeLessThan"
-				_model, err := iamPolicyManagementService.NewRuleAttributeWithConditions(operator)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewSubjectAttribute successfully`, func() {
 				name := "testString"
 				value := "testString"
@@ -8605,6 +8599,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewRuleWithNestedConditionsConditionsItemRuleAttribute successfully`, func() {
+				key := "testString"
+				operator := "timeLessThan"
+				value := core.StringPtr("testString")
+				_model, err := iamPolicyManagementService.NewRuleWithNestedConditionsConditionsItemRuleAttribute(key, operator, value)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewRuleWithNestedConditionsConditionsItemRuleWithConditions successfully`, func() {
+				operator := "and"
+				conditions := []iampolicymanagementv1.RuleAttribute{}
+				_model, err := iamPolicyManagementService.NewRuleWithNestedConditionsConditionsItemRuleWithConditions(operator, conditions)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewV2PolicyRuleRuleAttribute successfully`, func() {
 				key := "testString"
 				operator := "timeLessThan"
@@ -8613,10 +8622,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewV2PolicyRuleRuleWithConditions successfully`, func() {
+			It(`Invoke NewV2PolicyRuleRuleWithNestedConditions successfully`, func() {
 				operator := "and"
-				conditions := []iampolicymanagementv1.RuleAttributeWithConditions{}
-				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleWithConditions(operator, conditions)
+				conditions := []iampolicymanagementv1.RuleWithNestedConditionsConditionsItemIntf{}
+				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleWithNestedConditions(operator, conditions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
