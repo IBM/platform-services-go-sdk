@@ -1,3 +1,10 @@
+# [0.53.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.52.1...v0.53.0) (2023-11-03)
+
+
+### Features
+
+* **Context-Based Restrictions:** add enforcement_modes to operations response ([#286](https://github.com/IBM/platform-services-go-sdk/issues/286)) ([a3ccd19](https://github.com/IBM/platform-services-go-sdk/commit/a3ccd19f5667217e813200591f73910afcf85b93))
+
 ## [0.52.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.52.0...v0.52.1) (2023-10-31)
 
 
