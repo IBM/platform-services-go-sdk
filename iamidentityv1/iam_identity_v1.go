@@ -43,7 +43,7 @@ type IamIdentityV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.test.cloud.ibm.com"
+const DefaultServiceURL = "https://iam.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_identity"
@@ -8241,7 +8241,7 @@ const (
 const (
 	IDBasedMfaEnrollmentComplyStateAccountConst = "ACCOUNT"
 	IDBasedMfaEnrollmentComplyStateCrossAccountConst = "CROSS_ACCOUNT"
-	IDBasedMfaEnrollmentComplyStateFalseConst = "false"
+	IDBasedMfaEnrollmentComplyStateNoConst = "NO"
 )
 
 // UnmarshalIDBasedMfaEnrollment unmarshals an instance of IDBasedMfaEnrollment from the specified map of raw messages.

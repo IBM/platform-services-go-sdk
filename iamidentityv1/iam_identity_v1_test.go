@@ -7715,7 +7715,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "false"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
+					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "NO"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
 				}))
 			})
 			It(`Invoke GetMfaStatus successfully with retries`, func() {
@@ -7771,7 +7771,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "false"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
+					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "NO"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}`)
 				}))
 			})
 			It(`Invoke GetMfaStatus successfully`, func() {
@@ -8153,7 +8153,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "false"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "NO"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
 				}))
 			})
 			It(`Invoke GetMfaReport successfully with retries`, func() {
@@ -8208,7 +8208,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "false"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_time": "ReportTime", "account_id": "AccountID", "ims_account_id": "ImsAccountID", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "enrollments": {"effective_mfa_type": "EffectiveMfaType", "id_based_mfa": {"trait_account_default": "NONE", "trait_user_specific": "NONE", "trait_effective": "NONE", "complies": true, "comply_state": "NO"}, "account_based_mfa": {"security_questions": {"required": true, "enrolled": true}, "totp": {"required": true, "enrolled": true}, "verisign": {"required": true, "enrolled": true}, "complies": true}}}]}`)
 				}))
 			})
 			It(`Invoke GetMfaReport successfully`, func() {
