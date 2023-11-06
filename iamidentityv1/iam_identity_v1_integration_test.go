@@ -1964,6 +1964,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(err).To(BeNil())
 			Expect(excResponse).To(BeNil())
+
+			waitUntilTrustedProfileAssignmentFinishedIT(iamIdentityService, &profileTemplateAssignmentId, &profileTemplateAssignmentEtag)
 		})
 	})
 
@@ -2252,6 +2254,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(err).To(BeNil())
 			Expect(excResponse).To(BeNil())
+
+			waitUntilAccountSettingsAssignmentFinishedIT(iamIdentityService, &accountSettingsTemplateAssignmentId, &accountSettingsTemplateAssignmentEtag)
 		})
 	})
 
