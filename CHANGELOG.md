@@ -1,3 +1,10 @@
+## [0.53.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.53.0...v0.53.1) (2023-11-07)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update rule conditions based on API def ([#288](https://github.com/IBM/platform-services-go-sdk/issues/288)) ([aa2f6a2](https://github.com/IBM/platform-services-go-sdk/commit/aa2f6a23625bdff45f0a5b755c6d40e387446fef))
+
 # [0.53.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.52.1...v0.53.0) (2023-11-03)
 
 

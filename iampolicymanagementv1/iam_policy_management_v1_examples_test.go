@@ -371,25 +371,25 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 				Tags: []iampolicymanagementv1.V2PolicyResourceTag{*policyResourceTag},
 			}
-			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			weeklyConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.day_of_week}}"),
 				Operator: core.StringPtr("dayOfWeekAnyOf"),
 				Value:    []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"},
 			}
-			startConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			startConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeGreaterThanOrEquals"),
 				Value:    core.StringPtr("09:00:00+00:00"),
 			}
-			endConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			endConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeLessThanOrEquals"),
 				Value:    core.StringPtr("17:00:00+00:00"),
 			}
 			policyRule := &iampolicymanagementv1.V2PolicyRule{
 				Operator: core.StringPtr("and"),
-				Conditions: []iampolicymanagementv1.RuleAttributeWithConditions{
-					*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute},
+				Conditions: []iampolicymanagementv1.NestedConditionIntf{
+					weeklyConditionAttribute, startConditionAttribute, endConditionAttribute},
 			}
 
 			options := iamPolicyManagementService.NewCreateV2PolicyOptions(
@@ -481,25 +481,25 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				v2PolicyControl,
 				"access",
 			)
-			weeklyConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			weeklyConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.day_of_week}}"),
 				Operator: core.StringPtr("dayOfWeekAnyOf"),
 				Value:    []string{"1+00:00", "2+00:00", "3+00:00", "4+00:00"},
 			}
-			startConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			startConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeGreaterThanOrEquals"),
 				Value:    core.StringPtr("09:00:00+00:00"),
 			}
-			endConditionAttribute := &iampolicymanagementv1.RuleAttributeWithConditions{
+			endConditionAttribute := &iampolicymanagementv1.NestedCondition{
 				Key:      core.StringPtr("{{environment.attributes.current_time}}"),
 				Operator: core.StringPtr("timeLessThanOrEquals"),
 				Value:    core.StringPtr("17:00:00+00:00"),
 			}
 			policyRule := &iampolicymanagementv1.V2PolicyRule{
 				Operator: core.StringPtr("and"),
-				Conditions: []iampolicymanagementv1.RuleAttributeWithConditions{
-					*weeklyConditionAttribute, *startConditionAttribute, *endConditionAttribute},
+				Conditions: []iampolicymanagementv1.NestedConditionIntf{
+					weeklyConditionAttribute, startConditionAttribute, endConditionAttribute},
 			}
 			options.SetRule(policyRule)
 			options.SetPattern(*core.StringPtr("time-based-conditions:weekly:custom-hours"))
