@@ -66,14 +66,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-			})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -8599,18 +8596,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewRuleWithNestedConditionsConditionsItemRuleAttribute successfully`, func() {
+			It(`Invoke NewNestedConditionRuleAttribute successfully`, func() {
 				key := "testString"
 				operator := "timeLessThan"
 				value := core.StringPtr("testString")
-				_model, err := iamPolicyManagementService.NewRuleWithNestedConditionsConditionsItemRuleAttribute(key, operator, value)
+				_model, err := iamPolicyManagementService.NewNestedConditionRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewRuleWithNestedConditionsConditionsItemRuleWithConditions successfully`, func() {
+			It(`Invoke NewNestedConditionRuleWithConditions successfully`, func() {
 				operator := "and"
 				conditions := []iampolicymanagementv1.RuleAttribute{}
-				_model, err := iamPolicyManagementService.NewRuleWithNestedConditionsConditionsItemRuleWithConditions(operator, conditions)
+				_model, err := iamPolicyManagementService.NewNestedConditionRuleWithConditions(operator, conditions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -8624,7 +8621,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Invoke NewV2PolicyRuleRuleWithNestedConditions successfully`, func() {
 				operator := "and"
-				conditions := []iampolicymanagementv1.RuleWithNestedConditionsConditionsItemIntf{}
+				conditions := []iampolicymanagementv1.NestedConditionIntf{}
 				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleWithNestedConditions(operator, conditions)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
