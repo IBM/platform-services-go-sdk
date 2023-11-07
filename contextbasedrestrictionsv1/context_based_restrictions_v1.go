@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.79.0-2eb6af3d-20230905-174838
+ * IBM OpenAPI SDK Code Generator Version: 3.81.0-c73a091c-20231026-215706
  */
 
 // Package contextbasedrestrictionsv1 : Operations and models for the ContextBasedRestrictionsV1 service
@@ -1123,6 +1123,9 @@ type APIType struct {
 
 	// The actions available for the API type.
 	Actions []Action `json:"actions" validate:"required"`
+
+	// The enforcement modes supported by the API type.
+	EnforcementModes []string `json:"enforcement_modes,omitempty"`
 }
 
 // UnmarshalAPIType unmarshals an instance of APIType from the specified map of raw messages.
@@ -1145,6 +1148,10 @@ func UnmarshalAPIType(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalAction)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enforcement_modes", &obj.EnforcementModes)
 	if err != nil {
 		return
 	}
