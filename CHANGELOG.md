@@ -1,3 +1,10 @@
+# [0.54.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.53.1...v0.54.0) (2023-11-14)
+
+
+### Features
+
+* **IAM Identity:** add comply_state variable to mfa report ([#287](https://github.com/IBM/platform-services-go-sdk/issues/287)) ([3f70ec5](https://github.com/IBM/platform-services-go-sdk/commit/3f70ec57ce70cceb528d569d3d4b1a46346d64ca))
+
 ## [0.53.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.53.0...v0.53.1) (2023-11-07)
 
 
