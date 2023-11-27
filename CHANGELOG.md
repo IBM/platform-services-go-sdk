@@ -1,3 +1,10 @@
+## [0.54.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.54.0...v0.54.1) (2023-11-27)
+
+
+### Bug Fixes
+
+* **Global Tagging:** regenerate service using latest API definition ([#289](https://github.com/IBM/platform-services-go-sdk/issues/289)) ([b44bea3](https://github.com/IBM/platform-services-go-sdk/commit/b44bea322ac9025bb151770b577c0a2cf79e7912))
+
 # [0.54.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.53.1...v0.54.0) (2023-11-14)
 
 
