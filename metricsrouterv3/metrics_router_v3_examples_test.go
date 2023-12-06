@@ -1,4 +1,4 @@
-// +build examples
+//go:build examples
 
 /**
  * (C) Copyright IBM Corp. 2023.
