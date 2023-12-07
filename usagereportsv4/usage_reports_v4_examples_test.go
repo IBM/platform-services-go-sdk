@@ -370,6 +370,27 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(snapshotConfig).ToNot(BeNil())
 		})
+		It(`ValidateReportsSnapshotConfig request example`, func() {
+			fmt.Println("\nValidateReportsSnapshotConfig() result:")
+			// begin-validate_reports_snapshot_config
+
+			validateReportsSnapshotConfigOptions := usageReportsService.NewValidateReportsSnapshotConfigOptions(
+				accountID,
+			)
+
+			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(snapshotConfigValidateResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-validate_reports_snapshot_config
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfigValidateResponse).ToNot(BeNil())
+		})
 		It(`GetReportsSnapshot request example`, func() {
 			fmt.Println("\nGetReportsSnapshot() result:")
 			// begin-get_reports_snapshot

@@ -434,9 +434,110 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ValidateReportsSnapshotConfig - Verify billing to COS authorization`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions)`, func() {
+			validateReportsSnapshotConfigOptions := &usagereportsv4.ValidateReportsSnapshotConfigOptions{
+				AccountID:        &accountID,
+				Interval:         core.StringPtr("daily"),
+				CosBucket:        &cosBucket,
+				CosLocation:      &cosLocation,
+				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
+				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning:       core.StringPtr("new"),
+			}
+
+			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfigValidateResponse).ToNot(BeNil())
+		})
+	})
+
 	Describe(`GetReportsSnapshot - Fetch the current or past snapshots`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) with pagination`, func() {
+			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
+				AccountID: &accountID,
+				Month:     &billingMonth,
+				Limit:     core.Int64Ptr(int64(30)),
+				Start:     core.StringPtr("testString"),
+			}
+			from, err := strconv.ParseInt(dateFrom, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			to, err := strconv.ParseInt(dateTo, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			getReportsSnapshotOptions.SetDateFrom(from)
+			getReportsSnapshotOptions.SetDateTo(to)
+
+			getReportsSnapshotOptions.Start = nil
+
+			var allResults []usagereportsv4.SnapshotListSnapshotsItem
+			for {
+				snapshotList, response, err := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(snapshotList).ToNot(BeNil())
+				allResults = append(allResults, snapshotList.Snapshots...)
+
+				getReportsSnapshotOptions.Start, err = snapshotList.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getReportsSnapshotOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) using GetReportsSnapshotPager`, func() {
+			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
+				AccountID: &accountID,
+				Month:     &billingMonth,
+				Limit:     core.Int64Ptr(int64(30)),
+			}
+			from, err := strconv.ParseInt(dateFrom, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			to, err := strconv.ParseInt(dateTo, 10, 64)
+			if err != nil {
+				panic(err)
+			}
+			getReportsSnapshotOptions.SetDateFrom(from)
+			getReportsSnapshotOptions.SetDateTo(to)
+
+			// Test GetNext().
+			pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []usagereportsv4.SnapshotListSnapshotsItem
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetReportsSnapshot() returned a total of %d item(s) using GetReportsSnapshotPager.\n", len(allResults))
 		})
 		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions)`, func() {
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
