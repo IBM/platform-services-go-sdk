@@ -3158,6 +3158,280 @@ var _ = Describe(`UsageReportsV4`, func() {
 			})
 		})
 	})
+	Describe(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions) - Operation response error`, func() {
+		validateReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config/validate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ValidateReportsSnapshotConfig with error: Operation response processing error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsModel := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				validateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				validateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				validateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				validateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				validateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				validateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				usageReportsService.EnableRetries(0, 0)
+				result, response, operationErr = usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions)`, func() {
+		validateReportsSnapshotConfigPath := "/v1/billing-reports-snapshot-config/validate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "cos_bucket": "bucket_name", "cos_location": "us-south"}`)
+				}))
+			})
+			It(`Invoke ValidateReportsSnapshotConfig successfully with retries`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+				usageReportsService.EnableRetries(0, 0)
+
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsModel := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				validateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				validateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				validateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				validateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				validateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				validateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := usageReportsService.ValidateReportsSnapshotConfigWithContext(ctx, validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				usageReportsService.DisableRetries()
+				result, response, operationErr := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = usageReportsService.ValidateReportsSnapshotConfigWithContext(ctx, validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateReportsSnapshotConfigPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "abc", "cos_bucket": "bucket_name", "cos_location": "us-south"}`)
+				}))
+			})
+			It(`Invoke ValidateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := usageReportsService.ValidateReportsSnapshotConfig(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsModel := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				validateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				validateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				validateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				validateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				validateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				validateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ValidateReportsSnapshotConfig with error: Operation validation and request error`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsModel := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				validateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				validateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				validateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				validateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				validateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				validateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := usageReportsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ValidateReportsSnapshotConfigOptions model with no property values
+				validateReportsSnapshotConfigOptionsModelNew := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ValidateReportsSnapshotConfig successfully`, func() {
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4(&usagereportsv4.UsageReportsV4Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(usageReportsService).ToNot(BeNil())
+
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsModel := new(usagereportsv4.ValidateReportsSnapshotConfigOptions)
+				validateReportsSnapshotConfigOptionsModel.AccountID = core.StringPtr("abc")
+				validateReportsSnapshotConfigOptionsModel.Interval = core.StringPtr("daily")
+				validateReportsSnapshotConfigOptionsModel.CosBucket = core.StringPtr("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.CosLocation = core.StringPtr("us-south")
+				validateReportsSnapshotConfigOptionsModel.CosReportsFolder = core.StringPtr("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.ReportTypes = []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}
+				validateReportsSnapshotConfigOptionsModel.Versioning = core.StringPtr("new")
+				validateReportsSnapshotConfigOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) - Operation response error`, func() {
 		getReportsSnapshotPath := "/v1/billing-reports-snapshots"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -3780,6 +4054,28 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(updateReportsSnapshotConfigOptionsModel.ReportTypes).To(Equal([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}))
 				Expect(updateReportsSnapshotConfigOptionsModel.Versioning).To(Equal(core.StringPtr("new")))
 				Expect(updateReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewValidateReportsSnapshotConfigOptions successfully`, func() {
+				// Construct an instance of the ValidateReportsSnapshotConfigOptions model
+				validateReportsSnapshotConfigOptionsAccountID := "abc"
+				validateReportsSnapshotConfigOptionsModel := usageReportsService.NewValidateReportsSnapshotConfigOptions(validateReportsSnapshotConfigOptionsAccountID)
+				validateReportsSnapshotConfigOptionsModel.SetAccountID("abc")
+				validateReportsSnapshotConfigOptionsModel.SetInterval("daily")
+				validateReportsSnapshotConfigOptionsModel.SetCosBucket("bucket_name")
+				validateReportsSnapshotConfigOptionsModel.SetCosLocation("us-south")
+				validateReportsSnapshotConfigOptionsModel.SetCosReportsFolder("IBMCloud-Billing-Reports")
+				validateReportsSnapshotConfigOptionsModel.SetReportTypes([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"})
+				validateReportsSnapshotConfigOptionsModel.SetVersioning("new")
+				validateReportsSnapshotConfigOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(validateReportsSnapshotConfigOptionsModel).ToNot(BeNil())
+				Expect(validateReportsSnapshotConfigOptionsModel.AccountID).To(Equal(core.StringPtr("abc")))
+				Expect(validateReportsSnapshotConfigOptionsModel.Interval).To(Equal(core.StringPtr("daily")))
+				Expect(validateReportsSnapshotConfigOptionsModel.CosBucket).To(Equal(core.StringPtr("bucket_name")))
+				Expect(validateReportsSnapshotConfigOptionsModel.CosLocation).To(Equal(core.StringPtr("us-south")))
+				Expect(validateReportsSnapshotConfigOptionsModel.CosReportsFolder).To(Equal(core.StringPtr("IBMCloud-Billing-Reports")))
+				Expect(validateReportsSnapshotConfigOptionsModel.ReportTypes).To(Equal([]string{"account_summary", "enterprise_summary", "account_resource_instance_usage"}))
+				Expect(validateReportsSnapshotConfigOptionsModel.Versioning).To(Equal(core.StringPtr("new")))
+				Expect(validateReportsSnapshotConfigOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
 	})
