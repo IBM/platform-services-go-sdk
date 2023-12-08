@@ -1,3 +1,10 @@
+# [0.55.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.54.1...v0.55.0) (2023-12-08)
+
+
+### Features
+
+* **Usage Reports:** add billing snapshot config validate service to usage reports ([#291](https://github.com/IBM/platform-services-go-sdk/issues/291)) ([da51703](https://github.com/IBM/platform-services-go-sdk/commit/da51703c892f30d2e792a9c1a436b09ae6bfd2e8))
+
 ## [0.54.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.54.0...v0.54.1) (2023-11-27)
 
 
