@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -4558,6 +4561,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -4575,6 +4579,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := new(iampolicymanagementv1.ListPolicyTemplatesOptions)
 				listPolicyTemplatesOptionsModel.AccountID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listPolicyTemplatesOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicyTemplates(listPolicyTemplatesOptionsModel)
@@ -4608,13 +4613,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully with retries`, func() {
@@ -4630,6 +4636,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := new(iampolicymanagementv1.ListPolicyTemplatesOptions)
 				listPolicyTemplatesOptionsModel.AccountID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listPolicyTemplatesOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4669,10 +4676,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully`, func() {
@@ -4693,6 +4701,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := new(iampolicymanagementv1.ListPolicyTemplatesOptions)
 				listPolicyTemplatesOptionsModel.AccountID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listPolicyTemplatesOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4714,6 +4723,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := new(iampolicymanagementv1.ListPolicyTemplatesOptions)
 				listPolicyTemplatesOptionsModel.AccountID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listPolicyTemplatesOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -4756,6 +4766,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := new(iampolicymanagementv1.ListPolicyTemplatesOptions)
 				listPolicyTemplatesOptionsModel.AccountID = core.StringPtr("testString")
 				listPolicyTemplatesOptionsModel.AcceptLanguage = core.StringPtr("default")
+				listPolicyTemplatesOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4902,7 +4913,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully with retries`, func() {
@@ -5023,7 +5034,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully`, func() {
@@ -5276,6 +5287,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getPolicyTemplatePath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -5292,6 +5304,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyTemplateOptions model
 				getPolicyTemplateOptionsModel := new(iampolicymanagementv1.GetPolicyTemplateOptions)
 				getPolicyTemplateOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				getPolicyTemplateOptionsModel.State = core.StringPtr("active")
 				getPolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.GetPolicyTemplate(getPolicyTemplateOptionsModel)
@@ -5322,13 +5335,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getPolicyTemplatePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully with retries`, func() {
@@ -5343,6 +5357,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyTemplateOptions model
 				getPolicyTemplateOptionsModel := new(iampolicymanagementv1.GetPolicyTemplateOptions)
 				getPolicyTemplateOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				getPolicyTemplateOptionsModel.State = core.StringPtr("active")
 				getPolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5379,10 +5394,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getPolicyTemplatePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully`, func() {
@@ -5402,6 +5418,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyTemplateOptions model
 				getPolicyTemplateOptionsModel := new(iampolicymanagementv1.GetPolicyTemplateOptions)
 				getPolicyTemplateOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				getPolicyTemplateOptionsModel.State = core.StringPtr("active")
 				getPolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5422,6 +5439,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyTemplateOptions model
 				getPolicyTemplateOptionsModel := new(iampolicymanagementv1.GetPolicyTemplateOptions)
 				getPolicyTemplateOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				getPolicyTemplateOptionsModel.State = core.StringPtr("active")
 				getPolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -5463,6 +5481,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyTemplateOptions model
 				getPolicyTemplateOptionsModel := new(iampolicymanagementv1.GetPolicyTemplateOptions)
 				getPolicyTemplateOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				getPolicyTemplateOptionsModel.State = core.StringPtr("active")
 				getPolicyTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -5672,7 +5691,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully with retries`, func() {
@@ -5790,7 +5809,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully`, func() {
@@ -6040,6 +6059,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplateVersionsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -6056,6 +6076,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the ListPolicyTemplateVersionsOptions model
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicyTemplateVersions(listPolicyTemplateVersionsOptionsModel)
@@ -6086,13 +6107,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplateVersionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully with retries`, func() {
@@ -6107,6 +6129,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the ListPolicyTemplateVersionsOptions model
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -6143,10 +6166,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listPolicyTemplateVersionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully`, func() {
@@ -6166,6 +6190,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the ListPolicyTemplateVersionsOptions model
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6186,6 +6211,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the ListPolicyTemplateVersionsOptions model
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -6227,6 +6253,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the ListPolicyTemplateVersionsOptions model
 				listPolicyTemplateVersionsOptionsModel := new(iampolicymanagementv1.ListPolicyTemplateVersionsOptions)
 				listPolicyTemplateVersionsOptionsModel.PolicyTemplateID = core.StringPtr("testString")
+				listPolicyTemplateVersionsOptionsModel.State = core.StringPtr("active")
 				listPolicyTemplateVersionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -6374,7 +6401,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully with retries`, func() {
@@ -6496,7 +6523,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully`, func() {
@@ -6875,7 +6902,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully with retries`, func() {
@@ -6930,7 +6957,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully`, func() {
@@ -8034,9 +8061,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyTemplateID := "testString"
 				getPolicyTemplateOptionsModel := iamPolicyManagementService.NewGetPolicyTemplateOptions(policyTemplateID)
 				getPolicyTemplateOptionsModel.SetPolicyTemplateID("testString")
+				getPolicyTemplateOptionsModel.SetState("active")
 				getPolicyTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getPolicyTemplateOptionsModel).ToNot(BeNil())
 				Expect(getPolicyTemplateOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(getPolicyTemplateOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(getPolicyTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetPolicyTemplateVersionOptions successfully`, func() {
@@ -8131,9 +8160,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				policyTemplateID := "testString"
 				listPolicyTemplateVersionsOptionsModel := iamPolicyManagementService.NewListPolicyTemplateVersionsOptions(policyTemplateID)
 				listPolicyTemplateVersionsOptionsModel.SetPolicyTemplateID("testString")
+				listPolicyTemplateVersionsOptionsModel.SetState("active")
 				listPolicyTemplateVersionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPolicyTemplateVersionsOptionsModel).ToNot(BeNil())
 				Expect(listPolicyTemplateVersionsOptionsModel.PolicyTemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(listPolicyTemplateVersionsOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(listPolicyTemplateVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListPolicyTemplatesOptions successfully`, func() {
@@ -8142,10 +8173,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPolicyTemplatesOptionsModel := iamPolicyManagementService.NewListPolicyTemplatesOptions(accountID)
 				listPolicyTemplatesOptionsModel.SetAccountID("testString")
 				listPolicyTemplatesOptionsModel.SetAcceptLanguage("default")
+				listPolicyTemplatesOptionsModel.SetState("active")
 				listPolicyTemplatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPolicyTemplatesOptionsModel).ToNot(BeNil())
 				Expect(listPolicyTemplatesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listPolicyTemplatesOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(listPolicyTemplatesOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(listPolicyTemplatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListRolesOptions successfully`, func() {
