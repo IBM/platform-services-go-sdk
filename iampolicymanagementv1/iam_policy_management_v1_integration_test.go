@@ -699,6 +699,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate.Name).To(Equal(core.StringPtr(examplePolicyTemplateName)))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
 
 			testPolicyTemplateID = *policyTemplate.ID
 		})
@@ -721,6 +722,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(&testAccountID))
+			Expect(policyTemplateCollection.PolicyTemplates[0].State).To(Equal(core.StringPtr("active")))
 		})
 	})
 
@@ -741,6 +743,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
 		})
 	})
 
@@ -792,6 +795,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
 
 			testPolicyTemplateVersion = *policyTemplate.Version
 			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
@@ -865,7 +869,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
-
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
 			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
 
 		})
@@ -889,6 +893,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyTemplate.Version).To(Equal(core.StringPtr("2")))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
 		})
 	})
 
@@ -969,7 +974,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
 			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
 			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
-
 			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
 		})
 	})
