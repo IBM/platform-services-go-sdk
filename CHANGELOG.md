@@ -1,3 +1,10 @@
+# [0.56.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.55.0...v0.56.0) (2024-01-12)
+
+
+### Features
+
+* **IAM Policy Management:** re-gen service after fix the template state parameter ([#294](https://github.com/IBM/platform-services-go-sdk/issues/294)) ([8313698](https://github.com/IBM/platform-services-go-sdk/commit/8313698c9b91490b15c0d35a23159bf890a147fe))
+
 # [0.55.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.54.1...v0.55.0) (2023-12-08)
 
 
