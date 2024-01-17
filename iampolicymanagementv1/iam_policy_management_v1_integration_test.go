@@ -384,7 +384,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policy).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "CreateV2Policy() result:\n%s\n", common.ToJSON(policy))
 			Expect(policy.Type).To(Equal(options.Type))
-			Expect(policy.Subject.Attributes[0].Value).To(Equal(&testUserId))
+			Expect(policy.Subject.Attributes[0].Value).To(Equal(testUserId))
 			Expect(policy.Control).To(Equal(controlResponse))
 			Expect(policy.Resource.Attributes[0].Value).To(Equal(testAccountID))
 
@@ -492,7 +492,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			fmt.Fprintf(GinkgoWriter, "ReplaceV2Policy() result:\n%s\n", common.ToJSON(policy))
 			Expect(*policy.ID).To(Equal(testV2PolicyId))
 			Expect(policy.Type).To(Equal(options.Type))
-			Expect(policy.Subject.Attributes[0].Value).To(Equal(&testUserId))
+			Expect(policy.Subject.Attributes[0].Value).To(Equal(testUserId))
 			Expect(policy.Control).To(Equal(controlResponse))
 			Expect(policy.Resource.Attributes[0].Value).To(Equal(testAccountID))
 
