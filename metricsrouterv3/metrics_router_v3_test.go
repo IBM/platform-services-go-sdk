@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,6 +184,14 @@ var _ = Describe(`MetricsRouterV3`, func() {
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-es")
 			Expect(url).To(Equal("https://private.eu-es.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("eu-fr2")
+			Expect(url).To(Equal("https://eu-fr2.metrics-router.cloud.ibm.com/api/v3"))
+			Expect(err).To(BeNil())
+
+			url, err = metricsrouterv3.GetServiceURLForRegion("private.eu-fr2")
+			Expect(url).To(Equal("https://private.eu-fr2.metrics-router.cloud.ibm.com/api/v3"))
 			Expect(err).To(BeNil())
 
 			url, err = metricsrouterv3.GetServiceURLForRegion("us-east")
