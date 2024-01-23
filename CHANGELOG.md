@@ -1,3 +1,10 @@
+## [0.56.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.0...v0.56.1) (2024-01-23)
+
+
+### Bug Fixes
+
+* **ATracker:** add new region eu-fr2 ([#296](https://github.com/IBM/platform-services-go-sdk/issues/296)) ([b6c9af1](https://github.com/IBM/platform-services-go-sdk/commit/b6c9af1087d6bb378f6ef1b3648bee71b463229b))
+
 # [0.56.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.55.0...v0.56.0) (2024-01-12)
 
 
