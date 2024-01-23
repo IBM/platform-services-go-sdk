@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.80.0-29334a73-20230925-151553
+ * IBM OpenAPI SDK Code Generator Version: 3.84.1-55f6d880-20240110-194020
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -123,14 +123,14 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
 		"eu-es":            "https://eu-es.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-es region.
 		"private.eu-es":    "https://private.eu-es.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-es region.
+		"eu-fr2":           "https://eu-fr2.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
+		"private.eu-fr2":   "https://private.eu-fr2.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
 		"au-syd":           "https://au-syd.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 		"private.au-syd":   "https://private.au-syd.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 		"ca-tor":           "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
 		"private.ca-tor":   "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
 		"br-sao":           "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
 		"private.br-sao":   "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"eu-fr2":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
-		"private.eu-fr2":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for eu-fr2 points to the eu-de region.
 		"jp-tok":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
 		"private.jp-tok":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
 		"jp-osa":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
