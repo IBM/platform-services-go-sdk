@@ -66,14 +66,13 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_USAGE_REPORTS_URL": "https://partnerusagereportsv1/api",
+				"PARTNER_USAGE_REPORTS_URL":       "https://partnerusagereportsv1/api",
 				"PARTNER_USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{
-				})
+				partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{})
 				Expect(partnerUsageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{
-				})
+				partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{})
 				err := partnerUsageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerUsageReportsService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_USAGE_REPORTS_URL": "https://partnerusagereportsv1/api",
+				"PARTNER_USAGE_REPORTS_URL":       "https://partnerusagereportsv1/api",
 				"PARTNER_USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{
-			})
+			partnerUsageReportsService, serviceErr := partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(&partnerusagereportsv1.PartnerUsageReportsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerUsageReportsService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
+				"PARTNER_USAGE_REPORTS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -177,7 +174,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for children query parameter
-					Expect(req.URL.Query()["month"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["viewpoint"]).To(Equal([]string{"DISTRIBUTOR"}))
 					// TODO: Add check for recurse query parameter
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
@@ -201,7 +198,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Children = core.BoolPtr(false)
-				getResourceUsageReportOptionsModel.Month = core.StringPtr("2022-04")
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2024-01")
 				getResourceUsageReportOptionsModel.Viewpoint = core.StringPtr("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.Recurse = core.BoolPtr(false)
 				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
@@ -240,7 +237,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for children query parameter
-					Expect(req.URL.Query()["month"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["viewpoint"]).To(Equal([]string{"DISTRIBUTOR"}))
 					// TODO: Add check for recurse query parameter
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
@@ -251,7 +248,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "reports": [{"entity_id": "<distributor_enterprise_id>", "entity_type": "enterprise", "entity_crn": "crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5", "entity_name": "Arrow", "entity_partner_type": "DISTRIBUTOR", "viewpoint": "DISTRIBUTOR", "month": "2022-04", "currency_code": "EUR", "country_code": "FRA", "billable_cost": 2331828.33275813, "billable_rated_cost": 3817593.35186263, "non_billable_cost": 0, "non_billable_rated_cost": 0, "resources": [{"resource_id": "cloudant", "resource_name": "Cloudant", "billable_cost": 75, "billable_rated_cost": 75, "non_billable_cost": 0, "non_billable_rated_cost": 0, "plans": [{"plan_id": "cloudant-standard", "pricing_region": "Standard", "pricing_plan_id": "billable:v4:cloudant-standard::1552694400000:", "billable": true, "cost": 75, "rated_cost": 75, "usage": [{"metric": "GB_STORAGE_ACCRUED_PER_MONTH", "unit": "GIGABYTE_MONTHS", "quantity": 10, "rateable_quantity": 10, "cost": 10, "rated_cost": 10, "price": [{"anyKey": "anyValue"}]}]}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "reports": [{"entity_id": "<distributor_enterprise_id>", "entity_type": "enterprise", "entity_crn": "crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5", "entity_name": "Arrow", "entity_partner_type": "DISTRIBUTOR", "viewpoint": "DISTRIBUTOR", "month": "2024-01", "currency_code": "EUR", "country_code": "FRA", "billable_cost": 2331828.33275813, "billable_rated_cost": 3817593.35186263, "non_billable_cost": 0, "non_billable_rated_cost": 0, "resources": [{"resource_id": "cloudant", "resource_name": "Cloudant", "billable_cost": 75, "billable_rated_cost": 75, "non_billable_cost": 0, "non_billable_rated_cost": 0, "plans": [{"plan_id": "cloudant-standard", "pricing_region": "Standard", "pricing_plan_id": "billable:v4:cloudant-standard::1552694400000:", "billable": true, "cost": 75, "rated_cost": 75, "usage": [{"metric": "GB_STORAGE_ACCRUED_PER_MONTH", "unit": "GIGABYTE_MONTHS", "quantity": 10, "rateable_quantity": 10, "cost": 10, "rated_cost": 10, "price": [{"anyKey": "anyValue"}]}]}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageReport successfully with retries`, func() {
@@ -269,7 +266,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Children = core.BoolPtr(false)
-				getResourceUsageReportOptionsModel.Month = core.StringPtr("2022-04")
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2024-01")
 				getResourceUsageReportOptionsModel.Viewpoint = core.StringPtr("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.Recurse = core.BoolPtr(false)
 				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
@@ -314,7 +311,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					// TODO: Add check for children query parameter
-					Expect(req.URL.Query()["month"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["month"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["viewpoint"]).To(Equal([]string{"DISTRIBUTOR"}))
 					// TODO: Add check for recurse query parameter
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
@@ -322,7 +319,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "reports": [{"entity_id": "<distributor_enterprise_id>", "entity_type": "enterprise", "entity_crn": "crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5", "entity_name": "Arrow", "entity_partner_type": "DISTRIBUTOR", "viewpoint": "DISTRIBUTOR", "month": "2022-04", "currency_code": "EUR", "country_code": "FRA", "billable_cost": 2331828.33275813, "billable_rated_cost": 3817593.35186263, "non_billable_cost": 0, "non_billable_rated_cost": 0, "resources": [{"resource_id": "cloudant", "resource_name": "Cloudant", "billable_cost": 75, "billable_rated_cost": 75, "non_billable_cost": 0, "non_billable_rated_cost": 0, "plans": [{"plan_id": "cloudant-standard", "pricing_region": "Standard", "pricing_plan_id": "billable:v4:cloudant-standard::1552694400000:", "billable": true, "cost": 75, "rated_cost": 75, "usage": [{"metric": "GB_STORAGE_ACCRUED_PER_MONTH", "unit": "GIGABYTE_MONTHS", "quantity": 10, "rateable_quantity": 10, "cost": 10, "rated_cost": 10, "price": [{"anyKey": "anyValue"}]}]}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "reports": [{"entity_id": "<distributor_enterprise_id>", "entity_type": "enterprise", "entity_crn": "crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5", "entity_name": "Arrow", "entity_partner_type": "DISTRIBUTOR", "viewpoint": "DISTRIBUTOR", "month": "2024-01", "currency_code": "EUR", "country_code": "FRA", "billable_cost": 2331828.33275813, "billable_rated_cost": 3817593.35186263, "non_billable_cost": 0, "non_billable_rated_cost": 0, "resources": [{"resource_id": "cloudant", "resource_name": "Cloudant", "billable_cost": 75, "billable_rated_cost": 75, "non_billable_cost": 0, "non_billable_rated_cost": 0, "plans": [{"plan_id": "cloudant-standard", "pricing_region": "Standard", "pricing_plan_id": "billable:v4:cloudant-standard::1552694400000:", "billable": true, "cost": 75, "rated_cost": 75, "usage": [{"metric": "GB_STORAGE_ACCRUED_PER_MONTH", "unit": "GIGABYTE_MONTHS", "quantity": 10, "rateable_quantity": 10, "cost": 10, "rated_cost": 10, "price": [{"anyKey": "anyValue"}]}]}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageReport successfully`, func() {
@@ -345,7 +342,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Children = core.BoolPtr(false)
-				getResourceUsageReportOptionsModel.Month = core.StringPtr("2022-04")
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2024-01")
 				getResourceUsageReportOptionsModel.Viewpoint = core.StringPtr("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.Recurse = core.BoolPtr(false)
 				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
@@ -373,7 +370,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Children = core.BoolPtr(false)
-				getResourceUsageReportOptionsModel.Month = core.StringPtr("2022-04")
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2024-01")
 				getResourceUsageReportOptionsModel.Viewpoint = core.StringPtr("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.Recurse = core.BoolPtr(false)
 				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
@@ -422,7 +419,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Children = core.BoolPtr(false)
-				getResourceUsageReportOptionsModel.Month = core.StringPtr("2022-04")
+				getResourceUsageReportOptionsModel.Month = core.StringPtr("2024-01")
 				getResourceUsageReportOptionsModel.Viewpoint = core.StringPtr("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.Recurse = core.BoolPtr(false)
 				getResourceUsageReportOptionsModel.Limit = core.Int64Ptr(int64(10))
@@ -447,14 +444,14 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				nextObject := new(partnerusagereportsv1.PartnerUsageReportSummaryNext)
 				nextObject.Offset = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
 				responseObject := new(partnerusagereportsv1.PartnerUsageReportSummary)
-	
+
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -475,9 +472,9 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"offset":"1"},"reports":[{"entity_id":"<distributor_enterprise_id>","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5","entity_name":"Arrow","entity_partner_type":"DISTRIBUTOR","viewpoint":"DISTRIBUTOR","month":"2022-04","currency_code":"EUR","country_code":"FRA","billable_cost":2331828.33275813,"billable_rated_cost":3817593.35186263,"non_billable_cost":0,"non_billable_rated_cost":0,"resources":[{"resource_id":"cloudant","resource_name":"Cloudant","billable_cost":75,"billable_rated_cost":75,"non_billable_cost":0,"non_billable_rated_cost":0,"plans":[{"plan_id":"cloudant-standard","pricing_region":"Standard","pricing_plan_id":"billable:v4:cloudant-standard::1552694400000:","billable":true,"cost":75,"rated_cost":75,"usage":[{"metric":"GB_STORAGE_ACCRUED_PER_MONTH","unit":"GIGABYTE_MONTHS","quantity":10,"rateable_quantity":10,"cost":10,"rated_cost":10,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"offset":"1"},"reports":[{"entity_id":"<distributor_enterprise_id>","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5","entity_name":"Arrow","entity_partner_type":"DISTRIBUTOR","viewpoint":"DISTRIBUTOR","month":"2024-01","currency_code":"EUR","country_code":"FRA","billable_cost":2331828.33275813,"billable_rated_cost":3817593.35186263,"non_billable_cost":0,"non_billable_rated_cost":0,"resources":[{"resource_id":"cloudant","resource_name":"Cloudant","billable_cost":75,"billable_rated_cost":75,"non_billable_cost":0,"non_billable_rated_cost":0,"plans":[{"plan_id":"cloudant-standard","pricing_region":"Standard","pricing_plan_id":"billable:v4:cloudant-standard::1552694400000:","billable":true,"cost":75,"rated_cost":75,"usage":[{"metric":"GB_STORAGE_ACCRUED_PER_MONTH","unit":"GIGABYTE_MONTHS","quantity":10,"rateable_quantity":10,"cost":10,"rated_cost":10,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"reports":[{"entity_id":"<distributor_enterprise_id>","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5","entity_name":"Arrow","entity_partner_type":"DISTRIBUTOR","viewpoint":"DISTRIBUTOR","month":"2022-04","currency_code":"EUR","country_code":"FRA","billable_cost":2331828.33275813,"billable_rated_cost":3817593.35186263,"non_billable_cost":0,"non_billable_rated_cost":0,"resources":[{"resource_id":"cloudant","resource_name":"Cloudant","billable_cost":75,"billable_rated_cost":75,"non_billable_cost":0,"non_billable_rated_cost":0,"plans":[{"plan_id":"cloudant-standard","pricing_region":"Standard","pricing_plan_id":"billable:v4:cloudant-standard::1552694400000:","billable":true,"cost":75,"rated_cost":75,"usage":[{"metric":"GB_STORAGE_ACCRUED_PER_MONTH","unit":"GIGABYTE_MONTHS","quantity":10,"rateable_quantity":10,"cost":10,"rated_cost":10,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"reports":[{"entity_id":"<distributor_enterprise_id>","entity_type":"enterprise","entity_crn":"crn:v1:bluemix:public:enterprise::a/fa359b76ff2c41eda727aad47b7e4063::enterprise:33a7eb04e7d547cd9489e90c99d476a5","entity_name":"Arrow","entity_partner_type":"DISTRIBUTOR","viewpoint":"DISTRIBUTOR","month":"2024-01","currency_code":"EUR","country_code":"FRA","billable_cost":2331828.33275813,"billable_rated_cost":3817593.35186263,"non_billable_cost":0,"non_billable_rated_cost":0,"resources":[{"resource_id":"cloudant","resource_name":"Cloudant","billable_cost":75,"billable_rated_cost":75,"non_billable_cost":0,"non_billable_rated_cost":0,"plans":[{"plan_id":"cloudant-standard","pricing_region":"Standard","pricing_plan_id":"billable:v4:cloudant-standard::1552694400000:","billable":true,"cost":75,"rated_cost":75,"usage":[{"metric":"GB_STORAGE_ACCRUED_PER_MONTH","unit":"GIGABYTE_MONTHS","quantity":10,"rateable_quantity":10,"cost":10,"rated_cost":10,"price":[{"anyKey":"anyValue"}]}]}]}]}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -492,14 +489,14 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				Expect(partnerUsageReportsService).ToNot(BeNil())
 
 				getResourceUsageReportOptionsModel := &partnerusagereportsv1.GetResourceUsageReportOptions{
-					PartnerID: core.StringPtr("testString"),
+					PartnerID:  core.StringPtr("testString"),
 					ResellerID: core.StringPtr("testString"),
 					CustomerID: core.StringPtr("testString"),
-					Children: core.BoolPtr(false),
-					Month: core.StringPtr("2022-04"),
-					Viewpoint: core.StringPtr("DISTRIBUTOR"),
-					Recurse: core.BoolPtr(false),
-					Limit: core.Int64Ptr(int64(10)),
+					Children:   core.BoolPtr(false),
+					Month:      core.StringPtr("2024-01"),
+					Viewpoint:  core.StringPtr("DISTRIBUTOR"),
+					Recurse:    core.BoolPtr(false),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
@@ -524,14 +521,14 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				Expect(partnerUsageReportsService).ToNot(BeNil())
 
 				getResourceUsageReportOptionsModel := &partnerusagereportsv1.GetResourceUsageReportOptions{
-					PartnerID: core.StringPtr("testString"),
+					PartnerID:  core.StringPtr("testString"),
 					ResellerID: core.StringPtr("testString"),
 					CustomerID: core.StringPtr("testString"),
-					Children: core.BoolPtr(false),
-					Month: core.StringPtr("2022-04"),
-					Viewpoint: core.StringPtr("DISTRIBUTOR"),
-					Recurse: core.BoolPtr(false),
-					Limit: core.Int64Ptr(int64(10)),
+					Children:   core.BoolPtr(false),
+					Month:      core.StringPtr("2024-01"),
+					Viewpoint:  core.StringPtr("DISTRIBUTOR"),
+					Recurse:    core.BoolPtr(false),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
@@ -559,7 +556,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				getResourceUsageReportOptionsModel.SetResellerID("testString")
 				getResourceUsageReportOptionsModel.SetCustomerID("testString")
 				getResourceUsageReportOptionsModel.SetChildren(false)
-				getResourceUsageReportOptionsModel.SetMonth("2022-04")
+				getResourceUsageReportOptionsModel.SetMonth("2024-01")
 				getResourceUsageReportOptionsModel.SetViewpoint("DISTRIBUTOR")
 				getResourceUsageReportOptionsModel.SetRecurse(false)
 				getResourceUsageReportOptionsModel.SetLimit(int64(10))
@@ -570,7 +567,7 @@ var _ = Describe(`PartnerUsageReportsV1`, func() {
 				Expect(getResourceUsageReportOptionsModel.ResellerID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageReportOptionsModel.CustomerID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageReportOptionsModel.Children).To(Equal(core.BoolPtr(false)))
-				Expect(getResourceUsageReportOptionsModel.Month).To(Equal(core.StringPtr("2022-04")))
+				Expect(getResourceUsageReportOptionsModel.Month).To(Equal(core.StringPtr("2024-01")))
 				Expect(getResourceUsageReportOptionsModel.Viewpoint).To(Equal(core.StringPtr("DISTRIBUTOR")))
 				Expect(getResourceUsageReportOptionsModel.Recurse).To(Equal(core.BoolPtr(false)))
 				Expect(getResourceUsageReportOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
