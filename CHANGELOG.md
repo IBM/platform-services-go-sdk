@@ -1,3 +1,10 @@
+## [0.56.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.2...v0.56.3) (2024-01-26)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update subject attribute value based on API def ([#297](https://github.com/IBM/platform-services-go-sdk/issues/297)) ([21accf1](https://github.com/IBM/platform-services-go-sdk/commit/21accf115c370a5e71927415000b1db0afe49783))
+
 ## [0.56.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.1...v0.56.2) (2024-01-23)
 
 
