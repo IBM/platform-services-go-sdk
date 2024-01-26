@@ -1,3 +1,17 @@
+## [0.56.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.1...v0.56.2) (2024-01-23)
+
+
+### Bug Fixes
+
+* **Metrics Router:** add new region eu-fr2 ([#295](https://github.com/IBM/platform-services-go-sdk/issues/295)) ([3446628](https://github.com/IBM/platform-services-go-sdk/commit/3446628d08142ebb2de91a5d1b6b909e095f72e5))
+
+## [0.56.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.0...v0.56.1) (2024-01-23)
+
+
+### Bug Fixes
+
+* **ATracker:** add new region eu-fr2 ([#296](https://github.com/IBM/platform-services-go-sdk/issues/296)) ([b6c9af1](https://github.com/IBM/platform-services-go-sdk/commit/b6c9af1087d6bb378f6ef1b3648bee71b463229b))
+
 # [0.56.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.55.0...v0.56.0) (2024-01-12)
 
 

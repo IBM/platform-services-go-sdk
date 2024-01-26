@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -194,6 +194,14 @@ var _ = Describe(`AtrackerV2`, func() {
 			Expect(url).To(Equal("https://private.eu-es.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
+			url, err = atrackerv2.GetServiceURLForRegion("eu-fr2")
+			Expect(url).To(Equal("https://eu-fr2.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
+			url, err = atrackerv2.GetServiceURLForRegion("private.eu-fr2")
+			Expect(url).To(Equal("https://private.eu-fr2.atracker.cloud.ibm.com"))
+			Expect(err).To(BeNil())
+
 			url, err = atrackerv2.GetServiceURLForRegion("au-syd")
 			Expect(url).To(Equal("https://au-syd.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
@@ -216,14 +224,6 @@ var _ = Describe(`AtrackerV2`, func() {
 
 			url, err = atrackerv2.GetServiceURLForRegion("private.br-sao")
 			Expect(url).To(Equal("https://private.us-south.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv2.GetServiceURLForRegion("eu-fr2")
-			Expect(url).To(Equal("https://eu-de.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv2.GetServiceURLForRegion("private.eu-fr2")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
 			Expect(err).To(BeNil())
 
 			url, err = atrackerv2.GetServiceURLForRegion("jp-tok")
