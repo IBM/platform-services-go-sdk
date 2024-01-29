@@ -173,7 +173,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -193,7 +193,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
-				getBillingOptionsOptionsModel.Date = core.StringPtr("2022-04")
+				getBillingOptionsOptionsModel.Date = core.StringPtr("2024-01")
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -228,7 +228,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -236,7 +236,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2022-04", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
 				}))
 			})
 			It(`Invoke GetBillingOptions successfully with retries`, func() {
@@ -253,7 +253,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
-				getBillingOptionsOptionsModel.Date = core.StringPtr("2022-04")
+				getBillingOptionsOptionsModel.Date = core.StringPtr("2024-01")
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -294,12 +294,12 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2022-04", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
 				}))
 			})
 			It(`Invoke GetBillingOptions successfully`, func() {
@@ -321,7 +321,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
-				getBillingOptionsOptionsModel.Date = core.StringPtr("2022-04")
+				getBillingOptionsOptionsModel.Date = core.StringPtr("2024-01")
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -345,7 +345,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
-				getBillingOptionsOptionsModel.Date = core.StringPtr("2022-04")
+				getBillingOptionsOptionsModel.Date = core.StringPtr("2024-01")
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -390,7 +390,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
-				getBillingOptionsOptionsModel.Date = core.StringPtr("2022-04")
+				getBillingOptionsOptionsModel.Date = core.StringPtr("2024-01")
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -420,7 +420,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -440,7 +440,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
-				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2022-04")
+				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2024-01")
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -475,7 +475,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -483,7 +483,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2022-04", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport successfully with retries`, func() {
@@ -500,7 +500,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
-				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2022-04")
+				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2024-01")
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -541,12 +541,12 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 					Expect(req.URL.Query()["partner_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["customer_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["reseller_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["date"]).To(Equal([]string{"2022-04"}))
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"2024-01"}))
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2022-04", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport successfully`, func() {
@@ -568,7 +568,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
-				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2022-04")
+				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2024-01")
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -592,7 +592,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
-				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2022-04")
+				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2024-01")
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -637,7 +637,7 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
-				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2022-04")
+				getCreditPoolsReportOptionsModel.Date = core.StringPtr("2024-01")
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -668,14 +668,14 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getBillingOptionsOptionsModel.SetPartnerID("testString")
 				getBillingOptionsOptionsModel.SetCustomerID("testString")
 				getBillingOptionsOptionsModel.SetResellerID("testString")
-				getBillingOptionsOptionsModel.SetDate("2022-04")
+				getBillingOptionsOptionsModel.SetDate("2024-01")
 				getBillingOptionsOptionsModel.SetLimit(int64(30))
 				getBillingOptionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getBillingOptionsOptionsModel).ToNot(BeNil())
 				Expect(getBillingOptionsOptionsModel.PartnerID).To(Equal(core.StringPtr("testString")))
 				Expect(getBillingOptionsOptionsModel.CustomerID).To(Equal(core.StringPtr("testString")))
 				Expect(getBillingOptionsOptionsModel.ResellerID).To(Equal(core.StringPtr("testString")))
-				Expect(getBillingOptionsOptionsModel.Date).To(Equal(core.StringPtr("2022-04")))
+				Expect(getBillingOptionsOptionsModel.Date).To(Equal(core.StringPtr("2024-01")))
 				Expect(getBillingOptionsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
 				Expect(getBillingOptionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -687,14 +687,14 @@ var _ = Describe(`PartnerBillingUnitsV1`, func() {
 				getCreditPoolsReportOptionsModel.SetPartnerID("testString")
 				getCreditPoolsReportOptionsModel.SetCustomerID("testString")
 				getCreditPoolsReportOptionsModel.SetResellerID("testString")
-				getCreditPoolsReportOptionsModel.SetDate("2022-04")
+				getCreditPoolsReportOptionsModel.SetDate("2024-01")
 				getCreditPoolsReportOptionsModel.SetLimit(int64(30))
 				getCreditPoolsReportOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getCreditPoolsReportOptionsModel).ToNot(BeNil())
 				Expect(getCreditPoolsReportOptionsModel.PartnerID).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsReportOptionsModel.CustomerID).To(Equal(core.StringPtr("testString")))
 				Expect(getCreditPoolsReportOptionsModel.ResellerID).To(Equal(core.StringPtr("testString")))
-				Expect(getCreditPoolsReportOptionsModel.Date).To(Equal(core.StringPtr("2022-04")))
+				Expect(getCreditPoolsReportOptionsModel.Date).To(Equal(core.StringPtr("2024-01")))
 				Expect(getCreditPoolsReportOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
 				Expect(getCreditPoolsReportOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
