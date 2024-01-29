@@ -993,29 +993,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(validation).ToNot(BeNil())
 		})
 
-		It(`GetOverrideValues request example`, func() {
-			Skip("Skipped by design.")
-			fmt.Println("\nGetOverrideValues() result:")
-			// begin-get_override_values
-
-			getOverrideValuesOptions := catalogManagementService.NewGetOverrideValuesOptions(
-				versionLocatorID,
-			)
-
-			getOverrideValuesResponse, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(getOverrideValuesResponse, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_override_values
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(getOverrideValuesResponse).ToNot(BeNil())
-		})
-
 		It(`SearchObjects request example`, func() {
 			fmt.Println("\nSearchObjects() result:")
 			// begin-search_objects
