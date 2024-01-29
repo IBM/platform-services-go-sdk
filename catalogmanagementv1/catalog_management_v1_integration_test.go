@@ -2729,23 +2729,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetOverrideValues - Get override values`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions)`, func() {
-			Skip("Not testing")
-			getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
-				VersionLocID: core.StringPtr(versionLocatorLink),
-			}
-
-			result, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-		})
-	})
-
 	Describe(`CreateOfferingInstance - Create an offering resource instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -3151,14 +3134,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateObject(createObjectOptions *CreateObjectOptions)`, func() {
-			publishObjectModel := &catalogmanagementv1.PublishObject{
-				PermitIBMPublicPublish: core.BoolPtr(true),
-				IBMApproved:            core.BoolPtr(true),
-				PublicApproved:         core.BoolPtr(true),
-				PortalApprovalRecord:   core.StringPtr("testString"),
-				PortalURL:              core.StringPtr("testString"),
-			}
-
 			stateModel := &catalogmanagementv1.State{
 				Current:          core.StringPtr("testString"),
 				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
@@ -3181,7 +3156,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: make(map[string]string),
 				Kind:                 core.StringPtr("vpe"),
-				Publish:              publishObjectModel,
 				State:                stateModel,
 				CatalogID:            &catalogIDLink,
 				CatalogName:          core.StringPtr("testString"),
@@ -3229,8 +3203,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				PermitIBMPublicPublish: core.BoolPtr(true),
 				IBMApproved:            core.BoolPtr(true),
 				PublicApproved:         core.BoolPtr(true),
-				PortalApprovalRecord:   core.StringPtr("testString"),
-				PortalURL:              core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
