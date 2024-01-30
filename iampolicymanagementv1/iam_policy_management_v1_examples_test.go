@@ -170,6 +170,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
+			examplePolicyID = *policy.ID
 			fmt.Println(string(b))
 
 			// end-create_policy
@@ -177,8 +178,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyID = *policy.ID
 		})
 		It(`GetPolicy request example`, func() {
 			fmt.Println("\nGetPolicy() result:")
@@ -193,6 +192,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
+			examplePolicyETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-get_policy
@@ -200,8 +200,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`ReplacePolicy request example`, func() {
 			fmt.Println("\nReplacePolicy() result:")
@@ -252,6 +250,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
+			examplePolicyETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-replace_policy
@@ -259,8 +258,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`UpdatePolicy request example`, func() {
 			fmt.Println("\nUpdatePolicyState() result:")
@@ -405,6 +402,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
+			examplePolicyID = *policy.ID
 			fmt.Println(string(b))
 
 			// end-create_v2_policy
@@ -412,8 +410,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyID = *policy.ID
 		})
 		It(`GetV2Policy request example`, func() {
 			fmt.Println("\nGetV2Policy() result:")
@@ -428,6 +424,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
+			examplePolicyETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-get_v2_policy
@@ -435,8 +432,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`ReplaceV2Policy request example`, func() {
 			fmt.Println("\nReplaceV2Policy() result:")
@@ -517,8 +512,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
-
-			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`ListV2Policies request example`, func() {
 			fmt.Println("\nListV2Policies() result:")
@@ -580,6 +573,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
+			exampleCustomRoleID = *customRole.ID
 			fmt.Println(string(b))
 
 			// end-create_role
@@ -587,8 +581,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(customRole).ToNot(BeNil())
-
-			exampleCustomRoleID = *customRole.ID
 		})
 		It(`GetRole request example`, func() {
 			fmt.Println("\nGetRole() result:")
@@ -603,6 +595,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
+			exampleCustomRoleETag = response.Headers.Get("ETag")
 			fmt.Println(string(b))
 
 			// end-get_role
@@ -610,9 +603,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(customRole).ToNot(BeNil())
-
-			exampleCustomRoleETag = response.Headers.Get("ETag")
-
 		})
 		It(`ReplaceRole request example`, func() {
 			fmt.Println("\nReplaceRole() result:")
@@ -743,6 +733,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			examplePolicyTemplateID = *policyTemplate.ID
 			fmt.Println(string(b))
 
 			// end-create_policy_template
@@ -750,9 +741,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policyTemplate).ToNot(BeNil())
-
-			examplePolicyTemplateID = *policyTemplate.ID
-
 		})
 		It(`GetPolicyTemplate request example`, func() {
 			fmt.Println("\nGetPolicyTemplate() result:")
@@ -767,6 +755,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-get_policy_template
@@ -777,9 +766,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policyTemplate.Version).ToNot(BeNil())
 			Expect(policyTemplate.Name).ToNot(BeNil())
 			Expect(policyTemplate.Policy).ToNot(BeNil())
-
-			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
-
 		})
 
 		It(`CreatePolicyTemplateVersion request example`, func() {
@@ -823,6 +809,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
+			examplePolicyTemplateVersion = *policyTemplate.Version
 			fmt.Println(string(b))
 
 			// end-create_policy_template_version
@@ -830,10 +818,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policyTemplate).ToNot(BeNil())
-
-			examplePolicyTemplateVersion = *policyTemplate.Version
-			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
-
 		})
 
 		It(`ListPolicyTemplateVersions request example`, func() {
@@ -900,6 +884,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
+			examplePolicyTemplateVersion = *policyTemplate.Version
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-replace_policy_template
@@ -907,9 +893,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplate).ToNot(BeNil())
-
-			examplePolicyTemplateVersion = *policyTemplate.Version
-			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 		})
 		It(`GetPolicyTemplateVersion request example`, func() {
 			fmt.Println("\nGetPolicyTemplateVersion() result:")
@@ -959,7 +942,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`ListPolicyAssignments request example`, func() {
 			fmt.Println("\nListPolicyAssignments() result:")
-			// begin-list_Policy Assignments
+			// begin-list_policy_assignments
 
 			listPolicyAssignmentsOptions := iamPolicyManagementService.NewListPolicyAssignmentsOptions(
 				exampleAccountID,
@@ -970,9 +953,10 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(polcyTemplateAssignmentCollection, "", "  ")
+			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.Assignments[0].ID
 			fmt.Println(string(b))
 
-			// end-list_Policy Assignments
+			// end-list_policy_assignments
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -993,7 +977,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(polcyTemplateAssignmentCollection.Assignments[0].LastModifiedByID).ToNot(BeNil())
 			Expect(polcyTemplateAssignmentCollection.Assignments[0].Href).ToNot(BeNil())
 
-			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.Assignments[0].ID
 		})
 
 		It(`GetPolicyAssignment request example`, func() {
@@ -1009,6 +992,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyAssignmentRecord, "", "  ")
+			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
 			fmt.Println(string(b))
 
 			// end-get_policy_assignment
@@ -1030,7 +1014,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
 			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
 			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
-			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
 		})
 
 		It(`GetV2Policy to get Template meta data request example`, func() {
