@@ -3033,7 +3033,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully with retries`, func() {
@@ -3109,7 +3109,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully`, func() {
@@ -3369,7 +3369,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke CreateV2Policy successfully with retries`, func() {
@@ -3493,7 +3493,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke CreateV2Policy successfully`, func() {
@@ -3880,7 +3880,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke ReplaceV2Policy successfully with retries`, func() {
@@ -4005,7 +4005,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke ReplaceV2Policy successfully`, func() {
@@ -4325,7 +4325,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
 				}))
 			})
 			It(`Invoke GetV2Policy successfully with retries`, func() {
@@ -4381,7 +4381,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "Value"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
 				}))
 			})
 			It(`Invoke GetV2Policy successfully`, func() {
@@ -8624,7 +8624,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			It(`Invoke NewV2PolicySubjectAttribute successfully`, func() {
 				key := "testString"
 				operator := "stringEquals"
-				value := "testString"
+				value := core.StringPtr("testString")
 				_model, err := iamPolicyManagementService.NewV2PolicySubjectAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
