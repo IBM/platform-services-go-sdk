@@ -1,3 +1,10 @@
+## [0.56.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.3...v0.56.4) (2024-01-30)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** update examples format for doc generation ([#299](https://github.com/IBM/platform-services-go-sdk/issues/299)) ([8074d5b](https://github.com/IBM/platform-services-go-sdk/commit/8074d5bf0aee8b7dad6d435fdfd0b82fb6e80e97))
+
 ## [0.56.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.2...v0.56.3) (2024-01-26)
 
 
