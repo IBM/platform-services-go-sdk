@@ -499,6 +499,125 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(accumulatedFilters).ToNot(BeNil())
 		})
 
+		It(`AddShareApprovalList request example`, func() {
+			fmt.Println("\nAddShareApprovalList() result:")
+			// begin-add_share_approval_list
+
+			addShareApprovalListOptions := catalogManagementService.NewAddShareApprovalListOptions(
+				"offering",
+				[]string{"-acct-testString"},
+			)
+
+			accessListBulkResponse, response, err := catalogManagementService.AddShareApprovalList(addShareApprovalListOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessListBulkResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-add_share_approval_list
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+		It(`GetShareApprovalList request example`, func() {
+			fmt.Println("\nGetShareApprovalList() result:")
+			// begin-get_share_approval_list
+			getShareApprovalListOptions := &catalogmanagementv1.GetShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+				Limit:      core.Int64Ptr(int64(10)),
+			}
+
+			pager, err := catalogManagementService.NewGetShareApprovalListPager(getShareApprovalListOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []catalogmanagementv1.ShareApprovalAccess
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_share_approval_list
+		})
+		It(`UpdateShareApprovalListAsSource request example`, func() {
+			fmt.Println("\nUpdateShareApprovalListAsSource() result:")
+			// begin-update_share_approval_list_as_source
+
+			updateShareApprovalListAsSourceOptions := catalogManagementService.NewUpdateShareApprovalListAsSourceOptions(
+				"offering",
+				"approved",
+				[]string{"-acct-testString"},
+			)
+
+			accessListBulkResponse, response, err := catalogManagementService.UpdateShareApprovalListAsSource(updateShareApprovalListAsSourceOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessListBulkResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_share_approval_list_as_source
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+		It(`GetShareApprovalListAsSource request example`, func() {
+			fmt.Println("\nGetShareApprovalListAsSource() result:")
+			// begin-get_share_approval_list_as_source
+			getShareApprovalListAsSourceOptions := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
+				ObjectType:              core.StringPtr("offering"),
+				ApprovalStateIdentifier: core.StringPtr("approved"),
+				Limit:                   core.Int64Ptr(int64(10)),
+			}
+
+			pager, err := catalogManagementService.NewGetShareApprovalListAsSourcePager(getShareApprovalListAsSourceOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []catalogmanagementv1.ShareApprovalAccess
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_share_approval_list_as_source
+		})
+		It(`DeleteShareApprovalList request example`, func() {
+			fmt.Println("\nDeleteShareApprovalList() result:")
+			// begin-delete_share_approval_list
+
+			deleteShareApprovalListOptions := catalogManagementService.NewDeleteShareApprovalListOptions(
+				"offering",
+				[]string{"-acct-testString"},
+			)
+
+			accessListBulkResponse, response, err := catalogManagementService.DeleteShareApprovalList(deleteShareApprovalListOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accessListBulkResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-delete_share_approval_list
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+
 		It(`GetConsumptionOfferings request example`, func() {
 			fmt.Println("\nGetConsumptionOfferings() result:")
 			// begin-get_consumption_offerings

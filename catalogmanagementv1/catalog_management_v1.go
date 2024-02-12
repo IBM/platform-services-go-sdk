@@ -18817,10 +18817,6 @@ func UnmarshalShareApprovalListAccessResult(m map[string]json.RawMessage, result
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
 	if err != nil {
 		return

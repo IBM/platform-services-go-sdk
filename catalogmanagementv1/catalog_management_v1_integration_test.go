@@ -1028,6 +1028,109 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`AddShareApprovalList - Add to the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddShareApprovalList(addShareApprovalListOptions *AddShareApprovalListOptions)`, func() {
+			addShareApprovalListOptions := &catalogmanagementv1.AddShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+				Accesses:   []string{"-acct-testAccount"},
+			}
+
+			res, response, err := catalogManagementService.AddShareApprovalList(addShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetShareApprovalList - Get the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetShareApprovalList(getShareApprovalListOptions *GetShareApprovalListOptions)`, func() {
+			getShareApprovalListOptions := &catalogmanagementv1.GetShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+			}
+
+			res, response, err := catalogManagementService.GetShareApprovalList(getShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateShareApprovalListAsSource - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateShareApprovalListAsSource(updateShareApprovalListAsSourceOptions *UpdateShareApprovalListAsSourceOptions)`, func() {
+			updateShareApprovalListAsSourceOptions := &catalogmanagementv1.UpdateShareApprovalListAsSourceOptions{
+				ObjectType:              core.StringPtr("offering"),
+				Accesses:                []string{"-acct-testAccount"},
+				ApprovalStateIdentifier: core.StringPtr("approved"),
+			}
+
+			res, response, err := catalogManagementService.UpdateShareApprovalListAsSource(updateShareApprovalListAsSourceOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetShareApprovalListAsSource - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetShareApprovalListAsSource(getShareApprovalListAsSourceOptions *GetShareApprovalListAsSourceOptions)`, func() {
+			getShareApprovalListAsSourceOptions := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
+				ObjectType:              core.StringPtr("offering"),
+				ApprovalStateIdentifier: core.StringPtr("approved"),
+			}
+
+			res, response, err := catalogManagementService.GetShareApprovalListAsSource(getShareApprovalListAsSourceOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteShareApprovalList - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteShareApprovalList(deleteShareApprovalListOptions *DeleteShareApprovalListOptions)`, func() {
+			deleteShareApprovalListOptions := &catalogmanagementv1.DeleteShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+				Accesses:   []string{"-acct-testAccount"},
+			}
+
+			res, response, err := catalogManagementService.DeleteShareApprovalList(deleteShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOfferingSourceArchive - Get offering source`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingSourceArchive(getOfferingSourceArchiveOptions *GetOfferingSourceArchiveOptions)`, func() {
+			getOfferingSourceArchiveOptions := &catalogmanagementv1.GetOfferingSourceArchiveOptions{
+				Version:   core.StringPtr("1.0.0"),
+				CatalogID: core.StringPtr(catalogIDLink),
+				ID:        core.StringPtr(offeringIDLink),
+			}
+
+			result, response, err := catalogManagementService.GetOfferingSourceArchive(getOfferingSourceArchiveOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+		})
+	})
+
 	Describe(`ReplaceOffering - Update offering`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
