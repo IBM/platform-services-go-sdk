@@ -364,6 +364,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 
 			versionLocatorID = *offering.Kinds[0].Versions[0].VersionLocator
+			offeringID = *offering.ID
 		})
 
 		It(`ReloadOffering request example`, func() {
@@ -616,6 +617,30 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accessListBulkResponse).ToNot(BeNil())
+		})
+
+		It(`GetOfferingSourceArchive request example`, func() {
+			fmt.Println("\nGetOfferingSourceArchive() result:")
+			// begin-delete_share_approval_list
+
+			getOfferingSourceArchiveOptions := &catalogmanagementv1.GetOfferingSourceArchiveOptions{
+				Version:   core.StringPtr("0.0.2"),
+				CatalogID: core.StringPtr(catalogID),
+				ID:        core.StringPtr(offeringID),
+			}
+
+			source, response, err := catalogManagementService.GetOfferingSourceArchive(getOfferingSourceArchiveOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(source, "", "  ")
+			fmt.Println(string(b))
+
+			// end-delete_share_approval_list
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(source).ToNot(BeNil())
 		})
 
 		It(`GetConsumptionOfferings request example`, func() {
