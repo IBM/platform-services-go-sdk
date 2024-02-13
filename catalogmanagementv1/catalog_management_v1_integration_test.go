@@ -206,34 +206,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
@@ -246,7 +218,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("offering"),
 				Metadata:             make(map[string]interface{}),
 			}
@@ -315,34 +286,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
 				CatalogIdentifier:    &catalogIDLink,
 				ID:                   &catalogIDLink,
@@ -358,7 +301,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("offering"),
 				Metadata:             make(map[string]interface{}),
 			}
@@ -3176,34 +3118,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
@@ -3215,7 +3129,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("vpe"),
 				Metadata:             make(map[string]interface{}),
 			}
