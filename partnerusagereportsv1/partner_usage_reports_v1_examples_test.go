@@ -1,5 +1,4 @@
 //go:build examples
-// +build examples
 
 /**
  * (C) Copyright IBM Corp. 2024.
@@ -30,6 +29,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the Partner Usage Reports service.
 //
 // The following configuration properties are assumed to be defined:

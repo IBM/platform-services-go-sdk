@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.75.0-726bc7e3-20230713-221716
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 // Package partnerusagereportsv1 : Operations and models for the PartnerUsageReportsV1 service
@@ -287,7 +287,7 @@ type GetResourceUsageReportOptions struct {
 const (
 	GetResourceUsageReportOptionsViewpointDistributorConst = "DISTRIBUTOR"
 	GetResourceUsageReportOptionsViewpointEndCustomerConst = "END_CUSTOMER"
-	GetResourceUsageReportOptionsViewpointResellerConst = "RESELLER"
+	GetResourceUsageReportOptionsViewpointResellerConst    = "RESELLER"
 )
 
 // NewGetResourceUsageReportOptions : Instantiate GetResourceUsageReportOptions
@@ -728,13 +728,11 @@ func UnmarshalResourceUsage(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-//
 // GetResourceUsageReportPager can be used to simplify the use of the "GetResourceUsageReport" method.
-//
 type GetResourceUsageReportPager struct {
-	hasNext bool
-	options *GetResourceUsageReportOptions
-	client  *PartnerUsageReportsV1
+	hasNext     bool
+	options     *GetResourceUsageReportOptions
+	client      *PartnerUsageReportsV1
 	pageContext struct {
 		next *string
 	}
