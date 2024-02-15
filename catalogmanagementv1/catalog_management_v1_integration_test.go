@@ -206,34 +206,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
@@ -246,7 +218,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("offering"),
 				Metadata:             make(map[string]interface{}),
 			}
@@ -315,34 +286,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
 				CatalogIdentifier:    &catalogIDLink,
 				ID:                   &catalogIDLink,
@@ -358,7 +301,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("offering"),
 				Metadata:             make(map[string]interface{}),
 			}
@@ -1025,6 +967,109 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			offeringRevLink = *offering.Rev
 			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+		})
+	})
+
+	Describe(`AddShareApprovalList - Add to the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddShareApprovalList(addShareApprovalListOptions *AddShareApprovalListOptions)`, func() {
+			addShareApprovalListOptions := &catalogmanagementv1.AddShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+				Accesses:   []string{"-acct-testAccount"},
+			}
+
+			res, response, err := catalogManagementService.AddShareApprovalList(addShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetShareApprovalList - Get the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetShareApprovalList(getShareApprovalListOptions *GetShareApprovalListOptions)`, func() {
+			getShareApprovalListOptions := &catalogmanagementv1.GetShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+			}
+
+			res, response, err := catalogManagementService.GetShareApprovalList(getShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateShareApprovalListAsSource - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateShareApprovalListAsSource(updateShareApprovalListAsSourceOptions *UpdateShareApprovalListAsSourceOptions)`, func() {
+			updateShareApprovalListAsSourceOptions := &catalogmanagementv1.UpdateShareApprovalListAsSourceOptions{
+				ObjectType:              core.StringPtr("offering"),
+				Accesses:                []string{"-acct-testAccount"},
+				ApprovalStateIdentifier: core.StringPtr("approved"),
+			}
+
+			res, response, err := catalogManagementService.UpdateShareApprovalListAsSource(updateShareApprovalListAsSourceOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetShareApprovalListAsSource - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetShareApprovalListAsSource(getShareApprovalListAsSourceOptions *GetShareApprovalListAsSourceOptions)`, func() {
+			getShareApprovalListAsSourceOptions := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
+				ObjectType:              core.StringPtr("offering"),
+				ApprovalStateIdentifier: core.StringPtr("approved"),
+			}
+
+			res, response, err := catalogManagementService.GetShareApprovalListAsSource(getShareApprovalListAsSourceOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteShareApprovalList - Delete an account from the approval list for an offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteShareApprovalList(deleteShareApprovalListOptions *DeleteShareApprovalListOptions)`, func() {
+			deleteShareApprovalListOptions := &catalogmanagementv1.DeleteShareApprovalListOptions{
+				ObjectType: core.StringPtr("offering"),
+				Accesses:   []string{"-acct-testAccount"},
+			}
+
+			res, response, err := catalogManagementService.DeleteShareApprovalList(deleteShareApprovalListOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(res).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetOfferingSourceArchive - Get offering source`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingSourceArchive(getOfferingSourceArchiveOptions *GetOfferingSourceArchiveOptions)`, func() {
+			getOfferingSourceArchiveOptions := &catalogmanagementv1.GetOfferingSourceArchiveOptions{
+				Version:   core.StringPtr("1.0.0"),
+				CatalogID: core.StringPtr(catalogIDLink),
+				ID:        core.StringPtr(offeringIDLink),
+			}
+
+			result, response, err := catalogManagementService.GetOfferingSourceArchive(getOfferingSourceArchiveOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 	})
 
@@ -2729,23 +2774,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetOverrideValues - Get override values`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions)`, func() {
-			Skip("Not testing")
-			getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
-				VersionLocID: core.StringPtr(versionLocatorLink),
-			}
-
-			result, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-		})
-	})
-
 	Describe(`CreateOfferingInstance - Create an offering resource instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -3090,34 +3118,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region:            core.StringPtr("testString"),
-				ID:                core.StringPtr("testString"),
-				Name:              core.StringPtr("testString"),
-				ResourceGroupName: core.StringPtr("testString"),
-				Type:              core.StringPtr("testString"),
-				Namespaces:        []string{"testString"},
-				AllNamespaces:     core.BoolPtr(true),
-			}
-
-			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
-				Namespaces: []string{"testString"},
-				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token:   core.StringPtr("testString"),
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-			}
-
-			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
-				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History:                 syndicationHistoryModel,
-				Authorization:           syndicationAuthorizationModel,
-			}
-
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
 				Label:                core.StringPtr("testString"),
 				LabelI18n:            make(map[string]string),
@@ -3129,7 +3129,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Disabled:             core.BoolPtr(true),
 				OwningAccount:        core.StringPtr("testString"),
 				CatalogFilters:       filtersModel,
-				SyndicationSettings:  syndicationResourceModel,
 				Kind:                 core.StringPtr("vpe"),
 				Metadata:             make(map[string]interface{}),
 			}
@@ -3151,14 +3150,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateObject(createObjectOptions *CreateObjectOptions)`, func() {
-			publishObjectModel := &catalogmanagementv1.PublishObject{
-				PermitIBMPublicPublish: core.BoolPtr(true),
-				IBMApproved:            core.BoolPtr(true),
-				PublicApproved:         core.BoolPtr(true),
-				PortalApprovalRecord:   core.StringPtr("testString"),
-				PortalURL:              core.StringPtr("testString"),
-			}
-
 			stateModel := &catalogmanagementv1.State{
 				Current:          core.StringPtr("testString"),
 				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
@@ -3181,7 +3172,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: make(map[string]string),
 				Kind:                 core.StringPtr("vpe"),
-				Publish:              publishObjectModel,
 				State:                stateModel,
 				CatalogID:            &catalogIDLink,
 				CatalogName:          core.StringPtr("testString"),
@@ -3229,8 +3219,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				PermitIBMPublicPublish: core.BoolPtr(true),
 				IBMApproved:            core.BoolPtr(true),
 				PublicApproved:         core.BoolPtr(true),
-				PortalApprovalRecord:   core.StringPtr("testString"),
-				PortalURL:              core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
