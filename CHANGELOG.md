@@ -1,3 +1,10 @@
+# [0.58.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.57.0...v0.58.0) (2024-02-15)
+
+
+### Features
+
+* **Partner Billing Units:** add new service to project ([#301](https://github.com/IBM/platform-services-go-sdk/issues/301)) ([d430463](https://github.com/IBM/platform-services-go-sdk/commit/d43046393a5a9ad3ffa7eb3c710b9dba58654da8))
+
 # [0.57.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.56.4...v0.57.0) (2024-02-13)
 
 
