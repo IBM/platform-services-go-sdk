@@ -1,3 +1,10 @@
+# [0.59.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.58.0...v0.59.0) (2024-02-16)
+
+
+### Features
+
+* **Partner Usage Reports:** add new service to project ([#302](https://github.com/IBM/platform-services-go-sdk/issues/302)) ([3d62fcf](https://github.com/IBM/platform-services-go-sdk/commit/3d62fcf072def0b91e19bcbff5a66c8a29e7396c))
+
 # [0.58.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.57.0...v0.58.0) (2024-02-15)
 
 
