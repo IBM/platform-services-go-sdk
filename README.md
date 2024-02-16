@@ -62,6 +62,7 @@ Service Name | Package name
 [Metrics Router](https://cloud.ibm.com/apidocs/metrics-router/metrics-router-v3) | metricsrouterv3
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
 [Partner Billing Units](https://cloud.ibm.com/apidocs/partner-apis/billing-unit?code=go) | partnerbillingunitsv1
+[Partner Usage Reports](https://cloud.ibm.com/apidocs/partner-apis/resource-usage-reports?code=go) | partnerusagereportsv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
