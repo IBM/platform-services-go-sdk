@@ -84,7 +84,7 @@ Service Name | Package name
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one
 [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.19 or above.
+* Go version 1.20 or above.
 
 ## Installation
 The current version of this SDK: 0.59.0
