@@ -3033,7 +3033,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully with retries`, func() {
@@ -3109,7 +3109,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}]}`)
 				}))
 			})
 			It(`Invoke ListV2Policies successfully`, func() {
@@ -3302,7 +3302,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -3369,7 +3369,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke CreateV2Policy successfully with retries`, func() {
@@ -3423,7 +3423,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -3493,7 +3493,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke CreateV2Policy successfully`, func() {
@@ -3552,7 +3552,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -3624,7 +3624,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -3717,7 +3717,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -3812,7 +3812,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -3880,7 +3880,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke ReplaceV2Policy successfully with retries`, func() {
@@ -3934,7 +3934,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -4005,7 +4005,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19}`)
 				}))
 			})
 			It(`Invoke ReplaceV2Policy successfully`, func() {
@@ -4064,7 +4064,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -4137,7 +4137,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -4231,7 +4231,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -4325,7 +4325,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
 				}))
 			})
 			It(`Invoke GetV2Policy successfully with retries`, func() {
@@ -4381,7 +4381,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
+					fmt.Fprintf(res, "%s", `{"type": "access", "description": "Description", "subject": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}]}, "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "id": "ID", "href": "Href", "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}, "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "active", "last_permit_at": "LastPermitAt", "last_permit_frequency": 19, "template": {"id": "ID", "version": "Version", "assignment_id": "AssignmentID", "root_id": "RootID", "root_version": "RootVersion"}}`)
 				}))
 			})
 			It(`Invoke GetV2Policy successfully`, func() {
@@ -4620,7 +4620,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully with retries`, func() {
@@ -4680,7 +4680,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policy_templates": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplates successfully`, func() {
@@ -4827,7 +4827,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -4913,7 +4913,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully with retries`, func() {
@@ -4945,7 +4945,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5034,7 +5034,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplate successfully`, func() {
@@ -5071,7 +5071,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5140,7 +5140,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5230,7 +5230,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5342,7 +5342,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully with retries`, func() {
@@ -5398,7 +5398,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplate successfully`, func() {
@@ -5608,7 +5608,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5691,7 +5691,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully with retries`, func() {
@@ -5723,7 +5723,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5809,7 +5809,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "counts": {"template": {"current": 7, "limit": 5}, "version": {"current": 7, "limit": 5}}}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateVersion successfully`, func() {
@@ -5846,7 +5846,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -5914,7 +5914,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6003,7 +6003,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6114,7 +6114,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully with retries`, func() {
@@ -6170,7 +6170,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"versions": [{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyTemplateVersions successfully`, func() {
@@ -6314,7 +6314,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6401,7 +6401,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully with retries`, func() {
@@ -6433,7 +6433,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6523,7 +6523,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplacePolicyTemplate successfully`, func() {
@@ -6560,7 +6560,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6630,7 +6630,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6721,7 +6721,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the V2PolicyRuleRuleAttribute model
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the Roles model
@@ -6902,7 +6902,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully with retries`, func() {
@@ -6957,7 +6957,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "timeLessThan", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "account_id": "AccountID", "version": "Version", "committed": false, "policy": {"type": "access", "description": "Description", "resource": {"attributes": [{"key": "Key", "operator": "stringEquals", "value": "anyValue"}], "tags": [{"key": "Key", "value": "Value", "operator": "stringEquals"}]}, "pattern": "Pattern", "rule": {"key": "Key", "operator": "stringEquals", "value": "anyValue"}, "control": {"grant": {"roles": [{"role_id": "RoleID"}]}}}, "state": "active", "id": "ID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetPolicyTemplateVersion successfully`, func() {
@@ -7708,10 +7708,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				Expect(v2PolicyRuleModel).ToNot(BeNil())
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the Roles model
@@ -7802,10 +7802,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				Expect(v2PolicyRuleModel).ToNot(BeNil())
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the Roles model
@@ -7953,10 +7953,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				Expect(v2PolicyRuleModel).ToNot(BeNil())
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateV2PolicyOptions model
@@ -8344,10 +8344,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				Expect(v2PolicyRuleModel).ToNot(BeNil())
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the Roles model
@@ -8496,10 +8496,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				v2PolicyRuleModel := new(iampolicymanagementv1.V2PolicyRuleRuleAttribute)
 				Expect(v2PolicyRuleModel).ToNot(BeNil())
 				v2PolicyRuleModel.Key = core.StringPtr("testString")
-				v2PolicyRuleModel.Operator = core.StringPtr("timeLessThan")
+				v2PolicyRuleModel.Operator = core.StringPtr("stringEquals")
 				v2PolicyRuleModel.Value = core.StringPtr("testString")
 				Expect(v2PolicyRuleModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("timeLessThan")))
+				Expect(v2PolicyRuleModel.Operator).To(Equal(core.StringPtr("stringEquals")))
 				Expect(v2PolicyRuleModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ReplaceV2PolicyOptions model
@@ -8559,7 +8559,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Invoke NewRuleAttribute successfully`, func() {
 				key := "testString"
-				operator := "timeLessThan"
+				operator := "stringEquals"
 				value := core.StringPtr("testString")
 				_model, err := iamPolicyManagementService.NewRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
@@ -8631,7 +8631,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Invoke NewNestedConditionRuleAttribute successfully`, func() {
 				key := "testString"
-				operator := "timeLessThan"
+				operator := "stringEquals"
 				value := core.StringPtr("testString")
 				_model, err := iamPolicyManagementService.NewNestedConditionRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
@@ -8646,7 +8646,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Invoke NewV2PolicyRuleRuleAttribute successfully`, func() {
 				key := "testString"
-				operator := "timeLessThan"
+				operator := "stringEquals"
 				value := core.StringPtr("testString")
 				_model, err := iamPolicyManagementService.NewV2PolicyRuleRuleAttribute(key, operator, value)
 				Expect(_model).ToNot(BeNil())
