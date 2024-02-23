@@ -1,3 +1,10 @@
+## [0.59.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.0...v0.59.1) (2024-02-23)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** regenerate based on minor API update to operator enum ([#303](https://github.com/IBM/platform-services-go-sdk/issues/303)) ([4723452](https://github.com/IBM/platform-services-go-sdk/commit/4723452a51bb8ca72f06adc1954342e629ca62e6))
+
 # [0.59.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.58.0...v0.59.0) (2024-02-16)
 
 
