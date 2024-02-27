@@ -1,3 +1,10 @@
+## [0.59.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.1...v0.59.2) (2024-02-27)
+
+
+### Bug Fixes
+
+* bump dependenciess, address crypto vulnerability ([#304](https://github.com/IBM/platform-services-go-sdk/issues/304)) ([80f3308](https://github.com/IBM/platform-services-go-sdk/commit/80f3308bd8a126ca823b2643d0a10d02bfc2f499))
+
 ## [0.59.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.0...v0.59.1) (2024-02-23)
 
 
