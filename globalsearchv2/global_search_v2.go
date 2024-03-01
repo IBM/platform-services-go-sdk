@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.82.1-2082d402-20231115-195014
+ * IBM OpenAPI SDK Code Generator Version: 3.86.0-bc6f14b3-20240221-193958
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -178,8 +178,11 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 //
 // You must use `/v3/resources/search` when you need to fetch more than `10000` resource items. On the first call, the
 // operation returns a live cursor on the data that you must use on all the subsequent calls to get the next batch of
-// results until you get the empty result set. By default, the fields that are returned for every resource are "crn",
-// "name", "family", "type", and "account_id". You can specify the subset of the fields you want in your request.
+// results until you get the empty result set.
+//
+// By default, the fields that are returned for every resource are `crn`, `name`,
+// `family`, `type`, and `account_id`. You can specify the subset of the fields you want in your request using the
+// `fields` request body attribute. Set `"fields": ["*"]` to discover the set of fields which are available to request.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	return globalSearch.SearchWithContext(context.Background(), searchOptions)
 }
@@ -367,8 +370,9 @@ type ScanResult struct {
 	// Value of the limit parameter specified by the user.
 	Limit *int64 `json:"limit" validate:"required"`
 
-	// The array of results. Each item represents a resource. An empty array signals the end of the result set, which means
-	// there are no more results to fetch.
+	// The array of results. Each item represents a resource. For each resource, the requested `fields` are returned. If
+	// you did not set the `fields` request body parameter, then the `account_id`, `name`, `type`, `family`, and `crn` are
+	// returned. An empty array signals the end of the result set, which means there are no more results to fetch.
 	Items []ResultItem `json:"items" validate:"required"`
 }
 
@@ -397,7 +401,8 @@ type SearchOptions struct {
 	Query *string `json:"query,omitempty"`
 
 	// The list of the fields returned by the search. By default, the returned fields are the `account_id`, `name`, `type`,
-	// `family`, and `crn`. For all queries, `crn` is always returned.
+	// `family`, and `crn`. For all queries, `crn` is always returned. You may set `"fields": ["*"]` to discover the set of
+	// fields available to request.
 	Fields []string `json:"fields,omitempty"`
 
 	// An opaque cursor that is returned on each call and that must be set on the subsequent call to get the next batch of

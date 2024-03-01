@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package globaltaggingv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -1307,6 +1308,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+					// TODO: Add check for replace query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1335,6 +1337,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
 				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Replace = core.BoolPtr(false)
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
@@ -1389,6 +1392,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+					// TODO: Add check for replace query parameter
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1422,6 +1426,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
 				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Replace = core.BoolPtr(false)
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1482,6 +1487,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+					// TODO: Add check for replace query parameter
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1517,6 +1523,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
 				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Replace = core.BoolPtr(false)
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1549,6 +1556,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
 				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Replace = core.BoolPtr(false)
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalTaggingService.SetServiceURL("")
@@ -1602,6 +1610,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TransactionID = core.StringPtr("testString")
 				attachTagOptionsModel.AccountID = core.StringPtr("testString")
 				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Replace = core.BoolPtr(false)
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1971,6 +1980,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.SetTransactionID("testString")
 				attachTagOptionsModel.SetAccountID("testString")
 				attachTagOptionsModel.SetTagType("user")
+				attachTagOptionsModel.SetReplace(false)
 				attachTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(attachTagOptionsModel).ToNot(BeNil())
 				Expect(attachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
@@ -1981,6 +1991,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(attachTagOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.TagType).To(Equal(core.StringPtr("user")))
+				Expect(attachTagOptionsModel.Replace).To(Equal(core.BoolPtr(false)))
 				Expect(attachTagOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateTagOptions successfully`, func() {
@@ -2117,6 +2128,28 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalResource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(globaltaggingv1.Resource)
+			model.ResourceID = core.StringPtr("testString")
+			model.ResourceType = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *globaltaggingv1.Resource
+			err = globaltaggingv1.UnmarshalResource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -2146,8 +2179,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 
