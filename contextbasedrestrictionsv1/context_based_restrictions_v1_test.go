@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package contextbasedrestrictionsv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -66,13 +67,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_URL":       "https://contextbasedrestrictionsv1/api",
+				"CONTEXT_BASED_RESTRICTIONS_URL": "https://contextbasedrestrictionsv1/api",
 				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+				})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +103,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+				})
 				err := contextBasedRestrictionsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -119,12 +122,13 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_URL":       "https://contextbasedrestrictionsv1/api",
+				"CONTEXT_BASED_RESTRICTIONS_URL": "https://contextbasedrestrictionsv1/api",
 				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(contextBasedRestrictionsService).To(BeNil())
@@ -135,7 +139,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "NOAuth",
+				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1428,7 +1432,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"name": "Name"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
@@ -1489,7 +1493,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"name": "Name"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}]}`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
@@ -1573,6 +1577,240 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Invoke operation
 				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions) - Operation response error`, func() {
+		getServicerefTargetPath := "/v1/zones/serviceref_targets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServicerefTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetServicerefTarget with error: Operation response processing error`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServicerefTargetOptions model
+				getServicerefTargetOptionsModel := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				getServicerefTargetOptionsModel.ServiceName = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.XCorrelationID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.TransactionID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				contextBasedRestrictionsService.EnableRetries(0, 0)
+				result, response, operationErr = contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions)`, func() {
+		getServicerefTargetPath := "/v1/zones/serviceref_targets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServicerefTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}`)
+				}))
+			})
+			It(`Invoke GetServicerefTarget successfully with retries`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+				contextBasedRestrictionsService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetServicerefTargetOptions model
+				getServicerefTargetOptionsModel := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				getServicerefTargetOptionsModel.ServiceName = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.XCorrelationID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.TransactionID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := contextBasedRestrictionsService.GetServicerefTargetWithContext(ctx, getServicerefTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				contextBasedRestrictionsService.DisableRetries()
+				result, response, operationErr := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = contextBasedRestrictionsService.GetServicerefTargetWithContext(ctx, getServicerefTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getServicerefTargetPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"service_name": "ServiceName", "service_type": "ServiceType", "locations": [{"display_name": "DisplayName", "kind": "Kind", "name": "Name"}]}`)
+				}))
+			})
+			It(`Invoke GetServicerefTarget successfully`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := contextBasedRestrictionsService.GetServicerefTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetServicerefTargetOptions model
+				getServicerefTargetOptionsModel := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				getServicerefTargetOptionsModel.ServiceName = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.XCorrelationID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.TransactionID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetServicerefTarget with error: Operation validation and request error`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServicerefTargetOptions model
+				getServicerefTargetOptionsModel := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				getServicerefTargetOptionsModel.ServiceName = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.XCorrelationID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.TransactionID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := contextBasedRestrictionsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetServicerefTargetOptions model with no property values
+				getServicerefTargetOptionsModelNew := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetServicerefTarget successfully`, func() {
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(contextBasedRestrictionsService).ToNot(BeNil())
+
+				// Construct an instance of the GetServicerefTargetOptions model
+				getServicerefTargetOptionsModel := new(contextbasedrestrictionsv1.GetServicerefTargetOptions)
+				getServicerefTargetOptionsModel.ServiceName = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.XCorrelationID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.TransactionID = core.StringPtr("testString")
+				getServicerefTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3204,7 +3442,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "tags_rule_count_limit": 18, "current_rule_count": 16, "current_zone_count": 16, "current_tags_rule_count": 20, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -3264,7 +3502,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "tags_rule_count_limit": 18, "current_rule_count": 16, "current_zone_count": 16, "current_tags_rule_count": 20, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -3778,6 +4016,20 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(getRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetServicerefTargetOptions successfully`, func() {
+				// Construct an instance of the GetServicerefTargetOptions model
+				serviceName := "testString"
+				getServicerefTargetOptionsModel := contextBasedRestrictionsService.NewGetServicerefTargetOptions(serviceName)
+				getServicerefTargetOptionsModel.SetServiceName("testString")
+				getServicerefTargetOptionsModel.SetXCorrelationID("testString")
+				getServicerefTargetOptionsModel.SetTransactionID("testString")
+				getServicerefTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getServicerefTargetOptionsModel).ToNot(BeNil())
+				Expect(getServicerefTargetOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(getServicerefTargetOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
+				Expect(getServicerefTargetOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(getServicerefTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetZoneOptions successfully`, func() {
 				// Construct an instance of the GetZoneOptions model
 				zoneID := "testString"
@@ -4077,6 +4329,277 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAddress successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.Address)
+			model.Type = core.StringPtr("ipAddress")
+			model.Value = core.StringPtr("testString")
+			model.Ref = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result interface{}
+			err = contextbasedrestrictionsv1.UnmarshalAddress(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+		})
+		It(`Invoke UnmarshalNewRuleOperations successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.NewRuleOperations)
+			model.APITypes = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.NewRuleOperations
+			err = contextbasedrestrictionsv1.UnmarshalNewRuleOperations(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalNewRuleOperationsAPITypesItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem)
+			model.APITypeID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.NewRuleOperationsAPITypesItem
+			err = contextbasedrestrictionsv1.UnmarshalNewRuleOperationsAPITypesItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.Resource)
+			model.Attributes = nil
+			model.Tags = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.Resource
+			err = contextbasedrestrictionsv1.UnmarshalResource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResourceAttribute successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.ResourceAttribute)
+			model.Name = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+			model.Operator = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.ResourceAttribute
+			err = contextbasedrestrictionsv1.UnmarshalResourceAttribute(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResourceTagAttribute successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.ResourceTagAttribute)
+			model.Name = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+			model.Operator = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.ResourceTagAttribute
+			err = contextbasedrestrictionsv1.UnmarshalResourceTagAttribute(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRuleContext successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.RuleContext)
+			model.Attributes = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.RuleContext
+			err = contextbasedrestrictionsv1.UnmarshalRuleContext(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRuleContextAttribute successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.RuleContextAttribute)
+			model.Name = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.RuleContextAttribute
+			err = contextbasedrestrictionsv1.UnmarshalRuleContextAttribute(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalServiceRefValue successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.ServiceRefValue)
+			model.AccountID = core.StringPtr("testString")
+			model.ServiceType = core.StringPtr("testString")
+			model.ServiceName = core.StringPtr("testString")
+			model.ServiceInstance = core.StringPtr("testString")
+			model.Location = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.ServiceRefValue
+			err = contextbasedrestrictionsv1.UnmarshalServiceRefValue(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddressIPAddress successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.AddressIPAddress)
+			model.Type = core.StringPtr("ipAddress")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.AddressIPAddress
+			err = contextbasedrestrictionsv1.UnmarshalAddressIPAddress(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddressIPAddressRange successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.AddressIPAddressRange)
+			model.Type = core.StringPtr("ipRange")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.AddressIPAddressRange
+			err = contextbasedrestrictionsv1.UnmarshalAddressIPAddressRange(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddressServiceRef successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.AddressServiceRef)
+			model.Type = core.StringPtr("serviceRef")
+			model.Ref = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.AddressServiceRef
+			err = contextbasedrestrictionsv1.UnmarshalAddressServiceRef(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddressSubnet successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.AddressSubnet)
+			model.Type = core.StringPtr("subnet")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.AddressSubnet
+			err = contextbasedrestrictionsv1.UnmarshalAddressSubnet(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAddressVPC successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.AddressVPC)
+			model.Type = core.StringPtr("vpc")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *contextbasedrestrictionsv1.AddressVPC
+			err = contextbasedrestrictionsv1.UnmarshalAddressVPC(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -4106,8 +4629,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 

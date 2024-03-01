@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.81.0-c73a091c-20231026-215706
+ * IBM OpenAPI SDK Code Generator Version: 3.86.0-bc6f14b3-20240221-193958
  */
 
 // Package contextbasedrestrictionsv1 : Operations and models for the ContextBasedRestrictionsV1 service
@@ -578,6 +578,72 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceRefTargetList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetServicerefTarget : Get service reference target for a specified service name
+// This operation gets the service reference target for a specified service name.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions) (result *ServiceRefTarget, response *core.DetailedResponse, err error) {
+	return contextBasedRestrictions.GetServicerefTargetWithContext(context.Background(), getServicerefTargetOptions)
+}
+
+// GetServicerefTargetWithContext is an alternate form of the GetServicerefTarget method which supports a Context parameter
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetServicerefTargetWithContext(ctx context.Context, getServicerefTargetOptions *GetServicerefTargetOptions) (result *ServiceRefTarget, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getServicerefTargetOptions, "getServicerefTargetOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getServicerefTargetOptions, "getServicerefTargetOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"service_name": *getServicerefTargetOptions.ServiceName,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = contextBasedRestrictions.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(contextBasedRestrictions.Service.Options.URL, `/v1/zones/serviceref_targets/{service_name}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getServicerefTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "GetServicerefTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getServicerefTargetOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*getServicerefTargetOptions.XCorrelationID))
+	}
+	if getServicerefTargetOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*getServicerefTargetOptions.TransactionID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = contextBasedRestrictions.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceRefTarget)
 		if err != nil {
 			return
 		}
@@ -1173,11 +1239,17 @@ type AccountSettings struct {
 	// the max number of zones allowed for the account.
 	ZoneCountLimit *int64 `json:"zone_count_limit" validate:"required"`
 
+	// the max number of rules with tags allowed for the account.
+	TagsRuleCountLimit *int64 `json:"tags_rule_count_limit,omitempty"`
+
 	// the current number of rules used by the account.
 	CurrentRuleCount *int64 `json:"current_rule_count" validate:"required"`
 
 	// the current number of zones used by the account.
 	CurrentZoneCount *int64 `json:"current_zone_count" validate:"required"`
+
+	// the current number of rules with tags used by the account.
+	CurrentTagsRuleCount *int64 `json:"current_tags_rule_count,omitempty"`
 
 	// The href link to the resource.
 	Href *string `json:"href" validate:"required"`
@@ -1214,11 +1286,19 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "tags_rule_count_limit", &obj.TagsRuleCountLimit)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "current_rule_count", &obj.CurrentRuleCount)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "current_zone_count", &obj.CurrentZoneCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "current_tags_rule_count", &obj.CurrentTagsRuleCount)
 	if err != nil {
 		return
 	}
@@ -1372,9 +1452,9 @@ type CreateRuleOptions struct {
 
 // Constants associated with the CreateRuleOptions.EnforcementMode property.
 // The rule enforcement mode:
-//  * `enabled` - The restrictions are enforced and reported. This is the default.
-//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
-//  * `report` - The restrictions are evaluated and reported, but not enforced.
+//   - `enabled` - The restrictions are enforced and reported. This is the default.
+//   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
+//   - `report` - The restrictions are evaluated and reported, but not enforced.
 const (
 	CreateRuleOptionsEnforcementModeDisabledConst = "disabled"
 	CreateRuleOptionsEnforcementModeEnabledConst  = "enabled"
@@ -1726,6 +1806,58 @@ func (_options *GetRuleOptions) SetTransactionID(transactionID string) *GetRuleO
 
 // SetHeaders : Allow user to set Headers
 func (options *GetRuleOptions) SetHeaders(param map[string]string) *GetRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// GetServicerefTargetOptions : The GetServicerefTarget options.
+type GetServicerefTargetOptions struct {
+	// The name of a service.
+	ServiceName *string `json:"service_name" validate:"required,ne="`
+
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"X-Correlation-Id,omitempty"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
+	// Deprecated: this field is deprecated and may be removed in a future release.
+	TransactionID *string `json:"Transaction-Id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetServicerefTargetOptions : Instantiate GetServicerefTargetOptions
+func (*ContextBasedRestrictionsV1) NewGetServicerefTargetOptions(serviceName string) *GetServicerefTargetOptions {
+	return &GetServicerefTargetOptions{
+		ServiceName: core.StringPtr(serviceName),
+	}
+}
+
+// SetServiceName : Allow user to set ServiceName
+func (_options *GetServicerefTargetOptions) SetServiceName(serviceName string) *GetServicerefTargetOptions {
+	_options.ServiceName = core.StringPtr(serviceName)
+	return _options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (_options *GetServicerefTargetOptions) SetXCorrelationID(xCorrelationID string) *GetServicerefTargetOptions {
+	_options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return _options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+// Deprecated: this method is deprecated and may be removed in a future release.
+func (_options *GetServicerefTargetOptions) SetTransactionID(transactionID string) *GetServicerefTargetOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetServicerefTargetOptions) SetHeaders(param map[string]string) *GetServicerefTargetOptions {
 	options.Headers = param
 	return options
 }
@@ -2202,8 +2334,7 @@ type ReplaceRuleOptions struct {
 	// The ID of a rule.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
 
-	// The current revision of the resource being updated. This can be found in the Create/Get/Update resource response
-	// ETag header.
+	// The ETag of the resource to replace. You can find the ETag in the response header for Create/Get/Update requests.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The description of the rule.
@@ -2241,9 +2372,9 @@ type ReplaceRuleOptions struct {
 
 // Constants associated with the ReplaceRuleOptions.EnforcementMode property.
 // The rule enforcement mode:
-//  * `enabled` - The restrictions are enforced and reported. This is the default.
-//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
-//  * `report` - The restrictions are evaluated and reported, but not enforced.
+//   - `enabled` - The restrictions are enforced and reported. This is the default.
+//   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
+//   - `report` - The restrictions are evaluated and reported, but not enforced.
 const (
 	ReplaceRuleOptionsEnforcementModeDisabledConst = "disabled"
 	ReplaceRuleOptionsEnforcementModeEnabledConst  = "enabled"
@@ -2324,8 +2455,7 @@ type ReplaceZoneOptions struct {
 	// The ID of a zone.
 	ZoneID *string `json:"zone_id" validate:"required,ne="`
 
-	// The current revision of the resource being updated. This can be found in the Create/Get/Update resource response
-	// ETag header.
+	// The ETag of the resource to replace. You can find the ETag in the response header for Create/Get/Update requests.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The name of the zone.
@@ -2587,9 +2717,9 @@ type Rule struct {
 
 // Constants associated with the Rule.EnforcementMode property.
 // The rule enforcement mode:
-//  * `enabled` - The restrictions are enforced and reported. This is the default.
-//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
-//  * `report` - The restrictions are evaluated and reported, but not enforced.
+//   - `enabled` - The restrictions are enforced and reported. This is the default.
+//   - `disabled` - The restrictions are disabled. Nothing is enforced or reported.
+//   - `report` - The restrictions are evaluated and reported, but not enforced.
 const (
 	RuleEnforcementModeDisabledConst = "disabled"
 	RuleEnforcementModeEnabledConst  = "enabled"
@@ -2792,6 +2922,12 @@ func UnmarshalServiceRefTargetList(m map[string]json.RawMessage, result interfac
 
 // ServiceRefTargetLocationsItem : ServiceRefTargetLocationsItem struct
 type ServiceRefTargetLocationsItem struct {
+	// The location display name.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// The location kind.
+	Kind *string `json:"kind,omitempty"`
+
 	// The location name.
 	Name *string `json:"name" validate:"required"`
 }
@@ -2799,6 +2935,14 @@ type ServiceRefTargetLocationsItem struct {
 // UnmarshalServiceRefTargetLocationsItem unmarshals an instance of ServiceRefTargetLocationsItem from the specified map of raw messages.
 func UnmarshalServiceRefTargetLocationsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ServiceRefTargetLocationsItem)
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return

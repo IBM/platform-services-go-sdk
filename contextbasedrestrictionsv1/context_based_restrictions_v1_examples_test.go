@@ -29,7 +29,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the Context Based Restrictions service.
 //
 // The following configuration properties are assumed to be defined:
@@ -44,7 +43,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 
 	const externalConfigFile = "../context_based_restrictions_v1.env"
@@ -291,6 +289,27 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceRefTargetList).ToNot(BeNil())
 
+		})
+		It(`GetServicerefTarget request example`, func() {
+			fmt.Println("\nGetServicerefTarget() result:")
+			// begin-get_serviceref_target
+
+			getServicerefTargetOptions := contextBasedRestrictionsService.NewGetServicerefTargetOptions(
+				serviceName,
+			)
+
+			serviceRefTarget, response, err := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(serviceRefTarget, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_serviceref_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceRefTarget).ToNot(BeNil())
 		})
 		It(`CreateRule request example`, func() {
 			fmt.Println("\nCreateRule() result:")

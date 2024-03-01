@@ -467,6 +467,40 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`GetServicerefTarget - Get service reference target for a specified service name`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions)`, func() {
+			getServicerefTargetOptions := &contextbasedrestrictionsv1.GetServicerefTargetOptions{
+				ServiceName: core.StringPtr(testServiceName),
+			}
+
+			serviceRefTarget, response, err := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(serviceRefTarget).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetServicerefTarget - Get service reference target for a specified service name with 'service_not_found' error `, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions)`, func() {
+			getServicerefTargetOptions := &contextbasedrestrictionsv1.GetServicerefTargetOptions{
+				ServiceName: core.StringPtr("invalid-service"),
+			}
+
+			serviceRefTarget, response, err := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(serviceRefTarget).To(BeNil())
+		})
+	})
+
 	Describe(`CreateRule - Create a rule`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
