@@ -2334,7 +2334,8 @@ type ReplaceRuleOptions struct {
 	// The ID of a rule.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
 
-	// The ETag of the resource to replace. You can find the ETag in the response header for Create/Get/Update requests.
+	// The current revision of the resource being updated. This can be found in the Create/Get/Update resource response
+	// ETag header.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The description of the rule.
@@ -2455,7 +2456,8 @@ type ReplaceZoneOptions struct {
 	// The ID of a zone.
 	ZoneID *string `json:"zone_id" validate:"required,ne="`
 
-	// The ETag of the resource to replace. You can find the ETag in the response header for Create/Get/Update requests.
+	// The current revision of the resource being updated. This can be found in the Create/Get/Update resource response
+	// ETag header.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The name of the zone.
