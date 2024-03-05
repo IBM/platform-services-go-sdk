@@ -473,7 +473,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 		It(`GetServicerefTarget(getServicerefTargetOptions *GetServicerefTargetOptions)`, func() {
 			getServicerefTargetOptions := &contextbasedrestrictionsv1.GetServicerefTargetOptions{
-				ServiceName: core.StringPtr(testServiceName),
+				ServiceName: core.StringPtr("containers-kubernetes"),
 			}
 
 			serviceRefTarget, response, err := contextBasedRestrictionsService.GetServicerefTarget(getServicerefTargetOptions)

@@ -292,6 +292,8 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 		})
 		It(`GetServicerefTarget request example`, func() {
 			fmt.Println("\nGetServicerefTarget() result:")
+			tempServiceName := serviceName
+			serviceName = "containers-kubernetes"
 			// begin-get_serviceref_target
 
 			getServicerefTargetOptions := contextBasedRestrictionsService.NewGetServicerefTargetOptions(
@@ -306,6 +308,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			// end-get_serviceref_target
+			serviceName = tempServiceName
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
