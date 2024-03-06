@@ -67,14 +67,13 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_URL": "https://contextbasedrestrictionsv1/api",
+				"CONTEXT_BASED_RESTRICTIONS_URL":       "https://contextbasedrestrictionsv1/api",
 				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
-				})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +102,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
-				})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				err := contextBasedRestrictionsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -122,13 +120,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_URL": "https://contextbasedrestrictionsv1/api",
+				"CONTEXT_BASED_RESTRICTIONS_URL":       "https://contextbasedrestrictionsv1/api",
 				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
-			})
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(contextBasedRestrictionsService).To(BeNil())
@@ -139,7 +136,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE":   "NOAuth",
+				"CONTEXT_BASED_RESTRICTIONS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
