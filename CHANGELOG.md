@@ -1,3 +1,10 @@
+# [0.60.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.3...v0.60.0) (2024-03-08)
+
+
+### Features
+
+* **Context-Based Restrictions:** add Service Ref Target ([#306](https://github.com/IBM/platform-services-go-sdk/issues/306)) ([6cefbb1](https://github.com/IBM/platform-services-go-sdk/commit/6cefbb135ec65aca2964046a4e6e634601ba8ef1))
+
 ## [0.59.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.2...v0.59.3) (2024-03-01)
 
 
