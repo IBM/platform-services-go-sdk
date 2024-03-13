@@ -19,6 +19,7 @@ package catalogmanagementv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -66,14 +67,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-				})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 				Expect(catalogManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-				})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 				err := catalogManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
-			})
+			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(catalogManagementService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"CATALOG_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -994,7 +992,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				listCatalogAccountAuditsOptionsModel := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:       core.Int64Ptr(int64(10)),
 					Lookupnames: core.BoolPtr(true),
 				}
 
@@ -1020,7 +1018,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				listCatalogAccountAuditsOptionsModel := &catalogmanagementv1.ListCatalogAccountAuditsOptions{
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:       core.Int64Ptr(int64(10)),
 					Lookupnames: core.BoolPtr(true),
 				}
 
@@ -1742,7 +1740,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getShareApprovalListOptionsModel := &catalogmanagementv1.GetShareApprovalListOptions{
 					ObjectType: core.StringPtr("offering"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListPager(getShareApprovalListOptionsModel)
@@ -1768,7 +1766,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getShareApprovalListOptionsModel := &catalogmanagementv1.GetShareApprovalListOptions{
 					ObjectType: core.StringPtr("offering"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:      core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListPager(getShareApprovalListOptionsModel)
@@ -2571,10 +2569,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getShareApprovalListAsSourceOptionsModel := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
-					ObjectType: core.StringPtr("offering"),
+					ObjectType:              core.StringPtr("offering"),
 					ApprovalStateIdentifier: core.StringPtr("approved"),
-					Limit: core.Int64Ptr(int64(10)),
-					EnterpriseID: core.StringPtr("testString"),
+					Limit:                   core.Int64Ptr(int64(10)),
+					EnterpriseID:            core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListAsSourcePager(getShareApprovalListAsSourceOptionsModel)
@@ -2599,10 +2597,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getShareApprovalListAsSourceOptionsModel := &catalogmanagementv1.GetShareApprovalListAsSourceOptions{
-					ObjectType: core.StringPtr("offering"),
+					ObjectType:              core.StringPtr("offering"),
 					ApprovalStateIdentifier: core.StringPtr("approved"),
-					Limit: core.Int64Ptr(int64(10)),
-					EnterpriseID: core.StringPtr("testString"),
+					Limit:                   core.Int64Ptr(int64(10)),
+					EnterpriseID:            core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewGetShareApprovalListAsSourcePager(getShareApprovalListAsSourceOptionsModel)
@@ -2939,7 +2937,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogs successfully with retries`, func() {
@@ -2992,7 +2990,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogs successfully`, func() {
@@ -3129,34 +3127,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -3186,7 +3156,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogFilters = filtersModel
-				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -3242,7 +3211,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke CreateCatalog successfully with retries`, func() {
@@ -3282,34 +3251,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -3339,7 +3280,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogFilters = filtersModel
-				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -3398,7 +3338,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke CreateCatalog successfully`, func() {
@@ -3443,34 +3383,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -3500,7 +3412,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogFilters = filtersModel
-				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -3549,34 +3460,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -3606,7 +3489,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogFilters = filtersModel
-				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -3669,34 +3551,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -3726,7 +3580,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				createCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogFilters = filtersModel
-				createCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				createCatalogOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				createCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -3807,7 +3660,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke GetCatalog successfully with retries`, func() {
@@ -3861,7 +3714,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke GetCatalog successfully`, func() {
@@ -4008,34 +3861,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -4068,7 +3893,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				replaceCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
-				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -4124,7 +3948,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke ReplaceCatalog successfully with retries`, func() {
@@ -4164,34 +3988,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -4224,7 +4020,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				replaceCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
-				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -4283,7 +4078,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00.000Z"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00.000Z"}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "catalog_icon_url": "CatalogIconURL", "catalog_banner_url": "CatalogBannerURL", "tags": ["Tags"], "url": "URL", "crn": "CRN", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "disabled": true, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "kind": "Kind", "metadata": {"anyKey": "anyValue"}, "target_account_contexts": [{"api_key": "APIKey", "trusted_profile": {"trusted_profile_id": "TrustedProfileID", "catalog_crn": "CatalogCRN", "catalog_name": "CatalogName", "target_service_id": "TargetServiceID"}, "name": "Name", "label": "Label", "project_id": "ProjectID"}]}`)
 				}))
 			})
 			It(`Invoke ReplaceCatalog successfully`, func() {
@@ -4328,34 +4123,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -4388,7 +4155,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				replaceCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
-				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -4437,34 +4203,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -4497,7 +4235,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				replaceCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
-				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -4567,34 +4304,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				filtersModel.IDFilters = idFilterModel
 				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				trustedProfileInfoModel.TrustedProfileID = core.StringPtr("testString")
@@ -4627,7 +4336,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				replaceCatalogOptionsModel.OwningAccount = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogFilters = filtersModel
-				replaceCatalogOptionsModel.SyndicationSettings = syndicationResourceModel
 				replaceCatalogOptionsModel.Kind = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				replaceCatalogOptionsModel.TargetAccountContexts = []catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}
@@ -5001,8 +4709,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listCatalogAuditsOptionsModel := &catalogmanagementv1.ListCatalogAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptionsModel)
@@ -5028,8 +4736,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listCatalogAuditsOptionsModel := &catalogmanagementv1.ListCatalogAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewCatalogAuditsPager(listCatalogAuditsOptionsModel)
@@ -5555,8 +5263,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listEnterpriseAuditsOptionsModel := &catalogmanagementv1.ListEnterpriseAuditsOptions{
 					EnterpriseIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:                core.Int64Ptr(int64(10)),
+					Lookupnames:          core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptionsModel)
@@ -5582,8 +5290,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listEnterpriseAuditsOptionsModel := &catalogmanagementv1.ListEnterpriseAuditsOptions{
 					EnterpriseIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:                core.Int64Ptr(int64(10)),
+					Lookupnames:          core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewEnterpriseAuditsPager(listEnterpriseAuditsOptionsModel)
@@ -5901,7 +5609,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetConsumptionOfferings successfully with retries`, func() {
@@ -5966,7 +5674,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetConsumptionOfferings successfully`, func() {
@@ -6117,9 +5825,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","format_kind_label":"FormatKindLabel","install_kind":"InstallKind","install_kind_label":"InstallKindLabel","target_kind":"TargetKind","target_kind_label":"TargetKindLabel","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","format_kind_label":"FormatKindLabel","install_kind":"InstallKind","install_kind_label":"InstallKindLabel","target_kind":"TargetKind","target_kind_label":"TargetKindLabel","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -6134,11 +5842,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-					Digest: core.BoolPtr(true),
-					Catalog: core.StringPtr("testString"),
-					Select: core.StringPtr("all"),
+					Digest:        core.BoolPtr(true),
+					Catalog:       core.StringPtr("testString"),
+					Select:        core.StringPtr("all"),
 					IncludeHidden: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
@@ -6163,11 +5871,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getConsumptionOfferingsOptionsModel := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-					Digest: core.BoolPtr(true),
-					Catalog: core.StringPtr("testString"),
-					Select: core.StringPtr("all"),
+					Digest:        core.BoolPtr(true),
+					Catalog:       core.StringPtr("testString"),
+					Select:        core.StringPtr("all"),
 					IncludeHidden: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:         core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetConsumptionOfferingsPager(getConsumptionOfferingsOptionsModel)
@@ -6261,7 +5969,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke ListOfferings successfully with retries`, func() {
@@ -6327,7 +6035,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}]}`)
 				}))
 			})
 			It(`Invoke ListOfferings successfully`, func() {
@@ -6488,9 +6196,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+						fmt.Fprintf(res, "%s", `{"next":"https://myhost.com/somePath?offset=1","total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","format_kind_label":"FormatKindLabel","install_kind":"InstallKind","install_kind_label":"InstallKindLabel","target_kind":"TargetKind","target_kind_label":"TargetKindLabel","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","install_kind":"InstallKind","target_kind":"TargetKind","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","_rev":"Rev","url":"URL","crn":"CRN","label":"Label","label_i18n":{"mapKey":"Inner"},"name":"Name","offering_icon_url":"OfferingIconURL","offering_docs_url":"OfferingDocsURL","offering_support_url":"OfferingSupportURL","tags":["Tags"],"keywords":["Keywords"],"rating":{"one_star_count":12,"two_star_count":12,"three_star_count":14,"four_star_count":13},"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","short_description":"ShortDescription","short_description_i18n":{"mapKey":"Inner"},"long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"kinds":[{"id":"ID","format_kind":"FormatKind","format_kind_label":"FormatKindLabel","install_kind":"InstallKind","install_kind_label":"InstallKindLabel","target_kind":"TargetKind","target_kind_label":"TargetKindLabel","metadata":{"anyKey":"anyValue"},"tags":["Tags"],"additional_features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","versions":[{"id":"ID","_rev":"Rev","crn":"CRN","version":"Version","flavor":{"name":"Name","label":"Label","label_i18n":{"mapKey":"Inner"},"index":5},"sha":"Sha","created":"2019-01-01T12:00:00.000Z","updated":"2019-01-01T12:00:00.000Z","offering_id":"OfferingID","catalog_id":"CatalogID","kind_id":"KindID","tags":["Tags"],"repo_url":"RepoURL","source_url":"SourceURL","tgz_url":"TgzURL","configuration":[{"key":"Key","type":"Type","default_value":"anyValue","display_name":"DisplayName","value_constraint":"ValueConstraint","description":"Description","required":true,"options":["anyValue"],"hidden":true,"custom_config":{"type":"Type","grouping":"Grouping","original_grouping":"OriginalGrouping","grouping_index":13,"config_constraints":{"anyKey":"anyValue"},"associations":{"parameters":[{"name":"Name","optionsRefresh":true}]}},"type_metadata":"TypeMetadata"}],"outputs":[{"key":"Key","description":"Description"}],"iam_permissions":[{"service_name":"ServiceName","role_crns":["RoleCrns"],"resources":[{"name":"Name","description":"Description","role_crns":["RoleCrns"]}]}],"metadata":{"anyKey":"anyValue"},"validation":{"validated":"2019-01-01T12:00:00.000Z","requested":"2019-01-01T12:00:00.000Z","state":"State","last_operation":"LastOperation","target":{"anyKey":"anyValue"},"message":"Message"},"required_resources":[{"type":"mem","value":"anyValue"}],"single_instance":true,"schematics_env_values":{"value":"[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]","sm_ref":"cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"},"install":{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"},"pre_install":[{"instructions":"Instructions","instructions_i18n":{"mapKey":"Inner"},"script":"Script","script_permission":"ScriptPermission","delete_script":"DeleteScript","scope":"Scope"}],"scripts":{"mapKey":{"short_description":"ShortDescription","type":"ansible","path":"scripts/validate-post-ansible-playbook.yaml","stage":"pre","action":"validate"}},"entitlement":{"provider_name":"ProviderName","provider_id":"ProviderID","product_id":"ProductID","part_numbers":["PartNumbers"],"image_repo_name":"ImageRepoName"},"licenses":[{"id":"ID","name":"Name","type":"Type","url":"URL","description":"Description"}],"image_manifest_url":"ImageManifestURL","deprecated":true,"package_version":"PackageVersion","state":{"current":"Current","current_entered":"2019-01-01T12:00:00.000Z","pending":"Pending","pending_requested":"2019-01-01T12:00:00.000Z","previous":"Previous"},"version_locator":"VersionLocator","long_description":"LongDescription","long_description_i18n":{"mapKey":"Inner"},"whitelisted_accounts":["WhitelistedAccounts"],"image_pull_key_name":"ImagePullKeyName","deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"solution_info":{"architecture_diagrams":[{"diagram":{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"features":[{"title":"Title","title_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"}}],"cost_estimate":{"version":"Version","currency":"Currency","projects":[{"name":"Name","metadata":{"anyKey":"anyValue"},"pastBreakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"breakdown":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"diff":{"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","resources":[{"name":"Name","metadata":{"anyKey":"anyValue"},"hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost","costComponents":[{"name":"Name","unit":"Unit","hourlyQuantity":"HourlyQuantity","monthlyQuantity":"MonthlyQuantity","price":"Price","hourlyCost":"HourlyCost","monthlyCost":"MonthlyCost"}]}]},"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}}}],"summary":{"totalDetectedResources":22,"totalSupportedResources":23,"totalUnsupportedResources":25,"totalUsageBasedResources":24,"totalNoPriceResources":21,"unsupportedResourceCounts":{"mapKey":5},"noPriceResourceCounts":{"mapKey":5}},"totalHourlyCost":"TotalHourlyCost","totalMonthlyCost":"TotalMonthlyCost","pastTotalHourlyCost":"PastTotalHourlyCost","pastTotalMonthlyCost":"PastTotalMonthlyCost","diffTotalHourlyCost":"DiffTotalHourlyCost","diffTotalMonthlyCost":"DiffTotalMonthlyCost","timeGenerated":"2019-01-01T12:00:00.000Z"},"dependencies":[{"catalog_id":"CatalogID","id":"ID","name":"Name","kind":"Kind","version":"Version","flavors":["Flavors"]}],"install_type":"InstallType"},"is_consumable":true,"compliance_v3":{"authority":"Authority","claims":{"profiles":[{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"}],"controls":[{"profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"names":["Names"]}]},"evaluations":[{"scan_id":"ScanID","account_id":"AccountID","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"result":{"failure_count":12,"scan_time":"2019-01-01T12:00:00.000Z","error_message":"ErrorMessage","complete_scan":true,"unscanned_resources":["UnscannedResources"]},"controls":[{"id":"ID","name":"Name","description":"Description","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"failure_count":12,"pass_count":9,"parent":{"id":"ID","name":"Name","version":"Version","description":"Description","profile":{"id":"ID","name":"Name","version":"Version","description":"Description","type":"Type","ui_href":"UIHref"},"parent_name":"ParentName","specifications":[{"id":"ID","description":"Description","component_name":"ComponentName","assessments":[{"id":"ID","description":"Description","version":"Version","type":"Type","method":"Method","ui_href":"UIHref"}],"ui_href":"UIHref"}],"ui_href":"UIHref"},"ui_href":"UIHref"}]}]}}]}],"publish":{"pc_managed":false,"approval_type":"ApprovalType","publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"original_crn":"OriginalCRN","public_crn":"PublicCRN","approval_record":{"anyKey":"anyValue"},"permit_ibm_public_publish":true,"ibm_approved":false,"public_approved":true},"pc_managed":false,"publish_approved":false,"share_with_all":true,"share_with_ibm":true,"share_enabled":true,"permit_request_ibm_public_publish":false,"ibm_publish_approved":true,"public_publish_approved":false,"public_original_crn":"PublicOriginalCRN","publish_public_crn":"PublishPublicCRN","portal_approval_record":"PortalApprovalRecord","portal_ui_url":"PortalUIURL","catalog_id":"CatalogID","catalog_name":"CatalogName","metadata":{"anyKey":"anyValue"},"disclaimer":"Disclaimer","hidden":true,"provider":"Provider","provider_info":{"id":"ID","name":"Name"},"repo_info":{"token":"Token","type":"Type"},"image_pull_keys":[{"name":"Name","value":"Value","description":"Description"}],"support":{"url":"URL","process":"Process","process_i18n":{"mapKey":"Inner"},"locations":["Locations"],"support_details":[{"type":"Type","contact":"Contact","response_wait_time":{"value":5,"type":"Type"},"availability":{"times":[{"day":3,"start_time":"StartTime","end_time":"EndTime"}],"timezone":"Timezone","always_available":false}}],"support_escalation":{"escalation_wait_time":{"value":5,"type":"Type"},"response_wait_time":{"value":5,"type":"Type"},"contact":"Contact"},"support_type":"SupportType"},"media":[{"url":"URL","api_url":"APIURL","url_proxy":{"url":"URL","sha":"Sha"},"caption":"Caption","caption_i18n":{"mapKey":"Inner"},"type":"Type","thumbnail_url":"ThumbnailURL"}],"deprecate_pending":{"deprecate_date":"2019-01-01T12:00:00.000Z","deprecate_state":"DeprecateState","description":"Description"},"product_kind":"ProductKind","badges":[{"id":"ID","label":"Label","label_i18n":{"mapKey":"Inner"},"description":"Description","description_i18n":{"mapKey":"Inner"},"icon":"Icon","authority":"Authority","tag":"Tag","learn_more_links":{"first_party":"FirstParty","third_party":"ThirdParty"},"constraints":[{"type":"Type","rule":"anyValue"}]}]}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -6506,11 +6214,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					IncludeHidden: core.BoolPtr(true),
+					Digest:            core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
+					IncludeHidden:     core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
@@ -6536,11 +6244,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingsOptionsModel := &catalogmanagementv1.ListOfferingsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Digest: core.BoolPtr(true),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
-					IncludeHidden: core.BoolPtr(true),
+					Digest:            core.BoolPtr(true),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
+					IncludeHidden:     core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingsPager(listOfferingsOptionsModel)
@@ -6620,7 +6328,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -6659,7 +6367,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -6935,8 +6643,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -7023,7 +6734,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -7139,7 +6850,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke CreateOffering successfully with retries`, func() {
@@ -7194,7 +6905,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -7233,7 +6944,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -7509,8 +7220,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -7597,7 +7311,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -7716,7 +7430,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke CreateOffering successfully`, func() {
@@ -7776,7 +7490,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -7815,7 +7529,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -8091,8 +7805,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -8179,7 +7896,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -8303,7 +8020,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -8342,7 +8059,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -8618,8 +8335,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -8706,7 +8426,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -8851,7 +8571,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -8890,7 +8610,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -9166,8 +8886,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -9254,7 +8977,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -9410,11 +9133,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Version = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Flavor = flavorModel
 				importOfferingVersionOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingVersionOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
@@ -9480,7 +9205,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOfferingVersion successfully with retries`, func() {
@@ -9539,11 +9264,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Version = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Flavor = flavorModel
 				importOfferingVersionOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingVersionOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
@@ -9612,7 +9339,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOfferingVersion successfully`, func() {
@@ -9676,11 +9403,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Version = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Flavor = flavorModel
 				importOfferingVersionOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingVersionOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
@@ -9751,11 +9480,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Version = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Flavor = flavorModel
 				importOfferingVersionOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingVersionOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
@@ -9847,11 +9578,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Version = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Flavor = flavorModel
 				importOfferingVersionOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingVersionOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
@@ -9950,11 +9683,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingOptionsModel.Version = core.StringPtr("testString")
 				importOfferingOptionsModel.Flavor = flavorModel
 				importOfferingOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
@@ -10022,7 +9757,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOffering successfully with retries`, func() {
@@ -10080,11 +9815,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingOptionsModel.Version = core.StringPtr("testString")
 				importOfferingOptionsModel.Flavor = flavorModel
 				importOfferingOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
@@ -10155,7 +9892,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ImportOffering successfully`, func() {
@@ -10218,11 +9955,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingOptionsModel.Version = core.StringPtr("testString")
 				importOfferingOptionsModel.Flavor = flavorModel
 				importOfferingOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
@@ -10293,11 +10032,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingOptionsModel.Version = core.StringPtr("testString")
 				importOfferingOptionsModel.Flavor = flavorModel
 				importOfferingOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
@@ -10389,11 +10130,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.FormatKind = core.StringPtr("testString")
 				importOfferingOptionsModel.ProductKind = core.StringPtr("testString")
+				importOfferingOptionsModel.ProductKindLabel = core.StringPtr("testString")
 				importOfferingOptionsModel.Sha = core.StringPtr("testString")
 				importOfferingOptionsModel.Version = core.StringPtr("testString")
 				importOfferingOptionsModel.Flavor = flavorModel
 				importOfferingOptionsModel.Metadata = importOfferingBodyMetadataModel
 				importOfferingOptionsModel.WorkingDirectory = core.StringPtr("testString")
+				importOfferingOptionsModel.InstallType = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
@@ -10517,7 +10260,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReloadOffering successfully with retries`, func() {
@@ -10607,7 +10350,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReloadOffering successfully`, func() {
@@ -10823,7 +10566,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetOffering successfully with retries`, func() {
@@ -10882,7 +10625,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetOffering successfully`, func() {
@@ -11053,7 +10796,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -11092,7 +10835,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -11368,8 +11111,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -11456,7 +11202,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -11575,7 +11321,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReplaceOffering successfully with retries`, func() {
@@ -11630,7 +11376,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -11669,7 +11415,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -11945,8 +11691,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -12033,7 +11782,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -12155,7 +11904,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ReplaceOffering successfully`, func() {
@@ -12215,7 +11964,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -12254,7 +12003,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -12530,8 +12279,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -12618,7 +12370,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -12745,7 +12497,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -12784,7 +12536,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -13060,8 +12812,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -13148,7 +12903,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -13296,7 +13051,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel := new(catalogmanagementv1.Configuration)
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -13335,7 +13090,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Resource model
 				resourceModel := new(catalogmanagementv1.Resource)
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -13611,8 +13366,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel := new(catalogmanagementv1.Kind)
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -13699,7 +13457,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Constraint model
 				constraintModel := new(catalogmanagementv1.Constraint)
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -13810,7 +13568,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -13873,7 +13631,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke UpdateOffering successfully with retries`, func() {
@@ -13889,7 +13647,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -13955,7 +13713,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke UpdateOffering successfully`, func() {
@@ -13976,7 +13734,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -14006,7 +13764,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -14057,7 +13815,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -14443,9 +14201,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingAuditsOptionsModel := &catalogmanagementv1.ListOfferingAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptionsModel)
@@ -14471,9 +14229,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingAuditsOptionsModel := &catalogmanagementv1.ListOfferingAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingAuditsPager(listOfferingAuditsOptionsModel)
@@ -15844,8 +15602,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getOfferingAccessListOptionsModel := &catalogmanagementv1.GetOfferingAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptionsModel)
@@ -15871,8 +15629,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getOfferingAccessListOptionsModel := &catalogmanagementv1.GetOfferingAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					OfferingID: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					OfferingID:        core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetOfferingAccessListPager(getOfferingAccessListOptionsModel)
@@ -16940,7 +16698,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
-
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := io.ReadAll(result)
@@ -17170,7 +16927,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
-
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
 				buffer, operationErr := io.ReadAll(result)
@@ -17367,7 +17123,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				result, response, operationErr := catalogManagementService.GetOfferingSourceURL(getOfferingSourceURLOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-
 
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
@@ -18817,7 +18572,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetVersion successfully with retries`, func() {
@@ -18871,7 +18626,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "install_kind": "InstallKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "keywords": ["Keywords"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "short_description": "ShortDescription", "short_description_i18n": {"mapKey": "Inner"}, "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "format_kind_label": "FormatKindLabel", "install_kind": "InstallKind", "install_kind_label": "InstallKindLabel", "target_kind": "TargetKind", "target_kind_label": "TargetKindLabel", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "versions": [{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "flavor": {"name": "Name", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "index": 5}, "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "display_name": "DisplayName", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true, "custom_config": {"type": "Type", "grouping": "Grouping", "original_grouping": "OriginalGrouping", "grouping_index": 13, "config_constraints": {"anyKey": "anyValue"}, "associations": {"parameters": [{"name": "Name", "optionsRefresh": true}]}}, "type_metadata": "TypeMetadata"}], "outputs": [{"key": "Key", "description": "Description"}], "iam_permissions": [{"service_name": "ServiceName", "role_crns": ["RoleCrns"], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}, "message": "Message"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "schematics_env_values": {"value": "[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]", "sm_ref": "cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}"}, "install": {"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "instructions_i18n": {"mapKey": "Inner"}, "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "scripts": {"mapKey": {"short_description": "ShortDescription", "type": "ansible", "path": "scripts/validate-post-ansible-playbook.yaml", "stage": "pre", "action": "validate"}}, "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "long_description": "LongDescription", "long_description_i18n": {"mapKey": "Inner"}, "whitelisted_accounts": ["WhitelistedAccounts"], "image_pull_key_name": "ImagePullKeyName", "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "solution_info": {"architecture_diagrams": [{"diagram": {"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "features": [{"title": "Title", "title_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}}], "cost_estimate": {"version": "Version", "currency": "Currency", "projects": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "pastBreakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "breakdown": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "diff": {"totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "resources": [{"name": "Name", "metadata": {"anyKey": "anyValue"}, "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost", "costComponents": [{"name": "Name", "unit": "Unit", "hourlyQuantity": "HourlyQuantity", "monthlyQuantity": "MonthlyQuantity", "price": "Price", "hourlyCost": "HourlyCost", "monthlyCost": "MonthlyCost"}]}]}, "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}}], "summary": {"totalDetectedResources": 22, "totalSupportedResources": 23, "totalUnsupportedResources": 25, "totalUsageBasedResources": 24, "totalNoPriceResources": 21, "unsupportedResourceCounts": {"mapKey": 5}, "noPriceResourceCounts": {"mapKey": 5}}, "totalHourlyCost": "TotalHourlyCost", "totalMonthlyCost": "TotalMonthlyCost", "pastTotalHourlyCost": "PastTotalHourlyCost", "pastTotalMonthlyCost": "PastTotalMonthlyCost", "diffTotalHourlyCost": "DiffTotalHourlyCost", "diffTotalMonthlyCost": "DiffTotalMonthlyCost", "timeGenerated": "2019-01-01T12:00:00.000Z"}, "dependencies": [{"catalog_id": "CatalogID", "id": "ID", "name": "Name", "kind": "Kind", "version": "Version", "flavors": ["Flavors"]}], "install_type": "InstallType"}, "is_consumable": true, "compliance_v3": {"authority": "Authority", "claims": {"profiles": [{"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}], "controls": [{"profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "names": ["Names"]}]}, "evaluations": [{"scan_id": "ScanID", "account_id": "AccountID", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "result": {"failure_count": 12, "scan_time": "2019-01-01T12:00:00.000Z", "error_message": "ErrorMessage", "complete_scan": true, "unscanned_resources": ["UnscannedResources"]}, "controls": [{"id": "ID", "name": "Name", "description": "Description", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "failure_count": 12, "pass_count": 9, "parent": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "profile": {"id": "ID", "name": "Name", "version": "Version", "description": "Description", "type": "Type", "ui_href": "UIHref"}, "parent_name": "ParentName", "specifications": [{"id": "ID", "description": "Description", "component_name": "ComponentName", "assessments": [{"id": "ID", "description": "Description", "version": "Version", "type": "Type", "method": "Method", "ui_href": "UIHref"}], "ui_href": "UIHref"}], "ui_href": "UIHref"}, "ui_href": "UIHref"}]}]}}]}], "publish": {"pc_managed": false, "approval_type": "ApprovalType", "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "original_crn": "OriginalCRN", "public_crn": "PublicCRN", "approval_record": {"anyKey": "anyValue"}, "permit_ibm_public_publish": true, "ibm_approved": false, "public_approved": true}, "pc_managed": false, "publish_approved": false, "share_with_all": true, "share_with_ibm": true, "share_enabled": true, "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCRN", "publish_public_crn": "PublishPublicCRN", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUIURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "provider_info": {"id": "ID", "name": "Name"}, "repo_info": {"token": "Token", "type": "Type"}, "image_pull_keys": [{"name": "Name", "value": "Value", "description": "Description"}], "support": {"url": "URL", "process": "Process", "process_i18n": {"mapKey": "Inner"}, "locations": ["Locations"], "support_details": [{"type": "Type", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}], "support_escalation": {"escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}, "contact": "Contact"}, "support_type": "SupportType"}, "media": [{"url": "URL", "api_url": "APIURL", "url_proxy": {"url": "URL", "sha": "Sha"}, "caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "type": "Type", "thumbnail_url": "ThumbnailURL"}], "deprecate_pending": {"deprecate_date": "2019-01-01T12:00:00.000Z", "deprecate_state": "DeprecateState", "description": "Description"}, "product_kind": "ProductKind", "badges": [{"id": "ID", "label": "Label", "label_i18n": {"mapKey": "Inner"}, "description": "Description", "description_i18n": {"mapKey": "Inner"}, "icon": "Icon", "authority": "Authority", "tag": "Tag", "learn_more_links": {"first_party": "FirstParty", "third_party": "ThirdParty"}, "constraints": [{"type": "Type", "rule": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke GetVersion successfully`, func() {
@@ -19645,10 +19400,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ClusterID:         core.StringPtr("testString"),
+					Region:            core.StringPtr("testString"),
 					XAuthRefreshToken: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
@@ -19673,10 +19428,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				getNamespacesOptionsModel := &catalogmanagementv1.GetNamespacesOptions{
-					ClusterID: core.StringPtr("testString"),
-					Region: core.StringPtr("testString"),
+					ClusterID:         core.StringPtr("testString"),
+					Region:            core.StringPtr("testString"),
 					XAuthRefreshToken: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetNamespacesPager(getNamespacesOptionsModel)
@@ -20635,12 +20390,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -20696,12 +20451,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -20807,12 +20562,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -20868,12 +20623,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -21227,12 +20982,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -21289,12 +21044,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 
 				// Construct an instance of the DeployRequestBodyEnvironmentVariablesItem model
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 
@@ -21897,11 +21652,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
-					Query: core.StringPtr("testString"),
-					Kind: core.StringPtr("vpe"),
-					Limit: core.Int64Ptr(int64(10)),
+					Query:    core.StringPtr("testString"),
+					Kind:     core.StringPtr("vpe"),
+					Limit:    core.Int64Ptr(int64(10)),
 					Collapse: core.BoolPtr(true),
-					Digest: core.BoolPtr(true),
+					Digest:   core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
@@ -21926,11 +21681,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				searchObjectsOptionsModel := &catalogmanagementv1.SearchObjectsOptions{
-					Query: core.StringPtr("testString"),
-					Kind: core.StringPtr("vpe"),
-					Limit: core.Int64Ptr(int64(10)),
+					Query:    core.StringPtr("testString"),
+					Kind:     core.StringPtr("vpe"),
+					Limit:    core.Int64Ptr(int64(10)),
 					Collapse: core.BoolPtr(true),
-					Digest: core.BoolPtr(true),
+					Digest:   core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewSearchObjectsPager(searchObjectsOptionsModel)
@@ -22253,9 +22008,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
@@ -22281,9 +22036,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectsOptionsModel := &catalogmanagementv1.ListObjectsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Name: core.StringPtr("testString"),
-					Sort: core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Name:              core.StringPtr("testString"),
+					Sort:              core.StringPtr("testString"),
 				}
 
 				pager, err := catalogManagementService.NewObjectsPager(listObjectsOptionsModel)
@@ -23779,9 +23534,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectAuditsOptionsModel := &catalogmanagementv1.ListObjectAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptionsModel)
@@ -23807,9 +23562,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listObjectAuditsOptionsModel := &catalogmanagementv1.ListObjectAuditsOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
+					Lookupnames:       core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewObjectAuditsPager(listObjectAuditsOptionsModel)
@@ -24671,8 +24426,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListOptionsModel := &catalogmanagementv1.GetObjectAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptionsModel)
@@ -24698,8 +24453,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListOptionsModel := &catalogmanagementv1.GetObjectAccessListOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListPager(getObjectAccessListOptionsModel)
@@ -25377,8 +25132,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
@@ -25404,8 +25159,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				getObjectAccessListDeprecatedOptionsModel := &catalogmanagementv1.GetObjectAccessListDeprecatedOptions{
 					CatalogIdentifier: core.StringPtr("testString"),
-					ObjectIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
+					ObjectIdentifier:  core.StringPtr("testString"),
+					Limit:             core.Int64Ptr(int64(10)),
 				}
 
 				pager, err := catalogManagementService.NewGetObjectAccessListDeprecatedPager(getObjectAccessListDeprecatedOptionsModel)
@@ -25972,6 +25727,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -25990,6 +25746,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -26045,7 +25802,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully with retries`, func() {
@@ -26077,6 +25834,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26095,6 +25853,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26153,7 +25912,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully`, func() {
@@ -26190,6 +25949,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26208,6 +25968,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26246,6 +26007,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26264,6 +26026,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -26323,6 +26086,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26341,6 +26105,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26419,7 +26184,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully with retries`, func() {
@@ -26473,7 +26238,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully`, func() {
@@ -26615,6 +26380,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26633,6 +26399,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -26688,7 +26455,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully with retries`, func() {
@@ -26721,6 +26488,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26739,6 +26507,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26797,7 +26566,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "sha": "Sha"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "kind_format_label": "KindFormatLabel", "version": "Version", "version_id": "VersionID", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "install_plan": "InstallPlan", "channel": "Channel", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "metadata": {"anyKey": "anyValue"}, "resource_group_id": "ResourceGroupID", "location": "Location", "disabled": true, "account": "Account", "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "2019-01-01T12:00:00.000Z", "code": "Code"}, "kind_target": "KindTarget", "kind_target_label": "KindTargetLabel", "sha": "Sha"}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully`, func() {
@@ -26835,6 +26604,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26853,6 +26623,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -26892,6 +26663,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26910,6 +26682,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -26970,6 +26743,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormatLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.VersionID = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
@@ -26988,6 +26762,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.Account = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.KindTarget = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindTargetLabel = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Sha = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -27363,8 +27138,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingInstanceAuditsOptionsModel := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
 					InstanceIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:              core.Int64Ptr(int64(10)),
+					Lookupnames:        core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptionsModel)
@@ -27390,8 +27165,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				listOfferingInstanceAuditsOptionsModel := &catalogmanagementv1.ListOfferingInstanceAuditsOptions{
 					InstanceIdentifier: core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-					Lookupnames: core.BoolPtr(true),
+					Limit:              core.Int64Ptr(int64(10)),
+					Lookupnames:        core.BoolPtr(true),
 				}
 
 				pager, err := catalogManagementService.NewOfferingInstanceAuditsPager(listOfferingInstanceAuditsOptionsModel)
@@ -27820,54 +27595,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(filtersModel.IDFilters).To(Equal(idFilterModel))
 				Expect(filtersModel.CategoryFilters["foo"]).To(Equal(*categoryFilterModel))
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				Expect(syndicationClusterModel).ToNot(BeNil())
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-				Expect(syndicationClusterModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.ResourceGroupName).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Namespaces).To(Equal([]string{"testString"}))
-				Expect(syndicationClusterModel.AllNamespaces).To(Equal(core.BoolPtr(true)))
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				Expect(syndicationHistoryModel).ToNot(BeNil())
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				Expect(syndicationHistoryModel.Namespaces).To(Equal([]string{"testString"}))
-				Expect(syndicationHistoryModel.Clusters).To(Equal([]catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}))
-				Expect(syndicationHistoryModel.LastRun).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				Expect(syndicationAuthorizationModel).ToNot(BeNil())
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				Expect(syndicationAuthorizationModel.Token).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationAuthorizationModel.LastRun).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				Expect(syndicationResourceModel).ToNot(BeNil())
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-				Expect(syndicationResourceModel.RemoveRelatedComponents).To(Equal(core.BoolPtr(true)))
-				Expect(syndicationResourceModel.Clusters).To(Equal([]catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}))
-				Expect(syndicationResourceModel.History).To(Equal(syndicationHistoryModel))
-				Expect(syndicationResourceModel.Authorization).To(Equal(syndicationAuthorizationModel))
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				Expect(trustedProfileInfoModel).ToNot(BeNil())
@@ -27908,7 +27635,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.SetResourceGroupID("testString")
 				createCatalogOptionsModel.SetOwningAccount("testString")
 				createCatalogOptionsModel.SetCatalogFilters(filtersModel)
-				createCatalogOptionsModel.SetSyndicationSettings(syndicationResourceModel)
 				createCatalogOptionsModel.SetKind("testString")
 				createCatalogOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				createCatalogOptionsModel.SetTargetAccountContexts([]catalogmanagementv1.TargetAccountContext{*targetAccountContextModel})
@@ -27926,7 +27652,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createCatalogOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.OwningAccount).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.CatalogFilters).To(Equal(filtersModel))
-				Expect(createCatalogOptionsModel.SyndicationSettings).To(Equal(syndicationResourceModel))
 				Expect(createCatalogOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(createCatalogOptionsModel.TargetAccountContexts).To(Equal([]catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}))
@@ -28063,6 +27788,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.SetCatalogID("testString")
 				createOfferingInstanceOptionsModel.SetOfferingID("testString")
 				createOfferingInstanceOptionsModel.SetKindFormat("testString")
+				createOfferingInstanceOptionsModel.SetKindFormatLabel("testString")
 				createOfferingInstanceOptionsModel.SetVersion("testString")
 				createOfferingInstanceOptionsModel.SetVersionID("testString")
 				createOfferingInstanceOptionsModel.SetClusterID("testString")
@@ -28081,6 +27807,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.SetAccount("testString")
 				createOfferingInstanceOptionsModel.SetLastOperation(offeringInstanceLastOperationModel)
 				createOfferingInstanceOptionsModel.SetKindTarget("testString")
+				createOfferingInstanceOptionsModel.SetKindTargetLabel("testString")
 				createOfferingInstanceOptionsModel.SetSha("testString")
 				createOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createOfferingInstanceOptionsModel).ToNot(BeNil())
@@ -28093,6 +27820,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.KindFormatLabel).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.VersionID).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
@@ -28111,6 +27839,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingInstanceOptionsModel.Account).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.LastOperation).To(Equal(offeringInstanceLastOperationModel))
 				Expect(createOfferingInstanceOptionsModel.KindTarget).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.KindTargetLabel).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Sha).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -28186,7 +27915,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(configurationModel).ToNot(BeNil())
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -28197,7 +27926,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel.TypeMetadata = core.StringPtr("testString")
 				Expect(configurationModel.Key).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(configurationModel.DefaultValue).To(Equal(core.StringPtr("testString")))
+				Expect(configurationModel.DefaultValue).To(Equal("testString"))
 				Expect(configurationModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.ValueConstraint).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.Description).To(Equal(core.StringPtr("testString")))
@@ -28255,9 +27984,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				resourceModel := new(catalogmanagementv1.Resource)
 				Expect(resourceModel).ToNot(BeNil())
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 				Expect(resourceModel.Type).To(Equal(core.StringPtr("mem")))
-				Expect(resourceModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(resourceModel.Value).To(Equal("testString"))
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -28745,8 +28474,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(kindModel).ToNot(BeNil())
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -28755,8 +28487,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.Versions = []catalogmanagementv1.Version{*versionModel}
 				Expect(kindModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.FormatKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.FormatKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.InstallKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.InstallKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.TargetKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.TargetKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(kindModel.Tags).To(Equal([]string{"testString"}))
 				Expect(kindModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
@@ -28898,9 +28633,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				constraintModel := new(catalogmanagementv1.Constraint)
 				Expect(constraintModel).ToNot(BeNil())
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 				Expect(constraintModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(constraintModel.Rule).To(Equal(core.StringPtr("testString")))
+				Expect(constraintModel.Rule).To(Equal("testString"))
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -29827,11 +29562,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingOptionsModel.SetTargetKinds([]string{"testString"})
 				importOfferingOptionsModel.SetFormatKind("testString")
 				importOfferingOptionsModel.SetProductKind("testString")
+				importOfferingOptionsModel.SetProductKindLabel("testString")
 				importOfferingOptionsModel.SetSha("testString")
 				importOfferingOptionsModel.SetVersion("testString")
 				importOfferingOptionsModel.SetFlavor(flavorModel)
 				importOfferingOptionsModel.SetMetadata(importOfferingBodyMetadataModel)
 				importOfferingOptionsModel.SetWorkingDirectory("testString")
+				importOfferingOptionsModel.SetInstallType("testString")
 				importOfferingOptionsModel.SetZipurl("testString")
 				importOfferingOptionsModel.SetOfferingID("testString")
 				importOfferingOptionsModel.SetTargetVersion("testString")
@@ -29850,11 +29587,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(importOfferingOptionsModel.TargetKinds).To(Equal([]string{"testString"}))
 				Expect(importOfferingOptionsModel.FormatKind).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.ProductKind).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingOptionsModel.ProductKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Sha).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Flavor).To(Equal(flavorModel))
 				Expect(importOfferingOptionsModel.Metadata).To(Equal(importOfferingBodyMetadataModel))
 				Expect(importOfferingOptionsModel.WorkingDirectory).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingOptionsModel.InstallType).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Zipurl).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.TargetVersion).To(Equal(core.StringPtr("testString")))
@@ -29939,11 +29678,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				importOfferingVersionOptionsModel.SetTargetKinds([]string{"testString"})
 				importOfferingVersionOptionsModel.SetFormatKind("testString")
 				importOfferingVersionOptionsModel.SetProductKind("testString")
+				importOfferingVersionOptionsModel.SetProductKindLabel("testString")
 				importOfferingVersionOptionsModel.SetSha("testString")
 				importOfferingVersionOptionsModel.SetVersion("testString")
 				importOfferingVersionOptionsModel.SetFlavor(flavorModel)
 				importOfferingVersionOptionsModel.SetMetadata(importOfferingBodyMetadataModel)
 				importOfferingVersionOptionsModel.SetWorkingDirectory("testString")
+				importOfferingVersionOptionsModel.SetInstallType("testString")
 				importOfferingVersionOptionsModel.SetZipurl("testString")
 				importOfferingVersionOptionsModel.SetTargetVersion("testString")
 				importOfferingVersionOptionsModel.SetIncludeConfig(true)
@@ -29962,11 +29703,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(importOfferingVersionOptionsModel.TargetKinds).To(Equal([]string{"testString"}))
 				Expect(importOfferingVersionOptionsModel.FormatKind).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.ProductKind).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingVersionOptionsModel.ProductKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Sha).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Flavor).To(Equal(flavorModel))
 				Expect(importOfferingVersionOptionsModel.Metadata).To(Equal(importOfferingBodyMetadataModel))
 				Expect(importOfferingVersionOptionsModel.WorkingDirectory).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingVersionOptionsModel.InstallType).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Zipurl).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.TargetVersion).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.IncludeConfig).To(Equal(core.BoolPtr(true)))
@@ -29986,7 +29729,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 				Expect(deployRequestBodyOverrideValuesModel.VsiInstanceName).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCProfile).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.SubnetID).To(Equal(core.StringPtr("testString")))
@@ -29995,13 +29738,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deployRequestBodyOverrideValuesModel.SSHKeyID).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCRegion).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).ToNot(BeEmpty())
-				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal("testString"))
 
 				deployRequestBodyOverrideValuesModel.SetProperties(nil)
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).To(BeEmpty())
 
 				deployRequestBodyOverrideValuesModelExpectedMap := make(map[string]interface{})
-				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = core.StringPtr("testString")
+				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = "testString"
 				deployRequestBodyOverrideValuesModel.SetProperties(deployRequestBodyOverrideValuesModelExpectedMap)
 				deployRequestBodyOverrideValuesModelActualMap := deployRequestBodyOverrideValuesModel.GetProperties()
 				Expect(deployRequestBodyOverrideValuesModelActualMap).To(Equal(deployRequestBodyOverrideValuesModelExpectedMap))
@@ -30010,11 +29753,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel).ToNot(BeNil())
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal("testString"))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Secure).To(Equal(core.BoolPtr(true)))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Hidden).To(Equal(core.BoolPtr(true)))
 
@@ -30259,7 +30002,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 				Expect(deployRequestBodyOverrideValuesModel.VsiInstanceName).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCProfile).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.SubnetID).To(Equal(core.StringPtr("testString")))
@@ -30268,13 +30011,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deployRequestBodyOverrideValuesModel.SSHKeyID).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCRegion).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).ToNot(BeEmpty())
-				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal("testString"))
 
 				deployRequestBodyOverrideValuesModel.SetProperties(nil)
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).To(BeEmpty())
 
 				deployRequestBodyOverrideValuesModelExpectedMap := make(map[string]interface{})
-				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = core.StringPtr("testString")
+				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = "testString"
 				deployRequestBodyOverrideValuesModel.SetProperties(deployRequestBodyOverrideValuesModelExpectedMap)
 				deployRequestBodyOverrideValuesModelActualMap := deployRequestBodyOverrideValuesModel.GetProperties()
 				Expect(deployRequestBodyOverrideValuesModelActualMap).To(Equal(deployRequestBodyOverrideValuesModelExpectedMap))
@@ -30283,11 +30026,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel).ToNot(BeNil())
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal("testString"))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Secure).To(Equal(core.BoolPtr(true)))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Hidden).To(Equal(core.BoolPtr(true)))
 
@@ -30390,6 +30133,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.SetCatalogID("testString")
 				putOfferingInstanceOptionsModel.SetOfferingID("testString")
 				putOfferingInstanceOptionsModel.SetKindFormat("testString")
+				putOfferingInstanceOptionsModel.SetKindFormatLabel("testString")
 				putOfferingInstanceOptionsModel.SetVersion("testString")
 				putOfferingInstanceOptionsModel.SetVersionID("testString")
 				putOfferingInstanceOptionsModel.SetClusterID("testString")
@@ -30408,6 +30152,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.SetAccount("testString")
 				putOfferingInstanceOptionsModel.SetLastOperation(offeringInstanceLastOperationModel)
 				putOfferingInstanceOptionsModel.SetKindTarget("testString")
+				putOfferingInstanceOptionsModel.SetKindTargetLabel("testString")
 				putOfferingInstanceOptionsModel.SetSha("testString")
 				putOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(putOfferingInstanceOptionsModel).ToNot(BeNil())
@@ -30421,6 +30166,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(putOfferingInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.KindFormatLabel).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.VersionID).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
@@ -30439,6 +30185,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(putOfferingInstanceOptionsModel.Account).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.LastOperation).To(Equal(offeringInstanceLastOperationModel))
 				Expect(putOfferingInstanceOptionsModel.KindTarget).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.KindTargetLabel).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Sha).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -30532,54 +30279,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(filtersModel.IDFilters).To(Equal(idFilterModel))
 				Expect(filtersModel.CategoryFilters["foo"]).To(Equal(*categoryFilterModel))
 
-				// Construct an instance of the SyndicationCluster model
-				syndicationClusterModel := new(catalogmanagementv1.SyndicationCluster)
-				Expect(syndicationClusterModel).ToNot(BeNil())
-				syndicationClusterModel.Region = core.StringPtr("testString")
-				syndicationClusterModel.ID = core.StringPtr("testString")
-				syndicationClusterModel.Name = core.StringPtr("testString")
-				syndicationClusterModel.ResourceGroupName = core.StringPtr("testString")
-				syndicationClusterModel.Type = core.StringPtr("testString")
-				syndicationClusterModel.Namespaces = []string{"testString"}
-				syndicationClusterModel.AllNamespaces = core.BoolPtr(true)
-				Expect(syndicationClusterModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.ResourceGroupName).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationClusterModel.Namespaces).To(Equal([]string{"testString"}))
-				Expect(syndicationClusterModel.AllNamespaces).To(Equal(core.BoolPtr(true)))
-
-				// Construct an instance of the SyndicationHistory model
-				syndicationHistoryModel := new(catalogmanagementv1.SyndicationHistory)
-				Expect(syndicationHistoryModel).ToNot(BeNil())
-				syndicationHistoryModel.Namespaces = []string{"testString"}
-				syndicationHistoryModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationHistoryModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				Expect(syndicationHistoryModel.Namespaces).To(Equal([]string{"testString"}))
-				Expect(syndicationHistoryModel.Clusters).To(Equal([]catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}))
-				Expect(syndicationHistoryModel.LastRun).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-
-				// Construct an instance of the SyndicationAuthorization model
-				syndicationAuthorizationModel := new(catalogmanagementv1.SyndicationAuthorization)
-				Expect(syndicationAuthorizationModel).ToNot(BeNil())
-				syndicationAuthorizationModel.Token = core.StringPtr("testString")
-				syndicationAuthorizationModel.LastRun = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				Expect(syndicationAuthorizationModel.Token).To(Equal(core.StringPtr("testString")))
-				Expect(syndicationAuthorizationModel.LastRun).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-
-				// Construct an instance of the SyndicationResource model
-				syndicationResourceModel := new(catalogmanagementv1.SyndicationResource)
-				Expect(syndicationResourceModel).ToNot(BeNil())
-				syndicationResourceModel.RemoveRelatedComponents = core.BoolPtr(true)
-				syndicationResourceModel.Clusters = []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}
-				syndicationResourceModel.History = syndicationHistoryModel
-				syndicationResourceModel.Authorization = syndicationAuthorizationModel
-				Expect(syndicationResourceModel.RemoveRelatedComponents).To(Equal(core.BoolPtr(true)))
-				Expect(syndicationResourceModel.Clusters).To(Equal([]catalogmanagementv1.SyndicationCluster{*syndicationClusterModel}))
-				Expect(syndicationResourceModel.History).To(Equal(syndicationHistoryModel))
-				Expect(syndicationResourceModel.Authorization).To(Equal(syndicationAuthorizationModel))
-
 				// Construct an instance of the TrustedProfileInfo model
 				trustedProfileInfoModel := new(catalogmanagementv1.TrustedProfileInfo)
 				Expect(trustedProfileInfoModel).ToNot(BeNil())
@@ -30624,7 +30323,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.SetResourceGroupID("testString")
 				replaceCatalogOptionsModel.SetOwningAccount("testString")
 				replaceCatalogOptionsModel.SetCatalogFilters(filtersModel)
-				replaceCatalogOptionsModel.SetSyndicationSettings(syndicationResourceModel)
 				replaceCatalogOptionsModel.SetKind("testString")
 				replaceCatalogOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
 				replaceCatalogOptionsModel.SetTargetAccountContexts([]catalogmanagementv1.TargetAccountContext{*targetAccountContextModel})
@@ -30645,7 +30343,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(replaceCatalogOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.OwningAccount).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.CatalogFilters).To(Equal(filtersModel))
-				Expect(replaceCatalogOptionsModel.SyndicationSettings).To(Equal(syndicationResourceModel))
 				Expect(replaceCatalogOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(replaceCatalogOptionsModel.TargetAccountContexts).To(Equal([]catalogmanagementv1.TargetAccountContext{*targetAccountContextModel}))
@@ -30816,7 +30513,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(configurationModel).ToNot(BeNil())
 				configurationModel.Key = core.StringPtr("testString")
 				configurationModel.Type = core.StringPtr("testString")
-				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.DefaultValue = "testString"
 				configurationModel.DisplayName = core.StringPtr("testString")
 				configurationModel.ValueConstraint = core.StringPtr("testString")
 				configurationModel.Description = core.StringPtr("testString")
@@ -30827,7 +30524,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				configurationModel.TypeMetadata = core.StringPtr("testString")
 				Expect(configurationModel.Key).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(configurationModel.DefaultValue).To(Equal(core.StringPtr("testString")))
+				Expect(configurationModel.DefaultValue).To(Equal("testString"))
 				Expect(configurationModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.ValueConstraint).To(Equal(core.StringPtr("testString")))
 				Expect(configurationModel.Description).To(Equal(core.StringPtr("testString")))
@@ -30885,9 +30582,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				resourceModel := new(catalogmanagementv1.Resource)
 				Expect(resourceModel).ToNot(BeNil())
 				resourceModel.Type = core.StringPtr("mem")
-				resourceModel.Value = core.StringPtr("testString")
+				resourceModel.Value = "testString"
 				Expect(resourceModel.Type).To(Equal(core.StringPtr("mem")))
-				Expect(resourceModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(resourceModel.Value).To(Equal("testString"))
 
 				// Construct an instance of the SchematicsEnvValues model
 				schematicsEnvValuesModel := new(catalogmanagementv1.SchematicsEnvValues)
@@ -31375,8 +31072,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(kindModel).ToNot(BeNil())
 				kindModel.ID = core.StringPtr("testString")
 				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.FormatKindLabel = core.StringPtr("testString")
 				kindModel.InstallKind = core.StringPtr("testString")
+				kindModel.InstallKindLabel = core.StringPtr("testString")
 				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.TargetKindLabel = core.StringPtr("testString")
 				kindModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				kindModel.Tags = []string{"testString"}
 				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
@@ -31385,8 +31085,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				kindModel.Versions = []catalogmanagementv1.Version{*versionModel}
 				Expect(kindModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.FormatKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.FormatKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.InstallKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.InstallKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.TargetKind).To(Equal(core.StringPtr("testString")))
+				Expect(kindModel.TargetKindLabel).To(Equal(core.StringPtr("testString")))
 				Expect(kindModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(kindModel.Tags).To(Equal([]string{"testString"}))
 				Expect(kindModel.AdditionalFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
@@ -31528,9 +31231,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				constraintModel := new(catalogmanagementv1.Constraint)
 				Expect(constraintModel).ToNot(BeNil())
 				constraintModel.Type = core.StringPtr("testString")
-				constraintModel.Rule = core.StringPtr("testString")
+				constraintModel.Rule = "testString"
 				Expect(constraintModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(constraintModel.Rule).To(Equal(core.StringPtr("testString")))
+				Expect(constraintModel.Rule).To(Equal("testString"))
 
 				// Construct an instance of the Badge model
 				badgeModel := new(catalogmanagementv1.Badge)
@@ -31854,11 +31557,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(jsonPatchOperationModel).ToNot(BeNil())
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = "testString"
 				jsonPatchOperationModel.From = core.StringPtr("testString")
 				Expect(jsonPatchOperationModel.Op).To(Equal(core.StringPtr("add")))
 				Expect(jsonPatchOperationModel.Path).To(Equal(core.StringPtr("testString")))
-				Expect(jsonPatchOperationModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(jsonPatchOperationModel.Value).To(Equal("testString"))
 				Expect(jsonPatchOperationModel.From).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the UpdateOfferingOptions model
@@ -31907,7 +31610,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyOverrideValuesModel.SubnetZone = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.SSHKeyID = core.StringPtr("testString")
 				deployRequestBodyOverrideValuesModel.VPCRegion = core.StringPtr("testString")
-				deployRequestBodyOverrideValuesModel.SetProperty("foo", core.StringPtr("testString"))
+				deployRequestBodyOverrideValuesModel.SetProperty("foo", "testString")
 				Expect(deployRequestBodyOverrideValuesModel.VsiInstanceName).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCProfile).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.SubnetID).To(Equal(core.StringPtr("testString")))
@@ -31916,13 +31619,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deployRequestBodyOverrideValuesModel.SSHKeyID).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.VPCRegion).To(Equal(core.StringPtr("testString")))
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).ToNot(BeEmpty())
-				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyOverrideValuesModel.GetProperty("foo")).To(Equal("testString"))
 
 				deployRequestBodyOverrideValuesModel.SetProperties(nil)
 				Expect(deployRequestBodyOverrideValuesModel.GetProperties()).To(BeEmpty())
 
 				deployRequestBodyOverrideValuesModelExpectedMap := make(map[string]interface{})
-				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = core.StringPtr("testString")
+				deployRequestBodyOverrideValuesModelExpectedMap["foo"] = "testString"
 				deployRequestBodyOverrideValuesModel.SetProperties(deployRequestBodyOverrideValuesModelExpectedMap)
 				deployRequestBodyOverrideValuesModelActualMap := deployRequestBodyOverrideValuesModel.GetProperties()
 				Expect(deployRequestBodyOverrideValuesModelActualMap).To(Equal(deployRequestBodyOverrideValuesModelExpectedMap))
@@ -31931,11 +31634,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deployRequestBodyEnvironmentVariablesItemModel := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel).ToNot(BeNil())
 				deployRequestBodyEnvironmentVariablesItemModel.Name = core.StringPtr("testString")
-				deployRequestBodyEnvironmentVariablesItemModel.Value = core.StringPtr("testString")
+				deployRequestBodyEnvironmentVariablesItemModel.Value = "testString"
 				deployRequestBodyEnvironmentVariablesItemModel.Secure = core.BoolPtr(true)
 				deployRequestBodyEnvironmentVariablesItemModel.Hidden = core.BoolPtr(true)
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodyEnvironmentVariablesItemModel.Value).To(Equal("testString"))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Secure).To(Equal(core.BoolPtr(true)))
 				Expect(deployRequestBodyEnvironmentVariablesItemModel.Hidden).To(Equal(core.BoolPtr(true)))
 
@@ -32001,6 +31704,1786 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAccount successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Account)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.HideIBMCloudCatalog = core.BoolPtr(true)
+			model.AccountFilters = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Account
+			err = catalogmanagementv1.UnmarshalAccount(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalArchitectureDiagram successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ArchitectureDiagram)
+			model.Diagram = nil
+			model.Description = core.StringPtr("testString")
+			model.DescriptionI18n = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ArchitectureDiagram
+			err = catalogmanagementv1.UnmarshalArchitectureDiagram(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalBadge successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Badge)
+			model.ID = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.LabelI18n = map[string]string{"key1": "testString"}
+			model.Description = core.StringPtr("testString")
+			model.DescriptionI18n = map[string]string{"key1": "testString"}
+			model.Icon = core.StringPtr("testString")
+			model.Authority = core.StringPtr("testString")
+			model.Tag = core.StringPtr("testString")
+			model.LearnMoreLinks = nil
+			model.Constraints = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Badge
+			err = catalogmanagementv1.UnmarshalBadge(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCatalog successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Catalog)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.LabelI18n = map[string]string{"key1": "testString"}
+			model.ShortDescription = core.StringPtr("testString")
+			model.ShortDescriptionI18n = map[string]string{"key1": "testString"}
+			model.CatalogIconURL = core.StringPtr("testString")
+			model.CatalogBannerURL = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.URL = core.StringPtr("testString")
+			model.CRN = core.StringPtr("testString")
+			model.OfferingsURL = core.StringPtr("testString")
+			model.Features = nil
+			model.Disabled = core.BoolPtr(true)
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.ResourceGroupID = core.StringPtr("testString")
+			model.OwningAccount = core.StringPtr("testString")
+			model.CatalogFilters = nil
+			model.Kind = core.StringPtr("testString")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.TargetAccountContexts = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Catalog
+			err = catalogmanagementv1.UnmarshalCatalog(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCatalogObject successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CatalogObject)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.CRN = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.ParentID = core.StringPtr("testString")
+			model.LabelI18n = map[string]string{"key1": "testString"}
+			model.Label = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.ShortDescription = core.StringPtr("testString")
+			model.ShortDescriptionI18n = map[string]string{"key1": "testString"}
+			model.Kind = core.StringPtr("testString")
+			model.Publish = nil
+			model.State = nil
+			model.CatalogID = core.StringPtr("testString")
+			model.CatalogName = core.StringPtr("testString")
+			model.Data = map[string]interface{}{"anyKey": "anyValue"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CatalogObject
+			err = catalogmanagementv1.UnmarshalCatalogObject(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCategoryFilter successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CategoryFilter)
+			model.Include = core.BoolPtr(true)
+			model.Filter = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CategoryFilter
+			err = catalogmanagementv1.UnmarshalCategoryFilter(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalClaimedControl successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ClaimedControl)
+			model.Profile = nil
+			model.Names = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ClaimedControl
+			err = catalogmanagementv1.UnmarshalClaimedControl(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalClaims successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Claims)
+			model.Profiles = nil
+			model.Controls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Claims
+			err = catalogmanagementv1.UnmarshalClaims(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCompliance successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Compliance)
+			model.Authority = core.StringPtr("testString")
+			model.Claims = nil
+			model.Evaluations = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Compliance
+			err = catalogmanagementv1.UnmarshalCompliance(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalConfiguration successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Configuration)
+			model.Key = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.DefaultValue = "testString"
+			model.DisplayName = core.StringPtr("testString")
+			model.ValueConstraint = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Required = core.BoolPtr(true)
+			model.Options = []interface{}{"testString"}
+			model.Hidden = core.BoolPtr(true)
+			model.CustomConfig = nil
+			model.TypeMetadata = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Configuration
+			err = catalogmanagementv1.UnmarshalConfiguration(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalConstraint successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Constraint)
+			model.Type = core.StringPtr("testString")
+			model.Rule = "testString"
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Constraint
+			err = catalogmanagementv1.UnmarshalConstraint(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCostBreakdown successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CostBreakdown)
+			model.TotalHourlyCost = core.StringPtr("testString")
+			model.TotalMonthlyCost = core.StringPtr("testString")
+			model.Resources = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CostBreakdown
+			err = catalogmanagementv1.UnmarshalCostBreakdown(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCostComponent successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CostComponent)
+			model.Name = core.StringPtr("testString")
+			model.Unit = core.StringPtr("testString")
+			model.HourlyQuantity = core.StringPtr("testString")
+			model.MonthlyQuantity = core.StringPtr("testString")
+			model.Price = core.StringPtr("testString")
+			model.HourlyCost = core.StringPtr("testString")
+			model.MonthlyCost = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CostComponent
+			err = catalogmanagementv1.UnmarshalCostComponent(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCostEstimate successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CostEstimate)
+			model.Version = core.StringPtr("testString")
+			model.Currency = core.StringPtr("testString")
+			model.Projects = nil
+			model.Summary = nil
+			model.TotalHourlyCost = core.StringPtr("testString")
+			model.TotalMonthlyCost = core.StringPtr("testString")
+			model.PastTotalHourlyCost = core.StringPtr("testString")
+			model.PastTotalMonthlyCost = core.StringPtr("testString")
+			model.DiffTotalHourlyCost = core.StringPtr("testString")
+			model.DiffTotalMonthlyCost = core.StringPtr("testString")
+			model.TimeGenerated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CostEstimate
+			err = catalogmanagementv1.UnmarshalCostEstimate(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCostResource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CostResource)
+			model.Name = core.StringPtr("testString")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.HourlyCost = core.StringPtr("testString")
+			model.MonthlyCost = core.StringPtr("testString")
+			model.CostComponents = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CostResource
+			err = catalogmanagementv1.UnmarshalCostResource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCostSummary successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.CostSummary)
+			model.TotalDetectedResources = core.Int64Ptr(int64(38))
+			model.TotalSupportedResources = core.Int64Ptr(int64(38))
+			model.TotalUnsupportedResources = core.Int64Ptr(int64(38))
+			model.TotalUsageBasedResources = core.Int64Ptr(int64(38))
+			model.TotalNoPriceResources = core.Int64Ptr(int64(38))
+			model.UnsupportedResourceCounts = map[string]int64{"key1": int64(38)}
+			model.NoPriceResourceCounts = map[string]int64{"key1": int64(38)}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.CostSummary
+			err = catalogmanagementv1.UnmarshalCostSummary(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDeployRequestBodyEnvironmentVariablesItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem)
+			model.Name = core.StringPtr("testString")
+			model.Value = "testString"
+			model.Secure = core.BoolPtr(true)
+			model.Hidden = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.DeployRequestBodyEnvironmentVariablesItem
+			err = catalogmanagementv1.UnmarshalDeployRequestBodyEnvironmentVariablesItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDeployRequestBodyOverrideValues successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.DeployRequestBodyOverrideValues)
+			model.VsiInstanceName = core.StringPtr("testString")
+			model.VPCProfile = core.StringPtr("testString")
+			model.SubnetID = core.StringPtr("testString")
+			model.VPCID = core.StringPtr("testString")
+			model.SubnetZone = core.StringPtr("testString")
+			model.SSHKeyID = core.StringPtr("testString")
+			model.VPCRegion = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.DeployRequestBodyOverrideValues
+			err = catalogmanagementv1.UnmarshalDeployRequestBodyOverrideValues(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDeployRequestBodySchematics successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.DeployRequestBodySchematics)
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.ResourceGroupID = core.StringPtr("testString")
+			model.TerraformVersion = core.StringPtr("testString")
+			model.Region = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.DeployRequestBodySchematics
+			err = catalogmanagementv1.UnmarshalDeployRequestBodySchematics(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalDeprecatePending successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.DeprecatePending)
+			model.DeprecateDate = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.DeprecateState = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.DeprecatePending
+			err = catalogmanagementv1.UnmarshalDeprecatePending(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalEvaluatedControl successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.EvaluatedControl)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Specifications = nil
+			model.FailureCount = core.Int64Ptr(int64(38))
+			model.PassCount = core.Int64Ptr(int64(38))
+			model.Parent = nil
+			model.UIHref = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.EvaluatedControl
+			err = catalogmanagementv1.UnmarshalEvaluatedControl(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalEvaluation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Evaluation)
+			model.ScanID = core.StringPtr("testString")
+			model.AccountID = core.StringPtr("testString")
+			model.Profile = nil
+			model.Result = nil
+			model.Controls = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Evaluation
+			err = catalogmanagementv1.UnmarshalEvaluation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFeature successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Feature)
+			model.Title = core.StringPtr("testString")
+			model.TitleI18n = map[string]string{"key1": "testString"}
+			model.Description = core.StringPtr("testString")
+			model.DescriptionI18n = map[string]string{"key1": "testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Feature
+			err = catalogmanagementv1.UnmarshalFeature(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFilterTerms successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.FilterTerms)
+			model.FilterTerms = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.FilterTerms
+			err = catalogmanagementv1.UnmarshalFilterTerms(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFilters successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Filters)
+			model.IncludeAll = core.BoolPtr(true)
+			model.CategoryFilters = nil
+			model.IDFilters = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Filters
+			err = catalogmanagementv1.UnmarshalFilters(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFlavor successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Flavor)
+			model.Name = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.LabelI18n = map[string]string{"key1": "testString"}
+			model.Index = core.Int64Ptr(int64(38))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Flavor
+			err = catalogmanagementv1.UnmarshalFlavor(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamPermission successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.IamPermission)
+			model.ServiceName = core.StringPtr("testString")
+			model.RoleCrns = []string{"testString"}
+			model.Resources = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.IamPermission
+			err = catalogmanagementv1.UnmarshalIamPermission(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIamResource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.IamResource)
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.RoleCrns = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.IamResource
+			err = catalogmanagementv1.UnmarshalIamResource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIDFilter successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.IDFilter)
+			model.Include = nil
+			model.Exclude = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.IDFilter
+			err = catalogmanagementv1.UnmarshalIDFilter(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImagePullKey successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ImagePullKey)
+			model.Name = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ImagePullKey
+			err = catalogmanagementv1.UnmarshalImagePullKey(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImportOfferingBodyMetadata successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ImportOfferingBodyMetadata)
+			model.OperatingSystem = nil
+			model.File = nil
+			model.MinimumProvisionedSize = core.Int64Ptr(int64(38))
+			model.Images = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ImportOfferingBodyMetadata
+			err = catalogmanagementv1.UnmarshalImportOfferingBodyMetadata(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImportOfferingBodyMetadataFile successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ImportOfferingBodyMetadataFile)
+			model.Size = core.Int64Ptr(int64(38))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ImportOfferingBodyMetadataFile
+			err = catalogmanagementv1.UnmarshalImportOfferingBodyMetadataFile(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImportOfferingBodyMetadataImagesItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ImportOfferingBodyMetadataImagesItem)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Region = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ImportOfferingBodyMetadataImagesItem
+			err = catalogmanagementv1.UnmarshalImportOfferingBodyMetadataImagesItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalImportOfferingBodyMetadataOperatingSystem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ImportOfferingBodyMetadataOperatingSystem)
+			model.DedicatedHostOnly = core.BoolPtr(true)
+			model.Vendor = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Href = core.StringPtr("testString")
+			model.DisplayName = core.StringPtr("testString")
+			model.Family = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Architecture = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ImportOfferingBodyMetadataOperatingSystem
+			err = catalogmanagementv1.UnmarshalImportOfferingBodyMetadataOperatingSystem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalJSONPatchOperation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.JSONPatchOperation)
+			model.Op = core.StringPtr("add")
+			model.Path = core.StringPtr("testString")
+			model.Value = "testString"
+			model.From = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.JSONPatchOperation
+			err = catalogmanagementv1.UnmarshalJSONPatchOperation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalKind successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Kind)
+			model.ID = core.StringPtr("testString")
+			model.FormatKind = core.StringPtr("testString")
+			model.FormatKindLabel = core.StringPtr("testString")
+			model.InstallKind = core.StringPtr("testString")
+			model.InstallKindLabel = core.StringPtr("testString")
+			model.TargetKind = core.StringPtr("testString")
+			model.TargetKindLabel = core.StringPtr("testString")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.Tags = []string{"testString"}
+			model.AdditionalFeatures = nil
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Versions = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Kind
+			err = catalogmanagementv1.UnmarshalKind(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalLearnMoreLinks successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.LearnMoreLinks)
+			model.FirstParty = core.StringPtr("testString")
+			model.ThirdParty = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.LearnMoreLinks
+			err = catalogmanagementv1.UnmarshalLearnMoreLinks(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalLicense successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.License)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.License
+			err = catalogmanagementv1.UnmarshalLicense(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalMediaItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.MediaItem)
+			model.URL = core.StringPtr("testString")
+			model.APIURL = core.StringPtr("testString")
+			model.URLProxy = nil
+			model.Caption = core.StringPtr("testString")
+			model.CaptionI18n = map[string]string{"key1": "testString"}
+			model.Type = core.StringPtr("testString")
+			model.ThumbnailURL = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.MediaItem
+			err = catalogmanagementv1.UnmarshalMediaItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOffering successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Offering)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.CRN = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.LabelI18n = map[string]string{"key1": "testString"}
+			model.Name = core.StringPtr("testString")
+			model.OfferingIconURL = core.StringPtr("testString")
+			model.OfferingDocsURL = core.StringPtr("testString")
+			model.OfferingSupportURL = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.Keywords = []string{"testString"}
+			model.Rating = nil
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.ShortDescription = core.StringPtr("testString")
+			model.ShortDescriptionI18n = map[string]string{"key1": "testString"}
+			model.LongDescription = core.StringPtr("testString")
+			model.LongDescriptionI18n = map[string]string{"key1": "testString"}
+			model.Features = nil
+			model.Kinds = nil
+			model.Publish = nil
+			model.PcManaged = core.BoolPtr(true)
+			model.PublishApproved = core.BoolPtr(true)
+			model.ShareWithAll = core.BoolPtr(true)
+			model.ShareWithIBM = core.BoolPtr(true)
+			model.ShareEnabled = core.BoolPtr(true)
+			model.PermitRequestIBMPublicPublish = core.BoolPtr(true)
+			model.IBMPublishApproved = core.BoolPtr(true)
+			model.PublicPublishApproved = core.BoolPtr(true)
+			model.PublicOriginalCRN = core.StringPtr("testString")
+			model.PublishPublicCRN = core.StringPtr("testString")
+			model.PortalApprovalRecord = core.StringPtr("testString")
+			model.PortalUIURL = core.StringPtr("testString")
+			model.CatalogID = core.StringPtr("testString")
+			model.CatalogName = core.StringPtr("testString")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.Disclaimer = core.StringPtr("testString")
+			model.Hidden = core.BoolPtr(true)
+			model.Provider = core.StringPtr("testString")
+			model.ProviderInfo = nil
+			model.RepoInfo = nil
+			model.ImagePullKeys = nil
+			model.Support = nil
+			model.Media = nil
+			model.DeprecatePending = nil
+			model.ProductKind = core.StringPtr("testString")
+			model.Badges = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Offering
+			err = catalogmanagementv1.UnmarshalOffering(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOfferingInstance successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.OfferingInstance)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.CRN = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.CatalogID = core.StringPtr("testString")
+			model.OfferingID = core.StringPtr("testString")
+			model.KindFormat = core.StringPtr("testString")
+			model.KindFormatLabel = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.VersionID = core.StringPtr("testString")
+			model.ClusterID = core.StringPtr("testString")
+			model.ClusterRegion = core.StringPtr("testString")
+			model.ClusterNamespaces = []string{"testString"}
+			model.ClusterAllNamespaces = core.BoolPtr(true)
+			model.SchematicsWorkspaceID = core.StringPtr("testString")
+			model.InstallPlan = core.StringPtr("testString")
+			model.Channel = core.StringPtr("testString")
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.ResourceGroupID = core.StringPtr("testString")
+			model.Location = core.StringPtr("testString")
+			model.Disabled = core.BoolPtr(true)
+			model.Account = core.StringPtr("testString")
+			model.LastOperation = nil
+			model.KindTarget = core.StringPtr("testString")
+			model.KindTargetLabel = core.StringPtr("testString")
+			model.Sha = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.OfferingInstance
+			err = catalogmanagementv1.UnmarshalOfferingInstance(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOfferingInstanceLastOperation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.OfferingInstanceLastOperation)
+			model.Operation = core.StringPtr("testString")
+			model.State = core.StringPtr("testString")
+			model.Message = core.StringPtr("testString")
+			model.TransactionID = core.StringPtr("testString")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Code = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.OfferingInstanceLastOperation
+			err = catalogmanagementv1.UnmarshalOfferingInstanceLastOperation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOfferingReference successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.OfferingReference)
+			model.CatalogID = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Kind = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Flavors = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.OfferingReference
+			err = catalogmanagementv1.UnmarshalOfferingReference(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalOutput successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Output)
+			model.Key = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Output
+			err = catalogmanagementv1.UnmarshalOutput(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProject successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Project)
+			model.Name = core.StringPtr("testString")
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.PastBreakdown = nil
+			model.Breakdown = nil
+			model.Diff = nil
+			model.Summary = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Project
+			err = catalogmanagementv1.UnmarshalProject(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProviderInfo successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ProviderInfo)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ProviderInfo
+			err = catalogmanagementv1.UnmarshalProviderInfo(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPublishObject successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.PublishObject)
+			model.PcManaged = core.BoolPtr(true)
+			model.ApprovalType = core.StringPtr("testString")
+			model.PublishApproved = core.BoolPtr(true)
+			model.ShareWithAll = core.BoolPtr(true)
+			model.ShareWithIBM = core.BoolPtr(true)
+			model.ShareEnabled = core.BoolPtr(true)
+			model.OriginalCRN = core.StringPtr("testString")
+			model.PublicCRN = core.StringPtr("testString")
+			model.ApprovalRecord = map[string]interface{}{"anyKey": "anyValue"}
+			model.PermitIBMPublicPublish = core.BoolPtr(true)
+			model.IBMApproved = core.BoolPtr(true)
+			model.PublicApproved = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.PublishObject
+			err = catalogmanagementv1.UnmarshalPublishObject(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRating successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Rating)
+			model.OneStarCount = core.Int64Ptr(int64(38))
+			model.TwoStarCount = core.Int64Ptr(int64(38))
+			model.ThreeStarCount = core.Int64Ptr(int64(38))
+			model.FourStarCount = core.Int64Ptr(int64(38))
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Rating
+			err = catalogmanagementv1.UnmarshalRating(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRenderType successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.RenderType)
+			model.Type = core.StringPtr("testString")
+			model.Grouping = core.StringPtr("testString")
+			model.OriginalGrouping = core.StringPtr("testString")
+			model.GroupingIndex = core.Int64Ptr(int64(38))
+			model.ConfigConstraints = map[string]interface{}{"anyKey": "anyValue"}
+			model.Associations = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.RenderType
+			err = catalogmanagementv1.UnmarshalRenderType(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRenderTypeAssociations successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.RenderTypeAssociations)
+			model.Parameters = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.RenderTypeAssociations
+			err = catalogmanagementv1.UnmarshalRenderTypeAssociations(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRenderTypeAssociationsParametersItem successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.RenderTypeAssociationsParametersItem)
+			model.Name = core.StringPtr("testString")
+			model.OptionsRefresh = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.RenderTypeAssociationsParametersItem
+			err = catalogmanagementv1.UnmarshalRenderTypeAssociationsParametersItem(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRepoInfo successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.RepoInfo)
+			model.Token = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.RepoInfo
+			err = catalogmanagementv1.UnmarshalRepoInfo(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResource successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Resource)
+			model.Type = core.StringPtr("mem")
+			model.Value = "testString"
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Resource
+			err = catalogmanagementv1.UnmarshalResource(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResult successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Result)
+			model.FailureCount = core.Int64Ptr(int64(38))
+			model.ScanTime = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.ErrorMessage = core.StringPtr("testString")
+			model.CompleteScan = core.BoolPtr(true)
+			model.UnscannedResources = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Result
+			err = catalogmanagementv1.UnmarshalResult(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSccAssessment successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SccAssessment)
+			model.ID = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.Method = core.StringPtr("testString")
+			model.UIHref = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SccAssessment
+			err = catalogmanagementv1.UnmarshalSccAssessment(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSccControl successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SccControl)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Profile = nil
+			model.ParentName = core.StringPtr("testString")
+			model.Specifications = nil
+			model.UIHref = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SccControl
+			err = catalogmanagementv1.UnmarshalSccControl(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSccProfile successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SccProfile)
+			model.ID = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Type = core.StringPtr("testString")
+			model.UIHref = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SccProfile
+			err = catalogmanagementv1.UnmarshalSccProfile(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSccSpecification successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SccSpecification)
+			model.ID = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.ComponentName = core.StringPtr("testString")
+			model.Assessments = nil
+			model.UIHref = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SccSpecification
+			err = catalogmanagementv1.UnmarshalSccSpecification(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSchematicsEnvValues successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SchematicsEnvValues)
+			model.Value = core.StringPtr("[{\"name\": \"TF_LOG\",\"value\": \"TRACE\",\"secure\": false,\"hidden\": false}]")
+			model.SmRef = core.StringPtr("cmsm_v1:{\"name\": \"envVarSecret\",\"id\":\"1234567890\",\"service_id\":\"crn:v1:bluemix:public:secrets-manager:eu-gb:a/1234567890:1234567890::\",\"service_name\":\"My SM Instance\",\"group_id\":\"1234567890\",\"group_name\":\"My SM Group\",\"resource_group_id\":\"1234567890\",\"region\":\"eu-gb\",\"type\":\"arbitrary\"}")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SchematicsEnvValues
+			err = catalogmanagementv1.UnmarshalSchematicsEnvValues(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalScript successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Script)
+			model.Instructions = core.StringPtr("testString")
+			model.InstructionsI18n = map[string]string{"key1": "testString"}
+			model.Script = core.StringPtr("testString")
+			model.ScriptPermission = core.StringPtr("testString")
+			model.DeleteScript = core.StringPtr("testString")
+			model.Scope = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Script
+			err = catalogmanagementv1.UnmarshalScript(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalScriptRef successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ScriptRef)
+			model.ShortDescription = core.StringPtr("testString")
+			model.Type = core.StringPtr("ansible")
+			model.Path = core.StringPtr("scripts/validate-post-ansible-playbook.yaml")
+			model.Stage = core.StringPtr("pre")
+			model.Action = core.StringPtr("validate")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ScriptRef
+			err = catalogmanagementv1.UnmarshalScriptRef(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalShareSetting successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.ShareSetting)
+			model.IBM = core.BoolPtr(true)
+			model.Public = core.BoolPtr(true)
+			model.Enabled = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.ShareSetting
+			err = catalogmanagementv1.UnmarshalShareSetting(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSolutionInfo successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SolutionInfo)
+			model.ArchitectureDiagrams = nil
+			model.Features = nil
+			model.CostEstimate = nil
+			model.Dependencies = nil
+			model.InstallType = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SolutionInfo
+			err = catalogmanagementv1.UnmarshalSolutionInfo(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalState successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.State)
+			model.Current = core.StringPtr("testString")
+			model.CurrentEntered = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Pending = core.StringPtr("testString")
+			model.PendingRequested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Previous = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.State
+			err = catalogmanagementv1.UnmarshalState(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupport successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Support)
+			model.URL = core.StringPtr("testString")
+			model.Process = core.StringPtr("testString")
+			model.ProcessI18n = map[string]string{"key1": "testString"}
+			model.Locations = []string{"testString"}
+			model.SupportDetails = nil
+			model.SupportEscalation = nil
+			model.SupportType = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Support
+			err = catalogmanagementv1.UnmarshalSupport(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupportAvailability successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SupportAvailability)
+			model.Times = nil
+			model.Timezone = core.StringPtr("testString")
+			model.AlwaysAvailable = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SupportAvailability
+			err = catalogmanagementv1.UnmarshalSupportAvailability(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupportDetail successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SupportDetail)
+			model.Type = core.StringPtr("testString")
+			model.Contact = core.StringPtr("testString")
+			model.ResponseWaitTime = nil
+			model.Availability = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SupportDetail
+			err = catalogmanagementv1.UnmarshalSupportDetail(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupportEscalation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SupportEscalation)
+			model.EscalationWaitTime = nil
+			model.ResponseWaitTime = nil
+			model.Contact = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SupportEscalation
+			err = catalogmanagementv1.UnmarshalSupportEscalation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupportTime successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SupportTime)
+			model.Day = core.Int64Ptr(int64(38))
+			model.StartTime = core.StringPtr("testString")
+			model.EndTime = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SupportTime
+			err = catalogmanagementv1.UnmarshalSupportTime(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalSupportWaitTime successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.SupportWaitTime)
+			model.Value = core.Int64Ptr(int64(38))
+			model.Type = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.SupportWaitTime
+			err = catalogmanagementv1.UnmarshalSupportWaitTime(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTargetAccountContext successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.TargetAccountContext)
+			model.APIKey = core.StringPtr("testString")
+			model.TrustedProfile = nil
+			model.Name = core.StringPtr("testString")
+			model.Label = core.StringPtr("testString")
+			model.ProjectID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.TargetAccountContext
+			err = catalogmanagementv1.UnmarshalTargetAccountContext(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTrustedProfileInfo successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.TrustedProfileInfo)
+			model.TrustedProfileID = core.StringPtr("testString")
+			model.CatalogCRN = core.StringPtr("testString")
+			model.CatalogName = core.StringPtr("testString")
+			model.TargetServiceID = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.TrustedProfileInfo
+			err = catalogmanagementv1.UnmarshalTrustedProfileInfo(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalURLProxy successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.URLProxy)
+			model.URL = core.StringPtr("testString")
+			model.Sha = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.URLProxy
+			err = catalogmanagementv1.UnmarshalURLProxy(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalValidation successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Validation)
+			model.Validated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.State = core.StringPtr("testString")
+			model.LastOperation = core.StringPtr("testString")
+			model.Target = map[string]interface{}{"anyKey": "anyValue"}
+			model.Message = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Validation
+			err = catalogmanagementv1.UnmarshalValidation(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVersion successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.Version)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.CRN = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+			model.Flavor = nil
+			model.Sha = core.StringPtr("testString")
+			model.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+			model.OfferingID = core.StringPtr("testString")
+			model.CatalogID = core.StringPtr("testString")
+			model.KindID = core.StringPtr("testString")
+			model.Tags = []string{"testString"}
+			model.RepoURL = core.StringPtr("testString")
+			model.SourceURL = core.StringPtr("testString")
+			model.TgzURL = core.StringPtr("testString")
+			model.Configuration = nil
+			model.Outputs = nil
+			model.IamPermissions = nil
+			model.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+			model.Validation = nil
+			model.RequiredResources = nil
+			model.SingleInstance = core.BoolPtr(true)
+			model.SchematicsEnvValues = nil
+			model.Install = nil
+			model.PreInstall = nil
+			model.Scripts = nil
+			model.Entitlement = nil
+			model.Licenses = nil
+			model.ImageManifestURL = core.StringPtr("testString")
+			model.Deprecated = core.BoolPtr(true)
+			model.PackageVersion = core.StringPtr("testString")
+			model.State = nil
+			model.VersionLocator = core.StringPtr("testString")
+			model.LongDescription = core.StringPtr("testString")
+			model.LongDescriptionI18n = map[string]string{"key1": "testString"}
+			model.WhitelistedAccounts = []string{"testString"}
+			model.ImagePullKeyName = core.StringPtr("testString")
+			model.DeprecatePending = nil
+			model.SolutionInfo = nil
+			model.IsConsumable = core.BoolPtr(true)
+			model.ComplianceV3 = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.Version
+			err = catalogmanagementv1.UnmarshalVersion(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalVersionEntitlement successfully`, func() {
+			// Construct an instance of the model.
+			model := new(catalogmanagementv1.VersionEntitlement)
+			model.ProviderName = core.StringPtr("testString")
+			model.ProviderID = core.StringPtr("testString")
+			model.ProductID = core.StringPtr("testString")
+			model.PartNumbers = []string{"testString"}
+			model.ImageRepoName = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *catalogmanagementv1.VersionEntitlement
+			err = catalogmanagementv1.UnmarshalVersionEntitlement(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -32030,8 +33513,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 

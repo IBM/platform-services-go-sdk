@@ -821,6 +821,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Flavor:            flavorModel,
 				Zipurl:            core.StringPtr(tgzURL),
 				TargetVersion:     core.StringPtr("1.0.1"),
+				InstallType:       core.StringPtr("fullstack"),
 			}
 
 			offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
@@ -867,6 +868,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Zipurl:            core.StringPtr(tgzURL),
 				OfferingID:        &offeringIDLink,
 				TargetVersion:     core.StringPtr("1.1.0"),
+				InstallType:       core.StringPtr("fullstack"),
 			}
 
 			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)

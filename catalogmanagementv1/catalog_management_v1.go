@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.84.2-a032c73d-20240125-175315
+ * IBM OpenAPI SDK Code Generator Version: 3.86.1-c3d7bcef-20240308-215042
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -934,9 +934,6 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	if createCatalogOptions.CatalogFilters != nil {
 		body["catalog_filters"] = createCatalogOptions.CatalogFilters
 	}
-	if createCatalogOptions.SyndicationSettings != nil {
-		body["syndication_settings"] = createCatalogOptions.SyndicationSettings
-	}
 	if createCatalogOptions.Kind != nil {
 		body["kind"] = createCatalogOptions.Kind
 	}
@@ -1114,9 +1111,6 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	}
 	if replaceCatalogOptions.CatalogFilters != nil {
 		body["catalog_filters"] = replaceCatalogOptions.CatalogFilters
-	}
-	if replaceCatalogOptions.SyndicationSettings != nil {
-		body["syndication_settings"] = replaceCatalogOptions.SyndicationSettings
 	}
 	if replaceCatalogOptions.Kind != nil {
 		body["kind"] = replaceCatalogOptions.Kind
@@ -1914,6 +1908,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 	if importOfferingVersionOptions.ProductKind != nil {
 		body["product_kind"] = importOfferingVersionOptions.ProductKind
 	}
+	if importOfferingVersionOptions.ProductKindLabel != nil {
+		body["product_kind_label"] = importOfferingVersionOptions.ProductKindLabel
+	}
 	if importOfferingVersionOptions.Sha != nil {
 		body["sha"] = importOfferingVersionOptions.Sha
 	}
@@ -1928,6 +1925,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 	}
 	if importOfferingVersionOptions.WorkingDirectory != nil {
 		body["working_directory"] = importOfferingVersionOptions.WorkingDirectory
+	}
+	if importOfferingVersionOptions.InstallType != nil {
+		body["install_type"] = importOfferingVersionOptions.InstallType
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2042,6 +2042,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 	if importOfferingOptions.ProductKind != nil {
 		body["product_kind"] = importOfferingOptions.ProductKind
 	}
+	if importOfferingOptions.ProductKindLabel != nil {
+		body["product_kind_label"] = importOfferingOptions.ProductKindLabel
+	}
 	if importOfferingOptions.Sha != nil {
 		body["sha"] = importOfferingOptions.Sha
 	}
@@ -2056,6 +2059,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 	}
 	if importOfferingOptions.WorkingDirectory != nil {
 		body["working_directory"] = importOfferingOptions.WorkingDirectory
+	}
+	if importOfferingOptions.InstallType != nil {
+		body["install_type"] = importOfferingOptions.InstallType
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -6459,6 +6465,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.KindFormat != nil {
 		body["kind_format"] = createOfferingInstanceOptions.KindFormat
 	}
+	if createOfferingInstanceOptions.KindFormatLabel != nil {
+		body["kind_format_label"] = createOfferingInstanceOptions.KindFormatLabel
+	}
 	if createOfferingInstanceOptions.Version != nil {
 		body["version"] = createOfferingInstanceOptions.Version
 	}
@@ -6512,6 +6521,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	}
 	if createOfferingInstanceOptions.KindTarget != nil {
 		body["kind_target"] = createOfferingInstanceOptions.KindTarget
+	}
+	if createOfferingInstanceOptions.KindTargetLabel != nil {
+		body["kind_target_label"] = createOfferingInstanceOptions.KindTargetLabel
 	}
 	if createOfferingInstanceOptions.Sha != nil {
 		body["sha"] = createOfferingInstanceOptions.Sha
@@ -6670,6 +6682,9 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	if putOfferingInstanceOptions.KindFormat != nil {
 		body["kind_format"] = putOfferingInstanceOptions.KindFormat
 	}
+	if putOfferingInstanceOptions.KindFormatLabel != nil {
+		body["kind_format_label"] = putOfferingInstanceOptions.KindFormatLabel
+	}
 	if putOfferingInstanceOptions.Version != nil {
 		body["version"] = putOfferingInstanceOptions.Version
 	}
@@ -6723,6 +6738,9 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	}
 	if putOfferingInstanceOptions.KindTarget != nil {
 		body["kind_target"] = putOfferingInstanceOptions.KindTarget
+	}
+	if putOfferingInstanceOptions.KindTargetLabel != nil {
+		body["kind_target_label"] = putOfferingInstanceOptions.KindTargetLabel
 	}
 	if putOfferingInstanceOptions.Sha != nil {
 		body["sha"] = putOfferingInstanceOptions.Sha
@@ -7909,9 +7927,6 @@ type Catalog struct {
 	// Filters for account and catalog filters.
 	CatalogFilters *Filters `json:"catalog_filters,omitempty"`
 
-	// Feature information.
-	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
-
 	// Kind of catalog. Supported kinds are offering and vpe.
 	Kind *string `json:"kind,omitempty"`
 
@@ -7998,10 +8013,6 @@ func UnmarshalCatalog(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "catalog_filters", &obj.CatalogFilters, UnmarshalFilters)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "syndication_settings", &obj.SyndicationSettings, UnmarshalSyndicationResource)
 	if err != nil {
 		return
 	}
@@ -8659,7 +8670,7 @@ func (_options *CopyVersionOptions) SetTags(tags []string) *CopyVersionOptions {
 
 // SetContent : Allow user to set Content
 func (_options *CopyVersionOptions) SetContent(content []byte) *CopyVersionOptions {
-	_options.Content = &content
+	_options.Content = core.ByteArrayPtr(content)
 	return _options
 }
 
@@ -9012,9 +9023,6 @@ type CreateCatalogOptions struct {
 	// Filters for account and catalog filters.
 	CatalogFilters *Filters `json:"catalog_filters,omitempty"`
 
-	// Feature information.
-	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
-
 	// Kind of catalog. Supported kinds are offering and vpe.
 	Kind *string `json:"kind,omitempty"`
 
@@ -9102,12 +9110,6 @@ func (_options *CreateCatalogOptions) SetOwningAccount(owningAccount string) *Cr
 // SetCatalogFilters : Allow user to set CatalogFilters
 func (_options *CreateCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *CreateCatalogOptions {
 	_options.CatalogFilters = catalogFilters
-	return _options
-}
-
-// SetSyndicationSettings : Allow user to set SyndicationSettings
-func (_options *CreateCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *CreateCatalogOptions {
-	_options.SyndicationSettings = syndicationSettings
 	return _options
 }
 
@@ -9394,6 +9396,9 @@ type CreateOfferingInstanceOptions struct {
 	// the format this instance has (helm, operator, ova...).
 	KindFormat *string `json:"kind_format,omitempty"`
 
+	// Display value for the format this instance has (helm, operator, ova...).
+	KindFormatLabel *string `json:"kind_format_label,omitempty"`
+
 	// The version this instance was installed from (semver - not version id).
 	Version *string `json:"version,omitempty"`
 
@@ -9448,6 +9453,9 @@ type CreateOfferingInstanceOptions struct {
 
 	// The target kind for the installed software version.
 	KindTarget *string `json:"kind_target,omitempty"`
+
+	// Display value for the target kind for the installed software version.
+	KindTargetLabel *string `json:"kind_target_label,omitempty"`
 
 	// The digest value of the installed software version.
 	Sha *string `json:"sha,omitempty"`
@@ -9514,6 +9522,12 @@ func (_options *CreateOfferingInstanceOptions) SetOfferingID(offeringID string) 
 // SetKindFormat : Allow user to set KindFormat
 func (_options *CreateOfferingInstanceOptions) SetKindFormat(kindFormat string) *CreateOfferingInstanceOptions {
 	_options.KindFormat = core.StringPtr(kindFormat)
+	return _options
+}
+
+// SetKindFormatLabel : Allow user to set KindFormatLabel
+func (_options *CreateOfferingInstanceOptions) SetKindFormatLabel(kindFormatLabel string) *CreateOfferingInstanceOptions {
+	_options.KindFormatLabel = core.StringPtr(kindFormatLabel)
 	return _options
 }
 
@@ -9622,6 +9636,12 @@ func (_options *CreateOfferingInstanceOptions) SetLastOperation(lastOperation *O
 // SetKindTarget : Allow user to set KindTarget
 func (_options *CreateOfferingInstanceOptions) SetKindTarget(kindTarget string) *CreateOfferingInstanceOptions {
 	_options.KindTarget = core.StringPtr(kindTarget)
+	return _options
+}
+
+// SetKindTargetLabel : Allow user to set KindTargetLabel
+func (_options *CreateOfferingInstanceOptions) SetKindTargetLabel(kindTargetLabel string) *CreateOfferingInstanceOptions {
+	_options.KindTargetLabel = core.StringPtr(kindTargetLabel)
 	return _options
 }
 
@@ -13345,6 +13365,9 @@ type ImportOfferingOptions struct {
 	// value is software.
 	ProductKind *string `json:"product_kind,omitempty"`
 
+	// Display value for optional product kind for the software being onboarded.
+	ProductKindLabel *string `json:"product_kind_label,omitempty"`
+
 	// SHA256 fingerprint of the image file. Required for virtual server image for VPC.
 	Sha *string `json:"sha,omitempty"`
 
@@ -13359,6 +13382,9 @@ type ImportOfferingOptions struct {
 
 	// Optional - The sub-folder within the specified tgz file that contains the software being onboarded.
 	WorkingDirectory *string `json:"working_directory,omitempty"`
+
+	// The install type of the variation.  Specify extension or fullstack.
+	InstallType *string `json:"install_type,omitempty"`
 
 	// URL path to zip location.  If not specified, must provide content in this post body.
 	Zipurl *string `json:"zipurl,omitempty"`
@@ -13406,7 +13432,7 @@ func (_options *ImportOfferingOptions) SetTags(tags []string) *ImportOfferingOpt
 
 // SetContent : Allow user to set Content
 func (_options *ImportOfferingOptions) SetContent(content []byte) *ImportOfferingOptions {
-	_options.Content = &content
+	_options.Content = core.ByteArrayPtr(content)
 	return _options
 }
 
@@ -13446,6 +13472,12 @@ func (_options *ImportOfferingOptions) SetProductKind(productKind string) *Impor
 	return _options
 }
 
+// SetProductKindLabel : Allow user to set ProductKindLabel
+func (_options *ImportOfferingOptions) SetProductKindLabel(productKindLabel string) *ImportOfferingOptions {
+	_options.ProductKindLabel = core.StringPtr(productKindLabel)
+	return _options
+}
+
 // SetSha : Allow user to set Sha
 func (_options *ImportOfferingOptions) SetSha(sha string) *ImportOfferingOptions {
 	_options.Sha = core.StringPtr(sha)
@@ -13473,6 +13505,12 @@ func (_options *ImportOfferingOptions) SetMetadata(metadata *ImportOfferingBodyM
 // SetWorkingDirectory : Allow user to set WorkingDirectory
 func (_options *ImportOfferingOptions) SetWorkingDirectory(workingDirectory string) *ImportOfferingOptions {
 	_options.WorkingDirectory = core.StringPtr(workingDirectory)
+	return _options
+}
+
+// SetInstallType : Allow user to set InstallType
+func (_options *ImportOfferingOptions) SetInstallType(installType string) *ImportOfferingOptions {
+	_options.InstallType = core.StringPtr(installType)
 	return _options
 }
 
@@ -13558,6 +13596,9 @@ type ImportOfferingVersionOptions struct {
 	// value is software.
 	ProductKind *string `json:"product_kind,omitempty"`
 
+	// Display value for optional product kind for the software being onboarded.
+	ProductKindLabel *string `json:"product_kind_label,omitempty"`
+
 	// SHA256 fingerprint of the image file. Required for virtual server image for VPC.
 	Sha *string `json:"sha,omitempty"`
 
@@ -13572,6 +13613,9 @@ type ImportOfferingVersionOptions struct {
 
 	// Optional - The sub-folder within the specified tgz file that contains the software being onboarded.
 	WorkingDirectory *string `json:"working_directory,omitempty"`
+
+	// The install type of the variation.  Specify extension or fullstack.
+	InstallType *string `json:"install_type,omitempty"`
 
 	// URL path to zip location.  If not specified, must provide content in the body of this call.
 	Zipurl *string `json:"zipurl,omitempty"`
@@ -13623,7 +13667,7 @@ func (_options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOffe
 
 // SetContent : Allow user to set Content
 func (_options *ImportOfferingVersionOptions) SetContent(content []byte) *ImportOfferingVersionOptions {
-	_options.Content = &content
+	_options.Content = core.ByteArrayPtr(content)
 	return _options
 }
 
@@ -13663,6 +13707,12 @@ func (_options *ImportOfferingVersionOptions) SetProductKind(productKind string)
 	return _options
 }
 
+// SetProductKindLabel : Allow user to set ProductKindLabel
+func (_options *ImportOfferingVersionOptions) SetProductKindLabel(productKindLabel string) *ImportOfferingVersionOptions {
+	_options.ProductKindLabel = core.StringPtr(productKindLabel)
+	return _options
+}
+
 // SetSha : Allow user to set Sha
 func (_options *ImportOfferingVersionOptions) SetSha(sha string) *ImportOfferingVersionOptions {
 	_options.Sha = core.StringPtr(sha)
@@ -13690,6 +13740,12 @@ func (_options *ImportOfferingVersionOptions) SetMetadata(metadata *ImportOfferi
 // SetWorkingDirectory : Allow user to set WorkingDirectory
 func (_options *ImportOfferingVersionOptions) SetWorkingDirectory(workingDirectory string) *ImportOfferingVersionOptions {
 	_options.WorkingDirectory = core.StringPtr(workingDirectory)
+	return _options
+}
+
+// SetInstallType : Allow user to set InstallType
+func (_options *ImportOfferingVersionOptions) SetInstallType(installType string) *ImportOfferingVersionOptions {
+	_options.InstallType = core.StringPtr(installType)
 	return _options
 }
 
@@ -14120,11 +14176,20 @@ type Kind struct {
 	// content kind, e.g., helm, vm image.
 	FormatKind *string `json:"format_kind,omitempty"`
 
+	// display value for content kind, e.g., helm, vm image.
+	FormatKindLabel *string `json:"format_kind_label,omitempty"`
+
 	// install kind, e.g., helm, operator, terraform.
 	InstallKind *string `json:"install_kind,omitempty"`
 
+	// display value for install kind, e.g., helm, operator, terraform.
+	InstallKindLabel *string `json:"install_kind_label,omitempty"`
+
 	// target cloud to install, e.g., iks, open_shift_iks.
 	TargetKind *string `json:"target_kind,omitempty"`
+
+	// display value for target cloud to install, e.g., iks, open_shift_iks.
+	TargetKindLabel *string `json:"target_kind_label,omitempty"`
 
 	// Open ended metadata information.
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
@@ -14156,11 +14221,23 @@ func UnmarshalKind(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "format_kind_label", &obj.FormatKindLabel)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "install_kind", &obj.InstallKind)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "install_kind_label", &obj.InstallKindLabel)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "target_kind", &obj.TargetKind)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_kind_label", &obj.TargetKindLabel)
 	if err != nil {
 		return
 	}
@@ -15624,6 +15701,9 @@ type OfferingInstance struct {
 	// the format this instance has (helm, operator, ova...).
 	KindFormat *string `json:"kind_format,omitempty"`
 
+	// Display value for the format this instance has (helm, operator, ova...).
+	KindFormatLabel *string `json:"kind_format_label,omitempty"`
+
 	// The version this instance was installed from (semver - not version id).
 	Version *string `json:"version,omitempty"`
 
@@ -15679,6 +15759,9 @@ type OfferingInstance struct {
 	// The target kind for the installed software version.
 	KindTarget *string `json:"kind_target,omitempty"`
 
+	// Display value for the target kind for the installed software version.
+	KindTargetLabel *string `json:"kind_target_label,omitempty"`
+
 	// The digest value of the installed software version.
 	Sha *string `json:"sha,omitempty"`
 }
@@ -15715,6 +15798,10 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "kind_format", &obj.KindFormat)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind_format_label", &obj.KindFormatLabel)
 	if err != nil {
 		return
 	}
@@ -15787,6 +15874,10 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "kind_target", &obj.KindTarget)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind_target_label", &obj.KindTargetLabel)
 	if err != nil {
 		return
 	}
@@ -16510,6 +16601,9 @@ type PutOfferingInstanceOptions struct {
 	// the format this instance has (helm, operator, ova...).
 	KindFormat *string `json:"kind_format,omitempty"`
 
+	// Display value for the format this instance has (helm, operator, ova...).
+	KindFormatLabel *string `json:"kind_format_label,omitempty"`
+
 	// The version this instance was installed from (semver - not version id).
 	Version *string `json:"version,omitempty"`
 
@@ -16564,6 +16658,9 @@ type PutOfferingInstanceOptions struct {
 
 	// The target kind for the installed software version.
 	KindTarget *string `json:"kind_target,omitempty"`
+
+	// Display value for the target kind for the installed software version.
+	KindTargetLabel *string `json:"kind_target_label,omitempty"`
 
 	// The digest value of the installed software version.
 	Sha *string `json:"sha,omitempty"`
@@ -16637,6 +16734,12 @@ func (_options *PutOfferingInstanceOptions) SetOfferingID(offeringID string) *Pu
 // SetKindFormat : Allow user to set KindFormat
 func (_options *PutOfferingInstanceOptions) SetKindFormat(kindFormat string) *PutOfferingInstanceOptions {
 	_options.KindFormat = core.StringPtr(kindFormat)
+	return _options
+}
+
+// SetKindFormatLabel : Allow user to set KindFormatLabel
+func (_options *PutOfferingInstanceOptions) SetKindFormatLabel(kindFormatLabel string) *PutOfferingInstanceOptions {
+	_options.KindFormatLabel = core.StringPtr(kindFormatLabel)
 	return _options
 }
 
@@ -16745,6 +16848,12 @@ func (_options *PutOfferingInstanceOptions) SetLastOperation(lastOperation *Offe
 // SetKindTarget : Allow user to set KindTarget
 func (_options *PutOfferingInstanceOptions) SetKindTarget(kindTarget string) *PutOfferingInstanceOptions {
 	_options.KindTarget = core.StringPtr(kindTarget)
+	return _options
+}
+
+// SetKindTargetLabel : Allow user to set KindTargetLabel
+func (_options *PutOfferingInstanceOptions) SetKindTargetLabel(kindTargetLabel string) *PutOfferingInstanceOptions {
+	_options.KindTargetLabel = core.StringPtr(kindTargetLabel)
 	return _options
 }
 
@@ -16872,7 +16981,7 @@ func (_options *ReloadOfferingOptions) SetTags(tags []string) *ReloadOfferingOpt
 
 // SetContent : Allow user to set Content
 func (_options *ReloadOfferingOptions) SetContent(content []byte) *ReloadOfferingOptions {
-	_options.Content = &content
+	_options.Content = core.ByteArrayPtr(content)
 	return _options
 }
 
@@ -17058,9 +17167,6 @@ type ReplaceCatalogOptions struct {
 	// Filters for account and catalog filters.
 	CatalogFilters *Filters `json:"catalog_filters,omitempty"`
 
-	// Feature information.
-	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
-
 	// Kind of catalog. Supported kinds are offering and vpe.
 	Kind *string `json:"kind,omitempty"`
 
@@ -17168,12 +17274,6 @@ func (_options *ReplaceCatalogOptions) SetOwningAccount(owningAccount string) *R
 // SetCatalogFilters : Allow user to set CatalogFilters
 func (_options *ReplaceCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *ReplaceCatalogOptions {
 	_options.CatalogFilters = catalogFilters
-	return _options
-}
-
-// SetSyndicationSettings : Allow user to set SyndicationSettings
-func (_options *ReplaceCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *ReplaceCatalogOptions {
-	_options.SyndicationSettings = syndicationSettings
 	return _options
 }
 
@@ -18009,18 +18109,20 @@ type Resource struct {
 	// Type of requirement.
 	Type *string `json:"type,omitempty"`
 
-	// mem, disk, cores, and nodes can be parsed as an int.  targetVersion will be a semver range value.
+	// mem, disk, cores, and nodes can be parsed as an int.  targetVersion and terraformVersion will be a semver range
+	// value.
 	Value interface{} `json:"value,omitempty"`
 }
 
 // Constants associated with the Resource.Type property.
 // Type of requirement.
 const (
-	ResourceTypeCoresConst         = "cores"
-	ResourceTypeDiskConst          = "disk"
-	ResourceTypeMemConst           = "mem"
-	ResourceTypeNodesConst         = "nodes"
-	ResourceTypeTargetversionConst = "targetVersion"
+	ResourceTypeCoresConst            = "cores"
+	ResourceTypeDiskConst             = "disk"
+	ResourceTypeMemConst              = "mem"
+	ResourceTypeNodesConst            = "nodes"
+	ResourceTypeTargetversionConst    = "targetVersion"
+	ResourceTypeTerraformversionConst = "terraformVersion"
 )
 
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
@@ -19336,158 +19438,6 @@ func (_options *SuspendVersionOptions) SetVersionLocID(versionLocID string) *Sus
 func (options *SuspendVersionOptions) SetHeaders(param map[string]string) *SuspendVersionOptions {
 	options.Headers = param
 	return options
-}
-
-// SyndicationAuthorization : Feature information.
-type SyndicationAuthorization struct {
-	// Array of syndicated namespaces.
-	Token *string `json:"token,omitempty"`
-
-	// Date and time last updated.
-	LastRun *strfmt.DateTime `json:"last_run,omitempty"`
-}
-
-// UnmarshalSyndicationAuthorization unmarshals an instance of SyndicationAuthorization from the specified map of raw messages.
-func UnmarshalSyndicationAuthorization(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SyndicationAuthorization)
-	err = core.UnmarshalPrimitive(m, "token", &obj.Token)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_run", &obj.LastRun)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// SyndicationCluster : Feature information.
-type SyndicationCluster struct {
-	// Cluster region.
-	Region *string `json:"region,omitempty"`
-
-	// Cluster ID.
-	ID *string `json:"id,omitempty"`
-
-	// Cluster name.
-	Name *string `json:"name,omitempty"`
-
-	// Resource group ID.
-	ResourceGroupName *string `json:"resource_group_name,omitempty"`
-
-	// Syndication type.
-	Type *string `json:"type,omitempty"`
-
-	// Syndicated namespaces.
-	Namespaces []string `json:"namespaces,omitempty"`
-
-	// Syndicated to all namespaces on cluster.
-	AllNamespaces *bool `json:"all_namespaces,omitempty"`
-}
-
-// UnmarshalSyndicationCluster unmarshals an instance of SyndicationCluster from the specified map of raw messages.
-func UnmarshalSyndicationCluster(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SyndicationCluster)
-	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_name", &obj.ResourceGroupName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "namespaces", &obj.Namespaces)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "all_namespaces", &obj.AllNamespaces)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// SyndicationHistory : Feature information.
-type SyndicationHistory struct {
-	// Array of syndicated namespaces.
-	Namespaces []string `json:"namespaces,omitempty"`
-
-	// Array of syndicated namespaces.
-	Clusters []SyndicationCluster `json:"clusters,omitempty"`
-
-	// Date and time last syndicated.
-	LastRun *strfmt.DateTime `json:"last_run,omitempty"`
-}
-
-// UnmarshalSyndicationHistory unmarshals an instance of SyndicationHistory from the specified map of raw messages.
-func UnmarshalSyndicationHistory(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SyndicationHistory)
-	err = core.UnmarshalPrimitive(m, "namespaces", &obj.Namespaces)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "clusters", &obj.Clusters, UnmarshalSyndicationCluster)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_run", &obj.LastRun)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// SyndicationResource : Feature information.
-type SyndicationResource struct {
-	// Remove related components.
-	RemoveRelatedComponents *bool `json:"remove_related_components,omitempty"`
-
-	// Syndication clusters.
-	Clusters []SyndicationCluster `json:"clusters,omitempty"`
-
-	// Feature information.
-	History *SyndicationHistory `json:"history,omitempty"`
-
-	// Feature information.
-	Authorization *SyndicationAuthorization `json:"authorization,omitempty"`
-}
-
-// UnmarshalSyndicationResource unmarshals an instance of SyndicationResource from the specified map of raw messages.
-func UnmarshalSyndicationResource(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SyndicationResource)
-	err = core.UnmarshalPrimitive(m, "remove_related_components", &obj.RemoveRelatedComponents)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "clusters", &obj.Clusters, UnmarshalSyndicationCluster)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalSyndicationHistory)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "authorization", &obj.Authorization, UnmarshalSyndicationAuthorization)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // TargetAccountContext : Target account context.

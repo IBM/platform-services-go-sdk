@@ -339,6 +339,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			fmt.Println("\nImportOffering() result:")
 			// begin-import_offering
 
+			flavorModel := &catalogmanagementv1.Flavor{
+				Name:      core.StringPtr("testString"),
+				Label:     core.StringPtr("testString"),
+				LabelI18n: make(map[string]string),
+				Index:     core.Int64Ptr(int64(38)),
+			}
+
 			importOfferingOptions := catalogManagementService.NewImportOfferingOptions(
 				catalogID,
 			)
@@ -348,6 +355,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			importOfferingOptions.OfferingID = &offeringID
 			importOfferingOptions.TargetVersion = core.StringPtr("0.0.2")
 			importOfferingOptions.Repotype = core.StringPtr("git_public")
+			importOfferingOptions.ProductKind = core.StringPtr("solution")
+			importOfferingOptions.Flavor = flavorModel
+			importOfferingOptions.InstallType = core.StringPtr("fullstack")
 			importOfferingOptions.XAuthToken = &gitAuthTokenForPublicRepo
 
 			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)
