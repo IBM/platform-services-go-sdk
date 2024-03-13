@@ -318,6 +318,38 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
+		It(`DisableAPIKey request example`, func() {
+			// begin-disable_api_key
+
+			disableAPIKeyOptions := iamIdentityService.NewDisableAPIKeyOptions(apikeyID)
+
+			response, err := iamIdentityService.DisableAPIKey(disableAPIKeyOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-disable_api_key
+			fmt.Printf("\nDisableAPIKey() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`EnableAPIKey request example`, func() {
+			// begin-enable_api_key
+
+			enableAPIKeyOptions := iamIdentityService.NewEnableAPIKeyOptions(apikeyID)
+
+			response, err := iamIdentityService.EnableAPIKey(enableAPIKeyOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-enable_api_key
+			fmt.Printf("\nEnableAPIKey() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`DeleteAPIKey request example`, func() {
 			// begin-delete_api_key
 

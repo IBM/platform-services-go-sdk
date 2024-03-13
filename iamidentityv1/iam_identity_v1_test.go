@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package iamidentityv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -251,7 +252,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListAPIKeys successfully with retries`, func() {
@@ -322,7 +323,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListAPIKeys successfully`, func() {
@@ -447,6 +448,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "false")))
+					Expect(req.Header["Entity-Disable"]).ToNot(BeNil())
+					Expect(req.Header["Entity-Disable"][0]).To(Equal(fmt.Sprintf("%v", "false")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -468,7 +471,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
 				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
 				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				createAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				createAPIKeyOptionsModel.EntityLock = core.StringPtr("false")
+				createAPIKeyOptionsModel.EntityDisable = core.StringPtr("false")
 				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.CreateAPIKey(createAPIKeyOptionsModel)
@@ -517,13 +523,15 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "false")))
+					Expect(req.Header["Entity-Disable"]).ToNot(BeNil())
+					Expect(req.Header["Entity-Disable"][0]).To(Equal(fmt.Sprintf("%v", "false")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateAPIKey successfully with retries`, func() {
@@ -543,7 +551,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
 				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
 				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				createAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				createAPIKeyOptionsModel.EntityLock = core.StringPtr("false")
+				createAPIKeyOptionsModel.EntityDisable = core.StringPtr("false")
 				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -598,10 +609,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "false")))
+					Expect(req.Header["Entity-Disable"]).ToNot(BeNil())
+					Expect(req.Header["Entity-Disable"][0]).To(Equal(fmt.Sprintf("%v", "false")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateAPIKey successfully`, func() {
@@ -626,7 +639,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
 				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
 				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				createAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				createAPIKeyOptionsModel.EntityLock = core.StringPtr("false")
+				createAPIKeyOptionsModel.EntityDisable = core.StringPtr("false")
 				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -652,7 +668,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
 				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
 				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				createAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				createAPIKeyOptionsModel.EntityLock = core.StringPtr("false")
+				createAPIKeyOptionsModel.EntityDisable = core.StringPtr("false")
 				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -699,7 +718,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
 				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
 				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				createAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				createAPIKeyOptionsModel.EntityLock = core.StringPtr("false")
+				createAPIKeyOptionsModel.EntityDisable = core.StringPtr("false")
 				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -784,7 +806,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetAPIKeysDetails successfully with retries`, func() {
@@ -842,7 +864,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetAPIKeysDetails successfully`, func() {
@@ -1002,7 +1024,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetAPIKey successfully with retries`, func() {
@@ -1060,7 +1082,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetAPIKey successfully`, func() {
@@ -1193,6 +1215,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				updateAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.UpdateAPIKey(updateAPIKeyOptionsModel)
@@ -1247,7 +1271,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateAPIKey successfully with retries`, func() {
@@ -1265,6 +1289,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				updateAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1322,7 +1348,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateAPIKey successfully`, func() {
@@ -1345,6 +1371,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				updateAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1368,6 +1396,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				updateAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -1412,6 +1442,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.SupportSessions = core.BoolPtr(true)
+				updateAPIKeyOptionsModel.ActionWhenLeaked = core.StringPtr("testString")
 				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1631,6 +1663,142 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`DisableAPIKey(disableAPIKeyOptions *DisableAPIKeyOptions)`, func() {
+		disableAPIKeyPath := "/v1/apikeys/testString/disable"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(disableAPIKeyPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DisableAPIKey successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.DisableAPIKey(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DisableAPIKeyOptions model
+				disableAPIKeyOptionsModel := new(iamidentityv1.DisableAPIKeyOptions)
+				disableAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				disableAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DisableAPIKey(disableAPIKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DisableAPIKey with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the DisableAPIKeyOptions model
+				disableAPIKeyOptionsModel := new(iamidentityv1.DisableAPIKeyOptions)
+				disableAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				disableAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.DisableAPIKey(disableAPIKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DisableAPIKeyOptions model with no property values
+				disableAPIKeyOptionsModelNew := new(iamidentityv1.DisableAPIKeyOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.DisableAPIKey(disableAPIKeyOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`EnableAPIKey(enableAPIKeyOptions *EnableAPIKeyOptions)`, func() {
+		enableAPIKeyPath := "/v1/apikeys/testString/disable"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(enableAPIKeyPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke EnableAPIKey successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := iamIdentityService.EnableAPIKey(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the EnableAPIKeyOptions model
+				enableAPIKeyOptionsModel := new(iamidentityv1.EnableAPIKeyOptions)
+				enableAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				enableAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.EnableAPIKey(enableAPIKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke EnableAPIKey with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the EnableAPIKeyOptions model
+				enableAPIKeyOptionsModel := new(iamidentityv1.EnableAPIKeyOptions)
+				enableAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				enableAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := iamIdentityService.EnableAPIKey(enableAPIKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the EnableAPIKeyOptions model with no property values
+				enableAPIKeyOptionsModelNew := new(iamidentityv1.EnableAPIKeyOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = iamIdentityService.EnableAPIKey(enableAPIKeyOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) - Operation response error`, func() {
 		listServiceIdsPath := "/v1/serviceids/"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1713,7 +1881,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListServiceIds successfully with retries`, func() {
@@ -1780,7 +1948,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}]}`)
 				}))
 			})
 			It(`Invoke ListServiceIds successfully`, func() {
@@ -1981,7 +2149,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateServiceID successfully with retries`, func() {
@@ -2065,7 +2233,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke CreateServiceID successfully`, func() {
@@ -2265,7 +2433,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetServiceID successfully with retries`, func() {
@@ -2323,7 +2491,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke GetServiceID successfully`, func() {
@@ -2511,7 +2679,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateServiceID successfully with retries`, func() {
@@ -2587,7 +2755,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "created_at": "2019-01-01T12:00:00.000Z", "modified_at": "2019-01-01T12:00:00.000Z", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "CRN", "locked": true, "disabled": true, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00.000Z", "name": "Name", "support_sessions": false, "action_when_leaked": "ActionWhenLeaked", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "activity": {"last_authn": "LastAuthn", "authn_count": 10}}, "activity": {"last_authn": "LastAuthn", "authn_count": 10}}`)
 				}))
 			})
 			It(`Invoke UpdateServiceID successfully`, func() {
@@ -16064,7 +16232,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createAPIKeyOptionsModel.SetAccountID("testString")
 				createAPIKeyOptionsModel.SetApikey("testString")
 				createAPIKeyOptionsModel.SetStoreValue(true)
+				createAPIKeyOptionsModel.SetSupportSessions(true)
+				createAPIKeyOptionsModel.SetActionWhenLeaked("testString")
 				createAPIKeyOptionsModel.SetEntityLock("false")
+				createAPIKeyOptionsModel.SetEntityDisable("false")
 				createAPIKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAPIKeyOptionsModel).ToNot(BeNil())
 				Expect(createAPIKeyOptionsModel.Name).To(Equal(core.StringPtr("testString")))
@@ -16073,7 +16244,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createAPIKeyOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(createAPIKeyOptionsModel.Apikey).To(Equal(core.StringPtr("testString")))
 				Expect(createAPIKeyOptionsModel.StoreValue).To(Equal(core.BoolPtr(true)))
+				Expect(createAPIKeyOptionsModel.SupportSessions).To(Equal(core.BoolPtr(true)))
+				Expect(createAPIKeyOptionsModel.ActionWhenLeaked).To(Equal(core.StringPtr("testString")))
 				Expect(createAPIKeyOptionsModel.EntityLock).To(Equal(core.StringPtr("false")))
+				Expect(createAPIKeyOptionsModel.EntityDisable).To(Equal(core.StringPtr("false")))
 				Expect(createAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateClaimRuleOptions successfully`, func() {
@@ -16552,6 +16726,26 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(deleteTrustedProfileAssignmentOptionsModel).ToNot(BeNil())
 				Expect(deleteTrustedProfileAssignmentOptionsModel.AssignmentID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTrustedProfileAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDisableAPIKeyOptions successfully`, func() {
+				// Construct an instance of the DisableAPIKeyOptions model
+				id := "testString"
+				disableAPIKeyOptionsModel := iamIdentityService.NewDisableAPIKeyOptions(id)
+				disableAPIKeyOptionsModel.SetID("testString")
+				disableAPIKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(disableAPIKeyOptionsModel).ToNot(BeNil())
+				Expect(disableAPIKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(disableAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewEnableAPIKeyOptions successfully`, func() {
+				// Construct an instance of the EnableAPIKeyOptions model
+				id := "testString"
+				enableAPIKeyOptionsModel := iamIdentityService.NewEnableAPIKeyOptions(id)
+				enableAPIKeyOptionsModel.SetID("testString")
+				enableAPIKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(enableAPIKeyOptionsModel).ToNot(BeNil())
+				Expect(enableAPIKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(enableAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccountSettingsAssignmentOptions successfully`, func() {
 				// Construct an instance of the GetAccountSettingsAssignmentOptions model
@@ -17252,12 +17446,16 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAPIKeyOptionsModel.SetIfMatch("testString")
 				updateAPIKeyOptionsModel.SetName("testString")
 				updateAPIKeyOptionsModel.SetDescription("testString")
+				updateAPIKeyOptionsModel.SetSupportSessions(true)
+				updateAPIKeyOptionsModel.SetActionWhenLeaked("testString")
 				updateAPIKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAPIKeyOptionsModel).ToNot(BeNil())
 				Expect(updateAPIKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAPIKeyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateAPIKeyOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(updateAPIKeyOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(updateAPIKeyOptionsModel.SupportSessions).To(Equal(core.BoolPtr(true)))
+				Expect(updateAPIKeyOptionsModel.ActionWhenLeaked).To(Equal(core.StringPtr("testString")))
 				Expect(updateAPIKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateClaimRuleOptions successfully`, func() {
@@ -17464,6 +17662,227 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAccountSettingsComponent successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.AccountSettingsComponent)
+			model.RestrictCreateServiceID = core.StringPtr("NOT_SET")
+			model.RestrictCreatePlatformApikey = core.StringPtr("NOT_SET")
+			model.AllowedIPAddresses = core.StringPtr("testString")
+			model.Mfa = core.StringPtr("NONE")
+			model.UserMfa = nil
+			model.SessionExpirationInSeconds = core.StringPtr("86400")
+			model.SessionInvalidationInSeconds = core.StringPtr("7200")
+			model.MaxSessionsPerIdentity = core.StringPtr("testString")
+			model.SystemAccessTokenExpirationInSeconds = core.StringPtr("3600")
+			model.SystemRefreshTokenExpirationInSeconds = core.StringPtr("259200")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.AccountSettingsComponent
+			err = iamidentityv1.UnmarshalAccountSettingsComponent(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAccountSettingsUserMfa successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.AccountSettingsUserMfa)
+			model.IamID = core.StringPtr("testString")
+			model.Mfa = core.StringPtr("NONE")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.AccountSettingsUserMfa
+			err = iamidentityv1.UnmarshalAccountSettingsUserMfa(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalAPIKeyInsideCreateServiceIDRequest successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.APIKeyInsideCreateServiceIDRequest)
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Apikey = core.StringPtr("testString")
+			model.StoreValue = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.APIKeyInsideCreateServiceIDRequest
+			err = iamidentityv1.UnmarshalAPIKeyInsideCreateServiceIDRequest(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateProfileLinkRequestLink successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.CreateProfileLinkRequestLink)
+			model.CRN = core.StringPtr("testString")
+			model.Namespace = core.StringPtr("testString")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.CreateProfileLinkRequestLink
+			err = iamidentityv1.UnmarshalCreateProfileLinkRequestLink(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalPolicyTemplateReference successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.PolicyTemplateReference)
+			model.ID = core.StringPtr("testString")
+			model.Version = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.PolicyTemplateReference
+			err = iamidentityv1.UnmarshalPolicyTemplateReference(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProfileClaimRuleConditions successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ProfileClaimRuleConditions)
+			model.Claim = core.StringPtr("testString")
+			model.Operator = core.StringPtr("testString")
+			model.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ProfileClaimRuleConditions
+			err = iamidentityv1.UnmarshalProfileClaimRuleConditions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalProfileIdentityRequest successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ProfileIdentityRequest)
+			model.Identifier = core.StringPtr("testString")
+			model.Type = core.StringPtr("user")
+			model.Accounts = []string{"testString"}
+			model.Description = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ProfileIdentityRequest
+			err = iamidentityv1.UnmarshalProfileIdentityRequest(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalResponseContext successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ResponseContext)
+			model.TransactionID = core.StringPtr("testString")
+			model.Operation = core.StringPtr("testString")
+			model.UserAgent = core.StringPtr("testString")
+			model.URL = core.StringPtr("testString")
+			model.InstanceID = core.StringPtr("testString")
+			model.ThreadID = core.StringPtr("testString")
+			model.Host = core.StringPtr("testString")
+			model.StartTime = core.StringPtr("testString")
+			model.EndTime = core.StringPtr("testString")
+			model.ElapsedTime = core.StringPtr("testString")
+			model.ClusterName = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ResponseContext
+			err = iamidentityv1.UnmarshalResponseContext(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTemplateProfileComponentRequest successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.TemplateProfileComponentRequest)
+			model.Name = core.StringPtr("testString")
+			model.Description = core.StringPtr("testString")
+			model.Rules = nil
+			model.Identities = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.TemplateProfileComponentRequest
+			err = iamidentityv1.UnmarshalTemplateProfileComponentRequest(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalTrustedProfileTemplateClaimRule successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.TrustedProfileTemplateClaimRule)
+			model.Name = core.StringPtr("testString")
+			model.Type = core.StringPtr("Profile-SAML")
+			model.RealmName = core.StringPtr("testString")
+			model.Expiration = core.Int64Ptr(int64(38))
+			model.Conditions = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.TrustedProfileTemplateClaimRule
+			err = iamidentityv1.UnmarshalTrustedProfileTemplateClaimRule(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -17493,8 +17912,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 
