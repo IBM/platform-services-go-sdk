@@ -1,3 +1,10 @@
+# [0.61.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.60.0...v0.61.0) (2024-03-14)
+
+
+### Features
+
+* **Catalog Management:** add missed fields from api definition, remove old Syndication fields ([#308](https://github.com/IBM/platform-services-go-sdk/issues/308)) ([2c2a839](https://github.com/IBM/platform-services-go-sdk/commit/2c2a839d80460cd8d90eea443ec186078a007045))
+
 # [0.60.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.59.3...v0.60.0) (2024-03-08)
 
 
