@@ -1,3 +1,10 @@
+## [0.61.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.1...v0.61.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* **ATracker:** add new regions br-sao, ca-tor, jp-osa, jp-tok and in-che ([#310](https://github.com/IBM/platform-services-go-sdk/issues/310)) ([b390459](https://github.com/IBM/platform-services-go-sdk/commit/b390459db8c7a40b32a75a4c34f9916ec2adac40))
+
 ## [0.61.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.0...v0.61.1) (2024-03-15)
 
 
