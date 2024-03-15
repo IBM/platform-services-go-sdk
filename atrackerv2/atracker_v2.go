@@ -127,16 +127,16 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.eu-fr2":   "https://private.eu-fr2.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the eu-fr2 region.
 		"au-syd":           "https://au-syd.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 		"private.au-syd":   "https://private.au-syd.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the au-syd region.
-		"ca-tor":           "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"private.ca-tor":   "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service for ca-tor points to the us-east region.
-		"br-sao":           "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"private.br-sao":   "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service for br-sao points to the us-south region.
-		"jp-tok":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"private.jp-tok":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for jp-tok points to the eu-de region.
-		"jp-osa":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"private.jp-osa":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for jp-osa points to the eu-de region.
-		"in-che":           "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
-		"private.in-che":   "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service for in-che points to the eu-de region.
+		"ca-tor":           "https://ca-tor.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"private.ca-tor":   "https://private.ca-tor.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the ca-tor region.
+		"br-sao":           "https://br-sao.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"private.br-sao":   "https://private.br-sao.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the br-sao region.
+		"jp-tok":           "https://jp-tok.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"private.jp-tok":   "https://private.jp-tok.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the jp-tok region.
+		"jp-osa":           "https://jp-osa.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"private.jp-osa":   "https://private.jp-osa.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the jp-osa region.
+		"in-che":           "https://in-che.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the in-che region.
+		"private.in-che":   "https://private.in-che.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the in-che region.
 	}
 
 	if url, ok := endpoints[region]; ok {
