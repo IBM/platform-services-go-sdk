@@ -1,3 +1,10 @@
+## [0.61.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.0...v0.61.1) (2024-03-15)
+
+
+### Bug Fixes
+
+* **Metrics Router:** add new regions br-sao, ca-tor, jp-osa and jp-tok ([#307](https://github.com/IBM/platform-services-go-sdk/issues/307)) ([8334234](https://github.com/IBM/platform-services-go-sdk/commit/83342343b3ea7044a711a9dac779d92ab9de2992))
+
 # [0.61.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.60.0...v0.61.0) (2024-03-14)
 
 
