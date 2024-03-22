@@ -1,3 +1,10 @@
+## [0.61.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.2...v0.61.3) (2024-03-22)
+
+
+### Bug Fixes
+
+* add support for new error handling ([#311](https://github.com/IBM/platform-services-go-sdk/issues/311)) ([5beb5c4](https://github.com/IBM/platform-services-go-sdk/commit/5beb5c4f3fbb2a3ea58a6311482000c87eac87f8))
+
 ## [0.61.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.1...v0.61.2) (2024-03-15)
 
 
