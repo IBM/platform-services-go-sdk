@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -307,10 +307,21 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
 			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountID + "::account-group:" + accountGroupID
+			createAccountRequestTraitsModel := &enterprisemanagementv1.CreateAccountRequestTraits{
+				Mfa:                  core.StringPtr(""),
+				EnterpriseIamManaged: core.BoolPtr(true),
+			}
+
+			createAccountRequestOptionsModel := &enterprisemanagementv1.CreateAccountRequestOptions{
+				CreateIamServiceIDWithApikeyAndOwnerPolicies: core.BoolPtr(false),
+			}
+
 			createAccountOptions := &enterprisemanagementv1.CreateAccountOptions{
 				Parent:     &parentCRN,
 				Name:       &exampleAccountName,
 				OwnerIamID: &accountIamID,
+				Traits:     createAccountRequestTraitsModel,
+				Options:    createAccountRequestOptionsModel,
 			}
 
 			createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)

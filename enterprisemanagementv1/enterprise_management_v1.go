@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -561,6 +561,9 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountWithContext(ctx
 	}
 	if createAccountOptions.Traits != nil {
 		body["traits"] = createAccountOptions.Traits
+	}
+	if createAccountOptions.Options != nil {
+		body["options"] = createAccountOptions.Options
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1485,9 +1488,13 @@ type CreateAccountOptions struct {
 	OwnerIamID *string `json:"owner_iam_id" validate:"required"`
 
 	// The traits object can be used to set properties on child accounts of an enterprise. You can pass a field to opt-out
-	// of Multi-Factor Authentication setting or setup enterprise IAM settings when creating a child account in the
-	// enterprise. This is an optional field.
+	// of the default multi-factor authentication setting or enable enterprise-managed IAM when creating a child account in
+	// the enterprise. This is an optional field.
 	Traits *CreateAccountRequestTraits `json:"traits,omitempty"`
+
+	// The options object can be used to set properties on child accounts of an enterprise. You can pass a field to to
+	// create IAM service id with IAM api key when creating a child account in the enterprise. This is an optional field.
+	Options *CreateAccountRequestOptions `json:"options,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1526,22 +1533,50 @@ func (_options *CreateAccountOptions) SetTraits(traits *CreateAccountRequestTrai
 	return _options
 }
 
+// SetOptions : Allow user to set Options
+func (_options *CreateAccountOptions) SetOptions(options *CreateAccountRequestOptions) *CreateAccountOptions {
+	_options.Options = options
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *CreateAccountOptions) SetHeaders(param map[string]string) *CreateAccountOptions {
 	options.Headers = param
 	return options
 }
 
+// CreateAccountRequestOptions : The options object can be used to set properties on child accounts of an enterprise. You can pass a field to to
+// create IAM service id with IAM api key when creating a child account in the enterprise. This is an optional field.
+type CreateAccountRequestOptions struct {
+	// By default create_iam_service_id_with_apikey_and_owner_policies is turned off for a newly created child account. You
+	// can enable this property by passing 'true' in this boolean field. IAM service id has account owner IAM policies and
+	// the API key associated with it can generate a token and setup resources in the account. This is an optional field.
+	CreateIamServiceIDWithApikeyAndOwnerPolicies *bool `json:"create_iam_service_id_with_apikey_and_owner_policies,omitempty"`
+}
+
+// UnmarshalCreateAccountRequestOptions unmarshals an instance of CreateAccountRequestOptions from the specified map of raw messages.
+func UnmarshalCreateAccountRequestOptions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateAccountRequestOptions)
+	err = core.UnmarshalPrimitive(m, "create_iam_service_id_with_apikey_and_owner_policies", &obj.CreateIamServiceIDWithApikeyAndOwnerPolicies)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateAccountRequestTraits : The traits object can be used to set properties on child accounts of an enterprise. You can pass a field to opt-out
-// of Multi-Factor Authentication setting or setup enterprise IAM settings when creating a child account in the
-// enterprise. This is an optional field.
+// of the default multi-factor authentication setting or enable enterprise-managed IAM when creating a child account in
+// the enterprise. This is an optional field.
 type CreateAccountRequestTraits struct {
-	// By default MFA will be enabled on a child account. To opt out, pass the traits object with the mfa field set to
-	// empty string. This is an optional field.
+	// By default MFA is set to `NONE_NO_ROPC` on a child account, which disables CLI logins with only a password. To opt
+	// out, pass the traits object with the mfa field set to empty string. This is an optional field.
 	Mfa *string `json:"mfa,omitempty"`
 
-	// The Enterprise IAM settings property will be turned off for a newly created child account by default. You can enable
-	// this property by passing 'true' in this boolean field. This is an optional field.
+	// By default enterprise-managed IAM is turned off for a newly created child account. You can enable this property by
+	// passing 'true' in this boolean field. Enabling enterprise-managed IAM allows the enterprise account to assign IAM
+	// resources, like access groups, trusted profiles, and account settings, to the child account. This is an optional
+	// field.
 	EnterpriseIamManaged *bool `json:"enterprise_iam_managed,omitempty"`
 }
 
@@ -1744,6 +1779,9 @@ type Enterprise struct {
 	// The email of the primary contact of the enterprise.
 	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
 
+	// The ID of the account that is used to create the enterprise.
+	SourceAccountID *string `json:"source_account_id,omitempty"`
+
 	// The time stamp at which the enterprise was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
@@ -1793,6 +1831,10 @@ func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "primary_contact_email", &obj.PrimaryContactEmail)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_account_id", &obj.SourceAccountID)
 	if err != nil {
 		return
 	}
