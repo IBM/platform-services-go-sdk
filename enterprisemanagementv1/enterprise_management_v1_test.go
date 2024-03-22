@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package enterprisemanagementv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -498,7 +499,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "source_account_id": "SourceAccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListEnterprises successfully with retries`, func() {
@@ -561,7 +562,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "source_account_id": "SourceAccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListEnterprises successfully`, func() {
@@ -665,14 +666,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid successfully`, func() {
 				responseObject := new(enterprisemanagementv1.ListEnterprisesResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com?next_docid=abc-123")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextNextDocid without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisemanagementv1.ListEnterprisesResponse)
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -680,7 +681,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisemanagementv1.ListEnterprisesResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -701,9 +702,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?next_docid=1","resources":[{"url":"URL","id":"ID","enterprise_account_id":"EnterpriseAccountID","crn":"CRN","name":"Name","domain":"Domain","state":"State","primary_contact_iam_id":"PrimaryContactIamID","primary_contact_email":"PrimaryContactEmail","created_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_at":"2019-01-01T12:00:00.000Z","updated_by":"UpdatedBy"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?next_docid=1","resources":[{"url":"URL","id":"ID","enterprise_account_id":"EnterpriseAccountID","crn":"CRN","name":"Name","domain":"Domain","state":"State","primary_contact_iam_id":"PrimaryContactIamID","primary_contact_email":"PrimaryContactEmail","source_account_id":"SourceAccountID","created_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_at":"2019-01-01T12:00:00.000Z","updated_by":"UpdatedBy"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"url":"URL","id":"ID","enterprise_account_id":"EnterpriseAccountID","crn":"CRN","name":"Name","domain":"Domain","state":"State","primary_contact_iam_id":"PrimaryContactIamID","primary_contact_email":"PrimaryContactEmail","created_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_at":"2019-01-01T12:00:00.000Z","updated_by":"UpdatedBy"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"url":"URL","id":"ID","enterprise_account_id":"EnterpriseAccountID","crn":"CRN","name":"Name","domain":"Domain","state":"State","primary_contact_iam_id":"PrimaryContactIamID","primary_contact_email":"PrimaryContactEmail","source_account_id":"SourceAccountID","created_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_at":"2019-01-01T12:00:00.000Z","updated_by":"UpdatedBy"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -825,7 +826,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "source_account_id": "SourceAccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully with retries`, func() {
@@ -879,7 +880,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "source_account_id": "SourceAccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully`, func() {
@@ -1166,7 +1167,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(createAccountPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
+					res.WriteHeader(202)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
@@ -1183,12 +1184,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
 				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
+				createAccountOptionsModel.Options = createAccountRequestOptionsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseManagementService.CreateAccount(createAccountOptionsModel)
@@ -1240,7 +1246,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
+					res.WriteHeader(202)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
 				}))
 			})
@@ -1258,12 +1264,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
 				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
+				createAccountOptionsModel.Options = createAccountRequestOptionsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1318,7 +1329,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
+					res.WriteHeader(202)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
 				}))
 			})
@@ -1341,12 +1352,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
 				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
+				createAccountOptionsModel.Options = createAccountRequestOptionsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1369,12 +1385,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
 				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
+				createAccountOptionsModel.Options = createAccountRequestOptionsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := enterpriseManagementService.SetServiceURL("")
@@ -1402,7 +1423,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Set success status code with no respoonse body
-					res.WriteHeader(201)
+					res.WriteHeader(202)
 				}))
 			})
 			It(`Invoke CreateAccount successfully`, func() {
@@ -1418,12 +1439,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountRequestTraitsModel.Mfa = core.StringPtr("testString")
 				createAccountRequestTraitsModel.EnterpriseIamManaged = core.BoolPtr(true)
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Traits = createAccountRequestTraitsModel
+				createAccountOptionsModel.Options = createAccountRequestOptionsModel
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1690,14 +1716,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid successfully`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountsResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com?next_docid=abc-123")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextNextDocid without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountsResponse)
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -1705,7 +1731,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountsResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2661,14 +2687,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid successfully`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountGroupsResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com?next_docid=abc-123")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextNextDocid without a "NextURL" property in the response`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountGroupsResponse)
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -2676,7 +2702,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke GetNextNextDocid without any query params in the "NextURL" URL`, func() {
 				responseObject := new(enterprisemanagementv1.ListAccountGroupsResponse)
 				responseObject.NextURL = core.StringPtr("ibm.com")
-	
+
 				value, err := responseObject.GetNextNextDocid()
 				Expect(err).To(BeNil())
 				Expect(value).To(BeNil())
@@ -3160,6 +3186,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(createAccountRequestTraitsModel.Mfa).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountRequestTraitsModel.EnterpriseIamManaged).To(Equal(core.BoolPtr(true)))
 
+				// Construct an instance of the CreateAccountRequestOptions model
+				createAccountRequestOptionsModel := new(enterprisemanagementv1.CreateAccountRequestOptions)
+				Expect(createAccountRequestOptionsModel).ToNot(BeNil())
+				createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+				Expect(createAccountRequestOptionsModel.CreateIamServiceIDWithApikeyAndOwnerPolicies).To(Equal(core.BoolPtr(true)))
+
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsParent := "testString"
 				createAccountOptionsName := "testString"
@@ -3169,12 +3201,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsModel.SetName("testString")
 				createAccountOptionsModel.SetOwnerIamID("testString")
 				createAccountOptionsModel.SetTraits(createAccountRequestTraitsModel)
+				createAccountOptionsModel.SetOptions(createAccountRequestOptionsModel)
 				createAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAccountOptionsModel).ToNot(BeNil())
 				Expect(createAccountOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountOptionsModel.OwnerIamID).To(Equal(core.StringPtr("testString")))
 				Expect(createAccountOptionsModel.Traits).To(Equal(createAccountRequestTraitsModel))
+				Expect(createAccountOptionsModel.Options).To(Equal(createAccountRequestOptionsModel))
 				Expect(createAccountOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateEnterpriseOptions successfully`, func() {
@@ -3362,6 +3396,46 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalCreateAccountRequestOptions successfully`, func() {
+			// Construct an instance of the model.
+			model := new(enterprisemanagementv1.CreateAccountRequestOptions)
+			model.CreateIamServiceIDWithApikeyAndOwnerPolicies = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *enterprisemanagementv1.CreateAccountRequestOptions
+			err = enterprisemanagementv1.UnmarshalCreateAccountRequestOptions(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalCreateAccountRequestTraits successfully`, func() {
+			// Construct an instance of the model.
+			model := new(enterprisemanagementv1.CreateAccountRequestTraits)
+			model.Mfa = core.StringPtr("testString")
+			model.EnterpriseIamManaged = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *enterprisemanagementv1.CreateAccountRequestTraits
+			err = enterprisemanagementv1.UnmarshalCreateAccountRequestTraits(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
+
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
@@ -3391,8 +3465,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 //
 
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+	ba := []byte(mockData)
 	return &ba
 }
 
