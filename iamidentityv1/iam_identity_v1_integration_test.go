@@ -396,6 +396,50 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DisableAPIKey - Enable the API key`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DisableAPIKey(disableAPIKeyOptions *DisableAPIKeyOptions)`, func() {
+			Expect(apikeyId2).ToNot(BeEmpty())
+
+			disableAPIKeyOptions := &iamidentityv1.DisableAPIKeyOptions{
+				ID: &apikeyId2,
+			}
+
+			response, err := iamIdentityService.DisableAPIKey(disableAPIKeyOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			apiKey := getAPIkey(iamIdentityService, apikeyId2)
+			Expect(apiKey).ToNot(BeNil())
+			Expect(*apiKey.Disabled).To(BeTrue())
+		})
+	})
+
+	Describe(`EnableAPIKey - Enable the API key`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`EnableAPIKey(enableAPIKeyOptions *EnableAPIKeyOptions)`, func() {
+			Expect(apikeyId2).ToNot(BeEmpty())
+
+			enableAPIKeyOptions := &iamidentityv1.EnableAPIKeyOptions{
+				ID: &apikeyId2,
+			}
+
+			response, err := iamIdentityService.EnableAPIKey(enableAPIKeyOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			apiKey := getAPIkey(iamIdentityService, apikeyId2)
+			Expect(apiKey).ToNot(BeNil())
+			Expect(*apiKey.Disabled).To(BeFalse())
+		})
+	})
+
 	Describe(`DeleteAPIKey1 - Deletes an API key1`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
