@@ -1,3 +1,10 @@
+## [0.61.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.3...v0.61.4) (2024-03-25)
+
+
+### Bug Fixes
+
+* **Enterprise Management:** add options property to create_account payload ([#313](https://github.com/IBM/platform-services-go-sdk/issues/313)) ([4d1bbc4](https://github.com/IBM/platform-services-go-sdk/commit/4d1bbc4e3256a271e60e7cd32e5822f6a44c3f11))
+
 ## [0.61.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.2...v0.61.3) (2024-03-22)
 
 
