@@ -1,3 +1,10 @@
+# [0.62.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.4...v0.62.0) (2024-03-25)
+
+
+### Features
+
+* **IAM Identity:** add disable_api_key and enable_api_key operations ([#309](https://github.com/IBM/platform-services-go-sdk/issues/309)) ([2480803](https://github.com/IBM/platform-services-go-sdk/commit/2480803e47466bdbf1d4aedb5a53509e574b9870))
+
 ## [0.61.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.3...v0.61.4) (2024-03-25)
 
 
