@@ -1,7 +1,8 @@
 //go:build integration
+// +build integration
 
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +45,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
 
-	const notFoundRouteID = "ffffffff-2222-2222-2222-222222222222"
+	const notFoundRouteID =  "ffffffff-2222-2222-2222-222222222222"
 
 	const badTargetType = "bad_target_type"
 
@@ -178,14 +179,14 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Topic:     core.StringPtr("my-test-topic"),
-				Brokers:   []string{"kafka-x:9094"},
-				APIKey:    core.StringPtr("xxxxxxxxxxx"),
+				Topic: core.StringPtr("my-test-topic"),
+				Brokers: []string{"kafka-x:9094"},
+				APIKey: core.StringPtr("xxxxxxxxxxx"),
 			}
 
 			createTargetOptions := &atrackerv2.CreateTargetOptions{
-				Name:                 core.StringPtr("my-ies-target"),
-				TargetType:           core.StringPtr("event_streams"),
+				Name:           core.StringPtr("my-ies-target"),
+				TargetType:     core.StringPtr("event_streams"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
 
@@ -420,14 +421,14 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Topic:     core.StringPtr("my-test-topic"),
-				Brokers:   []string{"kafka-x:9094"},
-				APIKey:    core.StringPtr("xxxxxxxxxxxxx"),
+				Topic: core.StringPtr("my-test-topic"),
+				Brokers: []string{"kafka-x:9094"},
+				APIKey: core.StringPtr("xxxxxxxxxxxxx"),
 			}
 
 			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
-				ID:                   &targetIDLink3,
-				Name:                 core.StringPtr("my-ies-target-modified"),
+				ID:             &targetIDLink3,
+				Name:           core.StringPtr("my-ies-target-modified"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
 
@@ -436,6 +437,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
 		})
+
 
 		It(`Returns 404 when target id is not found`, func() {
 

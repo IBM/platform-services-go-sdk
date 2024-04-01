@@ -1,7 +1,8 @@
 //go:build examples
+// +build examples
 
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +30,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the atracker service.
 //
 // The following configuration properties are assumed to be defined:
@@ -40,6 +42,7 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../atracker_v2.env"
@@ -142,8 +145,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-create_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{targetIDLink},
-				Locations: []string{"us-south"},
+				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
 			}
 
 			createRouteOptions := atrackerService.NewCreateRouteOptions(
@@ -301,8 +303,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-replace_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{targetIDLink},
-				Locations: []string{"us-south"},
+				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
 			}
 
 			replaceRouteOptions := atrackerService.NewReplaceRouteOptions(
@@ -368,28 +369,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(settings).ToNot(BeNil())
 
 		})
-
-		It(`DeleteRoute request example`, func() {
-			// begin-delete_route
-
-			deleteRouteOptions := atrackerService.NewDeleteRouteOptions(
-				routeIDLink,
-			)
-
-			response, err := atrackerService.DeleteRoute(deleteRouteOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteRoute(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_route
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
 		It(`DeleteTarget request example`, func() {
 			fmt.Println("\nDeleteTarget() result:")
 			// begin-delete_target
@@ -410,6 +389,27 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(warningReport).ToNot(BeNil())
+
+		})
+		It(`DeleteRoute request example`, func() {
+			// begin-delete_route
+
+			deleteRouteOptions := atrackerService.NewDeleteRouteOptions(
+				routeIDLink,
+			)
+
+			response, err := atrackerService.DeleteRoute(deleteRouteOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteRoute(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_route
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 
 		})
 	})
