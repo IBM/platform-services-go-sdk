@@ -1,3 +1,10 @@
+## [0.62.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.0...v0.62.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* **ATracker:** add support for Cloud Logs target type ([#314](https://github.com/IBM/platform-services-go-sdk/issues/314)) ([9bfbb78](https://github.com/IBM/platform-services-go-sdk/commit/9bfbb78518369f5e46966706d3a48f9911630267))
+
 # [0.62.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.61.4...v0.62.0) (2024-03-25)
 
 
