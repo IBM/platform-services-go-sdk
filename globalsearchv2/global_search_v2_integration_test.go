@@ -26,7 +26,6 @@ import (
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
-	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -48,8 +47,6 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 		globalSearchService *globalsearchv2.GlobalSearchV2
 		serviceURL          string
 		config              map[string]string
-
-		transactionID = uuid.New().String()
 		gstQuery      = "GST-sdk*"
 	)
 
@@ -116,7 +113,6 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 					Query:         &gstQuery,
 					Fields:        []string{"*"},
 					SearchCursor:  searchCursor,
-					TransactionID: &transactionID,
 					Limit:         &limit,
 				}
 
