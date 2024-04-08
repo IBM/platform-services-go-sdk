@@ -756,7 +756,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`CreatePolicyS2STemplate request example`, func() {
 			fmt.Println("\nCreatePolicyS2STemplate() result:")
-			// begin-create_policy_template
+			// begin-create_authorization_policy_template
 
 			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
@@ -816,7 +816,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			examplePolicyS2STemplateVersion = *policyTemplate.Version
 			fmt.Println(string(b))
 
-			// end-create_policy_template
+			// end-create_authorization_policy_template
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -903,7 +903,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`CreatePolicyS2STemplateVersion request example`, func() {
 			fmt.Println("\nCreatePolicyS2STemplateVersion() result:")
-			// begin-create_policy_template_version
+			// begin-create_authorization_policy_template_version
 
 			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
@@ -960,7 +960,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			examplePolicyS2SUpdateTemplateVersion = *policyTemplate.Version
 			fmt.Println(string(b))
 
-			// end-create_policy_template_version
+			// end-create_authorization_policy_template_version
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
