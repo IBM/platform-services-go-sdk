@@ -1,3 +1,10 @@
+## [0.62.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.2...v0.62.3) (2024-04-10)
+
+
+### Bug Fixes
+
+* **ATracker:** remove endpoint field from CloudlogsEndpoint ([#318](https://github.com/IBM/platform-services-go-sdk/issues/318)) ([51b4afc](https://github.com/IBM/platform-services-go-sdk/commit/51b4afc566cfbff990c9b89a3ca6b59678fdf341))
+
 ## [0.62.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.1...v0.62.2) (2024-04-02)
 
 
