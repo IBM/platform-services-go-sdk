@@ -1,3 +1,10 @@
+## [0.62.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.4...v0.62.5) (2024-04-10)
+
+
+### Bug Fixes
+
+* bump golang.org/x/net to avoid CVE-2023-45288 ([#319](https://github.com/IBM/platform-services-go-sdk/issues/319)) ([17ac6ee](https://github.com/IBM/platform-services-go-sdk/commit/17ac6ee103218bb611dafdc6023ddc5248f3e157))
+
 ## [0.62.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.3...v0.62.4) (2024-04-10)
 
 
