@@ -1032,19 +1032,12 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 type CloudLogsEndpoint struct {
 	// The CRN of the IBM Cloud Logs instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
-
-	// The host name of the IBM Cloud Logs endpoint.
-	Endpoint *string `json:"endpoint" validate:"required"`
 }
 
 // UnmarshalCloudLogsEndpoint unmarshals an instance of CloudLogsEndpoint from the specified map of raw messages.
 func UnmarshalCloudLogsEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CloudLogsEndpoint)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
 		return
 	}
@@ -1056,16 +1049,12 @@ func UnmarshalCloudLogsEndpoint(m map[string]json.RawMessage, result interface{}
 type CloudLogsEndpointPrototype struct {
 	// The CRN of the IBM Cloud Logs instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
-
-	// The host name of the IBM Cloud Logs endpoint.
-	Endpoint *string `json:"endpoint" validate:"required"`
 }
 
 // NewCloudLogsEndpointPrototype : Instantiate CloudLogsEndpointPrototype (Generic Model Constructor)
-func (*AtrackerV2) NewCloudLogsEndpointPrototype(targetCRN string, endpoint string) (_model *CloudLogsEndpointPrototype, err error) {
+func (*AtrackerV2) NewCloudLogsEndpointPrototype(targetCRN string) (_model *CloudLogsEndpointPrototype, err error) {
 	_model = &CloudLogsEndpointPrototype{
 		TargetCRN: core.StringPtr(targetCRN),
-		Endpoint: core.StringPtr(endpoint),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -1075,10 +1064,6 @@ func (*AtrackerV2) NewCloudLogsEndpointPrototype(targetCRN string, endpoint stri
 func UnmarshalCloudLogsEndpointPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CloudLogsEndpointPrototype)
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
 	if err != nil {
 		return
 	}
