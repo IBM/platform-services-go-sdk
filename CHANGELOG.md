@@ -1,3 +1,10 @@
+## [0.62.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.3...v0.62.4) (2024-04-10)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** S2S support for enterprise accounts ([#317](https://github.com/IBM/platform-services-go-sdk/issues/317)) ([4d65f3d](https://github.com/IBM/platform-services-go-sdk/commit/4d65f3d89a8e750b872997e765ec7d0a2f521779))
+
 ## [0.62.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.2...v0.62.3) (2024-04-10)
 
 
