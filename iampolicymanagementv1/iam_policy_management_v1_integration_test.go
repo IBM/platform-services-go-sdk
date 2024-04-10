@@ -56,16 +56,23 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
 		testServiceName   string = "iam-groups"
 
-		testCustomRoleId          string = ""
-		testCustomRoleETag        string = ""
-		testCustomRoleName        string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-		testServiceRoleCrn        string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
-		testPolicyTemplateID      string = ""
-		testPolicyTemplateETag    string = ""
-		testPolicyTemplateVersion string = ""
-		testPolicyAssignmentId    string = ""
-		examplePolicyTemplateName        = "PolicySampleTemplateTestV1"
-		assignmentPolicyID        string
+		testCustomRoleId                   string = ""
+		testCustomRoleETag                 string = ""
+		testCustomRoleName                 string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn                 string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testPolicyTemplateID               string = ""
+		testPolicyS2STemplateID            string = ""
+		testPolicyS2STemplateVersion       string = ""
+		testPolicyS2SUpdateTemplateVersion string = ""
+		testPolicyTemplateETag             string = ""
+		testPolicyTemplateVersion          string = ""
+		testPolicyAssignmentId             string = ""
+		examplePolicyTemplateName          string = "PolicySampleTemplateTestV1"
+		assignmentPolicyID                 string
+		testTargetAccountID                string = ""
+		assignmentRequesterId              string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
+		assignmentID                       string = "orchestrator-id"
+		testPolicyAssignmentETag           string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -83,7 +90,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		config, err = core.GetServiceProperties(iampolicymanagementv1.DefaultServiceName)
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
-			if testAccountID != "" {
+			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
+			if testAccountID != "" || testTargetAccountID != "" {
 				configLoaded = true
 			}
 		}
@@ -705,6 +713,73 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`CreatePolicyS2STemplate - Create a s2s policy template`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("cloud-object-storage"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			v2PolicySubjectAttributeModel := &iampolicymanagementv1.V2PolicySubjectAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("compliance"),
+			}
+
+			v2PolicySubjectModel := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("authorization"),
+				Description: core.StringPtr("Test Policy For S2S Template"),
+				Resource:    v2PolicyResourceModel,
+				Subject:     v2PolicySubjectModel,
+				Control:     controlModel,
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
+				Name:           core.StringPtr("S2S-Test"),
+				AccountID:      &testAccountID,
+				Policy:         templatePolicyModel,
+				Description:    core.StringPtr("Test PolicySampleTemplate"),
+				Committed:      core.BoolPtr(true),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplate(createPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("authorization")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testPolicyS2STemplateID = *policyTemplate.ID
+			testPolicyS2STemplateVersion = *policyTemplate.Version
+		})
+	})
+
 	Describe(`ListPolicyTemplates - Get policy templates by attributes`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -799,6 +874,67 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			testPolicyTemplateVersion = *policyTemplate.Version
 			testPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`CreatePolicyS2STemplateVersion - Create a new policy s2s template version`, func() {
+		It(`CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("kms"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			v2PolicySubjectAttributeModel := &iampolicymanagementv1.V2PolicySubjectAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("compliance"),
+			}
+
+			v2PolicySubjectModel := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader"),
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("authorization"),
+				Description: core.StringPtr("Test Policy For S2S Template"),
+				Resource:    v2PolicyResourceModel,
+				Subject:     v2PolicySubjectModel,
+				Control:     controlModel,
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateVersionOptions{
+				Policy:           templatePolicyModel,
+				PolicyTemplateID: core.StringPtr(testPolicyS2STemplateID),
+				Description:      core.StringPtr("Test PolicySampleTemplate"),
+				Committed:        core.BoolPtr(true),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplateVersion(createPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("authorization")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testPolicyS2SUpdateTemplateVersion = *policyTemplate.Version
 		})
 	})
 
@@ -913,6 +1049,69 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`CreatePolicyAssignments - Create policy assignments by templates`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions)`, func() {
+			template := iampolicymanagementv1.AssignmentTemplateDetails{
+				ID:      &testPolicyS2STemplateID,
+				Version: &testPolicyS2STemplateVersion,
+			}
+			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: core.StringPtr("Account"),
+				ID:   &testTargetAccountID,
+			}
+
+			options := &iampolicymanagementv1.PolicyAssignmentV1Options{
+				Root: &iampolicymanagementv1.PolicyAssignmentV1OptionsRoot{
+					RequesterID:  &assignmentRequesterId,
+					AssignmentID: &assignmentID,
+				},
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
+				Version:   core.StringPtr("1.0"),
+				Target:    target,
+				Options:   options,
+				Templates: templates,
+			}
+
+			policyAssignment, response, err := service.CreatePolicyTemplateAssignment(createPolicyTemplateVersionOptions)
+			var assignmentDetails = policyAssignment.Assignments[0]
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(*assignmentDetails.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
+			testPolicyAssignmentETag = response.GetHeaders().Get(etagHeader)
+			testPolicyAssignmentId = *assignmentDetails.ID
+		})
+	})
+
+	Describe(`UpdatePolicyAssignment - update a policy assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		Expect(testPolicyAssignmentETag).To(Not(BeNil()))
+		It(`UpdatePolicyAssignment(updatePolicyAssignmentOptions *UpdatePolicyAssignmentOptions))`, func() {
+			updatePolicyAssignmentOptions := &iampolicymanagementv1.UpdatePolicyAssignmentOptions{
+				AssignmentID:    core.StringPtr(testPolicyAssignmentId),
+				Version:         core.StringPtr("1.0"),
+				TemplateVersion: core.StringPtr(testPolicyS2SUpdateTemplateVersion),
+				IfMatch:         core.StringPtr(testPolicyAssignmentETag),
+			}
+
+			policyAssignment, response, err := service.UpdatePolicyAssignment(updatePolicyAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(*policyAssignment.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*policyAssignment.ID).To(Equal(testPolicyAssignmentId))
+		})
+	})
+
 	Describe(`ListPolicyAssignments - Get policies template assignments by attributes`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -921,29 +1120,30 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			listPolicyAssignmentsOptions := &iampolicymanagementv1.ListPolicyAssignmentsOptions{
 				AccountID:      core.StringPtr(testAccountID),
 				AcceptLanguage: core.StringPtr("default"),
+				Version:        core.StringPtr("1.0"),
 			}
 
-			polcyTemplateAssignmentCollection, response, err := service.ListPolicyAssignments(listPolicyAssignmentsOptions)
+			policyTemplateAssignmentCollection, response, err := service.ListPolicyAssignments(listPolicyAssignmentsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(polcyTemplateAssignmentCollection).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].TemplateID).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].TargetType).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].TemplateVersion).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].Target).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].AssignmentID).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].Options).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].Status).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].AccountID).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].Resources).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].CreatedAt).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].CreatedByID).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].LastModifiedAt).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].LastModifiedByID).ToNot(BeNil())
-			Expect(polcyTemplateAssignmentCollection.Assignments[0].Href).ToNot(BeNil())
+			Expect(policyTemplateAssignmentCollection).ToNot(BeNil())
+			var assignmentDetails = policyTemplateAssignmentCollection.Assignments[0].(*iampolicymanagementv1.PolicyTemplateAssignmentItems)
 
-			testPolicyAssignmentId = *polcyTemplateAssignmentCollection.Assignments[0].ID
+			Expect(*assignmentDetails).ToNot(BeNil())
+			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Options).ToNot(BeNil())
+			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
+			Expect(*assignmentDetails.Status).ToNot(BeNil())
+			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(assignmentDetails.Resources).ToNot(BeNil())
+			Expect(*assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(*assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(*assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(*assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(*assignmentDetails.Href).ToNot(BeNil())
 		})
 	})
 
@@ -954,27 +1154,28 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions)`, func() {
 			getPolicyAssignmentOptions := &iampolicymanagementv1.GetPolicyAssignmentOptions{
 				AssignmentID: core.StringPtr(testPolicyAssignmentId),
+				Version:      core.StringPtr("1.0"),
 			}
 
 			policyAssignmentRecord, response, err := service.GetPolicyAssignment(getPolicyAssignmentOptions)
 			Expect(err).To(BeNil())
+			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.GetPolicyAssignmentResponse)
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(policyAssignmentRecord).ToNot(BeNil())
-			Expect(policyAssignmentRecord.TemplateID).ToNot(BeNil())
-			Expect(policyAssignmentRecord.TargetType).ToNot(BeNil())
-			Expect(policyAssignmentRecord.TemplateVersion).ToNot(BeNil())
-			Expect(policyAssignmentRecord.Target).ToNot(BeNil())
-			Expect(policyAssignmentRecord.AssignmentID).ToNot(BeNil())
-			Expect(policyAssignmentRecord.Options).ToNot(BeNil())
-			Expect(policyAssignmentRecord.Status).ToNot(BeNil())
-			Expect(policyAssignmentRecord.AccountID).ToNot(BeNil())
-			Expect(policyAssignmentRecord.Resources).ToNot(BeNil())
-			Expect(policyAssignmentRecord.CreatedAt).ToNot(BeNil())
-			Expect(policyAssignmentRecord.CreatedByID).ToNot(BeNil())
-			Expect(policyAssignmentRecord.LastModifiedAt).ToNot(BeNil())
-			Expect(policyAssignmentRecord.LastModifiedByID).ToNot(BeNil())
-			Expect(policyAssignmentRecord.Href).ToNot(BeNil())
-			assignmentPolicyID = *policyAssignmentRecord.Resources[0].Policy.ResourceCreated.ID
+			Expect(*assignmentDetails).ToNot(BeNil())
+			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
+			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
+			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Options).ToNot(BeNil())
+			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
+			Expect(*assignmentDetails.Status).ToNot(BeNil())
+			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
+			Expect(*assignmentDetails.CreatedAt).ToNot(BeNil())
+			Expect(*assignmentDetails.CreatedByID).ToNot(BeNil())
+			Expect(*assignmentDetails.LastModifiedAt).ToNot(BeNil())
+			Expect(*assignmentDetails.LastModifiedByID).ToNot(BeNil())
+			Expect(*assignmentDetails.Href).ToNot(BeNil())
+			assignmentPolicyID = *assignmentDetails.Resources[0].Policy.ResourceCreated.ID
 		})
 	})
 
@@ -995,6 +1196,21 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policy.Template.ID).ToNot(BeNil())
 			Expect(policy.Template.Version).ToNot(BeNil())
 			Expect(policy.Template.AssignmentID).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeletePolicyAssignment - Delete a policy assignment by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyAssignment(deletePolicyAssignmentOptions *DeletePolicyAssignmentOptions)`, func() {
+			deletePolicyAssignmentOptions := &iampolicymanagementv1.DeletePolicyAssignmentOptions{
+				AssignmentID: core.StringPtr(testPolicyAssignmentId),
+			}
+
+			response, err := service.DeletePolicyAssignment(deletePolicyAssignmentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
@@ -1021,6 +1237,21 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
 			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
 				PolicyTemplateID: &testPolicyTemplateID,
+			}
+
+			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeletePolicyS2STemplate - Delete a policy s2s template by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
+			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
+				PolicyTemplateID: &testPolicyS2STemplateID,
 			}
 
 			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
