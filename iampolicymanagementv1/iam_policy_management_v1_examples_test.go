@@ -57,27 +57,25 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		config                     map[string]string
 		configLoaded               bool = false
 
-		exampleUserID                         = "IBMid-user1"
-		exampleServiceName                    = "iam-groups"
-		exampleAccountID                      string
-		examplePolicyID                       string
-		examplePolicyETag                     string
-		exampleCustomRoleID                   string
-		exampleCustomRoleETag                 string
-		examplePolicyTemplateName             = "PolicySampleTemplateTest"
-		examplePolicyTemplateID               string
-		examplePolicyTemplateETag             string
-		examplePolicyTemplateVersion          string
-		testPolicyAssignmentId                string
-		exampleAssignmentPolicyID             string
-		exampleTargetAccountID                string = ""
-		exampleAssignmentRequesterId          string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-		assignmentID                          string = "orchestrator-id"
-		examplePolicyAssignmentETag           string = ""
-		examplePolicyS2SUpdateTemplateVersion string = ""
-		examplePolicyS2STemplateID            string = ""
-		examplePolicyS2STemplateVersion       string = ""
-		exampleETagHeader                     string = "ETag"
+		exampleUserID                    = "IBMid-user1"
+		exampleServiceName               = "iam-groups"
+		exampleAccountID                 string
+		examplePolicyID                  string
+		examplePolicyETag                string
+		exampleCustomRoleID              string
+		exampleCustomRoleETag            string
+		examplePolicyTemplateName        = "PolicySampleTemplateTest"
+		examplePolicyTemplateID          string
+		examplePolicyTemplateETag        string
+		examplePolicyTemplateBaseVersion string
+		examplePolicyTemplateVersion     string
+		testPolicyAssignmentId           string
+		exampleAssignmentPolicyID        string
+		exampleTargetAccountID           string = ""
+		exampleAssignmentRequesterId     string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
+		assignmentID                     string = "orchestrator-id"
+		examplePolicyAssignmentETag      string = ""
+		exampleETagHeader                string = "ETag"
 	)
 
 	var shouldSkipTest = func() {
@@ -703,12 +701,12 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplateCollection).ToNot(BeNil())
 		})
-		It(`CreatePolicyTemplate request example`, func() {
+		It(`CreatePolicyS2STemplate request example`, func() {
 			fmt.Println("\nCreatePolicyTemplate() result:")
 			// begin-create_policy_template
 
 			policyRole := &iampolicymanagementv1.Roles{
-				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
 			}
 			v2PolicyGrant := &iampolicymanagementv1.Grant{
 				Roles: []iampolicymanagementv1.Roles{*policyRole},
@@ -719,18 +717,29 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
 				Operator: core.StringPtr("stringEquals"),
-				Value:    core.StringPtr("iam-access-management"),
+				Value:    core.StringPtr("cloud-object-storage"),
 			}
+
 			policyResource := &iampolicymanagementv1.V2PolicyResource{
 				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
 					*serviceNameResourceAttribute},
 			}
+			v2PolicySubjectAttributeModel := &iampolicymanagementv1.V2PolicySubjectAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("compliance"),
+			}
+
+			policySubject := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel},
+			}
 
 			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("access"),
+				Type:        core.StringPtr("authorization"),
 				Description: core.StringPtr("Test Template"),
 				Resource:    policyResource,
 				Control:     v2PolicyControl,
+				Subject:     policySubject,
 			}
 
 			createPolicyTemplateOptions := iamPolicyManagementService.NewCreatePolicyTemplateOptions(
@@ -745,78 +754,11 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
 			examplePolicyTemplateID = *policyTemplate.ID
+			examplePolicyTemplateBaseVersion = *policyTemplate.Version
+			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-create_policy_template
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(policyTemplate).ToNot(BeNil())
-		})
-
-		It(`CreatePolicyS2STemplate request example`, func() {
-			fmt.Println("\nCreatePolicyS2STemplate() result:")
-			// begin-create_authorization_policy_template
-
-			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:      core.StringPtr("serviceName"),
-				Operator: core.StringPtr("stringEquals"),
-				Value:    core.StringPtr("cloud-object-storage"),
-			}
-
-			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
-				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
-			}
-
-			v2PolicySubjectAttributeModel := &iampolicymanagementv1.V2PolicySubjectAttribute{
-				Key:      core.StringPtr("serviceName"),
-				Operator: core.StringPtr("stringEquals"),
-				Value:    core.StringPtr("compliance"),
-			}
-
-			v2PolicySubjectModel := &iampolicymanagementv1.V2PolicySubject{
-				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel},
-			}
-
-			rolesModel := &iampolicymanagementv1.Roles{
-				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Writer"),
-			}
-
-			grantModel := &iampolicymanagementv1.Grant{
-				Roles: []iampolicymanagementv1.Roles{*rolesModel},
-			}
-
-			controlModel := &iampolicymanagementv1.Control{
-				Grant: grantModel,
-			}
-
-			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("authorization"),
-				Description: core.StringPtr("Test Policy For S2S Template"),
-				Resource:    v2PolicyResourceModel,
-				Subject:     v2PolicySubjectModel,
-				Control:     controlModel,
-			}
-
-			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
-				Name:           core.StringPtr("S2S-Test"),
-				AccountID:      &exampleAccountID,
-				Policy:         templatePolicyModel,
-				Description:    core.StringPtr("Test PolicySampleTemplate"),
-				Committed:      core.BoolPtr(true),
-				AcceptLanguage: core.StringPtr("default"),
-			}
-
-			policyTemplate, response, err := iamPolicyManagementService.CreatePolicyTemplate(createPolicyTemplateOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
-			examplePolicyS2STemplateID = *policyTemplate.ID
-			examplePolicyS2STemplateVersion = *policyTemplate.Version
-			fmt.Println(string(b))
-
-			// end-create_authorization_policy_template
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -836,7 +778,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
-			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
 			fmt.Println(string(b))
 
 			// end-get_policy_template
@@ -849,62 +790,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policyTemplate.Policy).ToNot(BeNil())
 		})
 
-		It(`CreatePolicyTemplateVersion request example`, func() {
+		It(`CreatePolicyS2STemplateVersion request example`, func() {
 			fmt.Println("\nCreatePolicyTemplateVersion() result:")
 			// begin-create_policy_template_version
-
-			v2PolicyGrant := &iampolicymanagementv1.Grant{
-				Roles: []iampolicymanagementv1.Roles{
-					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer")},
-					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Administrator")},
-				},
-			}
-
-			v2PolicyControl := &iampolicymanagementv1.Control{
-				Grant: v2PolicyGrant,
-			}
-			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
-				Key:      core.StringPtr("serviceName"),
-				Operator: core.StringPtr("stringEquals"),
-				Value:    core.StringPtr("watson"),
-			}
-			policyResource := &iampolicymanagementv1.V2PolicyResource{
-				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
-					*serviceNameResourceAttribute},
-			}
-
-			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("access"),
-				Description: core.StringPtr("Test Template v2"),
-				Resource:    policyResource,
-				Control:     v2PolicyControl,
-			}
-
-			createPolicyTemplateVersionOptions := iamPolicyManagementService.NewCreatePolicyTemplateVersionOptions(
-				examplePolicyTemplateID,
-				templatePolicyModel,
-			)
-
-			policyTemplate, response, err := iamPolicyManagementService.CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
-			examplePolicyTemplateETag = response.GetHeaders().Get("ETag")
-			examplePolicyTemplateVersion = *policyTemplate.Version
-			fmt.Println(string(b))
-
-			// end-create_policy_template_version
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(policyTemplate).ToNot(BeNil())
-		})
-
-		It(`CreatePolicyS2STemplateVersion request example`, func() {
-			fmt.Println("\nCreatePolicyS2STemplateVersion() result:")
-			// begin-create_authorization_policy_template_version
-
 			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
 				Operator: core.StringPtr("stringEquals"),
@@ -947,7 +835,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateVersionOptions{
 				Policy:           templatePolicyModel,
-				PolicyTemplateID: core.StringPtr(examplePolicyS2STemplateID),
+				PolicyTemplateID: core.StringPtr(examplePolicyTemplateID),
 				Description:      core.StringPtr("Test PolicySampleTemplate"),
 				Committed:        core.BoolPtr(true),
 			}
@@ -957,10 +845,10 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyTemplate, "", "  ")
-			examplePolicyS2SUpdateTemplateVersion = *policyTemplate.Version
+			examplePolicyTemplateVersion = *policyTemplate.Version
 			fmt.Println(string(b))
 
-			// end-create_authorization_policy_template_version
+			// end-create_policy_template_version
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -989,13 +877,12 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policyTemplateVersionsCollection).ToNot(BeNil())
 		})
 
-		It(`ReplacePolicyTemplate request example`, func() {
+		It(`ReplacePolicyS2STemplate request example`, func() {
 			fmt.Println("\nReplacePolicyTemplate() result:")
 			// begin-replace_policy_template
 			v2PolicyGrant := &iampolicymanagementv1.Grant{
 				Roles: []iampolicymanagementv1.Roles{
-					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer")},
-					{core.StringPtr("crn:v1:bluemix:public:iam::::role:Administrator")},
+					{core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")},
 				},
 			}
 
@@ -1005,23 +892,34 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			serviceNameResourceAttribute := &iampolicymanagementv1.V2PolicyResourceAttribute{
 				Key:      core.StringPtr("serviceName"),
 				Operator: core.StringPtr("stringEquals"),
-				Value:    core.StringPtr("watson"),
+				Value:    core.StringPtr("appid"),
 			}
 			policyResource := &iampolicymanagementv1.V2PolicyResource{
 				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{
 					*serviceNameResourceAttribute},
 			}
 
+			v2PolicySubjectAttributeModel := &iampolicymanagementv1.V2PolicySubjectAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("compliance"),
+			}
+
+			policySubject := &iampolicymanagementv1.V2PolicySubject{
+				Attributes: []iampolicymanagementv1.V2PolicySubjectAttribute{*v2PolicySubjectAttributeModel},
+			}
+
 			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("access"),
+				Type:        core.StringPtr("authorization"),
 				Description: core.StringPtr("Test Template v2"),
 				Resource:    policyResource,
 				Control:     v2PolicyControl,
+				Subject:     policySubject,
 			}
 
 			replacePolicyTemplateOptions := iamPolicyManagementService.NewReplacePolicyTemplateOptions(
 				examplePolicyTemplateID,
-				examplePolicyTemplateVersion,
+				examplePolicyTemplateBaseVersion,
 				examplePolicyTemplateETag,
 				templatePolicyModel,
 			)
@@ -1070,7 +968,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			commitPolicyTemplateOptions := iamPolicyManagementService.NewCommitPolicyTemplateOptions(
 				examplePolicyTemplateID,
-				examplePolicyTemplateVersion,
+				examplePolicyTemplateBaseVersion,
 			)
 
 			response, err := iamPolicyManagementService.CommitPolicyTemplate(commitPolicyTemplateOptions)
@@ -1091,8 +989,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			fmt.Println("\nCreatePolicyTemplateAssignment() result:")
 			// begin-create_policy_assignment
 			template := iampolicymanagementv1.AssignmentTemplateDetails{
-				ID:      &examplePolicyS2STemplateID,
-				Version: &examplePolicyS2STemplateVersion,
+				ID:      &examplePolicyTemplateID,
+				Version: &examplePolicyTemplateBaseVersion,
 			}
 			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
 				template,
@@ -1135,7 +1033,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				testPolicyAssignmentId,
 				"1.0",
 				examplePolicyAssignmentETag,
-				examplePolicyS2SUpdateTemplateVersion,
+				examplePolicyTemplateVersion,
 			)
 
 			policyAssignment, response, err := iamPolicyManagementService.UpdatePolicyAssignment(updatePolicyAssignmentOptions)
@@ -1299,16 +1197,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 			// end-delete_policy_template
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-
-		It(`DeletePolicyS2STemplate request example`, func() {
-			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
-				PolicyTemplateID: &examplePolicyS2STemplateID,
-			}
-
-			response, err := iamPolicyManagementService.DeletePolicyTemplate(deletePolicyTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
