@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,14 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
+				})
 				Expect(usageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +102,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
+				usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
+				})
 				err := usageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(usageReportsService).ToNot(BeNil())
@@ -119,12 +121,13 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_URL":       "https://usagereportsv4/api",
+				"USAGE_REPORTS_URL": "https://usagereportsv4/api",
 				"USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{})
+			usageReportsService, serviceErr := usagereportsv4.NewUsageReportsV4UsingExternalConfig(&usagereportsv4.UsageReportsV4Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(usageReportsService).To(BeNil())
@@ -135,7 +138,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_REPORTS_AUTH_TYPE": "NOAuth",
+				"USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -223,7 +226,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "account_resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "support_resources": ["anyValue"], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "account_resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "support_resources": ["anyValue"], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
 				}))
 			})
 			It(`Invoke GetAccountSummary successfully with retries`, func() {
@@ -278,7 +281,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "account_resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "support_resources": ["anyValue"], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "account_resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "month": "Month", "billing_country_code": "BillingCountryCode", "billing_currency_code": "BillingCurrencyCode", "resources": {"billable_cost": 12, "non_billable_cost": 15}, "offers": [{"offer_id": "OfferID", "credits_total": 12, "offer_template": "OfferTemplate", "valid_from": "2019-01-01T12:00:00.000Z", "expires_on": "2019-01-01T12:00:00.000Z", "credits": {"starting_balance": 15, "used": 4, "balance": 7}}], "support": [{"cost": 4, "type": "Type", "overage": 7}], "support_resources": ["anyValue"], "subscription": {"overage": 7, "subscriptions": [{"subscription_id": "SubscriptionID", "charge_agreement_number": "ChargeAgreementNumber", "type": "Type", "subscription_amount": 18, "start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits_total": 12, "terms": [{"start": "2019-01-01T12:00:00.000Z", "end": "2019-01-01T12:00:00.000Z", "credits": {"total": 5, "starting_balance": 15, "used": 4, "balance": 7}}]}]}}`)
 				}))
 			})
 			It(`Invoke GetAccountSummary successfully`, func() {
@@ -448,7 +451,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetAccountUsage successfully with retries`, func() {
@@ -508,7 +511,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetAccountUsage successfully`, func() {
@@ -685,7 +688,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetResourceGroupUsage successfully with retries`, func() {
@@ -746,7 +749,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetResourceGroupUsage successfully`, func() {
@@ -867,7 +870,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["organization_id"]).To(Equal([]string{"testString"}))
@@ -893,8 +896,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageAccountOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageAccountOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageAccountOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.OrganizationID = core.StringPtr("testString")
@@ -935,7 +939,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["organization_id"]).To(Equal([]string{"testString"}))
@@ -949,7 +953,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageAccount successfully with retries`, func() {
@@ -966,8 +970,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageAccountOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageAccountOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageAccountOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.OrganizationID = core.StringPtr("testString")
@@ -1014,7 +1019,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["organization_id"]).To(Equal([]string{"testString"}))
@@ -1025,7 +1030,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageAccount successfully`, func() {
@@ -1047,8 +1052,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageAccountOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageAccountOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageAccountOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.OrganizationID = core.StringPtr("testString")
@@ -1078,8 +1084,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageAccountOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageAccountOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageAccountOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.OrganizationID = core.StringPtr("testString")
@@ -1130,8 +1137,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageAccountOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageAccountOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageAccountOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageAccountOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageAccountOptionsModel.OrganizationID = core.StringPtr("testString")
@@ -1197,9 +1205,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1214,17 +1222,18 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID:          core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
-					ResourceGroupID:    core.StringPtr("testString"),
-					OrganizationID:     core.StringPtr("testString"),
+					AccountID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
+					ResourceGroupID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1249,17 +1258,18 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageAccountOptionsModel := &usagereportsv4.GetResourceUsageAccountOptions{
-					AccountID:          core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
-					ResourceGroupID:    core.StringPtr("testString"),
-					OrganizationID:     core.StringPtr("testString"),
+					AccountID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
+					ResourceGroupID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptionsModel)
@@ -1286,7 +1296,8 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					// TODO: Add check for _tags query parameter
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1311,8 +1322,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageResourceGroupOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageResourceGroupOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageResourceGroupOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1351,7 +1363,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1363,7 +1375,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageResourceGroup successfully with retries`, func() {
@@ -1381,8 +1393,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageResourceGroupOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageResourceGroupOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageResourceGroupOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1427,7 +1440,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1436,7 +1449,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageResourceGroup successfully`, func() {
@@ -1459,8 +1472,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageResourceGroupOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageResourceGroupOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageResourceGroupOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1489,8 +1503,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageResourceGroupOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageResourceGroupOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageResourceGroupOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1540,8 +1555,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageResourceGroupOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageResourceGroupOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageResourceGroupOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageResourceGroupOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageResourceGroupOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1605,9 +1621,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -1622,16 +1638,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID:          core.StringPtr("testString"),
-					ResourceGroupID:    core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
+					AccountID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -1656,16 +1673,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageResourceGroupOptionsModel := &usagereportsv4.GetResourceUsageResourceGroupOptions{
-					AccountID:          core.StringPtr("testString"),
-					ResourceGroupID:    core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
+					AccountID: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptionsModel)
@@ -1692,7 +1710,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1717,8 +1735,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.OrganizationID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageOrgOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageOrgOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageOrgOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1757,7 +1776,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1769,7 +1788,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageOrg successfully with retries`, func() {
@@ -1787,8 +1806,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.OrganizationID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageOrgOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageOrgOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageOrgOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1833,7 +1853,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// TODO: Add check for _names query parameter
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(30))}))
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
@@ -1842,7 +1862,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "plan_id": "PlanID", "plan_name": "PlanName", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "count": 5, "first": {"href": "Href"}, "next": {"href": "Href", "offset": "Offset"}, "resources": [{"account_id": "AccountID", "resource_instance_id": "ResourceInstanceID", "resource_instance_name": "ResourceInstanceName", "resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "resource_group_id": "ResourceGroupID", "resource_group_name": "ResourceGroupName", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "space_id": "SpaceID", "space_name": "SpaceName", "consumer_id": "ConsumerID", "region": "Region", "pricing_region": "PricingRegion", "pricing_country": "USA", "currency_code": "USD", "billable": true, "parent_resource_instance_id": "ParentResourceInstanceID", "plan_id": "PlanID", "plan_name": "PlanName", "pricing_plan_id": "PricingPlanID", "month": "2017-08", "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "pending": true, "currency_rate": 10.8716, "tags": ["anyValue"], "service_tags": ["anyValue"]}]}`)
 				}))
 			})
 			It(`Invoke GetResourceUsageOrg successfully`, func() {
@@ -1865,8 +1885,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.OrganizationID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageOrgOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageOrgOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageOrgOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1895,8 +1916,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.OrganizationID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageOrgOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageOrgOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageOrgOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceID = core.StringPtr("testString")
@@ -1946,8 +1968,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.OrganizationID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Billingmonth = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.Names = core.BoolPtr(true)
+				getResourceUsageOrgOptionsModel.Tags = core.BoolPtr(true)
 				getResourceUsageOrgOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(1))
+				getResourceUsageOrgOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getResourceUsageOrgOptionsModel.Start = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				getResourceUsageOrgOptionsModel.ResourceID = core.StringPtr("testString")
@@ -2011,9 +2034,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"next":{"href":"https://myhost.com/somePath?_start=1"},"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"plan_id":"PlanID","plan_name":"PlanName","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"account_id":"AccountID","resource_instance_id":"ResourceInstanceID","resource_instance_name":"ResourceInstanceName","resource_id":"ResourceID","catalog_id":"CatalogID","resource_name":"ResourceName","resource_group_id":"ResourceGroupID","resource_group_name":"ResourceGroupName","organization_id":"OrganizationID","organization_name":"OrganizationName","space_id":"SpaceID","space_name":"SpaceName","consumer_id":"ConsumerID","region":"Region","pricing_region":"PricingRegion","pricing_country":"USA","currency_code":"USD","billable":true,"parent_resource_instance_id":"ParentResourceInstanceID","plan_id":"PlanID","plan_name":"PlanName","pricing_plan_id":"PricingPlanID","month":"2017-08","usage":[{"metric":"UP-TIME","metric_name":"UP-TIME","quantity":711.11,"rateable_quantity":700,"cost":123.45,"rated_cost":130.0,"price":["anyValue"],"unit":"HOURS","unit_name":"HOURS","non_chargeable":true,"discounts":[{"ref":"Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9","name":"platform-discount","display_name":"Platform Service Discount","discount":5}]}],"pending":true,"currency_rate":10.8716,"tags":["anyValue"],"service_tags":["anyValue"]}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2028,16 +2051,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID:          core.StringPtr("testString"),
-					OrganizationID:     core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
+					AccountID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -2062,16 +2086,17 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(usageReportsService).ToNot(BeNil())
 
 				getResourceUsageOrgOptionsModel := &usagereportsv4.GetResourceUsageOrgOptions{
-					AccountID:          core.StringPtr("testString"),
-					OrganizationID:     core.StringPtr("testString"),
-					Billingmonth:       core.StringPtr("testString"),
-					Names:              core.BoolPtr(true),
-					AcceptLanguage:     core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(1)),
+					AccountID: core.StringPtr("testString"),
+					OrganizationID: core.StringPtr("testString"),
+					Billingmonth: core.StringPtr("testString"),
+					Names: core.BoolPtr(true),
+					Tags: core.BoolPtr(true),
+					AcceptLanguage: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(30)),
 					ResourceInstanceID: core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					PlanID:             core.StringPtr("testString"),
-					Region:             core.StringPtr("testString"),
+					ResourceID: core.StringPtr("testString"),
+					PlanID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
 				}
 
 				pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptionsModel)
@@ -2157,7 +2182,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetOrgUsage successfully with retries`, func() {
@@ -2218,7 +2243,7 @@ var _ = Describe(`UsageReportsV4`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "organization_id": "OrganizationID", "organization_name": "OrganizationName", "pricing_country": "USA", "currency_code": "USD", "month": "2017-08", "resources": [{"resource_id": "ResourceID", "catalog_id": "CatalogID", "resource_name": "ResourceName", "billable_cost": 12, "billable_rated_cost": 17, "non_billable_cost": 15, "non_billable_rated_cost": 20, "plans": [{"plan_id": "PlanID", "plan_name": "PlanName", "pricing_region": "PricingRegion", "pricing_plan_id": "PricingPlanID", "billable": true, "cost": 4, "rated_cost": 9, "usage": [{"metric": "UP-TIME", "metric_name": "UP-TIME", "quantity": 711.11, "rateable_quantity": 700, "cost": 123.45, "rated_cost": 130.0, "price": ["anyValue"], "unit": "HOURS", "unit_name": "HOURS", "non_chargeable": true, "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}], "pending": true}], "discounts": [{"ref": "Discount-d27beddb-111b-4bbf-8cb1-b770f531c1a9", "name": "platform-discount", "display_name": "Platform Service Discount", "discount": 5}]}], "currency_rate": 10.8716}`)
 				}))
 			})
 			It(`Invoke GetOrgUsage successfully`, func() {
@@ -3944,8 +3969,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageAccountOptionsModel.SetAccountID("testString")
 				getResourceUsageAccountOptionsModel.SetBillingmonth("testString")
 				getResourceUsageAccountOptionsModel.SetNames(true)
+				getResourceUsageAccountOptionsModel.SetTags(true)
 				getResourceUsageAccountOptionsModel.SetAcceptLanguage("testString")
-				getResourceUsageAccountOptionsModel.SetLimit(int64(1))
+				getResourceUsageAccountOptionsModel.SetLimit(int64(30))
 				getResourceUsageAccountOptionsModel.SetStart("testString")
 				getResourceUsageAccountOptionsModel.SetResourceGroupID("testString")
 				getResourceUsageAccountOptionsModel.SetOrganizationID("testString")
@@ -3958,8 +3984,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(getResourceUsageAccountOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageAccountOptionsModel.Billingmonth).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageAccountOptionsModel.Names).To(Equal(core.BoolPtr(true)))
+				Expect(getResourceUsageAccountOptionsModel.Tags).To(Equal(core.BoolPtr(true)))
 				Expect(getResourceUsageAccountOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
-				Expect(getResourceUsageAccountOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(getResourceUsageAccountOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
 				Expect(getResourceUsageAccountOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageAccountOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageAccountOptionsModel.OrganizationID).To(Equal(core.StringPtr("testString")))
@@ -3979,8 +4006,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageOrgOptionsModel.SetOrganizationID("testString")
 				getResourceUsageOrgOptionsModel.SetBillingmonth("testString")
 				getResourceUsageOrgOptionsModel.SetNames(true)
+				getResourceUsageOrgOptionsModel.SetTags(true)
 				getResourceUsageOrgOptionsModel.SetAcceptLanguage("testString")
-				getResourceUsageOrgOptionsModel.SetLimit(int64(1))
+				getResourceUsageOrgOptionsModel.SetLimit(int64(30))
 				getResourceUsageOrgOptionsModel.SetStart("testString")
 				getResourceUsageOrgOptionsModel.SetResourceInstanceID("testString")
 				getResourceUsageOrgOptionsModel.SetResourceID("testString")
@@ -3992,8 +4020,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(getResourceUsageOrgOptionsModel.OrganizationID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageOrgOptionsModel.Billingmonth).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageOrgOptionsModel.Names).To(Equal(core.BoolPtr(true)))
+				Expect(getResourceUsageOrgOptionsModel.Tags).To(Equal(core.BoolPtr(true)))
 				Expect(getResourceUsageOrgOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
-				Expect(getResourceUsageOrgOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(getResourceUsageOrgOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
 				Expect(getResourceUsageOrgOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageOrgOptionsModel.ResourceInstanceID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageOrgOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
@@ -4011,8 +4040,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				getResourceUsageResourceGroupOptionsModel.SetResourceGroupID("testString")
 				getResourceUsageResourceGroupOptionsModel.SetBillingmonth("testString")
 				getResourceUsageResourceGroupOptionsModel.SetNames(true)
+				getResourceUsageResourceGroupOptionsModel.SetTags(true)
 				getResourceUsageResourceGroupOptionsModel.SetAcceptLanguage("testString")
-				getResourceUsageResourceGroupOptionsModel.SetLimit(int64(1))
+				getResourceUsageResourceGroupOptionsModel.SetLimit(int64(30))
 				getResourceUsageResourceGroupOptionsModel.SetStart("testString")
 				getResourceUsageResourceGroupOptionsModel.SetResourceInstanceID("testString")
 				getResourceUsageResourceGroupOptionsModel.SetResourceID("testString")
@@ -4024,8 +4054,9 @@ var _ = Describe(`UsageReportsV4`, func() {
 				Expect(getResourceUsageResourceGroupOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.Billingmonth).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.Names).To(Equal(core.BoolPtr(true)))
+				Expect(getResourceUsageResourceGroupOptionsModel.Tags).To(Equal(core.BoolPtr(true)))
 				Expect(getResourceUsageResourceGroupOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
-				Expect(getResourceUsageResourceGroupOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(getResourceUsageResourceGroupOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(30))))
 				Expect(getResourceUsageResourceGroupOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.ResourceInstanceID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceUsageResourceGroupOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
