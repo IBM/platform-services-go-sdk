@@ -1,3 +1,10 @@
+## [0.62.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.5...v0.62.6) (2024-04-18)
+
+
+### Bug Fixes
+
+* **Usage Reports:** re-gen service after recent API changes ([#320](https://github.com/IBM/platform-services-go-sdk/issues/320)) ([aad1c24](https://github.com/IBM/platform-services-go-sdk/commit/aad1c240d4782f133ac50af27934162ef915b8d3))
+
 ## [0.62.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.4...v0.62.5) (2024-04-10)
 
 
