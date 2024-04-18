@@ -433,27 +433,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ValidateReportsSnapshotConfig - Verify billing to COS authorization`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions)`, func() {
-			validateReportsSnapshotConfigOptions := &usagereportsv4.ValidateReportsSnapshotConfigOptions{
-				AccountID:        &accountID,
-				Interval:         core.StringPtr("daily"),
-				CosBucket:        &cosBucket,
-				CosLocation:      &cosLocation,
-				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
-				Versioning:       core.StringPtr("new"),
-			}
-
-			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(snapshotConfigValidateResponse).ToNot(BeNil())
-		})
-	})
 
 	Describe(`GetReportsSnapshot - Fetch the current or past snapshots`, func() {
 		BeforeEach(func() {
