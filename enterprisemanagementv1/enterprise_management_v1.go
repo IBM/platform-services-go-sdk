@@ -1799,6 +1799,15 @@ func UnmarshalCreateAccountRequestTraits(m map[string]json.RawMessage, result in
 type CreateAccountResponse struct {
 	// The ID of the account entity that was created.
 	AccountID *string `json:"account_id,omitempty"`
+
+	// The iam_service_id of the account entity that was created.
+	IamServiceID *string `json:"iam_service_id,omitempty"`
+
+	// The iam_apikey_id of the account entity that was created.
+	IamApikeyID *string `json:"iam_apikey_id,omitempty"`
+
+	// The iam_apikey of the account entity with owner iam policies that was created.
+	IamApikey *string `json:"iam_apikey,omitempty"`
 }
 
 // UnmarshalCreateAccountResponse unmarshals an instance of CreateAccountResponse from the specified map of raw messages.
