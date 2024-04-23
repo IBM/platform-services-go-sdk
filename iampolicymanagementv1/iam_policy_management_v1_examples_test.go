@@ -987,7 +987,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		It(`CreatePolicyAssignments request example`, func() {
 			fmt.Println("\nCreatePolicyTemplateAssignment() result:")
-			// begin-create_policy_assignment
+			// begin-create_policy_template_assignment
 			template := iampolicymanagementv1.AssignmentTemplateDetails{
 				ID:      &examplePolicyTemplateID,
 				Version: &examplePolicyTemplateBaseVersion,
@@ -1020,7 +1020,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			var assignmentDetails = policyAssignment.Assignments[0]
-			// end-create_policy_assignment
+			// end-create_policy_template_assignment
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			examplePolicyAssignmentETag = response.GetHeaders().Get(exampleETagHeader)
