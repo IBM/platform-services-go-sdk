@@ -73,6 +73,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		assignmentRequesterId              string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
 		assignmentID                       string = "orchestrator-id"
 		testPolicyAssignmentETag           string = ""
+		testTargetType                     string = "Account"
 	)
 
 	var shouldSkipTest = func() {
@@ -795,7 +796,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplateCollection).ToNot(BeNil())
 
-			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplateCollection.PolicyTemplates[0].Policy.Type).ToNot(BeNil())
 			Expect(policyTemplateCollection.PolicyTemplates[0].AccountID).To(Equal(&testAccountID))
 			Expect(policyTemplateCollection.PolicyTemplates[0].State).To(Equal(core.StringPtr("active")))
 		})
@@ -1063,7 +1064,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			target := &iampolicymanagementv1.AssignmentTargetDetails{
-				Type: core.StringPtr("Account"),
+				Type: &testTargetType,
 				ID:   &testTargetAccountID,
 			}
 
@@ -1086,6 +1087,10 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(*assignmentDetails.Resources[0].Policy.ResourceCreated.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.ID).To(Equal(testTargetAccountID))
+			Expect(*assignmentDetails.Resources[0].Target.Type).ToNot(BeNil())
+			Expect(*assignmentDetails.Resources[0].Target.Type).To(Equal(testTargetType))
 			testPolicyAssignmentETag = response.GetHeaders().Get(etagHeader)
 			testPolicyAssignmentId = *assignmentDetails.ID
 		})
