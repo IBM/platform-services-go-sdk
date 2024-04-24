@@ -1247,7 +1247,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "iam_service_id": "IamServiceID", "iam_apikey_id": "IamApikeyID", "iam_apikey": "IamApikey"}`)
 				}))
 			})
 			It(`Invoke CreateAccount successfully with retries`, func() {
@@ -1330,7 +1330,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "iam_service_id": "IamServiceID", "iam_apikey_id": "IamApikeyID", "iam_apikey": "IamApikey"}`)
 				}))
 			})
 			It(`Invoke CreateAccount successfully`, func() {
@@ -3435,7 +3435,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
