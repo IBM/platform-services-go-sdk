@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.87.0-91c7c775-20240320-213027
+ * IBM OpenAPI SDK Code Generator Version: 3.89.1-ed9d96f4-20240417-193115
  */
 
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
@@ -520,7 +520,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 
 	pathParamsMap := map[string]string{
 		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
-		"account_id":    *importAccountToEnterpriseOptions.AccountID,
+		"account_id": *importAccountToEnterpriseOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1624,8 +1624,8 @@ type CreateAccountGroupOptions struct {
 // NewCreateAccountGroupOptions : Instantiate CreateAccountGroupOptions
 func (*EnterpriseManagementV1) NewCreateAccountGroupOptions(parent string, name string, primaryContactIamID string) *CreateAccountGroupOptions {
 	return &CreateAccountGroupOptions{
-		Parent:              core.StringPtr(parent),
-		Name:                core.StringPtr(name),
+		Parent: core.StringPtr(parent),
+		Name: core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1690,7 +1690,7 @@ type CreateAccountOptions struct {
 	Traits *CreateAccountRequestTraits `json:"traits,omitempty"`
 
 	// The options object can be used to set properties on child accounts of an enterprise. You can pass a field to to
-	// create IAM service id with IAM api key when creating a child account in the enterprise. This is an optional field.
+	// create IAM service id with IAM api keyg when creating a child account in the enterprise. This is an optional field.
 	Options *CreateAccountRequestOptions `json:"options,omitempty"`
 
 	// Allows users to set headers on API requests
@@ -1700,8 +1700,8 @@ type CreateAccountOptions struct {
 // NewCreateAccountOptions : Instantiate CreateAccountOptions
 func (*EnterpriseManagementV1) NewCreateAccountOptions(parent string, name string, ownerIamID string) *CreateAccountOptions {
 	return &CreateAccountOptions{
-		Parent:     core.StringPtr(parent),
-		Name:       core.StringPtr(name),
+		Parent: core.StringPtr(parent),
+		Name: core.StringPtr(name),
 		OwnerIamID: core.StringPtr(ownerIamID),
 	}
 }
@@ -1743,7 +1743,7 @@ func (options *CreateAccountOptions) SetHeaders(param map[string]string) *Create
 }
 
 // CreateAccountRequestOptions : The options object can be used to set properties on child accounts of an enterprise. You can pass a field to to
-// create IAM service id with IAM api key when creating a child account in the enterprise. This is an optional field.
+// create IAM service id with IAM api keyg when creating a child account in the enterprise. This is an optional field.
 type CreateAccountRequestOptions struct {
 	// By default create_iam_service_id_with_apikey_and_owner_policies is turned off for a newly created child account. You
 	// can enable this property by passing 'true' in this boolean field. IAM service id has account owner IAM policies and
@@ -1818,6 +1818,21 @@ func UnmarshalCreateAccountResponse(m map[string]json.RawMessage, result interfa
 		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "iam_service_id", &obj.IamServiceID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_apikey_id", &obj.IamApikeyID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_apikey_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_apikey", &obj.IamApikey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_apikey-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1843,8 +1858,8 @@ type CreateEnterpriseOptions struct {
 // NewCreateEnterpriseOptions : Instantiate CreateEnterpriseOptions
 func (*EnterpriseManagementV1) NewCreateEnterpriseOptions(sourceAccountID string, name string, primaryContactIamID string) *CreateEnterpriseOptions {
 	return &CreateEnterpriseOptions{
-		SourceAccountID:     core.StringPtr(sourceAccountID),
-		Name:                core.StringPtr(name),
+		SourceAccountID: core.StringPtr(sourceAccountID),
+		Name: core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -2192,7 +2207,7 @@ type ImportAccountToEnterpriseOptions struct {
 func (*EnterpriseManagementV1) NewImportAccountToEnterpriseOptions(enterpriseID string, accountID string) *ImportAccountToEnterpriseOptions {
 	return &ImportAccountToEnterpriseOptions{
 		EnterpriseID: core.StringPtr(enterpriseID),
-		AccountID:    core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 	}
 }
 
@@ -2642,7 +2657,7 @@ type UpdateAccountOptions struct {
 func (*EnterpriseManagementV1) NewUpdateAccountOptions(accountID string, parent string) *UpdateAccountOptions {
 	return &UpdateAccountOptions{
 		AccountID: core.StringPtr(accountID),
-		Parent:    core.StringPtr(parent),
+		Parent: core.StringPtr(parent),
 	}
 }
 
@@ -2719,11 +2734,13 @@ func (options *UpdateEnterpriseOptions) SetHeaders(param map[string]string) *Upd
 	return options
 }
 
+//
 // EnterprisesPager can be used to simplify the use of the "ListEnterprises" method.
+//
 type EnterprisesPager struct {
-	hasNext     bool
-	options     *ListEnterprisesOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListEnterprisesOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2811,11 +2828,13 @@ func (pager *EnterprisesPager) GetAll() (allItems []Enterprise, err error) {
 	return
 }
 
+//
 // AccountsPager can be used to simplify the use of the "ListAccounts" method.
+//
 type AccountsPager struct {
-	hasNext     bool
-	options     *ListAccountsOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListAccountsOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
@@ -2903,11 +2922,13 @@ func (pager *AccountsPager) GetAll() (allItems []Account, err error) {
 	return
 }
 
+//
 // AccountGroupsPager can be used to simplify the use of the "ListAccountGroups" method.
+//
 type AccountGroupsPager struct {
-	hasNext     bool
-	options     *ListAccountGroupsOptions
-	client      *EnterpriseManagementV1
+	hasNext bool
+	options *ListAccountGroupsOptions
+	client  *EnterpriseManagementV1
 	pageContext struct {
 		next *string
 	}
