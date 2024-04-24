@@ -1743,7 +1743,7 @@ func (options *CreateAccountOptions) SetHeaders(param map[string]string) *Create
 }
 
 // CreateAccountRequestOptions : The options object can be used to set properties on child accounts of an enterprise. You can pass a field to to
-// create IAM service id with IAM api keyg when creating a child account in the enterprise. This is an optional field.
+// create IAM service id with IAM api key when creating a child account in the enterprise. This is an optional field.
 type CreateAccountRequestOptions struct {
 	// By default create_iam_service_id_with_apikey_and_owner_policies is turned off for a newly created child account. You
 	// can enable this property by passing 'true' in this boolean field. IAM service id has account owner IAM policies and
