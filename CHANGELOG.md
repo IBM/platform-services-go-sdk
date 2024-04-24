@@ -1,3 +1,10 @@
+## [0.62.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.6...v0.62.7) (2024-04-24)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** re-gen service after fixing the assignment response ([#321](https://github.com/IBM/platform-services-go-sdk/issues/321)) ([2e4a365](https://github.com/IBM/platform-services-go-sdk/commit/2e4a3650dd3fe5bde6401b05d7ed1ea8f05331ac))
+
 ## [0.62.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.5...v0.62.6) (2024-04-18)
 
 
