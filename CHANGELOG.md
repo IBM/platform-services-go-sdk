@@ -1,3 +1,10 @@
+## [0.62.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.7...v0.62.8) (2024-04-24)
+
+
+### Bug Fixes
+
+* **Enterprise Management:** update create_account response payload ([#322](https://github.com/IBM/platform-services-go-sdk/issues/322)) ([1594f31](https://github.com/IBM/platform-services-go-sdk/commit/1594f317bce6cc694df912e876ee1d4e964dc31f))
+
 ## [0.62.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.6...v0.62.7) (2024-04-24)
 
 
