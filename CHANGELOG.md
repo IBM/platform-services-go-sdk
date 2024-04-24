@@ -1,3 +1,10 @@
+## [0.62.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.8...v0.62.9) (2024-04-24)
+
+
+### Bug Fixes
+
+* **Enterprise Management:** re-gen service with latest API definition ([#323](https://github.com/IBM/platform-services-go-sdk/issues/323)) ([5d05ebe](https://github.com/IBM/platform-services-go-sdk/commit/5d05ebefbb4778682b6c1d4ceb49836380f736d6))
+
 ## [0.62.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.7...v0.62.8) (2024-04-24)
 
 
