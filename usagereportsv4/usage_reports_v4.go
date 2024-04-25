@@ -3346,12 +3346,18 @@ func UnmarshalSnapshotListFirst(m map[string]json.RawMessage, result interface{}
 // SnapshotListNext : Reference to the next page of the search query if any.
 type SnapshotListNext struct {
 	Href *string `json:"href,omitempty"`
+
+	Offset *string `json:"offset,omitempty"`
 }
 
 // UnmarshalSnapshotListNext unmarshals an instance of SnapshotListNext from the specified map of raw messages.
 func UnmarshalSnapshotListNext(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SnapshotListNext)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {	
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
