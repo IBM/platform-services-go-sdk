@@ -1094,6 +1094,101 @@ func (usageReports *UsageReportsV4) DeleteReportsSnapshotConfigWithContext(ctx c
 	return
 }
 
+// ValidateReportsSnapshotConfig : Verify billing to COS authorization
+// Verify billing service to COS bucket authorization for the given account_id. If COS bucket information is not
+// provided, COS bucket information is retrieved from the configuration file.
+func (usageReports *UsageReportsV4) ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions) (result *SnapshotConfigValidateResponse, response *core.DetailedResponse, err error) {
+	result, response, err = usageReports.ValidateReportsSnapshotConfigWithContext(context.Background(), validateReportsSnapshotConfigOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ValidateReportsSnapshotConfigWithContext is an alternate form of the ValidateReportsSnapshotConfig method which supports a Context parameter
+func (usageReports *UsageReportsV4) ValidateReportsSnapshotConfigWithContext(ctx context.Context, validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions) (result *SnapshotConfigValidateResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(validateReportsSnapshotConfigOptions, "validateReportsSnapshotConfigOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(validateReportsSnapshotConfigOptions, "validateReportsSnapshotConfigOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v1/billing-reports-snapshot-config/validate`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range validateReportsSnapshotConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "ValidateReportsSnapshotConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if validateReportsSnapshotConfigOptions.AccountID != nil {
+		body["account_id"] = validateReportsSnapshotConfigOptions.AccountID
+	}
+	if validateReportsSnapshotConfigOptions.Interval != nil {
+		body["interval"] = validateReportsSnapshotConfigOptions.Interval
+	}
+	if validateReportsSnapshotConfigOptions.CosBucket != nil {
+		body["cos_bucket"] = validateReportsSnapshotConfigOptions.CosBucket
+	}
+	if validateReportsSnapshotConfigOptions.CosLocation != nil {
+		body["cos_location"] = validateReportsSnapshotConfigOptions.CosLocation
+	}
+	if validateReportsSnapshotConfigOptions.CosReportsFolder != nil {
+		body["cos_reports_folder"] = validateReportsSnapshotConfigOptions.CosReportsFolder
+	}
+	if validateReportsSnapshotConfigOptions.ReportTypes != nil {
+		body["report_types"] = validateReportsSnapshotConfigOptions.ReportTypes
+	}
+	if validateReportsSnapshotConfigOptions.Versioning != nil {
+		body["versioning"] = validateReportsSnapshotConfigOptions.Versioning
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "validate_reports_snapshot_config", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSnapshotConfigValidateResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetReportsSnapshot : Fetch the current or past snapshots
 // Returns the billing reports snapshots captured for the given Account Id in the specific time period.
 func (usageReports *UsageReportsV4) GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) (result *SnapshotList, response *core.DetailedResponse, err error) {
@@ -3347,6 +3442,7 @@ func UnmarshalSnapshotListFirst(m map[string]json.RawMessage, result interface{}
 type SnapshotListNext struct {
 	Href *string `json:"href,omitempty"`
 
+	// The value of the `_start` query parameter to fetch the next page.
 	Offset *string `json:"offset,omitempty"`
 }
 
@@ -3354,12 +3450,13 @@ type SnapshotListNext struct {
 func UnmarshalSnapshotListNext(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SnapshotListNext)
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {	
+	if err != nil {
+		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "offset-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3789,6 +3886,40 @@ func UnmarshalSnapshotConfig(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// SnapshotConfigValidateResponse : Validated billing service to COS bucket authorization.
+type SnapshotConfigValidateResponse struct {
+	// Account ID for which billing report snapshot is configured.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The name of the COS bucket to store the snapshot of the billing reports.
+	CosBucket *string `json:"cos_bucket,omitempty"`
+
+	// Region of the COS instance.
+	CosLocation *string `json:"cos_location,omitempty"`
+}
+
+// UnmarshalSnapshotConfigValidateResponse unmarshals an instance of SnapshotConfigValidateResponse from the specified map of raw messages.
+func UnmarshalSnapshotConfigValidateResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SnapshotConfigValidateResponse)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_bucket", &obj.CosBucket)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cos_bucket-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cos_location", &obj.CosLocation)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "cos_location-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Subscription : Subscription struct
 type Subscription struct {
 	// The ID of the subscription.
@@ -4140,15 +4271,15 @@ const (
 // Constants associated with the ValidateReportsSnapshotConfigOptions.ReportTypes property.
 const (
 	ValidateReportsSnapshotConfigOptionsReportTypesAccountResourceInstanceUsageConst = "account_resource_instance_usage"
-	ValidateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst               = "account_summary"
-	ValidateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst            = "enterprise_summary"
+	ValidateReportsSnapshotConfigOptionsReportTypesAccountSummaryConst = "account_summary"
+	ValidateReportsSnapshotConfigOptionsReportTypesEnterpriseSummaryConst = "enterprise_summary"
 )
 
 // Constants associated with the ValidateReportsSnapshotConfigOptions.Versioning property.
 // A new version of report is created or the existing report version is overwritten with every update. Defaults to
 // "new".
 const (
-	ValidateReportsSnapshotConfigOptionsVersioningNewConst       = "new"
+	ValidateReportsSnapshotConfigOptionsVersioningNewConst = "new"
 	ValidateReportsSnapshotConfigOptionsVersioningOverwriteConst = "overwrite"
 )
 
@@ -4207,6 +4338,7 @@ func (options *ValidateReportsSnapshotConfigOptions) SetHeaders(param map[string
 	return options
 }
 
+//
 // GetResourceUsageAccountPager can be used to simplify the use of the "GetResourceUsageAccount" method.
 //
 type GetResourceUsageAccountPager struct {
