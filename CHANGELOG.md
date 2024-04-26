@@ -1,3 +1,10 @@
+## [0.62.10](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.9...v0.62.10) (2024-04-26)
+
+
+### Bug Fixes
+
+* **Usage Reports:** re-add offset to SnapshotListNext ([#324](https://github.com/IBM/platform-services-go-sdk/issues/324)) ([7323d29](https://github.com/IBM/platform-services-go-sdk/commit/7323d290d85ca0653c8ad023ba454f47ae31d66e))
+
 ## [0.62.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.8...v0.62.9) (2024-04-24)
 
 
