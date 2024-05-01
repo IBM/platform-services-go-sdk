@@ -377,6 +377,31 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			offeringID = *offering.ID
 		})
 
+		It(`GetOfferingChangeNotices request example`, func() {
+			Skip("Skip by design.")
+			fmt.Println("\nGetOfferingChangeNotices() result:")
+			// begin-get_offering_change_notices
+
+			getOfferingChangeNoticesOptionsModel := new(catalogmanagementv1.GetOfferingChangeNoticesOptions)
+			getOfferingChangeNoticesOptionsModel.CatalogIdentifier = &catalogID
+			getOfferingChangeNoticesOptionsModel.OfferingID = &offeringID
+			getOfferingChangeNoticesOptionsModel.Kind = core.StringPtr("terraform")
+			getOfferingChangeNoticesOptionsModel.Version = core.StringPtr("1.0.0")
+
+			result, response, err := catalogManagementService.GetOfferingChangeNotices(getOfferingChangeNoticesOptionsModel)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(result, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_offering_change_notices
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+		})
+
 		It(`ReloadOffering request example`, func() {
 			Skip("Skip by design.")
 			fmt.Println("\nReloadOffering() result:")
@@ -1337,6 +1362,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			createOfferingInstanceOptions.ClusterID = &clusterID
 			createOfferingInstanceOptions.ClusterRegion = core.StringPtr("us-south")
 			createOfferingInstanceOptions.ClusterAllNamespaces = core.BoolPtr(true)
+			createOfferingInstanceOptions.ParentCRN = core.StringPtr("testString")
+			createOfferingInstanceOptions.ClusterRegion = core.StringPtr("testString")
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptions)
 			if err != nil {
@@ -1394,6 +1421,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			putOfferingInstanceOptions.ClusterID = &clusterID
 			putOfferingInstanceOptions.ClusterRegion = core.StringPtr("us-south")
 			putOfferingInstanceOptions.ClusterAllNamespaces = core.BoolPtr(true)
+			putOfferingInstanceOptions.ParentCRN = core.StringPtr("testString")
+			putOfferingInstanceOptions.ClusterRegion = core.StringPtr("testString")
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 			if err != nil {

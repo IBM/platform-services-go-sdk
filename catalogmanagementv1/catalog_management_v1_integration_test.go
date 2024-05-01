@@ -610,6 +610,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
+			changeNoticesModel := &catalogmanagementv1.ChangeNotices{
+				Breaking: []catalogmanagementv1.Feature{*featureModel},
+				New:      []catalogmanagementv1.Feature{*featureModel},
+				Update:   []catalogmanagementv1.Feature{*featureModel},
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				ID:                  &versionIDLink,
 				Rev:                 &versionRevLink,
@@ -648,6 +654,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
+				ChangeNotices:       changeNoticesModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -839,6 +846,27 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
 			versionRevLink = *offering.Kinds[0].Versions[0].Rev
 			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
+		})
+	})
+
+	Describe(`GetOfferingChangeNotices - Get change notices`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingChangeNotices(getOfferingChangeNoticesOptions *GetOfferingChangeNoticesOptions)`, func() {
+			getOfferingChangeNoticesOptionsModel := new(catalogmanagementv1.GetOfferingChangeNoticesOptions)
+			getOfferingChangeNoticesOptionsModel.CatalogIdentifier = &catalogIDLink
+			getOfferingChangeNoticesOptionsModel.OfferingID = &offeringIDLink
+			getOfferingChangeNoticesOptionsModel.Kind = core.StringPtr(formatKindTerraform)
+			getOfferingChangeNoticesOptionsModel.Target = core.StringPtr(targetKindTerraform)
+			getOfferingChangeNoticesOptionsModel.Version = core.StringPtr("1.0.0")
+			getOfferingChangeNoticesOptionsModel.Flavor = core.StringPtr("testString")
+			getOfferingChangeNoticesOptionsModel.Versions = core.StringPtr("latest")
+
+			result, response, err := catalogManagementService.GetOfferingChangeNotices(getOfferingChangeNoticesOptionsModel)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 	})
 
@@ -1371,6 +1399,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
+			changeNoticesModel := &catalogmanagementv1.ChangeNotices{
+				Breaking: []catalogmanagementv1.Feature{*featureModel},
+				New:      []catalogmanagementv1.Feature{*featureModel},
+				Update:   []catalogmanagementv1.Feature{*featureModel},
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				//ID:                  &versionIDLink,
 				//Rev:                 &versionRevLink,
@@ -1410,6 +1444,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
+				ChangeNotices:       changeNoticesModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -2820,6 +2855,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				LastOperation:         offeringInstanceLastOperationModel,
 				KindTarget:            core.StringPtr("testString"),
 				Sha:                   core.StringPtr("testString"),
+				PlanID:                core.StringPtr("testString"),
+				ParentCRN:             core.StringPtr("testString"),
 			}
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptions)
@@ -2891,6 +2928,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				LastOperation:         offeringInstanceLastOperationModel,
 				KindTarget:            core.StringPtr("testString"),
 				Sha:                   core.StringPtr("testString"),
+				PlanID:                core.StringPtr("testString"),
+				ParentCRN:             core.StringPtr("testString"),
 			}
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
