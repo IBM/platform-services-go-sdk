@@ -34896,7 +34896,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
