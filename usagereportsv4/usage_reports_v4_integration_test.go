@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,11 +116,9 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-
 			usageReportsServiceOptions := &usagereportsv4.UsageReportsV4Options{}
 
 			usageReportsService, err = usagereportsv4.NewUsageReportsV4UsingExternalConfig(usageReportsServiceOptions)
-
 			Expect(err).To(BeNil())
 			Expect(usageReportsService).ToNot(BeNil())
 			Expect(usageReportsService.Service.Options.URL).To(Equal(serviceURL))
@@ -135,7 +133,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetAccountSummary(getAccountSummaryOptions *GetAccountSummaryOptions)`, func() {
-
 			getAccountSummaryOptions := &usagereportsv4.GetAccountSummaryOptions{
 				AccountID:    &accountID,
 				Billingmonth: &billingMonth,
@@ -159,7 +156,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetAccountUsage(getAccountUsageOptions *GetAccountUsageOptions)`, func() {
-
 			getAccountUsageOptions := &usagereportsv4.GetAccountUsageOptions{
 				AccountID:      &accountID,
 				Billingmonth:   &billingMonth,
@@ -168,7 +164,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 
 			accountUsage, response, err := usageReportsService.GetAccountUsage(getAccountUsageOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountUsage).ToNot(BeNil())
@@ -185,7 +180,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceGroupUsage(getResourceGroupUsageOptions *GetResourceGroupUsageOptions)`, func() {
-
 			getResourceGroupUsageOptions := &usagereportsv4.GetResourceGroupUsageOptions{
 				AccountID:       &accountID,
 				ResourceGroupID: &resourceGroupID,
@@ -194,7 +188,6 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 
 			resourceGroupUsage, response, err := usageReportsService.GetResourceGroupUsage(getResourceGroupUsageOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceGroupUsage).ToNot(BeNil())
@@ -276,6 +269,68 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageAccount response contained %d total resources.", len(results))
 			Expect(results).ToNot(BeEmpty())
 		})
+		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) with pagination`, func(){
+			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
+				AccountID: core.StringPtr(accountID),
+				Billingmonth: core.StringPtr(billingMonth),
+				Names: core.BoolPtr(true),
+				Tags: core.BoolPtr(true),
+				Limit: core.Int64Ptr(int64(30)),
+			}
+
+			getResourceUsageAccountOptions.Start = nil
+
+			var allResults []usagereportsv4.InstanceUsage
+			for {
+				instancesUsage, response, err := usageReportsService.GetResourceUsageAccount(getResourceUsageAccountOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(instancesUsage).ToNot(BeNil())
+				allResults = append(allResults, instancesUsage.Resources...)
+
+				getResourceUsageAccountOptions.Start, err = instancesUsage.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getResourceUsageAccountOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetResourceUsageAccount(getResourceUsageAccountOptions *GetResourceUsageAccountOptions) using GetResourceUsageAccountPager`, func(){
+			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
+				AccountID: core.StringPtr(accountID),
+				Billingmonth: core.StringPtr(billingMonth),
+				Names: core.BoolPtr(true),
+				Tags: core.BoolPtr(true),
+				Limit: core.Int64Ptr(int64(30)),
+			}
+
+			// Test GetNext().
+			pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetResourceUsageAccount() returned a total of %d item(s) using GetResourceUsageAccountPager.\n", len(allResults))
+		})
 	})
 
 	Describe(`GetResourceUsageResourceGroup - Get resource instance usage in a resource group`, func() {
@@ -322,6 +377,69 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageResourceGroup response contained %d total resources.", len(results))
 			Expect(results).ToNot(BeEmpty())
+		})
+
+		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) with pagination`, func(){
+			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
+				AccountID:       &accountID,
+				ResourceGroupID: &resourceGroupID,
+				Billingmonth:    &billingMonth,
+				Names:           core.BoolPtr(true),
+				Limit:           core.Int64Ptr(50),
+			}
+
+			getResourceUsageResourceGroupOptions.Start = nil
+
+			var allResults []usagereportsv4.InstanceUsage
+			for {
+				instancesUsage, response, err := usageReportsService.GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(instancesUsage).ToNot(BeNil())
+				allResults = append(allResults, instancesUsage.Resources...)
+
+				getResourceUsageResourceGroupOptions.Start, err = instancesUsage.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getResourceUsageResourceGroupOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions *GetResourceUsageResourceGroupOptions) using GetResourceUsageResourceGroupPager`, func(){
+			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
+				AccountID:       &accountID,
+				ResourceGroupID: &resourceGroupID,
+				Billingmonth:    &billingMonth,
+				Names:           core.BoolPtr(true),
+				Limit:           core.Int64Ptr(50),
+			}
+
+			// Test GetNext().
+			pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetResourceUsageResourceGroup() returned a total of %d item(s) using GetResourceUsageResourceGroupPager.\n", len(allResults))
 		})
 	})
 
@@ -371,6 +489,68 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response: %s\n", common.ToJSON(results))
 			Expect(results).ToNot(BeEmpty())
 		})
+		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) with pagination`, func(){
+			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
+				AccountID:      &accountID,
+				OrganizationID: &orgID,
+				Billingmonth:   &billingMonth,
+				Names:          core.BoolPtr(true),
+				Limit:          core.Int64Ptr(50),
+			}
+
+			getResourceUsageOrgOptions.Start = nil
+
+			var allResults []usagereportsv4.InstanceUsage
+			for {
+				instancesUsage, response, err := usageReportsService.GetResourceUsageOrg(getResourceUsageOrgOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(instancesUsage).ToNot(BeNil())
+				allResults = append(allResults, instancesUsage.Resources...)
+
+				getResourceUsageOrgOptions.Start, err = instancesUsage.GetNextStart()
+				Expect(err).To(BeNil())
+
+				if getResourceUsageOrgOptions.Start == nil {
+					break
+				}
+			}
+			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
+		})
+		It(`GetResourceUsageOrg(getResourceUsageOrgOptions *GetResourceUsageOrgOptions) using GetResourceUsageOrgPager`, func(){
+			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
+				AccountID:      &accountID,
+				OrganizationID: &orgID,
+				Billingmonth:   &billingMonth,
+				Names:          core.BoolPtr(true),
+				Limit:          core.Int64Ptr(50),
+			}
+
+			// Test GetNext().
+			pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				Expect(err).To(BeNil())
+				Expect(nextPage).ToNot(BeNil())
+				allResults = append(allResults, nextPage...)
+			}
+
+			// Test GetAll().
+			pager, err = usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptions)
+			Expect(err).To(BeNil())
+			Expect(pager).ToNot(BeNil())
+
+			allItems, err := pager.GetAll()
+			Expect(err).To(BeNil())
+			Expect(allItems).ToNot(BeNil())
+
+			Expect(len(allItems)).To(Equal(len(allResults)))
+			fmt.Fprintf(GinkgoWriter, "GetResourceUsageOrg() returned a total of %d item(s) using GetResourceUsageOrgPager.\n", len(allResults))
+		})
 	})
 
 	Describe(`CreateReportsSnapshotConfig - Setup the snapshot configuration`, func() {
@@ -379,13 +559,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions *CreateReportsSnapshotConfigOptions)`, func() {
 			createReportsSnapshotConfigOptions := &usagereportsv4.CreateReportsSnapshotConfigOptions{
-				AccountID:        &accountID,
-				Interval:         core.StringPtr("daily"),
-				CosBucket:        &cosBucket,
-				CosLocation:      &cosLocation,
+				AccountID: core.StringPtr(accountID),
+				Interval: core.StringPtr("daily"),
+				CosBucket: core.StringPtr(cosBucket),
+				CosLocation: core.StringPtr(cosLocation),
 				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes:      []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
-				Versioning:       core.StringPtr("new"),
+				ReportTypes: []string{"account_summary", "enterprise_summary", "account_resource_instance_usage"},
+				Versioning: core.StringPtr("new"),
 			}
 
 			snapshotConfig, response, err := usageReportsService.CreateReportsSnapshotConfig(createReportsSnapshotConfigOptions)
@@ -401,7 +581,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`GetReportsSnapshotConfig(getReportsSnapshotConfigOptions *GetReportsSnapshotConfigOptions)`, func() {
 			getReportsSnapshotConfigOptions := &usagereportsv4.GetReportsSnapshotConfigOptions{
-				AccountID: &accountID,
+				AccountID: core.StringPtr(accountID),
 			}
 
 			snapshotConfig, response, err := usageReportsService.GetReportsSnapshotConfig(getReportsSnapshotConfigOptions)
@@ -417,13 +597,13 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions *UpdateReportsSnapshotConfigOptions)`, func() {
 			updateReportsSnapshotConfigOptions := &usagereportsv4.UpdateReportsSnapshotConfigOptions{
-				AccountID:        &accountID,
-				Interval:         core.StringPtr("daily"),
-				CosBucket:        &cosBucket,
-				CosLocation:      &cosLocation,
+				AccountID: core.StringPtr(accountID),
+				Interval: core.StringPtr("daily"),
+				CosBucket: core.StringPtr(cosBucket),
+				CosLocation: core.StringPtr(cosLocation),
 				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
-				ReportTypes:      []string{"account_summary"},
-				Versioning:       core.StringPtr("new"),
+				ReportTypes: []string{"account_summary"},
+				Versioning: core.StringPtr("new"),
 			}
 
 			snapshotConfig, response, err := usageReportsService.UpdateReportsSnapshotConfig(updateReportsSnapshotConfigOptions)
@@ -433,12 +613,33 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ValidateReportsSnapshotConfig - Verify billing to COS authorization`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions *ValidateReportsSnapshotConfigOptions)`, func() {
+			validateReportsSnapshotConfigOptions := &usagereportsv4.ValidateReportsSnapshotConfigOptions{
+				AccountID: core.StringPtr(accountID),
+				Interval: core.StringPtr("daily"),
+				CosBucket: core.StringPtr(cosBucket),
+				CosLocation: core.StringPtr(cosLocation),
+				CosReportsFolder: core.StringPtr("IBMCloud-Billing-Reports"),
+				ReportTypes: []string{"account_summary"},
+				Versioning: core.StringPtr("new"),
+			}
+
+			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(snapshotConfigValidateResponse).ToNot(BeNil())
+		})
+	})
 
 	Describe(`GetReportsSnapshot - Fetch the current or past snapshots`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) with pagination`, func() {
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) with pagination`, func(){
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: &accountID,
 				Month:     &billingMonth,
@@ -475,7 +676,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
-		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) using GetReportsSnapshotPager`, func() {
+		It(`GetReportsSnapshot(getReportsSnapshotOptions *GetReportsSnapshotOptions) using GetReportsSnapshotPager`, func(){
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: &accountID,
 				Month:     &billingMonth,
@@ -546,7 +747,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 		It(`DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions *DeleteReportsSnapshotConfigOptions)`, func() {
 			deleteReportsSnapshotConfigOptions := &usagereportsv4.DeleteReportsSnapshotConfigOptions{
-				AccountID: &accountID,
+				AccountID: core.StringPtr(accountID),
 			}
 
 			response, err := usageReportsService.DeleteReportsSnapshotConfig(deleteReportsSnapshotConfigOptions)
@@ -555,3 +756,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 		})
 	})
 })
+
+//
+// Utility functions are declared in the unit test file
+//

@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,6 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-
 var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 	const externalConfigFile = "../usage_reports.env"
 
@@ -72,7 +71,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 
 	var shouldSkipTest = func() {
 		if !configLoaded {
-			Skip("External configuration is not available, skipping tests...")
+			Skip("External configuration is not available, skipping examples...")
 		}
 	}
 
@@ -81,7 +80,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
-				Skip("External configuration file not found, skipping tests: " + err.Error())
+				Skip("External configuration file not found, skipping examples: " + err.Error())
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
@@ -212,6 +211,91 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceGroupUsage).ToNot(BeNil())
 		})
+		It(`GetResourceUsageAccount request example`, func() {
+			fmt.Println("\nGetResourceUsageAccount() result:")
+			// begin-get_resource_usage_account
+			getResourceUsageAccountOptions := &usagereportsv4.GetResourceUsageAccountOptions{
+				AccountID: core.StringPtr(accountID),
+				Billingmonth: core.StringPtr(billingMonth),
+				Names: core.BoolPtr(true),
+				Tags: core.BoolPtr(true),
+			}
+
+			pager, err := usageReportsService.NewGetResourceUsageAccountPager(getResourceUsageAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_resource_usage_account
+		})
+		It(`GetResourceUsageResourceGroup request example`, func() {
+			fmt.Println("\nGetResourceUsageResourceGroup() result:")
+			// begin-get_resource_usage_resource_group
+			getResourceUsageResourceGroupOptions := &usagereportsv4.GetResourceUsageResourceGroupOptions{
+				AccountID: core.StringPtr(accountID),
+				ResourceGroupID: core.StringPtr(resourceGroupID),
+				Billingmonth: core.StringPtr(billingMonth),
+				Names: core.BoolPtr(true),
+				Tags: core.BoolPtr(true),
+				Limit: core.Int64Ptr(int64(30)),
+			}
+
+			pager, err := usageReportsService.NewGetResourceUsageResourceGroupPager(getResourceUsageResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_resource_usage_resource_group
+		})
+		It(`GetResourceUsageOrg request example`, func() {
+			fmt.Println("\nGetResourceUsageOrg() result:")
+			// begin-get_resource_usage_org
+			getResourceUsageOrgOptions := &usagereportsv4.GetResourceUsageOrgOptions{
+				AccountID: core.StringPtr(accountID),
+				OrganizationID: core.StringPtr(orgID),
+				Billingmonth: core.StringPtr(billingMonth),
+				Names: core.BoolPtr(true),
+				Tags: core.BoolPtr(true),
+				Limit: core.Int64Ptr(int64(30)),
+			}
+
+			pager, err := usageReportsService.NewGetResourceUsageOrgPager(getResourceUsageOrgOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []usagereportsv4.InstanceUsage
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_resource_usage_org
+		})
 		It(`GetOrgUsage request example`, func() {
 			fmt.Println("\nGetOrgUsage() result:")
 			// begin-get_org_usage
@@ -234,74 +318,6 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(orgUsage).ToNot(BeNil())
-		})
-		It(`GetResourceUsageAccount request example`, func() {
-			fmt.Println("\nGetResourceUsageAccount() result:")
-			// begin-get_resource_usage_account
-
-			getResourceUsageAccountOptions := usageReportsService.NewGetResourceUsageAccountOptions(
-				accountID,
-				billingMonth,
-			)
-
-			instancesUsage, response, err := usageReportsService.GetResourceUsageAccount(getResourceUsageAccountOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_resource_usage_account
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(instancesUsage).ToNot(BeNil())
-		})
-		It(`GetResourceUsageResourceGroup request example`, func() {
-			fmt.Println("\nGetResourceUsageResourceGroup() result:")
-			// begin-get_resource_usage_resource_group
-
-			getResourceUsageResourceGroupOptions := usageReportsService.NewGetResourceUsageResourceGroupOptions(
-				accountID,
-				resourceGroupID,
-				billingMonth,
-			)
-
-			instancesUsage, response, err := usageReportsService.GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_resource_usage_resource_group
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(instancesUsage).ToNot(BeNil())
-		})
-		It(`GetResourceUsageOrg request example`, func() {
-			fmt.Println("\nGetResourceUsageOrg() result:")
-			// begin-get_resource_usage_org
-
-			getResourceUsageOrgOptions := usageReportsService.NewGetResourceUsageOrgOptions(
-				accountID,
-				orgID,
-				billingMonth,
-			)
-
-			instancesUsage, response, err := usageReportsService.GetResourceUsageOrg(getResourceUsageOrgOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_resource_usage_org
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(instancesUsage).ToNot(BeNil())
 		})
 		It(`CreateReportsSnapshotConfig request example`, func() {
 			fmt.Println("\nCreateReportsSnapshotConfig() result:")
@@ -369,37 +385,56 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(snapshotConfig).ToNot(BeNil())
 		})
-		It(`GetReportsSnapshot request example`, func() {
-			fmt.Println("\nGetReportsSnapshot() result:")
-			// begin-get_reports_snapshot
+		It(`ValidateReportsSnapshotConfig request example`, func() {
+			fmt.Println("\nValidateReportsSnapshotConfig() result:")
+			// begin-validate_reports_snapshot_config
 
-			getReportsSnapshotOptions := usageReportsService.NewGetReportsSnapshotOptions(
+			validateReportsSnapshotConfigOptions := usageReportsService.NewValidateReportsSnapshotConfigOptions(
 				accountID,
-				billingMonth,
 			)
-			from, err := strconv.ParseInt(dateFrom, 10, 64)
-			if err != nil {
-				panic(err)
-			}
-			to, err := strconv.ParseInt(dateTo, 10, 64)
-			if err != nil {
-				panic(err)
-			}
-			getReportsSnapshotOptions.SetDateFrom(from)
-			getReportsSnapshotOptions.SetDateTo(to)
 
-			snapshotList, response, err := usageReportsService.GetReportsSnapshot(getReportsSnapshotOptions)
+			snapshotConfigValidateResponse, response, err := usageReportsService.ValidateReportsSnapshotConfig(validateReportsSnapshotConfigOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(snapshotList, "", "  ")
+			b, _ := json.MarshalIndent(snapshotConfigValidateResponse, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_reports_snapshot
+			// end-validate_reports_snapshot_config
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(snapshotList).ToNot(BeNil())
+			Expect(snapshotConfigValidateResponse).ToNot(BeNil())
+		})
+		It(`GetReportsSnapshot request example`, func() {
+			fmt.Println("\nGetReportsSnapshot() result:")
+			from, err := strconv.ParseInt(dateFrom, 10, 64)
+			to, err := strconv.ParseInt(dateTo, 10, 64)
+			// begin-get_reports_snapshot
+			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
+				AccountID: core.StringPtr(accountID),
+				Month: core.StringPtr(billingMonth),
+				DateFrom: core.Int64Ptr(from),
+				DateTo: core.Int64Ptr(to),
+				Limit: core.Int64Ptr(int64(30)),
+			}
+
+			pager, err := usageReportsService.NewGetReportsSnapshotPager(getReportsSnapshotOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			var allResults []usagereportsv4.SnapshotListSnapshotsItem
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-get_reports_snapshot
 		})
 		It(`DeleteReportsSnapshotConfig request example`, func() {
 			// begin-delete_reports_snapshot_config
