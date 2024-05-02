@@ -408,8 +408,8 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 		})
 		It(`GetReportsSnapshot request example`, func() {
 			fmt.Println("\nGetReportsSnapshot() result:")
-			from, err := strconv.ParseInt(dateFrom, 10, 64)
-			to, err := strconv.ParseInt(dateTo, 10, 64)
+			from, _ := strconv.ParseInt(dateFrom, 10, 64)
+			to, _ := strconv.ParseInt(dateTo, 10, 64)
 			// begin-get_reports_snapshot
 			getReportsSnapshotOptions := &usagereportsv4.GetReportsSnapshotOptions{
 				AccountID: core.StringPtr(accountID),
