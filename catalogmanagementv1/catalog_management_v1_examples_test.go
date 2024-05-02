@@ -52,20 +52,23 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 	const externalConfigFile = "../catalog_mgmt.env"
 
 	var (
-		err                       error
-		catalogManagementService  *catalogmanagementv1.CatalogManagementV1
-		serviceURL                string
-		config                    map[string]string
-		accountID                 string
-		bearerToken               string
-		gitAuthTokenForPublicRepo string
-		catalogID                 string
-		objectCatalogID           string
-		offeringID                string
-		clusterID                 string
-		objectID                  string
-		offeringInstanceID        string
-		versionLocatorID          string
+		err                           error
+		catalogManagementService      *catalogmanagementv1.CatalogManagementV1
+		catalogManagementAdminService *catalogmanagementv1.CatalogManagementV1
+		serviceURL                    string
+		config                        map[string]string
+		accountID                     string
+		bearerToken                   string
+		gitAuthTokenForPublicRepo     string
+		catalogID                     string
+		objectCatalogID               string
+		offeringID                    string
+		clusterID                     string
+		objectID                      string
+		offeringInstanceID            string
+		versionLocatorID              string
+		planID                        string
+		approverToken                 string
 	)
 
 	var shouldSkipTest = func() {
@@ -102,12 +105,31 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
+			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{
+				ServiceName: catalogmanagementv1.DefaultServiceName,
+			}
 
 			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
 			Expect(err).To(BeNil())
 			Expect(catalogManagementService).ToNot(BeNil())
 			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			catalogManagementService.EnableRetries(4, 30*time.Second)
+		})
+		It("Successfully construct the service client admin instance", func() {
+			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{
+				ServiceName: "CATALOG_MANAGEMENT_APPROVER",
+			}
+			catalogManagementAdminService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
+			Expect(err).To(BeNil())
+			Expect(catalogManagementService).ToNot(BeNil())
+			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
+			approverRequestToken, err := catalogManagementAdminService.Service.Options.Authenticator.(*core.IamAuthenticator).RequestToken()
+			Expect(err).To(BeNil())
+			approverToken = approverRequestToken.AccessToken
+			Expect(approverToken).ToNot(BeNil())
 
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			catalogManagementService.EnableRetries(4, 30*time.Second)
@@ -723,6 +745,154 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offering).ToNot(BeNil())
+		})
+
+		// Offering must be "managed in Partner Center" before we can perform plan operations
+		// Done with helper API call as we do not expose this route in our api definition
+		It(`SetAllowPublishOffering`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogID, offeringID, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+
+		// Must create a plan with an approver token because we only allow Partner Center to create plans
+		// Done with helper API call because we do not expose this route in our api definition
+		It(`AddPlan`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			versionRangeModel := new(catalogmanagementv1.VersionRange)
+			versionRangeModel.Kinds = []string{"terraform"}
+			versionRangeModel.Version = core.StringPtr(">=1.0.0")
+
+			planModel := new(catalogmanagementv1.Plan)
+			planModel.Label = core.StringPtr("testString")
+			planModel.Name = core.StringPtr("testString")
+			planModel.ShortDescription = core.StringPtr("testString")
+			planModel.PricingTags = []string{"free"}
+			planModel.VersionRange = versionRangeModel
+			planModel.Features = []catalogmanagementv1.Feature{*featureModel}
+			planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			plan, response, err := catalogManagementService.AddPlan(catalogID, offeringID, planModel, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(plan).ToNot(BeNil())
+
+			planID = *plan.ID
+
+			b, _ := json.MarshalIndent(plan, "", "  ")
+			fmt.Println(string(b))
+		})
+
+		It(`DeletePlan(deletePlanOptions *DeletePlanOptions)`, func() {
+			deletePlanOptions := new(catalogmanagementv1.DeletePlanOptions)
+			deletePlanOptions.PlanLocID = &planID
+
+			response, err := catalogManagementService.DeletePlan(deletePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			fmt.Printf("\nDeletePlan() response status code: %d\n", response.StatusCode)
+		})
+
+		// Must create a plan with an approver token because we only allow Partner Center to create plans
+		// Done with helper API call because we do not expose this route in our api definition
+		It(`AddPlan`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			versionRangeModel := new(catalogmanagementv1.VersionRange)
+			versionRangeModel.Kinds = []string{"terraform"}
+			versionRangeModel.Version = core.StringPtr(">=1.0.0")
+
+			planModel := new(catalogmanagementv1.Plan)
+			planModel.Label = core.StringPtr("testString")
+			planModel.Name = core.StringPtr("testString")
+			planModel.ShortDescription = core.StringPtr("testString")
+			planModel.PricingTags = []string{"free"}
+			planModel.VersionRange = versionRangeModel
+			planModel.Features = []catalogmanagementv1.Feature{*featureModel}
+			planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			plan, response, err := catalogManagementService.AddPlan(catalogID, offeringID, planModel, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(plan).ToNot(BeNil())
+
+			b, _ := json.MarshalIndent(plan, "", "  ")
+			fmt.Println(string(b))
+
+			planID = *plan.ID
+		})
+
+		// Must set plan to publish_approved use approver token before other plan operations will work
+		// Done with helper API call because we do not expose this route in our api definition
+		It(`SetAllowPublishPlan()`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+			response, err := catalogManagementService.SetAllowPublishPlan(planID, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+
+			fmt.Printf("\nSetAllowPublishPlan() response status code: %d\n", response.StatusCode)
+		})
+
+		It(`GetPlan(getPlanOptions *GetPlanOptions)`, func() {
+			getPlanOptions := new(catalogmanagementv1.GetPlanOptions)
+			getPlanOptions.PlanLocID = &planID
+
+			plan, response, err := catalogManagementService.GetPlan(getPlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(plan).ToNot(BeNil())
+
+			b, _ := json.MarshalIndent(plan, "", "  ")
+			fmt.Println(string(b))
+		})
+
+		It(`ConsumablePlan(consumablePlanOptions *ConsumablePlanOptions)`, func() {
+			consumablePlanOptions := new(catalogmanagementv1.ConsumablePlanOptions)
+			consumablePlanOptions.PlanLocID = &planID
+
+			response, err := catalogManagementService.ConsumablePlan(consumablePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+
+			fmt.Printf("\nConsumablePlan() response status code: %d\n", response.StatusCode)
+		})
+
+		It(`SetDeprecatePlan(setDeprecatePlanOptions *SetDeprecatePlanOptions)`, func() {
+			setDeprecatePlanOptions := new(catalogmanagementv1.SetDeprecatePlanOptions)
+			setDeprecatePlanOptions.PlanLocID = &planID
+			setDeprecatePlanOptions.Setting = core.StringPtr("true")
+
+			response, err := catalogManagementService.SetDeprecatePlan(setDeprecatePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+
+			fmt.Printf("\nSetDeprecatePlan() response status code: %d\n", response.StatusCode)
 		})
 
 		It(`GetOfferingUpdates request example`, func() {
