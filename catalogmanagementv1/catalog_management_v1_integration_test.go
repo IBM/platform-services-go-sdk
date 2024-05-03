@@ -48,11 +48,13 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 	)
 
 	var (
-		err                      error
-		catalogManagementService *catalogmanagementv1.CatalogManagementV1
-		serviceURL               string
-		config                   map[string]string
-		accountID                string
+		err                           error
+		catalogManagementService      *catalogmanagementv1.CatalogManagementV1
+		catalogManagementAdminService *catalogmanagementv1.CatalogManagementV1
+		serviceURL                    string
+		config                        map[string]string
+		accountID                     string
+		approverToken                 string
 
 		// Variables to hold link values
 		accountRevLink     string
@@ -65,6 +67,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		versionIDLink      string
 		versionLocatorLink string
 		versionRevLink     string
+		planIDLink         string
 	)
 
 	var shouldSkipTest = func() {
@@ -100,13 +103,31 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It("Successfully construct the service client instance", func() {
-			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
-
+		It("Successfully construct the service client main instance", func() {
+			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{
+				ServiceName: catalogmanagementv1.DefaultServiceName,
+			}
 			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
 			Expect(err).To(BeNil())
 			Expect(catalogManagementService).ToNot(BeNil())
 			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			catalogManagementService.EnableRetries(4, 30*time.Second)
+		})
+		It("Successfully construct the service client admin instance", func() {
+			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{
+				ServiceName: "CATALOG_MANAGEMENT_APPROVER",
+			}
+			catalogManagementAdminService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
+			Expect(err).To(BeNil())
+			Expect(catalogManagementService).ToNot(BeNil())
+			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
+			approverRequestToken, err := catalogManagementAdminService.Service.Options.Authenticator.(*core.IamAuthenticator).RequestToken()
+			Expect(err).To(BeNil())
+			approverToken = approverRequestToken.AccessToken
+			Expect(approverToken).ToNot(BeNil())
 
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			catalogManagementService.EnableRetries(4, 30*time.Second)
@@ -610,6 +631,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
+			changeNoticesModel := &catalogmanagementv1.ChangeNotices{
+				Breaking: []catalogmanagementv1.Feature{*featureModel},
+				New:      []catalogmanagementv1.Feature{*featureModel},
+				Update:   []catalogmanagementv1.Feature{*featureModel},
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				ID:                  &versionIDLink,
 				Rev:                 &versionRevLink,
@@ -648,6 +675,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
+				ChangeNotices:       changeNoticesModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -839,6 +867,204 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
 			versionRevLink = *offering.Kinds[0].Versions[0].Rev
 			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
+		})
+	})
+
+	// Offering must be "managed in Partner Center" before we can perform plan operations
+	// Done with helper API call as we do not expose this route in our api definition
+	Describe(`SetAllowPublishOffering - mark offering as pc managed`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetAllowPublishOffering`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogIDLink, offeringIDLink, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	// Must create a plan with an approver token because we only allow Partner Center to create plans
+	// Done with helper API call because we do not expose this route in our api definition
+	Describe(`AddPlan - add a plan to the offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddPlan`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			versionRangeModel := new(catalogmanagementv1.VersionRange)
+			versionRangeModel.Kinds = []string{"terraform"}
+			versionRangeModel.Version = core.StringPtr(">=1.0.0")
+
+			planModel := new(catalogmanagementv1.Plan)
+			planModel.Label = core.StringPtr("testString")
+			planModel.Name = core.StringPtr("testString")
+			planModel.ShortDescription = core.StringPtr("testString")
+			planModel.PricingTags = []string{"free"}
+			planModel.VersionRange = versionRangeModel
+			planModel.Features = []catalogmanagementv1.Feature{*featureModel}
+			planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			plan, response, err := catalogManagementService.AddPlan(catalogIDLink, offeringIDLink, planModel, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(plan).ToNot(BeNil())
+
+			offeringRevLink = *plan.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			planIDLink = *plan.ID
+			fmt.Fprintf(GinkgoWriter, "Saved planIDLink value: %v\n", planIDLink)
+		})
+	})
+
+	Describe(`DeletePlan - Delete a plan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePlan(deletePlanOptions *DeletePlanOptions)`, func() {
+			deletePlanOptions := new(catalogmanagementv1.DeletePlanOptions)
+			deletePlanOptions.PlanLocID = &planIDLink
+
+			response, err := catalogManagementService.DeletePlan(deletePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	// Must create a plan with an approver token because we only allow Partner Center to create plans
+	// Done with helper API call because we do not expose this route in our api definition
+	Describe(`AddPlan - add a plan to the offering`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AddPlan`, func() {
+			featureModel := &catalogmanagementv1.Feature{
+				Title:           core.StringPtr("testString"),
+				TitleI18n:       make(map[string]string),
+				Description:     core.StringPtr("testString"),
+				DescriptionI18n: make(map[string]string),
+			}
+
+			versionRangeModel := new(catalogmanagementv1.VersionRange)
+			versionRangeModel.Kinds = []string{"terraform"}
+			versionRangeModel.Version = core.StringPtr(">=1.0.0")
+
+			planModel := new(catalogmanagementv1.Plan)
+			planModel.Label = core.StringPtr("testString")
+			planModel.Name = core.StringPtr("testString")
+			planModel.ShortDescription = core.StringPtr("testString")
+			planModel.PricingTags = []string{"free"}
+			planModel.VersionRange = versionRangeModel
+			planModel.Features = []catalogmanagementv1.Feature{*featureModel}
+			planModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			plan, response, err := catalogManagementService.AddPlan(catalogIDLink, offeringIDLink, planModel, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(plan).ToNot(BeNil())
+
+			offeringRevLink = *plan.Rev
+			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+			planIDLink = *plan.ID
+			fmt.Fprintf(GinkgoWriter, "Saved planIDLink value: %v\n", planIDLink)
+		})
+	})
+
+	// Must set plan to publish_approved use approver token before other plan operations will work
+	// Done with helper API call because we do not expose this route in our api definition
+	Describe(`SetAllowPublishPlan - set plan to publish_approved`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetAllowPublishPlan()`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+			response, err := catalogManagementService.SetAllowPublishPlan(planIDLink, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	Describe(`GetPlan - Get a plan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPlan(getPlanOptions *GetPlanOptions)`, func() {
+			getPlanOptions := new(catalogmanagementv1.GetPlanOptions)
+			getPlanOptions.PlanLocID = &planIDLink
+
+			plan, response, err := catalogManagementService.GetPlan(getPlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(plan).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ConsumablePlan - Publish a plan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ConsumablePlan(consumablePlanOptions *ConsumablePlanOptions)`, func() {
+			consumablePlanOptions := new(catalogmanagementv1.ConsumablePlanOptions)
+			consumablePlanOptions.PlanLocID = &planIDLink
+
+			response, err := catalogManagementService.ConsumablePlan(consumablePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`SetDeprecatePlan - Deprecate a plan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetDeprecatePlan(setDeprecatePlanOptions *SetDeprecatePlanOptions)`, func() {
+			setDeprecatePlanOptions := new(catalogmanagementv1.SetDeprecatePlanOptions)
+			setDeprecatePlanOptions.PlanLocID = &planIDLink
+			setDeprecatePlanOptions.Setting = core.StringPtr("true")
+
+			response, err := catalogManagementService.SetDeprecatePlan(setDeprecatePlanOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	Describe(`GetOfferingChangeNotices - Get change notices`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingChangeNotices(getOfferingChangeNoticesOptions *GetOfferingChangeNoticesOptions)`, func() {
+			getOfferingChangeNoticesOptionsModel := new(catalogmanagementv1.GetOfferingChangeNoticesOptions)
+			getOfferingChangeNoticesOptionsModel.CatalogIdentifier = &catalogIDLink
+			getOfferingChangeNoticesOptionsModel.OfferingID = &offeringIDLink
+			getOfferingChangeNoticesOptionsModel.Kind = core.StringPtr(formatKindTerraform)
+			getOfferingChangeNoticesOptionsModel.Target = core.StringPtr(targetKindTerraform)
+			getOfferingChangeNoticesOptionsModel.Version = core.StringPtr("1.0.0")
+			getOfferingChangeNoticesOptionsModel.Flavor = core.StringPtr("testString")
+			getOfferingChangeNoticesOptionsModel.Versions = core.StringPtr("latest")
+
+			result, response, err := catalogManagementService.GetOfferingChangeNotices(getOfferingChangeNoticesOptionsModel)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 	})
 
@@ -1371,6 +1597,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Evaluations: []catalogmanagementv1.Evaluation{*evaluationModel},
 			}
 
+			changeNoticesModel := &catalogmanagementv1.ChangeNotices{
+				Breaking: []catalogmanagementv1.Feature{*featureModel},
+				New:      []catalogmanagementv1.Feature{*featureModel},
+				Update:   []catalogmanagementv1.Feature{*featureModel},
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				//ID:                  &versionIDLink,
 				//Rev:                 &versionRevLink,
@@ -1410,6 +1642,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				SolutionInfo:        solutionInfoModel,
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
+				ChangeNotices:       changeNoticesModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -2820,6 +3053,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				LastOperation:         offeringInstanceLastOperationModel,
 				KindTarget:            core.StringPtr("testString"),
 				Sha:                   core.StringPtr("testString"),
+				PlanID:                core.StringPtr("testString"),
+				ParentCRN:             core.StringPtr("testString"),
 			}
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptions)
@@ -2891,6 +3126,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				LastOperation:         offeringInstanceLastOperationModel,
 				KindTarget:            core.StringPtr("testString"),
 				Sha:                   core.StringPtr("testString"),
+				PlanID:                core.StringPtr("testString"),
+				ParentCRN:             core.StringPtr("testString"),
 			}
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
@@ -3608,6 +3845,5 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 	})
 })
 
-//
 // Utility functions are declared in the unit test file
 //
