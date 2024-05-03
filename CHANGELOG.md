@@ -1,3 +1,10 @@
+## [0.62.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.10...v0.62.11) (2024-05-03)
+
+
+### Bug Fixes
+
+* **Catalog Management:** support change notices and plan id in offering instance create ([#325](https://github.com/IBM/platform-services-go-sdk/issues/325)) ([66e14c5](https://github.com/IBM/platform-services-go-sdk/commit/66e14c5796eb66fe8839e6cc8061009ac3931bae))
+
 ## [0.62.10](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.9...v0.62.10) (2024-04-26)
 
 
