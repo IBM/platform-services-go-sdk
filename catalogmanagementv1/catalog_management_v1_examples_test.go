@@ -309,6 +309,29 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 		})
 
+		It(`GetOfferingStats request example`, func() {
+			fmt.Println("\nGetOfferingStats() result:")
+			// begin-get_offering
+
+			getOfferingStatsOptions := catalogManagementService.NewGetOfferingStatsOptions(
+				catalogID,
+				offeringID,
+			)
+
+			offering, response, err := catalogManagementService.GetOfferingStats(getOfferingStatsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(offering, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_offering
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+		})
+
 		It(`ReplaceOffering request example`, func() {
 			Skip("Skipped by design.")
 			fmt.Println("\nReplaceOffering() result:")
@@ -846,7 +869,20 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			planID = *plan.ID
 		})
 
-		// Must set plan to publish_approved use approver token before other plan operations will work
+		// Must set plan to publish_approved using approver token before other plan operations will work
+		// Done with helper API call because we do not expose this route in our api definition
+		It(`SetValidatePlan()`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+			response, err := catalogManagementService.SetValidatePlan(planID, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+
+			fmt.Printf("\nSetValidatePlan() response status code: %d\n", response.StatusCode)
+		})
+
+		// Must set plan to publish_approved using approver token before other plan operations will work
 		// Done with helper API call because we do not expose this route in our api definition
 		It(`SetAllowPublishPlan()`, func() {
 			headers := map[string]string{
@@ -935,6 +971,29 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			)
 
 			result, response, err := catalogManagementService.GetOfferingAbout(getOfferingAboutOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(result, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_offering_about
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+		})
+
+		It(`CheckIamPermissions request example`, func() {
+			Skip("Skipped by design.")
+			fmt.Println("\nCheckIamPermissions() result:")
+			// begin-get_offering_about
+
+			checkIamPermissionsOptions := catalogManagementService.NewCheckIamPermissionsOptions(
+				versionLocatorID,
+			)
+
+			result, response, err := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptions)
 			if err != nil {
 				panic(err)
 			}

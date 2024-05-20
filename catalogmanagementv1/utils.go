@@ -73,6 +73,61 @@ func (catalogManagement *CatalogManagementV1) AddPlanWithContext(ctx context.Con
 	return
 }
 
+// Set a plan as validated.
+func (catalogManagement *CatalogManagementV1) SetValidatePlan(planID string, headers map[string]string) (response *core.DetailedResponse, err error) {
+	response, err = catalogManagement.SetValidatePlanWithContext(context.Background(), planID, headers)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// SetValidatePlanWithContext is an alternate form of the setValidatePlan method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SetValidatePlanWithContext(ctx context.Context, planID string, headers map[string]string) (response *core.DetailedResponse, err error) {
+	pathParamsMap := map[string]string{
+		"planLocID": planID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/plans/{planLocID}/validate/true`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "setValidatePlan")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "set_allow_publish_plan", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+
+	return
+}
+
 // Set a plan as publish approved.
 func (catalogManagement *CatalogManagementV1) SetAllowPublishPlan(planID string, headers map[string]string) (response *core.DetailedResponse, err error) {
 	response, err = catalogManagement.SetAllowPublishPlanWithContext(context.Background(), planID, headers)
