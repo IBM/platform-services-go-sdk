@@ -311,7 +311,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		It(`GetOfferingStats request example`, func() {
 			fmt.Println("\nGetOfferingStats() result:")
-			// begin-get_offering
+			// begin-get_offering_stats
 
 			getOfferingStatsOptions := catalogManagementService.NewGetOfferingStatsOptions(
 				catalogID,
@@ -325,7 +325,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(offering, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_offering
+			// end-get_offering-stats
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
