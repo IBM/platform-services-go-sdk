@@ -325,7 +325,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(offering, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_offering-stats
+			// end-get_offering_stats
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
