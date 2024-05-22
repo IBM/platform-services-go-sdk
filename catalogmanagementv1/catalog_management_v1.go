@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.89.1-ed9d96f4-20240417-193115
+ * IBM OpenAPI SDK Code Generator Version: 3.90.1-64fd3296-20240515-180710
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -1939,15 +1939,6 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	if createOfferingOptions.ShareEnabled != nil {
 		body["share_enabled"] = createOfferingOptions.ShareEnabled
 	}
-	if createOfferingOptions.PermitRequestIBMPublicPublish != nil {
-		body["permit_request_ibm_public_publish"] = createOfferingOptions.PermitRequestIBMPublicPublish
-	}
-	if createOfferingOptions.IBMPublishApproved != nil {
-		body["ibm_publish_approved"] = createOfferingOptions.IBMPublishApproved
-	}
-	if createOfferingOptions.PublicPublishApproved != nil {
-		body["public_publish_approved"] = createOfferingOptions.PublicPublishApproved
-	}
 	if createOfferingOptions.PublicOriginalCRN != nil {
 		body["public_original_crn"] = createOfferingOptions.PublicOriginalCRN
 	}
@@ -2631,15 +2622,6 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	if replaceOfferingOptions.ShareEnabled != nil {
 		body["share_enabled"] = replaceOfferingOptions.ShareEnabled
 	}
-	if replaceOfferingOptions.PermitRequestIBMPublicPublish != nil {
-		body["permit_request_ibm_public_publish"] = replaceOfferingOptions.PermitRequestIBMPublicPublish
-	}
-	if replaceOfferingOptions.IBMPublishApproved != nil {
-		body["ibm_publish_approved"] = replaceOfferingOptions.IBMPublishApproved
-	}
-	if replaceOfferingOptions.PublicPublishApproved != nil {
-		body["public_publish_approved"] = replaceOfferingOptions.PublicPublishApproved
-	}
 	if replaceOfferingOptions.PublicOriginalCRN != nil {
 		body["public_original_crn"] = replaceOfferingOptions.PublicOriginalCRN
 	}
@@ -2851,6 +2833,9 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx cont
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	if deleteOfferingOptions.XApproverToken != nil {
+		builder.AddHeader("X-Approver-Token", fmt.Sprint(*deleteOfferingOptions.XApproverToken))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -2863,6 +2848,76 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx cont
 		core.EnrichHTTPProblem(err, "delete_offering", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+
+	return
+}
+
+// GetOfferingStats : Get offering statistics
+// Get the usage statistics for the specified offering.
+func (catalogManagement *CatalogManagementV1) GetOfferingStats(getOfferingStatsOptions *GetOfferingStatsOptions) (result *MetricStats, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.GetOfferingStatsWithContext(context.Background(), getOfferingStatsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetOfferingStatsWithContext is an alternate form of the GetOfferingStats method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingStatsWithContext(ctx context.Context, getOfferingStatsOptions *GetOfferingStatsOptions) (result *MetricStats, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingStatsOptions, "getOfferingStatsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getOfferingStatsOptions, "getOfferingStatsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getOfferingStatsOptions.CatalogIdentifier,
+		"offering_id":        *getOfferingStatsOptions.OfferingID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/stats`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getOfferingStatsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingStats")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_offering_stats", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalMetricStats)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
 	}
 
 	return
@@ -4069,6 +4124,75 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAboutWithContext(ctx co
 		core.EnrichHTTPProblem(err, "get_offering_about", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+
+	return
+}
+
+// GetIamPermissions : Get the required IAM permissions for this version with the specified user context
+// Get the required IAM permissions for this version with the specified user context.
+func (catalogManagement *CatalogManagementV1) GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.GetIamPermissionsWithContext(context.Background(), getIamPermissionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetIamPermissionsWithContext is an alternate form of the GetIamPermissions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetIamPermissionsWithContext(ctx context.Context, getIamPermissionsOptions *GetIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getIamPermissionsOptions, "getIamPermissionsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getIamPermissionsOptions, "getIamPermissionsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getIamPermissionsOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/iamPermissions`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getIamPermissionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetIamPermissions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse []json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_iam_permissions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCheckedIamPermission)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
 	}
 
 	return
@@ -9803,6 +9927,90 @@ func UnmarshalChangeNoticesResponseChangeNoticesItem(m map[string]json.RawMessag
 	return
 }
 
+// CheckedIamPermission : Checked IAM Permission for the current user context.
+type CheckedIamPermission struct {
+	// Service name.
+	ServiceName *string `json:"service_name,omitempty"`
+
+	// Service display name.
+	ServiceDisplayName *string `json:"service_display_name,omitempty"`
+
+	// Checked Role CRNs for this permission.
+	RoleCrns []CheckedRoleCRN `json:"role_crns,omitempty"`
+
+	// Resources for this permission.
+	Resources []IamResource `json:"resources,omitempty"`
+}
+
+// UnmarshalCheckedIamPermission unmarshals an instance of CheckedIamPermission from the specified map of raw messages.
+func UnmarshalCheckedIamPermission(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CheckedIamPermission)
+	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_display_name", &obj.ServiceDisplayName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_display_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "role_crns", &obj.RoleCrns, UnmarshalCheckedRoleCRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "role_crns-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalIamResource)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CheckedRoleCRN : Checked IAM role permission for the current user context.
+type CheckedRoleCRN struct {
+	// Role id.
+	ID *string `json:"id,omitempty"`
+
+	// Role display name.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// Role description.
+	Description *string `json:"description,omitempty"`
+
+	// Checked permission.
+	HasPermissions *bool `json:"has_permissions,omitempty"`
+}
+
+// UnmarshalCheckedRoleCRN unmarshals an instance of CheckedRoleCRN from the specified map of raw messages.
+func UnmarshalCheckedRoleCRN(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CheckedRoleCRN)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "has_permissions", &obj.HasPermissions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "has_permissions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ClaimedControl : Claimed control.
 type ClaimedControl struct {
 	// SCC Profile.
@@ -11425,18 +11633,6 @@ type CreateOfferingOptions struct {
 	// Denotes sharing including access list availability of an Offering is enabled.
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
-	// Is it permitted to request publishing to IBM or Public.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBMers.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBM Cloud users.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
-
 	// The original offering CRN that this publish entry came from.
 	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
 
@@ -11659,27 +11855,6 @@ func (_options *CreateOfferingOptions) SetShareWithIBM(shareWithIBM bool) *Creat
 // SetShareEnabled : Allow user to set ShareEnabled
 func (_options *CreateOfferingOptions) SetShareEnabled(shareEnabled bool) *CreateOfferingOptions {
 	_options.ShareEnabled = core.BoolPtr(shareEnabled)
-	return _options
-}
-
-// SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *CreateOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *CreateOfferingOptions {
-	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
-	return _options
-}
-
-// SetIBMPublishApproved : Allow user to set IBMPublishApproved
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *CreateOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *CreateOfferingOptions {
-	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
-	return _options
-}
-
-// SetPublicPublishApproved : Allow user to set PublicPublishApproved
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *CreateOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *CreateOfferingOptions {
-	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
 	return _options
 }
 
@@ -12061,6 +12236,10 @@ type DeleteOfferingOptions struct {
 	// Offering identification.
 	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
+	// IAM token of partner center. Only needed when Partner Center accessing the private catalog offering. When accessing
+	// the public offering Partner Center only needs to use their token in the authorization header.
+	XApproverToken *string `json:"X-Approver-Token,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -12082,6 +12261,12 @@ func (_options *DeleteOfferingOptions) SetCatalogIdentifier(catalogIdentifier st
 // SetOfferingID : Allow user to set OfferingID
 func (_options *DeleteOfferingOptions) SetOfferingID(offeringID string) *DeleteOfferingOptions {
 	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetXApproverToken : Allow user to set XApproverToken
+func (_options *DeleteOfferingOptions) SetXApproverToken(xApproverToken string) *DeleteOfferingOptions {
+	_options.XApproverToken = core.StringPtr(xApproverToken)
 	return _options
 }
 
@@ -13330,6 +13515,34 @@ func (options *GetEnterpriseAuditOptions) SetHeaders(param map[string]string) *G
 	return options
 }
 
+// GetIamPermissionsOptions : The GetIamPermissions options.
+type GetIamPermissionsOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetIamPermissionsOptions : Instantiate GetIamPermissionsOptions
+func (*CatalogManagementV1) NewGetIamPermissionsOptions(versionLocID string) *GetIamPermissionsOptions {
+	return &GetIamPermissionsOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *GetIamPermissionsOptions) SetVersionLocID(versionLocID string) *GetIamPermissionsOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetIamPermissionsOptions) SetHeaders(param map[string]string) *GetIamPermissionsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetNamespacesOptions : The GetNamespaces options.
 type GetNamespacesOptions struct {
 	// ID of the cluster.
@@ -14412,6 +14625,44 @@ func (_options *GetOfferingSourceURLOptions) SetID(id string) *GetOfferingSource
 
 // SetHeaders : Allow user to set Headers
 func (options *GetOfferingSourceURLOptions) SetHeaders(param map[string]string) *GetOfferingSourceURLOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingStatsOptions : The GetOfferingStats options.
+type GetOfferingStatsOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingStatsOptions : Instantiate GetOfferingStatsOptions
+func (*CatalogManagementV1) NewGetOfferingStatsOptions(catalogIdentifier string, offeringID string) *GetOfferingStatsOptions {
+	return &GetOfferingStatsOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID:        core.StringPtr(offeringID),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (_options *GetOfferingStatsOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingStatsOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *GetOfferingStatsOptions) SetOfferingID(offeringID string) *GetOfferingStatsOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingStatsOptions) SetHeaders(param map[string]string) *GetOfferingStatsOptions {
 	options.Headers = param
 	return options
 }
@@ -16983,6 +17234,49 @@ func UnmarshalMediaItem(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
+// MetricStats : Accumulated statistics for the specified target.  Statistics are accumulated on a weekly basis for at most a year.
+type MetricStats struct {
+	// What these statistics are for (i.e. Offering, Object, Plan, etc).
+	TargetType *string `json:"target_type,omitempty"`
+
+	// Target ID.
+	ID *string `json:"id,omitempty"`
+
+	// Statistics array.  Sorted on YearWeekIdx.  This array may have at most 52 entries, but may contain fewer if there
+	// are no statistics in a particular week.
+	Stats []WeeklyMetricBucket `json:"stats,omitempty"`
+
+	// Statistics for a given week.
+	Totals *WeeklyMetricBucket `json:"totals,omitempty"`
+}
+
+// UnmarshalMetricStats unmarshals an instance of MetricStats from the specified map of raw messages.
+func UnmarshalMetricStats(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MetricStats)
+	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "stats", &obj.Stats, UnmarshalWeeklyMetricBucket)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "stats-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "totals", &obj.Totals, UnmarshalWeeklyMetricBucket)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "totals-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // NamespaceSearchResult : Paginated list of namespace search results.
 type NamespaceSearchResult struct {
 	// The offset (origin 0) of the first resource in this page of search results.
@@ -17479,18 +17773,6 @@ type Offering struct {
 	// Denotes sharing including access list availability of an Offering is enabled.
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
-	// Is it permitted to request publishing to IBM or Public.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBMers.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBM Cloud users.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
-
 	// The original offering CRN that this publish entry came from.
 	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
 
@@ -17686,21 +17968,6 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 	err = core.UnmarshalPrimitive(m, "share_enabled", &obj.ShareEnabled)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "share_enabled-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "permit_request_ibm_public_publish", &obj.PermitRequestIBMPublicPublish)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "permit_request_ibm_public_publish-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "ibm_publish_approved", &obj.IBMPublishApproved)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "ibm_publish_approved-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "public_publish_approved", &obj.PublicPublishApproved)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "public_publish_approved-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "public_original_crn", &obj.PublicOriginalCRN)
@@ -20076,18 +20343,6 @@ type ReplaceOfferingOptions struct {
 	// Denotes sharing including access list availability of an Offering is enabled.
 	ShareEnabled *bool `json:"share_enabled,omitempty"`
 
-	// Is it permitted to request publishing to IBM or Public.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBMers.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
-
-	// Indicates if this offering has been approved for use by all IBM Cloud users.
-	// Deprecated: this field is deprecated and may be removed in a future release.
-	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
-
 	// The original offering CRN that this publish entry came from.
 	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
 
@@ -20329,27 +20584,6 @@ func (_options *ReplaceOfferingOptions) SetShareWithIBM(shareWithIBM bool) *Repl
 // SetShareEnabled : Allow user to set ShareEnabled
 func (_options *ReplaceOfferingOptions) SetShareEnabled(shareEnabled bool) *ReplaceOfferingOptions {
 	_options.ShareEnabled = core.BoolPtr(shareEnabled)
-	return _options
-}
-
-// SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *ReplaceOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *ReplaceOfferingOptions {
-	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
-	return _options
-}
-
-// SetIBMPublishApproved : Allow user to set IBMPublishApproved
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *ReplaceOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *ReplaceOfferingOptions {
-	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
-	return _options
-}
-
-// SetPublicPublishApproved : Allow user to set PublicPublishApproved
-// Deprecated: this method is deprecated and may be removed in a future release.
-func (_options *ReplaceOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *ReplaceOfferingOptions {
-	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
 	return _options
 }
 
@@ -21295,7 +21529,7 @@ type SetOfferingPublishOptions struct {
 	// Type of approval.
 	//  * `pc_managed` - Partner Center is managing this offering
 	//  * `ibm_module_repo` -  Offering is from an approved repository can be published into the module registry.
-	//  * `ibm_community` - Offering is from an approved repository can be published into the Innovation zone.
+	//  * `ibm_community` - Offering is from an approved repository can be published into the Community registry.
 	//  * `publish_approved` - Publishing approved, offering owners can now set who sees the offering in public catalog
 	//  * `approval_required` - Offering will be removed from public catalog when this flag is set to true, regardless of
 	// the approval and visibility settings.
@@ -21326,7 +21560,7 @@ type SetOfferingPublishOptions struct {
 // Type of approval.
 //   - `pc_managed` - Partner Center is managing this offering
 //   - `ibm_module_repo` -  Offering is from an approved repository can be published into the module registry.
-//   - `ibm_community` - Offering is from an approved repository can be published into the Innovation zone.
+//   - `ibm_community` - Offering is from an approved repository can be published into the Community registry.
 //   - `publish_approved` - Publishing approved, offering owners can now set who sees the offering in public catalog
 //   - `approval_required` - Offering will be removed from public catalog when this flag is set to true, regardless of
 //
@@ -22805,6 +23039,12 @@ type Version struct {
 
 	// Change notices for a version.
 	ChangeNotices *ChangeNotices `json:"change_notices,omitempty"`
+
+	// A list of plan ids that are applicable for this version.
+	PlanIds []string `json:"plan_ids,omitempty"`
+
+	// Optional. Stack definition that was used to create this version.
+	Stack map[string]interface{} `json:"stack,omitempty"`
 }
 
 // UnmarshalVersion unmarshals an instance of Version from the specified map of raw messages.
@@ -23020,6 +23260,16 @@ func UnmarshalVersion(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "change_notices-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "plan_ids", &obj.PlanIds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_ids-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "stack", &obj.Stack)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "stack-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -23185,6 +23435,56 @@ func UnmarshalVersionUpdateDescriptor(m map[string]json.RawMessage, result inter
 	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "messages-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// WeeklyMetricBucket : Statistics for a given week.
+type WeeklyMetricBucket struct {
+	// ISO based YearWeek index yyyyww,  e.g., 202303 for third week in 2003.
+	YearWeekIdx *int64 `json:"year_week_idx,omitempty"`
+
+	// Number of times the resource was downloaded.
+	Download *int64 `json:"download,omitempty"`
+
+	// Number of times the resource was updated.
+	Update *int64 `json:"update,omitempty"`
+
+	// Number of times the resource was accessed.
+	Get *int64 `json:"get,omitempty"`
+
+	// Number of times the customization bundle was downloaded for this resource.
+	BundleDownload *int64 `json:"bundle_download,omitempty"`
+}
+
+// UnmarshalWeeklyMetricBucket unmarshals an instance of WeeklyMetricBucket from the specified map of raw messages.
+func UnmarshalWeeklyMetricBucket(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(WeeklyMetricBucket)
+	err = core.UnmarshalPrimitive(m, "year_week_idx", &obj.YearWeekIdx)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "year_week_idx-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "download", &obj.Download)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "download-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "update", &obj.Update)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "update-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "get", &obj.Get)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "get-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bundle_download", &obj.BundleDownload)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bundle_download-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))

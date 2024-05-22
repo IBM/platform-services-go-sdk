@@ -637,6 +637,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Update:   []catalogmanagementv1.Feature{*featureModel},
 			}
 
+			stackModel := map[string]interface{}{
+				"testString": "testString",
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				ID:                  &versionIDLink,
 				Rev:                 &versionRevLink,
@@ -676,6 +680,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
 				ChangeNotices:       changeNoticesModel,
+				Stack:               stackModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -760,50 +765,47 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
-				CatalogIdentifier:             &catalogIDLink,
-				URL:                           core.StringPtr("testString"),
-				CRN:                           core.StringPtr("testString"),
-				Label:                         core.StringPtr("testString"),
-				LabelI18n:                     make(map[string]string),
-				Name:                          core.StringPtr("testString"),
-				OfferingIconURL:               core.StringPtr("testString"),
-				OfferingDocsURL:               core.StringPtr("testString"),
-				OfferingSupportURL:            core.StringPtr("testString"),
-				Tags:                          []string{"testString"},
-				Keywords:                      []string{"testString"},
-				Rating:                        ratingModel,
-				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription:              core.StringPtr("testString"),
-				ShortDescriptionI18n:          make(map[string]string),
-				LongDescription:               core.StringPtr("testString"),
-				LongDescriptionI18n:           make(map[string]string),
-				Features:                      []catalogmanagementv1.Feature{*featureModel},
-				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
-				PcManaged:                     core.BoolPtr(true),
-				PublishApproved:               core.BoolPtr(true),
-				ShareWithAll:                  core.BoolPtr(true),
-				ShareWithIBM:                  core.BoolPtr(true),
-				ShareEnabled:                  core.BoolPtr(true),
-				PermitRequestIBMPublicPublish: core.BoolPtr(true),
-				IBMPublishApproved:            core.BoolPtr(true),
-				PublicPublishApproved:         core.BoolPtr(true),
-				PublicOriginalCRN:             core.StringPtr("testString"),
-				PublishPublicCRN:              core.StringPtr("testString"),
-				PortalApprovalRecord:          core.StringPtr("testString"),
-				PortalUIURL:                   core.StringPtr("testString"),
-				CatalogID:                     &catalogIDLink,
-				CatalogName:                   core.StringPtr("testString"),
-				Metadata:                      make(map[string]interface{}),
-				Disclaimer:                    core.StringPtr("testString"),
-				Hidden:                        core.BoolPtr(true),
-				Provider:                      core.StringPtr("testString"),
-				ProviderInfo:                  providerInfoModel,
-				Support:                       supportModel,
-				Media:                         []catalogmanagementv1.MediaItem{*mediaItemModel},
-				DeprecatePending:              deprecatePendingModel,
-				ProductKind:                   core.StringPtr("solution"),
-				Badges:                        []catalogmanagementv1.Badge{*badgeModel},
+				CatalogIdentifier:    &catalogIDLink,
+				URL:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				LabelI18n:            make(map[string]string),
+				Name:                 core.StringPtr("testString"),
+				OfferingIconURL:      core.StringPtr("testString"),
+				OfferingDocsURL:      core.StringPtr("testString"),
+				OfferingSupportURL:   core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Keywords:             []string{"testString"},
+				Rating:               ratingModel,
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				LongDescription:      core.StringPtr("testString"),
+				LongDescriptionI18n:  make(map[string]string),
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                []catalogmanagementv1.Kind{*kindModel},
+				PcManaged:            core.BoolPtr(true),
+				PublishApproved:      core.BoolPtr(true),
+				ShareWithAll:         core.BoolPtr(true),
+				ShareWithIBM:         core.BoolPtr(true),
+				ShareEnabled:         core.BoolPtr(true),
+				PublicOriginalCRN:    core.StringPtr("testString"),
+				PublishPublicCRN:     core.StringPtr("testString"),
+				PortalApprovalRecord: core.StringPtr("testString"),
+				PortalUIURL:          core.StringPtr("testString"),
+				CatalogID:            &catalogIDLink,
+				CatalogName:          core.StringPtr("testString"),
+				Metadata:             make(map[string]interface{}),
+				Disclaimer:           core.StringPtr("testString"),
+				Hidden:               core.BoolPtr(true),
+				Provider:             core.StringPtr("testString"),
+				ProviderInfo:         providerInfoModel,
+				Support:              supportModel,
+				Media:                []catalogmanagementv1.MediaItem{*mediaItemModel},
+				DeprecatePending:     deprecatePendingModel,
+				ProductKind:          core.StringPtr("solution"),
+				Badges:               []catalogmanagementv1.Badge{*badgeModel},
 			}
 
 			offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
@@ -987,7 +989,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	// Must set plan to publish_approved use approver token before other plan operations will work
+	// Must set plan to validated using approver token before other plan operations will work
+	// Done with helper API call because we do not expose this route in our api definition
+	Describe(`SetValidatePlan - set plan to publish_approved`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetValidatePlan()`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+			response, err := catalogManagementService.SetValidatePlan(planIDLink, headers)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+		})
+	})
+
+	// Must set plan to publish_approved using approver token before other plan operations will work
 	// Done with helper API call because we do not expose this route in our api definition
 	Describe(`SetAllowPublishPlan - set plan to publish_approved`, func() {
 		BeforeEach(func() {
@@ -1139,6 +1157,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			offeringRevLink = *offering.Rev
 			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
+		})
+	})
+
+	Describe(`GetOffering - Get offering stats`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetOfferingStats(getOfferingStatsOptions *GetOfferingStatsOptions)`, func() {
+			getOfferingStatsOptions := &catalogmanagementv1.GetOfferingStatsOptions{
+				CatalogIdentifier: &catalogIDLink,
+				OfferingID:        &offeringIDLink,
+			}
+
+			result, response, err := catalogManagementService.GetOfferingStats(getOfferingStatsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 	})
 
@@ -1603,6 +1638,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Update:   []catalogmanagementv1.Feature{*featureModel},
 			}
 
+			stackModel := map[string]interface{}{
+				"testString": "testString",
+			}
+
 			versionModel := &catalogmanagementv1.Version{
 				//ID:                  &versionIDLink,
 				//Rev:                 &versionRevLink,
@@ -1643,6 +1682,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				IsConsumable:        core.BoolPtr(true),
 				ComplianceV3:        complianceModel,
 				ChangeNotices:       changeNoticesModel,
+				Stack:               stackModel,
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
@@ -1727,53 +1767,50 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			replaceOfferingOptions := &catalogmanagementv1.ReplaceOfferingOptions{
-				CatalogIdentifier:             &catalogIDLink,
-				OfferingID:                    &offeringIDLink,
-				ID:                            &offeringIDLink,
-				Rev:                           &offeringRevLink,
-				URL:                           core.StringPtr("testString"),
-				CRN:                           core.StringPtr("testString"),
-				Label:                         core.StringPtr("testString"),
-				LabelI18n:                     make(map[string]string),
-				Name:                          core.StringPtr("testString"),
-				OfferingIconURL:               core.StringPtr("testString"),
-				OfferingDocsURL:               core.StringPtr("testString"),
-				OfferingSupportURL:            core.StringPtr("testString"),
-				Tags:                          []string{"testString"},
-				Keywords:                      []string{"testString"},
-				Rating:                        ratingModel,
-				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription:              core.StringPtr("testString"),
-				ShortDescriptionI18n:          make(map[string]string),
-				LongDescription:               core.StringPtr("testString"),
-				LongDescriptionI18n:           make(map[string]string),
-				Features:                      []catalogmanagementv1.Feature{*featureModel},
-				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
-				PcManaged:                     core.BoolPtr(true),
-				PublishApproved:               core.BoolPtr(true),
-				ShareWithAll:                  core.BoolPtr(true),
-				ShareWithIBM:                  core.BoolPtr(true),
-				ShareEnabled:                  core.BoolPtr(true),
-				PermitRequestIBMPublicPublish: core.BoolPtr(true),
-				IBMPublishApproved:            core.BoolPtr(true),
-				PublicPublishApproved:         core.BoolPtr(true),
-				PublicOriginalCRN:             core.StringPtr("testString"),
-				PublishPublicCRN:              core.StringPtr("testString"),
-				PortalApprovalRecord:          core.StringPtr("testString"),
-				PortalUIURL:                   core.StringPtr("testString"),
-				CatalogID:                     &catalogIDLink,
-				CatalogName:                   core.StringPtr("testString"),
-				Metadata:                      make(map[string]interface{}),
-				Disclaimer:                    core.StringPtr("testString"),
-				Hidden:                        core.BoolPtr(true),
-				Provider:                      core.StringPtr("testString"),
-				ProviderInfo:                  providerInfoModel,
-				Support:                       supportModel,
-				Media:                         []catalogmanagementv1.MediaItem{*mediaItemModel},
-				DeprecatePending:              deprecatePendingModel,
-				ProductKind:                   core.StringPtr("solution"),
-				Badges:                        []catalogmanagementv1.Badge{*badgeModel},
+				CatalogIdentifier:    &catalogIDLink,
+				OfferingID:           &offeringIDLink,
+				ID:                   &offeringIDLink,
+				Rev:                  &offeringRevLink,
+				URL:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				LabelI18n:            make(map[string]string),
+				Name:                 core.StringPtr("testString"),
+				OfferingIconURL:      core.StringPtr("testString"),
+				OfferingDocsURL:      core.StringPtr("testString"),
+				OfferingSupportURL:   core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Keywords:             []string{"testString"},
+				Rating:               ratingModel,
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
+				ShortDescriptionI18n: make(map[string]string),
+				LongDescription:      core.StringPtr("testString"),
+				LongDescriptionI18n:  make(map[string]string),
+				Features:             []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                []catalogmanagementv1.Kind{*kindModel},
+				PcManaged:            core.BoolPtr(true),
+				PublishApproved:      core.BoolPtr(true),
+				ShareWithAll:         core.BoolPtr(true),
+				ShareWithIBM:         core.BoolPtr(true),
+				ShareEnabled:         core.BoolPtr(true),
+				PublicOriginalCRN:    core.StringPtr("testString"),
+				PublishPublicCRN:     core.StringPtr("testString"),
+				PortalApprovalRecord: core.StringPtr("testString"),
+				PortalUIURL:          core.StringPtr("testString"),
+				CatalogID:            &catalogIDLink,
+				CatalogName:          core.StringPtr("testString"),
+				Metadata:             make(map[string]interface{}),
+				Disclaimer:           core.StringPtr("testString"),
+				Hidden:               core.BoolPtr(true),
+				Provider:             core.StringPtr("testString"),
+				ProviderInfo:         providerInfoModel,
+				Support:              supportModel,
+				Media:                []catalogmanagementv1.MediaItem{*mediaItemModel},
+				DeprecatePending:     deprecatePendingModel,
+				ProductKind:          core.StringPtr("solution"),
+				Badges:               []catalogmanagementv1.Badge{*badgeModel},
 			}
 
 			offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
@@ -2468,6 +2505,22 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			result, response, err := catalogManagementService.GetOfferingAbout(getOfferingAboutOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetIamPermissions - Get version about information`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions)`, func() {
+			getIamPermissionsOptions := &catalogmanagementv1.GetIamPermissionsOptions{
+				VersionLocID: core.StringPtr(versionLocatorLink),
+			}
+
+			result, response, err := catalogManagementService.GetIamPermissions(getIamPermissionsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
