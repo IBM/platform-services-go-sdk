@@ -2511,16 +2511,16 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CheckIamPermissions - Get version about information`, func() {
+	Describe(`GetIamPermissions - Get version about information`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CheckIamPermissions(checkIamPermissionsOptions *CheckIamPermissionsOptions)`, func() {
-			checkIamPermissionsOptions := &catalogmanagementv1.CheckIamPermissionsOptions{
+		It(`GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions)`, func() {
+			getIamPermissionsOptions := &catalogmanagementv1.GetIamPermissionsOptions{
 				VersionLocID: core.StringPtr(versionLocatorLink),
 			}
 
-			result, response, err := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptions)
+			result, response, err := catalogManagementService.GetIamPermissions(getIamPermissionsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())

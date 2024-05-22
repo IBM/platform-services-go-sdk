@@ -2833,6 +2833,9 @@ func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx cont
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	if deleteOfferingOptions.XApproverToken != nil {
+		builder.AddHeader("X-Approver-Token", fmt.Sprint(*deleteOfferingOptions.XApproverToken))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -4126,45 +4129,45 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAboutWithContext(ctx co
 	return
 }
 
-// CheckIamPermissions : Check the required IAM permissions for this version with the specified user context
-// Check the required IAM permissions for this version with the specified user context.
-func (catalogManagement *CatalogManagementV1) CheckIamPermissions(checkIamPermissionsOptions *CheckIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
-	result, response, err = catalogManagement.CheckIamPermissionsWithContext(context.Background(), checkIamPermissionsOptions)
+// GetIamPermissions : Get the required IAM permissions for this version with the specified user context
+// Get the required IAM permissions for this version with the specified user context.
+func (catalogManagement *CatalogManagementV1) GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.GetIamPermissionsWithContext(context.Background(), getIamPermissionsOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
-// CheckIamPermissionsWithContext is an alternate form of the CheckIamPermissions method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) CheckIamPermissionsWithContext(ctx context.Context, checkIamPermissionsOptions *CheckIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(checkIamPermissionsOptions, "checkIamPermissionsOptions cannot be nil")
+// GetIamPermissionsWithContext is an alternate form of the GetIamPermissions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetIamPermissionsWithContext(ctx context.Context, getIamPermissionsOptions *GetIamPermissionsOptions) (result []CheckedIamPermission, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getIamPermissionsOptions, "getIamPermissionsOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
-	err = core.ValidateStruct(checkIamPermissionsOptions, "checkIamPermissionsOptions")
+	err = core.ValidateStruct(getIamPermissionsOptions, "getIamPermissionsOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id": *checkIamPermissionsOptions.VersionLocID,
+		"version_loc_id": *getIamPermissionsOptions.VersionLocID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/checkIAMPermissions`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/iamPermissions`, pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
-	for headerName, headerValue := range checkIamPermissionsOptions.Headers {
+	for headerName, headerValue := range getIamPermissionsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CheckIamPermissions")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetIamPermissions")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -4179,7 +4182,7 @@ func (catalogManagement *CatalogManagementV1) CheckIamPermissionsWithContext(ctx
 	var rawResponse []json.RawMessage
 	response, err = catalogManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "check_iam_permissions", getServiceComponentInfo())
+		core.EnrichHTTPProblem(err, "get_iam_permissions", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -9924,34 +9927,6 @@ func UnmarshalChangeNoticesResponseChangeNoticesItem(m map[string]json.RawMessag
 	return
 }
 
-// CheckIamPermissionsOptions : The CheckIamPermissions options.
-type CheckIamPermissionsOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewCheckIamPermissionsOptions : Instantiate CheckIamPermissionsOptions
-func (*CatalogManagementV1) NewCheckIamPermissionsOptions(versionLocID string) *CheckIamPermissionsOptions {
-	return &CheckIamPermissionsOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (_options *CheckIamPermissionsOptions) SetVersionLocID(versionLocID string) *CheckIamPermissionsOptions {
-	_options.VersionLocID = core.StringPtr(versionLocID)
-	return _options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *CheckIamPermissionsOptions) SetHeaders(param map[string]string) *CheckIamPermissionsOptions {
-	options.Headers = param
-	return options
-}
-
 // CheckedIamPermission : Checked IAM Permission for the current user context.
 type CheckedIamPermission struct {
 	// Service name.
@@ -12261,6 +12236,10 @@ type DeleteOfferingOptions struct {
 	// Offering identification.
 	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
+	// IAM token of partner center. Only needed when Partner Center accessing the private catalog offering. When accessing
+	// the public offering Partner Center only needs to use their token in the authorization header.
+	XApproverToken *string `json:"X-Approver-Token,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -12282,6 +12261,12 @@ func (_options *DeleteOfferingOptions) SetCatalogIdentifier(catalogIdentifier st
 // SetOfferingID : Allow user to set OfferingID
 func (_options *DeleteOfferingOptions) SetOfferingID(offeringID string) *DeleteOfferingOptions {
 	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetXApproverToken : Allow user to set XApproverToken
+func (_options *DeleteOfferingOptions) SetXApproverToken(xApproverToken string) *DeleteOfferingOptions {
+	_options.XApproverToken = core.StringPtr(xApproverToken)
 	return _options
 }
 
@@ -13526,6 +13511,34 @@ func (_options *GetEnterpriseAuditOptions) SetLookupnames(lookupnames bool) *Get
 
 // SetHeaders : Allow user to set Headers
 func (options *GetEnterpriseAuditOptions) SetHeaders(param map[string]string) *GetEnterpriseAuditOptions {
+	options.Headers = param
+	return options
+}
+
+// GetIamPermissionsOptions : The GetIamPermissions options.
+type GetIamPermissionsOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetIamPermissionsOptions : Instantiate GetIamPermissionsOptions
+func (*CatalogManagementV1) NewGetIamPermissionsOptions(versionLocID string) *GetIamPermissionsOptions {
+	return &GetIamPermissionsOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *GetIamPermissionsOptions) SetVersionLocID(versionLocID string) *GetIamPermissionsOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetIamPermissionsOptions) SetHeaders(param map[string]string) *GetIamPermissionsOptions {
 	options.Headers = param
 	return options
 }

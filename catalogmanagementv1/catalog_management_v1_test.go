@@ -14191,6 +14191,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteOfferingPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Approver-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Approver-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(200)
 				}))
 			})
@@ -14211,6 +14213,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deleteOfferingOptionsModel := new(catalogmanagementv1.DeleteOfferingOptions)
 				deleteOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				deleteOfferingOptionsModel.OfferingID = core.StringPtr("testString")
+				deleteOfferingOptionsModel.XApproverToken = core.StringPtr("testString")
 				deleteOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -14230,6 +14233,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deleteOfferingOptionsModel := new(catalogmanagementv1.DeleteOfferingOptions)
 				deleteOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				deleteOfferingOptionsModel.OfferingID = core.StringPtr("testString")
+				deleteOfferingOptionsModel.XApproverToken = core.StringPtr("testString")
 				deleteOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -18118,22 +18122,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`CheckIamPermissions(checkIamPermissionsOptions *CheckIamPermissionsOptions) - Operation response error`, func() {
-		checkIamPermissionsPath := "/versions/testString/checkIAMPermissions"
+	Describe(`GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions) - Operation response error`, func() {
+		getIamPermissionsPath := "/versions/testString/iamPermissions"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(checkIamPermissionsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getIamPermissionsPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke CheckIamPermissions with error: Operation response processing error`, func() {
+			It(`Invoke GetIamPermissions with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -18141,19 +18145,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CheckIamPermissionsOptions model
-				checkIamPermissionsOptionsModel := new(catalogmanagementv1.CheckIamPermissionsOptions)
-				checkIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
-				checkIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetIamPermissionsOptions model
+				getIamPermissionsOptionsModel := new(catalogmanagementv1.GetIamPermissionsOptions)
+				getIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
+				getIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr := catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr = catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -18163,15 +18167,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`CheckIamPermissions(checkIamPermissionsOptions *CheckIamPermissionsOptions)`, func() {
-		checkIamPermissionsPath := "/versions/testString/checkIAMPermissions"
+	Describe(`GetIamPermissions(getIamPermissionsOptions *GetIamPermissionsOptions)`, func() {
+		getIamPermissionsPath := "/versions/testString/iamPermissions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(checkIamPermissionsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getIamPermissionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -18183,7 +18187,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `[{"service_name": "ServiceName", "service_display_name": "ServiceDisplayName", "role_crns": [{"id": "ID", "display_name": "DisplayName", "description": "Description", "has_permissions": true}], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}]`)
 				}))
 			})
-			It(`Invoke CheckIamPermissions successfully with retries`, func() {
+			It(`Invoke GetIamPermissions successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -18192,21 +18196,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the CheckIamPermissionsOptions model
-				checkIamPermissionsOptionsModel := new(catalogmanagementv1.CheckIamPermissionsOptions)
-				checkIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
-				checkIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetIamPermissionsOptions model
+				getIamPermissionsOptionsModel := new(catalogmanagementv1.GetIamPermissionsOptions)
+				getIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
+				getIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.CheckIamPermissionsWithContext(ctx, checkIamPermissionsOptionsModel)
+				_, _, operationErr := catalogManagementService.GetIamPermissionsWithContext(ctx, getIamPermissionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr := catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -18214,7 +18218,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.CheckIamPermissionsWithContext(ctx, checkIamPermissionsOptionsModel)
+				_, _, operationErr = catalogManagementService.GetIamPermissionsWithContext(ctx, getIamPermissionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -18228,7 +18232,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(checkIamPermissionsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getIamPermissionsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -18237,7 +18241,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `[{"service_name": "ServiceName", "service_display_name": "ServiceDisplayName", "role_crns": [{"id": "ID", "display_name": "DisplayName", "description": "Description", "has_permissions": true}], "resources": [{"name": "Name", "description": "Description", "role_crns": ["RoleCrns"]}]}]`)
 				}))
 			})
-			It(`Invoke CheckIamPermissions successfully`, func() {
+			It(`Invoke GetIamPermissions successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -18246,24 +18250,24 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.CheckIamPermissions(nil)
+				result, response, operationErr := catalogManagementService.GetIamPermissions(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CheckIamPermissionsOptions model
-				checkIamPermissionsOptionsModel := new(catalogmanagementv1.CheckIamPermissionsOptions)
-				checkIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
-				checkIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetIamPermissionsOptions model
+				getIamPermissionsOptionsModel := new(catalogmanagementv1.GetIamPermissionsOptions)
+				getIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
+				getIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr = catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CheckIamPermissions with error: Operation validation and request error`, func() {
+			It(`Invoke GetIamPermissions with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -18271,22 +18275,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CheckIamPermissionsOptions model
-				checkIamPermissionsOptionsModel := new(catalogmanagementv1.CheckIamPermissionsOptions)
-				checkIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
-				checkIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetIamPermissionsOptions model
+				getIamPermissionsOptionsModel := new(catalogmanagementv1.GetIamPermissionsOptions)
+				getIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
+				getIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr := catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the CheckIamPermissionsOptions model with no property values
-				checkIamPermissionsOptionsModelNew := new(catalogmanagementv1.CheckIamPermissionsOptions)
+				// Construct a second instance of the GetIamPermissionsOptions model with no property values
+				getIamPermissionsOptionsModelNew := new(catalogmanagementv1.GetIamPermissionsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -18304,7 +18308,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke CheckIamPermissions successfully`, func() {
+			It(`Invoke GetIamPermissions successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -18312,13 +18316,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CheckIamPermissionsOptions model
-				checkIamPermissionsOptionsModel := new(catalogmanagementv1.CheckIamPermissionsOptions)
-				checkIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
-				checkIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetIamPermissionsOptions model
+				getIamPermissionsOptionsModel := new(catalogmanagementv1.GetIamPermissionsOptions)
+				getIamPermissionsOptionsModel.VersionLocID = core.StringPtr("testString")
+				getIamPermissionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptionsModel)
+				result, response, operationErr := catalogManagementService.GetIamPermissions(getIamPermissionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -28981,16 +28985,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(archiveVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(archiveVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCheckIamPermissionsOptions successfully`, func() {
-				// Construct an instance of the CheckIamPermissionsOptions model
-				versionLocID := "testString"
-				checkIamPermissionsOptionsModel := catalogManagementService.NewCheckIamPermissionsOptions(versionLocID)
-				checkIamPermissionsOptionsModel.SetVersionLocID("testString")
-				checkIamPermissionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(checkIamPermissionsOptionsModel).ToNot(BeNil())
-				Expect(checkIamPermissionsOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(checkIamPermissionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewCommitVersionOptions successfully`, func() {
 				// Construct an instance of the CommitVersionOptions model
 				versionLocID := "testString"
@@ -30454,10 +30448,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				deleteOfferingOptionsModel := catalogManagementService.NewDeleteOfferingOptions(catalogIdentifier, offeringID)
 				deleteOfferingOptionsModel.SetCatalogIdentifier("testString")
 				deleteOfferingOptionsModel.SetOfferingID("testString")
+				deleteOfferingOptionsModel.SetXApproverToken("testString")
 				deleteOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteOfferingOptionsModel).ToNot(BeNil())
 				Expect(deleteOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOfferingOptionsModel.XApproverToken).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteOperatorsOptions successfully`, func() {
@@ -30668,6 +30664,16 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getEnterpriseAuditOptionsModel.AuditlogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getEnterpriseAuditOptionsModel.Lookupnames).To(Equal(core.BoolPtr(true)))
 				Expect(getEnterpriseAuditOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetIamPermissionsOptions successfully`, func() {
+				// Construct an instance of the GetIamPermissionsOptions model
+				versionLocID := "testString"
+				getIamPermissionsOptionsModel := catalogManagementService.NewGetIamPermissionsOptions(versionLocID)
+				getIamPermissionsOptionsModel.SetVersionLocID("testString")
+				getIamPermissionsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getIamPermissionsOptionsModel).ToNot(BeNil())
+				Expect(getIamPermissionsOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
+				Expect(getIamPermissionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetNamespacesOptions successfully`, func() {
 				// Construct an instance of the GetNamespacesOptions model

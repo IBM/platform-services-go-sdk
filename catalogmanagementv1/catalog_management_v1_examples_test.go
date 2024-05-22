@@ -984,23 +984,23 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(result).ToNot(BeNil())
 		})
 
-		It(`CheckIamPermissions request example`, func() {
+		It(`GetIamPermissions request example`, func() {
 			Skip("Skipped by design.")
-			fmt.Println("\nCheckIamPermissions() result:")
-			// begin-get_offering_about
+			fmt.Println("\nGetIamPermissions() result:")
+			// begin-get_iam_permissions
 
-			checkIamPermissionsOptions := catalogManagementService.NewCheckIamPermissionsOptions(
+			getIamPermissionsOptions := catalogManagementService.NewGetIamPermissionsOptions(
 				versionLocatorID,
 			)
 
-			result, response, err := catalogManagementService.CheckIamPermissions(checkIamPermissionsOptions)
+			result, response, err := catalogManagementService.GetIamPermissions(getIamPermissionsOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_offering_about
+			// end-get_iam_permissions
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
