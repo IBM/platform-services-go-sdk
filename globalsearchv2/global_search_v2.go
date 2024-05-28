@@ -265,6 +265,9 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	if searchOptions.CanTag != nil {
 		builder.AddQuery("can_tag", fmt.Sprint(*searchOptions.CanTag))
 	}
+	if searchOptions.IsProjectResource != nil {
+		builder.AddQuery("is_project_resource", fmt.Sprint(*searchOptions.IsProjectResource))
+	}
 
 	body := make(map[string]interface{})
 	if searchOptions.Query != nil {
@@ -488,6 +491,12 @@ type SearchOptions struct {
 	// only resources that user has permissions for tagging are returned (_for administrators only_).
 	CanTag *string `json:"can_tag,omitempty"`
 
+	// Determines if documents belonging to Project family should be included in result set or not. Possible values are
+	// false (default), true or any. If false, documents belonging to all families except Project are returned; if true,
+	// only documents belonging to Project family are returned; if any, documents of any family are returned. Only
+	// authorized ServiceIds can use this query parameter.
+	IsProjectResource *string `json:"is_project_resource,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -529,6 +538,17 @@ const (
 const (
 	SearchOptionsCanTagFalseConst = "false"
 	SearchOptionsCanTagTrueConst = "true"
+)
+
+// Constants associated with the SearchOptions.IsProjectResource property.
+// Determines if documents belonging to Project family should be included in result set or not. Possible values are
+// false (default), true or any. If false, documents belonging to all families except Project are returned; if true,
+// only documents belonging to Project family are returned; if any, documents of any family are returned. Only
+// authorized ServiceIds can use this query parameter.
+const (
+	SearchOptionsIsProjectResourceAnyConst = "any"
+	SearchOptionsIsProjectResourceFalseConst = "false"
+	SearchOptionsIsProjectResourceTrueConst = "true"
 )
 
 // NewSearchOptions : Instantiate SearchOptions
@@ -617,6 +637,12 @@ func (_options *SearchOptions) SetImpersonateUser(impersonateUser string) *Searc
 // SetCanTag : Allow user to set CanTag
 func (_options *SearchOptions) SetCanTag(canTag string) *SearchOptions {
 	_options.CanTag = core.StringPtr(canTag)
+	return _options
+}
+
+// SetIsProjectResource : Allow user to set IsProjectResource
+func (_options *SearchOptions) SetIsProjectResource(isProjectResource string) *SearchOptions {
+	_options.IsProjectResource = core.StringPtr(isProjectResource)
 	return _options
 }
 
