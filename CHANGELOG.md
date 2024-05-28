@@ -1,3 +1,10 @@
+## [0.63.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.0...v0.63.1) (2024-05-28)
+
+
+### Bug Fixes
+
+* **Global Search:** add support for is_project_resource query param ([c1aa9c7](https://github.com/IBM/platform-services-go-sdk/commit/c1aa9c739e11d7314c1abeb887ef46f48d332957))
+
 # [0.63.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.62.11...v0.63.0) (2024-05-22)
 
 
