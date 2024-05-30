@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.88.0-b0b4c159-20240402-205910
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -63,26 +63,22 @@ func NewIamPolicyManagementV1UsingExternalConfig(options *IamPolicyManagementV1O
 	if options.Authenticator == nil {
 		options.Authenticator, err = core.GetAuthenticatorFromEnvironment(options.ServiceName)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "env-auth-error", common.GetComponentInfo())
 			return
 		}
 	}
 
 	iamPolicyManagement, err = NewIamPolicyManagementV1(options)
-	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
 	err = iamPolicyManagement.Service.ConfigureService(options.ServiceName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = iamPolicyManagement.Service.SetServiceURL(options.URL)
-		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
@@ -96,14 +92,12 @@ func NewIamPolicyManagementV1(options *IamPolicyManagementV1Options) (service *I
 
 	baseService, err := core.NewBaseService(serviceOptions)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "new-base-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
 		err = baseService.SetServiceURL(options.URL)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "set-url-error", common.GetComponentInfo())
 			return
 		}
 	}
@@ -117,7 +111,7 @@ func NewIamPolicyManagementV1(options *IamPolicyManagementV1Options) (service *I
 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
-	return "", core.SDKErrorf(nil, "service does not support regional URLs", "no-regional-support", common.GetComponentInfo())
+	return "", fmt.Errorf("service does not support regional URLs")
 }
 
 // Clone makes a copy of "iamPolicyManagement" suitable for processing requests.
@@ -132,11 +126,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) Clone() *IamPolicyManagementV1
 
 // SetServiceURL sets the service URL
 func (iamPolicyManagement *IamPolicyManagementV1) SetServiceURL(url string) error {
-	err := iamPolicyManagement.Service.SetServiceURL(url)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
-	}
-	return err
+	return iamPolicyManagement.Service.SetServiceURL(url)
 }
 
 // GetServiceURL returns the service URL
@@ -177,21 +167,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DisableRetries() {
 // parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
 // the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptions *ListPoliciesOptions) (result *PolicyCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
 }
 
 // ListPoliciesWithContext is an alternate form of the ListPolicies method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx context.Context, listPoliciesOptions *ListPoliciesOptions) (result *PolicyCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listPoliciesOptions, "listPoliciesOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listPoliciesOptions, "listPoliciesOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -200,7 +186,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -248,21 +233,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_policies", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -316,21 +297,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
 // against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptions *CreatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreatePolicyWithContext(context.Background(), createPolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreatePolicyWithContext(context.Background(), createPolicyOptions)
 }
 
 // CreatePolicyWithContext is an alternate form of the CreatePolicy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx context.Context, createPolicyOptions *CreatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createPolicyOptions, "createPolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createPolicyOptions, "createPolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -339,7 +316,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -375,27 +351,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -444,21 +415,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 // geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
 // against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicy(replacePolicyOptions *ReplacePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ReplacePolicyWithContext(context.Background(), replacePolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ReplacePolicyWithContext(context.Background(), replacePolicyOptions)
 }
 
 // ReplacePolicyWithContext is an alternate form of the ReplacePolicy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyWithContext(ctx context.Context, replacePolicyOptions *ReplacePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replacePolicyOptions, "replacePolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replacePolicyOptions, "replacePolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -471,7 +438,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyWithContext(ctx c
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -507,27 +473,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyWithContext(ctx c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -539,21 +500,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyWithContext(ctx c
 // GetPolicy : Retrieve a policy by ID
 // Retrieve a policy by providing a policy ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *GetPolicyOptions) (result *PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetPolicyWithContext(context.Background(), getPolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.GetPolicyWithContext(context.Background(), getPolicyOptions)
 }
 
 // GetPolicyWithContext is an alternate form of the GetPolicy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx context.Context, getPolicyOptions *GetPolicyOptions) (result *PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyOptions, "getPolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getPolicyOptions, "getPolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -566,7 +523,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx conte
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -582,21 +538,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx conte
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateMetaData)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -609,21 +561,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx conte
 // Delete a policy by providing a policy ID. A policy cannot be deleted if the subject ID contains a locked service ID.
 // If the subject of the policy is a locked service-id, the request will fail.
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicy(deletePolicyOptions *DeletePolicyOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeletePolicyWithContext(context.Background(), deletePolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeletePolicyWithContext(context.Background(), deletePolicyOptions)
 }
 
 // DeletePolicyWithContext is an alternate form of the DeletePolicy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx context.Context, deletePolicyOptions *DeletePolicyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deletePolicyOptions, "deletePolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deletePolicyOptions, "deletePolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -636,7 +584,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx co
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -651,16 +598,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx co
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -669,21 +610,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx co
 // Restore a policy that has recently been deleted. A policy administrator might want to restore a deleted policy. To
 // restore a policy, use **`"state": "active"`** in the body.
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyState(updatePolicyStateOptions *UpdatePolicyStateOptions) (result *Policy, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.UpdatePolicyStateWithContext(context.Background(), updatePolicyStateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.UpdatePolicyStateWithContext(context.Background(), updatePolicyStateOptions)
 }
 
 // UpdatePolicyStateWithContext is an alternate form of the UpdatePolicyState method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyStateWithContext(ctx context.Context, updatePolicyStateOptions *UpdatePolicyStateOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updatePolicyStateOptions, "updatePolicyStateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updatePolicyStateOptions, "updatePolicyStateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -696,7 +633,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyStateWithContext(c
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -720,27 +656,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyStateWithContext(c
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "update_policy_state", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -756,16 +687,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyStateWithContext(c
 // exclusive. Only roles that match the filter and that the caller has read access to are returned. If the caller does
 // not have read access to any roles an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *ListRolesOptions) (result *RoleCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListRolesWithContext(context.Background(), listRolesOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListRolesWithContext(context.Background(), listRolesOptions)
 }
 
 // ListRolesWithContext is an alternate form of the ListRoles method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx context.Context, listRolesOptions *ListRolesOptions) (result *RoleCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listRolesOptions, "listRolesOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -774,7 +702,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -809,21 +736,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_roles", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoleCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -838,21 +761,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 // service can be mapped to the new role, but there must be at least one service-defined action to successfully create
 // the new role.
 func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *CreateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreateRoleWithContext(context.Background(), createRoleOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreateRoleWithContext(context.Background(), createRoleOptions)
 }
 
 // CreateRoleWithContext is an alternate form of the CreateRole method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx context.Context, createRoleOptions *CreateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createRoleOptions, "createRoleOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createRoleOptions, "createRoleOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -861,7 +780,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx cont
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -900,27 +818,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx cont
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_role", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -933,21 +846,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx cont
 // Update a custom role. A role administrator might want to update an existing role by updating the display name,
 // description, or the actions that are mapped to the role. The name, account_id, and service_name can't be changed.
 func (iamPolicyManagement *IamPolicyManagementV1) ReplaceRole(replaceRoleOptions *ReplaceRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ReplaceRoleWithContext(context.Background(), replaceRoleOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ReplaceRoleWithContext(context.Background(), replaceRoleOptions)
 }
 
 // ReplaceRoleWithContext is an alternate form of the ReplaceRole method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ReplaceRoleWithContext(ctx context.Context, replaceRoleOptions *ReplaceRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceRoleOptions, "replaceRoleOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceRoleOptions, "replaceRoleOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -960,7 +869,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceRoleWithContext(ctx con
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -990,27 +898,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceRoleWithContext(ctx con
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_role", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1022,21 +925,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceRoleWithContext(ctx con
 // GetRole : Retrieve a role by ID
 // Retrieve a role by providing a role ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetRole(getRoleOptions *GetRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetRoleWithContext(context.Background(), getRoleOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.GetRoleWithContext(context.Background(), getRoleOptions)
 }
 
 // GetRoleWithContext is an alternate form of the GetRole method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context.Context, getRoleOptions *GetRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRoleOptions, "getRoleOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getRoleOptions, "getRoleOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1049,7 +948,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1065,21 +963,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_role", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1091,21 +985,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context
 // DeleteRole : Delete a role by ID
 // Delete a role by providing a role ID.
 func (iamPolicyManagement *IamPolicyManagementV1) DeleteRole(deleteRoleOptions *DeleteRoleOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeleteRoleWithContext(context.Background(), deleteRoleOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeleteRoleWithContext(context.Background(), deleteRoleOptions)
 }
 
 // DeleteRoleWithContext is an alternate form of the DeleteRole method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx context.Context, deleteRoleOptions *DeleteRoleOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteRoleOptions, "deleteRoleOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteRoleOptions, "deleteRoleOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1118,7 +1008,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1133,16 +1022,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_role", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -1154,21 +1037,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 // parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
 // the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListV2Policies(listV2PoliciesOptions *ListV2PoliciesOptions) (result *V2PolicyCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListV2PoliciesWithContext(context.Background(), listV2PoliciesOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListV2PoliciesWithContext(context.Background(), listV2PoliciesOptions)
 }
 
 // ListV2PoliciesWithContext is an alternate form of the ListV2Policies method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx context.Context, listV2PoliciesOptions *ListV2PoliciesOptions) (result *V2PolicyCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listV2PoliciesOptions, "listV2PoliciesOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listV2PoliciesOptions, "listV2PoliciesOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1177,7 +1056,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/policies`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1225,21 +1103,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_v2_policies", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2PolicyCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1367,21 +1241,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
 // against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) CreateV2Policy(createV2PolicyOptions *CreateV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreateV2PolicyWithContext(context.Background(), createV2PolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreateV2PolicyWithContext(context.Background(), createV2PolicyOptions)
 }
 
 // CreateV2PolicyWithContext is an alternate form of the CreateV2Policy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx context.Context, createV2PolicyOptions *CreateV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createV2PolicyOptions, "createV2PolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createV2PolicyOptions, "createV2PolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1390,7 +1260,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/policies`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1432,27 +1301,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_v2_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Policy)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1578,21 +1442,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 // geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
 // against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2Policy(replaceV2PolicyOptions *ReplaceV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ReplaceV2PolicyWithContext(context.Background(), replaceV2PolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ReplaceV2PolicyWithContext(context.Background(), replaceV2PolicyOptions)
 }
 
 // ReplaceV2PolicyWithContext is an alternate form of the ReplaceV2Policy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2PolicyWithContext(ctx context.Context, replaceV2PolicyOptions *ReplaceV2PolicyOptions) (result *V2Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceV2PolicyOptions, "replaceV2PolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replaceV2PolicyOptions, "replaceV2PolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1605,7 +1465,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2PolicyWithContext(ctx
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/policies/{id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1647,27 +1506,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2PolicyWithContext(ctx
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_v2_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2Policy)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1679,21 +1533,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplaceV2PolicyWithContext(ctx
 // GetV2Policy : Retrieve a policy by ID
 // Retrieve a policy by providing a policy ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetV2Policy(getV2PolicyOptions *GetV2PolicyOptions) (result *V2PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetV2PolicyWithContext(context.Background(), getV2PolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.GetV2PolicyWithContext(context.Background(), getV2PolicyOptions)
 }
 
 // GetV2PolicyWithContext is an alternate form of the GetV2Policy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx context.Context, getV2PolicyOptions *GetV2PolicyOptions) (result *V2PolicyTemplateMetaData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getV2PolicyOptions, "getV2PolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getV2PolicyOptions, "getV2PolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1706,7 +1556,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx con
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/policies/{id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1726,21 +1575,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx con
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_v2_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalV2PolicyTemplateMetaData)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1753,21 +1598,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetV2PolicyWithContext(ctx con
 // Delete a policy by providing a policy ID. A policy cannot be deleted if the subject ID contains a locked service ID.
 // If the subject of the policy is a locked service-id, the request will fail.
 func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2Policy(deleteV2PolicyOptions *DeleteV2PolicyOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeleteV2PolicyWithContext(context.Background(), deleteV2PolicyOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeleteV2PolicyWithContext(context.Background(), deleteV2PolicyOptions)
 }
 
 // DeleteV2PolicyWithContext is an alternate form of the DeleteV2Policy method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx context.Context, deleteV2PolicyOptions *DeleteV2PolicyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteV2PolicyOptions, "deleteV2PolicyOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deleteV2PolicyOptions, "deleteV2PolicyOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1780,7 +1621,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx 
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/policies/{id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1795,16 +1635,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx 
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_v2_policy", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -1817,21 +1651,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteV2PolicyWithContext(ctx 
 // the caller has read access to are returned. If the caller does not have read access to any policy templates an empty
 // array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplates(listPolicyTemplatesOptions *ListPolicyTemplatesOptions) (result *PolicyTemplateCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListPolicyTemplatesWithContext(context.Background(), listPolicyTemplatesOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListPolicyTemplatesWithContext(context.Background(), listPolicyTemplatesOptions)
 }
 
 // ListPolicyTemplatesWithContext is an alternate form of the ListPolicyTemplates method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext(ctx context.Context, listPolicyTemplatesOptions *ListPolicyTemplatesOptions) (result *PolicyTemplateCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listPolicyTemplatesOptions, "listPolicyTemplatesOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listPolicyTemplatesOptions, "listPolicyTemplatesOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1840,7 +1670,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1879,21 +1708,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_policy_templates", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1906,21 +1731,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplatesWithContext
 // Create a policy template. Policy templates define a policy without requiring a subject, and you can use them to grant
 // access to multiple subjects.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions) (result *PolicyTemplateLimitData, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreatePolicyTemplateWithContext(context.Background(), createPolicyTemplateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreatePolicyTemplateWithContext(context.Background(), createPolicyTemplateOptions)
 }
 
 // CreatePolicyTemplateWithContext is an alternate form of the CreatePolicyTemplate method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateWithContext(ctx context.Context, createPolicyTemplateOptions *CreatePolicyTemplateOptions) (result *PolicyTemplateLimitData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createPolicyTemplateOptions, "createPolicyTemplateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createPolicyTemplateOptions, "createPolicyTemplateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1929,7 +1750,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateWithContex
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -1965,27 +1785,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateWithContex
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_policy_template", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateLimitData)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -1997,21 +1812,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateWithContex
 // GetPolicyTemplate : Retrieve latest version of a policy template
 // Retrieve the latest version of a policy template by providing a policy template ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplate(getPolicyTemplateOptions *GetPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetPolicyTemplateWithContext(context.Background(), getPolicyTemplateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.GetPolicyTemplateWithContext(context.Background(), getPolicyTemplateOptions)
 }
 
 // GetPolicyTemplateWithContext is an alternate form of the GetPolicyTemplate method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateWithContext(ctx context.Context, getPolicyTemplateOptions *GetPolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyTemplateOptions, "getPolicyTemplateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getPolicyTemplateOptions, "getPolicyTemplateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2024,7 +1835,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateWithContext(c
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2044,21 +1854,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateWithContext(c
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_policy_template", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2072,21 +1878,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateWithContext(c
 // template can't be deleted if any version of the template is assigned to one or more child accounts. You must remove
 // the policy assignments first.
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeletePolicyTemplateWithContext(context.Background(), deletePolicyTemplateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeletePolicyTemplateWithContext(context.Background(), deletePolicyTemplateOptions)
 }
 
 // DeletePolicyTemplateWithContext is an alternate form of the DeletePolicyTemplate method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateWithContext(ctx context.Context, deletePolicyTemplateOptions *DeletePolicyTemplateOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deletePolicyTemplateOptions, "deletePolicyTemplateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deletePolicyTemplateOptions, "deletePolicyTemplateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2099,7 +1901,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateWithContex
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2114,16 +1915,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateWithContex
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_policy_template", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -2132,21 +1927,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateWithContex
 // Create a new version of a policy template. Use this if you need to make updates to a policy template that is
 // committed.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersion(createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions) (result *PolicyTemplateLimitData, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreatePolicyTemplateVersionWithContext(context.Background(), createPolicyTemplateVersionOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreatePolicyTemplateVersionWithContext(context.Background(), createPolicyTemplateVersionOptions)
 }
 
 // CreatePolicyTemplateVersionWithContext is an alternate form of the CreatePolicyTemplateVersion method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWithContext(ctx context.Context, createPolicyTemplateVersionOptions *CreatePolicyTemplateVersionOptions) (result *PolicyTemplateLimitData, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createPolicyTemplateVersionOptions, "createPolicyTemplateVersionOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createPolicyTemplateVersionOptions, "createPolicyTemplateVersionOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2159,7 +1950,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWit
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2189,27 +1979,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWit
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_policy_template_version", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateLimitData)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2221,21 +2006,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateVersionWit
 // ListPolicyTemplateVersions : Retrieve policy template versions
 // Retrieve the versions of a policy template by providing a policy template ID.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersions(listPolicyTemplateVersionsOptions *ListPolicyTemplateVersionsOptions) (result *PolicyTemplateVersionsCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListPolicyTemplateVersionsWithContext(context.Background(), listPolicyTemplateVersionsOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListPolicyTemplateVersionsWithContext(context.Background(), listPolicyTemplateVersionsOptions)
 }
 
 // ListPolicyTemplateVersionsWithContext is an alternate form of the ListPolicyTemplateVersions method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersionsWithContext(ctx context.Context, listPolicyTemplateVersionsOptions *ListPolicyTemplateVersionsOptions) (result *PolicyTemplateVersionsCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listPolicyTemplateVersionsOptions, "listPolicyTemplateVersionsOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listPolicyTemplateVersionsOptions, "listPolicyTemplateVersionsOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2248,7 +2029,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersionsWith
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2268,21 +2048,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersionsWith
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_policy_template_versions", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateVersionsCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2294,21 +2070,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyTemplateVersionsWith
 // ReplacePolicyTemplate : Update a policy template version
 // Update a specific version of a policy template. You can use this only if the version isn't committed.
 func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplate(replacePolicyTemplateOptions *ReplacePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ReplacePolicyTemplateWithContext(context.Background(), replacePolicyTemplateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ReplacePolicyTemplateWithContext(context.Background(), replacePolicyTemplateOptions)
 }
 
 // ReplacePolicyTemplateWithContext is an alternate form of the ReplacePolicyTemplate method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithContext(ctx context.Context, replacePolicyTemplateOptions *ReplacePolicyTemplateOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replacePolicyTemplateOptions, "replacePolicyTemplateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(replacePolicyTemplateOptions, "replacePolicyTemplateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2322,7 +2094,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2355,27 +2126,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "replace_policy_template", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2389,21 +2155,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 // a policy template version that is assigned to one or more child accounts. You must remove the policy assignments
 // first.
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersion(deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeletePolicyTemplateVersionWithContext(context.Background(), deletePolicyTemplateVersionOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeletePolicyTemplateVersionWithContext(context.Background(), deletePolicyTemplateVersionOptions)
 }
 
 // DeletePolicyTemplateVersionWithContext is an alternate form of the DeletePolicyTemplateVersion method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWithContext(ctx context.Context, deletePolicyTemplateVersionOptions *DeletePolicyTemplateVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deletePolicyTemplateVersionOptions, "deletePolicyTemplateVersionOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deletePolicyTemplateVersionOptions, "deletePolicyTemplateVersionOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2417,7 +2179,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWit
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2432,16 +2193,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWit
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_policy_template_version", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -2449,21 +2204,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWit
 // GetPolicyTemplateVersion : Retrieve a policy template version
 // Retrieve a policy template by providing a policy template ID and version number.
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersion(getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetPolicyTemplateVersionWithContext(context.Background(), getPolicyTemplateVersionOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.GetPolicyTemplateVersionWithContext(context.Background(), getPolicyTemplateVersionOptions)
 }
 
 // GetPolicyTemplateVersionWithContext is an alternate form of the GetPolicyTemplateVersion method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithContext(ctx context.Context, getPolicyTemplateVersionOptions *GetPolicyTemplateVersionOptions) (result *PolicyTemplate, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyTemplateVersionOptions, "getPolicyTemplateVersionOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getPolicyTemplateVersionOptions, "getPolicyTemplateVersionOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2477,7 +2228,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithCo
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2493,21 +2243,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithCo
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_policy_template_version", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplate)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2520,21 +2266,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithCo
 // Commit a policy template version. You can make no further changes to the policy template once it's committed. If you
 // need to make updates after committing a version, create a new version.
 func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplate(commitPolicyTemplateOptions *CommitPolicyTemplateOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.CommitPolicyTemplateWithContext(context.Background(), commitPolicyTemplateOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CommitPolicyTemplateWithContext(context.Background(), commitPolicyTemplateOptions)
 }
 
 // CommitPolicyTemplateWithContext is an alternate form of the CommitPolicyTemplate method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContext(ctx context.Context, commitPolicyTemplateOptions *CommitPolicyTemplateOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(commitPolicyTemplateOptions, "commitPolicyTemplateOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(commitPolicyTemplateOptions, "commitPolicyTemplateOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2548,7 +2290,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_templates/{policy_template_id}/versions/{version}/commit`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2563,16 +2304,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
-	if err != nil {
-		core.EnrichHTTPProblem(err, "commit_policy_template", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
-		return
-	}
 
 	return
 }
@@ -2584,21 +2319,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 // that the caller has read access to are returned. If the caller does not have read access to any policy template
 // assignments an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignments(listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions) (result *PolicyTemplateAssignmentCollection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.ListPolicyAssignmentsWithContext(context.Background(), listPolicyAssignmentsOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.ListPolicyAssignmentsWithContext(context.Background(), listPolicyAssignmentsOptions)
 }
 
 // ListPolicyAssignmentsWithContext is an alternate form of the ListPolicyAssignments method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithContext(ctx context.Context, listPolicyAssignmentsOptions *ListPolicyAssignmentsOptions) (result *PolicyTemplateAssignmentCollection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listPolicyAssignmentsOptions, "listPolicyAssignmentsOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(listPolicyAssignmentsOptions, "listPolicyAssignmentsOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2607,7 +2338,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithConte
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2635,21 +2365,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithConte
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "list_policy_assignments", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateAssignmentCollection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2662,21 +2388,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicyAssignmentsWithConte
 // Assign a policy template to child accounts and account groups. This creates the policy in the accounts and account
 // groups that you specify.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) (result *PolicyAssignmentV1Collection, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.CreatePolicyTemplateAssignmentWithContext(context.Background(), createPolicyTemplateAssignmentOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.CreatePolicyTemplateAssignmentWithContext(context.Background(), createPolicyTemplateAssignmentOptions)
 }
 
 // CreatePolicyTemplateAssignmentWithContext is an alternate form of the CreatePolicyTemplateAssignment method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignmentWithContext(ctx context.Context, createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) (result *PolicyAssignmentV1Collection, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createPolicyTemplateAssignmentOptions, "createPolicyTemplateAssignmentOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(createPolicyTemplateAssignmentOptions, "createPolicyTemplateAssignmentOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2685,7 +2407,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments`, nil)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2717,27 +2438,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "create_policy_template_assignment", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyAssignmentV1Collection)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2748,22 +2464,18 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment
 
 // GetPolicyAssignment : Retrieve a policy assignment
 // Retrieve a policy template assignment by providing a policy assignment ID.
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result GetPolicyAssignmentResponseIntf, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.GetPolicyAssignmentWithContext(context.Background(), getPolicyAssignmentOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result PolicyTemplateAssignmentItemsIntf, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetPolicyAssignmentWithContext(context.Background(), getPolicyAssignmentOptions)
 }
 
 // GetPolicyAssignmentWithContext is an alternate form of the GetPolicyAssignment method which supports a Context parameter
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext(ctx context.Context, getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result GetPolicyAssignmentResponseIntf, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext(ctx context.Context, getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result PolicyTemplateAssignmentItemsIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyAssignmentOptions, "getPolicyAssignmentOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(getPolicyAssignmentOptions, "getPolicyAssignmentOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2776,7 +2488,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2794,21 +2505,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "get_policy_assignment", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetPolicyAssignmentResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateAssignmentItems)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2820,21 +2527,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext
 // UpdatePolicyAssignment : Update a policy authorization type assignment
 // Update a policy assignment by providing a policy assignment ID.
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyAssignment(updatePolicyAssignmentOptions *UpdatePolicyAssignmentOptions) (result *PolicyAssignmentV1, response *core.DetailedResponse, err error) {
-	result, response, err = iamPolicyManagement.UpdatePolicyAssignmentWithContext(context.Background(), updatePolicyAssignmentOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.UpdatePolicyAssignmentWithContext(context.Background(), updatePolicyAssignmentOptions)
 }
 
 // UpdatePolicyAssignmentWithContext is an alternate form of the UpdatePolicyAssignment method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyAssignmentWithContext(ctx context.Context, updatePolicyAssignmentOptions *UpdatePolicyAssignmentOptions) (result *PolicyAssignmentV1, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updatePolicyAssignmentOptions, "updatePolicyAssignmentOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(updatePolicyAssignmentOptions, "updatePolicyAssignmentOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2847,7 +2550,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyAssignmentWithCont
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2873,27 +2575,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyAssignmentWithCont
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
 		return
 	}
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	var rawResponse map[string]json.RawMessage
 	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
 	if err != nil {
-		core.EnrichHTTPProblem(err, "update_policy_assignment", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyAssignmentV1)
 		if err != nil {
-			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
 		}
 		response.Result = result
@@ -2906,21 +2603,17 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyAssignmentWithCont
 // Remove a policy template assignment by providing a policy assignment ID. You can't delete a policy assignment if the
 // status is "in_progress".
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignment(deletePolicyAssignmentOptions *DeletePolicyAssignmentOptions) (response *core.DetailedResponse, err error) {
-	response, err = iamPolicyManagement.DeletePolicyAssignmentWithContext(context.Background(), deletePolicyAssignmentOptions)
-	err = core.RepurposeSDKProblem(err, "")
-	return
+	return iamPolicyManagement.DeletePolicyAssignmentWithContext(context.Background(), deletePolicyAssignmentOptions)
 }
 
 // DeletePolicyAssignmentWithContext is an alternate form of the DeletePolicyAssignment method which supports a Context parameter
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignmentWithContext(ctx context.Context, deletePolicyAssignmentOptions *DeletePolicyAssignmentOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deletePolicyAssignmentOptions, "deletePolicyAssignmentOptions cannot be nil")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
 		return
 	}
 	err = core.ValidateStruct(deletePolicyAssignmentOptions, "deletePolicyAssignmentOptions")
 	if err != nil {
-		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2933,7 +2626,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignmentWithCont
 	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policy_assignments/{assignment_id}`, pathParamsMap)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
 	}
 
@@ -2948,21 +2640,194 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignmentWithCont
 
 	request, err := builder.Build()
 	if err != nil {
-		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
 		return
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
+
+	return
+}
+
+// GetSettings : Retrieve Access Management account settings by account ID
+// Retrieve Access Management settings for an account by providing the account ID.
+func (iamPolicyManagement *IamPolicyManagementV1) GetSettings(getSettingsOptions *GetSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetSettingsWithContext(context.Background(), getSettingsOptions)
+}
+
+// GetSettingsWithContext is an alternate form of the GetSettings method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetSettingsWithContext(ctx context.Context, getSettingsOptions *GetSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getSettingsOptions, "getSettingsOptions cannot be nil")
 	if err != nil {
-		core.EnrichHTTPProblem(err, "delete_policy_assignment", getServiceComponentInfo())
-		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+	err = core.ValidateStruct(getSettingsOptions, "getSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/accounts/{account_id}/settings/access_management`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "GetSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getSettingsOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*getSettingsOptions.AcceptLanguage))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsAccessManagement)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
 
 	return
 }
-func getServiceComponentInfo() *core.ProblemComponent {
-	return core.NewProblemComponent(DefaultServiceName, "1.0.1")
+
+// UpdateSettings : Update Access Management account settings by account ID
+// Update access management settings for an account.
+//
+// ### External Account Identity Interaction
+//
+// Update the way identities within an external account are allowed to interact with the requested account by providing:
+// * the `account_id` as a parameter
+// * the external account ID(s) and state for the specific identity in the request body
+//
+// External account identity interaction includes the following `identity_types`: `user` (user identities defined as
+// [IBMid’s](https://test.cloud.ibm.com/docs/account?topic=account-identity-overview#users-bestpract)), `service_id`
+// (defined as [IAM
+// ServiceIds](https://test.cloud.ibm.com/docs/account?topic=account-identity-overview#serviceid-bestpract)), `service`
+// (defined by a service’s [CRN](https://test.cloud.ibm.com/docs/account?topic=account-crn)). To update an Identity’s
+// setting, the `state` and `external_allowed_accounts` fields are required.
+//
+// Different identity states are:
+// "enabled": An identity type is allowed to access resources in the account provided it has access policies on those
+// resources.
+// "limited": An identity type is allowed to access resources in the account provided it has access policies on those
+// resources AND it is associated with either the account the resources are in or one of the allowed accounts. This
+// setting leverages the "external_allowed_accounts" list.
+// "monitor": Has no direct impact on an Identity’s access. Instead, it creates AT events for access decisions as if the
+// account were in a limited “state”.
+//
+// **Note**: The state "enabled" is a special case. In this case, access is given to all accounts and there is no need
+// to specify a particular list. Therefore, when updating "state" to "enabled" for an identity type
+// "external_allowed_accounts" should be left empty.
+func (iamPolicyManagement *IamPolicyManagementV1) UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
+}
+
+// UpdateSettingsWithContext is an alternate form of the UpdateSettings method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) UpdateSettingsWithContext(ctx context.Context, updateSettingsOptions *UpdateSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateSettingsOptions, "updateSettingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateSettingsOptions, "updateSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *updateSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/accounts/{account_id}/settings/access_management`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "UpdateSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateSettingsOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateSettingsOptions.IfMatch))
+	}
+	if updateSettingsOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*updateSettingsOptions.AcceptLanguage))
+	}
+
+	body := make(map[string]interface{})
+	if updateSettingsOptions.ExternalAccountIdentityInteraction != nil {
+		body["external_account_identity_interaction"] = updateSettingsOptions.ExternalAccountIdentityInteraction
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsAccessManagement)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// AccountSettingsAccessManagement : The Access Management Account Settings that are currently set for the requested account.
+type AccountSettingsAccessManagement struct {
+	// How external accounts can interact in relation to the requested account.
+	ExternalAccountIdentityInteraction *ExternalAccountIdentityInteraction `json:"external_account_identity_interaction" validate:"required"`
+}
+
+// UnmarshalAccountSettingsAccessManagement unmarshals an instance of AccountSettingsAccessManagement from the specified map of raw messages.
+func UnmarshalAccountSettingsAccessManagement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsAccessManagement)
+	err = core.UnmarshalModel(m, "external_account_identity_interaction", &obj.ExternalAccountIdentityInteraction, UnmarshalExternalAccountIdentityInteraction)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AssignmentResourceCreated : On success, includes the  policy assigned.
@@ -2976,7 +2841,6 @@ func UnmarshalAssignmentResourceCreated(m map[string]json.RawMessage, result int
 	obj := new(AssignmentResourceCreated)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3003,12 +2867,10 @@ func UnmarshalAssignmentTargetDetails(m map[string]json.RawMessage, result inter
 	obj := new(AssignmentTargetDetails)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3029,12 +2891,10 @@ func UnmarshalAssignmentTemplateDetails(m map[string]json.RawMessage, result int
 	obj := new(AssignmentTemplateDetails)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3096,17 +2956,14 @@ func UnmarshalConflictsWith(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(ConflictsWith)
 	err = core.UnmarshalPrimitive(m, "etag", &obj.Etag)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "etag-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "role-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "policy", &obj.Policy)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3125,9 +2982,6 @@ func (*IamPolicyManagementV1) NewControl(grant *Grant) (_model *Control, err err
 		Grant: grant,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -3136,7 +2990,6 @@ func UnmarshalControl(m map[string]json.RawMessage, result interface{}) (err err
 	obj := new(Control)
 	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "grant-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3164,7 +3017,6 @@ func UnmarshalControlResponse(m map[string]json.RawMessage, result interface{}) 
 	obj := new(ControlResponse)
 	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "grant-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -3749,67 +3601,54 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(CustomRole)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "actions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "service_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4016,22 +3855,18 @@ func UnmarshalEnrichedRoles(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(EnrichedRoles)
 	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "role_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "actions", &obj.Actions, UnmarshalRoleAction)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "actions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4049,7 +3884,6 @@ func UnmarshalErrorDetails(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(ErrorDetails)
 	err = core.UnmarshalModel(m, "conflicts_with", &obj.ConflictsWith, UnmarshalConflictsWith)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "conflicts_with-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4086,6 +3920,7 @@ const (
 	ErrorObjectCodePolicyTemplateConflictErrorConst = "policy_template_conflict_error"
 	ErrorObjectCodePolicyTemplateNotFoundConst = "policy_template_not_found"
 	ErrorObjectCodeRequestNotProcessedConst = "request_not_processed"
+	ErrorObjectCodeResourceNotFoundConst = "resource_not_found"
 	ErrorObjectCodeRoleConflictErrorConst = "role_conflict_error"
 	ErrorObjectCodeRoleNotFoundConst = "role_not_found"
 	ErrorObjectCodeTooManyRequestsConst = "too_many_requests"
@@ -4098,22 +3933,18 @@ func UnmarshalErrorObject(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(ErrorObject)
 	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "details", &obj.Details, UnmarshalErrorDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "details-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "more_info", &obj.MoreInfo)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "more_info-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4137,17 +3968,48 @@ func UnmarshalErrorResponse(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(ErrorResponse)
 	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "trace-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalErrorObject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "errors-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status_code-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ExternalAccountIdentityInteraction : How external accounts can interact in relation to the requested account.
+type ExternalAccountIdentityInteraction struct {
+	// The settings for each identity type.
+	IdentityTypes *IdentityTypes `json:"identity_types" validate:"required"`
+}
+
+// UnmarshalExternalAccountIdentityInteraction unmarshals an instance of ExternalAccountIdentityInteraction from the specified map of raw messages.
+func UnmarshalExternalAccountIdentityInteraction(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ExternalAccountIdentityInteraction)
+	err = core.UnmarshalModel(m, "identity_types", &obj.IdentityTypes, UnmarshalIdentityTypes)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ExternalAccountIdentityInteractionPatch : Update to how external accounts can interact in relation to the requested account.
+type ExternalAccountIdentityInteractionPatch struct {
+	// The settings to apply for each identity type for a request.
+	IdentityTypes *IdentityTypesPatch `json:"identity_types,omitempty"`
+}
+
+// UnmarshalExternalAccountIdentityInteractionPatch unmarshals an instance of ExternalAccountIdentityInteractionPatch from the specified map of raw messages.
+func UnmarshalExternalAccountIdentityInteractionPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ExternalAccountIdentityInteractionPatch)
+	err = core.UnmarshalModel(m, "identity_types", &obj.IdentityTypes, UnmarshalIdentityTypesPatch)
+	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4190,237 +4052,6 @@ func (_options *GetPolicyAssignmentOptions) SetVersion(version string) *GetPolic
 func (options *GetPolicyAssignmentOptions) SetHeaders(param map[string]string) *GetPolicyAssignmentOptions {
 	options.Headers = param
 	return options
-}
-
-// GetPolicyAssignmentResponse : GetPolicyAssignmentResponse struct
-// Models which "extend" this model:
-// - GetPolicyAssignmentResponsePolicyAssignmentV1
-// - GetPolicyAssignmentResponsePolicyAssignment
-type GetPolicyAssignmentResponse struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target,omitempty"`
-
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources,omitempty"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponseSubject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponse.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponseStatusFailedConst = "failed"
-	GetPolicyAssignmentResponseStatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponseStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponseStatusSucceededConst = "succeeded"
-)
-
-// Constants associated with the GetPolicyAssignmentResponse.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponseTargetTypeAccountConst = "Account"
-)
-func (*GetPolicyAssignmentResponse) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-type GetPolicyAssignmentResponseIntf interface {
-	isaGetPolicyAssignmentResponse() bool
-}
-
-// UnmarshalGetPolicyAssignmentResponse unmarshals an instance of GetPolicyAssignmentResponse from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponse)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponseSubject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1Subject : subject details of access type assignment.
-type GetPolicyAssignmentResponsePolicyAssignmentV1Subject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1Subject.Type property.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeIamIDConst = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1Subject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponseSubject : subject details of access type assignment.
-type GetPolicyAssignmentResponseSubject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponseSubject.Type property.
-const (
-	GetPolicyAssignmentResponseSubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponseSubjectTypeIamIDConst = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponseSubject unmarshals an instance of GetPolicyAssignmentResponseSubject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponseSubject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponseSubject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetPolicyOptions : The GetPolicy options.
@@ -4561,6 +4192,54 @@ func (options *GetRoleOptions) SetHeaders(param map[string]string) *GetRoleOptio
 	return options
 }
 
+// GetSettingsOptions : The GetSettings options.
+type GetSettingsOptions struct {
+	// The account GUID that the settings belong to.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetSettingsOptions : Instantiate GetSettingsOptions
+func (*IamPolicyManagementV1) NewGetSettingsOptions(accountID string) *GetSettingsOptions {
+	return &GetSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetSettingsOptions) SetAccountID(accountID string) *GetSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *GetSettingsOptions) SetAcceptLanguage(acceptLanguage string) *GetSettingsOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetSettingsOptions) SetHeaders(param map[string]string) *GetSettingsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetV2PolicyOptions : The GetV2Policy options.
 type GetV2PolicyOptions struct {
 	// The policy ID.
@@ -4625,9 +4304,6 @@ func (*IamPolicyManagementV1) NewGrant(roles []Roles) (_model *Grant, err error)
 		Roles: roles,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -4636,7 +4312,6 @@ func UnmarshalGrant(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Grant)
 	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalRoles)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4654,7 +4329,110 @@ func UnmarshalGrantWithEnrichedRoles(m map[string]json.RawMessage, result interf
 	obj := new(GrantWithEnrichedRoles)
 	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalEnrichedRoles)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypes : The settings for each identity type.
+type IdentityTypes struct {
+	// The core set of properties associated with an identity type.
+	User *IdentityTypesBase `json:"user" validate:"required"`
+
+	// The core set of properties associated with an identity type.
+	ServiceID *IdentityTypesBase `json:"service_id" validate:"required"`
+
+	// The core set of properties associated with an identity type.
+	Service *IdentityTypesBase `json:"service" validate:"required"`
+}
+
+// UnmarshalIdentityTypes unmarshals an instance of IdentityTypes from the specified map of raw messages.
+func UnmarshalIdentityTypes(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypes)
+	err = core.UnmarshalModel(m, "user", &obj.User, UnmarshalIdentityTypesBase)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service_id", &obj.ServiceID, UnmarshalIdentityTypesBase)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalIdentityTypesBase)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypesBase : The core set of properties associated with an identity type.
+type IdentityTypesBase struct {
+	// The state of the identity type.
+	State *string `json:"state" validate:"required"`
+
+	// List of accounts that the state applies to for a given identity.
+	ExternalAllowedAccounts []string `json:"external_allowed_accounts" validate:"required"`
+}
+
+// Constants associated with the IdentityTypesBase.State property.
+// The state of the identity type.
+const (
+	IdentityTypesBaseStateEnabledConst = "enabled"
+	IdentityTypesBaseStateLimitedConst = "limited"
+	IdentityTypesBaseStateMonitorConst = "monitor"
+)
+
+// NewIdentityTypesBase : Instantiate IdentityTypesBase (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewIdentityTypesBase(state string, externalAllowedAccounts []string) (_model *IdentityTypesBase, err error) {
+	_model = &IdentityTypesBase{
+		State: core.StringPtr(state),
+		ExternalAllowedAccounts: externalAllowedAccounts,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalIdentityTypesBase unmarshals an instance of IdentityTypesBase from the specified map of raw messages.
+func UnmarshalIdentityTypesBase(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypesBase)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "external_allowed_accounts", &obj.ExternalAllowedAccounts)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypesPatch : The settings to apply for each identity type for a request.
+type IdentityTypesPatch struct {
+	// The core set of properties associated with an identity type.
+	User *IdentityTypesBase `json:"user,omitempty"`
+
+	// The core set of properties associated with an identity type.
+	ServiceID *IdentityTypesBase `json:"service_id,omitempty"`
+
+	// The core set of properties associated with an identity type.
+	Service *IdentityTypesBase `json:"service,omitempty"`
+}
+
+// UnmarshalIdentityTypesPatch unmarshals an instance of IdentityTypesPatch from the specified map of raw messages.
+func UnmarshalIdentityTypesPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypesPatch)
+	err = core.UnmarshalModel(m, "user", &obj.User, UnmarshalIdentityTypesBase)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service_id", &obj.ServiceID, UnmarshalIdentityTypesBase)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalIdentityTypesBase)
+	if err != nil {
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4675,12 +4453,10 @@ func UnmarshalLimitData(m map[string]json.RawMessage, result interface{}) (err e
 	obj := new(LimitData)
 	err = core.UnmarshalPrimitive(m, "current", &obj.Current)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "current-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5432,22 +5208,18 @@ func UnmarshalNestedCondition(m map[string]json.RawMessage, result interface{}) 
 	obj := new(NestedCondition)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalRuleAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "conditions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5505,62 +5277,50 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	obj := new(Policy)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subjects", &obj.Subjects, UnmarshalPolicySubject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subjects-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRole)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyResource)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5597,27 +5357,22 @@ func UnmarshalPolicyAssignmentOptions(m map[string]json.RawMessage, result inter
 	obj := new(PolicyAssignmentOptions)
 	err = core.UnmarshalPrimitive(m, "subject_type", &obj.SubjectType)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "subject_id", &obj.SubjectID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "root_requester_id", &obj.RootRequesterID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root_requester_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "root_template_id", &obj.RootTemplateID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root_template_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "root_template_version", &obj.RootTemplateVersion)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root_template_version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5641,17 +5396,14 @@ func UnmarshalPolicyAssignmentResourcePolicy(m map[string]json.RawMessage, resul
 	obj := new(PolicyAssignmentResourcePolicy)
 	err = core.UnmarshalModel(m, "resource_created", &obj.ResourceCreated, UnmarshalAssignmentResourceCreated)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resource_created-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "error_message", &obj.ErrorMessage, UnmarshalErrorResponse)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "error_message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5672,12 +5424,10 @@ func UnmarshalPolicyAssignmentResources(m map[string]json.RawMessage, result int
 	obj := new(PolicyAssignmentResources)
 	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalPolicyAssignmentResourcePolicy)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5740,67 +5490,54 @@ func UnmarshalPolicyAssignmentV1(m map[string]json.RawMessage, result interface{
 	obj := new(PolicyAssignmentV1)
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalPolicyAssignmentV1Subject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5818,7 +5555,6 @@ func UnmarshalPolicyAssignmentV1Collection(m map[string]json.RawMessage, result 
 	obj := new(PolicyAssignmentV1Collection)
 	err = core.UnmarshalModel(m, "assignments", &obj.Assignments, UnmarshalPolicyAssignmentV1)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignments-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5827,6 +5563,7 @@ func UnmarshalPolicyAssignmentV1Collection(m map[string]json.RawMessage, result 
 
 // PolicyAssignmentV1Options : The set of properties required for a policy assignment.
 type PolicyAssignmentV1Options struct {
+	// The set of properties where the assignment is being built from.
 	Root *PolicyAssignmentV1OptionsRoot `json:"root" validate:"required"`
 }
 
@@ -5836,9 +5573,6 @@ func (*IamPolicyManagementV1) NewPolicyAssignmentV1Options(root *PolicyAssignmen
 		Root: root,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -5847,20 +5581,21 @@ func UnmarshalPolicyAssignmentV1Options(m map[string]json.RawMessage, result int
 	obj := new(PolicyAssignmentV1Options)
 	err = core.UnmarshalModel(m, "root", &obj.Root, UnmarshalPolicyAssignmentV1OptionsRoot)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// PolicyAssignmentV1OptionsRoot : PolicyAssignmentV1OptionsRoot struct
+// PolicyAssignmentV1OptionsRoot : The set of properties where the assignment is being built from.
 type PolicyAssignmentV1OptionsRoot struct {
+	// The policy assignment requester id.
 	RequesterID *string `json:"requester_id,omitempty"`
 
 	// Passed in value to correlate with other assignments.
 	AssignmentID *string `json:"assignment_id,omitempty"`
 
+	// The template where the assignment is being built from.
 	Template *PolicyAssignmentV1OptionsRootTemplate `json:"template,omitempty"`
 }
 
@@ -5869,24 +5604,21 @@ func UnmarshalPolicyAssignmentV1OptionsRoot(m map[string]json.RawMessage, result
 	obj := new(PolicyAssignmentV1OptionsRoot)
 	err = core.UnmarshalPrimitive(m, "requester_id", &obj.RequesterID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "requester_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalPolicyAssignmentV1OptionsRootTemplate)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// PolicyAssignmentV1OptionsRootTemplate : PolicyAssignmentV1OptionsRootTemplate struct
+// PolicyAssignmentV1OptionsRootTemplate : The template where the assignment is being built from.
 type PolicyAssignmentV1OptionsRootTemplate struct {
 	// The template id where this policy is being assigned from.
 	ID *string `json:"id,omitempty"`
@@ -5900,12 +5632,10 @@ func UnmarshalPolicyAssignmentV1OptionsRootTemplate(m map[string]json.RawMessage
 	obj := new(PolicyAssignmentV1OptionsRootTemplate)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5926,12 +5656,10 @@ func UnmarshalPolicyAssignmentV1Resources(m map[string]json.RawMessage, result i
 	obj := new(PolicyAssignmentV1Resources)
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalPolicyAssignmentResourcePolicy)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5940,12 +5668,15 @@ func UnmarshalPolicyAssignmentV1Resources(m map[string]json.RawMessage, result i
 
 // PolicyAssignmentV1Subject : subject details of access type assignment.
 type PolicyAssignmentV1Subject struct {
+	// The unique identifier of the subject of the assignment.
 	ID *string `json:"id,omitempty"`
 
+	// The identity type of the subject of the assignment.
 	Type *string `json:"type,omitempty"`
 }
 
 // Constants associated with the PolicyAssignmentV1Subject.Type property.
+// The identity type of the subject of the assignment.
 const (
 	PolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
 	PolicyAssignmentV1SubjectTypeIamIDConst = "iam_id"
@@ -5956,12 +5687,10 @@ func UnmarshalPolicyAssignmentV1Subject(m map[string]json.RawMessage, result int
 	obj := new(PolicyAssignmentV1Subject)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -5979,7 +5708,6 @@ func UnmarshalPolicyCollection(m map[string]json.RawMessage, result interface{})
 	obj := new(PolicyCollection)
 	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalPolicyTemplateMetaData)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policies-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6000,12 +5728,10 @@ func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (
 	obj := new(PolicyResource)
 	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalResourceAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "attributes-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "tags", &obj.Tags, UnmarshalResourceTag)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6030,9 +5756,6 @@ func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (_model *PolicyRole, 
 		RoleID: core.StringPtr(roleID),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -6041,17 +5764,14 @@ func UnmarshalPolicyRole(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(PolicyRole)
 	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "role_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6069,7 +5789,6 @@ func UnmarshalPolicySubject(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(PolicySubject)
 	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalSubjectAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "attributes-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6132,67 +5851,54 @@ func UnmarshalPolicyTemplate(m map[string]json.RawMessage, result interface{}) (
 	obj := new(PolicyTemplate)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "committed", &obj.Committed)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "committed-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalTemplatePolicy)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6210,7 +5916,6 @@ func UnmarshalPolicyTemplateAssignmentCollection(m map[string]json.RawMessage, r
 	obj := new(PolicyTemplateAssignmentCollection)
 	err = core.UnmarshalModel(m, "assignments", &obj.Assignments, UnmarshalPolicyTemplateAssignmentItems)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignments-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6301,87 +6006,70 @@ func UnmarshalPolicyTemplateAssignmentItems(m map[string]json.RawMessage, result
 	obj := new(PolicyTemplateAssignmentItems)
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalPolicyAssignmentV1Subject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6399,7 +6087,6 @@ func UnmarshalPolicyTemplateCollection(m map[string]json.RawMessage, result inte
 	obj := new(PolicyTemplateCollection)
 	err = core.UnmarshalModel(m, "policy_templates", &obj.PolicyTemplates, UnmarshalPolicyTemplate)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy_templates-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6465,72 +6152,58 @@ func UnmarshalPolicyTemplateLimitData(m map[string]json.RawMessage, result inter
 	obj := new(PolicyTemplateLimitData)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "committed", &obj.Committed)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "committed-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "policy", &obj.Policy, UnmarshalTemplatePolicy)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policy-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "counts", &obj.Counts, UnmarshalTemplateCountData)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "counts-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6592,67 +6265,54 @@ func UnmarshalPolicyTemplateMetaData(m map[string]json.RawMessage, result interf
 	obj := new(PolicyTemplateMetaData)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subjects", &obj.Subjects, UnmarshalPolicySubject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subjects-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRole)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyResource)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6670,7 +6330,6 @@ func UnmarshalPolicyTemplateVersionsCollection(m map[string]json.RawMessage, res
 	obj := new(PolicyTemplateVersionsCollection)
 	err = core.UnmarshalModel(m, "versions", &obj.Versions, UnmarshalPolicyTemplate)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "versions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7054,9 +6713,6 @@ func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (_
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7065,17 +6721,14 @@ func UnmarshalResourceAttribute(m map[string]json.RawMessage, result interface{}
 	obj := new(ResourceAttribute)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7101,9 +6754,6 @@ func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (_model 
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7112,17 +6762,14 @@ func UnmarshalResourceTag(m map[string]json.RawMessage, result interface{}) (err
 	obj := new(ResourceTag)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7153,9 +6800,6 @@ func (*IamPolicyManagementV1) NewRole(displayName string, actions []string) (_mo
 		Actions: actions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7164,22 +6808,18 @@ func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error)
 	obj := new(Role)
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "actions-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7203,17 +6843,14 @@ func UnmarshalRoleAction(m map[string]json.RawMessage, result interface{}) (err 
 	obj := new(RoleAction)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7237,17 +6874,14 @@ func UnmarshalRoleCollection(m map[string]json.RawMessage, result interface{}) (
 	obj := new(RoleCollection)
 	err = core.UnmarshalModel(m, "custom_roles", &obj.CustomRoles, UnmarshalCustomRole)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "custom_roles-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "service_roles", &obj.ServiceRoles, UnmarshalRole)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "service_roles-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "system_roles", &obj.SystemRoles, UnmarshalRole)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "system_roles-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7266,9 +6900,6 @@ func (*IamPolicyManagementV1) NewRoles(roleID string) (_model *Roles, err error)
 		RoleID: core.StringPtr(roleID),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7277,7 +6908,6 @@ func UnmarshalRoles(m map[string]json.RawMessage, result interface{}) (err error
 	obj := new(Roles)
 	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "role_id-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7329,9 +6959,6 @@ func (*IamPolicyManagementV1) NewRuleAttribute(key string, operator string, valu
 		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7340,17 +6967,14 @@ func UnmarshalRuleAttribute(m map[string]json.RawMessage, result interface{}) (e
 	obj := new(RuleAttribute)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7373,9 +6997,6 @@ func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (_m
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7384,12 +7005,10 @@ func UnmarshalSubjectAttribute(m map[string]json.RawMessage, result interface{})
 	obj := new(SubjectAttribute)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7410,12 +7029,10 @@ func UnmarshalTemplateCountData(m map[string]json.RawMessage, result interface{}
 	obj := new(TemplateCountData)
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalLimitData)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "version", &obj.Version, UnmarshalLimitData)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7446,27 +7063,22 @@ func UnmarshalTemplateMetadata(m map[string]json.RawMessage, result interface{})
 	obj := new(TemplateMetadata)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "root_id", &obj.RootID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "root_version", &obj.RootVersion)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "root_version-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7514,9 +7126,6 @@ func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string, resource *V2Poli
 		Control: control,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7525,37 +7134,30 @@ func UnmarshalTemplatePolicy(m map[string]json.RawMessage, result interface{}) (
 	obj := new(TemplatePolicy)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resource", &obj.Resource, UnmarshalV2PolicyResource)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resource-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalV2PolicySubject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "rule", &obj.Rule, UnmarshalV2PolicyRule)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "rule-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "control", &obj.Control, UnmarshalControl)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "control-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7677,6 +7279,75 @@ func (options *UpdatePolicyStateOptions) SetHeaders(param map[string]string) *Up
 	return options
 }
 
+// UpdateSettingsOptions : The UpdateSettings options.
+type UpdateSettingsOptions struct {
+	// The account GUID that the settings belong to.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// The revision number for updating Access Management Account Settings and must match the ETag value of the existing
+	// Access Management Account Settings. The Etag can be retrieved using the GET
+	// /v1/accounts/{account_id}/settings/access_management API and looking at the ETag response header.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Update to how external accounts can interact in relation to the requested account.
+	ExternalAccountIdentityInteraction *ExternalAccountIdentityInteractionPatch `json:"external_account_identity_interaction,omitempty"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateSettingsOptions : Instantiate UpdateSettingsOptions
+func (*IamPolicyManagementV1) NewUpdateSettingsOptions(accountID string, ifMatch string) *UpdateSettingsOptions {
+	return &UpdateSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+		IfMatch: core.StringPtr(ifMatch),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *UpdateSettingsOptions) SetAccountID(accountID string) *UpdateSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateSettingsOptions) SetIfMatch(ifMatch string) *UpdateSettingsOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetExternalAccountIdentityInteraction : Allow user to set ExternalAccountIdentityInteraction
+func (_options *UpdateSettingsOptions) SetExternalAccountIdentityInteraction(externalAccountIdentityInteraction *ExternalAccountIdentityInteractionPatch) *UpdateSettingsOptions {
+	_options.ExternalAccountIdentityInteraction = externalAccountIdentityInteraction
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *UpdateSettingsOptions) SetAcceptLanguage(acceptLanguage string) *UpdateSettingsOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateSettingsOptions) SetHeaders(param map[string]string) *UpdateSettingsOptions {
+	options.Headers = param
+	return options
+}
+
 // V2Policy : The core set of properties associated with the policy.
 type V2Policy struct {
 	// The policy type; either 'access' or 'authorization'.
@@ -7748,82 +7419,66 @@ func UnmarshalV2Policy(m map[string]json.RawMessage, result interface{}) (err er
 	obj := new(V2Policy)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalV2PolicySubject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resource", &obj.Resource, UnmarshalV2PolicyResource)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resource-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "rule", &obj.Rule, UnmarshalV2PolicyRule)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "rule-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "control", &obj.Control, UnmarshalControlResponse)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "control-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_permit_at", &obj.LastPermitAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_permit_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_permit_frequency", &obj.LastPermitFrequency)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_permit_frequency-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7841,7 +7496,6 @@ func UnmarshalV2PolicyCollection(m map[string]json.RawMessage, result interface{
 	obj := new(V2PolicyCollection)
 	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalV2PolicyTemplateMetaData)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "policies-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7863,9 +7517,6 @@ func (*IamPolicyManagementV1) NewV2PolicyResource(attributes []V2PolicyResourceA
 		Attributes: attributes,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7874,12 +7525,10 @@ func UnmarshalV2PolicyResource(m map[string]json.RawMessage, result interface{})
 	obj := new(V2PolicyResource)
 	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalV2PolicyResourceAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "attributes-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "tags", &obj.Tags, UnmarshalV2PolicyResourceTag)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7917,9 +7566,6 @@ func (*IamPolicyManagementV1) NewV2PolicyResourceAttribute(key string, operator 
 		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7928,17 +7574,14 @@ func UnmarshalV2PolicyResourceAttribute(m map[string]json.RawMessage, result int
 	obj := new(V2PolicyResourceAttribute)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -7972,9 +7615,6 @@ func (*IamPolicyManagementV1) NewV2PolicyResourceTag(key string, value string, o
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -7983,17 +7623,14 @@ func UnmarshalV2PolicyResourceTag(m map[string]json.RawMessage, result interface
 	obj := new(V2PolicyResourceTag)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8056,22 +7693,18 @@ func UnmarshalV2PolicyRule(m map[string]json.RawMessage, result interface{}) (er
 	obj := new(V2PolicyRule)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalNestedCondition)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "conditions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8090,9 +7723,6 @@ func (*IamPolicyManagementV1) NewV2PolicySubject(attributes []V2PolicySubjectAtt
 		Attributes: attributes,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -8101,7 +7731,6 @@ func UnmarshalV2PolicySubject(m map[string]json.RawMessage, result interface{}) 
 	obj := new(V2PolicySubject)
 	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalV2PolicySubjectAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "attributes-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8136,9 +7765,6 @@ func (*IamPolicyManagementV1) NewV2PolicySubjectAttribute(key string, operator s
 		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -8147,17 +7773,14 @@ func UnmarshalV2PolicySubjectAttribute(m map[string]json.RawMessage, result inte
 	obj := new(V2PolicySubjectAttribute)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8239,87 +7862,70 @@ func UnmarshalV2PolicyTemplateMetaData(m map[string]json.RawMessage, result inte
 	obj := new(V2PolicyTemplateMetaData)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalV2PolicySubject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resource", &obj.Resource, UnmarshalV2PolicyResource)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resource-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "rule", &obj.Rule, UnmarshalV2PolicyRule)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "rule-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "control", &obj.Control, UnmarshalControlResponse)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "control-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_permit_at", &obj.LastPermitAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_permit_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_permit_frequency", &obj.LastPermitFrequency)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_permit_frequency-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetadata)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8342,7 +7948,6 @@ func UnmarshalControlResponseControl(m map[string]json.RawMessage, result interf
 	obj := new(ControlResponseControl)
 	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrant)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "grant-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8365,285 +7970,6 @@ func UnmarshalControlResponseControlWithEnrichedRoles(m map[string]json.RawMessa
 	obj := new(ControlResponseControlWithEnrichedRoles)
 	err = core.UnmarshalModel(m, "grant", &obj.Grant, UnmarshalGrantWithEnrichedRoles)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "grant-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignment : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignment struct {
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-
-	// ID of the target account.
-	Target *string `json:"target,omitempty"`
-
-	// List of objects with required properties for a policy assignment.
-	Options []PolicyAssignmentOptions `json:"options,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountConst = "Account"
-)
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentStatusFailedConst = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceededConst = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignment) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignment unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignment from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignment(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignment)
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1 : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignmentV1 struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target" validate:"required"`
-
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options" validate:"required"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources" validate:"required"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponsePolicyAssignmentV1Subject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template" validate:"required"`
-
-	// The policy assignment status.
-	Status *string `json:"status" validate:"required"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusFailedConst = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceededConst = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignmentV1) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1 unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1 from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8696,9 +8022,6 @@ func (*IamPolicyManagementV1) NewNestedConditionRuleAttribute(key string, operat
 		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -8711,17 +8034,14 @@ func UnmarshalNestedConditionRuleAttribute(m map[string]json.RawMessage, result 
 	obj := new(NestedConditionRuleAttribute)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8753,9 +8073,6 @@ func (*IamPolicyManagementV1) NewNestedConditionRuleWithConditions(operator stri
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -8768,12 +8085,10 @@ func UnmarshalNestedConditionRuleWithConditions(m map[string]json.RawMessage, re
 	obj := new(NestedConditionRuleWithConditions)
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalRuleAttribute)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "conditions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8853,77 +8168,62 @@ func UnmarshalPolicyTemplateAssignmentItemsPolicyAssignment(m map[string]json.Ra
 	obj := new(PolicyTemplateAssignmentItemsPolicyAssignment)
 	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8991,67 +8291,54 @@ func UnmarshalPolicyTemplateAssignmentItemsPolicyAssignmentV1(m map[string]json.
 	obj := new(PolicyTemplateAssignmentItemsPolicyAssignmentV1)
 	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalPolicyAssignmentV1Subject)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9104,9 +8391,6 @@ func (*IamPolicyManagementV1) NewV2PolicyRuleRuleAttribute(key string, operator 
 		Value: value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -9119,17 +8403,14 @@ func UnmarshalV2PolicyRuleRuleAttribute(m map[string]json.RawMessage, result int
 	obj := new(V2PolicyRuleRuleAttribute)
 	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "key-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -9161,9 +8442,6 @@ func (*IamPolicyManagementV1) NewV2PolicyRuleRuleWithNestedConditions(operator s
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
-	}
 	return
 }
 
@@ -9176,12 +8454,10 @@ func UnmarshalV2PolicyRuleRuleWithNestedConditions(m map[string]json.RawMessage,
 	obj := new(V2PolicyRuleRuleWithNestedConditions)
 	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "operator-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalNestedCondition)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "conditions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))

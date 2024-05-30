@@ -74,6 +74,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		assignmentID                       string = "orchestrator-id"
 		testPolicyAssignmentETag           string = ""
 		testTargetType                     string = "Account"
+
+		testAcountSettingsETag string = ""
 	)
 
 	var shouldSkipTest = func() {
@@ -1164,7 +1166,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			policyAssignmentRecord, response, err := service.GetPolicyAssignment(getPolicyAssignmentOptions)
 			Expect(err).To(BeNil())
-			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.GetPolicyAssignmentResponse)
+			var assignmentDetails = policyAssignmentRecord.(*iampolicymanagementv1.PolicyTemplateAssignmentItems)
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(*assignmentDetails).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
@@ -1262,6 +1264,58 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`GetSettings - Retrieve Access Management account settings by account ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
+			getSettingsOptions := &iampolicymanagementv1.GetSettingsOptions{
+				AccountID: &testAccountID,
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			accountSettingsAccessManagement, response, err := service.GetSettings(getSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
+			testAcountSettingsETag = response.GetHeaders().Get(etagHeader)
+		})
+	})
+
+	Describe(`UpdateSettings - Updates Access Management account settings by account ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+			identityTypesBaseModel := &iampolicymanagementv1.IdentityTypesBase{
+				State: core.StringPtr("monitor"),
+				ExternalAllowedAccounts: []string{},
+			}
+
+			identityTypesPatchModel := &iampolicymanagementv1.IdentityTypesPatch{
+				User: identityTypesBaseModel,
+				ServiceID: identityTypesBaseModel,
+				Service: identityTypesBaseModel,
+			}
+
+			externalAccountIdentityInteractionPatchModel := &iampolicymanagementv1.ExternalAccountIdentityInteractionPatch{
+				IdentityTypes: identityTypesPatchModel,
+			}
+
+			updateSettingsOptions := &iampolicymanagementv1.UpdateSettingsOptions{
+				AccountID: &testAccountID,
+				IfMatch: &testAcountSettingsETag,
+				ExternalAccountIdentityInteraction: externalAccountIdentityInteractionPatchModel,
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			accountSettingsAccessManagement, response, err := service.UpdateSettings(updateSettingsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsAccessManagement).ToNot(BeNil())
 		})
 	})
 
