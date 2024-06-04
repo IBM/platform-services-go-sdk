@@ -1273,7 +1273,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
 			getSettingsOptions := &iampolicymanagementv1.GetSettingsOptions{
-				AccountID: &testAccountID,
+				AccountID:      &testAccountID,
 				AcceptLanguage: core.StringPtr("default"),
 			}
 
@@ -1291,14 +1291,14 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 		It(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
 			identityTypesBaseModel := &iampolicymanagementv1.IdentityTypesBase{
-				State: core.StringPtr("monitor"),
+				State:                   core.StringPtr("monitor"),
 				ExternalAllowedAccounts: []string{},
 			}
 
 			identityTypesPatchModel := &iampolicymanagementv1.IdentityTypesPatch{
-				User: identityTypesBaseModel,
+				User:      identityTypesBaseModel,
 				ServiceID: identityTypesBaseModel,
-				Service: identityTypesBaseModel,
+				Service:   identityTypesBaseModel,
 			}
 
 			externalAccountIdentityInteractionPatchModel := &iampolicymanagementv1.ExternalAccountIdentityInteractionPatch{
@@ -1306,10 +1306,10 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			updateSettingsOptions := &iampolicymanagementv1.UpdateSettingsOptions{
-				AccountID: &testAccountID,
-				IfMatch: &testAcountSettingsETag,
+				AccountID:                          &testAccountID,
+				IfMatch:                            &testAcountSettingsETag,
 				ExternalAccountIdentityInteraction: externalAccountIdentityInteractionPatchModel,
-				AcceptLanguage: core.StringPtr("default"),
+				AcceptLanguage:                     core.StringPtr("default"),
 			}
 
 			accountSettingsAccessManagement, response, err := service.UpdateSettings(updateSettingsOptions)

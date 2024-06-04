@@ -1234,14 +1234,14 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				exampleAccountSettingsETag,
 			)
 			identityTypesBase := &iampolicymanagementv1.IdentityTypesBase{
-				State: core.StringPtr("monitor"),
+				State:                   core.StringPtr("monitor"),
 				ExternalAllowedAccounts: []string{},
 			}
 
 			identityTypes := &iampolicymanagementv1.IdentityTypesPatch{
-				User: identityTypesBase,
+				User:      identityTypesBase,
 				ServiceID: identityTypesBase,
-				Service: identityTypesBase,
+				Service:   identityTypesBase,
 			}
 
 			externalAccountIdentityInteraction := &iampolicymanagementv1.ExternalAccountIdentityInteractionPatch{
