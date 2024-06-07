@@ -2698,6 +2698,12 @@ type Metric struct {
 
 	// All the discounts applicable to the metric.
 	Discounts []Discount `json:"discounts" validate:"required"`
+
+	// This percentage reflects the reduction to the original cost that you receive under a volume based pricing structure.
+	VolumeDiscount *float64 `json:"volume_discount,omitempty"`
+
+	// The original cost adjusted for volume based discounts that are applied at the account level.
+	VolumeCost *float64 `json:"volume_cost,omitempty"`
 }
 
 // UnmarshalMetric unmarshals an instance of Metric from the specified map of raw messages.
@@ -2756,6 +2762,16 @@ func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err erro
 	err = core.UnmarshalModel(m, "discounts", &obj.Discounts, UnmarshalDiscount)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "discounts-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "volume_discount", &obj.VolumeDiscount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "volume_discount-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "volume_cost", &obj.VolumeCost)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "volume_cost-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
