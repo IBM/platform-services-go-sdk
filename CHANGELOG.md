@@ -1,3 +1,10 @@
+# [0.64.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.1...v0.64.0) (2024-06-18)
+
+
+### Features
+
+* **Usage Reports:** re-gen service to pickup changes to Instance Reports  ([#331](https://github.com/IBM/platform-services-go-sdk/issues/331)) ([3d034e7](https://github.com/IBM/platform-services-go-sdk/commit/3d034e78d248331bdcb455a9b6d39b1819203d71))
+
 ## [0.63.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.0...v0.63.1) (2024-05-28)
 
 
