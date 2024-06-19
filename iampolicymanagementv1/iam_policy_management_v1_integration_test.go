@@ -70,8 +70,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		examplePolicyTemplateName          string = "PolicySampleTemplateTestV1"
 		assignmentPolicyID                 string
 		testTargetAccountID                string = ""
-		assignmentRequesterId              string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-		assignmentID                       string = "orchestrator-id"
 		testPolicyAssignmentETag           string = ""
 		testTargetType                     string = "Account"
 	)
@@ -1068,17 +1066,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 				ID:   &testTargetAccountID,
 			}
 
-			options := &iampolicymanagementv1.PolicyAssignmentV1Options{
-				Root: &iampolicymanagementv1.PolicyAssignmentV1OptionsRoot{
-					RequesterID:  &assignmentRequesterId,
-					AssignmentID: &assignmentID,
-				},
-			}
-
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
 				Version:   core.StringPtr("1.0"),
 				Target:    target,
-				Options:   options,
 				Templates: templates,
 			}
 
@@ -1139,8 +1129,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
-			Expect(*assignmentDetails.Options).ToNot(BeNil())
-			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
 			Expect(*assignmentDetails.Status).ToNot(BeNil())
 			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
 			Expect(assignmentDetails.Resources).ToNot(BeNil())
@@ -1171,14 +1159,10 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
-			Expect(*assignmentDetails.Options).ToNot(BeNil())
-			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
 			Expect(*assignmentDetails.Status).ToNot(BeNil())
 			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
 			Expect(*assignmentDetails.CreatedAt).ToNot(BeNil())
-			Expect(*assignmentDetails.CreatedByID).ToNot(BeNil())
 			Expect(*assignmentDetails.LastModifiedAt).ToNot(BeNil())
-			Expect(*assignmentDetails.LastModifiedByID).ToNot(BeNil())
 			Expect(*assignmentDetails.Href).ToNot(BeNil())
 			assignmentPolicyID = *assignmentDetails.Resources[0].Policy.ResourceCreated.ID
 		})
