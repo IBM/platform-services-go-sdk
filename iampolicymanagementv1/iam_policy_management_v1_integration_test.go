@@ -813,7 +813,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplate).ToNot(BeNil())
-
 			Expect(policyTemplate.Name).To(Equal(&examplePolicyTemplateName))
 			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
 			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
