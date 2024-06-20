@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.88.0-b0b4c159-20240402-205910
+ * IBM OpenAPI SDK Code Generator Version: 3.90.1-64fd3296-20240515-180710
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -296,7 +296,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
 // body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
 // attributes might be provided. The following attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -424,7 +426,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 // To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
 // the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
 // attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -1274,28 +1278,32 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // Monday-Friday work week). For example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following
 // rule:
 // ```json
-//   "rule": {
-//     "operator": "and",
-//     "conditions": [{
-//       "key": "{{environment.attributes.day_of_week}}",
-//       "operator": "dayOfWeekAnyOf",
-//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeGreaterThanOrEquals",
-//       "value": "09:00:00+00:00"
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeLessThanOrEquals",
-//       "value": "17:00:00+00:00"
-//     }]
-//   }
+//
+//	"rule": {
+//	  "operator": "and",
+//	  "conditions": [{
+//	    "key": "{{environment.attributes.day_of_week}}",
+//	    "operator": "dayOfWeekAnyOf",
+//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeGreaterThanOrEquals",
+//	    "value": "09:00:00+00:00"
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeLessThanOrEquals",
+//	    "value": "17:00:00+00:00"
+//	  }]
+//	}
+//
 // ``` You can use the following operators in the **`key`** and **`value`** pair:
 // ```
-//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
-//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//   'dayOfWeekEquals', 'dayOfWeekAnyOf'
+//
+//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//	'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//	'dayOfWeekEquals', 'dayOfWeekAnyOf'
+//
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
 // operators](/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties) and
@@ -1308,32 +1316,34 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 //
 // For example, a policy can grant access based on multiple conditions applied on the resource attributes below:
 // ```json
-//   "pattern": "attribute-based-condition:resource:literal-and-wildcard"
-//   "rule": {
-//       "operator": "or",
-//       "conditions": [
-//         {
-//           "operator": "and",
-//           "conditions": [
-//             {
-//               "key": "{{resource.attributes.prefix}}",
-//               "operator": "stringEquals",
-//               "value": "home/test"
-//             },
-//             {
-//               "key": "{{environment.attributes.delimiter}}",
-//               "operator": "stringEquals",
-//               "value": "/"
-//             }
-//           ]
-//         },
-//         {
-//           "key": "{{resource.attributes.path}}",
-//           "operator": "stringMatch",
-//           "value": "home/David/_*"
-//         }
-//       ]
-//   }
+//
+//	"pattern": "attribute-based-condition:resource:literal-and-wildcard"
+//	"rule": {
+//	    "operator": "or",
+//	    "conditions": [
+//	      {
+//	        "operator": "and",
+//	        "conditions": [
+//	          {
+//	            "key": "{{resource.attributes.prefix}}",
+//	            "operator": "stringEquals",
+//	            "value": "home/test"
+//	          },
+//	          {
+//	            "key": "{{environment.attributes.delimiter}}",
+//	            "operator": "stringEquals",
+//	            "value": "/"
+//	          }
+//	        ]
+//	      },
+//	      {
+//	        "key": "{{resource.attributes.path}}",
+//	        "operator": "stringMatch",
+//	        "value": "home/David/_*"
+//	      }
+//	    ]
+//	}
+//
 // ```
 //
 // In addition to satisfying the `resources` section, the policy grants permission only if either the `path` begins with
@@ -1348,7 +1358,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListV2PoliciesWithContext(ctx 
 // their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
 // body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
 // attributes might be provided. The following attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -1486,28 +1498,32 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 // Monday-Friday work week). For example, a policy can grant access Monday-Friday, 9:00am-5:00pm using the following
 // rule:
 // ```json
-//   "rule": {
-//     "operator": "and",
-//     "conditions": [{
-//       "key": "{{environment.attributes.day_of_week}}",
-//       "operator": "dayOfWeekAnyOf",
-//       "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeGreaterThanOrEquals",
-//       "value": "09:00:00+00:00"
-//     },
-//       "key": "{{environment.attributes.current_time}}",
-//       "operator": "timeLessThanOrEquals",
-//       "value": "17:00:00+00:00"
-//     }]
-//   }
+//
+//	"rule": {
+//	  "operator": "and",
+//	  "conditions": [{
+//	    "key": "{{environment.attributes.day_of_week}}",
+//	    "operator": "dayOfWeekAnyOf",
+//	    "value": ["1+00:00", "2+00:00", "3+00:00", "4+00:00", "5+00:00"]
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeGreaterThanOrEquals",
+//	    "value": "09:00:00+00:00"
+//	  },
+//	    "key": "{{environment.attributes.current_time}}",
+//	    "operator": "timeLessThanOrEquals",
+//	    "value": "17:00:00+00:00"
+//	  }]
+//	}
+//
 // ``` You can use the following operators in the **`key`** and **`value`** pair:
 // ```
-//   'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
-//   'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
-//   'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
-//   'dayOfWeekEquals', 'dayOfWeekAnyOf'
+//
+//	'timeLessThan', 'timeLessThanOrEquals', 'timeGreaterThan', 'timeGreaterThanOrEquals',
+//	'dateLessThan', 'dateLessThanOrEquals', 'dateGreaterThan', 'dateGreaterThanOrEquals',
+//	'dateTimeLessThan', 'dateTimeLessThanOrEquals', 'dateTimeGreaterThan', 'dateTimeGreaterThanOrEquals',
+//	'dayOfWeekEquals', 'dayOfWeekAnyOf'
+//
 // ``` The pattern field that matches the rule is required when rule is provided. For the business hour rule example
 // above, the **`pattern`** is **`"time-based-conditions:weekly"`**. For more information, see [Time-based conditions
 // operators](/docs/account?topic=account-iam-condition-properties&interface=ui#policy-condition-properties) and
@@ -1520,32 +1536,34 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 //
 // For example, a policy can grant access based on multiple conditions applied on the resource attributes below:
 // ```json
-//   "pattern": "attribute-based-condition:resource:literal-and-wildcard"
-//   "rule": {
-//       "operator": "or",
-//       "conditions": [
-//         {
-//           "operator": "and",
-//           "conditions": [
-//             {
-//               "key": "{{resource.attributes.prefix}}",
-//               "operator": "stringEquals",
-//               "value": "home/test"
-//             },
-//             {
-//               "key": "{{environment.attributes.delimiter}}",
-//               "operator": "stringEquals",
-//               "value": "/"
-//             }
-//           ]
-//         },
-//         {
-//           "key": "{{resource.attributes.path}}",
-//           "operator": "stringMatch",
-//           "value": "home/David/_*"
-//         }
-//       ]
-//   }
+//
+//	"pattern": "attribute-based-condition:resource:literal-and-wildcard"
+//	"rule": {
+//	    "operator": "or",
+//	    "conditions": [
+//	      {
+//	        "operator": "and",
+//	        "conditions": [
+//	          {
+//	            "key": "{{resource.attributes.prefix}}",
+//	            "operator": "stringEquals",
+//	            "value": "home/test"
+//	          },
+//	          {
+//	            "key": "{{environment.attributes.delimiter}}",
+//	            "operator": "stringEquals",
+//	            "value": "/"
+//	          }
+//	        ]
+//	      },
+//	      {
+//	        "key": "{{resource.attributes.path}}",
+//	        "operator": "stringMatch",
+//	        "value": "home/David/_*"
+//	      }
+//	    ]
+//	}
+//
 // ```
 //
 // In addition to satisfying the `resources` section, the policy grants permission only if either the `path` begins with
@@ -1559,7 +1577,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateV2PolicyWithContext(ctx 
 // To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
 // the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
 // attributes are supported:
-//   serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
+//	serviceName, serviceInstance, region, resourceType, resource, accountId, resourceGroupId Assign roles that are
+//
 // supported by the service or platform roles. For more information, see [IAM roles and
 // actions](/docs/account?topic=account-iam-service-roles-actions). The user must also have the same level of access or
 // greater to the target resource in order to grant the role. Use only the resource attributes supported by the service.
@@ -2314,7 +2334,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) ReplacePolicyTemplateWithConte
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *replacePolicyTemplateOptions.PolicyTemplateID,
-		"version": *replacePolicyTemplateOptions.Version,
+		"version":            *replacePolicyTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2409,7 +2429,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyTemplateVersionWit
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *deletePolicyTemplateVersionOptions.PolicyTemplateID,
-		"version": *deletePolicyTemplateVersionOptions.Version,
+		"version":            *deletePolicyTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2469,7 +2489,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyTemplateVersionWithCo
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *getPolicyTemplateVersionOptions.PolicyTemplateID,
-		"version": *getPolicyTemplateVersionOptions.Version,
+		"version":            *getPolicyTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2540,7 +2560,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) CommitPolicyTemplateWithContex
 
 	pathParamsMap := map[string]string{
 		"policy_template_id": *commitPolicyTemplateOptions.PolicyTemplateID,
-		"version": *commitPolicyTemplateOptions.Version,
+		"version":            *commitPolicyTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -2748,14 +2768,14 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyTemplateAssignment
 
 // GetPolicyAssignment : Retrieve a policy assignment
 // Retrieve a policy template assignment by providing a policy assignment ID.
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result GetPolicyAssignmentResponseIntf, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignment(getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result PolicyTemplateAssignmentItemsIntf, response *core.DetailedResponse, err error) {
 	result, response, err = iamPolicyManagement.GetPolicyAssignmentWithContext(context.Background(), getPolicyAssignmentOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetPolicyAssignmentWithContext is an alternate form of the GetPolicyAssignment method which supports a Context parameter
-func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext(ctx context.Context, getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result GetPolicyAssignmentResponseIntf, response *core.DetailedResponse, err error) {
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext(ctx context.Context, getPolicyAssignmentOptions *GetPolicyAssignmentOptions) (result PolicyTemplateAssignmentItemsIntf, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyAssignmentOptions, "getPolicyAssignmentOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -2806,7 +2826,7 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyAssignmentWithContext
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetPolicyAssignmentResponse)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyTemplateAssignmentItems)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -2961,8 +2981,210 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyAssignmentWithCont
 
 	return
 }
+
+// GetSettings : Retrieve Access Management account settings by account ID
+// Retrieve Access Management settings for an account by providing the account ID.
+func (iamPolicyManagement *IamPolicyManagementV1) GetSettings(getSettingsOptions *GetSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	result, response, err = iamPolicyManagement.GetSettingsWithContext(context.Background(), getSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetSettingsWithContext is an alternate form of the GetSettings method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetSettingsWithContext(ctx context.Context, getSettingsOptions *GetSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getSettingsOptions, "getSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getSettingsOptions, "getSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/accounts/{account_id}/settings/access_management`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "GetSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getSettingsOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*getSettingsOptions.AcceptLanguage))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsAccessManagement)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateSettings : Update Access Management account settings by account ID
+// Update access management settings for an account.
+//
+// ### External Account Identity Interaction
+//
+// Update the way identities within an external account are allowed to interact with the requested account by providing:
+// * the `account_id` as a parameter
+// * the external account ID(s) and state for the specific identity in the request body
+//
+// External account identity interaction includes the following `identity_types`: `user` (user identities defined as
+// [IBMid's](https://test.cloud.ibm.com/docs/account?topic=account-identity-overview#users-bestpract)), `service_id`
+// (defined as [IAM
+// ServiceIds](https://test.cloud.ibm.com/docs/account?topic=account-identity-overview#serviceid-bestpract)), `service`
+// (defined by a service’s [CRN](https://test.cloud.ibm.com/docs/account?topic=account-crn)). To update an Identity’s
+// setting, the `state` and `external_allowed_accounts` fields are required.
+//
+// Different identity states are:
+// * "enabled": An identity type is allowed to access resources in the account provided it has access policies on those
+// resources.
+// * "limited": An identity type is allowed to access resources in the account provided it has access policies on those
+// resources AND it is associated with either the account the resources are in or one of the allowed accounts. This
+// setting leverages the "external_allowed_accounts" list.
+// * "monitor": Has no direct impact on an Identity’s access. Instead, it creates AT events for access decisions as if
+// the account were in a limited “state”.
+//
+// **Note**: The state "enabled" is a special case. In this case, access is given to all accounts and there is no need
+// to specify a particular list. Therefore, when updating "state" to "enabled" for an identity type
+// "external_allowed_accounts" should be left empty.
+func (iamPolicyManagement *IamPolicyManagementV1) UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	result, response, err = iamPolicyManagement.UpdateSettingsWithContext(context.Background(), updateSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateSettingsWithContext is an alternate form of the UpdateSettings method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) UpdateSettingsWithContext(ctx context.Context, updateSettingsOptions *UpdateSettingsOptions) (result *AccountSettingsAccessManagement, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateSettingsOptions, "updateSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateSettingsOptions, "updateSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *updateSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/accounts/{account_id}/settings/access_management`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range updateSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "UpdateSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateSettingsOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateSettingsOptions.IfMatch))
+	}
+	if updateSettingsOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*updateSettingsOptions.AcceptLanguage))
+	}
+
+	body := make(map[string]interface{})
+	if updateSettingsOptions.ExternalAccountIdentityInteraction != nil {
+		body["external_account_identity_interaction"] = updateSettingsOptions.ExternalAccountIdentityInteraction
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsAccessManagement)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.1")
+}
+
+// AccountSettingsAccessManagement : The Access Management Account Settings that are currently set for the requested account.
+type AccountSettingsAccessManagement struct {
+	// How external accounts can interact in relation to the requested account.
+	ExternalAccountIdentityInteraction *ExternalAccountIdentityInteraction `json:"external_account_identity_interaction" validate:"required"`
+}
+
+// UnmarshalAccountSettingsAccessManagement unmarshals an instance of AccountSettingsAccessManagement from the specified map of raw messages.
+func UnmarshalAccountSettingsAccessManagement(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsAccessManagement)
+	err = core.UnmarshalModel(m, "external_account_identity_interaction", &obj.ExternalAccountIdentityInteraction, UnmarshalExternalAccountIdentityInteraction)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "external_account_identity_interaction-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // AssignmentResourceCreated : On success, includes the  policy assigned.
@@ -3057,7 +3279,7 @@ type CommitPolicyTemplateOptions struct {
 func (*IamPolicyManagementV1) NewCommitPolicyTemplateOptions(policyTemplateID string, version string) *CommitPolicyTemplateOptions {
 	return &CommitPolicyTemplateOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version: core.StringPtr(version),
+		Version:          core.StringPtr(version),
 	}
 }
 
@@ -3151,6 +3373,7 @@ type ControlResponse struct {
 	// Permission granted by the policy.
 	Grant *Grant `json:"grant,omitempty"`
 }
+
 func (*ControlResponse) isaControlResponse() bool {
 	return true
 }
@@ -3209,9 +3432,9 @@ type CreatePolicyOptions struct {
 // NewCreatePolicyOptions : Instantiate CreatePolicyOptions
 func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *CreatePolicyOptions {
 	return &CreatePolicyOptions{
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -3293,9 +3516,9 @@ type CreatePolicyTemplateAssignmentOptions struct {
 // NewCreatePolicyTemplateAssignmentOptions : Instantiate CreatePolicyTemplateAssignmentOptions
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateAssignmentOptions(version string, target *AssignmentTargetDetails, options *PolicyAssignmentV1Options, templates []AssignmentTemplateDetails) *CreatePolicyTemplateAssignmentOptions {
 	return &CreatePolicyTemplateAssignmentOptions{
-		Version: core.StringPtr(version),
-		Target: target,
-		Options: options,
+		Version:   core.StringPtr(version),
+		Target:    target,
+		Options:   options,
 		Templates: templates,
 	}
 }
@@ -3376,9 +3599,9 @@ type CreatePolicyTemplateOptions struct {
 // NewCreatePolicyTemplateOptions : Instantiate CreatePolicyTemplateOptions
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateOptions(name string, accountID string, policy *TemplatePolicy) *CreatePolicyTemplateOptions {
 	return &CreatePolicyTemplateOptions{
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
-		Policy: policy,
+		Policy:    policy,
 	}
 }
 
@@ -3451,7 +3674,7 @@ type CreatePolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewCreatePolicyTemplateVersionOptions(policyTemplateID string, policy *TemplatePolicy) *CreatePolicyTemplateVersionOptions {
 	return &CreatePolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Policy: policy,
+		Policy:           policy,
 	}
 }
 
@@ -3534,9 +3757,9 @@ type CreateRoleOptions struct {
 func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions []string, name string, accountID string, serviceName string) *CreateRoleOptions {
 	return &CreateRoleOptions{
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
-		Name: core.StringPtr(name),
-		AccountID: core.StringPtr(accountID),
+		Actions:     actions,
+		Name:        core.StringPtr(name),
+		AccountID:   core.StringPtr(accountID),
 		ServiceName: core.StringPtr(serviceName),
 	}
 }
@@ -3634,7 +3857,7 @@ type CreateV2PolicyOptions struct {
 // Constants associated with the CreateV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	CreateV2PolicyOptionsTypeAccessConst = "access"
+	CreateV2PolicyOptionsTypeAccessConst        = "access"
 	CreateV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -3642,7 +3865,7 @@ const (
 func (*IamPolicyManagementV1) NewCreateV2PolicyOptions(control *Control, typeVar string) *CreateV2PolicyOptions {
 	return &CreateV2PolicyOptions{
 		Control: control,
-		Type: core.StringPtr(typeVar),
+		Type:    core.StringPtr(typeVar),
 	}
 }
 
@@ -3916,7 +4139,7 @@ type DeletePolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewDeletePolicyTemplateVersionOptions(policyTemplateID string, version string) *DeletePolicyTemplateVersionOptions {
 	return &DeletePolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version: core.StringPtr(version),
+		Version:          core.StringPtr(version),
 	}
 }
 
@@ -4074,23 +4297,24 @@ type ErrorObject struct {
 // Constants associated with the ErrorObject.Code property.
 // The API error code for the error.
 const (
-	ErrorObjectCodeInsufficentPermissionsConst = "insufficent_permissions"
-	ErrorObjectCodeInvalidBodyConst = "invalid_body"
-	ErrorObjectCodeInvalidTokenConst = "invalid_token"
+	ErrorObjectCodeInsufficentPermissionsConst        = "insufficent_permissions"
+	ErrorObjectCodeInvalidBodyConst                   = "invalid_body"
+	ErrorObjectCodeInvalidTokenConst                  = "invalid_token"
 	ErrorObjectCodeMissingRequiredQueryParameterConst = "missing_required_query_parameter"
-	ErrorObjectCodeNotFoundConst = "not_found"
+	ErrorObjectCodeNotFoundConst                      = "not_found"
 	ErrorObjectCodePolicyAssignmentConflictErrorConst = "policy_assignment_conflict_error"
-	ErrorObjectCodePolicyAssignmentNotFoundConst = "policy_assignment_not_found"
-	ErrorObjectCodePolicyConflictErrorConst = "policy_conflict_error"
-	ErrorObjectCodePolicyNotFoundConst = "policy_not_found"
-	ErrorObjectCodePolicyTemplateConflictErrorConst = "policy_template_conflict_error"
-	ErrorObjectCodePolicyTemplateNotFoundConst = "policy_template_not_found"
-	ErrorObjectCodeRequestNotProcessedConst = "request_not_processed"
-	ErrorObjectCodeRoleConflictErrorConst = "role_conflict_error"
-	ErrorObjectCodeRoleNotFoundConst = "role_not_found"
-	ErrorObjectCodeTooManyRequestsConst = "too_many_requests"
-	ErrorObjectCodeUnableToProcessConst = "unable_to_process"
-	ErrorObjectCodeUnsupportedContentTypeConst = "unsupported_content_type"
+	ErrorObjectCodePolicyAssignmentNotFoundConst      = "policy_assignment_not_found"
+	ErrorObjectCodePolicyConflictErrorConst           = "policy_conflict_error"
+	ErrorObjectCodePolicyNotFoundConst                = "policy_not_found"
+	ErrorObjectCodePolicyTemplateConflictErrorConst   = "policy_template_conflict_error"
+	ErrorObjectCodePolicyTemplateNotFoundConst        = "policy_template_not_found"
+	ErrorObjectCodeRequestNotProcessedConst           = "request_not_processed"
+	ErrorObjectCodeResourceNotFoundConst              = "resource_not_found"
+	ErrorObjectCodeRoleConflictErrorConst             = "role_conflict_error"
+	ErrorObjectCodeRoleNotFoundConst                  = "role_not_found"
+	ErrorObjectCodeTooManyRequestsConst               = "too_many_requests"
+	ErrorObjectCodeUnableToProcessConst               = "unable_to_process"
+	ErrorObjectCodeUnsupportedContentTypeConst        = "unsupported_content_type"
 )
 
 // UnmarshalErrorObject unmarshals an instance of ErrorObject from the specified map of raw messages.
@@ -4154,6 +4378,42 @@ func UnmarshalErrorResponse(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// ExternalAccountIdentityInteraction : How external accounts can interact in relation to the requested account.
+type ExternalAccountIdentityInteraction struct {
+	// The settings for each identity type.
+	IdentityTypes *IdentityTypes `json:"identity_types" validate:"required"`
+}
+
+// UnmarshalExternalAccountIdentityInteraction unmarshals an instance of ExternalAccountIdentityInteraction from the specified map of raw messages.
+func UnmarshalExternalAccountIdentityInteraction(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ExternalAccountIdentityInteraction)
+	err = core.UnmarshalModel(m, "identity_types", &obj.IdentityTypes, UnmarshalIdentityTypes)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "identity_types-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ExternalAccountIdentityInteractionPatch : Update to how external accounts can interact in relation to the requested account.
+type ExternalAccountIdentityInteractionPatch struct {
+	// The settings to apply for each identity type for a request.
+	IdentityTypes *IdentityTypesPatch `json:"identity_types,omitempty"`
+}
+
+// UnmarshalExternalAccountIdentityInteractionPatch unmarshals an instance of ExternalAccountIdentityInteractionPatch from the specified map of raw messages.
+func UnmarshalExternalAccountIdentityInteractionPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ExternalAccountIdentityInteractionPatch)
+	err = core.UnmarshalModel(m, "identity_types", &obj.IdentityTypes, UnmarshalIdentityTypesPatch)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "identity_types-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // GetPolicyAssignmentOptions : The GetPolicyAssignment options.
 type GetPolicyAssignmentOptions struct {
 	// The policy template assignment ID.
@@ -4170,7 +4430,7 @@ type GetPolicyAssignmentOptions struct {
 func (*IamPolicyManagementV1) NewGetPolicyAssignmentOptions(assignmentID string, version string) *GetPolicyAssignmentOptions {
 	return &GetPolicyAssignmentOptions{
 		AssignmentID: core.StringPtr(assignmentID),
-		Version: core.StringPtr(version),
+		Version:      core.StringPtr(version),
 	}
 }
 
@@ -4190,237 +4450,6 @@ func (_options *GetPolicyAssignmentOptions) SetVersion(version string) *GetPolic
 func (options *GetPolicyAssignmentOptions) SetHeaders(param map[string]string) *GetPolicyAssignmentOptions {
 	options.Headers = param
 	return options
-}
-
-// GetPolicyAssignmentResponse : GetPolicyAssignmentResponse struct
-// Models which "extend" this model:
-// - GetPolicyAssignmentResponsePolicyAssignmentV1
-// - GetPolicyAssignmentResponsePolicyAssignment
-type GetPolicyAssignmentResponse struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target,omitempty"`
-
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources,omitempty"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponseSubject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponse.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponseStatusFailedConst = "failed"
-	GetPolicyAssignmentResponseStatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponseStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponseStatusSucceededConst = "succeeded"
-)
-
-// Constants associated with the GetPolicyAssignmentResponse.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponseTargetTypeAccountConst = "Account"
-)
-func (*GetPolicyAssignmentResponse) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-type GetPolicyAssignmentResponseIntf interface {
-	isaGetPolicyAssignmentResponse() bool
-}
-
-// UnmarshalGetPolicyAssignmentResponse unmarshals an instance of GetPolicyAssignmentResponse from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponse)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponseSubject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1Subject : subject details of access type assignment.
-type GetPolicyAssignmentResponsePolicyAssignmentV1Subject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1Subject.Type property.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponsePolicyAssignmentV1SubjectTypeIamIDConst = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1Subject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponseSubject : subject details of access type assignment.
-type GetPolicyAssignmentResponseSubject struct {
-	ID *string `json:"id,omitempty"`
-
-	Type *string `json:"type,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponseSubject.Type property.
-const (
-	GetPolicyAssignmentResponseSubjectTypeAccessGroupIDConst = "access_group_id"
-	GetPolicyAssignmentResponseSubjectTypeIamIDConst = "iam_id"
-)
-
-// UnmarshalGetPolicyAssignmentResponseSubject unmarshals an instance of GetPolicyAssignmentResponseSubject from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponseSubject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponseSubject)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // GetPolicyOptions : The GetPolicy options.
@@ -4466,7 +4495,7 @@ type GetPolicyTemplateOptions struct {
 // Constants associated with the GetPolicyTemplateOptions.State property.
 // The policy template state.
 const (
-	GetPolicyTemplateOptionsStateActiveConst = "active"
+	GetPolicyTemplateOptionsStateActiveConst  = "active"
 	GetPolicyTemplateOptionsStateDeletedConst = "deleted"
 )
 
@@ -4511,7 +4540,7 @@ type GetPolicyTemplateVersionOptions struct {
 func (*IamPolicyManagementV1) NewGetPolicyTemplateVersionOptions(policyTemplateID string, version string) *GetPolicyTemplateVersionOptions {
 	return &GetPolicyTemplateVersionOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version: core.StringPtr(version),
+		Version:          core.StringPtr(version),
 	}
 }
 
@@ -4561,6 +4590,54 @@ func (options *GetRoleOptions) SetHeaders(param map[string]string) *GetRoleOptio
 	return options
 }
 
+// GetSettingsOptions : The GetSettings options.
+type GetSettingsOptions struct {
+	// The account GUID that the settings belong to.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetSettingsOptions : Instantiate GetSettingsOptions
+func (*IamPolicyManagementV1) NewGetSettingsOptions(accountID string) *GetSettingsOptions {
+	return &GetSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetSettingsOptions) SetAccountID(accountID string) *GetSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *GetSettingsOptions) SetAcceptLanguage(acceptLanguage string) *GetSettingsOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetSettingsOptions) SetHeaders(param map[string]string) *GetSettingsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetV2PolicyOptions : The GetV2Policy options.
 type GetV2PolicyOptions struct {
 	// The policy ID.
@@ -4584,7 +4661,7 @@ type GetV2PolicyOptions struct {
 // * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
 // fields.
 const (
-	GetV2PolicyOptionsFormatDisplayConst = "display"
+	GetV2PolicyOptionsFormatDisplayConst           = "display"
 	GetV2PolicyOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -4655,6 +4732,121 @@ func UnmarshalGrantWithEnrichedRoles(m map[string]json.RawMessage, result interf
 	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalEnrichedRoles)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "roles-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypes : The settings for each identity type.
+type IdentityTypes struct {
+	// The core set of properties associated with an identity type.
+	User *IdentityTypesBase `json:"user" validate:"required"`
+
+	// The core set of properties associated with an identity type.
+	ServiceID *IdentityTypesBase `json:"service_id" validate:"required"`
+
+	// The core set of properties associated with an identity type.
+	Service *IdentityTypesBase `json:"service" validate:"required"`
+}
+
+// UnmarshalIdentityTypes unmarshals an instance of IdentityTypes from the specified map of raw messages.
+func UnmarshalIdentityTypes(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypes)
+	err = core.UnmarshalModel(m, "user", &obj.User, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "service_id", &obj.ServiceID, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypesBase : The core set of properties associated with an identity type.
+type IdentityTypesBase struct {
+	// The state of the identity type.
+	State *string `json:"state" validate:"required"`
+
+	// List of accounts that the state applies to for a given identity.
+	ExternalAllowedAccounts []string `json:"external_allowed_accounts" validate:"required"`
+}
+
+// Constants associated with the IdentityTypesBase.State property.
+// The state of the identity type.
+const (
+	IdentityTypesBaseStateEnabledConst = "enabled"
+	IdentityTypesBaseStateLimitedConst = "limited"
+	IdentityTypesBaseStateMonitorConst = "monitor"
+)
+
+// NewIdentityTypesBase : Instantiate IdentityTypesBase (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewIdentityTypesBase(state string, externalAllowedAccounts []string) (_model *IdentityTypesBase, err error) {
+	_model = &IdentityTypesBase{
+		State:                   core.StringPtr(state),
+		ExternalAllowedAccounts: externalAllowedAccounts,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalIdentityTypesBase unmarshals an instance of IdentityTypesBase from the specified map of raw messages.
+func UnmarshalIdentityTypesBase(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypesBase)
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "state-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "external_allowed_accounts", &obj.ExternalAllowedAccounts)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "external_allowed_accounts-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// IdentityTypesPatch : The settings to apply for each identity type for a request.
+type IdentityTypesPatch struct {
+	// The core set of properties associated with an identity type.
+	User *IdentityTypesBase `json:"user,omitempty"`
+
+	// The core set of properties associated with an identity type.
+	ServiceID *IdentityTypesBase `json:"service_id,omitempty"`
+
+	// The core set of properties associated with an identity type.
+	Service *IdentityTypesBase `json:"service,omitempty"`
+}
+
+// UnmarshalIdentityTypesPatch unmarshals an instance of IdentityTypesPatch from the specified map of raw messages.
+func UnmarshalIdentityTypesPatch(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(IdentityTypesPatch)
+	err = core.UnmarshalModel(m, "user", &obj.User, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "service_id", &obj.ServiceID, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalIdentityTypesBase)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -4746,7 +4938,7 @@ type ListPoliciesOptions struct {
 // Constants associated with the ListPoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListPoliciesOptionsTypeAccessConst = "access"
+	ListPoliciesOptionsTypeAccessConst        = "access"
 	ListPoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -4754,21 +4946,21 @@ const (
 // Optional type of service.
 const (
 	ListPoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListPoliciesOptionsServiceTypeServiceConst = "service"
+	ListPoliciesOptionsServiceTypeServiceConst         = "service"
 )
 
 // Constants associated with the ListPoliciesOptions.Sort property.
 // Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
 // '-' to field. Example '-last_modified_at'.
 const (
-	ListPoliciesOptionsSortCreatedAtConst = "created_at"
-	ListPoliciesOptionsSortCreatedByIDConst = "created_by_id"
-	ListPoliciesOptionsSortHrefConst = "href"
-	ListPoliciesOptionsSortIDConst = "id"
-	ListPoliciesOptionsSortLastModifiedAtConst = "last_modified_at"
+	ListPoliciesOptionsSortCreatedAtConst        = "created_at"
+	ListPoliciesOptionsSortCreatedByIDConst      = "created_by_id"
+	ListPoliciesOptionsSortHrefConst             = "href"
+	ListPoliciesOptionsSortIDConst               = "id"
+	ListPoliciesOptionsSortLastModifiedAtConst   = "last_modified_at"
 	ListPoliciesOptionsSortLastModifiedByIDConst = "last_modified_by_id"
-	ListPoliciesOptionsSortStateConst = "state"
-	ListPoliciesOptionsSortTypeConst = "type"
+	ListPoliciesOptionsSortStateConst            = "state"
+	ListPoliciesOptionsSortTypeConst             = "type"
 )
 
 // Constants associated with the ListPoliciesOptions.Format property.
@@ -4777,7 +4969,7 @@ const (
 // it has done so
 // * `display` - returns the list of all actions included in each of the policy roles.
 const (
-	ListPoliciesOptionsFormatDisplayConst = "display"
+	ListPoliciesOptionsFormatDisplayConst           = "display"
 	ListPoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -4786,7 +4978,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListPoliciesOptionsStateActiveConst = "active"
+	ListPoliciesOptionsStateActiveConst  = "active"
 	ListPoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -4904,7 +5096,7 @@ type ListPolicyAssignmentsOptions struct {
 // NewListPolicyAssignmentsOptions : Instantiate ListPolicyAssignmentsOptions
 func (*IamPolicyManagementV1) NewListPolicyAssignmentsOptions(version string, accountID string) *ListPolicyAssignmentsOptions {
 	return &ListPolicyAssignmentsOptions{
-		Version: core.StringPtr(version),
+		Version:   core.StringPtr(version),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -4960,7 +5152,7 @@ type ListPolicyTemplateVersionsOptions struct {
 // Constants associated with the ListPolicyTemplateVersionsOptions.State property.
 // The policy template state.
 const (
-	ListPolicyTemplateVersionsOptionsStateActiveConst = "active"
+	ListPolicyTemplateVersionsOptionsStateActiveConst  = "active"
 	ListPolicyTemplateVersionsOptionsStateDeletedConst = "deleted"
 )
 
@@ -5033,7 +5225,7 @@ type ListPolicyTemplatesOptions struct {
 // Constants associated with the ListPolicyTemplatesOptions.State property.
 // The policy template state.
 const (
-	ListPolicyTemplatesOptionsStateActiveConst = "active"
+	ListPolicyTemplatesOptionsStateActiveConst  = "active"
 	ListPolicyTemplatesOptionsStateDeletedConst = "deleted"
 )
 
@@ -5041,13 +5233,13 @@ const (
 // Service type, Optional.
 const (
 	ListPolicyTemplatesOptionsPolicyServiceTypePlatformServiceConst = "platform_service"
-	ListPolicyTemplatesOptionsPolicyServiceTypeServiceConst = "service"
+	ListPolicyTemplatesOptionsPolicyServiceTypeServiceConst         = "service"
 )
 
 // Constants associated with the ListPolicyTemplatesOptions.PolicyType property.
 // Policy type, Optional.
 const (
-	ListPolicyTemplatesOptionsPolicyTypeAccessConst = "access"
+	ListPolicyTemplatesOptionsPolicyTypeAccessConst        = "access"
 	ListPolicyTemplatesOptionsPolicyTypeAuthorizationConst = "authorization"
 )
 
@@ -5266,7 +5458,7 @@ type ListV2PoliciesOptions struct {
 // Constants associated with the ListV2PoliciesOptions.Type property.
 // Optional type of policy.
 const (
-	ListV2PoliciesOptionsTypeAccessConst = "access"
+	ListV2PoliciesOptionsTypeAccessConst        = "access"
 	ListV2PoliciesOptionsTypeAuthorizationConst = "authorization"
 )
 
@@ -5274,7 +5466,7 @@ const (
 // Optional type of service.
 const (
 	ListV2PoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
-	ListV2PoliciesOptionsServiceTypeServiceConst = "service"
+	ListV2PoliciesOptionsServiceTypeServiceConst         = "service"
 )
 
 // Constants associated with the ListV2PoliciesOptions.Format property.
@@ -5284,7 +5476,7 @@ const (
 // * `display` - returns the list of all actions included in each of the policy roles and translations for all relevant
 // fields.
 const (
-	ListV2PoliciesOptionsFormatDisplayConst = "display"
+	ListV2PoliciesOptionsFormatDisplayConst           = "display"
 	ListV2PoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
 )
 
@@ -5293,7 +5485,7 @@ const (
 // * `active` - returns active policies
 // * `deleted` - returns non-active policies.
 const (
-	ListV2PoliciesOptionsStateActiveConst = "active"
+	ListV2PoliciesOptionsStateActiveConst  = "active"
 	ListV2PoliciesOptionsStateDeletedConst = "deleted"
 )
 
@@ -5399,26 +5591,27 @@ type NestedCondition struct {
 // Constants associated with the NestedCondition.Operator property.
 // The operator of an attribute.
 const (
-	NestedConditionOperatorDategreaterthanConst = "dateGreaterThan"
-	NestedConditionOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
-	NestedConditionOperatorDatelessthanConst = "dateLessThan"
-	NestedConditionOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
-	NestedConditionOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	NestedConditionOperatorDategreaterthanConst             = "dateGreaterThan"
+	NestedConditionOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
+	NestedConditionOperatorDatelessthanConst                = "dateLessThan"
+	NestedConditionOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
+	NestedConditionOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	NestedConditionOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	NestedConditionOperatorDatetimelessthanConst = "dateTimeLessThan"
-	NestedConditionOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	NestedConditionOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	NestedConditionOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	NestedConditionOperatorStringequalsConst = "stringEquals"
-	NestedConditionOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	NestedConditionOperatorStringexistsConst = "stringExists"
-	NestedConditionOperatorStringmatchConst = "stringMatch"
-	NestedConditionOperatorStringmatchanyofConst = "stringMatchAnyOf"
-	NestedConditionOperatorTimegreaterthanConst = "timeGreaterThan"
-	NestedConditionOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	NestedConditionOperatorTimelessthanConst = "timeLessThan"
-	NestedConditionOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	NestedConditionOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	NestedConditionOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	NestedConditionOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	NestedConditionOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	NestedConditionOperatorStringequalsConst                = "stringEquals"
+	NestedConditionOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
+	NestedConditionOperatorStringexistsConst                = "stringExists"
+	NestedConditionOperatorStringmatchConst                 = "stringMatch"
+	NestedConditionOperatorStringmatchanyofConst            = "stringMatchAnyOf"
+	NestedConditionOperatorTimegreaterthanConst             = "timeGreaterThan"
+	NestedConditionOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	NestedConditionOperatorTimelessthanConst                = "timeLessThan"
+	NestedConditionOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
+
 func (*NestedCondition) isaNestedCondition() bool {
 	return true
 }
@@ -5496,7 +5689,7 @@ type Policy struct {
 // Constants associated with the Policy.State property.
 // The policy state.
 const (
-	PolicyStateActiveConst = "active"
+	PolicyStateActiveConst  = "active"
 	PolicyStateDeletedConst = "deleted"
 )
 
@@ -5589,7 +5782,7 @@ type PolicyAssignmentOptions struct {
 // The policy subject type; either 'iam_id' or 'access_group_id'.
 const (
 	PolicyAssignmentOptionsSubjectTypeAccessGroupIDConst = "access_group_id"
-	PolicyAssignmentOptionsSubjectTypeIamIDConst = "iam_id"
+	PolicyAssignmentOptionsSubjectTypeIamIDConst         = "iam_id"
 )
 
 // UnmarshalPolicyAssignmentOptions unmarshals an instance of PolicyAssignmentOptions from the specified map of raw messages.
@@ -5729,10 +5922,10 @@ type PolicyAssignmentV1 struct {
 // Constants associated with the PolicyAssignmentV1.Status property.
 // The policy assignment status.
 const (
-	PolicyAssignmentV1StatusFailedConst = "failed"
-	PolicyAssignmentV1StatusInProgressConst = "in_progress"
+	PolicyAssignmentV1StatusFailedConst            = "failed"
+	PolicyAssignmentV1StatusInProgressConst        = "in_progress"
 	PolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyAssignmentV1StatusSucceededConst = "succeeded"
+	PolicyAssignmentV1StatusSucceededConst         = "succeeded"
 )
 
 // UnmarshalPolicyAssignmentV1 unmarshals an instance of PolicyAssignmentV1 from the specified map of raw messages.
@@ -5827,6 +6020,7 @@ func UnmarshalPolicyAssignmentV1Collection(m map[string]json.RawMessage, result 
 
 // PolicyAssignmentV1Options : The set of properties required for a policy assignment.
 type PolicyAssignmentV1Options struct {
+	// The set of properties where the assignment is being built from.
 	Root *PolicyAssignmentV1OptionsRoot `json:"root" validate:"required"`
 }
 
@@ -5854,13 +6048,15 @@ func UnmarshalPolicyAssignmentV1Options(m map[string]json.RawMessage, result int
 	return
 }
 
-// PolicyAssignmentV1OptionsRoot : PolicyAssignmentV1OptionsRoot struct
+// PolicyAssignmentV1OptionsRoot : The set of properties where the assignment is being built from.
 type PolicyAssignmentV1OptionsRoot struct {
+	// The policy assignment requester id.
 	RequesterID *string `json:"requester_id,omitempty"`
 
 	// Passed in value to correlate with other assignments.
 	AssignmentID *string `json:"assignment_id,omitempty"`
 
+	// The template where the assignment is being built from.
 	Template *PolicyAssignmentV1OptionsRootTemplate `json:"template,omitempty"`
 }
 
@@ -5886,7 +6082,7 @@ func UnmarshalPolicyAssignmentV1OptionsRoot(m map[string]json.RawMessage, result
 	return
 }
 
-// PolicyAssignmentV1OptionsRootTemplate : PolicyAssignmentV1OptionsRootTemplate struct
+// PolicyAssignmentV1OptionsRootTemplate : The template where the assignment is being built from.
 type PolicyAssignmentV1OptionsRootTemplate struct {
 	// The template id where this policy is being assigned from.
 	ID *string `json:"id,omitempty"`
@@ -5940,15 +6136,18 @@ func UnmarshalPolicyAssignmentV1Resources(m map[string]json.RawMessage, result i
 
 // PolicyAssignmentV1Subject : subject details of access type assignment.
 type PolicyAssignmentV1Subject struct {
+	// The unique identifier of the subject of the assignment.
 	ID *string `json:"id,omitempty"`
 
+	// The identity type of the subject of the assignment.
 	Type *string `json:"type,omitempty"`
 }
 
 // Constants associated with the PolicyAssignmentV1Subject.Type property.
+// The identity type of the subject of the assignment.
 const (
 	PolicyAssignmentV1SubjectTypeAccessGroupIDConst = "access_group_id"
-	PolicyAssignmentV1SubjectTypeIamIDConst = "iam_id"
+	PolicyAssignmentV1SubjectTypeIamIDConst         = "iam_id"
 )
 
 // UnmarshalPolicyAssignmentV1Subject unmarshals an instance of PolicyAssignmentV1Subject from the specified map of raw messages.
@@ -6123,7 +6322,7 @@ type PolicyTemplate struct {
 // Constants associated with the PolicyTemplate.State property.
 // State of policy template.
 const (
-	PolicyTemplateStateActiveConst = "active"
+	PolicyTemplateStateActiveConst  = "active"
 	PolicyTemplateStateDeletedConst = "deleted"
 )
 
@@ -6277,10 +6476,10 @@ type PolicyTemplateAssignmentItems struct {
 // Constants associated with the PolicyTemplateAssignmentItems.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsStatusFailedConst = "failed"
-	PolicyTemplateAssignmentItemsStatusInProgressConst = "in_progress"
+	PolicyTemplateAssignmentItemsStatusFailedConst            = "failed"
+	PolicyTemplateAssignmentItemsStatusInProgressConst        = "in_progress"
 	PolicyTemplateAssignmentItemsStatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsStatusSucceededConst = "succeeded"
+	PolicyTemplateAssignmentItemsStatusSucceededConst         = "succeeded"
 )
 
 // Constants associated with the PolicyTemplateAssignmentItems.TargetType property.
@@ -6288,6 +6487,7 @@ const (
 const (
 	PolicyTemplateAssignmentItemsTargetTypeAccountConst = "Account"
 )
+
 func (*PolicyTemplateAssignmentItems) isaPolicyTemplateAssignmentItems() bool {
 	return true
 }
@@ -6456,7 +6656,7 @@ type PolicyTemplateLimitData struct {
 // Constants associated with the PolicyTemplateLimitData.State property.
 // State of policy template.
 const (
-	PolicyTemplateLimitDataStateActiveConst = "active"
+	PolicyTemplateLimitDataStateActiveConst  = "active"
 	PolicyTemplateLimitDataStateDeletedConst = "deleted"
 )
 
@@ -6583,7 +6783,7 @@ type PolicyTemplateMetaData struct {
 // Constants associated with the PolicyTemplateMetaData.State property.
 // The policy state.
 const (
-	PolicyTemplateMetaDataStateActiveConst = "active"
+	PolicyTemplateMetaDataStateActiveConst  = "active"
 	PolicyTemplateMetaDataStateDeletedConst = "deleted"
 )
 
@@ -6708,11 +6908,11 @@ type ReplacePolicyOptions struct {
 // NewReplacePolicyOptions : Instantiate ReplacePolicyOptions
 func (*IamPolicyManagementV1) NewReplacePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *ReplacePolicyOptions {
 	return &ReplacePolicyOptions{
-		PolicyID: core.StringPtr(policyID),
-		IfMatch: core.StringPtr(ifMatch),
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		PolicyID:  core.StringPtr(policyID),
+		IfMatch:   core.StringPtr(ifMatch),
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -6800,9 +7000,9 @@ type ReplacePolicyTemplateOptions struct {
 func (*IamPolicyManagementV1) NewReplacePolicyTemplateOptions(policyTemplateID string, version string, ifMatch string, policy *TemplatePolicy) *ReplacePolicyTemplateOptions {
 	return &ReplacePolicyTemplateOptions{
 		PolicyTemplateID: core.StringPtr(policyTemplateID),
-		Version: core.StringPtr(version),
-		IfMatch: core.StringPtr(ifMatch),
-		Policy: policy,
+		Version:          core.StringPtr(version),
+		IfMatch:          core.StringPtr(ifMatch),
+		Policy:           policy,
 	}
 }
 
@@ -6880,10 +7080,10 @@ type ReplaceRoleOptions struct {
 // NewReplaceRoleOptions : Instantiate ReplaceRoleOptions
 func (*IamPolicyManagementV1) NewReplaceRoleOptions(roleID string, ifMatch string, displayName string, actions []string) *ReplaceRoleOptions {
 	return &ReplaceRoleOptions{
-		RoleID: core.StringPtr(roleID),
-		IfMatch: core.StringPtr(ifMatch),
+		RoleID:      core.StringPtr(roleID),
+		IfMatch:     core.StringPtr(ifMatch),
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
+		Actions:     actions,
 	}
 }
 
@@ -6961,17 +7161,17 @@ type ReplaceV2PolicyOptions struct {
 // Constants associated with the ReplaceV2PolicyOptions.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	ReplaceV2PolicyOptionsTypeAccessConst = "access"
+	ReplaceV2PolicyOptionsTypeAccessConst        = "access"
 	ReplaceV2PolicyOptionsTypeAuthorizationConst = "authorization"
 )
 
 // NewReplaceV2PolicyOptions : Instantiate ReplaceV2PolicyOptions
 func (*IamPolicyManagementV1) NewReplaceV2PolicyOptions(id string, ifMatch string, control *Control, typeVar string) *ReplaceV2PolicyOptions {
 	return &ReplaceV2PolicyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 		Control: control,
-		Type: core.StringPtr(typeVar),
+		Type:    core.StringPtr(typeVar),
 	}
 }
 
@@ -7050,7 +7250,7 @@ type ResourceAttribute struct {
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (_model *ResourceAttribute, err error) {
 	_model = &ResourceAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7097,7 +7297,7 @@ type ResourceTag struct {
 // NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (_model *ResourceTag, err error) {
 	_model = &ResourceTag{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7150,7 +7350,7 @@ type Role struct {
 func (*IamPolicyManagementV1) NewRole(displayName string, actions []string) (_model *Role, err error) {
 	_model = &Role{
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
+		Actions:     actions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7300,33 +7500,33 @@ type RuleAttribute struct {
 // Constants associated with the RuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	RuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
-	RuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
-	RuleAttributeOperatorDatelessthanConst = "dateLessThan"
-	RuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
-	RuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	RuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
+	RuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
+	RuleAttributeOperatorDatelessthanConst                = "dateLessThan"
+	RuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
+	RuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	RuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	RuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
-	RuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	RuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	RuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	RuleAttributeOperatorStringequalsConst = "stringEquals"
-	RuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	RuleAttributeOperatorStringexistsConst = "stringExists"
-	RuleAttributeOperatorStringmatchConst = "stringMatch"
-	RuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
-	RuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
-	RuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	RuleAttributeOperatorTimelessthanConst = "timeLessThan"
-	RuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	RuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	RuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	RuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	RuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	RuleAttributeOperatorStringequalsConst                = "stringEquals"
+	RuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
+	RuleAttributeOperatorStringexistsConst                = "stringExists"
+	RuleAttributeOperatorStringmatchConst                 = "stringMatch"
+	RuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
+	RuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
+	RuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	RuleAttributeOperatorTimelessthanConst                = "timeLessThan"
+	RuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
 
 // NewRuleAttribute : Instantiate RuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewRuleAttribute(key string, operator string, value interface{}) (_model *RuleAttribute, err error) {
 	_model = &RuleAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7369,7 +7569,7 @@ type SubjectAttribute struct {
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (_model *SubjectAttribute, err error) {
 	_model = &SubjectAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7502,16 +7702,16 @@ type TemplatePolicy struct {
 // Constants associated with the TemplatePolicy.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	TemplatePolicyTypeAccessConst = "access"
+	TemplatePolicyTypeAccessConst        = "access"
 	TemplatePolicyTypeAuthorizationConst = "authorization"
 )
 
 // NewTemplatePolicy : Instantiate TemplatePolicy (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewTemplatePolicy(typeVar string, resource *V2PolicyResource, control *Control) (_model *TemplatePolicy, err error) {
 	_model = &TemplatePolicy{
-		Type: core.StringPtr(typeVar),
+		Type:     core.StringPtr(typeVar),
 		Resource: resource,
-		Control: control,
+		Control:  control,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7585,9 +7785,9 @@ type UpdatePolicyAssignmentOptions struct {
 // NewUpdatePolicyAssignmentOptions : Instantiate UpdatePolicyAssignmentOptions
 func (*IamPolicyManagementV1) NewUpdatePolicyAssignmentOptions(assignmentID string, version string, ifMatch string, templateVersion string) *UpdatePolicyAssignmentOptions {
 	return &UpdatePolicyAssignmentOptions{
-		AssignmentID: core.StringPtr(assignmentID),
-		Version: core.StringPtr(version),
-		IfMatch: core.StringPtr(ifMatch),
+		AssignmentID:    core.StringPtr(assignmentID),
+		Version:         core.StringPtr(version),
+		IfMatch:         core.StringPtr(ifMatch),
 		TemplateVersion: core.StringPtr(templateVersion),
 	}
 }
@@ -7641,7 +7841,7 @@ type UpdatePolicyStateOptions struct {
 // Constants associated with the UpdatePolicyStateOptions.State property.
 // The policy state.
 const (
-	UpdatePolicyStateOptionsStateActiveConst = "active"
+	UpdatePolicyStateOptionsStateActiveConst  = "active"
 	UpdatePolicyStateOptionsStateDeletedConst = "deleted"
 )
 
@@ -7649,7 +7849,7 @@ const (
 func (*IamPolicyManagementV1) NewUpdatePolicyStateOptions(policyID string, ifMatch string) *UpdatePolicyStateOptions {
 	return &UpdatePolicyStateOptions{
 		PolicyID: core.StringPtr(policyID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:  core.StringPtr(ifMatch),
 	}
 }
 
@@ -7673,6 +7873,75 @@ func (_options *UpdatePolicyStateOptions) SetState(state string) *UpdatePolicySt
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdatePolicyStateOptions) SetHeaders(param map[string]string) *UpdatePolicyStateOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateSettingsOptions : The UpdateSettings options.
+type UpdateSettingsOptions struct {
+	// The account GUID that the settings belong to.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// The revision number for updating Access Management Account Settings and must match the ETag value of the existing
+	// Access Management Account Settings. The Etag can be retrieved using the GET
+	// /v1/accounts/{account_id}/settings/access_management API and looking at the ETag response header.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Update to how external accounts can interact in relation to the requested account.
+	ExternalAccountIdentityInteraction *ExternalAccountIdentityInteractionPatch `json:"external_account_identity_interaction,omitempty"`
+
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateSettingsOptions : Instantiate UpdateSettingsOptions
+func (*IamPolicyManagementV1) NewUpdateSettingsOptions(accountID string, ifMatch string) *UpdateSettingsOptions {
+	return &UpdateSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+		IfMatch:   core.StringPtr(ifMatch),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *UpdateSettingsOptions) SetAccountID(accountID string) *UpdateSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateSettingsOptions) SetIfMatch(ifMatch string) *UpdateSettingsOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetExternalAccountIdentityInteraction : Allow user to set ExternalAccountIdentityInteraction
+func (_options *UpdateSettingsOptions) SetExternalAccountIdentityInteraction(externalAccountIdentityInteraction *ExternalAccountIdentityInteractionPatch) *UpdateSettingsOptions {
+	_options.ExternalAccountIdentityInteraction = externalAccountIdentityInteraction
+	return _options
+}
+
+// SetAcceptLanguage : Allow user to set AcceptLanguage
+func (_options *UpdateSettingsOptions) SetAcceptLanguage(acceptLanguage string) *UpdateSettingsOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateSettingsOptions) SetHeaders(param map[string]string) *UpdateSettingsOptions {
 	options.Headers = param
 	return options
 }
@@ -7732,14 +8001,14 @@ type V2Policy struct {
 // Constants associated with the V2Policy.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	V2PolicyTypeAccessConst = "access"
+	V2PolicyTypeAccessConst        = "access"
 	V2PolicyTypeAuthorizationConst = "authorization"
 )
 
 // Constants associated with the V2Policy.State property.
 // The policy state, either 'deleted' or 'active'.
 const (
-	V2PolicyStateActiveConst = "active"
+	V2PolicyStateActiveConst  = "active"
 	V2PolicyStateDeletedConst = "deleted"
 )
 
@@ -7902,19 +8171,19 @@ type V2PolicyResourceAttribute struct {
 // Constants associated with the V2PolicyResourceAttribute.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyResourceAttributeOperatorStringequalsConst = "stringEquals"
+	V2PolicyResourceAttributeOperatorStringequalsConst      = "stringEquals"
 	V2PolicyResourceAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	V2PolicyResourceAttributeOperatorStringexistsConst = "stringExists"
-	V2PolicyResourceAttributeOperatorStringmatchConst = "stringMatch"
-	V2PolicyResourceAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
+	V2PolicyResourceAttributeOperatorStringexistsConst      = "stringExists"
+	V2PolicyResourceAttributeOperatorStringmatchConst       = "stringMatch"
+	V2PolicyResourceAttributeOperatorStringmatchanyofConst  = "stringMatchAnyOf"
 )
 
 // NewV2PolicyResourceAttribute : Instantiate V2PolicyResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceAttribute(key string, operator string, value interface{}) (_model *V2PolicyResourceAttribute, err error) {
 	_model = &V2PolicyResourceAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7961,14 +8230,14 @@ type V2PolicyResourceTag struct {
 // The operator of an access management tag.
 const (
 	V2PolicyResourceTagOperatorStringequalsConst = "stringEquals"
-	V2PolicyResourceTagOperatorStringmatchConst = "stringMatch"
+	V2PolicyResourceTagOperatorStringmatchConst  = "stringMatch"
 )
 
 // NewV2PolicyResourceTag : Instantiate V2PolicyResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyResourceTag(key string, value string, operator string) (_model *V2PolicyResourceTag, err error) {
 	_model = &V2PolicyResourceTag{
-		Key: core.StringPtr(key),
-		Value: core.StringPtr(value),
+		Key:      core.StringPtr(key),
+		Value:    core.StringPtr(value),
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8023,26 +8292,27 @@ type V2PolicyRule struct {
 // Constants associated with the V2PolicyRule.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleOperatorDategreaterthanConst = "dateGreaterThan"
-	V2PolicyRuleOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
-	V2PolicyRuleOperatorDatelessthanConst = "dateLessThan"
-	V2PolicyRuleOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
-	V2PolicyRuleOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	V2PolicyRuleOperatorDategreaterthanConst             = "dateGreaterThan"
+	V2PolicyRuleOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
+	V2PolicyRuleOperatorDatelessthanConst                = "dateLessThan"
+	V2PolicyRuleOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
+	V2PolicyRuleOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	V2PolicyRuleOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleOperatorDatetimelessthanConst = "dateTimeLessThan"
-	V2PolicyRuleOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	V2PolicyRuleOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	V2PolicyRuleOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	V2PolicyRuleOperatorStringequalsConst = "stringEquals"
-	V2PolicyRuleOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	V2PolicyRuleOperatorStringexistsConst = "stringExists"
-	V2PolicyRuleOperatorStringmatchConst = "stringMatch"
-	V2PolicyRuleOperatorStringmatchanyofConst = "stringMatchAnyOf"
-	V2PolicyRuleOperatorTimegreaterthanConst = "timeGreaterThan"
-	V2PolicyRuleOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	V2PolicyRuleOperatorTimelessthanConst = "timeLessThan"
-	V2PolicyRuleOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	V2PolicyRuleOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	V2PolicyRuleOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	V2PolicyRuleOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	V2PolicyRuleOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	V2PolicyRuleOperatorStringequalsConst                = "stringEquals"
+	V2PolicyRuleOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
+	V2PolicyRuleOperatorStringexistsConst                = "stringExists"
+	V2PolicyRuleOperatorStringmatchConst                 = "stringMatch"
+	V2PolicyRuleOperatorStringmatchanyofConst            = "stringMatchAnyOf"
+	V2PolicyRuleOperatorTimegreaterthanConst             = "timeGreaterThan"
+	V2PolicyRuleOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	V2PolicyRuleOperatorTimelessthanConst                = "timeLessThan"
+	V2PolicyRuleOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
+
 func (*V2PolicyRule) isaV2PolicyRule() bool {
 	return true
 }
@@ -8131,9 +8401,9 @@ const (
 // NewV2PolicySubjectAttribute : Instantiate V2PolicySubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicySubjectAttribute(key string, operator string, value interface{}) (_model *V2PolicySubjectAttribute, err error) {
 	_model = &V2PolicySubjectAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8223,14 +8493,14 @@ type V2PolicyTemplateMetaData struct {
 // Constants associated with the V2PolicyTemplateMetaData.Type property.
 // The policy type; either 'access' or 'authorization'.
 const (
-	V2PolicyTemplateMetaDataTypeAccessConst = "access"
+	V2PolicyTemplateMetaDataTypeAccessConst        = "access"
 	V2PolicyTemplateMetaDataTypeAuthorizationConst = "authorization"
 )
 
 // Constants associated with the V2PolicyTemplateMetaData.State property.
 // The policy state, either 'deleted' or 'active'.
 const (
-	V2PolicyTemplateMetaDataStateActiveConst = "active"
+	V2PolicyTemplateMetaDataStateActiveConst  = "active"
 	V2PolicyTemplateMetaDataStateDeletedConst = "deleted"
 )
 
@@ -8372,284 +8642,6 @@ func UnmarshalControlResponseControlWithEnrichedRoles(m map[string]json.RawMessa
 	return
 }
 
-// GetPolicyAssignmentResponsePolicyAssignment : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignment struct {
-	// policy template id.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// policy template version.
-	TemplateVersion *string `json:"template_version,omitempty"`
-
-	// Passed in value to correlate with other assignments.
-	AssignmentID *string `json:"assignment_id,omitempty"`
-
-	// Assignment target type.
-	TargetType *string `json:"target_type,omitempty"`
-
-	// ID of the target account.
-	Target *string `json:"target,omitempty"`
-
-	// List of objects with required properties for a policy assignment.
-	Options []PolicyAssignmentOptions `json:"options,omitempty"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentResources `json:"resources,omitempty"`
-
-	// The policy assignment status.
-	Status *string `json:"status,omitempty"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.TargetType property.
-// Assignment target type.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountConst = "Account"
-)
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentStatusFailedConst = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentStatusSucceededConst = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignment) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignment unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignment from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignment(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignment)
-	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "assignment_id", &obj.AssignmentID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "assignment_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_type", &obj.TargetType)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target_type-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target", &obj.Target)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentOptions)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentResources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// GetPolicyAssignmentResponsePolicyAssignmentV1 : The set of properties associated with the policy template assignment.
-// This model "extends" GetPolicyAssignmentResponse
-type GetPolicyAssignmentResponsePolicyAssignmentV1 struct {
-	// assignment target account and type.
-	Target *AssignmentTargetDetails `json:"target" validate:"required"`
-
-	// The set of properties required for a policy assignment.
-	Options *PolicyAssignmentV1Options `json:"options" validate:"required"`
-
-	// Policy assignment ID.
-	ID *string `json:"id,omitempty"`
-
-	// The account GUID that the policies assignments belong to..
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The href URL that links to the policies assignments API by policy assignment ID.
-	Href *string `json:"href,omitempty"`
-
-	// The UTC timestamp when the policy assignment was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the policy assignment.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the policy assignment was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy assignment.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// Object for each account assigned.
-	Resources []PolicyAssignmentV1Resources `json:"resources" validate:"required"`
-
-	// subject details of access type assignment.
-	Subject *GetPolicyAssignmentResponsePolicyAssignmentV1Subject `json:"subject,omitempty"`
-
-	// policy template details.
-	Template *AssignmentTemplateDetails `json:"template" validate:"required"`
-
-	// The policy assignment status.
-	Status *string `json:"status" validate:"required"`
-}
-
-// Constants associated with the GetPolicyAssignmentResponsePolicyAssignmentV1.Status property.
-// The policy assignment status.
-const (
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusFailedConst = "failed"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusInProgressConst = "in_progress"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	GetPolicyAssignmentResponsePolicyAssignmentV1StatusSucceededConst = "succeeded"
-)
-
-func (*GetPolicyAssignmentResponsePolicyAssignmentV1) isaGetPolicyAssignmentResponse() bool {
-	return true
-}
-
-// UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1 unmarshals an instance of GetPolicyAssignmentResponsePolicyAssignmentV1 from the specified map of raw messages.
-func UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GetPolicyAssignmentResponsePolicyAssignmentV1)
-	err = core.UnmarshalModel(m, "target", &obj.Target, UnmarshalAssignmentTargetDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "target-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalPolicyAssignmentV1Options)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "created_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_at-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "last_modified_by_id-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyAssignmentV1Resources)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "subject", &obj.Subject, UnmarshalGetPolicyAssignmentResponsePolicyAssignmentV1Subject)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "subject-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalAssignmentTemplateDetails)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "template-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "status-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // NestedConditionRuleAttribute : Rule that specifies additional access granted (e.g., time-based condition).
 // This model "extends" NestedCondition
 type NestedConditionRuleAttribute struct {
@@ -8667,33 +8659,33 @@ type NestedConditionRuleAttribute struct {
 // Constants associated with the NestedConditionRuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	NestedConditionRuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
-	NestedConditionRuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatelessthanConst = "dateLessThan"
-	NestedConditionRuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	NestedConditionRuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
+	NestedConditionRuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatelessthanConst                = "dateLessThan"
+	NestedConditionRuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	NestedConditionRuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
-	NestedConditionRuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	NestedConditionRuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	NestedConditionRuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	NestedConditionRuleAttributeOperatorStringequalsConst = "stringEquals"
-	NestedConditionRuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	NestedConditionRuleAttributeOperatorStringexistsConst = "stringExists"
-	NestedConditionRuleAttributeOperatorStringmatchConst = "stringMatch"
-	NestedConditionRuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
-	NestedConditionRuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
-	NestedConditionRuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	NestedConditionRuleAttributeOperatorTimelessthanConst = "timeLessThan"
-	NestedConditionRuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	NestedConditionRuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	NestedConditionRuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	NestedConditionRuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	NestedConditionRuleAttributeOperatorStringequalsConst                = "stringEquals"
+	NestedConditionRuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
+	NestedConditionRuleAttributeOperatorStringexistsConst                = "stringExists"
+	NestedConditionRuleAttributeOperatorStringmatchConst                 = "stringMatch"
+	NestedConditionRuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
+	NestedConditionRuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
+	NestedConditionRuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	NestedConditionRuleAttributeOperatorTimelessthanConst                = "timeLessThan"
+	NestedConditionRuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
 
 // NewNestedConditionRuleAttribute : Instantiate NestedConditionRuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewNestedConditionRuleAttribute(key string, operator string, value interface{}) (_model *NestedConditionRuleAttribute, err error) {
 	_model = &NestedConditionRuleAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -8743,13 +8735,13 @@ type NestedConditionRuleWithConditions struct {
 // Operator to evaluate conditions.
 const (
 	NestedConditionRuleWithConditionsOperatorAndConst = "and"
-	NestedConditionRuleWithConditionsOperatorOrConst = "or"
+	NestedConditionRuleWithConditionsOperatorOrConst  = "or"
 )
 
 // NewNestedConditionRuleWithConditions : Instantiate NestedConditionRuleWithConditions (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewNestedConditionRuleWithConditions(operator string, conditions []RuleAttribute) (_model *NestedConditionRuleWithConditions, err error) {
 	_model = &NestedConditionRuleWithConditions{
-		Operator: core.StringPtr(operator),
+		Operator:   core.StringPtr(operator),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8838,10 +8830,10 @@ const (
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusFailedConst = "failed"
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusInProgressConst = "in_progress"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusFailedConst            = "failed"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusInProgressConst        = "in_progress"
 	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceededConst = "succeeded"
+	PolicyTemplateAssignmentItemsPolicyAssignmentStatusSucceededConst         = "succeeded"
 )
 
 func (*PolicyTemplateAssignmentItemsPolicyAssignment) isaPolicyTemplateAssignmentItems() bool {
@@ -8976,10 +8968,10 @@ type PolicyTemplateAssignmentItemsPolicyAssignmentV1 struct {
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignmentV1.Status property.
 // The policy assignment status.
 const (
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusFailedConst = "failed"
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusInProgressConst = "in_progress"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusFailedConst            = "failed"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusInProgressConst        = "in_progress"
 	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceedWithErrorsConst = "succeed_with_errors"
-	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceededConst = "succeeded"
+	PolicyTemplateAssignmentItemsPolicyAssignmentV1StatusSucceededConst         = "succeeded"
 )
 
 func (*PolicyTemplateAssignmentItemsPolicyAssignmentV1) isaPolicyTemplateAssignmentItems() bool {
@@ -9075,33 +9067,33 @@ type V2PolicyRuleRuleAttribute struct {
 // Constants associated with the V2PolicyRuleRuleAttribute.Operator property.
 // The operator of an attribute.
 const (
-	V2PolicyRuleRuleAttributeOperatorDategreaterthanConst = "dateGreaterThan"
-	V2PolicyRuleRuleAttributeOperatorDategreaterthanorequalsConst = "dateGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatelessthanConst = "dateLessThan"
-	V2PolicyRuleRuleAttributeOperatorDatelessthanorequalsConst = "dateLessThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst = "dateTimeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorDategreaterthanConst             = "dateGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorDategreaterthanorequalsConst     = "dateGreaterThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatelessthanConst                = "dateLessThan"
+	V2PolicyRuleRuleAttributeOperatorDatelessthanorequalsConst        = "dateLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanConst         = "dateTimeGreaterThan"
 	V2PolicyRuleRuleAttributeOperatorDatetimegreaterthanorequalsConst = "dateTimeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst = "dateTimeLessThan"
-	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst = "dateTimeLessThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst = "dayOfWeekAnyOf"
-	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst = "dayOfWeekEquals"
-	V2PolicyRuleRuleAttributeOperatorStringequalsConst = "stringEquals"
-	V2PolicyRuleRuleAttributeOperatorStringequalsanyofConst = "stringEqualsAnyOf"
-	V2PolicyRuleRuleAttributeOperatorStringexistsConst = "stringExists"
-	V2PolicyRuleRuleAttributeOperatorStringmatchConst = "stringMatch"
-	V2PolicyRuleRuleAttributeOperatorStringmatchanyofConst = "stringMatchAnyOf"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst = "timeGreaterThan"
-	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst = "timeGreaterThanOrEquals"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanConst = "timeLessThan"
-	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst = "timeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanConst            = "dateTimeLessThan"
+	V2PolicyRuleRuleAttributeOperatorDatetimelessthanorequalsConst    = "dateTimeLessThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorDayofweekanyofConst              = "dayOfWeekAnyOf"
+	V2PolicyRuleRuleAttributeOperatorDayofweekequalsConst             = "dayOfWeekEquals"
+	V2PolicyRuleRuleAttributeOperatorStringequalsConst                = "stringEquals"
+	V2PolicyRuleRuleAttributeOperatorStringequalsanyofConst           = "stringEqualsAnyOf"
+	V2PolicyRuleRuleAttributeOperatorStringexistsConst                = "stringExists"
+	V2PolicyRuleRuleAttributeOperatorStringmatchConst                 = "stringMatch"
+	V2PolicyRuleRuleAttributeOperatorStringmatchanyofConst            = "stringMatchAnyOf"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanConst             = "timeGreaterThan"
+	V2PolicyRuleRuleAttributeOperatorTimegreaterthanorequalsConst     = "timeGreaterThanOrEquals"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanConst                = "timeLessThan"
+	V2PolicyRuleRuleAttributeOperatorTimelessthanorequalsConst        = "timeLessThanOrEquals"
 )
 
 // NewV2PolicyRuleRuleAttribute : Instantiate V2PolicyRuleRuleAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleAttribute(key string, operator string, value interface{}) (_model *V2PolicyRuleRuleAttribute, err error) {
 	_model = &V2PolicyRuleRuleAttribute{
-		Key: core.StringPtr(key),
+		Key:      core.StringPtr(key),
 		Operator: core.StringPtr(operator),
-		Value: value,
+		Value:    value,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -9151,13 +9143,13 @@ type V2PolicyRuleRuleWithNestedConditions struct {
 // Operator to evaluate conditions.
 const (
 	V2PolicyRuleRuleWithNestedConditionsOperatorAndConst = "and"
-	V2PolicyRuleRuleWithNestedConditionsOperatorOrConst = "or"
+	V2PolicyRuleRuleWithNestedConditionsOperatorOrConst  = "or"
 )
 
 // NewV2PolicyRuleRuleWithNestedConditions : Instantiate V2PolicyRuleRuleWithNestedConditions (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewV2PolicyRuleRuleWithNestedConditions(operator string, conditions []NestedConditionIntf) (_model *V2PolicyRuleRuleWithNestedConditions, err error) {
 	_model = &V2PolicyRuleRuleWithNestedConditions{
-		Operator: core.StringPtr(operator),
+		Operator:   core.StringPtr(operator),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")

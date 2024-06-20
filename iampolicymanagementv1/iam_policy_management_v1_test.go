@@ -19,6 +19,7 @@ package iampolicymanagementv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -67,14 +68,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				Expect(iamPolicyManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +103,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-				})
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 				err := iamPolicyManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
@@ -122,13 +121,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
-			})
+			iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamPolicyManagementService).To(BeNil())
@@ -139,7 +137,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -8536,6 +8534,575 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions) - Operation response error`, func() {
+		getSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetSettings with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetSettings(getSettingsOptions *GetSettingsOptions)`, func() {
+		getSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke GetSettings successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.GetSettingsWithContext(ctx, getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.GetSettingsWithContext(ctx, getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke GetSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.GetSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetSettings with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetSettingsOptions model with no property values
+				getSettingsOptionsModelNew := new(iampolicymanagementv1.GetSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.GetSettings(getSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetSettingsOptions model
+				getSettingsOptionsModel := new(iampolicymanagementv1.GetSettingsOptions)
+				getSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				getSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.GetSettings(getSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions) - Operation response error`, func() {
+		updateSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateSettings with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateSettings(updateSettingsOptions *UpdateSettingsOptions)`, func() {
+		updateSettingsPath := "/v1/accounts/testString/settings/access_management"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.UpdateSettingsWithContext(ctx, updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
+					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "default")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"external_account_identity_interaction": {"identity_types": {"user": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service_id": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}, "service": {"state": "enabled", "external_allowed_accounts": ["ExternalAllowedAccounts"]}}}}`)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke UpdateSettings with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateSettingsOptions model with no property values
+				updateSettingsOptionsModelNew := new(iampolicymanagementv1.UpdateSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateSettings successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+
+				// Construct an instance of the UpdateSettingsOptions model
+				updateSettingsOptionsModel := new(iampolicymanagementv1.UpdateSettingsOptions)
+				updateSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateSettingsOptionsModel.ExternalAccountIdentityInteraction = externalAccountIdentityInteractionPatchModel
+				updateSettingsOptionsModel.AcceptLanguage = core.StringPtr("default")
+				updateSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamPolicyManagementService.UpdateSettings(updateSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamPolicyManagementService, _ := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -9157,6 +9724,18 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(getRoleOptionsModel.RoleID).To(Equal(core.StringPtr("testString")))
 				Expect(getRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetSettingsOptions successfully`, func() {
+				// Construct an instance of the GetSettingsOptions model
+				accountID := "testString"
+				getSettingsOptionsModel := iamPolicyManagementService.NewGetSettingsOptions(accountID)
+				getSettingsOptionsModel.SetAccountID("testString")
+				getSettingsOptionsModel.SetAcceptLanguage("default")
+				getSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getSettingsOptionsModel).ToNot(BeNil())
+				Expect(getSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getSettingsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(getSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetV2PolicyOptions successfully`, func() {
 				// Construct an instance of the GetV2PolicyOptions model
 				id := "testString"
@@ -9172,6 +9751,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			It(`Invoke NewGrant successfully`, func() {
 				roles := []iampolicymanagementv1.Roles{}
 				_model, err := iamPolicyManagementService.NewGrant(roles)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewIdentityTypesBase successfully`, func() {
+				state := "enabled"
+				externalAllowedAccounts := []string{"testString"}
+				_model, err := iamPolicyManagementService.NewIdentityTypesBase(state, externalAllowedAccounts)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -9715,6 +10301,47 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(updatePolicyStateOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(updatePolicyStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewUpdateSettingsOptions successfully`, func() {
+				// Construct an instance of the IdentityTypesBase model
+				identityTypesBaseModel := new(iampolicymanagementv1.IdentityTypesBase)
+				Expect(identityTypesBaseModel).ToNot(BeNil())
+				identityTypesBaseModel.State = core.StringPtr("enabled")
+				identityTypesBaseModel.ExternalAllowedAccounts = []string{"testString"}
+				Expect(identityTypesBaseModel.State).To(Equal(core.StringPtr("enabled")))
+				Expect(identityTypesBaseModel.ExternalAllowedAccounts).To(Equal([]string{"testString"}))
+
+				// Construct an instance of the IdentityTypesPatch model
+				identityTypesPatchModel := new(iampolicymanagementv1.IdentityTypesPatch)
+				Expect(identityTypesPatchModel).ToNot(BeNil())
+				identityTypesPatchModel.User = identityTypesBaseModel
+				identityTypesPatchModel.ServiceID = identityTypesBaseModel
+				identityTypesPatchModel.Service = identityTypesBaseModel
+				Expect(identityTypesPatchModel.User).To(Equal(identityTypesBaseModel))
+				Expect(identityTypesPatchModel.ServiceID).To(Equal(identityTypesBaseModel))
+				Expect(identityTypesPatchModel.Service).To(Equal(identityTypesBaseModel))
+
+				// Construct an instance of the ExternalAccountIdentityInteractionPatch model
+				externalAccountIdentityInteractionPatchModel := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+				Expect(externalAccountIdentityInteractionPatchModel).ToNot(BeNil())
+				externalAccountIdentityInteractionPatchModel.IdentityTypes = identityTypesPatchModel
+				Expect(externalAccountIdentityInteractionPatchModel.IdentityTypes).To(Equal(identityTypesPatchModel))
+
+				// Construct an instance of the UpdateSettingsOptions model
+				accountID := "testString"
+				ifMatch := "testString"
+				updateSettingsOptionsModel := iamPolicyManagementService.NewUpdateSettingsOptions(accountID, ifMatch)
+				updateSettingsOptionsModel.SetAccountID("testString")
+				updateSettingsOptionsModel.SetIfMatch("testString")
+				updateSettingsOptionsModel.SetExternalAccountIdentityInteraction(externalAccountIdentityInteractionPatchModel)
+				updateSettingsOptionsModel.SetAcceptLanguage("default")
+				updateSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateSettingsOptionsModel).ToNot(BeNil())
+				Expect(updateSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateSettingsOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(updateSettingsOptionsModel.ExternalAccountIdentityInteraction).To(Equal(externalAccountIdentityInteractionPatchModel))
+				Expect(updateSettingsOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
+				Expect(updateSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewV2PolicyResource successfully`, func() {
 				attributes := []iampolicymanagementv1.V2PolicyResourceAttribute{}
 				_model, err := iamPolicyManagementService.NewV2PolicyResource(attributes)
@@ -9840,6 +10467,24 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalExternalAccountIdentityInteractionPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.ExternalAccountIdentityInteractionPatch)
+			model.IdentityTypes = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.ExternalAccountIdentityInteractionPatch
+			err = iampolicymanagementv1.UnmarshalExternalAccountIdentityInteractionPatch(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
 		It(`Invoke UnmarshalGrant successfully`, func() {
 			// Construct an instance of the model.
 			model := new(iampolicymanagementv1.Grant)
@@ -9854,6 +10499,45 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.Grant
 			err = iampolicymanagementv1.UnmarshalGrant(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIdentityTypesBase successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.IdentityTypesBase)
+			model.State = core.StringPtr("enabled")
+			model.ExternalAllowedAccounts = []string{"testString"}
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.IdentityTypesBase
+			err = iampolicymanagementv1.UnmarshalIdentityTypesBase(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalIdentityTypesPatch successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iampolicymanagementv1.IdentityTypesPatch)
+			model.User = nil
+			model.ServiceID = nil
+			model.Service = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iampolicymanagementv1.IdentityTypesPatch
+			err = iampolicymanagementv1.UnmarshalIdentityTypesPatch(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -10332,10 +11016,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -10361,8 +11044,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
