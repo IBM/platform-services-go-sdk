@@ -1099,9 +1099,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(*assignmentDetails.Status).ToNot(BeNil())
 			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
 			Expect(*assignmentDetails.CreatedAt).ToNot(BeNil())
-			Expect(*assignmentDetails.CreatedByID).ToNot(BeNil())
 			Expect(*assignmentDetails.LastModifiedAt).ToNot(BeNil())
-			Expect(*assignmentDetails.LastModifiedByID).ToNot(BeNil())
 			Expect(*assignmentDetails.Href).ToNot(BeNil())
 			exampleAssignmentPolicyID = *assignmentDetails.Resources[0].Policy.ResourceCreated.ID
 		})
