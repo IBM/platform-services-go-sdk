@@ -1123,6 +1123,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policyTemplateAssignmentCollection).ToNot(BeNil())
 			var assignmentDetails = policyTemplateAssignmentCollection.Assignments[0].(*iampolicymanagementv1.PolicyTemplateAssignmentItems)
+			
 			Expect(*assignmentDetails).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.ID).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
