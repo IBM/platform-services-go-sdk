@@ -39,7 +39,9 @@ import (
 // create tags in two formats: `key:value` or `label`. The tagging API supports three types of tag: `user` `service`,
 // and `access` tags. `service` tags cannot be attached to IMS resources. `service` tags must be in the form
 // `service_prefix:tag_label` where `service_prefix` identifies the Service owning the tag. `access` tags cannot be
-// attached to IMS and Cloud Foundry resources. They must be in the form `key:value`.
+// attached to IMS and Cloud Foundry resources. They must be in the form `key:value`. You can replace all resource's
+// tags using the `replace` query parameter in the attach operation. You can update the `value` of a resource's tag in
+// the format `key:value`, using the `update` query parameter in the attach operation.
 //
 // API Version: 1.2.0
 type GlobalTaggingV1 struct {
@@ -582,6 +584,9 @@ func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, 
 	if attachTagOptions.Replace != nil {
 		builder.AddQuery("replace", fmt.Sprint(*attachTagOptions.Replace))
 	}
+	if attachTagOptions.Update != nil {
+		builder.AddQuery("update", fmt.Sprint(*attachTagOptions.Update))
+	}
 
 	body := make(map[string]interface{})
 	if attachTagOptions.Resources != nil {
@@ -756,9 +761,16 @@ type AttachTagOptions struct {
 	// for IMS resources.
 	TagType *string `json:"tag_type,omitempty"`
 
-	// Flag to request replacement of all attached tags. Set 'true' if you want to replace all the list of tags attached to
-	// the resource. Default value is false.
+	// Flag to request replacement of all attached tags. Set `true` if you want to replace all tags attached to the
+	// resource with the current ones. Default value is false.
 	Replace *bool `json:"replace,omitempty"`
+
+	// Flag to request update of attached tags in the format `key:value`. Here's how it works for each tag in the request
+	// body: If the tag to attach is in the format `key:value`, the System will atomically detach all existing tags
+	// starting with `key:` and attach the new `key:value` tag. If no such tags exist, a new `key:value` tag will be
+	// attached. If the tag is not in the `key:value` format (e.g., a simple label), the System will attach the label as
+	// usual. The update query parameter is available for user and access management tags, but not for service tags.
+	Update *bool `json:"update,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -825,6 +837,12 @@ func (_options *AttachTagOptions) SetTagType(tagType string) *AttachTagOptions {
 // SetReplace : Allow user to set Replace
 func (_options *AttachTagOptions) SetReplace(replace bool) *AttachTagOptions {
 	_options.Replace = core.BoolPtr(replace)
+	return _options
+}
+
+// SetUpdate : Allow user to set Update
+func (_options *AttachTagOptions) SetUpdate(update bool) *AttachTagOptions {
+	_options.Update = core.BoolPtr(update)
 	return _options
 }
 
