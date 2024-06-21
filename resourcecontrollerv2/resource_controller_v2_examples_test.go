@@ -58,27 +58,26 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		config                    map[string]string
 		configLoaded              bool = false
 
-		instanceGUID string
-		// aliasGUID                  string
-		// bindingGUID                string
-		instanceKeyGUID string
-		resourceGroup   string
-		resourcePlanID  string
-		accountID       string
-		// aliasTargetCRN             string
-		// bindingTargetCRN           string
+		instanceGUID               string
+		aliasGUID                  string
+		bindingGUID                string
+		instanceKeyGUID            string
+		resourceGroup              string
+		resourcePlanID             string
+		accountID                  string
+		aliasTargetCRN             string
+		bindingTargetCRN           string
 		reclamationID              string
 		resourceInstanceName       string = "RcSdkInstance1Go"
 		resourceInstanceUpdateName string = "RcSdkInstanceUpdate1Go"
-		// aliasName                  string = "RcSdkAlias1Go"
-		// aliasUpdateName            string = "RcSdkAliasUpdate1Go"
-		// bindingName                string = "RcSdkBinding1Go"
-		// bindingUpdateName          string = "RcSdkBindingUpdate1Go"
-		keyName       string = "RcSdkKey1Go"
-		keyUpdateName string = "RcSdkKeyUpdate1Go"
-		targetRegion  string = "global"
-		// Replacing the placeholder value to the resourceGroupID
-		resourceGroupID string = "192ea4f81d444a4cbfc051353b6f8d2e"
+		aliasName                  string = "RcSdkAlias1Go"
+		aliasUpdateName            string = "RcSdkAliasUpdate1Go"
+		bindingName                string = "RcSdkBinding1Go"
+		bindingUpdateName          string = "RcSdkBindingUpdate1Go"
+		keyName                    string = "RcSdkKey1Go"
+		keyUpdateName              string = "RcSdkKeyUpdate1Go"
+		targetRegion               string = "global"
+		resourceGroupID            string = "testResourceGroupID"
 	)
 
 	var shouldSkipTest = func() {
@@ -111,11 +110,11 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).ToNot(BeEmpty())
 
-			// aliasTargetCRN = config["ALIAS_TARGET_CRN"]
-			// Expect(aliasTargetCRN).ToNot(BeEmpty())
+			aliasTargetCRN = config["ALIAS_TARGET_CRN"]
+			Expect(aliasTargetCRN).ToNot(BeEmpty())
 
-			// bindingTargetCRN = config["BINDING_TARGET_CRN"]
-			// Expect(bindingTargetCRN).ToNot(BeEmpty())
+			bindingTargetCRN = config["BINDING_TARGET_CRN"]
+			Expect(bindingTargetCRN).ToNot(BeEmpty())
 		})
 	})
 
@@ -242,246 +241,246 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceInstance).ToNot(BeNil())
 		})
-		// It(`CreateResourceAlias request example`, func() {
-		// 	fmt.Println("\nCreateResourceAlias() result:")
-		// 	// begin-create_resource_alias
+		It(`CreateResourceAlias request example`, func() {
+			fmt.Println("\nCreateResourceAlias() result:")
+			// begin-create_resource_alias
 
-		// 	createResourceAliasOptions := resourceControllerService.NewCreateResourceAliasOptions(
-		// 		aliasName,
-		// 		instanceGUID,
-		// 		aliasTargetCRN,
-		// 	)
+			createResourceAliasOptions := resourceControllerService.NewCreateResourceAliasOptions(
+				aliasName,
+				instanceGUID,
+				aliasTargetCRN,
+			)
 
-		// 	resourceAlias, response, err := resourceControllerService.CreateResourceAlias(createResourceAliasOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceAlias, response, err := resourceControllerService.CreateResourceAlias(createResourceAliasOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-create_resource_alias
+			// end-create_resource_alias
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(201))
-		// 	Expect(resourceAlias).ToNot(BeNil())
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(resourceAlias).ToNot(BeNil())
 
-		// 	aliasGUID = *resourceAlias.GUID
-		// })
-		// It(`GetResourceAlias request example`, func() {
-		// 	fmt.Println("\nGetResourceAlias() result:")
-		// 	// begin-get_resource_alias
+			aliasGUID = *resourceAlias.GUID
+		})
+		It(`GetResourceAlias request example`, func() {
+			fmt.Println("\nGetResourceAlias() result:")
+			// begin-get_resource_alias
 
-		// 	getResourceAliasOptions := resourceControllerService.NewGetResourceAliasOptions(
-		// 		aliasGUID,
-		// 	)
+			getResourceAliasOptions := resourceControllerService.NewGetResourceAliasOptions(
+				aliasGUID,
+			)
 
-		// 	resourceAlias, response, err := resourceControllerService.GetResourceAlias(getResourceAliasOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceAlias, response, err := resourceControllerService.GetResourceAlias(getResourceAliasOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-get_resource_alias
+			// end-get_resource_alias
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(resourceAlias).ToNot(BeNil())
-		// })
-		// It(`ListResourceAliases request example`, func() {
-		// 	fmt.Println("\nListResourceAliases() result:")
-		// 	// begin-list_resource_aliases
-		// 	listResourceAliasesOptions := &resourcecontrollerv2.ListResourceAliasesOptions{
-		// 		Name: &aliasName,
-		// 	}
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceAlias).ToNot(BeNil())
+		})
+		It(`ListResourceAliases request example`, func() {
+			fmt.Println("\nListResourceAliases() result:")
+			// begin-list_resource_aliases
+			listResourceAliasesOptions := &resourcecontrollerv2.ListResourceAliasesOptions{
+				Name: &aliasName,
+			}
 
-		// 	pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	var allResults []resourcecontrollerv2.ResourceAlias
-		// 	for pager.HasNext() {
-		// 		nextPage, err := pager.GetNext()
-		// 		if err != nil {
-		// 			panic(err)
-		// 		}
-		// 		allResults = append(allResults, nextPage...)
-		// 	}
-		// 	b, _ := json.MarshalIndent(allResults, "", "  ")
-		// 	fmt.Println(string(b))
-		// 	// end-list_resource_aliases
-		// })
-		// It(`UpdateResourceAlias request example`, func() {
-		// 	fmt.Println("\nUpdateResourceAlias() result:")
-		// 	// begin-update_resource_alias
+			var allResults []resourcecontrollerv2.ResourceAlias
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_resource_aliases
+		})
+		It(`UpdateResourceAlias request example`, func() {
+			fmt.Println("\nUpdateResourceAlias() result:")
+			// begin-update_resource_alias
 
-		// 	updateResourceAliasOptions := resourceControllerService.NewUpdateResourceAliasOptions(
-		// 		aliasGUID,
-		// 		aliasUpdateName,
-		// 	)
+			updateResourceAliasOptions := resourceControllerService.NewUpdateResourceAliasOptions(
+				aliasGUID,
+				aliasUpdateName,
+			)
 
-		// 	resourceAlias, response, err := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceAlias, response, err := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-update_resource_alias
+			// end-update_resource_alias
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(resourceAlias).ToNot(BeNil())
-		// })
-		// It(`ListResourceAliasesForInstance request example`, func() {
-		// 	fmt.Println("\nListResourceAliasesForInstance() result:")
-		// 	// begin-list_resource_aliases_for_instance
-		// 	listResourceAliasesForInstanceOptions := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-		// 		ID: &instanceGUID,
-		// 	}
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceAlias).ToNot(BeNil())
+		})
+		It(`ListResourceAliasesForInstance request example`, func() {
+			fmt.Println("\nListResourceAliasesForInstance() result:")
+			// begin-list_resource_aliases_for_instance
+			listResourceAliasesForInstanceOptions := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
+				ID: &instanceGUID,
+			}
 
-		// 	pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	var allResults []resourcecontrollerv2.ResourceAlias
-		// 	for pager.HasNext() {
-		// 		nextPage, err := pager.GetNext()
-		// 		if err != nil {
-		// 			panic(err)
-		// 		}
-		// 		allResults = append(allResults, nextPage...)
-		// 	}
-		// 	b, _ := json.MarshalIndent(allResults, "", "  ")
-		// 	fmt.Println(string(b))
-		// 	// end-list_resource_aliases_for_instance
-		// })
-		// It(`CreateResourceBinding request example`, func() {
-		// 	fmt.Println("\nCreateResourceBinding() result:")
-		// 	// begin-create_resource_binding
+			var allResults []resourcecontrollerv2.ResourceAlias
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_resource_aliases_for_instance
+		})
+		It(`CreateResourceBinding request example`, func() {
+			fmt.Println("\nCreateResourceBinding() result:")
+			// begin-create_resource_binding
 
-		// 	createResourceBindingOptions := resourceControllerService.NewCreateResourceBindingOptions(
-		// 		aliasGUID,
-		// 		bindingTargetCRN,
-		// 	)
-		// 	createResourceBindingOptions = createResourceBindingOptions.SetName(bindingName)
+			createResourceBindingOptions := resourceControllerService.NewCreateResourceBindingOptions(
+				aliasGUID,
+				bindingTargetCRN,
+			)
+			createResourceBindingOptions = createResourceBindingOptions.SetName(bindingName)
 
-		// 	parameters := &resourcecontrollerv2.ResourceBindingPostParameters{}
-		// 	parameters.SetProperty("exampleParameter", "exampleValue")
-		// 	createResourceBindingOptions.SetParameters(parameters)
+			parameters := &resourcecontrollerv2.ResourceBindingPostParameters{}
+			parameters.SetProperty("exampleParameter", "exampleValue")
+			createResourceBindingOptions.SetParameters(parameters)
 
-		// 	resourceBinding, response, err := resourceControllerService.CreateResourceBinding(createResourceBindingOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceBinding, response, err := resourceControllerService.CreateResourceBinding(createResourceBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-create_resource_binding
+			// end-create_resource_binding
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(201))
-		// 	Expect(resourceBinding).ToNot(BeNil())
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(resourceBinding).ToNot(BeNil())
 
-		// 	bindingGUID = *resourceBinding.GUID
-		// })
-		// It(`GetResourceBinding request example`, func() {
-		// 	fmt.Println("\nGetResourceBinding() result:")
-		// 	// begin-get_resource_binding
+			bindingGUID = *resourceBinding.GUID
+		})
+		It(`GetResourceBinding request example`, func() {
+			fmt.Println("\nGetResourceBinding() result:")
+			// begin-get_resource_binding
 
-		// 	getResourceBindingOptions := resourceControllerService.NewGetResourceBindingOptions(
-		// 		bindingGUID,
-		// 	)
+			getResourceBindingOptions := resourceControllerService.NewGetResourceBindingOptions(
+				bindingGUID,
+			)
 
-		// 	resourceBinding, response, err := resourceControllerService.GetResourceBinding(getResourceBindingOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceBinding, response, err := resourceControllerService.GetResourceBinding(getResourceBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
+			fmt.Println(string(b))
 
-		// 	if resourceBinding.Credentials.Redacted != nil && (*resourceBinding.Credentials.Redacted == "REDACTED" || *resourceBinding.Credentials.Redacted == "REDACTED_EXPLICIT") {
-		// 		fmt.Println("Credentials are redacted with code:", *resourceBinding.Credentials.Redacted, ".The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
-		// 	}
+			if resourceBinding.Credentials.Redacted != nil && (*resourceBinding.Credentials.Redacted == "REDACTED" || *resourceBinding.Credentials.Redacted == "REDACTED_EXPLICIT") {
+				fmt.Println("Credentials are redacted with code:", *resourceBinding.Credentials.Redacted, ".The User doesn't have the correct access to view the credentials. Refer to the API documentation for additional details.")
+			}
 
-		// 	// end-get_resource_binding
+			// end-get_resource_binding
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(resourceBinding).ToNot(BeNil())
-		// })
-		// It(`ListResourceBindings request example`, func() {
-		// 	fmt.Println("\nListResourceBindings() result:")
-		// 	// begin-list_resource_bindings
-		// 	listResourceBindingsOptions := &resourcecontrollerv2.ListResourceBindingsOptions{
-		// 		Name: &bindingName,
-		// 	}
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceBinding).ToNot(BeNil())
+		})
+		It(`ListResourceBindings request example`, func() {
+			fmt.Println("\nListResourceBindings() result:")
+			// begin-list_resource_bindings
+			listResourceBindingsOptions := &resourcecontrollerv2.ListResourceBindingsOptions{
+				Name: &bindingName,
+			}
 
-		// 	pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	var allResults []resourcecontrollerv2.ResourceBinding
-		// 	for pager.HasNext() {
-		// 		nextPage, err := pager.GetNext()
-		// 		if err != nil {
-		// 			panic(err)
-		// 		}
-		// 		allResults = append(allResults, nextPage...)
-		// 	}
-		// 	b, _ := json.MarshalIndent(allResults, "", "  ")
-		// 	fmt.Println(string(b))
-		// 	// end-list_resource_bindings
-		// })
-		// It(`UpdateResourceBinding request example`, func() {
-		// 	fmt.Println("\nUpdateResourceBinding() result:")
-		// 	// begin-update_resource_binding
+			var allResults []resourcecontrollerv2.ResourceBinding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_resource_bindings
+		})
+		It(`UpdateResourceBinding request example`, func() {
+			fmt.Println("\nUpdateResourceBinding() result:")
+			// begin-update_resource_binding
 
-		// 	updateResourceBindingOptions := resourceControllerService.NewUpdateResourceBindingOptions(
-		// 		bindingGUID,
-		// 		bindingUpdateName,
-		// 	)
+			updateResourceBindingOptions := resourceControllerService.NewUpdateResourceBindingOptions(
+				bindingGUID,
+				bindingUpdateName,
+			)
 
-		// 	resourceBinding, response, err := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-		// 	fmt.Println(string(b))
+			resourceBinding, response, err := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-update_resource_binding
+			// end-update_resource_binding
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(resourceBinding).ToNot(BeNil())
-		// })
-		// It(`ListResourceBindingsForAlias request example`, func() {
-		// 	fmt.Println("\nListResourceBindingsForAlias() result:")
-		// 	// begin-list_resource_bindings_for_alias
-		// 	listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-		// 		ID: &aliasGUID,
-		// 	}
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceBinding).ToNot(BeNil())
+		})
+		It(`ListResourceBindingsForAlias request example`, func() {
+			fmt.Println("\nListResourceBindingsForAlias() result:")
+			// begin-list_resource_bindings_for_alias
+			listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
+				ID: &aliasGUID,
+			}
 
-		// 	pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	var allResults []resourcecontrollerv2.ResourceBinding
-		// 	for pager.HasNext() {
-		// 		nextPage, err := pager.GetNext()
-		// 		if err != nil {
-		// 			panic(err)
-		// 		}
-		// 		allResults = append(allResults, nextPage...)
-		// 	}
-		// 	b, _ := json.MarshalIndent(allResults, "", "  ")
-		// 	fmt.Println(string(b))
-		// 	// end-list_resource_bindings_for_alias
-		// })
+			var allResults []resourcecontrollerv2.ResourceBinding
+			for pager.HasNext() {
+				nextPage, err := pager.GetNext()
+				if err != nil {
+					panic(err)
+				}
+				allResults = append(allResults, nextPage...)
+			}
+			b, _ := json.MarshalIndent(allResults, "", "  ")
+			fmt.Println(string(b))
+			// end-list_resource_bindings_for_alias
+		})
 		It(`CreateResourceKey request example`, func() {
 			fmt.Println("\nCreateResourceKey() result:")
 			// begin-create_resource_key
@@ -604,24 +603,24 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			fmt.Println(string(b))
 			// end-list_resource_keys_for_instance
 		})
-		// It(`DeleteResourceBinding request example`, func() {
-		// 	// begin-delete_resource_binding
+		It(`DeleteResourceBinding request example`, func() {
+			// begin-delete_resource_binding
 
-		// 	deleteResourceBindingOptions := resourceControllerService.NewDeleteResourceBindingOptions(
-		// 		bindingGUID,
-		// 	)
+			deleteResourceBindingOptions := resourceControllerService.NewDeleteResourceBindingOptions(
+				bindingGUID,
+			)
 
-		// 	response, err := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			response, err := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	// end-delete_resource_binding
-		// 	fmt.Printf("\nDeleteResourceBinding() response status code: %d\n", response.StatusCode)
+			// end-delete_resource_binding
+			fmt.Printf("\nDeleteResourceBinding() response status code: %d\n", response.StatusCode)
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(204))
-		// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`DeleteResourceKey request example`, func() {
 			// begin-delete_resource_key
 
@@ -640,24 +639,24 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
-		// It(`DeleteResourceAlias request example`, func() {
-		// 	// begin-delete_resource_alias
+		It(`DeleteResourceAlias request example`, func() {
+			// begin-delete_resource_alias
 
-		// 	deleteResourceAliasOptions := resourceControllerService.NewDeleteResourceAliasOptions(
-		// 		aliasGUID,
-		// 	)
+			deleteResourceAliasOptions := resourceControllerService.NewDeleteResourceAliasOptions(
+				aliasGUID,
+			)
 
-		// 	response, err := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
+			response, err := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptions)
+			if err != nil {
+				panic(err)
+			}
 
-		// 	// end-delete_resource_alias
-		// 	fmt.Printf("\nDeleteResourceAlias() response status code: %d\n", response.StatusCode)
+			// end-delete_resource_alias
+			fmt.Printf("\nDeleteResourceAlias() response status code: %d\n", response.StatusCode)
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(204))
-		// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
 		It(`LockResourceInstance request example`, func() {
 			fmt.Println("\nLockResourceInstance() result:")
 			// begin-lock_resource_instance
