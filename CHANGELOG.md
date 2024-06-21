@@ -1,3 +1,10 @@
+## [0.64.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.0...v0.64.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* **Global Tagging:** add 'update' option to attach_tag operation ([#337](https://github.com/IBM/platform-services-go-sdk/issues/337)) ([fb7c355](https://github.com/IBM/platform-services-go-sdk/commit/fb7c355c958fa5de0dd5e9e0fda96f027c29c888))
+
 # [0.64.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.63.1...v0.64.0) (2024-06-18)
 
 
