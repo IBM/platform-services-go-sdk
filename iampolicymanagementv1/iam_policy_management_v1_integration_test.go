@@ -56,7 +56,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testViewerRoleCrns string = "crn:v1:bluemix:public:iam::::role:Operator"
 		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
 		testServiceName   string = "iam-groups"
-
 		testCustomRoleId                      string = ""
 		testCustomRoleETag                    string = ""
 		testCustomRoleName                    string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
