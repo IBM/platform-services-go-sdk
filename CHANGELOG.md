@@ -1,3 +1,10 @@
+## [0.64.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.1...v0.64.2) (2024-06-26)
+
+
+### Bug Fixes
+
+* **deps:** update core to 5.17.4 ([#342](https://github.com/IBM/platform-services-go-sdk/issues/342)) ([41216f4](https://github.com/IBM/platform-services-go-sdk/commit/41216f4a166f03b317c3a36a8cdc2a1beef223c7))
+
 ## [0.64.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.0...v0.64.1) (2024-06-21)
 
 
