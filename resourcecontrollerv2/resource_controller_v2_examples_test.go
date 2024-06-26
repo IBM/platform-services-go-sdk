@@ -77,7 +77,8 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 		keyName                    string = "RcSdkKey1Go"
 		keyUpdateName              string = "RcSdkKeyUpdate1Go"
 		targetRegion               string = "global"
-		resourceGroupID            string = "testResourceGroupID"
+		// Replacing the placeholder value to the resourceGroupID
+		resourceGroupID string = "192ea4f81d444a4cbfc051353b6f8d2e"
 	)
 
 	var shouldSkipTest = func() {
