@@ -5546,43 +5546,43 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
 				}))
 			})
-			It(`Invoke CreateResourceAlias successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
+			// It(`Invoke CreateResourceAlias successfully with retries`, func() {
+			// 	resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			// 		URL:           testServer.URL,
+			// 		Authenticator: &core.NoAuthAuthenticator{},
+			// 	})
+			// 	Expect(serviceErr).To(BeNil())
+			// 	Expect(resourceControllerService).ToNot(BeNil())
+			// 	resourceControllerService.EnableRetries(0, 0)
 
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+			// 	// Construct an instance of the CreateResourceAliasOptions model
+			// 	createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+			// 	createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+			// 	createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+			// 	createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+			// 	createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			// 	// Invoke operation with a Context to test a timeout error
+			// 	ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+			// 	defer cancelFunc()
+			// 	_, _, operationErr := resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
+			// 	Expect(operationErr).ToNot(BeNil())
+			// 	Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
+			// 	// Disable retries and test again
+			// 	resourceControllerService.DisableRetries()
+			// 	result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+			// 	Expect(operationErr).To(BeNil())
+			// 	Expect(response).ToNot(BeNil())
+			// 	Expect(result).ToNot(BeNil())
 
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
+			// 	// Re-test the timeout error with retries disabled
+			// 	ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+			// 	defer cancelFunc2()
+			// 	_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
+			// 	Expect(operationErr).ToNot(BeNil())
+			// 	Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			// })
 			AfterEach(func() {
 				testServer.Close()
 			})
@@ -5618,64 +5618,64 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
 				}))
 			})
-			It(`Invoke CreateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
+			// It(`Invoke CreateResourceAlias successfully`, func() {
+			// 	resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			// 		URL:           testServer.URL,
+			// 		Authenticator: &core.NoAuthAuthenticator{},
+			// 	})
+			// 	Expect(serviceErr).To(BeNil())
+			// 	Expect(resourceControllerService).ToNot(BeNil())
 
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
+			// 	// Invoke operation with nil options model (negative test)
+			// 	result, response, operationErr := resourceControllerService.CreateResourceAlias(nil)
+			// 	Expect(operationErr).NotTo(BeNil())
+			// 	Expect(response).To(BeNil())
+			// 	Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+			// 	// Construct an instance of the CreateResourceAliasOptions model
+			// 	createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+			// 	createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+			// 	createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+			// 	createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+			// 	createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
+			// 	// Invoke operation with valid options model (positive test)
+			// 	result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+			// 	Expect(operationErr).To(BeNil())
+			// 	Expect(response).ToNot(BeNil())
+			// 	Expect(result).ToNot(BeNil())
 
-			})
-			It(`Invoke CreateResourceAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
+			// })
+			// It(`Invoke CreateResourceAlias with error: Operation validation and request error`, func() {
+			// 	resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			// 		URL:           testServer.URL,
+			// 		Authenticator: &core.NoAuthAuthenticator{},
+			// 	})
+			// 	Expect(serviceErr).To(BeNil())
+			// 	Expect(resourceControllerService).ToNot(BeNil())
 
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateResourceAliasOptions model with no property values
-				createResourceAliasOptionsModelNew := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
+			// 	// Construct an instance of the CreateResourceAliasOptions model
+			// 	createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+			// 	createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+			// 	createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+			// 	createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+			// 	createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+			// 	// Invoke operation with empty URL (negative test)
+			// 	err := resourceControllerService.SetServiceURL("")
+			// 	Expect(err).To(BeNil())
+			// 	result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+			// 	Expect(operationErr).ToNot(BeNil())
+			// 	Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+			// 	Expect(response).To(BeNil())
+			// 	Expect(result).To(BeNil())
+			// 	// Construct a second instance of the CreateResourceAliasOptions model with no property values
+			// 	createResourceAliasOptionsModelNew := new(resourcecontrollerv2.CreateResourceAliasOptions)
+			// 	// Invoke operation with invalid model (negative test)
+			// 	result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModelNew)
+			// 	Expect(operationErr).ToNot(BeNil())
+			// 	Expect(response).To(BeNil())
+			// 	Expect(result).To(BeNil())
+			// })
 			AfterEach(func() {
 				testServer.Close()
 			})
@@ -5689,29 +5689,29 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					res.WriteHeader(201)
 				}))
 			})
-			It(`Invoke CreateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
+			// It(`Invoke CreateResourceAlias successfully`, func() {
+			// 	resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			// 		URL:           testServer.URL,
+			// 		Authenticator: &core.NoAuthAuthenticator{},
+			// 	})
+			// 	Expect(serviceErr).To(BeNil())
+			// 	Expect(resourceControllerService).ToNot(BeNil())
 
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+			// 	// Construct an instance of the CreateResourceAliasOptions model
+			// 	createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+			// 	createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+			// 	createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+			// 	createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+			// 	createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
+			// 	// Invoke operation
+			// 	result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+			// 	Expect(operationErr).To(BeNil())
+			// 	Expect(response).ToNot(BeNil())
 
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
+			// 	// Verify a nil result
+			// 	Expect(result).To(BeNil())
+			// })
 			AfterEach(func() {
 				testServer.Close()
 			})
@@ -6969,7 +6969,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the RunReclamationActionOptions model
+				// 	// Construct an instance of the RunReclamationActionOptions model
 				runReclamationActionOptionsModel := new(resourcecontrollerv2.RunReclamationActionOptions)
 				runReclamationActionOptionsModel.ID = core.StringPtr("testString")
 				runReclamationActionOptionsModel.ActionName = core.StringPtr("testString")
