@@ -45,42 +45,42 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		config       map[string]string
 		configLoaded bool = false
 
-		testAccountID     string
-		etagHeader        string = "ETag"
-		testPolicyETag    string = ""
-		testV2PolicyETag  string = ""
-		testPolicyId      string = ""
-		testV2PolicyId    string = ""
-		testUserId        string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
-		testViewerRoleCrn string = "crn:v1:bluemix:public:iam::::role:Viewer"
+		testAccountID      string
+		etagHeader         string = "ETag"
+		testPolicyETag     string = ""
+		testV2PolicyETag   string = ""
+		testPolicyId       string = ""
+		testV2PolicyId     string = ""
+		testUserId         string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
+		testViewerRoleCrn  string = "crn:v1:bluemix:public:iam::::role:Viewer"
 		testViewerRoleCrns string = "crn:v1:bluemix:public:iam::::role:Operator"
-		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
-		testServiceName   string = "iam-groups"
+		testEditorRoleCrn  string = "crn:v1:bluemix:public:iam::::role:Editor"
+		testServiceName    string = "iam-groups"
 
-		testCustomRoleId                   string = ""
-		testCustomRoleETag                 string = ""
-		testCustomRoleName                 string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-		testServiceRoleCrn                 string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
-		testPolicyTemplateID               string = ""
-		testPolicyOnlyTypeTemplateID                 string = ""
-		testPolicyS2STemplateID            string = ""
-		testPolicyS2SOnlyTypeTemplateID              string = ""
+		testCustomRoleId                      string = ""
+		testCustomRoleETag                    string = ""
+		testCustomRoleName                    string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn                    string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testPolicyTemplateID                  string = ""
+		testPolicyOnlyTypeTemplateID          string = ""
+		testPolicyS2STemplateID               string = ""
+		testPolicyS2SOnlyTypeTemplateID       string = ""
 
-		testPolicyS2STemplateVersion       string = ""
+		testPolicyS2STemplateVersion          string = ""
 		testPolicyS2SOnlyTypeTemplateVersions string = ""
-		testPolicyS2SUpdateTemplateVersion string = ""
-		testPolicyTemplateETag             string = ""
+		testPolicyS2SUpdateTemplateVersion    string = ""
+		testPolicyTemplateETag                string = ""
 		testPolicyOnlyPolicyTemplateETag      string = ""
 		testPolicyTemplatePolicyTypeETag      string = ""
-		testPolicyTemplateVersion          string = ""
-		testPolicyTemplatePolicyTypeVersion  string = ""
-		testPolicyAssignmentId             string = ""
-		examplePolicyTemplateName          string = "PolicySampleTemplateTestV1"
+		testPolicyTemplateVersion             string = ""
+		testPolicyTemplatePolicyTypeVersion   string = ""
+		testPolicyAssignmentId                string = ""
+		examplePolicyTemplateName             string = "PolicySampleTemplateTestV1"
 		TestPolicyType                        string = "TestPolicyType"
-		assignmentPolicyID                 string
-		testTargetAccountID                string = ""
-		testPolicyAssignmentETag           string = ""
-		testTargetType                     string = "Account"
+		assignmentPolicyID                    string
+		testTargetAccountID                   string = ""
+		testPolicyAssignmentETag              string = ""
+		testTargetType                        string = "Account"
 	)
 
 	var shouldSkipTest = func() {
