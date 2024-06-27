@@ -4246,6 +4246,8 @@ const (
 // Assignment target type.
 const (
 	GetPolicyAssignmentResponseTargetTypeAccountConst = "Account"
+	GetPolicyAssignmentResponseTargetTypeAccountgroupConst = "AccountGroup"
+	GetPolicyAssignmentResponseTargetTypeEnterpriseConst = "Enterprise"
 )
 func (*GetPolicyAssignmentResponse) isaGetPolicyAssignmentResponse() bool {
 	return true
@@ -6111,6 +6113,8 @@ const (
 // Assignment target type.
 const (
 	PolicyTemplateAssignmentItemsTargetTypeAccountConst = "Account"
+	PolicyTemplateAssignmentItemsTargetTypeAccountgroupConst = "AccountGroup"
+	PolicyTemplateAssignmentItemsTargetTypeEnterpriseConst = "Enterprise"
 )
 func (*PolicyTemplateAssignmentItems) isaPolicyTemplateAssignmentItems() bool {
 	return true
@@ -8239,6 +8243,8 @@ type GetPolicyAssignmentResponsePolicyAssignment struct {
 // Assignment target type.
 const (
 	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountConst = "Account"
+	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
+	GetPolicyAssignmentResponsePolicyAssignmentTargetTypeEnterpriseConst = "Enterprise"
 )
 
 // Constants associated with the GetPolicyAssignmentResponsePolicyAssignment.Status property.
@@ -8631,6 +8637,8 @@ type PolicyTemplateAssignmentItemsPolicyAssignment struct {
 // Assignment target type.
 const (
 	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountConst = "Account"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeAccountgroupConst = "AccountGroup"
+	PolicyTemplateAssignmentItemsPolicyAssignmentTargetTypeEnterpriseConst = "Enterprise"
 )
 
 // Constants associated with the PolicyTemplateAssignmentItemsPolicyAssignment.Status property.

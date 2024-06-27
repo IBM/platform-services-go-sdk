@@ -79,8 +79,11 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		TestPolicyType                        string = "TestPolicyType"
 		assignmentPolicyID                    string
 		testTargetAccountID                   string = ""
+		testTargetEnterpriseID              string = ""
 		testPolicyAssignmentETag              string = ""
 		testTargetType                        string = "Account"
+		testTargetTypeEnterprise              string = "Enterprise"
+
 	)
 
 	var shouldSkipTest = func() {
@@ -99,7 +102,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
-			if testAccountID != "" || testTargetAccountID != "" {
+			testTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
+			if testAccountID != "" || testTargetAccountID != "" || testTargetEnterpriseID != "" {
 				configLoaded = true
 			}
 		}
@@ -1214,6 +1218,37 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
+	})
+
+	Describe(`CreatePolicyAssignments - Create policy assignments by templates by type Enterprise resulted in an error Instance Target Type is not one of enum values `, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+
+		It(`CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) by of type Enterprise resulted in an error because the instance.target.type is not one of the allowed enum values`, func() {
+			template := iampolicymanagementv1.AssignmentTemplateDetails{
+				ID:      &testPolicyS2STemplateID,
+				Version: &testPolicyS2STemplateVersion,
+			}
+			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: &testTargetTypeEnterprise,
+				ID:   &testTargetEnterpriseID,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
+				Version:   core.StringPtr("1.0"),
+				Target:    target,
+				Templates: templates,
+			}
+			_, _, err := service.CreatePolicyTemplateAssignment(createPolicyTemplateVersionOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(err.Error()).To(Equal("Invalid body format. Check the input parameters. instance.target.type is not one of enum values: Account"))
+		})
+
 	})
 
 	Describe(`CreatePolicyAssignments - Create policy assignments by templates`, func() {
