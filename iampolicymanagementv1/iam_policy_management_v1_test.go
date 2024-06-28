@@ -19,6 +19,7 @@ package iampolicymanagementv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -7410,7 +7411,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully with retries`, func() {
@@ -7474,7 +7475,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicyAssignments successfully`, func() {
@@ -7613,21 +7614,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
 				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				assignmentTemplateDetailsModel.ID = core.StringPtr("testString")
@@ -7637,7 +7623,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions)
 				createPolicyTemplateAssignmentOptionsModel.Version = core.StringPtr("1.0")
 				createPolicyTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
-				createPolicyTemplateAssignmentOptionsModel.Options = policyAssignmentV1OptionsModel
 				createPolicyTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}
 				createPolicyTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createPolicyTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7695,7 +7680,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateAssignment successfully with retries`, func() {
@@ -7712,21 +7697,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
 				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				assignmentTemplateDetailsModel.ID = core.StringPtr("testString")
@@ -7736,7 +7706,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions)
 				createPolicyTemplateAssignmentOptionsModel.Version = core.StringPtr("1.0")
 				createPolicyTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
-				createPolicyTemplateAssignmentOptionsModel.Options = policyAssignmentV1OptionsModel
 				createPolicyTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}
 				createPolicyTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createPolicyTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7797,7 +7766,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
+					fmt.Fprintf(res, "%s", `{"assignments": [{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}]}`)
 				}))
 			})
 			It(`Invoke CreatePolicyTemplateAssignment successfully`, func() {
@@ -7819,21 +7788,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
 				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				assignmentTemplateDetailsModel.ID = core.StringPtr("testString")
@@ -7843,7 +7797,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions)
 				createPolicyTemplateAssignmentOptionsModel.Version = core.StringPtr("1.0")
 				createPolicyTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
-				createPolicyTemplateAssignmentOptionsModel.Options = policyAssignmentV1OptionsModel
 				createPolicyTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}
 				createPolicyTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createPolicyTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7868,21 +7821,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
 				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				assignmentTemplateDetailsModel.ID = core.StringPtr("testString")
@@ -7892,7 +7830,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions)
 				createPolicyTemplateAssignmentOptionsModel.Version = core.StringPtr("1.0")
 				createPolicyTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
-				createPolicyTemplateAssignmentOptionsModel.Options = policyAssignmentV1OptionsModel
 				createPolicyTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}
 				createPolicyTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createPolicyTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -7938,21 +7875,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				assignmentTargetDetailsModel.Type = core.StringPtr("Account")
 				assignmentTargetDetailsModel.ID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				assignmentTemplateDetailsModel.ID = core.StringPtr("testString")
@@ -7962,7 +7884,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyTemplateAssignmentOptionsModel := new(iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions)
 				createPolicyTemplateAssignmentOptionsModel.Version = core.StringPtr("1.0")
 				createPolicyTemplateAssignmentOptionsModel.Target = assignmentTargetDetailsModel
-				createPolicyTemplateAssignmentOptionsModel.Options = policyAssignmentV1OptionsModel
 				createPolicyTemplateAssignmentOptionsModel.Templates = []iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}
 				createPolicyTemplateAssignmentOptionsModel.AcceptLanguage = core.StringPtr("default")
 				createPolicyTemplateAssignmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -8045,7 +7966,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully with retries`, func() {
@@ -8101,7 +8022,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke GetPolicyAssignment successfully`, func() {
@@ -8287,7 +8208,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicyAssignment successfully with retries`, func() {
@@ -8363,7 +8284,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "options": {"root": {"requester_id": "RequesterID", "assignment_id": "AssignmentID", "template": {"id": "ID", "version": "Version"}}}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
+					fmt.Fprintf(res, "%s", `{"target": {"type": "Account", "id": "ID"}, "id": "ID", "account_id": "AccountID", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "resources": [{"target": {"type": "Account", "id": "ID"}, "policy": {"resource_created": {"id": "ID"}, "status": "Status", "error_message": {"trace": "Trace", "errors": [{"code": "insufficent_permissions", "message": "Message", "details": {"conflicts_with": {"etag": "Etag", "role": "Role", "policy": "Policy"}}, "more_info": "MoreInfo"}], "status_code": 10}}}], "subject": {"id": "ID", "type": "iam_id"}, "template": {"id": "ID", "version": "Version"}, "status": "in_progress"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicyAssignment successfully`, func() {
@@ -8640,30 +8561,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(assignmentTargetDetailsModel.Type).To(Equal(core.StringPtr("Account")))
 				Expect(assignmentTargetDetailsModel.ID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyAssignmentV1OptionsRootTemplate model
-				policyAssignmentV1OptionsRootTemplateModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-				Expect(policyAssignmentV1OptionsRootTemplateModel).ToNot(BeNil())
-				policyAssignmentV1OptionsRootTemplateModel.ID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootTemplateModel.Version = core.StringPtr("testString")
-				Expect(policyAssignmentV1OptionsRootTemplateModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(policyAssignmentV1OptionsRootTemplateModel.Version).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the PolicyAssignmentV1OptionsRoot model
-				policyAssignmentV1OptionsRootModel := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-				Expect(policyAssignmentV1OptionsRootModel).ToNot(BeNil())
-				policyAssignmentV1OptionsRootModel.RequesterID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.AssignmentID = core.StringPtr("testString")
-				policyAssignmentV1OptionsRootModel.Template = policyAssignmentV1OptionsRootTemplateModel
-				Expect(policyAssignmentV1OptionsRootModel.RequesterID).To(Equal(core.StringPtr("testString")))
-				Expect(policyAssignmentV1OptionsRootModel.AssignmentID).To(Equal(core.StringPtr("testString")))
-				Expect(policyAssignmentV1OptionsRootModel.Template).To(Equal(policyAssignmentV1OptionsRootTemplateModel))
-
-				// Construct an instance of the PolicyAssignmentV1Options model
-				policyAssignmentV1OptionsModel := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-				Expect(policyAssignmentV1OptionsModel).ToNot(BeNil())
-				policyAssignmentV1OptionsModel.Root = policyAssignmentV1OptionsRootModel
-				Expect(policyAssignmentV1OptionsModel.Root).To(Equal(policyAssignmentV1OptionsRootModel))
-
 				// Construct an instance of the AssignmentTemplateDetails model
 				assignmentTemplateDetailsModel := new(iampolicymanagementv1.AssignmentTemplateDetails)
 				Expect(assignmentTemplateDetailsModel).ToNot(BeNil())
@@ -8675,19 +8572,16 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the CreatePolicyTemplateAssignmentOptions model
 				version := "1.0"
 				var createPolicyTemplateAssignmentOptionsTarget *iampolicymanagementv1.AssignmentTargetDetails = nil
-				var createPolicyTemplateAssignmentOptionsOptions *iampolicymanagementv1.PolicyAssignmentV1Options = nil
 				createPolicyTemplateAssignmentOptionsTemplates := []iampolicymanagementv1.AssignmentTemplateDetails{}
-				createPolicyTemplateAssignmentOptionsModel := iamPolicyManagementService.NewCreatePolicyTemplateAssignmentOptions(version, createPolicyTemplateAssignmentOptionsTarget, createPolicyTemplateAssignmentOptionsOptions, createPolicyTemplateAssignmentOptionsTemplates)
+				createPolicyTemplateAssignmentOptionsModel := iamPolicyManagementService.NewCreatePolicyTemplateAssignmentOptions(version, createPolicyTemplateAssignmentOptionsTarget, createPolicyTemplateAssignmentOptionsTemplates)
 				createPolicyTemplateAssignmentOptionsModel.SetVersion("1.0")
 				createPolicyTemplateAssignmentOptionsModel.SetTarget(assignmentTargetDetailsModel)
-				createPolicyTemplateAssignmentOptionsModel.SetOptions(policyAssignmentV1OptionsModel)
 				createPolicyTemplateAssignmentOptionsModel.SetTemplates([]iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel})
 				createPolicyTemplateAssignmentOptionsModel.SetAcceptLanguage("default")
 				createPolicyTemplateAssignmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createPolicyTemplateAssignmentOptionsModel).ToNot(BeNil())
 				Expect(createPolicyTemplateAssignmentOptionsModel.Version).To(Equal(core.StringPtr("1.0")))
 				Expect(createPolicyTemplateAssignmentOptionsModel.Target).To(Equal(assignmentTargetDetailsModel))
-				Expect(createPolicyTemplateAssignmentOptionsModel.Options).To(Equal(policyAssignmentV1OptionsModel))
 				Expect(createPolicyTemplateAssignmentOptionsModel.Templates).To(Equal([]iampolicymanagementv1.AssignmentTemplateDetails{*assignmentTemplateDetailsModel}))
 				Expect(createPolicyTemplateAssignmentOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("default")))
 				Expect(createPolicyTemplateAssignmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -9309,11 +9203,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listV2PoliciesOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(listV2PoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPolicyAssignmentV1Options successfully`, func() {
-				var root *iampolicymanagementv1.PolicyAssignmentV1OptionsRoot = nil
-				_, err := iamPolicyManagementService.NewPolicyAssignmentV1Options(root)
-				Expect(err).ToNot(BeNil())
-			})
 			It(`Invoke NewPolicyRole successfully`, func() {
 				roleID := "testString"
 				_model, err := iamPolicyManagementService.NewPolicyRole(roleID)
@@ -9676,10 +9565,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Invoke NewTemplatePolicy successfully`, func() {
 				typeVar := "access"
-				var resource *iampolicymanagementv1.V2PolicyResource = nil
-				var control *iampolicymanagementv1.Control = nil
-				_, err := iamPolicyManagementService.NewTemplatePolicy(typeVar, resource, control)
-				Expect(err).ToNot(BeNil())
+				_model, err := iamPolicyManagementService.NewTemplatePolicy(typeVar)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUpdatePolicyAssignmentOptions successfully`, func() {
 				// Construct an instance of the UpdatePolicyAssignmentOptions model
@@ -9875,63 +9763,6 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 			var result *iampolicymanagementv1.NestedCondition
 			err = iampolicymanagementv1.UnmarshalNestedCondition(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
-		It(`Invoke UnmarshalPolicyAssignmentV1Options successfully`, func() {
-			// Construct an instance of the model.
-			model := new(iampolicymanagementv1.PolicyAssignmentV1Options)
-			model.Root = nil
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *iampolicymanagementv1.PolicyAssignmentV1Options
-			err = iampolicymanagementv1.UnmarshalPolicyAssignmentV1Options(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
-		It(`Invoke UnmarshalPolicyAssignmentV1OptionsRoot successfully`, func() {
-			// Construct an instance of the model.
-			model := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRoot)
-			model.RequesterID = core.StringPtr("testString")
-			model.AssignmentID = core.StringPtr("testString")
-			model.Template = nil
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *iampolicymanagementv1.PolicyAssignmentV1OptionsRoot
-			err = iampolicymanagementv1.UnmarshalPolicyAssignmentV1OptionsRoot(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
-		It(`Invoke UnmarshalPolicyAssignmentV1OptionsRootTemplate successfully`, func() {
-			// Construct an instance of the model.
-			model := new(iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate)
-			model.ID = core.StringPtr("testString")
-			model.Version = core.StringPtr("testString")
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *iampolicymanagementv1.PolicyAssignmentV1OptionsRootTemplate
-			err = iampolicymanagementv1.UnmarshalPolicyAssignmentV1OptionsRootTemplate(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -10332,10 +10163,9 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -10361,8 +10191,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
