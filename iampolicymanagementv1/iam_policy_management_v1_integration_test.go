@@ -729,7 +729,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			shouldSkipTest()
 		})
 		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions testing)`, func() {
-
 			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
 				Type: core.StringPtr("access"),
 			}
@@ -755,7 +754,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			testPolicyTemplatePolicyTypeETag = response.GetHeaders().Get(etagHeader)
 			testPolicyTemplatePolicyTypeVersion = *policyTemplate.Version
 		})
-
 	})
 
 	Describe(`UpdatePolicyTemplate - Update a policy template with description and policy type`, func() {
@@ -789,7 +787,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			testPolicyTemplatePolicyTypeETag = response.GetHeaders().Get(etagHeader)
 			testPolicyOnlyTypeTemplateID = *policyTemplate.ID
 		})
-
 	})
 
 	Describe(`CreatePolicyS2STemplate - Create a s2s policy template`, func() {
