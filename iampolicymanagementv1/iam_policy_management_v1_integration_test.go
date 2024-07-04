@@ -102,7 +102,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
 			testTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
-			if testAccountID != "" || testTargetAccountID != "" || testTargetEnterpriseID != "" {
+			if testAccountID != "" && testTargetAccountID != "" && testTargetEnterpriseID != "" {
 				configLoaded = true
 			}
 		}
