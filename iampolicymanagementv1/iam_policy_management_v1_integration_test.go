@@ -1243,7 +1243,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(err).ToNot(BeNil())
 			Expect(err.Error()).To(Equal("Invalid body format. Check the input parameters. instance.target.type is not one of enum values: Account"))
 		})
-
 	})
 
 	Describe(`CreatePolicyAssignments - Create policy assignments by templates`, func() {
