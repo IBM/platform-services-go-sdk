@@ -57,14 +57,14 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		testEditorRoleCrn  string = "crn:v1:bluemix:public:iam::::role:Editor"
 		testServiceName    string = "iam-groups"
 
-		testCustomRoleId                      string = ""
-		testCustomRoleETag                    string = ""
-		testCustomRoleName                    string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-		testServiceRoleCrn                    string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
-		testPolicyTemplateID                  string = ""
-		testPolicyOnlyTypeTemplateID          string = ""
-		testPolicyS2STemplateID               string = ""
-		testPolicyS2SOnlyTypeTemplateID       string = ""
+		testCustomRoleId                string = ""
+		testCustomRoleETag              string = ""
+		testCustomRoleName              string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn              string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testPolicyTemplateID            string = ""
+		testPolicyOnlyTypeTemplateID    string = ""
+		testPolicyS2STemplateID         string = ""
+		testPolicyS2SOnlyTypeTemplateID string = ""
 
 		testPolicyS2STemplateVersion          string = ""
 		testPolicyS2SOnlyTypeTemplateVersions string = ""
@@ -79,11 +79,10 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		TestPolicyType                        string = "TestPolicyType"
 		assignmentPolicyID                    string
 		testTargetAccountID                   string = ""
-		testTargetEnterpriseID              string = ""
+		testTargetEnterpriseID                string = ""
 		testPolicyAssignmentETag              string = ""
 		testTargetType                        string = "Account"
 		testTargetTypeEnterprise              string = "Enterprise"
-
 	)
 
 	var shouldSkipTest = func() {
@@ -732,7 +731,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions testing)`, func() {
 
 			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("access"),
+				Type: core.StringPtr("access"),
 			}
 
 			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
@@ -759,7 +758,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 	})
 
-
 	Describe(`UpdatePolicyTemplate - Update a policy template with description and policy type`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -767,9 +765,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`UpdatePolicyTemplate(createPolicyTemplateOptions *UpdatePolicyTemplateOptions)`, func() {
 
 			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
-				Type:        core.StringPtr("access"),
+				Type: core.StringPtr("access"),
 			}
-			
+
 			replacePolicyTemplateOptions := &iampolicymanagementv1.ReplacePolicyTemplateOptions{
 				PolicyTemplateID: &testPolicyOnlyTypeTemplateID,
 				IfMatch:          &testPolicyTemplatePolicyTypeETag,
@@ -890,7 +888,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			testPolicyS2SOnlyTypeTemplateID = *policyTemplate.ID
 			testPolicyOnlyPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
-			testPolicyS2SOnlyTypeTemplateVersions = *policyTemplate.Version 
+			testPolicyS2SOnlyTypeTemplateVersions = *policyTemplate.Version
 		})
 	})
 
@@ -1269,7 +1267,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 				ID:   &testTargetAccountID,
 			}
 
-
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
 				Version:   core.StringPtr("1.0"),
 				Target:    target,
@@ -1484,7 +1481,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
-	
+
 	// clean up all test groups
 	AfterSuite(func() {
 		if !configLoaded {
