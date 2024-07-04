@@ -905,7 +905,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			}
 
 			rolesModel := &iampolicymanagementv1.Roles{
-				RoleID: &testViewerRoleCrns,
+				RoleID: &testOperatorRoleCrn,
 			}
 
 			grantModel := &iampolicymanagementv1.Grant{
