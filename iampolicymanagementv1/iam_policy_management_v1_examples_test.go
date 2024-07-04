@@ -988,6 +988,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				ID:      &examplePolicyTemplateID,
 				Version: &examplePolicyTemplateBaseVersion,
 			}
+			
 			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
 				template,
 			}
@@ -996,7 +997,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Type: core.StringPtr("Account"),
 				ID:   &exampleTargetAccountID,
 			}
-
 
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
 				Version:   core.StringPtr("1.0"),

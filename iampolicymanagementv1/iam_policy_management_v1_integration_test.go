@@ -45,17 +45,17 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		config       map[string]string
 		configLoaded bool = false
 
-		testAccountID      string
-		etagHeader         string = "ETag"
-		testPolicyETag     string = ""
-		testV2PolicyETag   string = ""
-		testPolicyId       string = ""
-		testV2PolicyId     string = ""
-		testUserId         string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
-		testViewerRoleCrn  string = "crn:v1:bluemix:public:iam::::role:Viewer"
-		testViewerRoleCrns string = "crn:v1:bluemix:public:iam::::role:Operator"
-		testEditorRoleCrn  string = "crn:v1:bluemix:public:iam::::role:Editor"
-		testServiceName    string = "iam-groups"
+		testAccountID       string
+		etagHeader          string = "ETag"
+		testPolicyETag      string = ""
+		testV2PolicyETag    string = ""
+		testPolicyId        string = ""
+		testV2PolicyId      string = ""
+		testUserId          string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
+		testViewerRoleCrn   string = "crn:v1:bluemix:public:iam::::role:Viewer"
+		testOperatorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Operator"
+		testEditorRoleCrn   string = "crn:v1:bluemix:public:iam::::role:Editor"
+		testServiceName     string = "iam-groups"
 
 		testCustomRoleId                string = ""
 		testCustomRoleETag              string = ""
