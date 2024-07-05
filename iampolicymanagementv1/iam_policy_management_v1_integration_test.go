@@ -45,35 +45,44 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		config       map[string]string
 		configLoaded bool = false
 
-		testAccountID     string
-		etagHeader        string = "ETag"
-		testPolicyETag    string = ""
-		testV2PolicyETag  string = ""
-		testPolicyId      string = ""
-		testV2PolicyId    string = ""
-		testUserId        string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
-		testViewerRoleCrn string = "crn:v1:bluemix:public:iam::::role:Viewer"
-		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
-		testServiceName   string = "iam-groups"
+		testAccountID       string
+		etagHeader          string = "ETag"
+		testPolicyETag      string = ""
+		testV2PolicyETag    string = ""
+		testPolicyId        string = ""
+		testV2PolicyId      string = ""
+		testUserId          string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
+		testViewerRoleCrn   string = "crn:v1:bluemix:public:iam::::role:Viewer"
+		testOperatorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Operator"
+		testEditorRoleCrn   string = "crn:v1:bluemix:public:iam::::role:Editor"
+		testServiceName     string = "iam-groups"
 
-		testCustomRoleId                   string = ""
-		testCustomRoleETag                 string = ""
-		testCustomRoleName                 string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-		testServiceRoleCrn                 string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
-		testPolicyTemplateID               string = ""
-		testPolicyS2STemplateID            string = ""
-		testPolicyS2STemplateVersion       string = ""
-		testPolicyS2SUpdateTemplateVersion string = ""
-		testPolicyTemplateETag             string = ""
-		testPolicyTemplateVersion          string = ""
-		testPolicyAssignmentId             string = ""
-		examplePolicyTemplateName          string = "PolicySampleTemplateTestV1"
-		assignmentPolicyID                 string
-		testTargetAccountID                string = ""
-		assignmentRequesterId              string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-		assignmentID                       string = "orchestrator-id"
-		testPolicyAssignmentETag           string = ""
-		testTargetType                     string = "Account"
+		testCustomRoleId                string = ""
+		testCustomRoleETag              string = ""
+		testCustomRoleName              string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+		testServiceRoleCrn              string = "crn:v1:bluemix:public:iam-identity::::serviceRole:ServiceIdCreator"
+		testPolicyTemplateID            string = ""
+		testPolicyOnlyTypeTemplateID    string = ""
+		testPolicyS2STemplateID         string = ""
+		testPolicyS2SOnlyTypeTemplateID string = ""
+
+		testPolicyS2STemplateVersion          string = ""
+		testPolicyS2SOnlyTypeTemplateVersions string = ""
+		testPolicyS2SUpdateTemplateVersion    string = ""
+		testPolicyTemplateETag                string = ""
+		testPolicyOnlyPolicyTemplateETag      string = ""
+		testPolicyTemplatePolicyTypeETag      string = ""
+		testPolicyTemplateVersion             string = ""
+		testPolicyTemplatePolicyTypeVersion   string = ""
+		testPolicyAssignmentId                string = ""
+		examplePolicyTemplateName             string = "PolicySampleTemplateTestV1"
+		TestPolicyType                        string = "TestPolicyType"
+		assignmentPolicyID                    string
+		testTargetAccountID                   string = ""
+		testTargetEnterpriseID                string = ""
+		testPolicyAssignmentETag              string = ""
+		testTargetType                        string = "Account"
+		testTargetTypeEnterprise              string = "Enterprise"
 	)
 
 	var shouldSkipTest = func() {
@@ -92,7 +101,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
 			testTargetAccountID = config["TEST_TARGET_ACCOUNT_ID"]
-			if testAccountID != "" || testTargetAccountID != "" {
+			testTargetEnterpriseID = config["TEST_TARGET_ENTERPRISE_ACCOUNT_ID"]
+			if testAccountID != "" && testTargetAccountID != "" && testTargetEnterpriseID != "" {
 				configLoaded = true
 			}
 		}
@@ -714,6 +724,71 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`CreatePolicyTemplate - Create a policy base template without Resource and Control`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions testing)`, func() {
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type: core.StringPtr("access"),
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
+				Name:           &TestPolicyType,
+				AccountID:      &testAccountID,
+				Policy:         templatePolicyModel,
+				Description:    core.StringPtr("Test PolicySampleTemplate"),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplate(createPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr(TestPolicyType)))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testPolicyOnlyTypeTemplateID = *policyTemplate.ID
+			testPolicyTemplatePolicyTypeETag = response.GetHeaders().Get(etagHeader)
+			testPolicyTemplatePolicyTypeVersion = *policyTemplate.Version
+		})
+	})
+
+	Describe(`UpdatePolicyTemplate - Update a policy template with description and policy type`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdatePolicyTemplate(createPolicyTemplateOptions *UpdatePolicyTemplateOptions)`, func() {
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type: core.StringPtr("access"),
+			}
+
+			replacePolicyTemplateOptions := &iampolicymanagementv1.ReplacePolicyTemplateOptions{
+				PolicyTemplateID: &testPolicyOnlyTypeTemplateID,
+				IfMatch:          &testPolicyTemplatePolicyTypeETag,
+				Version:          &testPolicyTemplatePolicyTypeVersion,
+				Policy:           templatePolicyModel,
+				Description:      core.StringPtr("Template version update"),
+			}
+
+			policyTemplate, response, err := service.ReplacePolicyTemplate(replacePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Version).To(Equal(core.StringPtr("1")))
+			Expect(policyTemplate.Name).To(Equal(&TestPolicyType))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(&testAccountID))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+			testPolicyTemplatePolicyTypeETag = response.GetHeaders().Get(etagHeader)
+			testPolicyOnlyTypeTemplateID = *policyTemplate.ID
+		})
+	})
+
 	Describe(`CreatePolicyS2STemplate - Create a s2s policy template`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -778,6 +853,96 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			testPolicyS2STemplateID = *policyTemplate.ID
 			testPolicyS2STemplateVersion = *policyTemplate.Version
+		})
+	})
+
+	Describe(`CreatePolicyS2STemplate - Create a s2s policy template version without control, resource and subject`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreatePolicyTemplate(createPolicyTemplateOptions *CreatePolicyTemplateOptions) without control, resource and subject`, func() {
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Watson Policy Template"),
+			}
+
+			createPolicyTemplateOptions := &iampolicymanagementv1.CreatePolicyTemplateOptions{
+				Name:           core.StringPtr("S2S-Testing"),
+				AccountID:      &testAccountID,
+				Policy:         templatePolicyModel,
+				Description:    core.StringPtr("Test PolicySampleTemplate"),
+				AcceptLanguage: core.StringPtr("default"),
+			}
+
+			policyTemplate, response, err := service.CreatePolicyTemplate(createPolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(policyTemplate).ToNot(BeNil())
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+
+			testPolicyS2SOnlyTypeTemplateID = *policyTemplate.ID
+			testPolicyOnlyPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+			testPolicyS2SOnlyTypeTemplateVersions = *policyTemplate.Version
+		})
+	})
+
+	Describe(`ReplacePolicyTemplate - Update a policy template version with only type`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplacePolicyTemplate(replacePolicyTemplateOptions *ReplacePolicyTemplateOptions)`, func() {
+			v2PolicyResourceAttributeModel := &iampolicymanagementv1.V2PolicyResourceAttribute{
+				Key:      core.StringPtr("serviceName"),
+				Operator: core.StringPtr("stringEquals"),
+				Value:    core.StringPtr("watson"),
+			}
+
+			v2PolicyResourceModel := &iampolicymanagementv1.V2PolicyResource{
+				Attributes: []iampolicymanagementv1.V2PolicyResourceAttribute{*v2PolicyResourceAttributeModel},
+			}
+
+			rolesModel := &iampolicymanagementv1.Roles{
+				RoleID: &testOperatorRoleCrn,
+			}
+
+			grantModel := &iampolicymanagementv1.Grant{
+				Roles: []iampolicymanagementv1.Roles{*rolesModel},
+			}
+
+			controlModel := &iampolicymanagementv1.Control{
+				Grant: grantModel,
+			}
+
+			templatePolicyModel := &iampolicymanagementv1.TemplatePolicy{
+				Type:        core.StringPtr("access"),
+				Description: core.StringPtr("Version Update"),
+				Resource:    v2PolicyResourceModel,
+				Control:     controlModel,
+			}
+
+			replacePolicyTemplateOptions := &iampolicymanagementv1.ReplacePolicyTemplateOptions{
+				PolicyTemplateID: &testPolicyS2SOnlyTypeTemplateID,
+				Version:          &testPolicyS2SOnlyTypeTemplateVersions,
+				IfMatch:          &testPolicyOnlyPolicyTemplateETag,
+				Policy:           templatePolicyModel,
+				Description:      core.StringPtr("Template version update"),
+			}
+
+			policyTemplate, response, err := service.ReplacePolicyTemplate(replacePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policyTemplate).ToNot(BeNil())
+
+			Expect(policyTemplate.Version).To(Equal(core.StringPtr("1")))
+			Expect(policyTemplate.Name).To(Equal(core.StringPtr("S2S-Testing")))
+			Expect(policyTemplate.Policy.Type).To(Equal(core.StringPtr("access")))
+			Expect(policyTemplate.AccountID).To(Equal(core.StringPtr(testAccountID)))
+			Expect(policyTemplate.State).To(Equal(core.StringPtr("active")))
+			testPolicyOnlyPolicyTemplateETag = response.GetHeaders().Get(etagHeader)
+			testPolicyS2SOnlyTypeTemplateID = *policyTemplate.ID
 		})
 	})
 
@@ -1050,6 +1215,36 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`CreatePolicyAssignments - Create policy assignments by templates by type Enterprise resulted in an error Instance Target Type is not one of enum values `, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+
+		It(`CreatePolicyTemplateAssignment(createPolicyTemplateAssignmentOptions *CreatePolicyTemplateAssignmentOptions) by of type Enterprise resulted in an error because the instance.target.type is not one of the allowed enum values`, func() {
+			template := iampolicymanagementv1.AssignmentTemplateDetails{
+				ID:      &testPolicyS2STemplateID,
+				Version: &testPolicyS2STemplateVersion,
+			}
+			templates := []iampolicymanagementv1.AssignmentTemplateDetails{
+				template,
+			}
+
+			target := &iampolicymanagementv1.AssignmentTargetDetails{
+				Type: &testTargetTypeEnterprise,
+				ID:   &testTargetEnterpriseID,
+			}
+
+			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
+				Version:   core.StringPtr("1.0"),
+				Target:    target,
+				Templates: templates,
+			}
+			_, _, err := service.CreatePolicyTemplateAssignment(createPolicyTemplateVersionOptions)
+			Expect(err).ToNot(BeNil())
+			Expect(err.Error()).To(Equal("Invalid body format. Check the input parameters. instance.target.type is not one of enum values: Account"))
+		})
+	})
+
 	Describe(`CreatePolicyAssignments - Create policy assignments by templates`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1068,17 +1263,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 				ID:   &testTargetAccountID,
 			}
 
-			options := &iampolicymanagementv1.PolicyAssignmentV1Options{
-				Root: &iampolicymanagementv1.PolicyAssignmentV1OptionsRoot{
-					RequesterID:  &assignmentRequesterId,
-					AssignmentID: &assignmentID,
-				},
-			}
-
 			createPolicyTemplateVersionOptions := &iampolicymanagementv1.CreatePolicyTemplateAssignmentOptions{
 				Version:   core.StringPtr("1.0"),
 				Target:    target,
-				Options:   options,
 				Templates: templates,
 			}
 
@@ -1139,8 +1326,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
-			Expect(*assignmentDetails.Options).ToNot(BeNil())
-			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
 			Expect(*assignmentDetails.Status).ToNot(BeNil())
 			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
 			Expect(assignmentDetails.Resources).ToNot(BeNil())
@@ -1171,8 +1356,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(*assignmentDetails.Target.Type).ToNot(BeNil())
 			Expect(*assignmentDetails.Template.Version).ToNot(BeNil())
 			Expect(*assignmentDetails.Target.ID).ToNot(BeNil())
-			Expect(*assignmentDetails.Options).ToNot(BeNil())
-			Expect(*assignmentDetails.Options.Root.AssignmentID).ToNot(BeNil())
 			Expect(*assignmentDetails.Status).ToNot(BeNil())
 			Expect(*assignmentDetails.AccountID).ToNot(BeNil())
 			Expect(*assignmentDetails.CreatedAt).ToNot(BeNil())
@@ -1235,6 +1418,21 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
+	Describe(`DeletePolicyTemplate - Delete a policy template ID Only Type`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
+			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
+				PolicyTemplateID: &testPolicyOnlyTypeTemplateID,
+			}
+
+			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
 	Describe(`DeletePolicyTemplate - Delete a policy template by ID`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1257,6 +1455,21 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
 			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
 				PolicyTemplateID: &testPolicyS2STemplateID,
+			}
+
+			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeletePolicyS2STemplate - Delete a policy s2s template by ID only Type`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePolicyTemplate(deletePolicyTemplateOptions *DeletePolicyTemplateOptions)`, func() {
+			deletePolicyTemplateOptions := &iampolicymanagementv1.DeletePolicyTemplateOptions{
+				PolicyTemplateID: &testPolicyS2SOnlyTypeTemplateID,
 			}
 
 			response, err := service.DeletePolicyTemplate(deletePolicyTemplateOptions)
