@@ -1,3 +1,10 @@
+## [0.64.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.2...v0.64.3) (2024-07-05)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** remove `options` property from PolicyAssignment ([#341](https://github.com/IBM/platform-services-go-sdk/issues/341)) ([6f14d26](https://github.com/IBM/platform-services-go-sdk/commit/6f14d2634198d7f3ba46b616b07ee3ebc6d0c16b))
+
 ## [0.64.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.1...v0.64.2) (2024-06-26)
 
 
