@@ -19,6 +19,7 @@ package contextbasedrestrictionsv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -192,6 +193,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -258,7 +260,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully with retries`, func() {
@@ -274,6 +276,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -343,7 +346,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
@@ -364,6 +367,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -395,6 +399,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -440,6 +445,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
@@ -545,7 +551,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListZones successfully with retries`, func() {
@@ -610,7 +616,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
@@ -790,7 +796,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully with retries`, func() {
@@ -850,7 +856,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
@@ -985,6 +991,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1055,7 +1062,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully with retries`, func() {
@@ -1071,6 +1078,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1144,7 +1152,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "excluded": [{"type": "ipAddress", "value": "Value", "id": "ID"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
@@ -1165,6 +1173,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1198,6 +1207,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -1252,6 +1262,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
@@ -3934,8 +3945,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
 				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
+				Expect(addressModel.ID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := contextBasedRestrictionsService.NewCreateZoneOptions()
@@ -4222,8 +4235,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
+				addressModel.ID = core.StringPtr("testString")
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
 				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
+				Expect(addressModel.ID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ReplaceZoneOptions model
 				zoneID := "testString"
@@ -4332,6 +4347,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.Address)
 			model.Type = core.StringPtr("ipAddress")
 			model.Value = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 			model.Ref = nil
 
 			b, err := json.Marshal(model)
@@ -4505,6 +4521,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.AddressIPAddress)
 			model.Type = core.StringPtr("ipAddress")
 			model.Value = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -4524,6 +4541,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.AddressIPAddressRange)
 			model.Type = core.StringPtr("ipRange")
 			model.Value = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -4543,6 +4561,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.AddressServiceRef)
 			model.Type = core.StringPtr("serviceRef")
 			model.Ref = nil
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -4562,6 +4581,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.AddressSubnet)
 			model.Type = core.StringPtr("subnet")
 			model.Value = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -4581,6 +4601,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			model := new(contextbasedrestrictionsv1.AddressVPC)
 			model.Type = core.StringPtr("vpc")
 			model.Value = core.StringPtr("testString")
+			model.ID = core.StringPtr("testString")
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -4596,10 +4617,9 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -4625,8 +4645,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
