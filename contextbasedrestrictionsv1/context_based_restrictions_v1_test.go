@@ -4595,6 +4595,30 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
 		})
+		It(`Invoke UnmarshalAddress with complex type successfully`, func() {
+			// Construct an instance of the model.
+			model := new(contextbasedrestrictionsv1.Address)
+			model.Type = core.StringPtr("subnet/extraTypeInfo")
+			model.Value = core.StringPtr("testString")
+			model.Ref = nil
+
+			expected := new(contextbasedrestrictionsv1.AddressSubnet)
+			expected.Type = core.StringPtr("subnet/extraTypeInfo")
+			expected.Value = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result interface{}
+			err = contextbasedrestrictionsv1.UnmarshalAddress(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(expected))
+		})
 	})
 
 	Describe(`Utility function tests`, func() {

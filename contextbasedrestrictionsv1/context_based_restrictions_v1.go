@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -1382,23 +1383,38 @@ func (*Address) isaAddress() bool {
 	return true
 }
 
+func (a *Address) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
+}
+
 type AddressIntf interface {
 	isaAddress() bool
+	GetType() string
 }
 
 // UnmarshalAddress unmarshals an instance of Address from the specified map of raw messages.
 func UnmarshalAddress(m map[string]json.RawMessage, result interface{}) (err error) {
 	// Retrieve discriminator value to determine correct "subclass".
-	var discValue string
-	err = core.UnmarshalPrimitive(m, "type", &discValue)
+	var typeValue string
+	err = core.UnmarshalPrimitive(m, "type", &typeValue)
 	if err != nil {
 		err = fmt.Errorf("error unmarshalling discriminator property 'type': %s", err.Error())
 		return
 	}
-	if discValue == "" {
+	if typeValue == "" {
 		err = fmt.Errorf("required discriminator property 'type' not found in JSON object")
 		return
 	}
+
+	// Extract discriminator from type
+	discValue := typeValue
+	if index := strings.Index(typeValue, "/"); index >= 0 {
+		discValue = typeValue[:index]
+	}
+
 	if discValue == "ipAddress" {
 		err = core.UnmarshalModel(m, "", result, UnmarshalAddressIPAddress)
 	} else if discValue == "ipRange" {
@@ -1410,7 +1426,7 @@ func UnmarshalAddress(m map[string]json.RawMessage, result interface{}) (err err
 	} else if discValue == "serviceRef" {
 		err = core.UnmarshalModel(m, "", result, UnmarshalAddressServiceRef)
 	} else {
-		err = fmt.Errorf("unrecognized value for discriminator property 'type': %s", discValue)
+		err = fmt.Errorf("unrecognized value for discriminator property 'type': %s", typeValue)
 	}
 	return
 }
@@ -3264,6 +3280,13 @@ func (*AddressIPAddress) isaAddress() bool {
 	return true
 }
 
+func (a *AddressIPAddress) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
+}
+
 // UnmarshalAddressIPAddress unmarshals an instance of AddressIPAddress from the specified map of raw messages.
 func UnmarshalAddressIPAddress(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddressIPAddress)
@@ -3307,6 +3330,13 @@ func (*ContextBasedRestrictionsV1) NewAddressIPAddressRange(typeVar string, valu
 
 func (*AddressIPAddressRange) isaAddress() bool {
 	return true
+}
+
+func (a *AddressIPAddressRange) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
 }
 
 // UnmarshalAddressIPAddressRange unmarshals an instance of AddressIPAddressRange from the specified map of raw messages.
@@ -3354,6 +3384,13 @@ func (*AddressServiceRef) isaAddress() bool {
 	return true
 }
 
+func (a *AddressServiceRef) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
+}
+
 // UnmarshalAddressServiceRef unmarshals an instance of AddressServiceRef from the specified map of raw messages.
 func UnmarshalAddressServiceRef(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddressServiceRef)
@@ -3399,6 +3436,13 @@ func (*AddressSubnet) isaAddress() bool {
 	return true
 }
 
+func (a *AddressSubnet) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
+}
+
 // UnmarshalAddressSubnet unmarshals an instance of AddressSubnet from the specified map of raw messages.
 func UnmarshalAddressSubnet(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddressSubnet)
@@ -3442,6 +3486,13 @@ func (*ContextBasedRestrictionsV1) NewAddressVPC(typeVar string, value string) (
 
 func (*AddressVPC) isaAddress() bool {
 	return true
+}
+
+func (a *AddressVPC) GetType() (result string) {
+	if a.Type != nil {
+		result = *a.Type
+	}
+	return
 }
 
 // UnmarshalAddressVPC unmarshals an instance of AddressVPC from the specified map of raw messages.
