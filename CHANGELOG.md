@@ -1,3 +1,10 @@
+## [0.64.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.3...v0.64.4) (2024-07-09)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** address ID support (for use by terraform only) ([#344](https://github.com/IBM/platform-services-go-sdk/issues/344)) ([239d353](https://github.com/IBM/platform-services-go-sdk/commit/239d353c9f17660f5caf32872c220726739643d8))
+
 ## [0.64.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.2...v0.64.3) (2024-07-05)
 
 
