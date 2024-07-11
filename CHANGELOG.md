@@ -1,3 +1,10 @@
+# [0.65.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.4...v0.65.0) (2024-07-11)
+
+
+### Features
+
+* **Resource Controller:** add "onetime_credentials" property in ResourceInstance and ResourceKey schemas ([#338](https://github.com/IBM/platform-services-go-sdk/issues/338)) ([44b748d](https://github.com/IBM/platform-services-go-sdk/commit/44b748db5d2afda439fb224a9d32425f14918e6f))
+
 ## [0.64.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.3...v0.64.4) (2024-07-09)
 
 
