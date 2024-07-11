@@ -225,6 +225,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceInstance() result:\n%s\n", common.ToJSON(result))
 
 			Expect(*result.ID).To(Equal(testInstanceCRN))
+			Expect(*result.OnetimeCredentials).ToNot(BeNil())
 			Expect(*result.GUID).To(Equal(testInstanceGUID))
 			Expect(*result.CRN).To(Equal(testInstanceCRN))
 			Expect(*result.Name).To(Equal(instanceNames["name"]))
@@ -1007,6 +1008,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceKey() result:\n%s\n", common.ToJSON(result))
 
 			Expect(*result.ID).To(Equal(testInstanceKeyCRN))
+			Expect(*result.OnetimeCredentials).ToNot(BeNil())
 			Expect(*result.GUID).To(Equal(testInstanceKeyGUID))
 			Expect(*result.CRN).To(Equal(testInstanceKeyCRN))
 			Expect(*result.Name).To(Equal(keyNames["name"]))
