@@ -1,3 +1,10 @@
+## [0.65.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.0...v0.65.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* add detect-secrets stage to build ([#346](https://github.com/IBM/platform-services-go-sdk/issues/346)) ([59980d5](https://github.com/IBM/platform-services-go-sdk/commit/59980d51198182b9c1f6a4e58fb40a18b888ed56))
+
 # [0.65.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.64.4...v0.65.0) (2024-07-11)
 
 
