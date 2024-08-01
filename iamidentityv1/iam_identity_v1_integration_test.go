@@ -1549,6 +1549,28 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`GetEffectiveAccountSettings - Get effective account settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions)`, func() {
+
+			getEffectiveAccountSettingsOptions := &iamidentityv1.GetEffectiveAccountSettingsOptions{
+				AccountID:      core.StringPtr(accountID),
+				IncludeHistory: core.BoolPtr(true),
+			}
+
+			effectiveAccountSettingsResponse, response, err := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(effectiveAccountSettingsResponse).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.AccountID).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.Effective).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.Account).ToNot(BeNil())
+		})
+	})
+
 	Describe(`CreateInactivityReport - Create an inactivity report`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
