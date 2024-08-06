@@ -1549,7 +1549,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetEffectiveAccountSettings - Get effective account settings`, func() {
+	Describe(`GetEffectiveAccountSettings - Get effective account settings configurations`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
