@@ -43,7 +43,7 @@ type IamIdentityV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.cloud.ibm.com"
+const DefaultServiceURL = "https://iam.test.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_identity"
@@ -173,9 +173,7 @@ func (iamIdentity *IamIdentityV1) DisableRetries() {
 
 // ListAPIKeys : Get API keys for a given service or user IAM ID and account ID
 // Returns the list of API key details for a given service or user IAM ID and account ID. Users can manage user API keys
-// for themself, or service ID API keys for service IDs that are bound to an entity they have access to. In case of
-// service IDs and their API keys, a user must be either an account owner, a IBM Cloud org manager or IBM Cloud space
-// developer in order to manage service IDs of the entity.
+// for themself, or service ID API keys for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) ListAPIKeys(listAPIKeysOptions *ListAPIKeysOptions) (result *APIKeyList, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.ListAPIKeysWithContext(context.Background(), listAPIKeysOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -264,7 +262,7 @@ func (iamIdentity *IamIdentityV1) ListAPIKeysWithContext(ctx context.Context, li
 
 // CreateAPIKey : Create an API key
 // Creates an API key for a UserID or service ID. Users can manage user API keys for themself, or service ID API keys
-// for service IDs that are bound to an entity they have access to.
+// for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.CreateAPIKeyWithContext(context.Background(), createAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -368,7 +366,7 @@ func (iamIdentity *IamIdentityV1) CreateAPIKeyWithContext(ctx context.Context, c
 
 // GetAPIKeysDetails : Get details of an API key by its value
 // Returns the details of an API key by its value. Users can manage user API keys for themself, or service ID API keys
-// for service IDs that are bound to an entity they have access to.
+// for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) GetAPIKeysDetails(getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions) (result *APIKey, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.GetAPIKeysDetailsWithContext(context.Background(), getAPIKeysDetailsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -436,8 +434,7 @@ func (iamIdentity *IamIdentityV1) GetAPIKeysDetailsWithContext(ctx context.Conte
 
 // GetAPIKey : Get details of an API key
 // Returns the details of an API key. Users can manage user API keys for themself, or service ID API keys for service
-// IDs that are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either
-// an account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
+// IDs they have access to.
 func (iamIdentity *IamIdentityV1) GetAPIKey(getAPIKeyOptions *GetAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.GetAPIKeyWithContext(context.Background(), getAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -515,8 +512,8 @@ func (iamIdentity *IamIdentityV1) GetAPIKeyWithContext(ctx context.Context, getA
 // UpdateAPIKey : Updates an API key
 // Updates properties of an API key. This does NOT affect existing access tokens. Their token content will stay
 // unchanged until the access token is refreshed. To update an API key, pass the property to be modified. To delete one
-// property's value, pass the property with an empty value "".Users can manage user API keys for themself, or service ID
-// API keys for service IDs that are bound to an entity they have access to.
+// property's value, pass the property with an empty value "". Users can manage user API keys for themself, or service
+// ID API keys for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) UpdateAPIKey(updateAPIKeyOptions *UpdateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.UpdateAPIKeyWithContext(context.Background(), updateAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -609,7 +606,7 @@ func (iamIdentity *IamIdentityV1) UpdateAPIKeyWithContext(ctx context.Context, u
 
 // DeleteAPIKey : Deletes an API key
 // Deletes an API key. Existing tokens will remain valid until expired. Users can manage user API keys for themself, or
-// service ID API keys for service IDs that are bound to an entity they have access to.
+// service ID API keys for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.DeleteAPIKeyWithContext(context.Background(), deleteAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -668,9 +665,8 @@ func (iamIdentity *IamIdentityV1) DeleteAPIKeyWithContext(ctx context.Context, d
 }
 
 // LockAPIKey : Lock the API key
-// Locks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that are
-// bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an account
-// owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
+// Locks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs they have
+// access to.
 func (iamIdentity *IamIdentityV1) LockAPIKey(lockAPIKeyOptions *LockAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.LockAPIKeyWithContext(context.Background(), lockAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -729,9 +725,8 @@ func (iamIdentity *IamIdentityV1) LockAPIKeyWithContext(ctx context.Context, loc
 }
 
 // UnlockAPIKey : Unlock the API key
-// Unlocks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
-// are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
-// account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
+// Unlocks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs they
+// have access to.
 func (iamIdentity *IamIdentityV1) UnlockAPIKey(unlockAPIKeyOptions *UnlockAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.UnlockAPIKeyWithContext(context.Background(), unlockAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -789,9 +784,9 @@ func (iamIdentity *IamIdentityV1) UnlockAPIKeyWithContext(ctx context.Context, u
 	return
 }
 
-// DisableAPIKey : disable the API key
-// Disable an API key. Users can manage user API keys for themself, or service ID API keys for service IDs that are
-// bound to an entity they have access to.
+// DisableAPIKey : Disable the API key
+// Disable an API key. Users can manage user API keys for themself, or service ID API keys for service IDs they have
+// access to.
 func (iamIdentity *IamIdentityV1) DisableAPIKey(disableAPIKeyOptions *DisableAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.DisableAPIKeyWithContext(context.Background(), disableAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -850,8 +845,8 @@ func (iamIdentity *IamIdentityV1) DisableAPIKeyWithContext(ctx context.Context, 
 }
 
 // EnableAPIKey : Enable the API key
-// Enable an API key. Users can manage user API keys for themself, or service ID API keys for service IDs that are bound
-// to an entity they have access to.
+// Enable an API key. Users can manage user API keys for themself, or service ID API keys for service IDs they have
+// access to.
 func (iamIdentity *IamIdentityV1) EnableAPIKey(enableAPIKeyOptions *EnableAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.EnableAPIKeyWithContext(context.Background(), enableAPIKeyOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -911,8 +906,8 @@ func (iamIdentity *IamIdentityV1) EnableAPIKeyWithContext(ctx context.Context, e
 
 // ListServiceIds : List service IDs
 // Returns a list of service IDs. Users can manage user API keys for themself, or service ID API keys for service IDs
-// that are bound to an entity they have access to. Note: apikey details are only included in the response when creating
-// a Service ID with an api key.
+// they have access to. Note: apikey details are only included in the response when creating a Service ID with an api
+// key.
 func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIDList, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.ListServiceIdsWithContext(context.Background(), listServiceIdsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -995,7 +990,7 @@ func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context,
 
 // CreateServiceID : Create a service ID
 // Creates a service ID for an IBM Cloud account. Users can manage user API keys for themself, or service ID API keys
-// for service IDs that are bound to an entity they have access to.
+// for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIDOptions *CreateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.CreateServiceIDWithContext(context.Background(), createServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1087,8 +1082,8 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 
 // GetServiceID : Get details of a service ID
 // Returns the details of a service ID. Users can manage user API keys for themself, or service ID API keys for service
-// IDs that are bound to an entity they have access to. Note: apikey details are only included in the response when
-// creating a Service ID with an api key.
+// IDs they have access to. Note: apikey details are only included in the response when creating a Service ID with an
+// api key.
 func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIDOptions *GetServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1167,8 +1162,8 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 // Updates properties of a service ID. This does NOT affect existing access tokens. Their token content will stay
 // unchanged until the access token is refreshed. To update a service ID, pass the property to be modified. To delete
 // one property's value, pass the property with an empty value "".Users can manage user API keys for themself, or
-// service ID API keys for service IDs that are bound to an entity they have access to. Note: apikey details are only
-// included in the response when creating a Service ID with an apikey.
+// service ID API keys for service IDs they have access to. Note: apikey details are only included in the response when
+// creating a Service ID with an apikey.
 func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIDOptions *UpdateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	result, response, err = iamIdentity.UpdateServiceIDWithContext(context.Background(), updateServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1260,7 +1255,7 @@ func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context
 // Deletes a service ID and all API keys associated to it. Before deleting the service ID, all associated API keys are
 // deleted. In case a Delete Conflict (status code 409) a retry of the request may help as the service ID is only
 // deleted if the associated API keys were successfully deleted before. Users can manage user API keys for themself, or
-// service ID API keys for service IDs that are bound to an entity they have access to.
+// service ID API keys for service IDs they have access to.
 func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIDOptions *DeleteServiceIDOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.DeleteServiceIDWithContext(context.Background(), deleteServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1319,9 +1314,8 @@ func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context
 }
 
 // LockServiceID : Lock the service ID
-// Locks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
-// are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
-// account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
+// Locks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs they
+// have access to.
 func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIDOptions *LockServiceIDOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.LockServiceIDWithContext(context.Background(), lockServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1380,9 +1374,8 @@ func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, 
 }
 
 // UnlockServiceID : Unlock the service ID
-// Unlocks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
-// are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
-// account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
+// Unlocks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs they
+// have access to.
 func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIDOptions *UnlockServiceIDOptions) (response *core.DetailedResponse, err error) {
 	response, err = iamIdentity.UnlockServiceIDWithContext(context.Background(), unlockServiceIDOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -2019,7 +2012,7 @@ func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getClaimRuleOptions.ProfileID,
-		"rule-id":    *getClaimRuleOptions.RuleID,
+		"rule-id": *getClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2089,7 +2082,7 @@ func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *updateClaimRuleOptions.ProfileID,
-		"rule-id":    *updateClaimRuleOptions.RuleID,
+		"rule-id": *updateClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2192,7 +2185,7 @@ func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteClaimRuleOptions.ProfileID,
-		"rule-id":    *deleteClaimRuleOptions.RuleID,
+		"rule-id": *deleteClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2408,7 +2401,7 @@ func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLin
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getLinkOptions.ProfileID,
-		"link-id":    *getLinkOptions.LinkID,
+		"link-id": *getLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2478,7 +2471,7 @@ func (iamIdentity *IamIdentityV1) DeleteLinkWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteLinkOptions.ProfileID,
-		"link-id":    *deleteLinkOptions.LinkID,
+		"link-id": *deleteLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2689,7 +2682,7 @@ func (iamIdentity *IamIdentityV1) SetProfileIdentityWithContext(ctx context.Cont
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id":    *setProfileIdentityOptions.ProfileID,
+		"profile-id": *setProfileIdentityOptions.ProfileID,
 		"identity-type": *setProfileIdentityOptions.IdentityType,
 	}
 
@@ -2779,7 +2772,7 @@ func (iamIdentity *IamIdentityV1) GetProfileIdentityWithContext(ctx context.Cont
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id":    *getProfileIdentityOptions.ProfileID,
+		"profile-id": *getProfileIdentityOptions.ProfileID,
 		"identity-type": *getProfileIdentityOptions.IdentityType,
 		"identifier-id": *getProfileIdentityOptions.IdentifierID,
 	}
@@ -2850,7 +2843,7 @@ func (iamIdentity *IamIdentityV1) DeleteProfileIdentityWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id":    *deleteProfileIdentityOptions.ProfileID,
+		"profile-id": *deleteProfileIdentityOptions.ProfileID,
 		"identity-type": *deleteProfileIdentityOptions.IdentityType,
 		"identifier-id": *deleteProfileIdentityOptions.IdentifierID,
 	}
@@ -3242,7 +3235,7 @@ func (iamIdentity *IamIdentityV1) GetMfaReportWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"account_id": *getMfaReportOptions.AccountID,
-		"reference":  *getMfaReportOptions.Reference,
+		"reference": *getMfaReportOptions.Reference,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4186,7 +4179,7 @@ func (iamIdentity *IamIdentityV1) GetAccountSettingsTemplateVersionWithContext(c
 
 	pathParamsMap := map[string]string{
 		"template_id": *getAccountSettingsTemplateVersionOptions.TemplateID,
-		"version":     *getAccountSettingsTemplateVersionOptions.Version,
+		"version": *getAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4260,7 +4253,7 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsTemplateVersionWithContex
 
 	pathParamsMap := map[string]string{
 		"template_id": *updateAccountSettingsTemplateVersionOptions.TemplateID,
-		"version":     *updateAccountSettingsTemplateVersionOptions.Version,
+		"version": *updateAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -4353,7 +4346,7 @@ func (iamIdentity *IamIdentityV1) DeleteAccountSettingsTemplateVersionWithContex
 
 	pathParamsMap := map[string]string{
 		"template_id": *deleteAccountSettingsTemplateVersionOptions.TemplateID,
-		"version":     *deleteAccountSettingsTemplateVersionOptions.Version,
+		"version": *deleteAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -4414,7 +4407,7 @@ func (iamIdentity *IamIdentityV1) CommitAccountSettingsTemplateWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"template_id": *commitAccountSettingsTemplateOptions.TemplateID,
-		"version":     *commitAccountSettingsTemplateOptions.Version,
+		"version": *commitAccountSettingsTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -4552,7 +4545,7 @@ func (iamIdentity *IamIdentityV1) GetReportWithContext(ctx context.Context, getR
 
 	pathParamsMap := map[string]string{
 		"account_id": *getReportOptions.AccountID,
-		"reference":  *getReportOptions.Reference,
+		"reference": *getReportOptions.Reference,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4589,6 +4582,82 @@ func (iamIdentity *IamIdentityV1) GetReportWithContext(ctx context.Context, getR
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalReport)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetEffectiveAccountSettings : Get effective account settings configuration
+// Returns effective account settings for given account ID.
+func (iamIdentity *IamIdentityV1) GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions) (result *EffectiveAccountSettingsResponse, response *core.DetailedResponse, err error) {
+	result, response, err = iamIdentity.GetEffectiveAccountSettingsWithContext(context.Background(), getEffectiveAccountSettingsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetEffectiveAccountSettingsWithContext is an alternate form of the GetEffectiveAccountSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetEffectiveAccountSettingsWithContext(ctx context.Context, getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions) (result *EffectiveAccountSettingsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getEffectiveAccountSettingsOptions, "getEffectiveAccountSettingsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getEffectiveAccountSettingsOptions, "getEffectiveAccountSettingsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getEffectiveAccountSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/accounts/{account_id}/effective_settings/identity`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getEffectiveAccountSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetEffectiveAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getEffectiveAccountSettingsOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getEffectiveAccountSettingsOptions.IncludeHistory))
+	}
+	if getEffectiveAccountSettingsOptions.ResolveUserMfa != nil {
+		builder.AddQuery("resolve_user_mfa", fmt.Sprint(*getEffectiveAccountSettingsOptions.ResolveUserMfa))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_effective_account_settings", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEffectiveAccountSettingsResponse)
 		if err != nil {
 			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
 			return
@@ -5137,6 +5206,9 @@ func (iamIdentity *IamIdentityV1) CreateProfileTemplateWithContext(ctx context.C
 	if createProfileTemplateOptions.PolicyTemplateReferences != nil {
 		body["policy_template_references"] = createProfileTemplateOptions.PolicyTemplateReferences
 	}
+	if createProfileTemplateOptions.ActionControls != nil {
+		body["action_controls"] = createProfileTemplateOptions.ActionControls
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -5447,6 +5519,9 @@ func (iamIdentity *IamIdentityV1) CreateProfileTemplateVersionWithContext(ctx co
 	if createProfileTemplateVersionOptions.PolicyTemplateReferences != nil {
 		body["policy_template_references"] = createProfileTemplateVersionOptions.PolicyTemplateReferences
 	}
+	if createProfileTemplateVersionOptions.ActionControls != nil {
+		body["action_controls"] = createProfileTemplateVersionOptions.ActionControls
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -5501,7 +5576,7 @@ func (iamIdentity *IamIdentityV1) GetProfileTemplateVersionWithContext(ctx conte
 
 	pathParamsMap := map[string]string{
 		"template_id": *getProfileTemplateVersionOptions.TemplateID,
-		"version":     *getProfileTemplateVersionOptions.Version,
+		"version": *getProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5575,7 +5650,7 @@ func (iamIdentity *IamIdentityV1) UpdateProfileTemplateVersionWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"template_id": *updateProfileTemplateVersionOptions.TemplateID,
-		"version":     *updateProfileTemplateVersionOptions.Version,
+		"version": *updateProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -5616,6 +5691,9 @@ func (iamIdentity *IamIdentityV1) UpdateProfileTemplateVersionWithContext(ctx co
 	}
 	if updateProfileTemplateVersionOptions.PolicyTemplateReferences != nil {
 		body["policy_template_references"] = updateProfileTemplateVersionOptions.PolicyTemplateReferences
+	}
+	if updateProfileTemplateVersionOptions.ActionControls != nil {
+		body["action_controls"] = updateProfileTemplateVersionOptions.ActionControls
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -5672,7 +5750,7 @@ func (iamIdentity *IamIdentityV1) DeleteProfileTemplateVersionWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"template_id": *deleteProfileTemplateVersionOptions.TemplateID,
-		"version":     *deleteProfileTemplateVersionOptions.Version,
+		"version": *deleteProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -5733,7 +5811,7 @@ func (iamIdentity *IamIdentityV1) CommitProfileTemplateWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"template_id": *commitProfileTemplateOptions.TemplateID,
-		"version":     *commitProfileTemplateOptions.Version,
+		"version": *commitProfileTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -5812,6 +5890,358 @@ func UnmarshalAccountBasedMfaEnrollment(m map[string]json.RawMessage, result int
 	return
 }
 
+// AccountSettingsAccountSection : AccountSettingsAccountSection struct
+type AccountSettingsAccountSection struct {
+	// Unique ID of the account.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Defines whether or not creating a service ID is access controlled. Valid values:
+	//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+	// IDs, including the account owner
+	//   * NOT_RESTRICTED - all members of an account can create service IDs
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreateServiceID *string `json:"restrict_create_service_id,omitempty"`
+
+	// Defines whether or not creating platform API keys is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreatePlatformApikey *string `json:"restrict_create_platform_apikey,omitempty"`
+
+	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
+
+	// Defines the MFA requirement for the user. Valid values:
+	//   * NONE - No MFA trait set
+	//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string `json:"mfa,omitempty"`
+
+	// List of users that are exempted from the MFA requirement of the account.
+	UserMfa []EffectiveAccountSettingsUserMfa `json:"user_mfa,omitempty"`
+
+	// History of the Account Settings.
+	History []EnityHistoryRecord `json:"history,omitempty"`
+
+	// Defines the session expiration in seconds for the account. Valid values:
+	//   * Any whole number between between '900' and '86400'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionExpirationInSeconds *string `json:"session_expiration_in_seconds,omitempty"`
+
+	// Defines the period of time in seconds in which a session will be invalidated due to inactivity. Valid values:
+	//   * Any whole number between '900' and '7200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds,omitempty"`
+
+	// Defines the max allowed sessions per identity required by the account. Valid values:
+	//   * Any whole number greater than 0
+	//   * NOT_SET - To unset account setting and use service default.
+	MaxSessionsPerIdentity *string `json:"max_sessions_per_identity,omitempty"`
+
+	// Defines the access token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '3600'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemAccessTokenExpirationInSeconds *string `json:"system_access_token_expiration_in_seconds,omitempty"`
+
+	// Defines the refresh token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '259200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds,omitempty"`
+}
+
+// Constants associated with the AccountSettingsAccountSection.RestrictCreateServiceID property.
+// Defines whether or not creating a service ID is access controlled. Valid values:
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+// IDs, including the account owner
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsAccountSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsAccountSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsAccountSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsAccountSection.RestrictCreatePlatformApikey property.
+// Defines whether or not creating platform API keys is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsAccountSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsAccountSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsAccountSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsAccountSection.Mfa property.
+// Defines the MFA requirement for the user. Valid values:
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	AccountSettingsAccountSectionMfaLevel1Const = "LEVEL1"
+	AccountSettingsAccountSectionMfaLevel2Const = "LEVEL2"
+	AccountSettingsAccountSectionMfaLevel3Const = "LEVEL3"
+	AccountSettingsAccountSectionMfaNoneConst = "NONE"
+	AccountSettingsAccountSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
+	AccountSettingsAccountSectionMfaTotpConst = "TOTP"
+	AccountSettingsAccountSectionMfaTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalAccountSettingsAccountSection unmarshals an instance of AccountSettingsAccountSection from the specified map of raw messages.
+func UnmarshalAccountSettingsAccountSection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsAccountSection)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_service_id", &obj.RestrictCreateServiceID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_platform_apikey", &obj.RestrictCreatePlatformApikey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_platform_apikey-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIPAddresses)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "allowed_ip_addresses-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "user_mfa", &obj.UserMfa, UnmarshalEffectiveAccountSettingsUserMfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user_mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalEnityHistoryRecord)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "history-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_expiration_in_seconds", &obj.SessionExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_invalidation_in_seconds", &obj.SessionInvalidationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_invalidation_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_sessions_per_identity", &obj.MaxSessionsPerIdentity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "max_sessions_per_identity-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_access_token_expiration_in_seconds", &obj.SystemAccessTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_access_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_refresh_token_expiration_in_seconds", &obj.SystemRefreshTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_refresh_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AccountSettingsAssignedTemplatesSection : AccountSettingsAssignedTemplatesSection struct
+type AccountSettingsAssignedTemplatesSection struct {
+	// Template Id.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// Template version.
+	TemplateVersion *int64 `json:"template_version,omitempty"`
+
+	// Template name.
+	TemplateName *string `json:"template_name,omitempty"`
+
+	// Defines whether or not creating a service ID is access controlled. Valid values:
+	//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+	// IDs, including the account owner
+	//   * NOT_RESTRICTED - all members of an account can create service IDs
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreateServiceID *string `json:"restrict_create_service_id,omitempty"`
+
+	// Defines whether or not creating platform API keys is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreatePlatformApikey *string `json:"restrict_create_platform_apikey,omitempty"`
+
+	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
+
+	// Defines the MFA requirement for the user. Valid values:
+	//   * NONE - No MFA trait set
+	//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string `json:"mfa,omitempty"`
+
+	// List of users that are exempted from the MFA requirement of the account.
+	UserMfa []EffectiveAccountSettingsUserMfa `json:"user_mfa,omitempty"`
+
+	// Defines the session expiration in seconds for the account. Valid values:
+	//   * Any whole number between between '900' and '86400'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionExpirationInSeconds *string `json:"session_expiration_in_seconds,omitempty"`
+
+	// Defines the period of time in seconds in which a session will be invalidated due to inactivity. Valid values:
+	//   * Any whole number between '900' and '7200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds,omitempty"`
+
+	// Defines the max allowed sessions per identity required by the account. Valid values:
+	//   * Any whole number greater than 0
+	//   * NOT_SET - To unset account setting and use service default.
+	MaxSessionsPerIdentity *string `json:"max_sessions_per_identity,omitempty"`
+
+	// Defines the access token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '3600'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemAccessTokenExpirationInSeconds *string `json:"system_access_token_expiration_in_seconds,omitempty"`
+
+	// Defines the refresh token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '259200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds,omitempty"`
+}
+
+// Constants associated with the AccountSettingsAssignedTemplatesSection.RestrictCreateServiceID property.
+// Defines whether or not creating a service ID is access controlled. Valid values:
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+// IDs, including the account owner
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsAssignedTemplatesSection.RestrictCreatePlatformApikey property.
+// Defines whether or not creating platform API keys is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsAssignedTemplatesSection.Mfa property.
+// Defines the MFA requirement for the user. Valid values:
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	AccountSettingsAssignedTemplatesSectionMfaLevel1Const = "LEVEL1"
+	AccountSettingsAssignedTemplatesSectionMfaLevel2Const = "LEVEL2"
+	AccountSettingsAssignedTemplatesSectionMfaLevel3Const = "LEVEL3"
+	AccountSettingsAssignedTemplatesSectionMfaNoneConst = "NONE"
+	AccountSettingsAssignedTemplatesSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
+	AccountSettingsAssignedTemplatesSectionMfaTotpConst = "TOTP"
+	AccountSettingsAssignedTemplatesSectionMfaTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalAccountSettingsAssignedTemplatesSection unmarshals an instance of AccountSettingsAssignedTemplatesSection from the specified map of raw messages.
+func UnmarshalAccountSettingsAssignedTemplatesSection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsAssignedTemplatesSection)
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_version", &obj.TemplateVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_name", &obj.TemplateName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "template_name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_service_id", &obj.RestrictCreateServiceID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_platform_apikey", &obj.RestrictCreatePlatformApikey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_platform_apikey-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIPAddresses)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "allowed_ip_addresses-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "user_mfa", &obj.UserMfa, UnmarshalEffectiveAccountSettingsUserMfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user_mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_expiration_in_seconds", &obj.SessionExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_invalidation_in_seconds", &obj.SessionInvalidationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_invalidation_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_sessions_per_identity", &obj.MaxSessionsPerIdentity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "max_sessions_per_identity-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_access_token_expiration_in_seconds", &obj.SystemAccessTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_access_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_refresh_token_expiration_in_seconds", &obj.SystemRefreshTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_refresh_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AccountSettingsComponent : AccountSettingsComponent struct
 type AccountSettingsComponent struct {
 	// Defines whether or not creating a service ID is access controlled. Valid values:
@@ -5871,45 +6301,44 @@ type AccountSettingsComponent struct {
 
 // Constants associated with the AccountSettingsComponent.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
-//
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
 // IDs, including the account owner
-//   - NOT_RESTRICTED - all members of an account can create service IDs
-//   - NOT_SET - to 'unset' a previous set value.
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsComponentRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsComponentRestrictCreateServiceIDNotSetConst        = "NOT_SET"
-	AccountSettingsComponentRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
+	AccountSettingsComponentRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsComponentRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsComponent.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   - RESTRICTED - to apply access control
-//   - NOT_RESTRICTED - to remove access control
-//   - NOT_SET - to 'unset' a previous set value.
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsComponentRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsComponentRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
-	AccountSettingsComponentRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
+	AccountSettingsComponentRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsComponentRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsComponent.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsComponentMfaLevel1Const     = "LEVEL1"
-	AccountSettingsComponentMfaLevel2Const     = "LEVEL2"
-	AccountSettingsComponentMfaLevel3Const     = "LEVEL3"
-	AccountSettingsComponentMfaNoneConst       = "NONE"
+	AccountSettingsComponentMfaLevel1Const = "LEVEL1"
+	AccountSettingsComponentMfaLevel2Const = "LEVEL2"
+	AccountSettingsComponentMfaLevel3Const = "LEVEL3"
+	AccountSettingsComponentMfaNoneConst = "NONE"
 	AccountSettingsComponentMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsComponentMfaTotpConst       = "TOTP"
-	AccountSettingsComponentMfaTotp4allConst   = "TOTP4ALL"
+	AccountSettingsComponentMfaTotpConst = "TOTP"
+	AccountSettingsComponentMfaTotp4allConst = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsComponent unmarshals an instance of AccountSettingsComponent from the specified map of raw messages.
@@ -5936,6 +6365,162 @@ func UnmarshalAccountSettingsComponent(m map[string]json.RawMessage, result inte
 		return
 	}
 	err = core.UnmarshalModel(m, "user_mfa", &obj.UserMfa, UnmarshalAccountSettingsUserMfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "user_mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_expiration_in_seconds", &obj.SessionExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_invalidation_in_seconds", &obj.SessionInvalidationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "session_invalidation_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_sessions_per_identity", &obj.MaxSessionsPerIdentity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "max_sessions_per_identity-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_access_token_expiration_in_seconds", &obj.SystemAccessTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_access_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "system_refresh_token_expiration_in_seconds", &obj.SystemRefreshTokenExpirationInSeconds)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "system_refresh_token_expiration_in_seconds-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// AccountSettingsEffectiveSection : AccountSettingsEffectiveSection struct
+type AccountSettingsEffectiveSection struct {
+	// Defines whether or not creating a service ID is access controlled. Valid values:
+	//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+	// IDs, including the account owner
+	//   * NOT_RESTRICTED - all members of an account can create service IDs
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreateServiceID *string `json:"restrict_create_service_id,omitempty"`
+
+	// Defines whether or not creating platform API keys is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreatePlatformApikey *string `json:"restrict_create_platform_apikey,omitempty"`
+
+	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
+
+	// Defines the MFA requirement for the user. Valid values:
+	//   * NONE - No MFA trait set
+	//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string `json:"mfa,omitempty"`
+
+	// List of users that are exempted from the MFA requirement of the account.
+	UserMfa []EffectiveAccountSettingsUserMfa `json:"user_mfa,omitempty"`
+
+	// Defines the session expiration in seconds for the account. Valid values:
+	//   * Any whole number between between '900' and '86400'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionExpirationInSeconds *string `json:"session_expiration_in_seconds,omitempty"`
+
+	// Defines the period of time in seconds in which a session will be invalidated due to inactivity. Valid values:
+	//   * Any whole number between '900' and '7200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds,omitempty"`
+
+	// Defines the max allowed sessions per identity required by the account. Valid values:
+	//   * Any whole number greater than 0
+	//   * NOT_SET - To unset account setting and use service default.
+	MaxSessionsPerIdentity *string `json:"max_sessions_per_identity,omitempty"`
+
+	// Defines the access token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '3600'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemAccessTokenExpirationInSeconds *string `json:"system_access_token_expiration_in_seconds,omitempty"`
+
+	// Defines the refresh token expiration in seconds. Valid values:
+	//   * Any whole number between '900' and '259200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds,omitempty"`
+}
+
+// Constants associated with the AccountSettingsEffectiveSection.RestrictCreateServiceID property.
+// Defines whether or not creating a service ID is access controlled. Valid values:
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+// IDs, including the account owner
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsEffectiveSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsEffectiveSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsEffectiveSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsEffectiveSection.RestrictCreatePlatformApikey property.
+// Defines whether or not creating platform API keys is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsEffectiveSection.Mfa property.
+// Defines the MFA requirement for the user. Valid values:
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	AccountSettingsEffectiveSectionMfaLevel1Const = "LEVEL1"
+	AccountSettingsEffectiveSectionMfaLevel2Const = "LEVEL2"
+	AccountSettingsEffectiveSectionMfaLevel3Const = "LEVEL3"
+	AccountSettingsEffectiveSectionMfaNoneConst = "NONE"
+	AccountSettingsEffectiveSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
+	AccountSettingsEffectiveSectionMfaTotpConst = "TOTP"
+	AccountSettingsEffectiveSectionMfaTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalAccountSettingsEffectiveSection unmarshals an instance of AccountSettingsEffectiveSection from the specified map of raw messages.
+func UnmarshalAccountSettingsEffectiveSection(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsEffectiveSection)
+	err = core.UnmarshalPrimitive(m, "restrict_create_service_id", &obj.RestrictCreateServiceID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_service_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_platform_apikey", &obj.RestrictCreatePlatformApikey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "restrict_create_platform_apikey-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIPAddresses)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "allowed_ip_addresses-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "user_mfa", &obj.UserMfa, UnmarshalEffectiveAccountSettingsUserMfa)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "user_mfa-error", common.GetComponentInfo())
 		return
@@ -6040,45 +6625,44 @@ type AccountSettingsResponse struct {
 
 // Constants associated with the AccountSettingsResponse.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
-//
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
 // IDs, including the account owner
-//   - NOT_RESTRICTED - all members of an account can create service IDs
-//   - NOT_SET - to 'unset' a previous set value.
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   - RESTRICTED - to apply access control
-//   - NOT_RESTRICTED - to remove access control
-//   - NOT_SET - to 'unset' a previous set value.
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const     = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const     = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const     = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst       = "NONE"
+	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst = "NONE"
 	AccountSettingsResponseMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsResponseMfaTotpConst       = "TOTP"
-	AccountSettingsResponseMfaTotp4allConst   = "TOTP4ALL"
+	AccountSettingsResponseMfaTotpConst = "TOTP"
+	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsResponse unmarshals an instance of AccountSettingsResponse from the specified map of raw messages.
@@ -6365,28 +6949,28 @@ type AccountSettingsUserMfa struct {
 
 // Constants associated with the AccountSettingsUserMfa.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsUserMfaMfaLevel1Const     = "LEVEL1"
-	AccountSettingsUserMfaMfaLevel2Const     = "LEVEL2"
-	AccountSettingsUserMfaMfaLevel3Const     = "LEVEL3"
-	AccountSettingsUserMfaMfaNoneConst       = "NONE"
+	AccountSettingsUserMfaMfaLevel1Const = "LEVEL1"
+	AccountSettingsUserMfaMfaLevel2Const = "LEVEL2"
+	AccountSettingsUserMfaMfaLevel3Const = "LEVEL3"
+	AccountSettingsUserMfaMfaNoneConst = "NONE"
 	AccountSettingsUserMfaMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsUserMfaMfaTotpConst       = "TOTP"
-	AccountSettingsUserMfaMfaTotp4allConst   = "TOTP4ALL"
+	AccountSettingsUserMfaMfaTotpConst = "TOTP"
+	AccountSettingsUserMfaMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewAccountSettingsUserMfa : Instantiate AccountSettingsUserMfa (Generic Model Constructor)
 func (*IamIdentityV1) NewAccountSettingsUserMfa(iamID string, mfa string) (_model *AccountSettingsUserMfa, err error) {
 	_model = &AccountSettingsUserMfa{
 		IamID: core.StringPtr(iamID),
-		Mfa:   core.StringPtr(mfa),
+		Mfa: core.StringPtr(mfa),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -6406,6 +6990,161 @@ func UnmarshalAccountSettingsUserMfa(m map[string]json.RawMessage, result interf
 	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "mfa-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ActionControls : ActionControls struct
+type ActionControls struct {
+	Identities *ActionControlsIdentities `json:"identities,omitempty"`
+
+	Rules *ActionControlsRules `json:"rules" validate:"required"`
+
+	Policies *ActionControlsPolicies `json:"policies" validate:"required"`
+}
+
+// NewActionControls : Instantiate ActionControls (Generic Model Constructor)
+func (*IamIdentityV1) NewActionControls(rules *ActionControlsRules, policies *ActionControlsPolicies) (_model *ActionControls, err error) {
+	_model = &ActionControls{
+		Rules: rules,
+		Policies: policies,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalActionControls unmarshals an instance of ActionControls from the specified map of raw messages.
+func UnmarshalActionControls(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActionControls)
+	err = core.UnmarshalModel(m, "identities", &obj.Identities, UnmarshalActionControlsIdentities)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "identities-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalActionControlsRules)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "rules-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "policies", &obj.Policies, UnmarshalActionControlsPolicies)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "policies-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ActionControlsIdentities : ActionControlsIdentities struct
+type ActionControlsIdentities struct {
+	Add *bool `json:"add" validate:"required"`
+
+	Remove *bool `json:"remove" validate:"required"`
+}
+
+// NewActionControlsIdentities : Instantiate ActionControlsIdentities (Generic Model Constructor)
+func (*IamIdentityV1) NewActionControlsIdentities(add bool, remove bool) (_model *ActionControlsIdentities, err error) {
+	_model = &ActionControlsIdentities{
+		Add: core.BoolPtr(add),
+		Remove: core.BoolPtr(remove),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalActionControlsIdentities unmarshals an instance of ActionControlsIdentities from the specified map of raw messages.
+func UnmarshalActionControlsIdentities(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActionControlsIdentities)
+	err = core.UnmarshalPrimitive(m, "add", &obj.Add)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "add-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "remove", &obj.Remove)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "remove-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ActionControlsPolicies : ActionControlsPolicies struct
+type ActionControlsPolicies struct {
+	Add *bool `json:"add" validate:"required"`
+
+	Remove *bool `json:"remove" validate:"required"`
+}
+
+// NewActionControlsPolicies : Instantiate ActionControlsPolicies (Generic Model Constructor)
+func (*IamIdentityV1) NewActionControlsPolicies(add bool, remove bool) (_model *ActionControlsPolicies, err error) {
+	_model = &ActionControlsPolicies{
+		Add: core.BoolPtr(add),
+		Remove: core.BoolPtr(remove),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalActionControlsPolicies unmarshals an instance of ActionControlsPolicies from the specified map of raw messages.
+func UnmarshalActionControlsPolicies(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActionControlsPolicies)
+	err = core.UnmarshalPrimitive(m, "add", &obj.Add)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "add-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "remove", &obj.Remove)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "remove-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ActionControlsRules : ActionControlsRules struct
+type ActionControlsRules struct {
+	Add *bool `json:"add" validate:"required"`
+
+	Remove *bool `json:"remove" validate:"required"`
+}
+
+// NewActionControlsRules : Instantiate ActionControlsRules (Generic Model Constructor)
+func (*IamIdentityV1) NewActionControlsRules(add bool, remove bool) (_model *ActionControlsRules, err error) {
+	_model = &ActionControlsRules{
+		Add: core.BoolPtr(add),
+		Remove: core.BoolPtr(remove),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
+// UnmarshalActionControlsRules unmarshals an instance of ActionControlsRules from the specified map of raw messages.
+func UnmarshalActionControlsRules(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActionControlsRules)
+	err = core.UnmarshalPrimitive(m, "add", &obj.Add)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "add-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "remove", &obj.Remove)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "remove-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6870,7 +7609,7 @@ type CommitAccountSettingsTemplateOptions struct {
 func (*IamIdentityV1) NewCommitAccountSettingsTemplateOptions(templateID string, version string) *CommitAccountSettingsTemplateOptions {
 	return &CommitAccountSettingsTemplateOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -6908,7 +7647,7 @@ type CommitProfileTemplateOptions struct {
 func (*IamIdentityV1) NewCommitProfileTemplateOptions(templateID string, version string) *CommitProfileTemplateOptions {
 	return &CommitProfileTemplateOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -6951,17 +7690,17 @@ type CreateAccountSettingsAssignmentOptions struct {
 // Constants associated with the CreateAccountSettingsAssignmentOptions.TargetType property.
 // Type of target to deploy to.
 const (
-	CreateAccountSettingsAssignmentOptionsTargetTypeAccountConst      = "Account"
+	CreateAccountSettingsAssignmentOptionsTargetTypeAccountConst = "Account"
 	CreateAccountSettingsAssignmentOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // NewCreateAccountSettingsAssignmentOptions : Instantiate CreateAccountSettingsAssignmentOptions
 func (*IamIdentityV1) NewCreateAccountSettingsAssignmentOptions(templateID string, templateVersion int64, targetType string, target string) *CreateAccountSettingsAssignmentOptions {
 	return &CreateAccountSettingsAssignmentOptions{
-		TemplateID:      core.StringPtr(templateID),
+		TemplateID: core.StringPtr(templateID),
 		TemplateVersion: core.Int64Ptr(templateVersion),
-		TargetType:      core.StringPtr(targetType),
-		Target:          core.StringPtr(target),
+		TargetType: core.StringPtr(targetType),
+		Target: core.StringPtr(target),
 	}
 }
 
@@ -7157,7 +7896,7 @@ type CreateAPIKeyOptions struct {
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -7263,8 +8002,8 @@ type CreateClaimRuleOptions struct {
 // NewCreateClaimRuleOptions : Instantiate CreateClaimRuleOptions
 func (*IamIdentityV1) NewCreateClaimRuleOptions(profileID string, typeVar string, conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
 	return &CreateClaimRuleOptions{
-		ProfileID:  core.StringPtr(profileID),
-		Type:       core.StringPtr(typeVar),
+		ProfileID: core.StringPtr(profileID),
+		Type: core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -7345,8 +8084,8 @@ type CreateLinkOptions struct {
 func (*IamIdentityV1) NewCreateLinkOptions(profileID string, crType string, link *CreateProfileLinkRequestLink) *CreateLinkOptions {
 	return &CreateLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		CrType:    core.StringPtr(crType),
-		Link:      link,
+		CrType: core.StringPtr(crType),
+		Link: link,
 	}
 }
 
@@ -7432,7 +8171,7 @@ type CreateProfileLinkRequestLink struct {
 // NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
 func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
 	_model = &CreateProfileLinkRequestLink{
-		CRN:       core.StringPtr(crn),
+		CRN: core.StringPtr(crn),
 		Namespace: core.StringPtr(namespace),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7484,7 +8223,7 @@ type CreateProfileOptions struct {
 // NewCreateProfileOptions : Instantiate CreateProfileOptions
 func (*IamIdentityV1) NewCreateProfileOptions(name string, accountID string) *CreateProfileOptions {
 	return &CreateProfileOptions{
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -7532,6 +8271,8 @@ type CreateProfileTemplateOptions struct {
 	// Existing policy templates that you can reference to assign access in the trusted profile component.
 	PolicyTemplateReferences []PolicyTemplateReference `json:"policy_template_references,omitempty"`
 
+	ActionControls *ActionControls `json:"action_controls,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -7571,6 +8312,12 @@ func (_options *CreateProfileTemplateOptions) SetPolicyTemplateReferences(policy
 	return _options
 }
 
+// SetActionControls : Allow user to set ActionControls
+func (_options *CreateProfileTemplateOptions) SetActionControls(actionControls *ActionControls) *CreateProfileTemplateOptions {
+	_options.ActionControls = actionControls
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *CreateProfileTemplateOptions) SetHeaders(param map[string]string) *CreateProfileTemplateOptions {
 	options.Headers = param
@@ -7598,6 +8345,8 @@ type CreateProfileTemplateVersionOptions struct {
 
 	// Existing policy templates that you can reference to assign access in the trusted profile component.
 	PolicyTemplateReferences []PolicyTemplateReference `json:"policy_template_references,omitempty"`
+
+	ActionControls *ActionControls `json:"action_controls,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7643,6 +8392,12 @@ func (_options *CreateProfileTemplateVersionOptions) SetProfile(profile *Templat
 // SetPolicyTemplateReferences : Allow user to set PolicyTemplateReferences
 func (_options *CreateProfileTemplateVersionOptions) SetPolicyTemplateReferences(policyTemplateReferences []PolicyTemplateReference) *CreateProfileTemplateVersionOptions {
 	_options.PolicyTemplateReferences = policyTemplateReferences
+	return _options
+}
+
+// SetActionControls : Allow user to set ActionControls
+func (_options *CreateProfileTemplateVersionOptions) SetActionControls(actionControls *ActionControls) *CreateProfileTemplateVersionOptions {
+	_options.ActionControls = actionControls
 	return _options
 }
 
@@ -7729,7 +8484,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -7796,17 +8551,17 @@ type CreateTrustedProfileAssignmentOptions struct {
 // Constants associated with the CreateTrustedProfileAssignmentOptions.TargetType property.
 // Type of target to deploy to.
 const (
-	CreateTrustedProfileAssignmentOptionsTargetTypeAccountConst      = "Account"
+	CreateTrustedProfileAssignmentOptionsTargetTypeAccountConst = "Account"
 	CreateTrustedProfileAssignmentOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // NewCreateTrustedProfileAssignmentOptions : Instantiate CreateTrustedProfileAssignmentOptions
 func (*IamIdentityV1) NewCreateTrustedProfileAssignmentOptions(templateID string, templateVersion int64, targetType string, target string) *CreateTrustedProfileAssignmentOptions {
 	return &CreateTrustedProfileAssignmentOptions{
-		TemplateID:      core.StringPtr(templateID),
+		TemplateID: core.StringPtr(templateID),
 		TemplateVersion: core.Int64Ptr(templateVersion),
-		TargetType:      core.StringPtr(targetType),
-		Target:          core.StringPtr(target),
+		TargetType: core.StringPtr(targetType),
+		Target: core.StringPtr(target),
 	}
 }
 
@@ -7884,7 +8639,7 @@ type DeleteAccountSettingsTemplateVersionOptions struct {
 func (*IamIdentityV1) NewDeleteAccountSettingsTemplateVersionOptions(templateID string, version string) *DeleteAccountSettingsTemplateVersionOptions {
 	return &DeleteAccountSettingsTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -8006,7 +8761,7 @@ type DeleteClaimRuleOptions struct {
 func (*IamIdentityV1) NewDeleteClaimRuleOptions(profileID string, ruleID string) *DeleteClaimRuleOptions {
 	return &DeleteClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID:    core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
@@ -8044,7 +8799,7 @@ type DeleteLinkOptions struct {
 func (*IamIdentityV1) NewDeleteLinkOptions(profileID string, linkID string) *DeleteLinkOptions {
 	return &DeleteLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID:    core.StringPtr(linkID),
+		LinkID: core.StringPtr(linkID),
 	}
 }
 
@@ -8084,15 +8839,15 @@ type DeleteProfileIdentityOptions struct {
 // Constants associated with the DeleteProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	DeleteProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
+	DeleteProfileIdentityOptionsIdentityTypeCRNConst = "crn"
 	DeleteProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	DeleteProfileIdentityOptionsIdentityTypeUserConst      = "user"
+	DeleteProfileIdentityOptionsIdentityTypeUserConst = "user"
 )
 
 // NewDeleteProfileIdentityOptions : Instantiate DeleteProfileIdentityOptions
 func (*IamIdentityV1) NewDeleteProfileIdentityOptions(profileID string, identityType string, identifierID string) *DeleteProfileIdentityOptions {
 	return &DeleteProfileIdentityOptions{
-		ProfileID:    core.StringPtr(profileID),
+		ProfileID: core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
 		IdentifierID: core.StringPtr(identifierID),
 	}
@@ -8166,7 +8921,7 @@ type DeleteProfileTemplateVersionOptions struct {
 func (*IamIdentityV1) NewDeleteProfileTemplateVersionOptions(templateID string, version string) *DeleteProfileTemplateVersionOptions {
 	return &DeleteProfileTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -8270,6 +9025,138 @@ func (_options *DisableAPIKeyOptions) SetID(id string) *DisableAPIKeyOptions {
 func (options *DisableAPIKeyOptions) SetHeaders(param map[string]string) *DisableAPIKeyOptions {
 	options.Headers = param
 	return options
+}
+
+// EffectiveAccountSettingsResponse : Response body format for Account Settings REST requests.
+type EffectiveAccountSettingsResponse struct {
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// Unique ID of the account.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	Effective *AccountSettingsEffectiveSection `json:"effective" validate:"required"`
+
+	Account *AccountSettingsAccountSection `json:"account" validate:"required"`
+
+	// assigned template section.
+	AssignedTemplates []AccountSettingsAssignedTemplatesSection `json:"assigned_templates,omitempty"`
+}
+
+// UnmarshalEffectiveAccountSettingsResponse unmarshals an instance of EffectiveAccountSettingsResponse from the specified map of raw messages.
+func UnmarshalEffectiveAccountSettingsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EffectiveAccountSettingsResponse)
+	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "context-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "effective", &obj.Effective, UnmarshalAccountSettingsEffectiveSection)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "effective-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "account", &obj.Account, UnmarshalAccountSettingsAccountSection)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "assigned_templates", &obj.AssignedTemplates, UnmarshalAccountSettingsAssignedTemplatesSection)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "assigned_templates-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// EffectiveAccountSettingsUserMfa : EffectiveAccountSettingsUserMfa struct
+type EffectiveAccountSettingsUserMfa struct {
+	// The iam_id of the user.
+	IamID *string `json:"iam_id" validate:"required"`
+
+	// Defines the MFA requirement for the user. Valid values:
+	//   * NONE - No MFA trait set
+	//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string `json:"mfa" validate:"required"`
+
+	// name of the user account.
+	Name *string `json:"name,omitempty"`
+
+	// userName of the user.
+	UserName *string `json:"userName,omitempty"`
+
+	// email of the user.
+	Email *string `json:"email,omitempty"`
+
+	// optional description.
+	Description *string `json:"description,omitempty"`
+}
+
+// Constants associated with the EffectiveAccountSettingsUserMfa.Mfa property.
+// Defines the MFA requirement for the user. Valid values:
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	EffectiveAccountSettingsUserMfaMfaLevel1Const = "LEVEL1"
+	EffectiveAccountSettingsUserMfaMfaLevel2Const = "LEVEL2"
+	EffectiveAccountSettingsUserMfaMfaLevel3Const = "LEVEL3"
+	EffectiveAccountSettingsUserMfaMfaNoneConst = "NONE"
+	EffectiveAccountSettingsUserMfaMfaNoneNoRopcConst = "NONE_NO_ROPC"
+	EffectiveAccountSettingsUserMfaMfaTotpConst = "TOTP"
+	EffectiveAccountSettingsUserMfaMfaTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalEffectiveAccountSettingsUserMfa unmarshals an instance of EffectiveAccountSettingsUserMfa from the specified map of raw messages.
+func UnmarshalEffectiveAccountSettingsUserMfa(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EffectiveAccountSettingsUserMfa)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "mfa-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "userName", &obj.UserName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "userName-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "email-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // EnableAPIKeyOptions : The EnableAPIKey options.
@@ -8571,7 +9458,7 @@ type GetAccountSettingsTemplateVersionOptions struct {
 func (*IamIdentityV1) NewGetAccountSettingsTemplateVersionOptions(templateID string, version string) *GetAccountSettingsTemplateVersionOptions {
 	return &GetAccountSettingsTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -8697,7 +9584,7 @@ type GetClaimRuleOptions struct {
 func (*IamIdentityV1) NewGetClaimRuleOptions(profileID string, ruleID string) *GetClaimRuleOptions {
 	return &GetClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID:    core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
@@ -8715,6 +9602,52 @@ func (_options *GetClaimRuleOptions) SetRuleID(ruleID string) *GetClaimRuleOptio
 
 // SetHeaders : Allow user to set Headers
 func (options *GetClaimRuleOptions) SetHeaders(param map[string]string) *GetClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// GetEffectiveAccountSettingsOptions : The GetEffectiveAccountSettings options.
+type GetEffectiveAccountSettingsOptions struct {
+	// Unique ID of the account.
+	AccountID *string `json:"account_id" validate:"required,ne="`
+
+	// Defines if the entity history is included in the response.
+	IncludeHistory *bool `json:"include_history,omitempty"`
+
+	// Enrich MFA exemptions with user information.
+	ResolveUserMfa *bool `json:"resolve_user_mfa,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetEffectiveAccountSettingsOptions : Instantiate GetEffectiveAccountSettingsOptions
+func (*IamIdentityV1) NewGetEffectiveAccountSettingsOptions(accountID string) *GetEffectiveAccountSettingsOptions {
+	return &GetEffectiveAccountSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *GetEffectiveAccountSettingsOptions) SetAccountID(accountID string) *GetEffectiveAccountSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetIncludeHistory : Allow user to set IncludeHistory
+func (_options *GetEffectiveAccountSettingsOptions) SetIncludeHistory(includeHistory bool) *GetEffectiveAccountSettingsOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
+}
+
+// SetResolveUserMfa : Allow user to set ResolveUserMfa
+func (_options *GetEffectiveAccountSettingsOptions) SetResolveUserMfa(resolveUserMfa bool) *GetEffectiveAccountSettingsOptions {
+	_options.ResolveUserMfa = core.BoolPtr(resolveUserMfa)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetEffectiveAccountSettingsOptions) SetHeaders(param map[string]string) *GetEffectiveAccountSettingsOptions {
 	options.Headers = param
 	return options
 }
@@ -8809,7 +9742,7 @@ type GetLinkOptions struct {
 func (*IamIdentityV1) NewGetLinkOptions(profileID string, linkID string) *GetLinkOptions {
 	return &GetLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID:    core.StringPtr(linkID),
+		LinkID: core.StringPtr(linkID),
 	}
 }
 
@@ -8885,7 +9818,7 @@ type GetMfaStatusOptions struct {
 func (*IamIdentityV1) NewGetMfaStatusOptions(accountID string, iamID string) *GetMfaStatusOptions {
 	return &GetMfaStatusOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
@@ -8953,15 +9886,15 @@ type GetProfileIdentityOptions struct {
 // Constants associated with the GetProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	GetProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
+	GetProfileIdentityOptionsIdentityTypeCRNConst = "crn"
 	GetProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	GetProfileIdentityOptionsIdentityTypeUserConst      = "user"
+	GetProfileIdentityOptionsIdentityTypeUserConst = "user"
 )
 
 // NewGetProfileIdentityOptions : Instantiate GetProfileIdentityOptions
 func (*IamIdentityV1) NewGetProfileIdentityOptions(profileID string, identityType string, identifierID string) *GetProfileIdentityOptions {
 	return &GetProfileIdentityOptions{
-		ProfileID:    core.StringPtr(profileID),
+		ProfileID: core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
 		IdentifierID: core.StringPtr(identifierID),
 	}
@@ -9048,7 +9981,7 @@ type GetProfileTemplateVersionOptions struct {
 func (*IamIdentityV1) NewGetProfileTemplateVersionOptions(templateID string, version string) *GetProfileTemplateVersionOptions {
 	return &GetProfileTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -9243,72 +10176,71 @@ type IDBasedMfaEnrollment struct {
 
 // Constants associated with the IDBasedMfaEnrollment.TraitAccountDefault property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const     = "LEVEL1"
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const     = "LEVEL2"
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel3Const     = "LEVEL3"
-	IDBasedMfaEnrollmentTraitAccountDefaultNoneConst       = "NONE"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const = "LEVEL1"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const = "LEVEL2"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel3Const = "LEVEL3"
+	IDBasedMfaEnrollmentTraitAccountDefaultNoneConst = "NONE"
 	IDBasedMfaEnrollmentTraitAccountDefaultNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitAccountDefaultTotpConst       = "TOTP"
-	IDBasedMfaEnrollmentTraitAccountDefaultTotp4allConst   = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotpConst = "TOTP"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotp4allConst = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.TraitUserSpecific property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const     = "LEVEL1"
-	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const     = "LEVEL2"
-	IDBasedMfaEnrollmentTraitUserSpecificLevel3Const     = "LEVEL3"
-	IDBasedMfaEnrollmentTraitUserSpecificNoneConst       = "NONE"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const = "LEVEL1"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const = "LEVEL2"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel3Const = "LEVEL3"
+	IDBasedMfaEnrollmentTraitUserSpecificNoneConst = "NONE"
 	IDBasedMfaEnrollmentTraitUserSpecificNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitUserSpecificTotpConst       = "TOTP"
-	IDBasedMfaEnrollmentTraitUserSpecificTotp4allConst   = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitUserSpecificTotpConst = "TOTP"
+	IDBasedMfaEnrollmentTraitUserSpecificTotp4allConst = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.TraitEffective property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitEffectiveLevel1Const     = "LEVEL1"
-	IDBasedMfaEnrollmentTraitEffectiveLevel2Const     = "LEVEL2"
-	IDBasedMfaEnrollmentTraitEffectiveLevel3Const     = "LEVEL3"
-	IDBasedMfaEnrollmentTraitEffectiveNoneConst       = "NONE"
+	IDBasedMfaEnrollmentTraitEffectiveLevel1Const = "LEVEL1"
+	IDBasedMfaEnrollmentTraitEffectiveLevel2Const = "LEVEL2"
+	IDBasedMfaEnrollmentTraitEffectiveLevel3Const = "LEVEL3"
+	IDBasedMfaEnrollmentTraitEffectiveNoneConst = "NONE"
 	IDBasedMfaEnrollmentTraitEffectiveNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitEffectiveTotpConst       = "TOTP"
-	IDBasedMfaEnrollmentTraitEffectiveTotp4allConst   = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitEffectiveTotpConst = "TOTP"
+	IDBasedMfaEnrollmentTraitEffectiveTotp4allConst = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.ComplyState property.
 // Defines comply state for the account. Valid values:
-//   - NO - User does not comply in the given account.
-//   - ACCOUNT- User complies in the given account, but does not comply in at least one of the other account
-//
+//   * NO - User does not comply in the given account.
+//   * ACCOUNT- User complies in the given account, but does not comply in at least one of the other account
 // memberships.
-//   - CROSS_ACCOUNT - User complies in the given account and across all other account memberships.
+//   * CROSS_ACCOUNT - User complies in the given account and across all other account memberships.
 const (
-	IDBasedMfaEnrollmentComplyStateAccountConst      = "ACCOUNT"
+	IDBasedMfaEnrollmentComplyStateAccountConst = "ACCOUNT"
 	IDBasedMfaEnrollmentComplyStateCrossAccountConst = "CROSS_ACCOUNT"
-	IDBasedMfaEnrollmentComplyStateNoConst           = "NO"
+	IDBasedMfaEnrollmentComplyStateNoConst = "NO"
 )
 
 // UnmarshalIDBasedMfaEnrollment unmarshals an instance of IDBasedMfaEnrollment from the specified map of raw messages.
@@ -9382,22 +10314,22 @@ type ListAccountSettingsAssignmentsOptions struct {
 // Constants associated with the ListAccountSettingsAssignmentsOptions.TargetType property.
 // Filter results by the assignment's target type.
 const (
-	ListAccountSettingsAssignmentsOptionsTargetTypeAccountConst      = "Account"
+	ListAccountSettingsAssignmentsOptionsTargetTypeAccountConst = "Account"
 	ListAccountSettingsAssignmentsOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // Constants associated with the ListAccountSettingsAssignmentsOptions.Sort property.
 // If specified, the items are sorted by the value of this property.
 const (
-	ListAccountSettingsAssignmentsOptionsSortCreatedAtConst      = "created_at"
+	ListAccountSettingsAssignmentsOptionsSortCreatedAtConst = "created_at"
 	ListAccountSettingsAssignmentsOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListAccountSettingsAssignmentsOptionsSortTemplateIDConst     = "template_id"
+	ListAccountSettingsAssignmentsOptionsSortTemplateIDConst = "template_id"
 )
 
 // Constants associated with the ListAccountSettingsAssignmentsOptions.Order property.
 // Sort order.
 const (
-	ListAccountSettingsAssignmentsOptionsOrderAscConst  = "asc"
+	ListAccountSettingsAssignmentsOptionsOrderAscConst = "asc"
 	ListAccountSettingsAssignmentsOptionsOrderDescConst = "desc"
 )
 
@@ -9499,15 +10431,15 @@ type ListAccountSettingsTemplatesOptions struct {
 // Constants associated with the ListAccountSettingsTemplatesOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListAccountSettingsTemplatesOptionsSortCreatedAtConst      = "created_at"
+	ListAccountSettingsTemplatesOptionsSortCreatedAtConst = "created_at"
 	ListAccountSettingsTemplatesOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListAccountSettingsTemplatesOptionsSortNameConst           = "name"
+	ListAccountSettingsTemplatesOptionsSortNameConst = "name"
 )
 
 // Constants associated with the ListAccountSettingsTemplatesOptions.Order property.
 // Optional sort order.
 const (
-	ListAccountSettingsTemplatesOptionsOrderAscConst  = "asc"
+	ListAccountSettingsTemplatesOptionsOrderAscConst = "asc"
 	ListAccountSettingsTemplatesOptionsOrderDescConst = "desc"
 )
 
@@ -9599,20 +10531,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst  = "entity"
+	ListAPIKeysOptionsScopeEntityConst = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst      = "user"
+	ListAPIKeysOptionsTypeUserConst = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst  = "asc"
+	ListAPIKeysOptionsOrderAscConst = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -9764,15 +10696,15 @@ type ListProfileTemplatesOptions struct {
 // Constants associated with the ListProfileTemplatesOptions.Sort property.
 // Optional sort property. If specified, the returned templates are sorted according to this property.
 const (
-	ListProfileTemplatesOptionsSortCreatedAtConst      = "created_at"
+	ListProfileTemplatesOptionsSortCreatedAtConst = "created_at"
 	ListProfileTemplatesOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListProfileTemplatesOptionsSortNameConst           = "name"
+	ListProfileTemplatesOptionsSortNameConst = "name"
 )
 
 // Constants associated with the ListProfileTemplatesOptions.Order property.
 // Optional sort order.
 const (
-	ListProfileTemplatesOptionsOrderAscConst  = "asc"
+	ListProfileTemplatesOptionsOrderAscConst = "asc"
 	ListProfileTemplatesOptionsOrderDescConst = "desc"
 )
 
@@ -9854,7 +10786,7 @@ type ListProfilesOptions struct {
 // Constants associated with the ListProfilesOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListProfilesOptionsOrderAscConst  = "asc"
+	ListProfilesOptionsOrderAscConst = "asc"
 	ListProfilesOptionsOrderDescConst = "desc"
 )
 
@@ -9944,7 +10876,7 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst  = "asc"
+	ListServiceIdsOptionsOrderAscConst = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -10040,22 +10972,22 @@ type ListTrustedProfileAssignmentsOptions struct {
 // Constants associated with the ListTrustedProfileAssignmentsOptions.TargetType property.
 // Filter results by the assignment's target type.
 const (
-	ListTrustedProfileAssignmentsOptionsTargetTypeAccountConst      = "Account"
+	ListTrustedProfileAssignmentsOptionsTargetTypeAccountConst = "Account"
 	ListTrustedProfileAssignmentsOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // Constants associated with the ListTrustedProfileAssignmentsOptions.Sort property.
 // If specified, the items are sorted by the value of this property.
 const (
-	ListTrustedProfileAssignmentsOptionsSortCreatedAtConst      = "created_at"
+	ListTrustedProfileAssignmentsOptionsSortCreatedAtConst = "created_at"
 	ListTrustedProfileAssignmentsOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListTrustedProfileAssignmentsOptionsSortTemplateIDConst     = "template_id"
+	ListTrustedProfileAssignmentsOptionsSortTemplateIDConst = "template_id"
 )
 
 // Constants associated with the ListTrustedProfileAssignmentsOptions.Order property.
 // Sort order.
 const (
-	ListTrustedProfileAssignmentsOptionsOrderAscConst  = "asc"
+	ListTrustedProfileAssignmentsOptionsOrderAscConst = "asc"
 	ListTrustedProfileAssignmentsOptionsOrderDescConst = "desc"
 )
 
@@ -10157,15 +11089,15 @@ type ListVersionsOfAccountSettingsTemplateOptions struct {
 // Constants associated with the ListVersionsOfAccountSettingsTemplateOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListVersionsOfAccountSettingsTemplateOptionsSortCreatedAtConst      = "created_at"
+	ListVersionsOfAccountSettingsTemplateOptionsSortCreatedAtConst = "created_at"
 	ListVersionsOfAccountSettingsTemplateOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListVersionsOfAccountSettingsTemplateOptionsSortNameConst           = "name"
+	ListVersionsOfAccountSettingsTemplateOptionsSortNameConst = "name"
 )
 
 // Constants associated with the ListVersionsOfAccountSettingsTemplateOptions.Order property.
 // Optional sort order.
 const (
-	ListVersionsOfAccountSettingsTemplateOptionsOrderAscConst  = "asc"
+	ListVersionsOfAccountSettingsTemplateOptionsOrderAscConst = "asc"
 	ListVersionsOfAccountSettingsTemplateOptionsOrderDescConst = "desc"
 )
 
@@ -10245,15 +11177,15 @@ type ListVersionsOfProfileTemplateOptions struct {
 // Constants associated with the ListVersionsOfProfileTemplateOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListVersionsOfProfileTemplateOptionsSortCreatedAtConst      = "created_at"
+	ListVersionsOfProfileTemplateOptionsSortCreatedAtConst = "created_at"
 	ListVersionsOfProfileTemplateOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListVersionsOfProfileTemplateOptionsSortNameConst           = "name"
+	ListVersionsOfProfileTemplateOptionsSortNameConst = "name"
 )
 
 // Constants associated with the ListVersionsOfProfileTemplateOptions.Order property.
 // Optional sort order.
 const (
-	ListVersionsOfProfileTemplateOptionsOrderAscConst  = "asc"
+	ListVersionsOfProfileTemplateOptionsOrderAscConst = "asc"
 	ListVersionsOfProfileTemplateOptionsOrderDescConst = "desc"
 )
 
@@ -10432,7 +11364,7 @@ type PolicyTemplateReference struct {
 // NewPolicyTemplateReference : Instantiate PolicyTemplateReference (Generic Model Constructor)
 func (*IamIdentityV1) NewPolicyTemplateReference(id string, version string) (_model *PolicyTemplateReference, err error) {
 	_model = &PolicyTemplateReference{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		Version: core.StringPtr(version),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -10566,9 +11498,9 @@ type ProfileClaimRuleConditions struct {
 // NewProfileClaimRuleConditions : Instantiate ProfileClaimRuleConditions (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileClaimRuleConditions(claim string, operator string, value string) (_model *ProfileClaimRuleConditions, err error) {
 	_model = &ProfileClaimRuleConditions{
-		Claim:    core.StringPtr(claim),
+		Claim: core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value:    core.StringPtr(value),
+		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -10673,16 +11605,16 @@ type ProfileIdentityRequest struct {
 // Constants associated with the ProfileIdentityRequest.Type property.
 // Type of the identity.
 const (
-	ProfileIdentityRequestTypeCRNConst       = "crn"
+	ProfileIdentityRequestTypeCRNConst = "crn"
 	ProfileIdentityRequestTypeServiceidConst = "serviceid"
-	ProfileIdentityRequestTypeUserConst      = "user"
+	ProfileIdentityRequestTypeUserConst = "user"
 )
 
 // NewProfileIdentityRequest : Instantiate ProfileIdentityRequest (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileIdentityRequest(identifier string, typeVar string) (_model *ProfileIdentityRequest, err error) {
 	_model = &ProfileIdentityRequest{
 		Identifier: core.StringPtr(identifier),
-		Type:       core.StringPtr(typeVar),
+		Type: core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -10743,9 +11675,9 @@ type ProfileIdentityResponse struct {
 // Constants associated with the ProfileIdentityResponse.Type property.
 // Type of the identity.
 const (
-	ProfileIdentityResponseTypeCRNConst       = "crn"
+	ProfileIdentityResponseTypeCRNConst = "crn"
 	ProfileIdentityResponseTypeServiceidConst = "serviceid"
-	ProfileIdentityResponseTypeUserConst      = "user"
+	ProfileIdentityResponseTypeUserConst = "user"
 )
 
 // UnmarshalProfileIdentityResponse unmarshals an instance of ProfileIdentityResponse from the specified map of raw messages.
@@ -11375,7 +12307,7 @@ type SetProfileIdentitiesOptions struct {
 func (*IamIdentityV1) NewSetProfileIdentitiesOptions(profileID string, ifMatch string) *SetProfileIdentitiesOptions {
 	return &SetProfileIdentitiesOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -11434,26 +12366,26 @@ type SetProfileIdentityOptions struct {
 // Constants associated with the SetProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	SetProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
+	SetProfileIdentityOptionsIdentityTypeCRNConst = "crn"
 	SetProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	SetProfileIdentityOptionsIdentityTypeUserConst      = "user"
+	SetProfileIdentityOptionsIdentityTypeUserConst = "user"
 )
 
 // Constants associated with the SetProfileIdentityOptions.Type property.
 // Type of the identity.
 const (
-	SetProfileIdentityOptionsTypeCRNConst       = "crn"
+	SetProfileIdentityOptionsTypeCRNConst = "crn"
 	SetProfileIdentityOptionsTypeServiceidConst = "serviceid"
-	SetProfileIdentityOptionsTypeUserConst      = "user"
+	SetProfileIdentityOptionsTypeUserConst = "user"
 )
 
 // NewSetProfileIdentityOptions : Instantiate SetProfileIdentityOptions
 func (*IamIdentityV1) NewSetProfileIdentityOptions(profileID string, identityType string, identifier string, typeVar string) *SetProfileIdentityOptions {
 	return &SetProfileIdentityOptions{
-		ProfileID:    core.StringPtr(profileID),
+		ProfileID: core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
-		Identifier:   core.StringPtr(identifier),
-		Type:         core.StringPtr(typeVar),
+		Identifier: core.StringPtr(identifier),
+		Type: core.StringPtr(typeVar),
 	}
 }
 
@@ -12124,7 +13056,7 @@ const (
 // NewTrustedProfileTemplateClaimRule : Instantiate TrustedProfileTemplateClaimRule (Generic Model Constructor)
 func (*IamIdentityV1) NewTrustedProfileTemplateClaimRule(typeVar string, conditions []ProfileClaimRuleConditions) (_model *TrustedProfileTemplateClaimRule, err error) {
 	_model = &TrustedProfileTemplateClaimRule{
-		Type:       core.StringPtr(typeVar),
+		Type: core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -12260,6 +13192,8 @@ type TrustedProfileTemplateResponse struct {
 	// Existing policy templates that you can reference to assign access in the trusted profile component.
 	PolicyTemplateReferences []PolicyTemplateReference `json:"policy_template_references,omitempty"`
 
+	ActionControls *ActionControls `json:"action_controls,omitempty"`
+
 	// History of the trusted profile template.
 	History []EnityHistoryRecord `json:"history,omitempty"`
 
@@ -12323,6 +13257,11 @@ func UnmarshalTrustedProfileTemplateResponse(m map[string]json.RawMessage, resul
 	err = core.UnmarshalModel(m, "policy_template_references", &obj.PolicyTemplateReferences, UnmarshalPolicyTemplateReference)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policy_template_references-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "action_controls", &obj.ActionControls, UnmarshalActionControls)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "action_controls-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalEnityHistoryRecord)
@@ -12508,8 +13447,8 @@ type UpdateAccountSettingsAssignmentOptions struct {
 // NewUpdateAccountSettingsAssignmentOptions : Instantiate UpdateAccountSettingsAssignmentOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsAssignmentOptions(assignmentID string, ifMatch string, templateVersion int64) *UpdateAccountSettingsAssignmentOptions {
 	return &UpdateAccountSettingsAssignmentOptions{
-		AssignmentID:    core.StringPtr(assignmentID),
-		IfMatch:         core.StringPtr(ifMatch),
+		AssignmentID: core.StringPtr(assignmentID),
+		IfMatch: core.StringPtr(ifMatch),
 		TemplateVersion: core.Int64Ptr(templateVersion),
 	}
 }
@@ -12609,53 +13548,51 @@ type UpdateAccountSettingsOptions struct {
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
-//
+//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
 // IDs, including the account owner
-//   - NOT_RESTRICTED - all members of an account can create service IDs
-//   - NOT_SET - to 'unset' a previous set value.
+//   * NOT_RESTRICTED - all members of an account can create service IDs
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   - RESTRICTED - only users assigned the 'User API key creator' role on the IAM Identity Service can create API keys,
-//
+//   * RESTRICTED - only users assigned the 'User API key creator' role on the IAM Identity Service can create API keys,
 // including the account owner
-//   - NOT_RESTRICTED - all members of an account can create platform API keys
-//   - NOT_SET - to 'unset' a previous set value.
+//   * NOT_RESTRICTED - all members of an account can create platform API keys
+//   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   - NONE - No MFA trait set
-//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   - TOTP - For all non-federated IBMId users
-//   - TOTP4ALL - For all users
-//   - LEVEL1 - Email-based MFA for all users
-//   - LEVEL2 - TOTP-based MFA for all users
-//   - LEVEL3 - U2F MFA for all users.
+//   * NONE - No MFA trait set
+//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const     = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const     = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const     = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst       = "NONE"
+	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
 	UpdateAccountSettingsOptionsMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	UpdateAccountSettingsOptionsMfaTotpConst       = "TOTP"
-	UpdateAccountSettingsOptionsMfaTotp4allConst   = "TOTP4ALL"
+	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
+	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -12769,9 +13706,9 @@ type UpdateAccountSettingsTemplateVersionOptions struct {
 // NewUpdateAccountSettingsTemplateVersionOptions : Instantiate UpdateAccountSettingsTemplateVersionOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsTemplateVersionOptions(ifMatch string, templateID string, version string) *UpdateAccountSettingsTemplateVersionOptions {
 	return &UpdateAccountSettingsTemplateVersionOptions{
-		IfMatch:    core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -12854,7 +13791,7 @@ type UpdateAPIKeyOptions struct {
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -12944,10 +13881,10 @@ type UpdateClaimRuleOptions struct {
 // NewUpdateClaimRuleOptions : Instantiate UpdateClaimRuleOptions
 func (*IamIdentityV1) NewUpdateClaimRuleOptions(profileID string, ruleID string, ifMatch string, typeVar string, conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
 	return &UpdateClaimRuleOptions{
-		ProfileID:  core.StringPtr(profileID),
-		RuleID:     core.StringPtr(ruleID),
-		IfMatch:    core.StringPtr(ifMatch),
-		Type:       core.StringPtr(typeVar),
+		ProfileID: core.StringPtr(profileID),
+		RuleID: core.StringPtr(ruleID),
+		IfMatch: core.StringPtr(ifMatch),
+		Type: core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -13044,7 +13981,7 @@ type UpdateProfileOptions struct {
 func (*IamIdentityV1) NewUpdateProfileOptions(profileID string, ifMatch string) *UpdateProfileOptions {
 	return &UpdateProfileOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -13108,6 +14045,8 @@ type UpdateProfileTemplateVersionOptions struct {
 	// Existing policy templates that you can reference to assign access in the trusted profile component.
 	PolicyTemplateReferences []PolicyTemplateReference `json:"policy_template_references,omitempty"`
 
+	ActionControls *ActionControls `json:"action_controls,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -13115,9 +14054,9 @@ type UpdateProfileTemplateVersionOptions struct {
 // NewUpdateProfileTemplateVersionOptions : Instantiate UpdateProfileTemplateVersionOptions
 func (*IamIdentityV1) NewUpdateProfileTemplateVersionOptions(ifMatch string, templateID string, version string) *UpdateProfileTemplateVersionOptions {
 	return &UpdateProfileTemplateVersionOptions{
-		IfMatch:    core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 		TemplateID: core.StringPtr(templateID),
-		Version:    core.StringPtr(version),
+		Version: core.StringPtr(version),
 	}
 }
 
@@ -13169,6 +14108,12 @@ func (_options *UpdateProfileTemplateVersionOptions) SetPolicyTemplateReferences
 	return _options
 }
 
+// SetActionControls : Allow user to set ActionControls
+func (_options *UpdateProfileTemplateVersionOptions) SetActionControls(actionControls *ActionControls) *UpdateProfileTemplateVersionOptions {
+	_options.ActionControls = actionControls
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *UpdateProfileTemplateVersionOptions) SetHeaders(param map[string]string) *UpdateProfileTemplateVersionOptions {
 	options.Headers = param
@@ -13204,7 +14149,7 @@ type UpdateServiceIDOptions struct {
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -13266,8 +14211,8 @@ type UpdateTrustedProfileAssignmentOptions struct {
 // NewUpdateTrustedProfileAssignmentOptions : Instantiate UpdateTrustedProfileAssignmentOptions
 func (*IamIdentityV1) NewUpdateTrustedProfileAssignmentOptions(assignmentID string, ifMatch string, templateVersion int64) *UpdateTrustedProfileAssignmentOptions {
 	return &UpdateTrustedProfileAssignmentOptions{
-		AssignmentID:    core.StringPtr(assignmentID),
-		IfMatch:         core.StringPtr(ifMatch),
+		AssignmentID: core.StringPtr(assignmentID),
+		IfMatch: core.StringPtr(ifMatch),
 		TemplateVersion: core.Int64Ptr(templateVersion),
 	}
 }
