@@ -1,7 +1,7 @@
 //go:build integration
 
 /**
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1546,6 +1546,28 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.SystemAccessTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemAccessTokenExpirationInSeconds))
 			Expect(accountSettingsResponse.SystemRefreshTokenExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SystemRefreshTokenExpirationInSeconds))
 			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
+		})
+	})
+
+	Describe(`GetEffectiveAccountSettings - Get effective account settings configurations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions)`, func() {
+
+			getEffectiveAccountSettingsOptions := &iamidentityv1.GetEffectiveAccountSettingsOptions{
+				AccountID:      core.StringPtr(accountID),
+				IncludeHistory: core.BoolPtr(true),
+			}
+
+			effectiveAccountSettingsResponse, response, err := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(effectiveAccountSettingsResponse).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.AccountID).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.Effective).ToNot(BeNil())
+			Expect(effectiveAccountSettingsResponse.Account).ToNot(BeNil())
 		})
 	})
 

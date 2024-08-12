@@ -1,7 +1,7 @@
 //go:build examples
 
 /**
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -980,6 +980,25 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsResponse).ToNot(BeNil())
+		})
+		It(`GetEffectiveAccountSettings request example`, func() {
+			fmt.Println("\nGetEffectiveAccountSettings() result:")
+			// begin-getEffectiveAccountSettings
+
+			getEffectiveAccountSettingsOptions := iamIdentityService.NewGetEffectiveAccountSettingsOptions(accountID)
+
+			effectiveAccountSettingsResponse, response, err := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(effectiveAccountSettingsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-getEffectiveAccountSettings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(effectiveAccountSettingsResponse).ToNot(BeNil())
 		})
 		It(`CreateReport request example`, func() {
 			fmt.Println("\nCreateReport() result:")

@@ -19,6 +19,7 @@ package iamidentityv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -67,14 +68,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-				})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 				Expect(iamIdentityService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +103,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-				})
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 				err := iamIdentityService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
@@ -122,13 +121,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL": "https://iamidentityv1/api",
+				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
 				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-			})
+			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamIdentityService).To(BeNil())
@@ -139,7 +137,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE":   "NOAuth",
+				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -12370,6 +12368,234 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
+	Describe(`GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions) - Operation response error`, func() {
+		getEffectiveAccountSettingsPath := "/v1/accounts/testString/effective_settings/identity"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEffectiveAccountSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					// TODO: Add check for include_history query parameter
+					// TODO: Add check for resolve_user_mfa query parameter
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetEffectiveAccountSettings with error: Operation response processing error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				getEffectiveAccountSettingsOptionsModel := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				getEffectiveAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getEffectiveAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.ResolveUserMfa = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetEffectiveAccountSettings(getEffectiveAccountSettingsOptions *GetEffectiveAccountSettingsOptions)`, func() {
+		getEffectiveAccountSettingsPath := "/v1/accounts/testString/effective_settings/identity"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEffectiveAccountSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// TODO: Add check for resolve_user_mfa query parameter
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "effective": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "account": {"account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "assigned_templates": [{"template_id": "TemplateID", "template_version": 15, "template_name": "TemplateName", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}]}`)
+				}))
+			})
+			It(`Invoke GetEffectiveAccountSettings successfully with retries`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				getEffectiveAccountSettingsOptionsModel := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				getEffectiveAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getEffectiveAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.ResolveUserMfa = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamIdentityService.GetEffectiveAccountSettingsWithContext(ctx, getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamIdentityService.GetEffectiveAccountSettingsWithContext(ctx, getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEffectiveAccountSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// TODO: Add check for include_history query parameter
+					// TODO: Add check for resolve_user_mfa query parameter
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "effective": {"restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "account": {"account_id": "AccountID", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}, "assigned_templates": [{"template_id": "TemplateID", "template_version": 15, "template_name": "TemplateName", "restrict_create_service_id": "NOT_SET", "restrict_create_platform_apikey": "NOT_SET", "allowed_ip_addresses": "AllowedIPAddresses", "mfa": "NONE", "user_mfa": [{"iam_id": "IamID", "mfa": "NONE", "name": "Name", "userName": "UserName", "email": "Email", "description": "Description"}], "session_expiration_in_seconds": "86400", "session_invalidation_in_seconds": "7200", "max_sessions_per_identity": "MaxSessionsPerIdentity", "system_access_token_expiration_in_seconds": "3600", "system_refresh_token_expiration_in_seconds": "259200"}]}`)
+				}))
+			})
+			It(`Invoke GetEffectiveAccountSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamIdentityService.GetEffectiveAccountSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				getEffectiveAccountSettingsOptionsModel := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				getEffectiveAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getEffectiveAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.ResolveUserMfa = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetEffectiveAccountSettings with error: Operation validation and request error`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				getEffectiveAccountSettingsOptionsModel := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				getEffectiveAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getEffectiveAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.ResolveUserMfa = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamIdentityService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetEffectiveAccountSettingsOptions model with no property values
+				getEffectiveAccountSettingsOptionsModelNew := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetEffectiveAccountSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				getEffectiveAccountSettingsOptionsModel := new(iamidentityv1.GetEffectiveAccountSettingsOptions)
+				getEffectiveAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getEffectiveAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.ResolveUserMfa = core.BoolPtr(false)
+				getEffectiveAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetEffectiveAccountSettings(getEffectiveAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListTrustedProfileAssignments(listTrustedProfileAssignmentsOptions *ListTrustedProfileAssignmentsOptions) - Operation response error`, func() {
 		listTrustedProfileAssignmentsPath := "/v1/profile_assignments/"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -13680,7 +13906,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListProfileTemplates successfully with retries`, func() {
@@ -13745,7 +13971,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListProfileTemplates successfully`, func() {
@@ -13905,6 +14131,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
 				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
@@ -13912,6 +14159,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.CreateProfileTemplate(createProfileTemplateOptionsModel)
@@ -13964,7 +14212,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateProfileTemplate successfully with retries`, func() {
@@ -14009,6 +14257,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
 				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
@@ -14016,6 +14285,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -14071,7 +14341,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateProfileTemplate successfully`, func() {
@@ -14121,6 +14391,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
 				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
@@ -14128,6 +14419,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -14178,6 +14470,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
 				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
@@ -14185,6 +14498,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -14249,6 +14563,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := new(iamidentityv1.CreateProfileTemplateOptions)
 				createProfileTemplateOptionsModel.AccountID = core.StringPtr("testString")
@@ -14256,6 +14591,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -14336,7 +14672,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetLatestProfileTemplateVersion successfully with retries`, func() {
@@ -14392,7 +14728,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetLatestProfileTemplateVersion successfully`, func() {
@@ -14636,7 +14972,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListVersionsOfProfileTemplate successfully with retries`, func() {
@@ -14700,7 +15036,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 20, "first": "First", "previous": "Previous", "next": "Next", "profile_templates": [{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListVersionsOfProfileTemplate successfully`, func() {
@@ -14867,6 +15203,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
 				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
@@ -14875,6 +15232,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.CreateProfileTemplateVersion(createProfileTemplateVersionOptionsModel)
@@ -14927,7 +15285,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateProfileTemplateVersion successfully with retries`, func() {
@@ -14972,6 +15330,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
 				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
@@ -14980,6 +15359,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -15035,7 +15415,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateProfileTemplateVersion successfully`, func() {
@@ -15085,6 +15465,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
 				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
@@ -15093,6 +15494,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -15143,6 +15545,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
 				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
@@ -15151,6 +15574,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -15222,6 +15646,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				createProfileTemplateVersionOptionsModel := new(iamidentityv1.CreateProfileTemplateVersionOptions)
 				createProfileTemplateVersionOptionsModel.TemplateID = core.StringPtr("testString")
@@ -15230,6 +15675,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				createProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				createProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				createProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				createProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -15311,7 +15757,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetProfileTemplateVersion successfully with retries`, func() {
@@ -15368,7 +15814,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetProfileTemplateVersion successfully`, func() {
@@ -15528,6 +15974,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
 				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
@@ -15538,6 +16005,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.UpdateProfileTemplateVersion(updateProfileTemplateVersionOptionsModel)
@@ -15592,7 +16060,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke UpdateProfileTemplateVersion successfully with retries`, func() {
@@ -15637,6 +16105,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
 				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
@@ -15647,6 +16136,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -15704,7 +16194,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "version": 7, "account_id": "AccountID", "name": "Name", "description": "Description", "committed": false, "profile": {"name": "Name", "description": "Description", "rules": [{"name": "Name", "type": "Profile-SAML", "realm_name": "RealmName", "expiration": 10, "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}]}], "identities": [{"iam_id": "IamID", "identifier": "Identifier", "type": "user", "accounts": ["Accounts"], "description": "Description"}]}, "policy_template_references": [{"id": "ID", "version": "Version"}], "action_controls": {"identities": {"add": false, "remove": true}, "rules": {"add": false, "remove": true}, "policies": {"add": false, "remove": true}}, "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "entity_tag": "EntityTag", "crn": "CRN", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke UpdateProfileTemplateVersion successfully`, func() {
@@ -15754,6 +16244,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
 				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
@@ -15764,6 +16275,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -15814,6 +16326,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
 				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
@@ -15824,6 +16357,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -15895,6 +16429,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				policyTemplateReferenceModel.ID = core.StringPtr("testString")
 				policyTemplateReferenceModel.Version = core.StringPtr("testString")
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				updateProfileTemplateVersionOptionsModel := new(iamidentityv1.UpdateProfileTemplateVersionOptions)
 				updateProfileTemplateVersionOptionsModel.IfMatch = core.StringPtr("testString")
@@ -15905,6 +16460,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.Description = core.StringPtr("testString")
 				updateProfileTemplateVersionOptionsModel.Profile = templateProfileComponentRequestModel
 				updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences = []iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}
+				updateProfileTemplateVersionOptionsModel.ActionControls = actionControlsModel
 				updateProfileTemplateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -16070,6 +16626,33 @@ var _ = Describe(`IamIdentityV1`, func() {
 				iamID := "testString"
 				mfa := "NONE"
 				_model, err := iamIdentityService.NewAccountSettingsUserMfa(iamID, mfa)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewActionControls successfully`, func() {
+				var rules *iamidentityv1.ActionControlsRules = nil
+				var policies *iamidentityv1.ActionControlsPolicies = nil
+				_, err := iamIdentityService.NewActionControls(rules, policies)
+				Expect(err).ToNot(BeNil())
+			})
+			It(`Invoke NewActionControlsIdentities successfully`, func() {
+				add := true
+				remove := true
+				_model, err := iamIdentityService.NewActionControlsIdentities(add, remove)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewActionControlsPolicies successfully`, func() {
+				add := true
+				remove := true
+				_model, err := iamIdentityService.NewActionControlsPolicies(add, remove)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewActionControlsRules successfully`, func() {
+				add := true
+				remove := true
+				_model, err := iamIdentityService.NewActionControlsRules(add, remove)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -16431,6 +17014,40 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				Expect(actionControlsIdentitiesModel).ToNot(BeNil())
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsIdentitiesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsIdentitiesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				Expect(actionControlsRulesModel).ToNot(BeNil())
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsRulesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsRulesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				Expect(actionControlsPoliciesModel).ToNot(BeNil())
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsPoliciesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsPoliciesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				Expect(actionControlsModel).ToNot(BeNil())
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+				Expect(actionControlsModel.Identities).To(Equal(actionControlsIdentitiesModel))
+				Expect(actionControlsModel.Rules).To(Equal(actionControlsRulesModel))
+				Expect(actionControlsModel.Policies).To(Equal(actionControlsPoliciesModel))
+
 				// Construct an instance of the CreateProfileTemplateOptions model
 				createProfileTemplateOptionsModel := iamIdentityService.NewCreateProfileTemplateOptions()
 				createProfileTemplateOptionsModel.SetAccountID("testString")
@@ -16438,6 +17055,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateOptionsModel.SetDescription("testString")
 				createProfileTemplateOptionsModel.SetProfile(templateProfileComponentRequestModel)
 				createProfileTemplateOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				createProfileTemplateOptionsModel.SetActionControls(actionControlsModel)
 				createProfileTemplateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProfileTemplateOptionsModel).ToNot(BeNil())
 				Expect(createProfileTemplateOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -16445,6 +17063,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createProfileTemplateOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createProfileTemplateOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
 				Expect(createProfileTemplateOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(createProfileTemplateOptionsModel.ActionControls).To(Equal(actionControlsModel))
 				Expect(createProfileTemplateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateProfileTemplateVersionOptions successfully`, func() {
@@ -16504,6 +17123,40 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				Expect(actionControlsIdentitiesModel).ToNot(BeNil())
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsIdentitiesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsIdentitiesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				Expect(actionControlsRulesModel).ToNot(BeNil())
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsRulesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsRulesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				Expect(actionControlsPoliciesModel).ToNot(BeNil())
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsPoliciesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsPoliciesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				Expect(actionControlsModel).ToNot(BeNil())
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+				Expect(actionControlsModel.Identities).To(Equal(actionControlsIdentitiesModel))
+				Expect(actionControlsModel.Rules).To(Equal(actionControlsRulesModel))
+				Expect(actionControlsModel.Policies).To(Equal(actionControlsPoliciesModel))
+
 				// Construct an instance of the CreateProfileTemplateVersionOptions model
 				templateID := "testString"
 				createProfileTemplateVersionOptionsModel := iamIdentityService.NewCreateProfileTemplateVersionOptions(templateID)
@@ -16513,6 +17166,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createProfileTemplateVersionOptionsModel.SetDescription("testString")
 				createProfileTemplateVersionOptionsModel.SetProfile(templateProfileComponentRequestModel)
 				createProfileTemplateVersionOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				createProfileTemplateVersionOptionsModel.SetActionControls(actionControlsModel)
 				createProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProfileTemplateVersionOptionsModel).ToNot(BeNil())
 				Expect(createProfileTemplateVersionOptionsModel.TemplateID).To(Equal(core.StringPtr("testString")))
@@ -16521,6 +17175,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createProfileTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createProfileTemplateVersionOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
 				Expect(createProfileTemplateVersionOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(createProfileTemplateVersionOptionsModel.ActionControls).To(Equal(actionControlsModel))
 				Expect(createProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateReportOptions successfully`, func() {
@@ -16823,6 +17478,20 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(getClaimRuleOptionsModel.ProfileID).To(Equal(core.StringPtr("testString")))
 				Expect(getClaimRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(getClaimRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetEffectiveAccountSettingsOptions successfully`, func() {
+				// Construct an instance of the GetEffectiveAccountSettingsOptions model
+				accountID := "testString"
+				getEffectiveAccountSettingsOptionsModel := iamIdentityService.NewGetEffectiveAccountSettingsOptions(accountID)
+				getEffectiveAccountSettingsOptionsModel.SetAccountID("testString")
+				getEffectiveAccountSettingsOptionsModel.SetIncludeHistory(false)
+				getEffectiveAccountSettingsOptionsModel.SetResolveUserMfa(false)
+				getEffectiveAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getEffectiveAccountSettingsOptionsModel).ToNot(BeNil())
+				Expect(getEffectiveAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getEffectiveAccountSettingsOptionsModel.IncludeHistory).To(Equal(core.BoolPtr(false)))
+				Expect(getEffectiveAccountSettingsOptionsModel.ResolveUserMfa).To(Equal(core.BoolPtr(false)))
+				Expect(getEffectiveAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetLatestAccountSettingsTemplateVersionOptions successfully`, func() {
 				// Construct an instance of the GetLatestAccountSettingsTemplateVersionOptions model
@@ -17600,6 +18269,40 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(policyTemplateReferenceModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(policyTemplateReferenceModel.Version).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the ActionControlsIdentities model
+				actionControlsIdentitiesModel := new(iamidentityv1.ActionControlsIdentities)
+				Expect(actionControlsIdentitiesModel).ToNot(BeNil())
+				actionControlsIdentitiesModel.Add = core.BoolPtr(true)
+				actionControlsIdentitiesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsIdentitiesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsIdentitiesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsRules model
+				actionControlsRulesModel := new(iamidentityv1.ActionControlsRules)
+				Expect(actionControlsRulesModel).ToNot(BeNil())
+				actionControlsRulesModel.Add = core.BoolPtr(true)
+				actionControlsRulesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsRulesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsRulesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControlsPolicies model
+				actionControlsPoliciesModel := new(iamidentityv1.ActionControlsPolicies)
+				Expect(actionControlsPoliciesModel).ToNot(BeNil())
+				actionControlsPoliciesModel.Add = core.BoolPtr(true)
+				actionControlsPoliciesModel.Remove = core.BoolPtr(true)
+				Expect(actionControlsPoliciesModel.Add).To(Equal(core.BoolPtr(true)))
+				Expect(actionControlsPoliciesModel.Remove).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ActionControls model
+				actionControlsModel := new(iamidentityv1.ActionControls)
+				Expect(actionControlsModel).ToNot(BeNil())
+				actionControlsModel.Identities = actionControlsIdentitiesModel
+				actionControlsModel.Rules = actionControlsRulesModel
+				actionControlsModel.Policies = actionControlsPoliciesModel
+				Expect(actionControlsModel.Identities).To(Equal(actionControlsIdentitiesModel))
+				Expect(actionControlsModel.Rules).To(Equal(actionControlsRulesModel))
+				Expect(actionControlsModel.Policies).To(Equal(actionControlsPoliciesModel))
+
 				// Construct an instance of the UpdateProfileTemplateVersionOptions model
 				ifMatch := "testString"
 				templateID := "testString"
@@ -17613,6 +18316,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateProfileTemplateVersionOptionsModel.SetDescription("testString")
 				updateProfileTemplateVersionOptionsModel.SetProfile(templateProfileComponentRequestModel)
 				updateProfileTemplateVersionOptionsModel.SetPolicyTemplateReferences([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel})
+				updateProfileTemplateVersionOptionsModel.SetActionControls(actionControlsModel)
 				updateProfileTemplateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateProfileTemplateVersionOptionsModel).ToNot(BeNil())
 				Expect(updateProfileTemplateVersionOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
@@ -17623,6 +18327,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateProfileTemplateVersionOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(updateProfileTemplateVersionOptionsModel.Profile).To(Equal(templateProfileComponentRequestModel))
 				Expect(updateProfileTemplateVersionOptionsModel.PolicyTemplateReferences).To(Equal([]iamidentityv1.PolicyTemplateReference{*policyTemplateReferenceModel}))
+				Expect(updateProfileTemplateVersionOptionsModel.ActionControls).To(Equal(actionControlsModel))
 				Expect(updateProfileTemplateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateServiceIDOptions successfully`, func() {
@@ -17705,6 +18410,83 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 			var result *iamidentityv1.AccountSettingsUserMfa
 			err = iamidentityv1.UnmarshalAccountSettingsUserMfa(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalActionControls successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ActionControls)
+			model.Identities = nil
+			model.Rules = nil
+			model.Policies = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ActionControls
+			err = iamidentityv1.UnmarshalActionControls(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalActionControlsIdentities successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ActionControlsIdentities)
+			model.Add = core.BoolPtr(true)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ActionControlsIdentities
+			err = iamidentityv1.UnmarshalActionControlsIdentities(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalActionControlsPolicies successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ActionControlsPolicies)
+			model.Add = core.BoolPtr(true)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ActionControlsPolicies
+			err = iamidentityv1.UnmarshalActionControlsPolicies(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalActionControlsRules successfully`, func() {
+			// Construct an instance of the model.
+			model := new(iamidentityv1.ActionControlsRules)
+			model.Add = core.BoolPtr(true)
+			model.Remove = core.BoolPtr(true)
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *iamidentityv1.ActionControlsRules
+			err = iamidentityv1.UnmarshalActionControlsRules(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
@@ -17882,10 +18664,9 @@ var _ = Describe(`IamIdentityV1`, func() {
 			Expect(result).To(Equal(model))
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -17911,8 +18692,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
