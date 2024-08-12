@@ -1,3 +1,10 @@
+# [0.66.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.1...v0.66.0) (2024-08-12)
+
+
+### Features
+
+* **IAM Identity:** adding effective account settings ([#347](https://github.com/IBM/platform-services-go-sdk/issues/347)) ([bd383f8](https://github.com/IBM/platform-services-go-sdk/commit/bd383f89fa2ba45e5f609d8fc02cf8334c96f96c))
+
 ## [0.65.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.0...v0.65.1) (2024-07-30)
 
 
