@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.87.0-91c7c775-20240320-213027
+ * IBM OpenAPI SDK Code Generator Version: 3.93.0-c40121e6-20240729-182103
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -43,7 +43,7 @@ type IamIdentityV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.test.cloud.ibm.com"
+const DefaultServiceURL = "https://iam.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_identity"
@@ -2012,7 +2012,7 @@ func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getClaimRuleOptions.ProfileID,
-		"rule-id": *getClaimRuleOptions.RuleID,
+		"rule-id":    *getClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2082,7 +2082,7 @@ func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *updateClaimRuleOptions.ProfileID,
-		"rule-id": *updateClaimRuleOptions.RuleID,
+		"rule-id":    *updateClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -2185,7 +2185,7 @@ func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteClaimRuleOptions.ProfileID,
-		"rule-id": *deleteClaimRuleOptions.RuleID,
+		"rule-id":    *deleteClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2401,7 +2401,7 @@ func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLin
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getLinkOptions.ProfileID,
-		"link-id": *getLinkOptions.LinkID,
+		"link-id":    *getLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2471,7 +2471,7 @@ func (iamIdentity *IamIdentityV1) DeleteLinkWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteLinkOptions.ProfileID,
-		"link-id": *deleteLinkOptions.LinkID,
+		"link-id":    *deleteLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2682,7 +2682,7 @@ func (iamIdentity *IamIdentityV1) SetProfileIdentityWithContext(ctx context.Cont
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id": *setProfileIdentityOptions.ProfileID,
+		"profile-id":    *setProfileIdentityOptions.ProfileID,
 		"identity-type": *setProfileIdentityOptions.IdentityType,
 	}
 
@@ -2772,7 +2772,7 @@ func (iamIdentity *IamIdentityV1) GetProfileIdentityWithContext(ctx context.Cont
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id": *getProfileIdentityOptions.ProfileID,
+		"profile-id":    *getProfileIdentityOptions.ProfileID,
 		"identity-type": *getProfileIdentityOptions.IdentityType,
 		"identifier-id": *getProfileIdentityOptions.IdentifierID,
 	}
@@ -2843,7 +2843,7 @@ func (iamIdentity *IamIdentityV1) DeleteProfileIdentityWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id": *deleteProfileIdentityOptions.ProfileID,
+		"profile-id":    *deleteProfileIdentityOptions.ProfileID,
 		"identity-type": *deleteProfileIdentityOptions.IdentityType,
 		"identifier-id": *deleteProfileIdentityOptions.IdentifierID,
 	}
@@ -3235,7 +3235,7 @@ func (iamIdentity *IamIdentityV1) GetMfaReportWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"account_id": *getMfaReportOptions.AccountID,
-		"reference": *getMfaReportOptions.Reference,
+		"reference":  *getMfaReportOptions.Reference,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4179,7 +4179,7 @@ func (iamIdentity *IamIdentityV1) GetAccountSettingsTemplateVersionWithContext(c
 
 	pathParamsMap := map[string]string{
 		"template_id": *getAccountSettingsTemplateVersionOptions.TemplateID,
-		"version": *getAccountSettingsTemplateVersionOptions.Version,
+		"version":     *getAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -4253,7 +4253,7 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsTemplateVersionWithContex
 
 	pathParamsMap := map[string]string{
 		"template_id": *updateAccountSettingsTemplateVersionOptions.TemplateID,
-		"version": *updateAccountSettingsTemplateVersionOptions.Version,
+		"version":     *updateAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -4346,7 +4346,7 @@ func (iamIdentity *IamIdentityV1) DeleteAccountSettingsTemplateVersionWithContex
 
 	pathParamsMap := map[string]string{
 		"template_id": *deleteAccountSettingsTemplateVersionOptions.TemplateID,
-		"version": *deleteAccountSettingsTemplateVersionOptions.Version,
+		"version":     *deleteAccountSettingsTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -4407,7 +4407,7 @@ func (iamIdentity *IamIdentityV1) CommitAccountSettingsTemplateWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"template_id": *commitAccountSettingsTemplateOptions.TemplateID,
-		"version": *commitAccountSettingsTemplateOptions.Version,
+		"version":     *commitAccountSettingsTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -4545,7 +4545,7 @@ func (iamIdentity *IamIdentityV1) GetReportWithContext(ctx context.Context, getR
 
 	pathParamsMap := map[string]string{
 		"account_id": *getReportOptions.AccountID,
-		"reference": *getReportOptions.Reference,
+		"reference":  *getReportOptions.Reference,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5576,7 +5576,7 @@ func (iamIdentity *IamIdentityV1) GetProfileTemplateVersionWithContext(ctx conte
 
 	pathParamsMap := map[string]string{
 		"template_id": *getProfileTemplateVersionOptions.TemplateID,
-		"version": *getProfileTemplateVersionOptions.Version,
+		"version":     *getProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -5650,7 +5650,7 @@ func (iamIdentity *IamIdentityV1) UpdateProfileTemplateVersionWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"template_id": *updateProfileTemplateVersionOptions.TemplateID,
-		"version": *updateProfileTemplateVersionOptions.Version,
+		"version":     *updateProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -5750,7 +5750,7 @@ func (iamIdentity *IamIdentityV1) DeleteProfileTemplateVersionWithContext(ctx co
 
 	pathParamsMap := map[string]string{
 		"template_id": *deleteProfileTemplateVersionOptions.TemplateID,
-		"version": *deleteProfileTemplateVersionOptions.Version,
+		"version":     *deleteProfileTemplateVersionOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -5811,7 +5811,7 @@ func (iamIdentity *IamIdentityV1) CommitProfileTemplateWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"template_id": *commitProfileTemplateOptions.TemplateID,
-		"version": *commitProfileTemplateOptions.Version,
+		"version":     *commitProfileTemplateOptions.Version,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -5955,44 +5955,45 @@ type AccountSettingsAccountSection struct {
 
 // Constants associated with the AccountSettingsAccountSection.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsAccountSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsAccountSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsAccountSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsAccountSectionRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsAccountSectionRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsAccountSection.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsAccountSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsAccountSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsAccountSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsAccountSectionRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsAccountSectionRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsAccountSection.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsAccountSectionMfaLevel1Const = "LEVEL1"
-	AccountSettingsAccountSectionMfaLevel2Const = "LEVEL2"
-	AccountSettingsAccountSectionMfaLevel3Const = "LEVEL3"
-	AccountSettingsAccountSectionMfaNoneConst = "NONE"
+	AccountSettingsAccountSectionMfaLevel1Const     = "LEVEL1"
+	AccountSettingsAccountSectionMfaLevel2Const     = "LEVEL2"
+	AccountSettingsAccountSectionMfaLevel3Const     = "LEVEL3"
+	AccountSettingsAccountSectionMfaNoneConst       = "NONE"
 	AccountSettingsAccountSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsAccountSectionMfaTotpConst = "TOTP"
-	AccountSettingsAccountSectionMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsAccountSectionMfaTotpConst       = "TOTP"
+	AccountSettingsAccountSectionMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsAccountSection unmarshals an instance of AccountSettingsAccountSection from the specified map of raw messages.
@@ -6130,44 +6131,45 @@ type AccountSettingsAssignedTemplatesSection struct {
 
 // Constants associated with the AccountSettingsAssignedTemplatesSection.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsAssignedTemplatesSectionRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsAssignedTemplatesSection.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsAssignedTemplatesSectionRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsAssignedTemplatesSection.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsAssignedTemplatesSectionMfaLevel1Const = "LEVEL1"
-	AccountSettingsAssignedTemplatesSectionMfaLevel2Const = "LEVEL2"
-	AccountSettingsAssignedTemplatesSectionMfaLevel3Const = "LEVEL3"
-	AccountSettingsAssignedTemplatesSectionMfaNoneConst = "NONE"
+	AccountSettingsAssignedTemplatesSectionMfaLevel1Const     = "LEVEL1"
+	AccountSettingsAssignedTemplatesSectionMfaLevel2Const     = "LEVEL2"
+	AccountSettingsAssignedTemplatesSectionMfaLevel3Const     = "LEVEL3"
+	AccountSettingsAssignedTemplatesSectionMfaNoneConst       = "NONE"
 	AccountSettingsAssignedTemplatesSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsAssignedTemplatesSectionMfaTotpConst = "TOTP"
-	AccountSettingsAssignedTemplatesSectionMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsAssignedTemplatesSectionMfaTotpConst       = "TOTP"
+	AccountSettingsAssignedTemplatesSectionMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsAssignedTemplatesSection unmarshals an instance of AccountSettingsAssignedTemplatesSection from the specified map of raw messages.
@@ -6301,44 +6303,45 @@ type AccountSettingsComponent struct {
 
 // Constants associated with the AccountSettingsComponent.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsComponentRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsComponentRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsComponentRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsComponentRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsComponentRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsComponent.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsComponentRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsComponentRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsComponentRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsComponentRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsComponentRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsComponent.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsComponentMfaLevel1Const = "LEVEL1"
-	AccountSettingsComponentMfaLevel2Const = "LEVEL2"
-	AccountSettingsComponentMfaLevel3Const = "LEVEL3"
-	AccountSettingsComponentMfaNoneConst = "NONE"
+	AccountSettingsComponentMfaLevel1Const     = "LEVEL1"
+	AccountSettingsComponentMfaLevel2Const     = "LEVEL2"
+	AccountSettingsComponentMfaLevel3Const     = "LEVEL3"
+	AccountSettingsComponentMfaNoneConst       = "NONE"
 	AccountSettingsComponentMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsComponentMfaTotpConst = "TOTP"
-	AccountSettingsComponentMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsComponentMfaTotpConst       = "TOTP"
+	AccountSettingsComponentMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsComponent unmarshals an instance of AccountSettingsComponent from the specified map of raw messages.
@@ -6457,44 +6460,45 @@ type AccountSettingsEffectiveSection struct {
 
 // Constants associated with the AccountSettingsEffectiveSection.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsEffectiveSectionRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsEffectiveSectionRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsEffectiveSectionRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsEffectiveSectionRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsEffectiveSectionRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsEffectiveSection.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsEffectiveSectionRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsEffectiveSection.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsEffectiveSectionMfaLevel1Const = "LEVEL1"
-	AccountSettingsEffectiveSectionMfaLevel2Const = "LEVEL2"
-	AccountSettingsEffectiveSectionMfaLevel3Const = "LEVEL3"
-	AccountSettingsEffectiveSectionMfaNoneConst = "NONE"
+	AccountSettingsEffectiveSectionMfaLevel1Const     = "LEVEL1"
+	AccountSettingsEffectiveSectionMfaLevel2Const     = "LEVEL2"
+	AccountSettingsEffectiveSectionMfaLevel3Const     = "LEVEL3"
+	AccountSettingsEffectiveSectionMfaNoneConst       = "NONE"
 	AccountSettingsEffectiveSectionMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsEffectiveSectionMfaTotpConst = "TOTP"
-	AccountSettingsEffectiveSectionMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsEffectiveSectionMfaTotpConst       = "TOTP"
+	AccountSettingsEffectiveSectionMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsEffectiveSection unmarshals an instance of AccountSettingsEffectiveSection from the specified map of raw messages.
@@ -6625,44 +6629,45 @@ type AccountSettingsResponse struct {
 
 // Constants associated with the AccountSettingsResponse.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - to apply access control
-//   * NOT_RESTRICTED - to remove access control
-//   * NOT_SET - to 'unset' a previous set value.
+//   - RESTRICTED - to apply access control
+//   - NOT_RESTRICTED - to remove access control
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst = "NONE"
+	AccountSettingsResponseMfaLevel1Const     = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const     = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const     = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst       = "NONE"
 	AccountSettingsResponseMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsResponseMfaTotpConst = "TOTP"
-	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsResponseMfaTotpConst       = "TOTP"
+	AccountSettingsResponseMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalAccountSettingsResponse unmarshals an instance of AccountSettingsResponse from the specified map of raw messages.
@@ -6949,28 +6954,28 @@ type AccountSettingsUserMfa struct {
 
 // Constants associated with the AccountSettingsUserMfa.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsUserMfaMfaLevel1Const = "LEVEL1"
-	AccountSettingsUserMfaMfaLevel2Const = "LEVEL2"
-	AccountSettingsUserMfaMfaLevel3Const = "LEVEL3"
-	AccountSettingsUserMfaMfaNoneConst = "NONE"
+	AccountSettingsUserMfaMfaLevel1Const     = "LEVEL1"
+	AccountSettingsUserMfaMfaLevel2Const     = "LEVEL2"
+	AccountSettingsUserMfaMfaLevel3Const     = "LEVEL3"
+	AccountSettingsUserMfaMfaNoneConst       = "NONE"
 	AccountSettingsUserMfaMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	AccountSettingsUserMfaMfaTotpConst = "TOTP"
-	AccountSettingsUserMfaMfaTotp4allConst = "TOTP4ALL"
+	AccountSettingsUserMfaMfaTotpConst       = "TOTP"
+	AccountSettingsUserMfaMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // NewAccountSettingsUserMfa : Instantiate AccountSettingsUserMfa (Generic Model Constructor)
 func (*IamIdentityV1) NewAccountSettingsUserMfa(iamID string, mfa string) (_model *AccountSettingsUserMfa, err error) {
 	_model = &AccountSettingsUserMfa{
 		IamID: core.StringPtr(iamID),
-		Mfa: core.StringPtr(mfa),
+		Mfa:   core.StringPtr(mfa),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -7008,7 +7013,7 @@ type ActionControls struct {
 // NewActionControls : Instantiate ActionControls (Generic Model Constructor)
 func (*IamIdentityV1) NewActionControls(rules *ActionControlsRules, policies *ActionControlsPolicies) (_model *ActionControls, err error) {
 	_model = &ActionControls{
-		Rules: rules,
+		Rules:    rules,
 		Policies: policies,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7050,7 +7055,7 @@ type ActionControlsIdentities struct {
 // NewActionControlsIdentities : Instantiate ActionControlsIdentities (Generic Model Constructor)
 func (*IamIdentityV1) NewActionControlsIdentities(add bool, remove bool) (_model *ActionControlsIdentities, err error) {
 	_model = &ActionControlsIdentities{
-		Add: core.BoolPtr(add),
+		Add:    core.BoolPtr(add),
 		Remove: core.BoolPtr(remove),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7087,7 +7092,7 @@ type ActionControlsPolicies struct {
 // NewActionControlsPolicies : Instantiate ActionControlsPolicies (Generic Model Constructor)
 func (*IamIdentityV1) NewActionControlsPolicies(add bool, remove bool) (_model *ActionControlsPolicies, err error) {
 	_model = &ActionControlsPolicies{
-		Add: core.BoolPtr(add),
+		Add:    core.BoolPtr(add),
 		Remove: core.BoolPtr(remove),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7124,7 +7129,7 @@ type ActionControlsRules struct {
 // NewActionControlsRules : Instantiate ActionControlsRules (Generic Model Constructor)
 func (*IamIdentityV1) NewActionControlsRules(add bool, remove bool) (_model *ActionControlsRules, err error) {
 	_model = &ActionControlsRules{
-		Add: core.BoolPtr(add),
+		Add:    core.BoolPtr(add),
 		Remove: core.BoolPtr(remove),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -7601,7 +7606,7 @@ type CommitAccountSettingsTemplateOptions struct {
 	// Version of the account settings template.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7609,7 +7614,7 @@ type CommitAccountSettingsTemplateOptions struct {
 func (*IamIdentityV1) NewCommitAccountSettingsTemplateOptions(templateID string, version string) *CommitAccountSettingsTemplateOptions {
 	return &CommitAccountSettingsTemplateOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -7639,7 +7644,7 @@ type CommitProfileTemplateOptions struct {
 	// Version of the Profile Template.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7647,7 +7652,7 @@ type CommitProfileTemplateOptions struct {
 func (*IamIdentityV1) NewCommitProfileTemplateOptions(templateID string, version string) *CommitProfileTemplateOptions {
 	return &CommitProfileTemplateOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -7683,24 +7688,24 @@ type CreateAccountSettingsAssignmentOptions struct {
 	// Identifier of target to deploy to.
 	Target *string `json:"target" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the CreateAccountSettingsAssignmentOptions.TargetType property.
 // Type of target to deploy to.
 const (
-	CreateAccountSettingsAssignmentOptionsTargetTypeAccountConst = "Account"
+	CreateAccountSettingsAssignmentOptionsTargetTypeAccountConst      = "Account"
 	CreateAccountSettingsAssignmentOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // NewCreateAccountSettingsAssignmentOptions : Instantiate CreateAccountSettingsAssignmentOptions
 func (*IamIdentityV1) NewCreateAccountSettingsAssignmentOptions(templateID string, templateVersion int64, targetType string, target string) *CreateAccountSettingsAssignmentOptions {
 	return &CreateAccountSettingsAssignmentOptions{
-		TemplateID: core.StringPtr(templateID),
+		TemplateID:      core.StringPtr(templateID),
 		TemplateVersion: core.Int64Ptr(templateVersion),
-		TargetType: core.StringPtr(targetType),
-		Target: core.StringPtr(target),
+		TargetType:      core.StringPtr(targetType),
+		Target:          core.StringPtr(target),
 	}
 }
 
@@ -7747,7 +7752,7 @@ type CreateAccountSettingsTemplateOptions struct {
 
 	AccountSettings *AccountSettingsComponent `json:"account_settings,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7802,7 +7807,7 @@ type CreateAccountSettingsTemplateVersionOptions struct {
 
 	AccountSettings *AccountSettingsComponent `json:"account_settings,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -7889,14 +7894,14 @@ type CreateAPIKeyOptions struct {
 	// Indicates if the API key is disabled. False by default.
 	EntityDisable *string `json:"Entity-Disable,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -7995,15 +8000,15 @@ type CreateClaimRuleOptions struct {
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.
 	Expiration *int64 `json:"expiration,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreateClaimRuleOptions : Instantiate CreateClaimRuleOptions
 func (*IamIdentityV1) NewCreateClaimRuleOptions(profileID string, typeVar string, conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
 	return &CreateClaimRuleOptions{
-		ProfileID: core.StringPtr(profileID),
-		Type: core.StringPtr(typeVar),
+		ProfileID:  core.StringPtr(profileID),
+		Type:       core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -8076,7 +8081,7 @@ type CreateLinkOptions struct {
 	// Optional name of the Link.
 	Name *string `json:"name,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8084,8 +8089,8 @@ type CreateLinkOptions struct {
 func (*IamIdentityV1) NewCreateLinkOptions(profileID string, crType string, link *CreateProfileLinkRequestLink) *CreateLinkOptions {
 	return &CreateLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		CrType: core.StringPtr(crType),
-		Link: link,
+		CrType:    core.StringPtr(crType),
+		Link:      link,
 	}
 }
 
@@ -8127,7 +8132,7 @@ type CreateMfaReportOptions struct {
 	// Optional report type. The supported value is 'mfa_status'. List MFA enrollment status for all the identities.
 	Type *string `json:"type,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8171,7 +8176,7 @@ type CreateProfileLinkRequestLink struct {
 // NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
 func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
 	_model = &CreateProfileLinkRequestLink{
-		CRN: core.StringPtr(crn),
+		CRN:       core.StringPtr(crn),
 		Namespace: core.StringPtr(namespace),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8216,14 +8221,14 @@ type CreateProfileOptions struct {
 	// provided during creation of trusted profile.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewCreateProfileOptions : Instantiate CreateProfileOptions
 func (*IamIdentityV1) NewCreateProfileOptions(name string, accountID string) *CreateProfileOptions {
 	return &CreateProfileOptions{
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -8273,7 +8278,7 @@ type CreateProfileTemplateOptions struct {
 
 	ActionControls *ActionControls `json:"action_controls,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8348,7 +8353,7 @@ type CreateProfileTemplateVersionOptions struct {
 
 	ActionControls *ActionControls `json:"action_controls,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8419,7 +8424,7 @@ type CreateReportOptions struct {
 	// Optional duration of the report. The supported unit of duration is hours.
 	Duration *string `json:"duration,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8476,7 +8481,7 @@ type CreateServiceIDOptions struct {
 	// Indicates if the service ID is locked for further write operations. False by default.
 	EntityLock *string `json:"Entity-Lock,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8484,7 +8489,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -8544,24 +8549,24 @@ type CreateTrustedProfileAssignmentOptions struct {
 	// Identifier of target to deploy to.
 	Target *string `json:"target" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the CreateTrustedProfileAssignmentOptions.TargetType property.
 // Type of target to deploy to.
 const (
-	CreateTrustedProfileAssignmentOptionsTargetTypeAccountConst = "Account"
+	CreateTrustedProfileAssignmentOptionsTargetTypeAccountConst      = "Account"
 	CreateTrustedProfileAssignmentOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // NewCreateTrustedProfileAssignmentOptions : Instantiate CreateTrustedProfileAssignmentOptions
 func (*IamIdentityV1) NewCreateTrustedProfileAssignmentOptions(templateID string, templateVersion int64, targetType string, target string) *CreateTrustedProfileAssignmentOptions {
 	return &CreateTrustedProfileAssignmentOptions{
-		TemplateID: core.StringPtr(templateID),
+		TemplateID:      core.StringPtr(templateID),
 		TemplateVersion: core.Int64Ptr(templateVersion),
-		TargetType: core.StringPtr(targetType),
-		Target: core.StringPtr(target),
+		TargetType:      core.StringPtr(targetType),
+		Target:          core.StringPtr(target),
 	}
 }
 
@@ -8600,7 +8605,7 @@ type DeleteAccountSettingsAssignmentOptions struct {
 	// ID of the Assignment Record.
 	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8631,7 +8636,7 @@ type DeleteAccountSettingsTemplateVersionOptions struct {
 	// Version of the account settings template.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8639,7 +8644,7 @@ type DeleteAccountSettingsTemplateVersionOptions struct {
 func (*IamIdentityV1) NewDeleteAccountSettingsTemplateVersionOptions(templateID string, version string) *DeleteAccountSettingsTemplateVersionOptions {
 	return &DeleteAccountSettingsTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -8666,7 +8671,7 @@ type DeleteAllVersionsOfAccountSettingsTemplateOptions struct {
 	// ID of the account settings template.
 	TemplateID *string `json:"template_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8694,7 +8699,7 @@ type DeleteAllVersionsOfProfileTemplateOptions struct {
 	// ID of the trusted profile template.
 	TemplateID *string `json:"template_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8722,7 +8727,7 @@ type DeleteAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8753,7 +8758,7 @@ type DeleteClaimRuleOptions struct {
 	// ID of the claim rule to delete.
 	RuleID *string `json:"rule-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8761,7 +8766,7 @@ type DeleteClaimRuleOptions struct {
 func (*IamIdentityV1) NewDeleteClaimRuleOptions(profileID string, ruleID string) *DeleteClaimRuleOptions {
 	return &DeleteClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:    core.StringPtr(ruleID),
 	}
 }
 
@@ -8791,7 +8796,7 @@ type DeleteLinkOptions struct {
 	// ID of the link.
 	LinkID *string `json:"link-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8799,7 +8804,7 @@ type DeleteLinkOptions struct {
 func (*IamIdentityV1) NewDeleteLinkOptions(profileID string, linkID string) *DeleteLinkOptions {
 	return &DeleteLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID: core.StringPtr(linkID),
+		LinkID:    core.StringPtr(linkID),
 	}
 }
 
@@ -8832,22 +8837,22 @@ type DeleteProfileIdentityOptions struct {
 	// Identifier of the identity that can assume the trusted profiles.
 	IdentifierID *string `json:"identifier-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the DeleteProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	DeleteProfileIdentityOptionsIdentityTypeCRNConst = "crn"
+	DeleteProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
 	DeleteProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	DeleteProfileIdentityOptionsIdentityTypeUserConst = "user"
+	DeleteProfileIdentityOptionsIdentityTypeUserConst      = "user"
 )
 
 // NewDeleteProfileIdentityOptions : Instantiate DeleteProfileIdentityOptions
 func (*IamIdentityV1) NewDeleteProfileIdentityOptions(profileID string, identityType string, identifierID string) *DeleteProfileIdentityOptions {
 	return &DeleteProfileIdentityOptions{
-		ProfileID: core.StringPtr(profileID),
+		ProfileID:    core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
 		IdentifierID: core.StringPtr(identifierID),
 	}
@@ -8882,7 +8887,7 @@ type DeleteProfileOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8913,7 +8918,7 @@ type DeleteProfileTemplateVersionOptions struct {
 	// Version of the Profile Template.
 	Version *string `json:"version" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8921,7 +8926,7 @@ type DeleteProfileTemplateVersionOptions struct {
 func (*IamIdentityV1) NewDeleteProfileTemplateVersionOptions(templateID string, version string) *DeleteProfileTemplateVersionOptions {
 	return &DeleteProfileTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -8948,7 +8953,7 @@ type DeleteServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8976,7 +8981,7 @@ type DeleteTrustedProfileAssignmentOptions struct {
 	// ID of the Assignment Record.
 	AssignmentID *string `json:"assignment_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9004,7 +9009,7 @@ type DisableAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9105,21 +9110,21 @@ type EffectiveAccountSettingsUserMfa struct {
 
 // Constants associated with the EffectiveAccountSettingsUserMfa.Mfa property.
 // Defines the MFA requirement for the user. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	EffectiveAccountSettingsUserMfaMfaLevel1Const = "LEVEL1"
-	EffectiveAccountSettingsUserMfaMfaLevel2Const = "LEVEL2"
-	EffectiveAccountSettingsUserMfaMfaLevel3Const = "LEVEL3"
-	EffectiveAccountSettingsUserMfaMfaNoneConst = "NONE"
+	EffectiveAccountSettingsUserMfaMfaLevel1Const     = "LEVEL1"
+	EffectiveAccountSettingsUserMfaMfaLevel2Const     = "LEVEL2"
+	EffectiveAccountSettingsUserMfaMfaLevel3Const     = "LEVEL3"
+	EffectiveAccountSettingsUserMfaMfaNoneConst       = "NONE"
 	EffectiveAccountSettingsUserMfaMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	EffectiveAccountSettingsUserMfaMfaTotpConst = "TOTP"
-	EffectiveAccountSettingsUserMfaMfaTotp4allConst = "TOTP4ALL"
+	EffectiveAccountSettingsUserMfaMfaTotpConst       = "TOTP"
+	EffectiveAccountSettingsUserMfaMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // UnmarshalEffectiveAccountSettingsUserMfa unmarshals an instance of EffectiveAccountSettingsUserMfa from the specified map of raw messages.
@@ -9164,7 +9169,7 @@ type EnableAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9373,7 +9378,7 @@ type GetAccountSettingsAssignmentOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9410,7 +9415,7 @@ type GetAccountSettingsOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9450,7 +9455,7 @@ type GetAccountSettingsTemplateVersionOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9458,7 +9463,7 @@ type GetAccountSettingsTemplateVersionOptions struct {
 func (*IamIdentityV1) NewGetAccountSettingsTemplateVersionOptions(templateID string, version string) *GetAccountSettingsTemplateVersionOptions {
 	return &GetAccountSettingsTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -9498,7 +9503,7 @@ type GetAPIKeyOptions struct {
 	// only request this when needed.
 	IncludeActivity *bool `json:"include_activity,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9541,7 +9546,7 @@ type GetAPIKeysDetailsOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9576,7 +9581,7 @@ type GetClaimRuleOptions struct {
 	// ID of the claim rule to get.
 	RuleID *string `json:"rule-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9584,7 +9589,7 @@ type GetClaimRuleOptions struct {
 func (*IamIdentityV1) NewGetClaimRuleOptions(profileID string, ruleID string) *GetClaimRuleOptions {
 	return &GetClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:    core.StringPtr(ruleID),
 	}
 }
 
@@ -9617,7 +9622,7 @@ type GetEffectiveAccountSettingsOptions struct {
 	// Enrich MFA exemptions with user information.
 	ResolveUserMfa *bool `json:"resolve_user_mfa,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9660,7 +9665,7 @@ type GetLatestAccountSettingsTemplateVersionOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9697,7 +9702,7 @@ type GetLatestProfileTemplateVersionOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9734,7 +9739,7 @@ type GetLinkOptions struct {
 	// ID of the link.
 	LinkID *string `json:"link-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9742,7 +9747,7 @@ type GetLinkOptions struct {
 func (*IamIdentityV1) NewGetLinkOptions(profileID string, linkID string) *GetLinkOptions {
 	return &GetLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID: core.StringPtr(linkID),
+		LinkID:    core.StringPtr(linkID),
 	}
 }
 
@@ -9772,7 +9777,7 @@ type GetMfaReportOptions struct {
 	// Reference for the report to be generated, You can use 'latest' to get the latest report for the given account.
 	Reference *string `json:"reference" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9810,7 +9815,7 @@ type GetMfaStatusOptions struct {
 	// iam_id of the user. This user must be the member of the account.
 	IamID *string `json:"iam_id" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9818,7 +9823,7 @@ type GetMfaStatusOptions struct {
 func (*IamIdentityV1) NewGetMfaStatusOptions(accountID string, iamID string) *GetMfaStatusOptions {
 	return &GetMfaStatusOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -9845,7 +9850,7 @@ type GetProfileIdentitiesOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9879,22 +9884,22 @@ type GetProfileIdentityOptions struct {
 	// Identifier of the identity that can assume the trusted profiles.
 	IdentifierID *string `json:"identifier-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the GetProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	GetProfileIdentityOptionsIdentityTypeCRNConst = "crn"
+	GetProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
 	GetProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	GetProfileIdentityOptionsIdentityTypeUserConst = "user"
+	GetProfileIdentityOptionsIdentityTypeUserConst      = "user"
 )
 
 // NewGetProfileIdentityOptions : Instantiate GetProfileIdentityOptions
 func (*IamIdentityV1) NewGetProfileIdentityOptions(profileID string, identityType string, identifierID string) *GetProfileIdentityOptions {
 	return &GetProfileIdentityOptions{
-		ProfileID: core.StringPtr(profileID),
+		ProfileID:    core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
 		IdentifierID: core.StringPtr(identifierID),
 	}
@@ -9933,7 +9938,7 @@ type GetProfileOptions struct {
 	// only request this when needed.
 	IncludeActivity *bool `json:"include_activity,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9973,7 +9978,7 @@ type GetProfileTemplateVersionOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -9981,7 +9986,7 @@ type GetProfileTemplateVersionOptions struct {
 func (*IamIdentityV1) NewGetProfileTemplateVersionOptions(templateID string, version string) *GetProfileTemplateVersionOptions {
 	return &GetProfileTemplateVersionOptions{
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -10017,7 +10022,7 @@ type GetReportOptions struct {
 	// Reference for the report to be generated, You can use 'latest' to get the latest report for the given account.
 	Reference *string `json:"reference" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10059,7 +10064,7 @@ type GetServiceIDOptions struct {
 	// only request this when needed.
 	IncludeActivity *bool `json:"include_activity,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10102,7 +10107,7 @@ type GetTrustedProfileAssignmentOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10176,71 +10181,72 @@ type IDBasedMfaEnrollment struct {
 
 // Constants associated with the IDBasedMfaEnrollment.TraitAccountDefault property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const = "LEVEL1"
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const = "LEVEL2"
-	IDBasedMfaEnrollmentTraitAccountDefaultLevel3Const = "LEVEL3"
-	IDBasedMfaEnrollmentTraitAccountDefaultNoneConst = "NONE"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel1Const     = "LEVEL1"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel2Const     = "LEVEL2"
+	IDBasedMfaEnrollmentTraitAccountDefaultLevel3Const     = "LEVEL3"
+	IDBasedMfaEnrollmentTraitAccountDefaultNoneConst       = "NONE"
 	IDBasedMfaEnrollmentTraitAccountDefaultNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitAccountDefaultTotpConst = "TOTP"
-	IDBasedMfaEnrollmentTraitAccountDefaultTotp4allConst = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotpConst       = "TOTP"
+	IDBasedMfaEnrollmentTraitAccountDefaultTotp4allConst   = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.TraitUserSpecific property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const = "LEVEL1"
-	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const = "LEVEL2"
-	IDBasedMfaEnrollmentTraitUserSpecificLevel3Const = "LEVEL3"
-	IDBasedMfaEnrollmentTraitUserSpecificNoneConst = "NONE"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel1Const     = "LEVEL1"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel2Const     = "LEVEL2"
+	IDBasedMfaEnrollmentTraitUserSpecificLevel3Const     = "LEVEL3"
+	IDBasedMfaEnrollmentTraitUserSpecificNoneConst       = "NONE"
 	IDBasedMfaEnrollmentTraitUserSpecificNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitUserSpecificTotpConst = "TOTP"
-	IDBasedMfaEnrollmentTraitUserSpecificTotp4allConst = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitUserSpecificTotpConst       = "TOTP"
+	IDBasedMfaEnrollmentTraitUserSpecificTotp4allConst   = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.TraitEffective property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	IDBasedMfaEnrollmentTraitEffectiveLevel1Const = "LEVEL1"
-	IDBasedMfaEnrollmentTraitEffectiveLevel2Const = "LEVEL2"
-	IDBasedMfaEnrollmentTraitEffectiveLevel3Const = "LEVEL3"
-	IDBasedMfaEnrollmentTraitEffectiveNoneConst = "NONE"
+	IDBasedMfaEnrollmentTraitEffectiveLevel1Const     = "LEVEL1"
+	IDBasedMfaEnrollmentTraitEffectiveLevel2Const     = "LEVEL2"
+	IDBasedMfaEnrollmentTraitEffectiveLevel3Const     = "LEVEL3"
+	IDBasedMfaEnrollmentTraitEffectiveNoneConst       = "NONE"
 	IDBasedMfaEnrollmentTraitEffectiveNoneNoRopcConst = "NONE_NO_ROPC"
-	IDBasedMfaEnrollmentTraitEffectiveTotpConst = "TOTP"
-	IDBasedMfaEnrollmentTraitEffectiveTotp4allConst = "TOTP4ALL"
+	IDBasedMfaEnrollmentTraitEffectiveTotpConst       = "TOTP"
+	IDBasedMfaEnrollmentTraitEffectiveTotp4allConst   = "TOTP4ALL"
 )
 
 // Constants associated with the IDBasedMfaEnrollment.ComplyState property.
 // Defines comply state for the account. Valid values:
-//   * NO - User does not comply in the given account.
-//   * ACCOUNT- User complies in the given account, but does not comply in at least one of the other account
+//   - NO - User does not comply in the given account.
+//   - ACCOUNT- User complies in the given account, but does not comply in at least one of the other account
+//
 // memberships.
-//   * CROSS_ACCOUNT - User complies in the given account and across all other account memberships.
+//   - CROSS_ACCOUNT - User complies in the given account and across all other account memberships.
 const (
-	IDBasedMfaEnrollmentComplyStateAccountConst = "ACCOUNT"
+	IDBasedMfaEnrollmentComplyStateAccountConst      = "ACCOUNT"
 	IDBasedMfaEnrollmentComplyStateCrossAccountConst = "CROSS_ACCOUNT"
-	IDBasedMfaEnrollmentComplyStateNoConst = "NO"
+	IDBasedMfaEnrollmentComplyStateNoConst           = "NO"
 )
 
 // UnmarshalIDBasedMfaEnrollment unmarshals an instance of IDBasedMfaEnrollment from the specified map of raw messages.
@@ -10307,29 +10313,29 @@ type ListAccountSettingsAssignmentsOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListAccountSettingsAssignmentsOptions.TargetType property.
 // Filter results by the assignment's target type.
 const (
-	ListAccountSettingsAssignmentsOptionsTargetTypeAccountConst = "Account"
+	ListAccountSettingsAssignmentsOptionsTargetTypeAccountConst      = "Account"
 	ListAccountSettingsAssignmentsOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // Constants associated with the ListAccountSettingsAssignmentsOptions.Sort property.
 // If specified, the items are sorted by the value of this property.
 const (
-	ListAccountSettingsAssignmentsOptionsSortCreatedAtConst = "created_at"
+	ListAccountSettingsAssignmentsOptionsSortCreatedAtConst      = "created_at"
 	ListAccountSettingsAssignmentsOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListAccountSettingsAssignmentsOptionsSortTemplateIDConst = "template_id"
+	ListAccountSettingsAssignmentsOptionsSortTemplateIDConst     = "template_id"
 )
 
 // Constants associated with the ListAccountSettingsAssignmentsOptions.Order property.
 // Sort order.
 const (
-	ListAccountSettingsAssignmentsOptionsOrderAscConst = "asc"
+	ListAccountSettingsAssignmentsOptionsOrderAscConst  = "asc"
 	ListAccountSettingsAssignmentsOptionsOrderDescConst = "desc"
 )
 
@@ -10424,22 +10430,22 @@ type ListAccountSettingsTemplatesOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *string `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListAccountSettingsTemplatesOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListAccountSettingsTemplatesOptionsSortCreatedAtConst = "created_at"
+	ListAccountSettingsTemplatesOptionsSortCreatedAtConst      = "created_at"
 	ListAccountSettingsTemplatesOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListAccountSettingsTemplatesOptionsSortNameConst = "name"
+	ListAccountSettingsTemplatesOptionsSortNameConst           = "name"
 )
 
 // Constants associated with the ListAccountSettingsTemplatesOptions.Order property.
 // Optional sort order.
 const (
-	ListAccountSettingsTemplatesOptionsOrderAscConst = "asc"
+	ListAccountSettingsTemplatesOptionsOrderAscConst  = "asc"
 	ListAccountSettingsTemplatesOptionsOrderDescConst = "desc"
 )
 
@@ -10523,7 +10529,7 @@ type ListAPIKeysOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10531,20 +10537,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst = "entity"
+	ListAPIKeysOptionsScopeEntityConst  = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst = "user"
+	ListAPIKeysOptionsTypeUserConst      = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst = "asc"
+	ListAPIKeysOptionsOrderAscConst  = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -10618,7 +10624,7 @@ type ListClaimRulesOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10646,7 +10652,7 @@ type ListLinksOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"profile-id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10689,22 +10695,22 @@ type ListProfileTemplatesOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *string `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListProfileTemplatesOptions.Sort property.
 // Optional sort property. If specified, the returned templates are sorted according to this property.
 const (
-	ListProfileTemplatesOptionsSortCreatedAtConst = "created_at"
+	ListProfileTemplatesOptionsSortCreatedAtConst      = "created_at"
 	ListProfileTemplatesOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListProfileTemplatesOptionsSortNameConst = "name"
+	ListProfileTemplatesOptionsSortNameConst           = "name"
 )
 
 // Constants associated with the ListProfileTemplatesOptions.Order property.
 // Optional sort order.
 const (
-	ListProfileTemplatesOptionsOrderAscConst = "asc"
+	ListProfileTemplatesOptionsOrderAscConst  = "asc"
 	ListProfileTemplatesOptionsOrderDescConst = "desc"
 )
 
@@ -10779,14 +10785,14 @@ type ListProfilesOptions struct {
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
 	Pagetoken *string `json:"pagetoken,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListProfilesOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListProfilesOptionsOrderAscConst = "asc"
+	ListProfilesOptionsOrderAscConst  = "asc"
 	ListProfilesOptionsOrderDescConst = "desc"
 )
 
@@ -10869,14 +10875,14 @@ type ListServiceIdsOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst = "asc"
+	ListServiceIdsOptionsOrderAscConst  = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -10965,29 +10971,29 @@ type ListTrustedProfileAssignmentsOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListTrustedProfileAssignmentsOptions.TargetType property.
 // Filter results by the assignment's target type.
 const (
-	ListTrustedProfileAssignmentsOptionsTargetTypeAccountConst = "Account"
+	ListTrustedProfileAssignmentsOptionsTargetTypeAccountConst      = "Account"
 	ListTrustedProfileAssignmentsOptionsTargetTypeAccountgroupConst = "AccountGroup"
 )
 
 // Constants associated with the ListTrustedProfileAssignmentsOptions.Sort property.
 // If specified, the items are sorted by the value of this property.
 const (
-	ListTrustedProfileAssignmentsOptionsSortCreatedAtConst = "created_at"
+	ListTrustedProfileAssignmentsOptionsSortCreatedAtConst      = "created_at"
 	ListTrustedProfileAssignmentsOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListTrustedProfileAssignmentsOptionsSortTemplateIDConst = "template_id"
+	ListTrustedProfileAssignmentsOptionsSortTemplateIDConst     = "template_id"
 )
 
 // Constants associated with the ListTrustedProfileAssignmentsOptions.Order property.
 // Sort order.
 const (
-	ListTrustedProfileAssignmentsOptionsOrderAscConst = "asc"
+	ListTrustedProfileAssignmentsOptionsOrderAscConst  = "asc"
 	ListTrustedProfileAssignmentsOptionsOrderDescConst = "desc"
 )
 
@@ -11082,22 +11088,22 @@ type ListVersionsOfAccountSettingsTemplateOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *string `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListVersionsOfAccountSettingsTemplateOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListVersionsOfAccountSettingsTemplateOptionsSortCreatedAtConst = "created_at"
+	ListVersionsOfAccountSettingsTemplateOptionsSortCreatedAtConst      = "created_at"
 	ListVersionsOfAccountSettingsTemplateOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListVersionsOfAccountSettingsTemplateOptionsSortNameConst = "name"
+	ListVersionsOfAccountSettingsTemplateOptionsSortNameConst           = "name"
 )
 
 // Constants associated with the ListVersionsOfAccountSettingsTemplateOptions.Order property.
 // Optional sort order.
 const (
-	ListVersionsOfAccountSettingsTemplateOptionsOrderAscConst = "asc"
+	ListVersionsOfAccountSettingsTemplateOptionsOrderAscConst  = "asc"
 	ListVersionsOfAccountSettingsTemplateOptionsOrderDescConst = "desc"
 )
 
@@ -11170,22 +11176,22 @@ type ListVersionsOfProfileTemplateOptions struct {
 	// Defines if the entity history is included in the response.
 	IncludeHistory *string `json:"include_history,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the ListVersionsOfProfileTemplateOptions.Sort property.
 // Optional sort property. If specified, the returned templated are sorted according to this property.
 const (
-	ListVersionsOfProfileTemplateOptionsSortCreatedAtConst = "created_at"
+	ListVersionsOfProfileTemplateOptionsSortCreatedAtConst      = "created_at"
 	ListVersionsOfProfileTemplateOptionsSortLastModifiedAtConst = "last_modified_at"
-	ListVersionsOfProfileTemplateOptionsSortNameConst = "name"
+	ListVersionsOfProfileTemplateOptionsSortNameConst           = "name"
 )
 
 // Constants associated with the ListVersionsOfProfileTemplateOptions.Order property.
 // Optional sort order.
 const (
-	ListVersionsOfProfileTemplateOptionsOrderAscConst = "asc"
+	ListVersionsOfProfileTemplateOptionsOrderAscConst  = "asc"
 	ListVersionsOfProfileTemplateOptionsOrderDescConst = "desc"
 )
 
@@ -11243,7 +11249,7 @@ type LockAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11271,7 +11277,7 @@ type LockServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11364,7 +11370,7 @@ type PolicyTemplateReference struct {
 // NewPolicyTemplateReference : Instantiate PolicyTemplateReference (Generic Model Constructor)
 func (*IamIdentityV1) NewPolicyTemplateReference(id string, version string) (_model *PolicyTemplateReference, err error) {
 	_model = &PolicyTemplateReference{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		Version: core.StringPtr(version),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -11498,9 +11504,9 @@ type ProfileClaimRuleConditions struct {
 // NewProfileClaimRuleConditions : Instantiate ProfileClaimRuleConditions (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileClaimRuleConditions(claim string, operator string, value string) (_model *ProfileClaimRuleConditions, err error) {
 	_model = &ProfileClaimRuleConditions{
-		Claim: core.StringPtr(claim),
+		Claim:    core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value: core.StringPtr(value),
+		Value:    core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -11605,16 +11611,16 @@ type ProfileIdentityRequest struct {
 // Constants associated with the ProfileIdentityRequest.Type property.
 // Type of the identity.
 const (
-	ProfileIdentityRequestTypeCRNConst = "crn"
+	ProfileIdentityRequestTypeCRNConst       = "crn"
 	ProfileIdentityRequestTypeServiceidConst = "serviceid"
-	ProfileIdentityRequestTypeUserConst = "user"
+	ProfileIdentityRequestTypeUserConst      = "user"
 )
 
 // NewProfileIdentityRequest : Instantiate ProfileIdentityRequest (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileIdentityRequest(identifier string, typeVar string) (_model *ProfileIdentityRequest, err error) {
 	_model = &ProfileIdentityRequest{
 		Identifier: core.StringPtr(identifier),
-		Type: core.StringPtr(typeVar),
+		Type:       core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -11675,9 +11681,9 @@ type ProfileIdentityResponse struct {
 // Constants associated with the ProfileIdentityResponse.Type property.
 // Type of the identity.
 const (
-	ProfileIdentityResponseTypeCRNConst = "crn"
+	ProfileIdentityResponseTypeCRNConst       = "crn"
 	ProfileIdentityResponseTypeServiceidConst = "serviceid"
-	ProfileIdentityResponseTypeUserConst = "user"
+	ProfileIdentityResponseTypeUserConst      = "user"
 )
 
 // UnmarshalProfileIdentityResponse unmarshals an instance of ProfileIdentityResponse from the specified map of raw messages.
@@ -12299,7 +12305,7 @@ type SetProfileIdentitiesOptions struct {
 	// List of identities that can assume the trusted profile.
 	Identities []ProfileIdentityRequest `json:"identities,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12307,7 +12313,7 @@ type SetProfileIdentitiesOptions struct {
 func (*IamIdentityV1) NewSetProfileIdentitiesOptions(profileID string, ifMatch string) *SetProfileIdentitiesOptions {
 	return &SetProfileIdentitiesOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -12359,33 +12365,33 @@ type SetProfileIdentityOptions struct {
 	// used. Description is recommended for the identity type 'crn' E.g. 'Instance 1234 of IBM Cloud Service project'.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the SetProfileIdentityOptions.IdentityType property.
 // Type of the identity.
 const (
-	SetProfileIdentityOptionsIdentityTypeCRNConst = "crn"
+	SetProfileIdentityOptionsIdentityTypeCRNConst       = "crn"
 	SetProfileIdentityOptionsIdentityTypeServiceidConst = "serviceid"
-	SetProfileIdentityOptionsIdentityTypeUserConst = "user"
+	SetProfileIdentityOptionsIdentityTypeUserConst      = "user"
 )
 
 // Constants associated with the SetProfileIdentityOptions.Type property.
 // Type of the identity.
 const (
-	SetProfileIdentityOptionsTypeCRNConst = "crn"
+	SetProfileIdentityOptionsTypeCRNConst       = "crn"
 	SetProfileIdentityOptionsTypeServiceidConst = "serviceid"
-	SetProfileIdentityOptionsTypeUserConst = "user"
+	SetProfileIdentityOptionsTypeUserConst      = "user"
 )
 
 // NewSetProfileIdentityOptions : Instantiate SetProfileIdentityOptions
 func (*IamIdentityV1) NewSetProfileIdentityOptions(profileID string, identityType string, identifier string, typeVar string) *SetProfileIdentityOptions {
 	return &SetProfileIdentityOptions{
-		ProfileID: core.StringPtr(profileID),
+		ProfileID:    core.StringPtr(profileID),
 		IdentityType: core.StringPtr(identityType),
-		Identifier: core.StringPtr(identifier),
-		Type: core.StringPtr(typeVar),
+		Identifier:   core.StringPtr(identifier),
+		Type:         core.StringPtr(typeVar),
 	}
 }
 
@@ -13056,7 +13062,7 @@ const (
 // NewTrustedProfileTemplateClaimRule : Instantiate TrustedProfileTemplateClaimRule (Generic Model Constructor)
 func (*IamIdentityV1) NewTrustedProfileTemplateClaimRule(typeVar string, conditions []ProfileClaimRuleConditions) (_model *TrustedProfileTemplateClaimRule, err error) {
 	_model = &TrustedProfileTemplateClaimRule{
-		Type: core.StringPtr(typeVar),
+		Type:       core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -13375,7 +13381,7 @@ type UnlockAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13403,7 +13409,7 @@ type UnlockServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13440,15 +13446,15 @@ type UpdateAccountSettingsAssignmentOptions struct {
 	// migrate to a different version, provide the new version number.
 	TemplateVersion *int64 `json:"template_version" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateAccountSettingsAssignmentOptions : Instantiate UpdateAccountSettingsAssignmentOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsAssignmentOptions(assignmentID string, ifMatch string, templateVersion int64) *UpdateAccountSettingsAssignmentOptions {
 	return &UpdateAccountSettingsAssignmentOptions{
-		AssignmentID: core.StringPtr(assignmentID),
-		IfMatch: core.StringPtr(ifMatch),
+		AssignmentID:    core.StringPtr(assignmentID),
+		IfMatch:         core.StringPtr(ifMatch),
 		TemplateVersion: core.Int64Ptr(templateVersion),
 	}
 }
@@ -13542,57 +13548,59 @@ type UpdateAccountSettingsOptions struct {
 	//   * NOT_SET - To unset account setting and use service default.
 	SystemRefreshTokenExpirationInSeconds *string `json:"system_refresh_token_expiration_in_seconds,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreateServiceID property.
 // Defines whether or not creating a service ID is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//   - RESTRICTED - only users assigned the 'Service ID creator' role on the IAM Identity Service can create service
+//
 // IDs, including the account owner
-//   * NOT_RESTRICTED - all members of an account can create service IDs
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create service IDs
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
 // Defines whether or not creating platform API keys is access controlled. Valid values:
-//   * RESTRICTED - only users assigned the 'User API key creator' role on the IAM Identity Service can create API keys,
+//   - RESTRICTED - only users assigned the 'User API key creator' role on the IAM Identity Service can create API keys,
+//
 // including the account owner
-//   * NOT_RESTRICTED - all members of an account can create platform API keys
-//   * NOT_SET - to 'unset' a previous set value.
+//   - NOT_RESTRICTED - all members of an account can create platform API keys
+//   - NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
 // Defines the MFA trait for the account. Valid values:
-//   * NONE - No MFA trait set
-//   * NONE_NO_ROPC- No MFA, disable CLI logins with only a password
-//   * TOTP - For all non-federated IBMId users
-//   * TOTP4ALL - For all users
-//   * LEVEL1 - Email-based MFA for all users
-//   * LEVEL2 - TOTP-based MFA for all users
-//   * LEVEL3 - U2F MFA for all users.
+//   - NONE - No MFA trait set
+//   - NONE_NO_ROPC- No MFA, disable CLI logins with only a password
+//   - TOTP - For all non-federated IBMId users
+//   - TOTP4ALL - For all users
+//   - LEVEL1 - Email-based MFA for all users
+//   - LEVEL2 - TOTP-based MFA for all users
+//   - LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
+	UpdateAccountSettingsOptionsMfaLevel1Const     = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const     = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const     = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst       = "NONE"
 	UpdateAccountSettingsOptionsMfaNoneNoRopcConst = "NONE_NO_ROPC"
-	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
-	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
+	UpdateAccountSettingsOptionsMfaTotpConst       = "TOTP"
+	UpdateAccountSettingsOptionsMfaTotp4allConst   = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -13699,16 +13707,16 @@ type UpdateAccountSettingsTemplateVersionOptions struct {
 
 	AccountSettings *AccountSettingsComponent `json:"account_settings,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateAccountSettingsTemplateVersionOptions : Instantiate UpdateAccountSettingsTemplateVersionOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsTemplateVersionOptions(ifMatch string, templateID string, version string) *UpdateAccountSettingsTemplateVersionOptions {
 	return &UpdateAccountSettingsTemplateVersionOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:    core.StringPtr(ifMatch),
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -13784,14 +13792,14 @@ type UpdateAPIKeyOptions struct {
 	// Defines the action to take when API key is leaked, valid values are 'none', 'disable' and 'delete'.
 	ActionWhenLeaked *string `json:"action_when_leaked,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -13874,17 +13882,17 @@ type UpdateClaimRuleOptions struct {
 	// Session expiration in seconds, only required if type is 'Profile-SAML'.
 	Expiration *int64 `json:"expiration,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateClaimRuleOptions : Instantiate UpdateClaimRuleOptions
 func (*IamIdentityV1) NewUpdateClaimRuleOptions(profileID string, ruleID string, ifMatch string, typeVar string, conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
 	return &UpdateClaimRuleOptions{
-		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Type: core.StringPtr(typeVar),
+		ProfileID:  core.StringPtr(profileID),
+		RuleID:     core.StringPtr(ruleID),
+		IfMatch:    core.StringPtr(ifMatch),
+		Type:       core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -13973,7 +13981,7 @@ type UpdateProfileOptions struct {
 	// the trusted profile. If a non empty value is provided the trusted profile will be updated.
 	Description *string `json:"description,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13981,7 +13989,7 @@ type UpdateProfileOptions struct {
 func (*IamIdentityV1) NewUpdateProfileOptions(profileID string, ifMatch string) *UpdateProfileOptions {
 	return &UpdateProfileOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -14047,16 +14055,16 @@ type UpdateProfileTemplateVersionOptions struct {
 
 	ActionControls *ActionControls `json:"action_controls,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateProfileTemplateVersionOptions : Instantiate UpdateProfileTemplateVersionOptions
 func (*IamIdentityV1) NewUpdateProfileTemplateVersionOptions(ifMatch string, templateID string, version string) *UpdateProfileTemplateVersionOptions {
 	return &UpdateProfileTemplateVersionOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:    core.StringPtr(ifMatch),
 		TemplateID: core.StringPtr(templateID),
-		Version: core.StringPtr(version),
+		Version:    core.StringPtr(version),
 	}
 }
 
@@ -14142,14 +14150,14 @@ type UpdateServiceIDOptions struct {
 	// existing unique instance crns of the service ID.
 	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -14204,15 +14212,15 @@ type UpdateTrustedProfileAssignmentOptions struct {
 	// migrate to a different version, provide the new version number.
 	TemplateVersion *int64 `json:"template_version" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
 // NewUpdateTrustedProfileAssignmentOptions : Instantiate UpdateTrustedProfileAssignmentOptions
 func (*IamIdentityV1) NewUpdateTrustedProfileAssignmentOptions(assignmentID string, ifMatch string, templateVersion int64) *UpdateTrustedProfileAssignmentOptions {
 	return &UpdateTrustedProfileAssignmentOptions{
-		AssignmentID: core.StringPtr(assignmentID),
-		IfMatch: core.StringPtr(ifMatch),
+		AssignmentID:    core.StringPtr(assignmentID),
+		IfMatch:         core.StringPtr(ifMatch),
 		TemplateVersion: core.Int64Ptr(templateVersion),
 	}
 }
