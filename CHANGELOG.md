@@ -1,3 +1,10 @@
+# [0.67.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.66.0...v0.67.0) (2024-08-22)
+
+
+### Features
+
+* **Partner Center Sell:** add new service to project ([#349](https://github.com/IBM/platform-services-go-sdk/issues/349)) ([523201c](https://github.com/IBM/platform-services-go-sdk/commit/523201cd46a9ddcf5ae24a24479fe22f384c8fde))
+
 # [0.66.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.65.1...v0.66.0) (2024-08-12)
 
 
