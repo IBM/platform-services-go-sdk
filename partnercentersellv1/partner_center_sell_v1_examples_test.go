@@ -22,7 +22,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"math/rand/v2"
+	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -338,7 +338,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Name:  core.StringPtr("Petra"),
 				Email: core.StringPtr("petra@ibm.com"),
 			}
-			var randomInteger = strconv.Itoa(rand.IntN(1000))
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			catalogProductName := fmt.Sprintf("gc-product-example-%s", randomInteger)
 
 			createCatalogProductOptions := partnerCenterSellService.NewCreateCatalogProductOptions(
@@ -687,7 +687,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`CreateResourceBroker request example`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
-			var randomInteger = strconv.Itoa(rand.IntN(1000))
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
 			brokerUserName := fmt.Sprintf("petra_test_user_name_%s", randomInteger)
 			brokerName := fmt.Sprintf("petra_test_%s", randomInteger)

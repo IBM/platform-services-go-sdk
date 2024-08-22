@@ -21,7 +21,7 @@ package partnercentersellv1_test
 import (
 	"fmt"
 	"log"
-	"math/rand/v2"
+	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -1040,7 +1040,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		var randomInteger = strconv.Itoa(rand.IntN(1000))
+		var randomInteger = strconv.Itoa(rand.Intn(1000))
 		roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
@@ -1212,7 +1212,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateIamRegistration(updateIamRegistrationOptions *UpdateIamRegistrationOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.IntN(1000))
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
@@ -1408,7 +1408,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateResourceBroker(createResourceBrokerOptions *CreateResourceBrokerOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.IntN(1000))
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
 			brokerUserName := fmt.Sprintf("petra_test_user_name_%s", randomInteger)
 			brokerName := fmt.Sprintf("petra_test_%s", randomInteger)
@@ -1441,7 +1441,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateResourceBroker(updateResourceBrokerOptions *UpdateResourceBrokerOptions)`, func() {
-			var randomInteger = strconv.Itoa(rand.IntN(1000))
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
 			brokerUserName := fmt.Sprintf("petra_test_user_name_%s", randomInteger)
 
