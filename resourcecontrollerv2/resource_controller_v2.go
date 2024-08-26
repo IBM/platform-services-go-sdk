@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.91.0-d9755c53-20240605-153412
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
@@ -594,6 +594,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstanceWithContex
 
 // ListResourceAliasesForInstance : Get a list of all resource aliases for the instance
 // Retrieving a list of all resource aliases can help you find out who's using the resource instance.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.ListResourceAliasesForInstanceWithContext(context.Background(), listResourceAliasesForInstanceOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -601,7 +602,9 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesForInstance(l
 }
 
 // ListResourceAliasesForInstanceWithContext is an alternate form of the ListResourceAliasesForInstance method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceAliasesForInstanceWithContext(ctx context.Context, listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: ListResourceAliasesForInstance")
 	err = core.ValidateNotNil(listResourceAliasesForInstanceOptions, "listResourceAliasesForInstanceOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1335,6 +1338,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceKeyWithContext(ctx
 
 // ListResourceBindings : Get a list of all resource bindings
 // View all of the resource bindings that exist for all of your resource aliases.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.ListResourceBindingsWithContext(context.Background(), listResourceBindingsOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1342,7 +1346,9 @@ func (resourceController *ResourceControllerV2) ListResourceBindings(listResourc
 }
 
 // ListResourceBindingsWithContext is an alternate form of the ListResourceBindings method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceBindingsWithContext(ctx context.Context, listResourceBindingsOptions *ListResourceBindingsOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: ListResourceBindings")
 	err = core.ValidateStruct(listResourceBindingsOptions, "listResourceBindingsOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
@@ -1423,6 +1429,7 @@ func (resourceController *ResourceControllerV2) ListResourceBindingsWithContext(
 
 // CreateResourceBinding : Create a new resource binding
 // A resource binding connects credentials to a resource alias. The credentials are in the form of a resource key.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.CreateResourceBindingWithContext(context.Background(), createResourceBindingOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1430,7 +1437,9 @@ func (resourceController *ResourceControllerV2) CreateResourceBinding(createReso
 }
 
 // CreateResourceBindingWithContext is an alternate form of the CreateResourceBinding method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) CreateResourceBindingWithContext(ctx context.Context, createResourceBindingOptions *CreateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: CreateResourceBinding")
 	err = core.ValidateNotNil(createResourceBindingOptions, "createResourceBindingOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1512,6 +1521,7 @@ func (resourceController *ResourceControllerV2) CreateResourceBindingWithContext
 // GetResourceBinding : Get a resource binding
 // View a resource binding and all of its details, like who created it, the credential, and the resource alias that the
 // binding is associated with.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.GetResourceBindingWithContext(context.Background(), getResourceBindingOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1519,7 +1529,9 @@ func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBi
 }
 
 // GetResourceBindingWithContext is an alternate form of the GetResourceBinding method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) GetResourceBindingWithContext(ctx context.Context, getResourceBindingOptions *GetResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: GetResourceBinding")
 	err = core.ValidateNotNil(getResourceBindingOptions, "getResourceBindingOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1581,6 +1593,7 @@ func (resourceController *ResourceControllerV2) GetResourceBindingWithContext(ct
 
 // DeleteResourceBinding : Delete a resource binding
 // Deleting a resource binding does not affect the resource alias that the binding is associated with.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteResourceBindingOptions *DeleteResourceBindingOptions) (response *core.DetailedResponse, err error) {
 	response, err = resourceController.DeleteResourceBindingWithContext(context.Background(), deleteResourceBindingOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1588,7 +1601,9 @@ func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteReso
 }
 
 // DeleteResourceBindingWithContext is an alternate form of the DeleteResourceBinding method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) DeleteResourceBindingWithContext(ctx context.Context, deleteResourceBindingOptions *DeleteResourceBindingOptions) (response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: DeleteResourceBinding")
 	err = core.ValidateNotNil(deleteResourceBindingOptions, "deleteResourceBindingOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1640,6 +1655,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceBindingWithContext
 
 // UpdateResourceBinding : Update a resource binding
 // Use the resource binding URL-encoded CRN or GUID to update the resource binding.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.UpdateResourceBindingWithContext(context.Background(), updateResourceBindingOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1647,7 +1663,9 @@ func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateReso
 }
 
 // UpdateResourceBindingWithContext is an alternate form of the UpdateResourceBinding method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) UpdateResourceBindingWithContext(ctx context.Context, updateResourceBindingOptions *UpdateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: UpdateResourceBinding")
 	err = core.ValidateNotNil(updateResourceBindingOptions, "updateResourceBindingOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1720,6 +1738,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceBindingWithContext
 
 // ListResourceAliases : Get a list of all resource aliases
 // View all of the resource aliases that exist for every resource instance.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.ListResourceAliasesWithContext(context.Background(), listResourceAliasesOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1727,7 +1746,9 @@ func (resourceController *ResourceControllerV2) ListResourceAliases(listResource
 }
 
 // ListResourceAliasesWithContext is an alternate form of the ListResourceAliases method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceAliasesWithContext(ctx context.Context, listResourceAliasesOptions *ListResourceAliasesOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: ListResourceAliases")
 	err = core.ValidateStruct(listResourceAliasesOptions, "listResourceAliasesOptions")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
@@ -1811,6 +1832,7 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesWithContext(c
 
 // CreateResourceAlias : Create a new resource alias
 // Alias a resource instance into a targeted environment's (name)space.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.CreateResourceAliasWithContext(context.Background(), createResourceAliasOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1818,7 +1840,9 @@ func (resourceController *ResourceControllerV2) CreateResourceAlias(createResour
 }
 
 // CreateResourceAliasWithContext is an alternate form of the CreateResourceAlias method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) CreateResourceAliasWithContext(ctx context.Context, createResourceAliasOptions *CreateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: CreateResourceAlias")
 	err = core.ValidateNotNil(createResourceAliasOptions, "createResourceAliasOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1894,6 +1918,7 @@ func (resourceController *ResourceControllerV2) CreateResourceAliasWithContext(c
 // GetResourceAlias : Get a resource alias
 // View a resource alias and all of its details, like who created it and the resource instance that it's associated
 // with.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.GetResourceAliasWithContext(context.Background(), getResourceAliasOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1901,7 +1926,9 @@ func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAlia
 }
 
 // GetResourceAliasWithContext is an alternate form of the GetResourceAlias method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) GetResourceAliasWithContext(ctx context.Context, getResourceAliasOptions *GetResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: GetResourceAlias")
 	err = core.ValidateNotNil(getResourceAliasOptions, "getResourceAliasOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -1964,6 +1991,7 @@ func (resourceController *ResourceControllerV2) GetResourceAliasWithContext(ctx 
 // DeleteResourceAlias : Delete a resource alias
 // Delete a resource alias by URL-encoded CRN or GUID. If the resource alias has any resource keys or bindings
 // associated with it, use the `recursive=true` parameter to delete it.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResourceAliasOptions *DeleteResourceAliasOptions) (response *core.DetailedResponse, err error) {
 	response, err = resourceController.DeleteResourceAliasWithContext(context.Background(), deleteResourceAliasOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -1971,7 +1999,9 @@ func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResour
 }
 
 // DeleteResourceAliasWithContext is an alternate form of the DeleteResourceAlias method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) DeleteResourceAliasWithContext(ctx context.Context, deleteResourceAliasOptions *DeleteResourceAliasOptions) (response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: DeleteResourceAlias")
 	err = core.ValidateNotNil(deleteResourceAliasOptions, "deleteResourceAliasOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -2027,6 +2057,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceAliasWithContext(c
 
 // UpdateResourceAlias : Update a resource alias
 // Use the resource alias URL-encoded CRN or GUID to update the resource alias.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.UpdateResourceAliasWithContext(context.Background(), updateResourceAliasOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -2034,7 +2065,9 @@ func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResour
 }
 
 // UpdateResourceAliasWithContext is an alternate form of the UpdateResourceAlias method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) UpdateResourceAliasWithContext(ctx context.Context, updateResourceAliasOptions *UpdateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: UpdateResourceAlias")
 	err = core.ValidateNotNil(updateResourceAliasOptions, "updateResourceAliasOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -2107,6 +2140,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceAliasWithContext(c
 
 // ListResourceBindingsForAlias : Get a list of all resource bindings for the alias
 // View all of the resource bindings associated with a specific resource alias.
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
 	result, response, err = resourceController.ListResourceBindingsForAliasWithContext(context.Background(), listResourceBindingsForAliasOptions)
 	err = core.RepurposeSDKProblem(err, "")
@@ -2114,7 +2148,9 @@ func (resourceController *ResourceControllerV2) ListResourceBindingsForAlias(lis
 }
 
 // ListResourceBindingsForAliasWithContext is an alternate form of the ListResourceBindingsForAlias method which supports a Context parameter
+// Deprecated: this method is deprecated and may be removed in a future release.
 func (resourceController *ResourceControllerV2) ListResourceBindingsForAliasWithContext(ctx context.Context, listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
+	core.GetLogger().Warn("A deprecated operation has been invoked: ListResourceBindingsForAlias")
 	err = core.ValidateNotNil(listResourceBindingsForAliasOptions, "listResourceBindingsForAliasOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -2344,7 +2380,7 @@ type CancelLastopResourceInstanceOptions struct {
 	// The resource instance URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2379,7 +2415,7 @@ type CreateResourceAliasOptions struct {
 	// The CRN of target name(space) in a specific environment, for example, space in Dallas YP, CFEE instance etc.
 	Target *string `json:"target" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2436,7 +2472,7 @@ type CreateResourceBindingOptions struct {
 	// documentation for supported roles.
 	Role *string `json:"role,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2516,7 +2552,7 @@ type CreateResourceInstanceOptions struct {
 	// performed on child resources like aliases, bindings or keys. False by default.
 	EntityLock *bool `json:"Entity-Lock,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2600,7 +2636,7 @@ type CreateResourceKeyOptions struct {
 	// documentation for supported roles.
 	Role *string `json:"role,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2643,6 +2679,7 @@ func (options *CreateResourceKeyOptions) SetHeaders(param map[string]string) *Cr
 }
 
 // Credentials : The credentials for a resource.
+// This type supports additional properties of type interface{}. Additional key-value pairs from the resource broker.
 type Credentials struct {
 	// If present, the user doesn't have the correct access to view the credentials and the details are redacted.  The
 	// string value identifies the level of access that's required to view the credential. For additional information, see
@@ -2665,7 +2702,7 @@ type Credentials struct {
 	// The Cloud Resource Name for the service ID of the credentials.
 	IamServiceidCRN *string `json:"iam_serviceid_crn,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Additional key-value pairs from the resource broker.
 	additionalProperties map[string]interface{}
 }
 
@@ -2679,7 +2716,8 @@ const (
 	CredentialsRedactedRedactedExplicitConst = "REDACTED_EXPLICIT" // #nosec G101
 )
 
-// SetProperty allows the user to set an arbitrary property on an instance of Credentials
+// SetProperty allows the user to set an arbitrary property on an instance of Credentials.
+// Additional key-value pairs from the resource broker.
 func (o *Credentials) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -2687,7 +2725,8 @@ func (o *Credentials) SetProperty(key string, value interface{}) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of Credentials
+// SetProperties allows the user to set a map of arbitrary properties on an instance of Credentials.
+// Additional key-value pairs from the resource broker.
 func (o *Credentials) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -2695,12 +2734,12 @@ func (o *Credentials) SetProperties(m map[string]interface{}) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of Credentials
+// GetProperty allows the user to retrieve an arbitrary property from an instance of Credentials.
 func (o *Credentials) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of Credentials
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of Credentials.
 func (o *Credentials) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -2798,7 +2837,7 @@ type DeleteResourceAliasOptions struct {
 	// Deletes the resource bindings and keys associated with the alias.
 	Recursive *bool `json:"recursive,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2832,7 +2871,7 @@ type DeleteResourceBindingOptions struct {
 	// The resource binding URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2863,7 +2902,7 @@ type DeleteResourceInstanceOptions struct {
 	// Will delete resource bindings, keys and aliases associated with the instance.
 	Recursive *bool `json:"recursive,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2897,7 +2936,7 @@ type DeleteResourceKeyOptions struct {
 	// The resource key URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2925,7 +2964,7 @@ type GetResourceAliasOptions struct {
 	// The resource alias URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2953,7 +2992,7 @@ type GetResourceBindingOptions struct {
 	// The resource binding URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -2981,7 +3020,7 @@ type GetResourceInstanceOptions struct {
 	// The resource instance URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3009,7 +3048,7 @@ type GetResourceKeyOptions struct {
 	// The resource key URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3043,7 +3082,7 @@ type ListReclamationsOptions struct {
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3089,7 +3128,7 @@ type ListResourceAliasesForInstanceOptions struct {
 	// obtained from the 'start' query parameter in the 'next_url' field of the operation response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3159,7 +3198,7 @@ type ListResourceAliasesOptions struct {
 	// End date inclusive filter.
 	UpdatedTo *string `json:"updated_to,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3247,7 +3286,7 @@ type ListResourceBindingsForAliasOptions struct {
 	// obtained from the 'start' query parameter in the 'next_url' field of the operation response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3313,7 +3352,7 @@ type ListResourceBindingsOptions struct {
 	// End date inclusive filter.
 	UpdatedTo *string `json:"updated_to,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3422,7 +3461,7 @@ type ListResourceInstancesOptions struct {
 	// End date inclusive filter.
 	UpdatedTo *string `json:"updated_to,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3534,7 +3573,7 @@ type ListResourceKeysForInstanceOptions struct {
 	// obtained from the 'start' query parameter in the 'next_url' field of the operation response.
 	Start *string `json:"start,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3597,7 +3636,7 @@ type ListResourceKeysOptions struct {
 	// End date inclusive filter.
 	UpdatedTo *string `json:"updated_to,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -3665,7 +3704,7 @@ type LockResourceInstanceOptions struct {
 	// The resource instance URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -4318,15 +4357,16 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 
 // ResourceBindingPostParameters : Configuration options represented as key-value pairs. Service defined options are passed through to the target
 // resource brokers, whereas platform defined options are not.
+// This type supports additional properties of type interface{}.
 type ResourceBindingPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
 	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type interface{}.
 	additionalProperties map[string]interface{}
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of ResourceBindingPostParameters
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceBindingPostParameters.
 func (o *ResourceBindingPostParameters) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -4334,7 +4374,7 @@ func (o *ResourceBindingPostParameters) SetProperty(key string, value interface{
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceBindingPostParameters
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceBindingPostParameters.
 func (o *ResourceBindingPostParameters) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -4342,12 +4382,12 @@ func (o *ResourceBindingPostParameters) SetProperties(m map[string]interface{}) 
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceBindingPostParameters
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceBindingPostParameters.
 func (o *ResourceBindingPostParameters) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceBindingPostParameters
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceBindingPostParameters.
 func (o *ResourceBindingPostParameters) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -4541,9 +4581,11 @@ type ResourceInstance struct {
 	LastOperation *ResourceInstanceLastOperation `json:"last_operation,omitempty"`
 
 	// The relative path to the resource aliases for the instance.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	ResourceAliasesURL *string `json:"resource_aliases_url,omitempty"`
 
 	// The relative path to the resource bindings for the instance.
+	// Deprecated: this field is deprecated and may be removed in a future release.
 	ResourceBindingsURL *string `json:"resource_bindings_url,omitempty"`
 
 	// The relative path to the resource keys for the instance.
@@ -4781,6 +4823,7 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 }
 
 // ResourceInstanceLastOperation : The status of the last operation requested on the instance.
+// This type supports additional properties of type interface{}.
 type ResourceInstanceLastOperation struct {
 	// The last operation type of the resource instance.
 	Type *string `json:"type" validate:"required"`
@@ -4810,7 +4853,7 @@ type ResourceInstanceLastOperation struct {
 	// A boolean that indicates if the resource broker's last operation can be polled or not.
 	Poll *bool `json:"poll" validate:"required"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type interface{}.
 	additionalProperties map[string]interface{}
 }
 
@@ -4823,7 +4866,7 @@ const (
 	ResourceInstanceLastOperationStateSucceededConst  = "succeeded"
 )
 
-// SetProperty allows the user to set an arbitrary property on an instance of ResourceInstanceLastOperation
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceInstanceLastOperation.
 func (o *ResourceInstanceLastOperation) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -4831,7 +4874,7 @@ func (o *ResourceInstanceLastOperation) SetProperty(key string, value interface{
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceInstanceLastOperation
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceInstanceLastOperation.
 func (o *ResourceInstanceLastOperation) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -4839,12 +4882,12 @@ func (o *ResourceInstanceLastOperation) SetProperties(m map[string]interface{}) 
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceInstanceLastOperation
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceInstanceLastOperation.
 func (o *ResourceInstanceLastOperation) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceInstanceLastOperation
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceInstanceLastOperation.
 func (o *ResourceInstanceLastOperation) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -5205,15 +5248,16 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 
 // ResourceKeyPostParameters : Configuration options represented as key-value pairs. Service defined options are passed through to the target
 // resource brokers, whereas platform defined options are not.
+// This type supports additional properties of type interface{}.
 type ResourceKeyPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
 	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type interface{}.
 	additionalProperties map[string]interface{}
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of ResourceKeyPostParameters
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceKeyPostParameters.
 func (o *ResourceKeyPostParameters) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -5221,7 +5265,7 @@ func (o *ResourceKeyPostParameters) SetProperty(key string, value interface{}) {
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceKeyPostParameters
+// SetProperties allows the user to set a map of arbitrary properties on an instance of ResourceKeyPostParameters.
 func (o *ResourceKeyPostParameters) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -5229,12 +5273,12 @@ func (o *ResourceKeyPostParameters) SetProperties(m map[string]interface{}) {
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceKeyPostParameters
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceKeyPostParameters.
 func (o *ResourceKeyPostParameters) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceKeyPostParameters
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceKeyPostParameters.
 func (o *ResourceKeyPostParameters) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -5342,7 +5386,7 @@ type RunReclamationActionOptions struct {
 	// A comment to describe the action.
 	Comment *string `json:"comment,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5389,7 +5433,7 @@ type UnlockResourceInstanceOptions struct {
 	// The resource instance URL-encoded CRN or GUID.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5421,7 +5465,7 @@ type UpdateResourceAliasOptions struct {
 	// `(space) - . _ :`.
 	Name *string `json:"name" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5460,7 +5504,7 @@ type UpdateResourceBindingOptions struct {
 	// `(space) - . _ :`.
 	Name *string `json:"name" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5511,7 +5555,7 @@ type UpdateResourceInstanceOptions struct {
 	// instance delete call.
 	AllowCleanup *bool `json:"allow_cleanup,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -5567,7 +5611,7 @@ type UpdateResourceKeyOptions struct {
 	// `(space) - . _ :`.
 	Name *string `json:"name" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
