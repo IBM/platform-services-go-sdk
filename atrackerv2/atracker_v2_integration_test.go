@@ -1,7 +1,6 @@
 //go:build integration
 // +build integration
 
-
 /**
  * (C) Copyright IBM Corp. 2024.
  *
@@ -46,7 +45,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 	const notFoundTargetID = "ffffffff-1111-1111-1111-111111111111"
 
-	const notFoundRouteID =  "ffffffff-2222-2222-2222-222222222222"
+	const notFoundRouteID = "ffffffff-2222-2222-2222-222222222222"
 
 	const badTargetType = "bad_target_type"
 
@@ -179,15 +178,16 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
-				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Topic: core.StringPtr("my-test-topic"),
-				Brokers: []string{"kafka-x:9094"},
-				APIKey: core.StringPtr("xxxxxxxxxxx"),
+				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic:                   core.StringPtr("my-test-topic"),
+				Brokers:                 []string{"kafka-x:9094"},
+				APIKey:                  core.StringPtr("xxxxxxxxxxx"),
+				ServiceToServiceEnabled: core.BoolPtr(false),
 			}
 
 			createTargetOptions := &atrackerv2.CreateTargetOptions{
-				Name:           core.StringPtr("my-ies-target"),
-				TargetType:     core.StringPtr("event_streams"),
+				Name:                 core.StringPtr("my-ies-target"),
+				TargetType:           core.StringPtr("event_streams"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
 
@@ -421,15 +421,16 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) for event streams type of target`, func() {
 
 			eventstreamsEndpointPrototypeModel := &atrackerv2.EventstreamsEndpointPrototype{
-				TargetCRN: core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Topic: core.StringPtr("my-test-topic"),
-				Brokers: []string{"kafka-x:9094"},
-				APIKey: core.StringPtr("xxxxxxxxxxxxx"),
+				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:messagehub:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Topic:                   core.StringPtr("my-test-topic"),
+				Brokers:                 []string{"kafka-x:9094"},
+				APIKey:                  core.StringPtr("xxxxxxxxxxxxx"),
+				ServiceToServiceEnabled: core.BoolPtr(false),
 			}
 
 			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
-				ID:             &targetIDLink3,
-				Name:           core.StringPtr("my-ies-target-modified"),
+				ID:                   &targetIDLink3,
+				Name:                 core.StringPtr("my-ies-target-modified"),
 				EventstreamsEndpoint: eventstreamsEndpointPrototypeModel,
 			}
 
@@ -438,7 +439,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
 		})
-
 
 		It(`Returns 404 when target id is not found`, func() {
 
