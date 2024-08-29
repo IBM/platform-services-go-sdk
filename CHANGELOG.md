@@ -1,3 +1,10 @@
+# [0.68.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.67.0...v0.68.0) (2024-08-29)
+
+
+### Features
+
+* **Resource Controller:** deprecate alias, bindings APIs, and related schema items ([#351](https://github.com/IBM/platform-services-go-sdk/issues/351)) ([6591ab9](https://github.com/IBM/platform-services-go-sdk/commit/6591ab9404b61129ffb7c9325443861dc41c71ba))
+
 # [0.67.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.66.0...v0.67.0) (2024-08-22)
 
 
