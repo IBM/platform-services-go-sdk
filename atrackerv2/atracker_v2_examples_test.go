@@ -1,7 +1,6 @@
 //go:build examples
 // +build examples
 
-
 /**
  * (C) Copyright IBM Corp. 2024.
  *
@@ -31,7 +30,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-//
 // This file provides an example of how to use the atracker service.
 //
 // The following configuration properties are assumed to be defined:
@@ -43,7 +41,6 @@ import (
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-//
 var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 	const externalConfigFile = "../atracker_v2.env"
