@@ -1,3 +1,10 @@
+## [0.68.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.68.0...v0.68.1) (2024-08-30)
+
+
+### Bug Fixes
+
+* **ATracker:** re-gen service after es s2s API changes and hand edits for examples and IT ([#352](https://github.com/IBM/platform-services-go-sdk/issues/352)) ([f7efa3d](https://github.com/IBM/platform-services-go-sdk/commit/f7efa3df92b8436f8a06ab61e4f5f84fb56e4b4f))
+
 # [0.68.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.67.0...v0.68.0) (2024-08-29)
 
 
