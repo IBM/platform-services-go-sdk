@@ -3,6 +3,7 @@ package catalogmanagementv1
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
@@ -184,14 +185,14 @@ func (catalogManagement *CatalogManagementV1) SetAllowPublishPlanWithContext(ctx
 }
 
 // Set allow publish offering.
-func (catalogManagement *CatalogManagementV1) SetAllowPublishOffering(catalogID string, offeringID string, headers map[string]string) (response *core.DetailedResponse, err error) {
-	response, err = catalogManagement.SetAllowPublishOfferingWithContext(context.Background(), catalogID, offeringID, headers)
+func (catalogManagement *CatalogManagementV1) SetAllowPublishOffering(catalogID string, offeringID string, approvalType string, setting bool, headers map[string]string) (response *core.DetailedResponse, err error) {
+	response, err = catalogManagement.SetAllowPublishOfferingWithContext(context.Background(), catalogID, offeringID, approvalType, setting, headers)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // SetAllowPublishOfferingWithContext is an alternate form of the setAllowPublishOffering method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) SetAllowPublishOfferingWithContext(ctx context.Context, catalogID string, offeringID string, headers map[string]string) (response *core.DetailedResponse, err error) {
+func (catalogManagement *CatalogManagementV1) SetAllowPublishOfferingWithContext(ctx context.Context, catalogID string, offeringID string, approvalType string, setting bool, headers map[string]string) (response *core.DetailedResponse, err error) {
 	pathParamsMap := map[string]string{
 		"catalogID":  catalogID,
 		"offeringID": offeringID,
@@ -200,7 +201,7 @@ func (catalogManagement *CatalogManagementV1) SetAllowPublishOfferingWithContext
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalogID}/offerings/{offeringID}/publish/publish_approved/true`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, fmt.Sprintf("/catalogs/{catalogID}/offerings/{offeringID}/publish/%s/%v", approvalType, setting), pathParamsMap)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return

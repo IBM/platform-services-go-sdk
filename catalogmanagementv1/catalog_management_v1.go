@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.90.1-64fd3296-20240515-180710
+ * IBM OpenAPI SDK Code Generator Version: 3.94.1-71478489-20240820-161623
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -282,6 +282,15 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ct
 	}
 	if updateCatalogAccountOptions.AccountFilters != nil {
 		body["account_filters"] = updateCatalogAccountOptions.AccountFilters
+	}
+	if updateCatalogAccountOptions.RegionFilters != nil {
+		body["region_filters"] = updateCatalogAccountOptions.RegionFilters
+	}
+	if updateCatalogAccountOptions.FilteredRegions != nil {
+		body["filtered_regions"] = updateCatalogAccountOptions.FilteredRegions
+	}
+	if updateCatalogAccountOptions.FilterRegions != nil {
+		body["filter_regions"] = updateCatalogAccountOptions.FilterRegions
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2096,6 +2105,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 	if importOfferingVersionOptions.Tags != nil {
 		body["tags"] = importOfferingVersionOptions.Tags
 	}
+	if importOfferingVersionOptions.Keywords != nil {
+		body["keywords"] = importOfferingVersionOptions.Keywords
+	}
 	if importOfferingVersionOptions.Content != nil {
 		body["content"] = importOfferingVersionOptions.Content
 	}
@@ -2239,6 +2251,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 	body := make(map[string]interface{})
 	if importOfferingOptions.Tags != nil {
 		body["tags"] = importOfferingOptions.Tags
+	}
+	if importOfferingOptions.Keywords != nil {
+		body["keywords"] = importOfferingOptions.Keywords
 	}
 	if importOfferingOptions.Content != nil {
 		body["content"] = importOfferingOptions.Content
@@ -2385,6 +2400,9 @@ func (catalogManagement *CatalogManagementV1) ReloadOfferingWithContext(ctx cont
 	}
 	if reloadOfferingOptions.WorkingDirectory != nil {
 		body["working_directory"] = reloadOfferingOptions.WorkingDirectory
+	}
+	if reloadOfferingOptions.InstallType != nil {
+		body["install_type"] = reloadOfferingOptions.InstallType
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -4069,6 +4087,91 @@ func (catalogManagement *CatalogManagementV1) GetOfferingSourceURLWithContext(ct
 	return
 }
 
+// GetVersions : Get versions
+// Get the versions of the specified kind in the specified offering. This can be used by an unauthenticated user for
+// publicly available offerings.
+func (catalogManagement *CatalogManagementV1) GetVersions(getVersionsOptions *GetVersionsOptions) (result *VersionsResult, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.GetVersionsWithContext(context.Background(), getVersionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetVersionsWithContext is an alternate form of the GetVersions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionsWithContext(ctx context.Context, getVersionsOptions *GetVersionsOptions) (result *VersionsResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getVersionsOptions, "getVersionsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getVersionsOptions, "getVersionsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getVersionsOptions.CatalogIdentifier,
+		"offering_id":        *getVersionsOptions.OfferingID,
+		"kind_id":            *getVersionsOptions.KindID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/kinds/{kind_id}/versions`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getVersionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getVersionsOptions.Digest != nil {
+		builder.AddQuery("digest", fmt.Sprint(*getVersionsOptions.Digest))
+	}
+	if getVersionsOptions.Catalog != nil {
+		builder.AddQuery("catalog", fmt.Sprint(*getVersionsOptions.Catalog))
+	}
+	if getVersionsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*getVersionsOptions.Start))
+	}
+	if getVersionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*getVersionsOptions.Limit))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_versions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionsResult)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetOfferingAbout : Get version about information
 // Get the about information, in markdown, for the current version.
 func (catalogManagement *CatalogManagementV1) GetOfferingAbout(getOfferingAboutOptions *GetOfferingAboutOptions) (result *string, response *core.DetailedResponse, err error) {
@@ -4761,6 +4864,9 @@ func (catalogManagement *CatalogManagementV1) CopyVersionWithContext(ctx context
 	if copyVersionOptions.WorkingDirectory != nil {
 		body["working_directory"] = copyVersionOptions.WorkingDirectory
 	}
+	if copyVersionOptions.InstallType != nil {
+		body["install_type"] = copyVersionOptions.InstallType
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
@@ -4913,6 +5019,89 @@ func (catalogManagement *CatalogManagementV1) CopyFromPreviousVersionWithContext
 	return
 }
 
+// ValidateInputs : Validates deployment input variables
+// Validates deployment input variables.
+func (catalogManagement *CatalogManagementV1) ValidateInputs(validateInputsOptions *ValidateInputsOptions) (result *VersionInputValidationResponse, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.ValidateInputsWithContext(context.Background(), validateInputsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ValidateInputsWithContext is an alternate form of the ValidateInputs method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ValidateInputsWithContext(ctx context.Context, validateInputsOptions *ValidateInputsOptions) (result *VersionInputValidationResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(validateInputsOptions, "validateInputsOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(validateInputsOptions, "validateInputsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *validateInputsOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/validateInputs`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range validateInputsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ValidateInputs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if validateInputsOptions.Input1 != nil {
+		body["input1"] = validateInputsOptions.Input1
+	}
+	if validateInputsOptions.Input2 != nil {
+		body["input2"] = validateInputsOptions.Input2
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "validate_inputs", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionInputValidationResponse)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetVersion : Get offering/kind/version 'branch'
 // Get the Offering/Kind/Version 'branch' for the specified locator ID.
 func (catalogManagement *CatalogManagementV1) GetVersion(getVersionOptions *GetVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
@@ -4967,6 +5156,302 @@ func (catalogManagement *CatalogManagementV1) GetVersionWithContext(ctx context.
 	response, err = catalogManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_version", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateVersion : Update a version
+// Update the version for the specified locator ID using an offering 'branch'.  Note that any changes to the Offering
+// and Kind in the provided Offering 'branch' are discarded.
+func (catalogManagement *CatalogManagementV1) UpdateVersion(updateVersionOptions *UpdateVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.UpdateVersionWithContext(context.Background(), updateVersionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// UpdateVersionWithContext is an alternate form of the UpdateVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) UpdateVersionWithContext(ctx context.Context, updateVersionOptions *UpdateVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateVersionOptions, "updateVersionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(updateVersionOptions, "updateVersionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *updateVersionOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range updateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if updateVersionOptions.ID != nil {
+		body["id"] = updateVersionOptions.ID
+	}
+	if updateVersionOptions.Rev != nil {
+		body["_rev"] = updateVersionOptions.Rev
+	}
+	if updateVersionOptions.URL != nil {
+		body["url"] = updateVersionOptions.URL
+	}
+	if updateVersionOptions.CRN != nil {
+		body["crn"] = updateVersionOptions.CRN
+	}
+	if updateVersionOptions.Label != nil {
+		body["label"] = updateVersionOptions.Label
+	}
+	if updateVersionOptions.LabelI18n != nil {
+		body["label_i18n"] = updateVersionOptions.LabelI18n
+	}
+	if updateVersionOptions.Name != nil {
+		body["name"] = updateVersionOptions.Name
+	}
+	if updateVersionOptions.OfferingIconURL != nil {
+		body["offering_icon_url"] = updateVersionOptions.OfferingIconURL
+	}
+	if updateVersionOptions.OfferingDocsURL != nil {
+		body["offering_docs_url"] = updateVersionOptions.OfferingDocsURL
+	}
+	if updateVersionOptions.OfferingSupportURL != nil {
+		body["offering_support_url"] = updateVersionOptions.OfferingSupportURL
+	}
+	if updateVersionOptions.Tags != nil {
+		body["tags"] = updateVersionOptions.Tags
+	}
+	if updateVersionOptions.Keywords != nil {
+		body["keywords"] = updateVersionOptions.Keywords
+	}
+	if updateVersionOptions.Rating != nil {
+		body["rating"] = updateVersionOptions.Rating
+	}
+	if updateVersionOptions.Created != nil {
+		body["created"] = updateVersionOptions.Created
+	}
+	if updateVersionOptions.Updated != nil {
+		body["updated"] = updateVersionOptions.Updated
+	}
+	if updateVersionOptions.ShortDescription != nil {
+		body["short_description"] = updateVersionOptions.ShortDescription
+	}
+	if updateVersionOptions.ShortDescriptionI18n != nil {
+		body["short_description_i18n"] = updateVersionOptions.ShortDescriptionI18n
+	}
+	if updateVersionOptions.LongDescription != nil {
+		body["long_description"] = updateVersionOptions.LongDescription
+	}
+	if updateVersionOptions.LongDescriptionI18n != nil {
+		body["long_description_i18n"] = updateVersionOptions.LongDescriptionI18n
+	}
+	if updateVersionOptions.Features != nil {
+		body["features"] = updateVersionOptions.Features
+	}
+	if updateVersionOptions.Kinds != nil {
+		body["kinds"] = updateVersionOptions.Kinds
+	}
+	if updateVersionOptions.Publish != nil {
+		body["publish"] = updateVersionOptions.Publish
+	}
+	if updateVersionOptions.PcManaged != nil {
+		body["pc_managed"] = updateVersionOptions.PcManaged
+	}
+	if updateVersionOptions.PublishApproved != nil {
+		body["publish_approved"] = updateVersionOptions.PublishApproved
+	}
+	if updateVersionOptions.ShareWithAll != nil {
+		body["share_with_all"] = updateVersionOptions.ShareWithAll
+	}
+	if updateVersionOptions.ShareWithIBM != nil {
+		body["share_with_ibm"] = updateVersionOptions.ShareWithIBM
+	}
+	if updateVersionOptions.ShareEnabled != nil {
+		body["share_enabled"] = updateVersionOptions.ShareEnabled
+	}
+	if updateVersionOptions.PublicOriginalCRN != nil {
+		body["public_original_crn"] = updateVersionOptions.PublicOriginalCRN
+	}
+	if updateVersionOptions.PublishPublicCRN != nil {
+		body["publish_public_crn"] = updateVersionOptions.PublishPublicCRN
+	}
+	if updateVersionOptions.PortalApprovalRecord != nil {
+		body["portal_approval_record"] = updateVersionOptions.PortalApprovalRecord
+	}
+	if updateVersionOptions.PortalUIURL != nil {
+		body["portal_ui_url"] = updateVersionOptions.PortalUIURL
+	}
+	if updateVersionOptions.CatalogID != nil {
+		body["catalog_id"] = updateVersionOptions.CatalogID
+	}
+	if updateVersionOptions.CatalogName != nil {
+		body["catalog_name"] = updateVersionOptions.CatalogName
+	}
+	if updateVersionOptions.Metadata != nil {
+		body["metadata"] = updateVersionOptions.Metadata
+	}
+	if updateVersionOptions.Disclaimer != nil {
+		body["disclaimer"] = updateVersionOptions.Disclaimer
+	}
+	if updateVersionOptions.Hidden != nil {
+		body["hidden"] = updateVersionOptions.Hidden
+	}
+	if updateVersionOptions.Provider != nil {
+		body["provider"] = updateVersionOptions.Provider
+	}
+	if updateVersionOptions.ProviderInfo != nil {
+		body["provider_info"] = updateVersionOptions.ProviderInfo
+	}
+	if updateVersionOptions.RepoInfo != nil {
+		body["repo_info"] = updateVersionOptions.RepoInfo
+	}
+	if updateVersionOptions.ImagePullKeys != nil {
+		body["image_pull_keys"] = updateVersionOptions.ImagePullKeys
+	}
+	if updateVersionOptions.Support != nil {
+		body["support"] = updateVersionOptions.Support
+	}
+	if updateVersionOptions.Media != nil {
+		body["media"] = updateVersionOptions.Media
+	}
+	if updateVersionOptions.DeprecatePending != nil {
+		body["deprecate_pending"] = updateVersionOptions.DeprecatePending
+	}
+	if updateVersionOptions.ProductKind != nil {
+		body["product_kind"] = updateVersionOptions.ProductKind
+	}
+	if updateVersionOptions.Badges != nil {
+		body["badges"] = updateVersionOptions.Badges
+	}
+	if updateVersionOptions.Plans != nil {
+		body["plans"] = updateVersionOptions.Plans
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "update_version", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// PatchUpdateVersion : Update a version
+// Update a version using a JSONPatch document as defined by RFC 6902.  Note that the path must always reference
+// '/kinds/0/versions/0/...'.
+func (catalogManagement *CatalogManagementV1) PatchUpdateVersion(patchUpdateVersionOptions *PatchUpdateVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.PatchUpdateVersionWithContext(context.Background(), patchUpdateVersionOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// PatchUpdateVersionWithContext is an alternate form of the PatchUpdateVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) PatchUpdateVersionWithContext(ctx context.Context, patchUpdateVersionOptions *PatchUpdateVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(patchUpdateVersionOptions, "patchUpdateVersionOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(patchUpdateVersionOptions, "patchUpdateVersionOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *patchUpdateVersionOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range patchUpdateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PatchUpdateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json-patch+json")
+	if patchUpdateVersionOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*patchUpdateVersionOptions.IfMatch))
+	}
+
+	_, err = builder.SetBodyContentJSON(patchUpdateVersionOptions.Updates)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "set-json-body-error", common.GetComponentInfo())
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "patch_update_version", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
 	}
@@ -5037,6 +5522,75 @@ func (catalogManagement *CatalogManagementV1) DeleteVersionWithContext(ctx conte
 		core.EnrichHTTPProblem(err, "delete_version", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
 		return
+	}
+
+	return
+}
+
+// GetVersionDependencies : Get offering/kind/version 'dependencies'
+// Get the latest version of all offerings/variations that depends on this version locator.
+func (catalogManagement *CatalogManagementV1) GetVersionDependencies(getVersionDependenciesOptions *GetVersionDependenciesOptions) (result *VersionDependant, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.GetVersionDependenciesWithContext(context.Background(), getVersionDependenciesOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetVersionDependenciesWithContext is an alternate form of the GetVersionDependencies method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionDependenciesWithContext(ctx context.Context, getVersionDependenciesOptions *GetVersionDependenciesOptions) (result *VersionDependant, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getVersionDependenciesOptions, "getVersionDependenciesOptions cannot be nil")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
+		return
+	}
+	err = core.ValidateStruct(getVersionDependenciesOptions, "getVersionDependenciesOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionDependenciesOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/dependencies`, pathParamsMap)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range getVersionDependenciesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionDependencies")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "get_version_dependencies", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionDependant)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
 	}
 
 	return
@@ -5652,6 +6206,9 @@ func (catalogManagement *CatalogManagementV1) InstallVersionWithContext(ctx cont
 	if installVersionOptions.OverrideValues != nil {
 		body["override_values"] = installVersionOptions.OverrideValues
 	}
+	if installVersionOptions.DependencyConfigs != nil {
+		body["dependency_configs"] = installVersionOptions.DependencyConfigs
+	}
 	if installVersionOptions.EnvironmentVariables != nil {
 		body["environment_variables"] = installVersionOptions.EnvironmentVariables
 	}
@@ -5781,6 +6338,9 @@ func (catalogManagement *CatalogManagementV1) PreinstallVersionWithContext(ctx c
 	}
 	if preinstallVersionOptions.OverrideValues != nil {
 		body["override_values"] = preinstallVersionOptions.OverrideValues
+	}
+	if preinstallVersionOptions.DependencyConfigs != nil {
+		body["dependency_configs"] = preinstallVersionOptions.DependencyConfigs
 	}
 	if preinstallVersionOptions.EnvironmentVariables != nil {
 		body["environment_variables"] = preinstallVersionOptions.EnvironmentVariables
@@ -5997,6 +6557,9 @@ func (catalogManagement *CatalogManagementV1) ValidateInstallWithContext(ctx con
 	}
 	if validateInstallOptions.OverrideValues != nil {
 		body["override_values"] = validateInstallOptions.OverrideValues
+	}
+	if validateInstallOptions.DependencyConfigs != nil {
+		body["dependency_configs"] = validateInstallOptions.DependencyConfigs
 	}
 	if validateInstallOptions.EnvironmentVariables != nil {
 		body["environment_variables"] = validateInstallOptions.EnvironmentVariables
@@ -8394,6 +8957,152 @@ func (catalogManagement *CatalogManagementV1) SetDeprecatePlanWithContext(ctx co
 
 	return
 }
+
+// PreviewRegions : Returns available locations based on supplied filter
+// Returns available locations based on supplied filter.
+func (catalogManagement *CatalogManagementV1) PreviewRegions(previewRegionsOptions *PreviewRegionsOptions) (result *RegionsSearchResult, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.PreviewRegionsWithContext(context.Background(), previewRegionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// PreviewRegionsWithContext is an alternate form of the PreviewRegions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) PreviewRegionsWithContext(ctx context.Context, previewRegionsOptions *PreviewRegionsOptions) (result *RegionsSearchResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(previewRegionsOptions, "previewRegionsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/regions`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range previewRegionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PreviewRegions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if previewRegionsOptions.Filter != nil {
+		builder.AddQuery("filter", fmt.Sprint(*previewRegionsOptions.Filter))
+	}
+	if previewRegionsOptions.GetInactive != nil {
+		builder.AddQuery("get_inactive", fmt.Sprint(*previewRegionsOptions.GetInactive))
+	}
+	if previewRegionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*previewRegionsOptions.Limit))
+	}
+	if previewRegionsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*previewRegionsOptions.Offset))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "preview_regions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRegionsSearchResult)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListRegions : Returns available locations based on filter set on the account and supplied filter
+// Returns available locations based on filter set on the account and supplied filter.
+func (catalogManagement *CatalogManagementV1) ListRegions(listRegionsOptions *ListRegionsOptions) (result *RegionsSearchResult, response *core.DetailedResponse, err error) {
+	result, response, err = catalogManagement.ListRegionsWithContext(context.Background(), listRegionsOptions)
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// ListRegionsWithContext is an alternate form of the ListRegions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListRegionsWithContext(ctx context.Context, listRegionsOptions *ListRegionsOptions) (result *RegionsSearchResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listRegionsOptions, "listRegionsOptions")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "struct-validation-error", common.GetComponentInfo())
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/regions`, nil)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
+		return
+	}
+
+	for headerName, headerValue := range listRegionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListRegions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listRegionsOptions.Filter != nil {
+		builder.AddQuery("filter", fmt.Sprint(*listRegionsOptions.Filter))
+	}
+	if listRegionsOptions.GetInactive != nil {
+		builder.AddQuery("get_inactive", fmt.Sprint(*listRegionsOptions.GetInactive))
+	}
+	if listRegionsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listRegionsOptions.Limit))
+	}
+	if listRegionsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*listRegionsOptions.Offset))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		err = core.SDKErrorf(err, "", "build-error", common.GetComponentInfo())
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		core.EnrichHTTPProblem(err, "list_regions", getServiceComponentInfo())
+		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRegionsSearchResult)
+		if err != nil {
+			err = core.SDKErrorf(err, "", "unmarshal-resp-error", common.GetComponentInfo())
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0")
 }
@@ -8601,6 +9310,12 @@ type Account struct {
 
 	// Filters for account and catalog filters.
 	AccountFilters *Filters `json:"account_filters,omitempty"`
+
+	RegionFilters []string `json:"region_filters,omitempty"`
+
+	FilteredRegions []string `json:"filtered_regions,omitempty"`
+
+	FilterRegions *bool `json:"filter_regions,omitempty"`
 }
 
 // UnmarshalAccount unmarshals an instance of Account from the specified map of raw messages.
@@ -8626,6 +9341,21 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 		err = core.SDKErrorf(err, "", "account_filters-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "region_filters", &obj.RegionFilters)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region_filters-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "filtered_regions", &obj.FilteredRegions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "filtered_regions-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "filter_regions", &obj.FilterRegions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "filter_regions-error", common.GetComponentInfo())
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -8641,6 +9371,12 @@ type AccumulatedFilters struct {
 
 	// The filters for all of the accessible catalogs.
 	CatalogFilters []AccumulatedFiltersCatalogFiltersItem `json:"catalog_filters,omitempty"`
+
+	RegionFilters []string `json:"region_filters,omitempty"`
+
+	FilteredRegions []string `json:"filtered_regions,omitempty"`
+
+	FilterRegions *bool `json:"filter_regions,omitempty"`
 }
 
 // UnmarshalAccumulatedFilters unmarshals an instance of AccumulatedFilters from the specified map of raw messages.
@@ -8659,6 +9395,21 @@ func UnmarshalAccumulatedFilters(m map[string]json.RawMessage, result interface{
 	err = core.UnmarshalModel(m, "catalog_filters", &obj.CatalogFilters, UnmarshalAccumulatedFiltersCatalogFiltersItem)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "catalog_filters-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region_filters", &obj.RegionFilters)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "region_filters-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "filtered_regions", &obj.FilteredRegions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "filtered_regions-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "filter_regions", &obj.FilterRegions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "filter_regions-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -8728,7 +9479,7 @@ type AddObjectAccessListOptions struct {
 	// A list of accesses to add.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8776,7 +9527,7 @@ type AddOfferingAccessListOptions struct {
 	// A list of accesses to add.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8821,7 +9572,7 @@ type AddShareApprovalListOptions struct {
 	// A list of accesses to add.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -8976,7 +9727,7 @@ type ArchiveVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10142,7 +10893,7 @@ type CommitVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10329,7 +11080,7 @@ type ConsumablePlanOptions struct {
 	// A dotted value of `sw`.`catalogID`.`resourceID`.
 	PlanLocID *string `json:"plan_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10360,7 +11111,7 @@ type ConsumableShareObjectOptions struct {
 	// Object identifier.
 	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10395,7 +11146,7 @@ type ConsumableVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10429,7 +11180,7 @@ type CopyFromPreviousVersionOptions struct {
 	// The version locator id of the version you wish to copy data from.
 	VersionLocIDToCopyFrom *string `json:"version_loc_id_to_copy_from" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10489,7 +11240,10 @@ type CopyVersionOptions struct {
 	// Optional - The sub-folder within the specified tgz file that contains the software being onboarded.
 	WorkingDirectory *string `json:"working_directory,omitempty"`
 
-	// Allows users to set headers on API requests
+	// The install type of the current software being onboarded.
+	InstallType *string `json:"install_type,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -10539,6 +11293,12 @@ func (_options *CopyVersionOptions) SetFlavor(flavor *Flavor) *CopyVersionOption
 // SetWorkingDirectory : Allow user to set WorkingDirectory
 func (_options *CopyVersionOptions) SetWorkingDirectory(workingDirectory string) *CopyVersionOptions {
 	_options.WorkingDirectory = core.StringPtr(workingDirectory)
+	return _options
+}
+
+// SetInstallType : Allow user to set InstallType
+func (_options *CopyVersionOptions) SetInstallType(installType string) *CopyVersionOptions {
+	_options.InstallType = core.StringPtr(installType)
 	return _options
 }
 
@@ -10909,7 +11669,7 @@ type CreateCatalogOptions struct {
 	// List of target accounts contexts on this catalog.
 	TargetAccountContexts []TargetAccountContext `json:"target_account_contexts,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11026,7 +11786,7 @@ type CreateObjectAccessOptions struct {
 	// and '-entgrp-enterprisegroupid' for an enterprise group.
 	AccessIdentifier *string `json:"access_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11119,7 +11879,7 @@ type CreateObjectOptions struct {
 	// Map of data values for this object.
 	Data map[string]interface{} `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11343,7 +12103,7 @@ type CreateOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11691,7 +12451,7 @@ type CreateOfferingOptions struct {
 	// A list of plans for this offering.
 	Plans []Plan `json:"plans,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -11984,7 +12744,7 @@ type DeleteCatalogOptions struct {
 	// Catalog identifier.
 	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12018,7 +12778,7 @@ type DeleteObjectAccessListOptions struct {
 	// A list of accesses to delete.  An entry with star["*"] will remove all accesses.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12067,7 +12827,7 @@ type DeleteObjectAccessOptions struct {
 	// and '-entgrp-enterprisegroupid' for an enterprise group.
 	AccessIdentifier *string `json:"access_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12112,7 +12872,7 @@ type DeleteObjectOptions struct {
 	// Object identifier.
 	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12153,7 +12913,7 @@ type DeleteOfferingAccessListOptions struct {
 	// A list of accesses to delete.  An entry with star["*"] will remove all accesses.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12198,7 +12958,7 @@ type DeleteOfferingInstanceOptions struct {
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12240,7 +13000,7 @@ type DeleteOfferingOptions struct {
 	// the public offering Partner Center only needs to use their token in the authorization header.
 	XApproverToken *string `json:"X-Approver-Token,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12290,7 +13050,7 @@ type DeleteOperatorsOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocatorID *string `json:"version_locator_id" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12339,7 +13099,7 @@ type DeletePlanOptions struct {
 	// A dotted value of `sw`.`catalogID`.`resourceID`.
 	PlanLocID *string `json:"plan_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12370,7 +13130,7 @@ type DeleteShareApprovalListOptions struct {
 	// A list of accesses to delete.  An entry with star["*"] will remove all accesses.
 	Accesses []string `json:"accesses" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12414,7 +13174,7 @@ type DeleteVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12463,7 +13223,7 @@ type DeployOperatorsOptions struct {
 	// Plan.
 	InstallPlan *string `json:"install_plan,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12571,6 +13331,7 @@ func UnmarshalDeployRequestBodyEnvironmentVariablesItem(m map[string]json.RawMes
 }
 
 // DeployRequestBodyOverrideValues : Validation override values. Required for virtual server image for VPC.
+// This type supports additional properties of type interface{}.
 type DeployRequestBodyOverrideValues struct {
 	// Name of virtual server image instance to create. Required for virtual server image for VPC.
 	VsiInstanceName *string `json:"vsi_instance_name,omitempty"`
@@ -12593,11 +13354,11 @@ type DeployRequestBodyOverrideValues struct {
 	// Region virtual server image exists in. Required for virtual server image for VPC.
 	VPCRegion *string `json:"vpc_region,omitempty"`
 
-	// Allows users to set arbitrary properties
+	// Allows users to set arbitrary properties of type interface{}.
 	additionalProperties map[string]interface{}
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of DeployRequestBodyOverrideValues
+// SetProperty allows the user to set an arbitrary property on an instance of DeployRequestBodyOverrideValues.
 func (o *DeployRequestBodyOverrideValues) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
 		o.additionalProperties = make(map[string]interface{})
@@ -12605,7 +13366,7 @@ func (o *DeployRequestBodyOverrideValues) SetProperty(key string, value interfac
 	o.additionalProperties[key] = value
 }
 
-// SetProperties allows the user to set a map of arbitrary properties on an instance of DeployRequestBodyOverrideValues
+// SetProperties allows the user to set a map of arbitrary properties on an instance of DeployRequestBodyOverrideValues.
 func (o *DeployRequestBodyOverrideValues) SetProperties(m map[string]interface{}) {
 	o.additionalProperties = make(map[string]interface{})
 	for k, v := range m {
@@ -12613,12 +13374,12 @@ func (o *DeployRequestBodyOverrideValues) SetProperties(m map[string]interface{}
 	}
 }
 
-// GetProperty allows the user to retrieve an arbitrary property from an instance of DeployRequestBodyOverrideValues
+// GetProperty allows the user to retrieve an arbitrary property from an instance of DeployRequestBodyOverrideValues.
 func (o *DeployRequestBodyOverrideValues) GetProperty(key string) interface{} {
 	return o.additionalProperties[key]
 }
 
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of DeployRequestBodyOverrideValues
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of DeployRequestBodyOverrideValues.
 func (o *DeployRequestBodyOverrideValues) GetProperties() map[string]interface{} {
 	return o.additionalProperties
 }
@@ -12792,7 +13553,7 @@ type DeprecateOfferingOptions struct {
 	// Specifies the amount of days until product is not available in catalog.
 	DaysUntilDeprecate *int64 `json:"days_until_deprecate,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -12886,7 +13647,7 @@ type DeprecateVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13188,7 +13949,7 @@ type GetCatalogAccountAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13222,7 +13983,7 @@ type GetCatalogAccountFiltersOptions struct {
 	// catalog id. Narrow down filters to the account and just the one catalog.
 	Catalog *string `json:"catalog,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13246,7 +14007,7 @@ func (options *GetCatalogAccountFiltersOptions) SetHeaders(param map[string]stri
 // GetCatalogAccountOptions : The GetCatalogAccount options.
 type GetCatalogAccountOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13272,7 +14033,7 @@ type GetCatalogAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13313,7 +14074,7 @@ type GetCatalogOptions struct {
 	// Catalog identifier.
 	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13347,7 +14108,7 @@ type GetClusterOptions struct {
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13408,7 +14169,7 @@ type GetConsumptionOfferingsOptions struct {
 	// number of results to skip before returning values.
 	Offset *int64 `json:"offset,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13479,7 +14240,7 @@ type GetEnterpriseAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13520,7 +14281,7 @@ type GetIamPermissionsOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13560,7 +14321,7 @@ type GetNamespacesOptions struct {
 	// The number of results to skip before returning values.
 	Offset *int64 `json:"offset,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13623,7 +14384,7 @@ type GetObjectAccessListDeprecatedOptions struct {
 	// The number of results to skip before returning values.
 	Offset *int64 `json:"offset,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13679,7 +14440,7 @@ type GetObjectAccessListOptions struct {
 	// number or results to return in the query.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13733,7 +14494,7 @@ type GetObjectAccessOptions struct {
 	// and '-entgrp-enterprisegroupid' for an enterprise group.
 	AccessIdentifier *string `json:"access_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13784,7 +14545,7 @@ type GetObjectAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13835,7 +14596,7 @@ type GetObjectOptions struct {
 	// Object identifier.
 	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13870,7 +14631,7 @@ type GetOfferingAboutOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13907,7 +14668,7 @@ type GetOfferingAccessListOptions struct {
 	// number or results to return in the query.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -13961,7 +14722,7 @@ type GetOfferingAccessOptions struct {
 	// and '-entgrp-enterprisegroupid' for an enterprise group.
 	AccessIdentifier *string `json:"access_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14012,7 +14773,7 @@ type GetOfferingAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14079,7 +14840,7 @@ type GetOfferingChangeNoticesOptions struct {
 	// that are newer than the specified version, including the specified version.
 	Versions *string `json:"versions,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14153,7 +14914,7 @@ type GetOfferingContainerImagesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14187,7 +14948,7 @@ type GetOfferingInstanceAuditOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14228,7 +14989,7 @@ type GetOfferingInstanceOptions struct {
 	// Version Instance identifier.
 	InstanceIdentifier *string `json:"instance_identifier" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14259,7 +15020,7 @@ type GetOfferingLicenseOptions struct {
 	// The ID of the license, which maps to the file name in the 'licenses' directory of this verions tgz file.
 	LicenseID *string `json:"license_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14303,7 +15064,7 @@ type GetOfferingOptions struct {
 	// Return the digest format of the specified offering.  Default is false.
 	Digest *bool `json:"digest,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14378,7 +15139,7 @@ type GetOfferingSourceArchiveOptions struct {
 	// The install type of the specified version.
 	InstallType *string `json:"installType,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14488,7 +15249,7 @@ type GetOfferingSourceOptions struct {
 	// The install type of the specified version.
 	InstallType *string `json:"installType,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14582,7 +15343,7 @@ type GetOfferingSourceURLOptions struct {
 	// Offering id. An offering name or ID must be specified.
 	ID *string `json:"id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14637,7 +15398,7 @@ type GetOfferingStatsOptions struct {
 	// Offering identification.
 	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14717,7 +15478,7 @@ type GetOfferingUpdatesOptions struct {
 	// The install type of the version that was installed.
 	InstallType *string `json:"install_type,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14838,7 +15599,7 @@ type GetOfferingWorkingCopyOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14866,7 +15627,7 @@ type GetPlanOptions struct {
 	// A dotted value of `sw`.`catalogID`.`resourceID`.
 	PlanLocID *string `json:"plan_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14906,7 +15667,7 @@ type GetPreinstallOptions struct {
 	// Required if the version's pre-install scope is `namespace`.
 	Namespace *string `json:"namespace,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -14972,7 +15733,7 @@ type GetShareApprovalListAsSourceOptions struct {
 	// enterprise and '-entgrp-enterprisegroupid for an enterprise group.
 	EnterpriseID *string `json:"enterprise_id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15048,7 +15809,7 @@ type GetShareApprovalListOptions struct {
 	// number or results to return in the query.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15103,7 +15864,7 @@ type GetValidationStatusOptions struct {
 	// The name of a target account context on a catalog.
 	TargetContextName *string `json:"targetContextName,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15139,12 +15900,40 @@ func (options *GetValidationStatusOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
+// GetVersionDependenciesOptions : The GetVersionDependencies options.
+type GetVersionDependenciesOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetVersionDependenciesOptions : Instantiate GetVersionDependenciesOptions
+func (*CatalogManagementV1) NewGetVersionDependenciesOptions(versionLocID string) *GetVersionDependenciesOptions {
+	return &GetVersionDependenciesOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *GetVersionDependenciesOptions) SetVersionLocID(versionLocID string) *GetVersionDependenciesOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetVersionDependenciesOptions) SetHeaders(param map[string]string) *GetVersionDependenciesOptions {
+	options.Headers = param
+	return options
+}
+
 // GetVersionOptions : The GetVersion options.
 type GetVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15163,6 +15952,90 @@ func (_options *GetVersionOptions) SetVersionLocID(versionLocID string) *GetVers
 
 // SetHeaders : Allow user to set Headers
 func (options *GetVersionOptions) SetHeaders(param map[string]string) *GetVersionOptions {
+	options.Headers = param
+	return options
+}
+
+// GetVersionsOptions : The GetVersions options.
+type GetVersionsOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Kind identification.
+	KindID *string `json:"kind_id" validate:"required,ne="`
+
+	// Return the digest format of the specified offering.  Default is false.
+	Digest *bool `json:"digest,omitempty"`
+
+	// Return consumable versions.  Default is false.
+	Catalog *bool `json:"catalog,omitempty"`
+
+	// Start token for a query.
+	Start *string `json:"start,omitempty"`
+
+	// number or results to return in the query.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewGetVersionsOptions : Instantiate GetVersionsOptions
+func (*CatalogManagementV1) NewGetVersionsOptions(catalogIdentifier string, offeringID string, kindID string) *GetVersionsOptions {
+	return &GetVersionsOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID:        core.StringPtr(offeringID),
+		KindID:            core.StringPtr(kindID),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (_options *GetVersionsOptions) SetCatalogIdentifier(catalogIdentifier string) *GetVersionsOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *GetVersionsOptions) SetOfferingID(offeringID string) *GetVersionsOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetKindID : Allow user to set KindID
+func (_options *GetVersionsOptions) SetKindID(kindID string) *GetVersionsOptions {
+	_options.KindID = core.StringPtr(kindID)
+	return _options
+}
+
+// SetDigest : Allow user to set Digest
+func (_options *GetVersionsOptions) SetDigest(digest bool) *GetVersionsOptions {
+	_options.Digest = core.BoolPtr(digest)
+	return _options
+}
+
+// SetCatalog : Allow user to set Catalog
+func (_options *GetVersionsOptions) SetCatalog(catalog bool) *GetVersionsOptions {
+	_options.Catalog = core.BoolPtr(catalog)
+	return _options
+}
+
+// SetStart : Allow user to set Start
+func (_options *GetVersionsOptions) SetStart(start string) *GetVersionsOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *GetVersionsOptions) SetLimit(limit int64) *GetVersionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetVersionsOptions) SetHeaders(param map[string]string) *GetVersionsOptions {
 	options.Headers = param
 	return options
 }
@@ -15517,6 +16390,9 @@ type ImportOfferingOptions struct {
 	// Tags array.
 	Tags []string `json:"tags,omitempty"`
 
+	// Keywords array.
+	Keywords []string `json:"keywords,omitempty"`
+
 	// Byte array representing the content to be imported. Only supported for OVA images at this time.
 	Content *[]byte `json:"content,omitempty"`
 
@@ -15582,7 +16458,7 @@ type ImportOfferingOptions struct {
 	// Authentication token used to access the specified zip file.
 	XAuthToken *string `json:"X-Auth-Token,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15602,6 +16478,12 @@ func (_options *ImportOfferingOptions) SetCatalogIdentifier(catalogIdentifier st
 // SetTags : Allow user to set Tags
 func (_options *ImportOfferingOptions) SetTags(tags []string) *ImportOfferingOptions {
 	_options.Tags = tags
+	return _options
+}
+
+// SetKeywords : Allow user to set Keywords
+func (_options *ImportOfferingOptions) SetKeywords(keywords []string) *ImportOfferingOptions {
+	_options.Keywords = keywords
 	return _options
 }
 
@@ -15748,6 +16630,9 @@ type ImportOfferingVersionOptions struct {
 	// Tags array.
 	Tags []string `json:"tags,omitempty"`
 
+	// Keywords array.
+	Keywords []string `json:"keywords,omitempty"`
+
 	// Byte array representing the content to be imported. Only supported for OVA images at this time.
 	Content *[]byte `json:"content,omitempty"`
 
@@ -15810,7 +16695,7 @@ type ImportOfferingVersionOptions struct {
 	// Authentication token used to access the specified zip file.
 	XAuthToken *string `json:"X-Auth-Token,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -15837,6 +16722,12 @@ func (_options *ImportOfferingVersionOptions) SetOfferingID(offeringID string) *
 // SetTags : Allow user to set Tags
 func (_options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOfferingVersionOptions {
 	_options.Tags = tags
+	return _options
+}
+
+// SetKeywords : Allow user to set Keywords
+func (_options *ImportOfferingVersionOptions) SetKeywords(keywords []string) *ImportOfferingVersionOptions {
+	_options.Keywords = keywords
 	return _options
 }
 
@@ -16153,6 +17044,9 @@ type InstallVersionOptions struct {
 	// Validation override values. Required for virtual server image for VPC.
 	OverrideValues *DeployRequestBodyOverrideValues `json:"override_values,omitempty"`
 
+	// Used when the product has required dependencies, to indicated existing dependencies to reuse during validation.
+	DependencyConfigs []string `json:"dependency_configs,omitempty"`
+
 	// Schematics environment variables to use with this workspace.
 	EnvironmentVariables []DeployRequestBodyEnvironmentVariablesItem `json:"environment_variables,omitempty"`
 
@@ -16195,7 +17089,7 @@ type InstallVersionOptions struct {
 	// Used when installing an operator, to indicate which install plan to use.
 	InstallPlan *string `json:"install_plan,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16252,6 +17146,12 @@ func (_options *InstallVersionOptions) SetAllNamespaces(allNamespaces bool) *Ins
 // SetOverrideValues : Allow user to set OverrideValues
 func (_options *InstallVersionOptions) SetOverrideValues(overrideValues *DeployRequestBodyOverrideValues) *InstallVersionOptions {
 	_options.OverrideValues = overrideValues
+	return _options
+}
+
+// SetDependencyConfigs : Allow user to set DependencyConfigs
+func (_options *InstallVersionOptions) SetDependencyConfigs(dependencyConfigs []string) *InstallVersionOptions {
+	_options.DependencyConfigs = dependencyConfigs
 	return _options
 }
 
@@ -16451,6 +17351,9 @@ type Kind struct {
 
 	// list of versions.
 	Versions []Version `json:"versions,omitempty"`
+
+	// URLs for paging through all versions within this kind.
+	AllVersions *KindAllVersions `json:"all_versions,omitempty"`
 }
 
 // UnmarshalKind unmarshals an instance of Kind from the specified map of raw messages.
@@ -16519,6 +17422,37 @@ func UnmarshalKind(m map[string]json.RawMessage, result interface{}) (err error)
 	err = core.UnmarshalModel(m, "versions", &obj.Versions, UnmarshalVersion)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "versions-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "all_versions", &obj.AllVersions, UnmarshalKindAllVersions)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "all_versions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// KindAllVersions : URLs for paging through all versions within this kind.
+type KindAllVersions struct {
+	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first,omitempty"`
+
+	// Link response on a token paginated query.
+	Next *PaginationTokenLink `json:"next,omitempty"`
+}
+
+// UnmarshalKindAllVersions unmarshals an instance of KindAllVersions from the specified map of raw messages.
+func UnmarshalKindAllVersions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(KindAllVersions)
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -16612,7 +17546,7 @@ type ListCatalogAccountAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16659,7 +17593,7 @@ type ListCatalogAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16703,7 +17637,7 @@ func (options *ListCatalogAuditsOptions) SetHeaders(param map[string]string) *Li
 // ListCatalogsOptions : The ListCatalogs options.
 type ListCatalogsOptions struct {
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16732,7 +17666,7 @@ type ListEnterpriseAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16790,7 +17724,7 @@ type ListObjectAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16857,7 +17791,7 @@ type ListObjectsOptions struct {
 	// specify descending order. Default is ascending order.
 	Sort *string `json:"sort,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16921,7 +17855,7 @@ type ListOfferingAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -16983,7 +17917,7 @@ type ListOfferingInstanceAuditsOptions struct {
 	// Auditlog Lookup Names - by default names are not returned in auditlog.
 	Lookupnames *bool `json:"lookupnames,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -17051,7 +17985,7 @@ type ListOfferingsOptions struct {
 	// must be explicitly set.
 	IncludeHidden *bool `json:"includeHidden,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -17124,7 +18058,7 @@ type ListOperatorsOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocatorID *string `json:"version_locator_id" validate:"required"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -17164,6 +18098,59 @@ func (_options *ListOperatorsOptions) SetVersionLocatorID(versionLocatorID strin
 
 // SetHeaders : Allow user to set Headers
 func (options *ListOperatorsOptions) SetHeaders(param map[string]string) *ListOperatorsOptions {
+	options.Headers = param
+	return options
+}
+
+// ListRegionsOptions : The ListRegions options.
+type ListRegionsOptions struct {
+	// Filter to apply for search.
+	Filter *string `json:"filter,omitempty"`
+
+	// Returns inactive locations when true.
+	GetInactive *bool `json:"get_inactive,omitempty"`
+
+	// The maximum number of results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewListRegionsOptions : Instantiate ListRegionsOptions
+func (*CatalogManagementV1) NewListRegionsOptions() *ListRegionsOptions {
+	return &ListRegionsOptions{}
+}
+
+// SetFilter : Allow user to set Filter
+func (_options *ListRegionsOptions) SetFilter(filter string) *ListRegionsOptions {
+	_options.Filter = core.StringPtr(filter)
+	return _options
+}
+
+// SetGetInactive : Allow user to set GetInactive
+func (_options *ListRegionsOptions) SetGetInactive(getInactive bool) *ListRegionsOptions {
+	_options.GetInactive = core.BoolPtr(getInactive)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *ListRegionsOptions) SetLimit(limit int64) *ListRegionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetOffset : Allow user to set Offset
+func (_options *ListRegionsOptions) SetOffset(offset int64) *ListRegionsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListRegionsOptions) SetHeaders(param map[string]string) *ListRegionsOptions {
 	options.Headers = param
 	return options
 }
@@ -18656,6 +19643,18 @@ type PaginationTokenLink struct {
 	Start *string `json:"start,omitempty"`
 }
 
+// NewPaginationTokenLink : Instantiate PaginationTokenLink (Generic Model Constructor)
+func (*CatalogManagementV1) NewPaginationTokenLink(href string) (_model *PaginationTokenLink, err error) {
+	_model = &PaginationTokenLink{
+		Href: core.StringPtr(href),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
+
 // UnmarshalPaginationTokenLink unmarshals an instance of PaginationTokenLink from the specified map of raw messages.
 func UnmarshalPaginationTokenLink(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PaginationTokenLink)
@@ -18671,6 +19670,52 @@ func UnmarshalPaginationTokenLink(m map[string]json.RawMessage, result interface
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// PatchUpdateVersionOptions : The PatchUpdateVersion options.
+type PatchUpdateVersionOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Offering etag contained in quotes.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	Updates []JSONPatchOperation `json:"updates,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewPatchUpdateVersionOptions : Instantiate PatchUpdateVersionOptions
+func (*CatalogManagementV1) NewPatchUpdateVersionOptions(versionLocID string, ifMatch string) *PatchUpdateVersionOptions {
+	return &PatchUpdateVersionOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+		IfMatch:      core.StringPtr(ifMatch),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *PatchUpdateVersionOptions) SetVersionLocID(versionLocID string) *PatchUpdateVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *PatchUpdateVersionOptions) SetIfMatch(ifMatch string) *PatchUpdateVersionOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetUpdates : Allow user to set Updates
+func (_options *PatchUpdateVersionOptions) SetUpdates(updates []JSONPatchOperation) *PatchUpdateVersionOptions {
+	_options.Updates = updates
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PatchUpdateVersionOptions) SetHeaders(param map[string]string) *PatchUpdateVersionOptions {
+	options.Headers = param
+	return options
 }
 
 // Plan : Plan information.
@@ -18870,6 +19915,9 @@ type PreinstallVersionOptions struct {
 	// Validation override values. Required for virtual server image for VPC.
 	OverrideValues *DeployRequestBodyOverrideValues `json:"override_values,omitempty"`
 
+	// Used when the product has required dependencies, to indicated existing dependencies to reuse during validation.
+	DependencyConfigs []string `json:"dependency_configs,omitempty"`
+
 	// Schematics environment variables to use with this workspace.
 	EnvironmentVariables []DeployRequestBodyEnvironmentVariablesItem `json:"environment_variables,omitempty"`
 
@@ -18912,7 +19960,7 @@ type PreinstallVersionOptions struct {
 	// Used when installing an operator, to indicate which install plan to use.
 	InstallPlan *string `json:"install_plan,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -18969,6 +20017,12 @@ func (_options *PreinstallVersionOptions) SetAllNamespaces(allNamespaces bool) *
 // SetOverrideValues : Allow user to set OverrideValues
 func (_options *PreinstallVersionOptions) SetOverrideValues(overrideValues *DeployRequestBodyOverrideValues) *PreinstallVersionOptions {
 	_options.OverrideValues = overrideValues
+	return _options
+}
+
+// SetDependencyConfigs : Allow user to set DependencyConfigs
+func (_options *PreinstallVersionOptions) SetDependencyConfigs(dependencyConfigs []string) *PreinstallVersionOptions {
+	_options.DependencyConfigs = dependencyConfigs
 	return _options
 }
 
@@ -19067,7 +20121,7 @@ type PrereleaseVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -19086,6 +20140,59 @@ func (_options *PrereleaseVersionOptions) SetVersionLocID(versionLocID string) *
 
 // SetHeaders : Allow user to set Headers
 func (options *PrereleaseVersionOptions) SetHeaders(param map[string]string) *PrereleaseVersionOptions {
+	options.Headers = param
+	return options
+}
+
+// PreviewRegionsOptions : The PreviewRegions options.
+type PreviewRegionsOptions struct {
+	// Filter to apply for search.
+	Filter *string `json:"filter,omitempty"`
+
+	// Returns inactive locations when true.
+	GetInactive *bool `json:"get_inactive,omitempty"`
+
+	// The maximum number of results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewPreviewRegionsOptions : Instantiate PreviewRegionsOptions
+func (*CatalogManagementV1) NewPreviewRegionsOptions() *PreviewRegionsOptions {
+	return &PreviewRegionsOptions{}
+}
+
+// SetFilter : Allow user to set Filter
+func (_options *PreviewRegionsOptions) SetFilter(filter string) *PreviewRegionsOptions {
+	_options.Filter = core.StringPtr(filter)
+	return _options
+}
+
+// SetGetInactive : Allow user to set GetInactive
+func (_options *PreviewRegionsOptions) SetGetInactive(getInactive bool) *PreviewRegionsOptions {
+	_options.GetInactive = core.BoolPtr(getInactive)
+	return _options
+}
+
+// SetLimit : Allow user to set Limit
+func (_options *PreviewRegionsOptions) SetLimit(limit int64) *PreviewRegionsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
+}
+
+// SetOffset : Allow user to set Offset
+func (_options *PreviewRegionsOptions) SetOffset(offset int64) *PreviewRegionsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PreviewRegionsOptions) SetHeaders(param map[string]string) *PreviewRegionsOptions {
 	options.Headers = param
 	return options
 }
@@ -19383,7 +20490,7 @@ type PutOfferingInstanceOptions struct {
 	// The CRN of the resource that is considered a parent of this software instance.
 	ParentCRN *string `json:"parent_crn,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -19641,6 +20748,280 @@ func UnmarshalRating(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
+// Region : Region information.
+type Region struct {
+	ID *string `json:"id,omitempty"`
+
+	Name *string `json:"name,omitempty"`
+
+	CatalogCRN *string `json:"catalog_crn,omitempty"`
+
+	Kind *string `json:"kind,omitempty"`
+
+	Public *bool `json:"public,omitempty"`
+
+	UI *RegionUI `json:"ui,omitempty"`
+
+	Icon *string `json:"icon,omitempty"`
+
+	ParentID *string `json:"parent_id,omitempty"`
+
+	MetroID *string `json:"metro_id,omitempty"`
+
+	CountryID *string `json:"country_id,omitempty"`
+
+	GeoID *string `json:"geo_id,omitempty"`
+
+	Authority *RegionAuthority `json:"authority,omitempty"`
+
+	Tags []string `json:"tags,omitempty"`
+
+	Capabilities *string `json:"capabilities,omitempty"`
+
+	Created *string `json:"created,omitempty"`
+
+	Updated *string `json:"updated,omitempty"`
+
+	Active *bool `json:"active,omitempty"`
+
+	Visibility map[string]interface{} `json:"visibility,omitempty"`
+}
+
+// UnmarshalRegion unmarshals an instance of Region from the specified map of raw messages.
+func UnmarshalRegion(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Region)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_crn", &obj.CatalogCRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "catalog_crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "kind-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "public", &obj.Public)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "public-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "ui", &obj.UI, UnmarshalRegionUI)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ui-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "icon", &obj.Icon)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "icon-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parent_id", &obj.ParentID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "parent_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metro_id", &obj.MetroID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "metro_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "country_id", &obj.CountryID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "country_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "geo_id", &obj.GeoID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "geo_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "authority", &obj.Authority, UnmarshalRegionAuthority)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "authority-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "tags-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "capabilities", &obj.Capabilities)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "capabilities-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "updated-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "active-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "visibility", &obj.Visibility)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "visibility-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RegionAuthority : RegionAuthority struct
+type RegionAuthority struct {
+	URL *string `json:"url,omitempty"`
+
+	CRN *string `json:"crn,omitempty"`
+
+	Provider *string `json:"provider,omitempty"`
+}
+
+// UnmarshalRegionAuthority unmarshals an instance of RegionAuthority from the specified map of raw messages.
+func UnmarshalRegionAuthority(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RegionAuthority)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "crn-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "provider", &obj.Provider)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "provider-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RegionUI : RegionUI struct
+type RegionUI struct {
+	Language *RegionUILanguage `json:"_language_,omitempty"`
+}
+
+// UnmarshalRegionUI unmarshals an instance of RegionUI from the specified map of raw messages.
+func UnmarshalRegionUI(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RegionUI)
+	err = core.UnmarshalModel(m, "_language_", &obj.Language, UnmarshalRegionUILanguage)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "_language_-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RegionUILanguage : RegionUILanguage struct
+type RegionUILanguage struct {
+	Description *string `json:"description,omitempty"`
+
+	DisplayName *string `json:"display_name,omitempty"`
+}
+
+// UnmarshalRegionUILanguage unmarshals an instance of RegionUILanguage from the specified map of raw messages.
+func UnmarshalRegionUILanguage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RegionUILanguage)
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "display_name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RegionsSearchResult : Paginated location search result.
+type RegionsSearchResult struct {
+	// The offset (origin 0) of the first resource in this page of search results.
+	Offset *int64 `json:"offset" validate:"required"`
+
+	// The maximum number of resources returned in each page of search results.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The overall total number of resources in the search result set.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this page of search results.
+	ResourceCount *int64 `json:"resource_count,omitempty"`
+
+	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first,omitempty"`
+
+	// Link response on a token paginated query.
+	Last *PaginationTokenLink `json:"last,omitempty"`
+
+	// Resulting objects.
+	Regions []Region `json:"regions,omitempty"`
+}
+
+// UnmarshalRegionsSearchResult unmarshals an instance of RegionsSearchResult from the specified map of raw messages.
+func UnmarshalRegionsSearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RegionsSearchResult)
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "offset-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "regions", &obj.Regions, UnmarshalRegion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "regions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ReloadOfferingOptions : The ReloadOffering options.
 type ReloadOfferingOptions struct {
 	// Catalog identifier.
@@ -19670,13 +21051,16 @@ type ReloadOfferingOptions struct {
 	// Optional - The sub-folder within the specified tgz file that contains the software being onboarded.
 	WorkingDirectory *string `json:"working_directory,omitempty"`
 
+	// The install type of the current software being onboarded.
+	InstallType *string `json:"install_type,omitempty"`
+
 	// URL path to zip location.  If not specified, must provide content in this post body.
 	Zipurl *string `json:"zipurl,omitempty"`
 
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
 	RepoType *string `json:"repoType,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -19740,6 +21124,12 @@ func (_options *ReloadOfferingOptions) SetFlavor(flavor *Flavor) *ReloadOffering
 // SetWorkingDirectory : Allow user to set WorkingDirectory
 func (_options *ReloadOfferingOptions) SetWorkingDirectory(workingDirectory string) *ReloadOfferingOptions {
 	_options.WorkingDirectory = core.StringPtr(workingDirectory)
+	return _options
+}
+
+// SetInstallType : Allow user to set InstallType
+func (_options *ReloadOfferingOptions) SetInstallType(installType string) *ReloadOfferingOptions {
+	_options.InstallType = core.StringPtr(installType)
 	return _options
 }
 
@@ -19919,7 +21309,7 @@ type ReplaceCatalogOptions struct {
 	// List of target accounts contexts on this catalog.
 	TargetAccountContexts []TargetAccountContext `json:"target_account_contexts,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -20109,7 +21499,7 @@ type ReplaceObjectOptions struct {
 	// Map of data values for this object.
 	Data map[string]interface{} `json:"data,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -20401,7 +21791,7 @@ type ReplaceOfferingOptions struct {
 	// A list of plans for this offering.
 	Plans []Plan `json:"plans,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -20734,7 +22124,7 @@ type ReplaceOperatorsOptions struct {
 	// Plan.
 	InstallPlan *string `json:"install_plan,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21333,7 +22723,7 @@ type SearchObjectsOptions struct {
 	// Display a digests of search results, has default value of true.
 	Digest *bool `json:"digest,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21406,7 +22796,7 @@ type SetDeprecatePlanOptions struct {
 	// Specifies the amount of days until product is not available in catalog.
 	DaysUntilDeprecate *int64 `json:"days_until_deprecate,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21469,7 +22859,7 @@ type SetDeprecateVersionOptions struct {
 	// Specifies the amount of days until product is not available in catalog.
 	DaysUntilDeprecate *int64 `json:"days_until_deprecate,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21552,7 +22942,7 @@ type SetOfferingPublishOptions struct {
 	// approval type as `ibm_module_repo` or `ibm_community`.
 	XAuthToken *string `json:"X-Auth-Token,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21812,7 +23202,7 @@ type ShareObjectOptions struct {
 	// Visible to access list.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -21877,7 +23267,7 @@ type ShareOfferingOptions struct {
 	// Visible to access list.
 	Enabled *bool `json:"enabled,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22300,7 +23690,7 @@ type SuspendVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22455,7 +23845,13 @@ type UpdateCatalogAccountOptions struct {
 	// Filters for account and catalog filters.
 	AccountFilters *Filters `json:"account_filters,omitempty"`
 
-	// Allows users to set headers on API requests
+	RegionFilters []string `json:"region_filters,omitempty"`
+
+	FilteredRegions []string `json:"filtered_regions,omitempty"`
+
+	FilterRegions *bool `json:"filter_regions,omitempty"`
+
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22488,6 +23884,24 @@ func (_options *UpdateCatalogAccountOptions) SetAccountFilters(accountFilters *F
 	return _options
 }
 
+// SetRegionFilters : Allow user to set RegionFilters
+func (_options *UpdateCatalogAccountOptions) SetRegionFilters(regionFilters []string) *UpdateCatalogAccountOptions {
+	_options.RegionFilters = regionFilters
+	return _options
+}
+
+// SetFilteredRegions : Allow user to set FilteredRegions
+func (_options *UpdateCatalogAccountOptions) SetFilteredRegions(filteredRegions []string) *UpdateCatalogAccountOptions {
+	_options.FilteredRegions = filteredRegions
+	return _options
+}
+
+// SetFilterRegions : Allow user to set FilterRegions
+func (_options *UpdateCatalogAccountOptions) SetFilterRegions(filterRegions bool) *UpdateCatalogAccountOptions {
+	_options.FilterRegions = core.BoolPtr(filterRegions)
+	return _options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *UpdateCatalogAccountOptions) SetHeaders(param map[string]string) *UpdateCatalogAccountOptions {
 	options.Headers = param
@@ -22507,7 +23921,7 @@ type UpdateOfferingOptions struct {
 
 	Updates []JSONPatchOperation `json:"updates,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22565,7 +23979,7 @@ type UpdateShareApprovalListAsSourceOptions struct {
 	// enterprise and '-entgrp-enterprisegroupid for an enterprise group.
 	EnterpriseID *string `json:"enterprise_id,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22625,6 +24039,497 @@ func (options *UpdateShareApprovalListAsSourceOptions) SetHeaders(param map[stri
 	return options
 }
 
+// UpdateVersionOptions : The UpdateVersion options.
+type UpdateVersionOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
+	// The url for this specific offering.
+	URL *string `json:"url,omitempty"`
+
+	// The crn for this specific offering.
+	CRN *string `json:"crn,omitempty"`
+
+	// Display Name in the requested language.
+	Label *string `json:"label,omitempty"`
+
+	// A map of translated strings, by language code.
+	LabelI18n map[string]string `json:"label_i18n,omitempty"`
+
+	// The programmatic name of this offering.
+	Name *string `json:"name,omitempty"`
+
+	// URL for an icon associated with this offering.
+	OfferingIconURL *string `json:"offering_icon_url,omitempty"`
+
+	// URL for an additional docs with this offering.
+	OfferingDocsURL *string `json:"offering_docs_url,omitempty"`
+
+	// [deprecated] - Use offering.support instead.  URL to be displayed in the Consumption UI for getting support on this
+	// offering.
+	OfferingSupportURL *string `json:"offering_support_url,omitempty"`
+
+	// List of tags associated with this catalog.
+	Tags []string `json:"tags,omitempty"`
+
+	// List of keywords associated with offering, typically used to search for it.
+	Keywords []string `json:"keywords,omitempty"`
+
+	// Repository info for offerings.
+	Rating *Rating `json:"rating,omitempty"`
+
+	// The date and time this catalog was created.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The date and time this catalog was last updated.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
+
+	// Short description in the requested language.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// A map of translated strings, by language code.
+	ShortDescriptionI18n map[string]string `json:"short_description_i18n,omitempty"`
+
+	// Long description in the requested language.
+	LongDescription *string `json:"long_description,omitempty"`
+
+	// A map of translated strings, by language code.
+	LongDescriptionI18n map[string]string `json:"long_description_i18n,omitempty"`
+
+	// list of features associated with this offering.
+	Features []Feature `json:"features,omitempty"`
+
+	// Array of kind.
+	Kinds []Kind `json:"kinds,omitempty"`
+
+	// Publish information.
+	Publish *PublishObject `json:"publish,omitempty"`
+
+	// Offering is managed by Partner Center.
+	PcManaged *bool `json:"pc_managed,omitempty"`
+
+	// Offering has been approved to publish to permitted to IBM or Public Catalog.
+	PublishApproved *bool `json:"publish_approved,omitempty"`
+
+	// Denotes public availability of an Offering.
+	ShareWithAll *bool `json:"share_with_all,omitempty"`
+
+	// Denotes IBM employee availability of an Offering - if share_enabled is true.
+	ShareWithIBM *bool `json:"share_with_ibm,omitempty"`
+
+	// Denotes sharing including access list availability of an Offering is enabled.
+	ShareEnabled *bool `json:"share_enabled,omitempty"`
+
+	// The original offering CRN that this publish entry came from.
+	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
+
+	// The crn of the public catalog entry of this offering.
+	PublishPublicCRN *string `json:"publish_public_crn,omitempty"`
+
+	// The portal's approval record ID.
+	PortalApprovalRecord *string `json:"portal_approval_record,omitempty"`
+
+	// The portal UI URL.
+	PortalUIURL *string `json:"portal_ui_url,omitempty"`
+
+	// The id of the catalog containing this offering.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// The name of the catalog.
+	CatalogName *string `json:"catalog_name,omitempty"`
+
+	// Map of metadata values for this offering.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+
+	// A disclaimer for this offering.
+	Disclaimer *string `json:"disclaimer,omitempty"`
+
+	// Determine if this offering should be displayed in the Consumption UI.
+	Hidden *bool `json:"hidden,omitempty"`
+
+	// Deprecated - Provider of this offering.
+	// Deprecated: this field is deprecated and may be removed in a future release.
+	Provider *string `json:"provider,omitempty"`
+
+	// Information on the provider for this offering, or omitted if no provider information is given.
+	ProviderInfo *ProviderInfo `json:"provider_info,omitempty"`
+
+	// Repository info for offerings.
+	RepoInfo *RepoInfo `json:"repo_info,omitempty"`
+
+	// Image pull keys for this offering.
+	ImagePullKeys []ImagePullKey `json:"image_pull_keys,omitempty"`
+
+	// Offering Support information.
+	Support *Support `json:"support,omitempty"`
+
+	// A list of media items related to this offering.
+	Media []MediaItem `json:"media,omitempty"`
+
+	// Deprecation information for an Offering.
+	DeprecatePending *DeprecatePending `json:"deprecate_pending,omitempty"`
+
+	// The product kind.  Valid values are module, solution, or empty string.
+	ProductKind *string `json:"product_kind,omitempty"`
+
+	// A list of badges for this offering.
+	Badges []Badge `json:"badges,omitempty"`
+
+	// A list of plans for this offering.
+	Plans []Plan `json:"plans,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewUpdateVersionOptions : Instantiate UpdateVersionOptions
+func (*CatalogManagementV1) NewUpdateVersionOptions(versionLocID string) *UpdateVersionOptions {
+	return &UpdateVersionOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *UpdateVersionOptions) SetVersionLocID(versionLocID string) *UpdateVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdateVersionOptions) SetID(id string) *UpdateVersionOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetRev : Allow user to set Rev
+func (_options *UpdateVersionOptions) SetRev(rev string) *UpdateVersionOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
+}
+
+// SetURL : Allow user to set URL
+func (_options *UpdateVersionOptions) SetURL(url string) *UpdateVersionOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
+}
+
+// SetCRN : Allow user to set CRN
+func (_options *UpdateVersionOptions) SetCRN(crn string) *UpdateVersionOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
+}
+
+// SetLabel : Allow user to set Label
+func (_options *UpdateVersionOptions) SetLabel(label string) *UpdateVersionOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
+}
+
+// SetLabelI18n : Allow user to set LabelI18n
+func (_options *UpdateVersionOptions) SetLabelI18n(labelI18n map[string]string) *UpdateVersionOptions {
+	_options.LabelI18n = labelI18n
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateVersionOptions) SetName(name string) *UpdateVersionOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetOfferingIconURL : Allow user to set OfferingIconURL
+func (_options *UpdateVersionOptions) SetOfferingIconURL(offeringIconURL string) *UpdateVersionOptions {
+	_options.OfferingIconURL = core.StringPtr(offeringIconURL)
+	return _options
+}
+
+// SetOfferingDocsURL : Allow user to set OfferingDocsURL
+func (_options *UpdateVersionOptions) SetOfferingDocsURL(offeringDocsURL string) *UpdateVersionOptions {
+	_options.OfferingDocsURL = core.StringPtr(offeringDocsURL)
+	return _options
+}
+
+// SetOfferingSupportURL : Allow user to set OfferingSupportURL
+func (_options *UpdateVersionOptions) SetOfferingSupportURL(offeringSupportURL string) *UpdateVersionOptions {
+	_options.OfferingSupportURL = core.StringPtr(offeringSupportURL)
+	return _options
+}
+
+// SetTags : Allow user to set Tags
+func (_options *UpdateVersionOptions) SetTags(tags []string) *UpdateVersionOptions {
+	_options.Tags = tags
+	return _options
+}
+
+// SetKeywords : Allow user to set Keywords
+func (_options *UpdateVersionOptions) SetKeywords(keywords []string) *UpdateVersionOptions {
+	_options.Keywords = keywords
+	return _options
+}
+
+// SetRating : Allow user to set Rating
+func (_options *UpdateVersionOptions) SetRating(rating *Rating) *UpdateVersionOptions {
+	_options.Rating = rating
+	return _options
+}
+
+// SetCreated : Allow user to set Created
+func (_options *UpdateVersionOptions) SetCreated(created *strfmt.DateTime) *UpdateVersionOptions {
+	_options.Created = created
+	return _options
+}
+
+// SetUpdated : Allow user to set Updated
+func (_options *UpdateVersionOptions) SetUpdated(updated *strfmt.DateTime) *UpdateVersionOptions {
+	_options.Updated = updated
+	return _options
+}
+
+// SetShortDescription : Allow user to set ShortDescription
+func (_options *UpdateVersionOptions) SetShortDescription(shortDescription string) *UpdateVersionOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
+}
+
+// SetShortDescriptionI18n : Allow user to set ShortDescriptionI18n
+func (_options *UpdateVersionOptions) SetShortDescriptionI18n(shortDescriptionI18n map[string]string) *UpdateVersionOptions {
+	_options.ShortDescriptionI18n = shortDescriptionI18n
+	return _options
+}
+
+// SetLongDescription : Allow user to set LongDescription
+func (_options *UpdateVersionOptions) SetLongDescription(longDescription string) *UpdateVersionOptions {
+	_options.LongDescription = core.StringPtr(longDescription)
+	return _options
+}
+
+// SetLongDescriptionI18n : Allow user to set LongDescriptionI18n
+func (_options *UpdateVersionOptions) SetLongDescriptionI18n(longDescriptionI18n map[string]string) *UpdateVersionOptions {
+	_options.LongDescriptionI18n = longDescriptionI18n
+	return _options
+}
+
+// SetFeatures : Allow user to set Features
+func (_options *UpdateVersionOptions) SetFeatures(features []Feature) *UpdateVersionOptions {
+	_options.Features = features
+	return _options
+}
+
+// SetKinds : Allow user to set Kinds
+func (_options *UpdateVersionOptions) SetKinds(kinds []Kind) *UpdateVersionOptions {
+	_options.Kinds = kinds
+	return _options
+}
+
+// SetPublish : Allow user to set Publish
+func (_options *UpdateVersionOptions) SetPublish(publish *PublishObject) *UpdateVersionOptions {
+	_options.Publish = publish
+	return _options
+}
+
+// SetPcManaged : Allow user to set PcManaged
+func (_options *UpdateVersionOptions) SetPcManaged(pcManaged bool) *UpdateVersionOptions {
+	_options.PcManaged = core.BoolPtr(pcManaged)
+	return _options
+}
+
+// SetPublishApproved : Allow user to set PublishApproved
+func (_options *UpdateVersionOptions) SetPublishApproved(publishApproved bool) *UpdateVersionOptions {
+	_options.PublishApproved = core.BoolPtr(publishApproved)
+	return _options
+}
+
+// SetShareWithAll : Allow user to set ShareWithAll
+func (_options *UpdateVersionOptions) SetShareWithAll(shareWithAll bool) *UpdateVersionOptions {
+	_options.ShareWithAll = core.BoolPtr(shareWithAll)
+	return _options
+}
+
+// SetShareWithIBM : Allow user to set ShareWithIBM
+func (_options *UpdateVersionOptions) SetShareWithIBM(shareWithIBM bool) *UpdateVersionOptions {
+	_options.ShareWithIBM = core.BoolPtr(shareWithIBM)
+	return _options
+}
+
+// SetShareEnabled : Allow user to set ShareEnabled
+func (_options *UpdateVersionOptions) SetShareEnabled(shareEnabled bool) *UpdateVersionOptions {
+	_options.ShareEnabled = core.BoolPtr(shareEnabled)
+	return _options
+}
+
+// SetPublicOriginalCRN : Allow user to set PublicOriginalCRN
+func (_options *UpdateVersionOptions) SetPublicOriginalCRN(publicOriginalCRN string) *UpdateVersionOptions {
+	_options.PublicOriginalCRN = core.StringPtr(publicOriginalCRN)
+	return _options
+}
+
+// SetPublishPublicCRN : Allow user to set PublishPublicCRN
+func (_options *UpdateVersionOptions) SetPublishPublicCRN(publishPublicCRN string) *UpdateVersionOptions {
+	_options.PublishPublicCRN = core.StringPtr(publishPublicCRN)
+	return _options
+}
+
+// SetPortalApprovalRecord : Allow user to set PortalApprovalRecord
+func (_options *UpdateVersionOptions) SetPortalApprovalRecord(portalApprovalRecord string) *UpdateVersionOptions {
+	_options.PortalApprovalRecord = core.StringPtr(portalApprovalRecord)
+	return _options
+}
+
+// SetPortalUIURL : Allow user to set PortalUIURL
+func (_options *UpdateVersionOptions) SetPortalUIURL(portalUIURL string) *UpdateVersionOptions {
+	_options.PortalUIURL = core.StringPtr(portalUIURL)
+	return _options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (_options *UpdateVersionOptions) SetCatalogID(catalogID string) *UpdateVersionOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
+}
+
+// SetCatalogName : Allow user to set CatalogName
+func (_options *UpdateVersionOptions) SetCatalogName(catalogName string) *UpdateVersionOptions {
+	_options.CatalogName = core.StringPtr(catalogName)
+	return _options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (_options *UpdateVersionOptions) SetMetadata(metadata map[string]interface{}) *UpdateVersionOptions {
+	_options.Metadata = metadata
+	return _options
+}
+
+// SetDisclaimer : Allow user to set Disclaimer
+func (_options *UpdateVersionOptions) SetDisclaimer(disclaimer string) *UpdateVersionOptions {
+	_options.Disclaimer = core.StringPtr(disclaimer)
+	return _options
+}
+
+// SetHidden : Allow user to set Hidden
+func (_options *UpdateVersionOptions) SetHidden(hidden bool) *UpdateVersionOptions {
+	_options.Hidden = core.BoolPtr(hidden)
+	return _options
+}
+
+// SetProvider : Allow user to set Provider
+// Deprecated: this method is deprecated and may be removed in a future release.
+func (_options *UpdateVersionOptions) SetProvider(provider string) *UpdateVersionOptions {
+	_options.Provider = core.StringPtr(provider)
+	return _options
+}
+
+// SetProviderInfo : Allow user to set ProviderInfo
+func (_options *UpdateVersionOptions) SetProviderInfo(providerInfo *ProviderInfo) *UpdateVersionOptions {
+	_options.ProviderInfo = providerInfo
+	return _options
+}
+
+// SetRepoInfo : Allow user to set RepoInfo
+func (_options *UpdateVersionOptions) SetRepoInfo(repoInfo *RepoInfo) *UpdateVersionOptions {
+	_options.RepoInfo = repoInfo
+	return _options
+}
+
+// SetImagePullKeys : Allow user to set ImagePullKeys
+func (_options *UpdateVersionOptions) SetImagePullKeys(imagePullKeys []ImagePullKey) *UpdateVersionOptions {
+	_options.ImagePullKeys = imagePullKeys
+	return _options
+}
+
+// SetSupport : Allow user to set Support
+func (_options *UpdateVersionOptions) SetSupport(support *Support) *UpdateVersionOptions {
+	_options.Support = support
+	return _options
+}
+
+// SetMedia : Allow user to set Media
+func (_options *UpdateVersionOptions) SetMedia(media []MediaItem) *UpdateVersionOptions {
+	_options.Media = media
+	return _options
+}
+
+// SetDeprecatePending : Allow user to set DeprecatePending
+func (_options *UpdateVersionOptions) SetDeprecatePending(deprecatePending *DeprecatePending) *UpdateVersionOptions {
+	_options.DeprecatePending = deprecatePending
+	return _options
+}
+
+// SetProductKind : Allow user to set ProductKind
+func (_options *UpdateVersionOptions) SetProductKind(productKind string) *UpdateVersionOptions {
+	_options.ProductKind = core.StringPtr(productKind)
+	return _options
+}
+
+// SetBadges : Allow user to set Badges
+func (_options *UpdateVersionOptions) SetBadges(badges []Badge) *UpdateVersionOptions {
+	_options.Badges = badges
+	return _options
+}
+
+// SetPlans : Allow user to set Plans
+func (_options *UpdateVersionOptions) SetPlans(plans []Plan) *UpdateVersionOptions {
+	_options.Plans = plans
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateVersionOptions) SetHeaders(param map[string]string) *UpdateVersionOptions {
+	options.Headers = param
+	return options
+}
+
+// ValidateInputsOptions : The ValidateInputs options.
+type ValidateInputsOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// A deployment variable to validate.
+	Input1 *string `json:"input1,omitempty"`
+
+	// Another deployment variable to validate.
+	Input2 *string `json:"input2,omitempty"`
+
+	// Allows users to set headers on API requests.
+	Headers map[string]string
+}
+
+// NewValidateInputsOptions : Instantiate ValidateInputsOptions
+func (*CatalogManagementV1) NewValidateInputsOptions(versionLocID string) *ValidateInputsOptions {
+	return &ValidateInputsOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *ValidateInputsOptions) SetVersionLocID(versionLocID string) *ValidateInputsOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetInput1 : Allow user to set Input1
+func (_options *ValidateInputsOptions) SetInput1(input1 string) *ValidateInputsOptions {
+	_options.Input1 = core.StringPtr(input1)
+	return _options
+}
+
+// SetInput2 : Allow user to set Input2
+func (_options *ValidateInputsOptions) SetInput2(input2 string) *ValidateInputsOptions {
+	_options.Input2 = core.StringPtr(input2)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ValidateInputsOptions) SetHeaders(param map[string]string) *ValidateInputsOptions {
+	options.Headers = param
+	return options
+}
+
 // ValidateInstallOptions : The ValidateInstall options.
 type ValidateInstallOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
@@ -22651,6 +24556,9 @@ type ValidateInstallOptions struct {
 
 	// Validation override values. Required for virtual server image for VPC.
 	OverrideValues *DeployRequestBodyOverrideValues `json:"override_values,omitempty"`
+
+	// Used when the product has required dependencies, to indicated existing dependencies to reuse during validation.
+	DependencyConfigs []string `json:"dependency_configs,omitempty"`
 
 	// Schematics environment variables to use with this workspace.
 	EnvironmentVariables []DeployRequestBodyEnvironmentVariablesItem `json:"environment_variables,omitempty"`
@@ -22697,7 +24605,7 @@ type ValidateInstallOptions struct {
 	// The name of a target account context on a catalog.
 	TargetContextName *string `json:"targetContextName,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -22754,6 +24662,12 @@ func (_options *ValidateInstallOptions) SetAllNamespaces(allNamespaces bool) *Va
 // SetOverrideValues : Allow user to set OverrideValues
 func (_options *ValidateInstallOptions) SetOverrideValues(overrideValues *DeployRequestBodyOverrideValues) *ValidateInstallOptions {
 	_options.OverrideValues = overrideValues
+	return _options
+}
+
+// SetDependencyConfigs : Allow user to set DependencyConfigs
+func (_options *ValidateInstallOptions) SetDependencyConfigs(dependencyConfigs []string) *ValidateInstallOptions {
+	_options.DependencyConfigs = dependencyConfigs
 	return _options
 }
 
@@ -23274,6 +25188,145 @@ func UnmarshalVersion(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
+// VersionDependant : Version dependency on a VersionLocator.
+type VersionDependant struct {
+	// The start token used for this response.
+	Start *string `json:"start,omitempty"`
+
+	// The limit that was applied to this response. It may be smaller than in the request because that was too large.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The total count of resources in the system that matches the request.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this response.
+	ResourceCount *int64 `json:"resource_count" validate:"required"`
+
+	Version *VersionDependantVersion `json:"version,omitempty"`
+
+	// Link response on a token paginated query.
+	Next *PaginationTokenLink `json:"next,omitempty"`
+
+	// Link response on a token paginated query.
+	Prev *PaginationTokenLink `json:"prev,omitempty"`
+
+	// Link response on a token paginated query.
+	Last *PaginationTokenLink `json:"last,omitempty"`
+}
+
+// UnmarshalVersionDependant unmarshals an instance of VersionDependant from the specified map of raw messages.
+func UnmarshalVersionDependant(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VersionDependant)
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "version", &obj.Version, UnmarshalVersionDependantVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "prev", &obj.Prev, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "prev-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// VersionDependantVersion : VersionDependantVersion struct
+type VersionDependantVersion struct {
+	// Dependant account.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// Dependant Catalog.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// Dependant Offering.
+	OfferingID *string `json:"offering_id,omitempty"`
+
+	// Dependant Version.
+	VersionID *string `json:"version_id,omitempty"`
+
+	// Dependant (semver) version.
+	Version *string `json:"version,omitempty"`
+
+	// Dependant variation.
+	Flavor *string `json:"flavor,omitempty"`
+
+	// Dependencies semver range.
+	Semver *string `json:"semver,omitempty"`
+}
+
+// UnmarshalVersionDependantVersion unmarshals an instance of VersionDependantVersion from the specified map of raw messages.
+func UnmarshalVersionDependantVersion(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VersionDependantVersion)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "catalog_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_id", &obj.OfferingID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "offering_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version_id", &obj.VersionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "version_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "version-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "flavor", &obj.Flavor)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "flavor-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "semver", &obj.Semver)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "semver-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // VersionEntitlement : Entitlement license info.
 type VersionEntitlement struct {
 	// Provider name.
@@ -23318,6 +25371,79 @@ func UnmarshalVersionEntitlement(m map[string]json.RawMessage, result interface{
 	err = core.UnmarshalPrimitive(m, "image_repo_name", &obj.ImageRepoName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "image_repo_name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// VersionInputValidationResponse : Validate deployment variables.
+type VersionInputValidationResponse struct {
+	// Failure message.
+	Message *string `json:"message,omitempty"`
+
+	// Response code.
+	Code *string `json:"code,omitempty"`
+
+	// Transaction ID.
+	GlobalTransactionID *string `json:"global_transaction_id,omitempty"`
+
+	// Transaction ID.
+	Errors []VersionInputValidationResponseErrorsItem `json:"errors,omitempty"`
+}
+
+// UnmarshalVersionInputValidationResponse unmarshals an instance of VersionInputValidationResponse from the specified map of raw messages.
+func UnmarshalVersionInputValidationResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VersionInputValidationResponse)
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "code-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "global_transaction_id", &obj.GlobalTransactionID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "global_transaction_id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalVersionInputValidationResponseErrorsItem)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "errors-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// VersionInputValidationResponseErrorsItem : VersionInputValidationResponseErrorsItem struct
+type VersionInputValidationResponseErrorsItem struct {
+	Message *string `json:"message,omitempty"`
+
+	Entity *string `json:"entity,omitempty"`
+
+	ErrorCode *string `json:"error_code,omitempty"`
+}
+
+// UnmarshalVersionInputValidationResponseErrorsItem unmarshals an instance of VersionInputValidationResponseErrorsItem from the specified map of raw messages.
+func UnmarshalVersionInputValidationResponseErrorsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VersionInputValidationResponseErrorsItem)
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity", &obj.Entity)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "entity-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "error_code", &obj.ErrorCode)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "error_code-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -23439,6 +25565,96 @@ func UnmarshalVersionUpdateDescriptor(m map[string]json.RawMessage, result inter
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// VersionsResult : Paginated search result for Versions.
+type VersionsResult struct {
+	// The start token used for this response.
+	Start *string `json:"start,omitempty"`
+
+	// The limit that was applied to this response. It may be smaller than in the request because that was too large.
+	Limit *int64 `json:"limit" validate:"required"`
+
+	// The total count of resources in the system that matches the request.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this response.
+	ResourceCount *int64 `json:"resource_count" validate:"required"`
+
+	// Link response on a token paginated query.
+	First *PaginationTokenLink `json:"first" validate:"required"`
+
+	// Link response on a token paginated query.
+	Next *PaginationTokenLink `json:"next,omitempty"`
+
+	// Link response on a token paginated query.
+	Prev *PaginationTokenLink `json:"prev,omitempty"`
+
+	// Link response on a token paginated query.
+	Last *PaginationTokenLink `json:"last,omitempty"`
+
+	// A list of versions.
+	Versions []Version `json:"versions" validate:"required"`
+}
+
+// UnmarshalVersionsResult unmarshals an instance of VersionsResult from the specified map of raw messages.
+func UnmarshalVersionsResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VersionsResult)
+	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "start-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "limit-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "total_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "resource_count-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "first-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "next-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "prev", &obj.Prev, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "prev-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalPaginationTokenLink)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "last-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "versions", &obj.Versions, UnmarshalVersion)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "versions-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *VersionsResult) GetNextStart() (*string, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	return resp.Next.Start, nil
 }
 
 // WeeklyMetricBucket : Statistics for a given week.
@@ -24265,6 +26481,91 @@ func (pager *GetOfferingAccessListPager) GetNext() (page []Access, err error) {
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
 func (pager *GetOfferingAccessListPager) GetAll() (allItems []Access, err error) {
+	allItems, err = pager.GetAllWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetVersionsPager can be used to simplify the use of the "GetVersions" method.
+type GetVersionsPager struct {
+	hasNext     bool
+	options     *GetVersionsOptions
+	client      *CatalogManagementV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewGetVersionsPager returns a new GetVersionsPager instance.
+func (catalogManagement *CatalogManagementV1) NewGetVersionsPager(options *GetVersionsOptions) (pager *GetVersionsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = core.SDKErrorf(nil, "the 'options.Start' field should not be set", "no-query-setting", common.GetComponentInfo())
+		return
+	}
+
+	var optionsCopy GetVersionsOptions = *options
+	pager = &GetVersionsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  catalogManagement,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *GetVersionsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *GetVersionsPager) GetNextWithContext(ctx context.Context) (page []Version, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.GetVersionsWithContext(ctx, pager.options)
+	if err != nil {
+		err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Versions
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *GetVersionsPager) GetAllWithContext(ctx context.Context) (allItems []Version, err error) {
+	for pager.HasNext() {
+		var nextPage []Version
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			err = core.RepurposeSDKProblem(err, "error-getting-next-page")
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *GetVersionsPager) GetNext() (page []Version, err error) {
+	page, err = pager.GetNextWithContext(context.Background())
+	err = core.RepurposeSDKProblem(err, "")
+	return
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *GetVersionsPager) GetAll() (allItems []Version, err error) {
 	allItems, err = pager.GetAllWithContext(context.Background())
 	err = core.RepurposeSDKProblem(err, "")
 	return
