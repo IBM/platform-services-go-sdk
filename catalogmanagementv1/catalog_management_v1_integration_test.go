@@ -3501,7 +3501,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	// Ounset pc managed
+	// Unset pc managed
 	Describe(`SetAllowPublishOffering - mark offering as not pc managed`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()

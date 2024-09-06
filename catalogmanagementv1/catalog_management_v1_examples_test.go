@@ -1976,7 +1976,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 		})
 
-		// unset pc managed
+		// Unset pc managed
 		It(`SetAllowPublishOffering`, func() {
 			headers := map[string]string{
 				"X-Approver-Token": approverToken,
