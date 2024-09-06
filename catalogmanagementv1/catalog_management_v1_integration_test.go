@@ -66,8 +66,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		offeringRevLink    string
 		versionIDLink      string
 		versionLocatorLink string
+		kindIDLink         string
 		versionRevLink     string
 		planIDLink         string
+		offeringVersion    *catalogmanagementv1.Offering
 	)
 
 	var shouldSkipTest = func() {
@@ -148,6 +150,34 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			accountRevLink = *account.Rev
 			fmt.Fprintf(GinkgoWriter, "Saved accountRevLink value: %v\n", accountRevLink)
+		})
+	})
+
+	Describe(`ListRegions - get list of available regions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRegions`, func() {
+			listRegionOptions := catalogManagementService.NewListRegionsOptions()
+
+			regions, response, err := catalogManagementService.ListRegions(listRegionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(regions).ToNot(BeNil())
+		})
+	})
+
+	Describe(`PreviewRegions - preview list of available regions`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`PreviewRegions`, func() {
+			previewRegionOptions := catalogManagementService.NewPreviewRegionsOptions()
+
+			regions, response, err := catalogManagementService.PreviewRegions(previewRegionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(regions).ToNot(BeNil())
 		})
 	})
 
@@ -861,6 +891,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			offeringIDLink = *offering.ID
 			fmt.Fprintf(GinkgoWriter, "Saved offeringIDLink value: %v\n", offeringIDLink)
+			kindIDLink = *offering.Kinds[0].ID
+			fmt.Fprintf(GinkgoWriter, "Saved kindIDLink value: %v\n", kindIDLink)
 			offeringRevLink = *offering.Rev
 			fmt.Fprintf(GinkgoWriter, "Saved offeringRevLink value: %v\n", offeringRevLink)
 			versionLocatorLink = *offering.Kinds[0].Versions[0].VersionLocator
@@ -869,6 +901,129 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Saved versionIDLink value: %v\n", versionIDLink)
 			versionRevLink = *offering.Kinds[0].Versions[0].Rev
 			fmt.Fprintf(GinkgoWriter, "Saved versionRevLink value: %v\n", versionRevLink)
+		})
+	})
+
+	Describe(`GetVersions - get versions for a kind`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVersions`, func() {
+			getVersionsOptions := catalogManagementService.NewGetVersionsOptions(
+				catalogIDLink,
+				offeringIDLink,
+				kindIDLink,
+			)
+
+			versions, response, err := catalogManagementService.GetVersions(getVersionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(versions).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetVersion - get a single version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVersion`, func() {
+			getVersionOptions := catalogManagementService.NewGetVersionOptions(
+				versionLocatorLink,
+			)
+
+			offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
+		})
+	})
+
+	Describe(`GetVersionDependencies - get a versions dependencies`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVersionDependencies`, func() {
+			getVersionDependenciesOptions := catalogManagementService.NewGetVersionDependenciesOptions(
+				versionLocatorLink,
+			)
+
+			version, response, err := catalogManagementService.GetVersionDependencies(getVersionDependenciesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(version).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ValidateInputs - validate a versions inputs`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ValidateInputs`, func() {
+			validateInputsOptions := catalogManagementService.NewValidateInputsOptions(
+				versionLocatorLink,
+			)
+			validateInputsOptions.SetInput1("testString1")
+			validateInputsOptions.SetInput2("testString2")
+
+			resp, response, err := catalogManagementService.ValidateInputs(validateInputsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resp).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateVersion - update a single version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateVersion`, func() {
+			updateVersionOptions := catalogManagementService.NewUpdateVersionOptions(
+				versionLocatorLink,
+			)
+
+			updateVersionOptions.ID = offeringVersion.ID
+			updateVersionOptions.CatalogID = offeringVersion.CatalogID
+			updateVersionOptions.Rev = offeringVersion.Rev
+			updateVersionOptions.URL = offeringVersion.URL
+			updateVersionOptions.CRN = offeringVersion.CRN
+			updateVersionOptions.Label = offeringVersion.Label
+			updateVersionOptions.Kinds = offeringVersion.Kinds
+
+			offering, response, err := catalogManagementService.UpdateVersion(updateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
+		})
+	})
+
+	Describe(`PatchUpdateVersion - get a single version`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`PatchUpdateVersion`, func() {
+			jsonPatchOperationModel := &catalogmanagementv1.JSONPatchOperation{
+				Op:    core.StringPtr("replace"),
+				Path:  core.StringPtr("/kinds/0/versions/0/long_description"),
+				Value: core.StringPtr("testString"),
+			}
+
+			patchUpdateVersionOptions := catalogManagementService.NewPatchUpdateVersionOptions(
+				versionLocatorLink,
+				fmt.Sprintf("\"%s\"", *offeringVersion.Rev),
+			)
+
+			patchUpdateVersionOptions.Updates = []catalogmanagementv1.JSONPatchOperation{*jsonPatchOperationModel}
+
+			offering, response, err := catalogManagementService.PatchUpdateVersion(patchUpdateVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offering).ToNot(BeNil())
+
+			offeringVersion = offering
 		})
 	})
 
@@ -883,7 +1038,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				"X-Approver-Token": approverToken,
 			}
 
-			response, err := catalogManagementService.SetAllowPublishOffering(catalogIDLink, offeringIDLink, headers)
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogIDLink, offeringIDLink, "publish_approved", true, headers)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 		})
@@ -3341,6 +3496,22 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			response, err := catalogManagementService.DeleteVersion(deleteVersionOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+	})
+
+	// Unset pc managed
+	Describe(`SetAllowPublishOffering - mark offering as not pc managed`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`SetAllowPublishOffering`, func() {
+			headers := map[string]string{
+				"X-Approver-Token": approverToken,
+			}
+
+			response, err := catalogManagementService.SetAllowPublishOffering(catalogIDLink, offeringIDLink, "pc_managed", false, headers)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 		})
