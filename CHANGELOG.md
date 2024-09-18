@@ -1,3 +1,10 @@
+## [0.69.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.0...v0.69.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* **build:** bump core to 5.17.5 ([#357](https://github.com/IBM/platform-services-go-sdk/issues/357)) ([8d77a4b](https://github.com/IBM/platform-services-go-sdk/commit/8d77a4bc5ed69ec94fb67f73ef3e1fcb407baed2))
+
 # [0.69.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.68.1...v0.69.0) (2024-09-06)
 
 
