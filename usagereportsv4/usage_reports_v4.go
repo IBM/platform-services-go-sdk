@@ -2792,6 +2792,9 @@ type Offer struct {
 	// The date from which the offer is valid.
 	ValidFrom *strfmt.DateTime `json:"valid_from" validate:"required"`
 
+	// The offer's creator's email id.
+	CreatedByEmailID *string `json:"created_by_email_id" validate:"required"`
+
 	// The date until the offer is valid.
 	ExpiresOn *strfmt.DateTime `json:"expires_on" validate:"required"`
 
@@ -2820,6 +2823,11 @@ func UnmarshalOffer(m map[string]json.RawMessage, result interface{}) (err error
 	err = core.UnmarshalPrimitive(m, "valid_from", &obj.ValidFrom)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "valid_from-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_email_id", &obj.CreatedByEmailID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "created_by_email_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "expires_on", &obj.ExpiresOn)
