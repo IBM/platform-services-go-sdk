@@ -541,7 +541,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogProductPatchModel := &partnercentersellv1.GlobalCatalogProductPatch{
 				Active:         core.BoolPtr(true),
-				Disabled:       core.BoolPtr(true),
+				Disabled:       core.BoolPtr(false),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"tag"},
 				Images:         globalCatalogProductImagesModel,
@@ -770,7 +770,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogPlanPatchModel := &partnercentersellv1.GlobalCatalogPlanPatch{
 				Active:         core.BoolPtr(true),
-				Disabled:       core.BoolPtr(true),
+				Disabled:       core.BoolPtr(false),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"testString"},
 				ObjectProvider: catalogProductProviderModel,
