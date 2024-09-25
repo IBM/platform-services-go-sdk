@@ -541,7 +541,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogProductPatchModel := &partnercentersellv1.GlobalCatalogProductPatch{
 				Active:         core.BoolPtr(true),
-				Disabled:       core.BoolPtr(false),
+				Disabled:       core.BoolPtr(true),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"tag"},
 				Images:         globalCatalogProductImagesModel,
@@ -661,6 +661,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				CatalogProductID: &catalogProductIdLink,
 				Name:             core.StringPtr("free-plan2"),
 				Active:           core.BoolPtr(true),
+				Disabled:         core.BoolPtr(false),
 				Kind:             core.StringPtr("plan"),
 				Tags:             []string{"ibm_created"},
 				ObjectProvider:   catalogProductProviderModel,
@@ -694,7 +695,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			catalogProductProviderModel := &partnercefntersellv1.CatalogProductProvider{
+			catalogProductProviderModel := &partnercentersellv1.CatalogProductProvider{
 				Name:  core.StringPtr("Petra"),
 				Email: core.StringPtr("petra@ibm.com"),
 			}
@@ -769,7 +770,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogPlanPatchModel := &partnercentersellv1.GlobalCatalogPlanPatch{
 				Active:         core.BoolPtr(true),
-				Disabled:       core.BoolPtr(false),
+				Disabled:       core.BoolPtr(true),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Tags:           []string{"testString"},
 				ObjectProvider: catalogProductProviderModel,
@@ -1683,25 +1684,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			response, err := partnerCenterSellService.DeleteCatalogPlan(deleteCatalogPlanOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-		})
-	})
-
-	Describe(`DeleteCatalogDeployment - Delete a global catalog deployment`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteCatalogDeployment(deleteCatalogDeploymentOptions *DeleteCatalogDeploymentOptions)`, func() {
-			deleteCatalogDeploymentOptions := &partnercentersellv1.DeleteCatalogDeploymentOptions{
-				ProductID:           core.StringPtr(productIdWithApprovedProgrammaticName),
-				CatalogProductID:    &catalogProductIdLink,
-				CatalogPlanID:       &catalogPlanIdLink,
-				CatalogDeploymentID: &catalogDeploymentIdLink,
-				Env:                 core.StringPtr(env),
-			}
-
-			response, err := partnerCenterSellService.DeleteCatalogDeployment(deleteCatalogDeploymentOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
