@@ -1689,6 +1689,24 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`DeleteCatalogDeployment - Delete a global catalog deployment`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteCatalogDeployment(deleteCatalogDeploymentOptions *DeleteCatalogDeploymentOptions)`, func() {
+			deleteCatalogDeploymentOptions := &partnercentersellv1.DeleteCatalogDeploymentOptions{
+				ProductID:           core.StringPtr(productIdWithApprovedProgrammaticName),
+				CatalogProductID:    &catalogProductIdLink,
+				CatalogPlanID:       &catalogPlanIdLink,
+				CatalogDeploymentID: &catalogDeploymentIdLink,
+				Env:                 core.StringPtr(env),
+			}
+			response, err := partnerCenterSellService.DeleteCatalogDeployment(deleteCatalogDeploymentOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
 	Describe(`DeleteIamRegistration - Delete IAM registration for your service`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
