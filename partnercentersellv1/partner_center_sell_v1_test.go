@@ -10326,12 +10326,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateResourceBrokerOptions model
 				createResourceBrokerOptionsModel := new(partnercentersellv1.CreateResourceBrokerOptions)
-				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.AuthScheme = core.StringPtr("bearer")
 				createResourceBrokerOptionsModel.Name = core.StringPtr("brokername")
 				createResourceBrokerOptionsModel.BrokerURL = core.StringPtr("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.Type = core.StringPtr("provision_through")
 				createResourceBrokerOptionsModel.AuthUsername = core.StringPtr("apikey")
+				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.ResourceGroupCrn = core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.State = core.StringPtr("active")
 				createResourceBrokerOptionsModel.AllowContextUpdates = core.BoolPtr(false)
@@ -10405,12 +10405,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateResourceBrokerOptions model
 				createResourceBrokerOptionsModel := new(partnercentersellv1.CreateResourceBrokerOptions)
-				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.AuthScheme = core.StringPtr("bearer")
 				createResourceBrokerOptionsModel.Name = core.StringPtr("brokername")
 				createResourceBrokerOptionsModel.BrokerURL = core.StringPtr("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.Type = core.StringPtr("provision_through")
 				createResourceBrokerOptionsModel.AuthUsername = core.StringPtr("apikey")
+				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.ResourceGroupCrn = core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.State = core.StringPtr("active")
 				createResourceBrokerOptionsModel.AllowContextUpdates = core.BoolPtr(false)
@@ -10492,12 +10492,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateResourceBrokerOptions model
 				createResourceBrokerOptionsModel := new(partnercentersellv1.CreateResourceBrokerOptions)
-				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.AuthScheme = core.StringPtr("bearer")
 				createResourceBrokerOptionsModel.Name = core.StringPtr("brokername")
 				createResourceBrokerOptionsModel.BrokerURL = core.StringPtr("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.Type = core.StringPtr("provision_through")
 				createResourceBrokerOptionsModel.AuthUsername = core.StringPtr("apikey")
+				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.ResourceGroupCrn = core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.State = core.StringPtr("active")
 				createResourceBrokerOptionsModel.AllowContextUpdates = core.BoolPtr(false)
@@ -10523,12 +10523,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateResourceBrokerOptions model
 				createResourceBrokerOptionsModel := new(partnercentersellv1.CreateResourceBrokerOptions)
-				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.AuthScheme = core.StringPtr("bearer")
 				createResourceBrokerOptionsModel.Name = core.StringPtr("brokername")
 				createResourceBrokerOptionsModel.BrokerURL = core.StringPtr("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.Type = core.StringPtr("provision_through")
 				createResourceBrokerOptionsModel.AuthUsername = core.StringPtr("apikey")
+				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.ResourceGroupCrn = core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.State = core.StringPtr("active")
 				createResourceBrokerOptionsModel.AllowContextUpdates = core.BoolPtr(false)
@@ -10575,12 +10575,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateResourceBrokerOptions model
 				createResourceBrokerOptionsModel := new(partnercentersellv1.CreateResourceBrokerOptions)
-				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.AuthScheme = core.StringPtr("bearer")
 				createResourceBrokerOptionsModel.Name = core.StringPtr("brokername")
 				createResourceBrokerOptionsModel.BrokerURL = core.StringPtr("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.Type = core.StringPtr("provision_through")
 				createResourceBrokerOptionsModel.AuthUsername = core.StringPtr("apikey")
+				createResourceBrokerOptionsModel.AuthPassword = core.StringPtr("testString")
 				createResourceBrokerOptionsModel.ResourceGroupCrn = core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.State = core.StringPtr("active")
 				createResourceBrokerOptionsModel.AllowContextUpdates = core.BoolPtr(false)
@@ -12671,18 +12671,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Invoke NewCreateResourceBrokerOptions successfully`, func() {
 				// Construct an instance of the CreateResourceBrokerOptions model
-				createResourceBrokerOptionsAuthPassword := "testString"
 				createResourceBrokerOptionsAuthScheme := "bearer"
 				createResourceBrokerOptionsName := "brokername"
 				createResourceBrokerOptionsBrokerURL := "https://broker-url-for-my-service.com"
 				createResourceBrokerOptionsType := "provision_through"
-				createResourceBrokerOptionsModel := partnerCenterSellService.NewCreateResourceBrokerOptions(createResourceBrokerOptionsAuthPassword, createResourceBrokerOptionsAuthScheme, createResourceBrokerOptionsName, createResourceBrokerOptionsBrokerURL, createResourceBrokerOptionsType)
-				createResourceBrokerOptionsModel.SetAuthPassword("testString")
+				createResourceBrokerOptionsModel := partnerCenterSellService.NewCreateResourceBrokerOptions(createResourceBrokerOptionsAuthScheme, createResourceBrokerOptionsName, createResourceBrokerOptionsBrokerURL, createResourceBrokerOptionsType)
 				createResourceBrokerOptionsModel.SetAuthScheme("bearer")
 				createResourceBrokerOptionsModel.SetName("brokername")
 				createResourceBrokerOptionsModel.SetBrokerURL("https://broker-url-for-my-service.com")
 				createResourceBrokerOptionsModel.SetType("provision_through")
 				createResourceBrokerOptionsModel.SetAuthUsername("apikey")
+				createResourceBrokerOptionsModel.SetAuthPassword("testString")
 				createResourceBrokerOptionsModel.SetResourceGroupCrn("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 				createResourceBrokerOptionsModel.SetState("active")
 				createResourceBrokerOptionsModel.SetAllowContextUpdates(false)
@@ -12691,12 +12690,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createResourceBrokerOptionsModel.SetEnv("testString")
 				createResourceBrokerOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceBrokerOptionsModel).ToNot(BeNil())
-				Expect(createResourceBrokerOptionsModel.AuthPassword).To(Equal(core.StringPtr("testString")))
 				Expect(createResourceBrokerOptionsModel.AuthScheme).To(Equal(core.StringPtr("bearer")))
 				Expect(createResourceBrokerOptionsModel.Name).To(Equal(core.StringPtr("brokername")))
 				Expect(createResourceBrokerOptionsModel.BrokerURL).To(Equal(core.StringPtr("https://broker-url-for-my-service.com")))
 				Expect(createResourceBrokerOptionsModel.Type).To(Equal(core.StringPtr("provision_through")))
 				Expect(createResourceBrokerOptionsModel.AuthUsername).To(Equal(core.StringPtr("apikey")))
+				Expect(createResourceBrokerOptionsModel.AuthPassword).To(Equal(core.StringPtr("testString")))
 				Expect(createResourceBrokerOptionsModel.ResourceGroupCrn).To(Equal(core.StringPtr("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")))
 				Expect(createResourceBrokerOptionsModel.State).To(Equal(core.StringPtr("active")))
 				Expect(createResourceBrokerOptionsModel.AllowContextUpdates).To(Equal(core.BoolPtr(false)))

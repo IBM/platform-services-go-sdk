@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.95.1-6597c5d2-20240920-170226
+ * IBM OpenAPI SDK Code Generator Version: 3.95.2-120e65bc-20240924-152329
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -2144,9 +2144,6 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateResourceBrokerWithContext(ct
 	}
 
 	body := make(map[string]interface{})
-	if createResourceBrokerOptions.AuthPassword != nil {
-		body["auth_password"] = createResourceBrokerOptions.AuthPassword
-	}
 	if createResourceBrokerOptions.AuthScheme != nil {
 		body["auth_scheme"] = createResourceBrokerOptions.AuthScheme
 	}
@@ -2161,6 +2158,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateResourceBrokerWithContext(ct
 	}
 	if createResourceBrokerOptions.AuthUsername != nil {
 		body["auth_username"] = createResourceBrokerOptions.AuthUsername
+	}
+	if createResourceBrokerOptions.AuthPassword != nil {
+		body["auth_password"] = createResourceBrokerOptions.AuthPassword
 	}
 	if createResourceBrokerOptions.ResourceGroupCrn != nil {
 		body["resource_group_crn"] = createResourceBrokerOptions.ResourceGroupCrn
@@ -3993,9 +3993,6 @@ func (options *CreateRegistrationOptions) SetHeaders(param map[string]string) *C
 
 // CreateResourceBrokerOptions : The CreateResourceBroker options.
 type CreateResourceBrokerOptions struct {
-	// The authentication password to reach the broker.
-	AuthPassword *string `json:"auth_password" validate:"required"`
-
 	// The supported authentication scheme for the broker.
 	AuthScheme *string `json:"auth_scheme" validate:"required"`
 
@@ -4010,6 +4007,9 @@ type CreateResourceBrokerOptions struct {
 
 	// The authentication username to reach the broker.
 	AuthUsername *string `json:"auth_username,omitempty"`
+
+	// The authentication password to reach the broker.
+	AuthPassword *string `json:"auth_password,omitempty"`
 
 	// The cloud resource name of the resource group.
 	ResourceGroupCrn *string `json:"resource_group_crn,omitempty"`
@@ -4062,20 +4062,13 @@ const (
 )
 
 // NewCreateResourceBrokerOptions : Instantiate CreateResourceBrokerOptions
-func (*PartnerCenterSellV1) NewCreateResourceBrokerOptions(authPassword string, authScheme string, name string, brokerURL string, typeVar string) *CreateResourceBrokerOptions {
+func (*PartnerCenterSellV1) NewCreateResourceBrokerOptions(authScheme string, name string, brokerURL string, typeVar string) *CreateResourceBrokerOptions {
 	return &CreateResourceBrokerOptions{
-		AuthPassword: core.StringPtr(authPassword),
 		AuthScheme: core.StringPtr(authScheme),
 		Name: core.StringPtr(name),
 		BrokerURL: core.StringPtr(brokerURL),
 		Type: core.StringPtr(typeVar),
 	}
-}
-
-// SetAuthPassword : Allow user to set AuthPassword
-func (_options *CreateResourceBrokerOptions) SetAuthPassword(authPassword string) *CreateResourceBrokerOptions {
-	_options.AuthPassword = core.StringPtr(authPassword)
-	return _options
 }
 
 // SetAuthScheme : Allow user to set AuthScheme
@@ -4105,6 +4098,12 @@ func (_options *CreateResourceBrokerOptions) SetType(typeVar string) *CreateReso
 // SetAuthUsername : Allow user to set AuthUsername
 func (_options *CreateResourceBrokerOptions) SetAuthUsername(authUsername string) *CreateResourceBrokerOptions {
 	_options.AuthUsername = core.StringPtr(authUsername)
+	return _options
+}
+
+// SetAuthPassword : Allow user to set AuthPassword
+func (_options *CreateResourceBrokerOptions) SetAuthPassword(authPassword string) *CreateResourceBrokerOptions {
+	_options.AuthPassword = core.StringPtr(authPassword)
 	return _options
 }
 

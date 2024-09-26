@@ -618,13 +618,11 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
 
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
-				"0GANZzXiTurnXTF_000-FVk500800sdkrTHAt000y00y",
-				"bearer",
+				"bearer-crn",
 				brokerName,
 				brokerLink,
 				"provision_through",
 			)
-			createResourceBrokerOptions.SetAuthUsername("apikey")
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
