@@ -12936,6 +12936,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
+			It(`Invoke NewSupportedRoleOptions successfully`, func() {
+				accessPolicy := true
+				_model, err := partnerCenterSellService.NewSupportedRoleOptions(accessPolicy)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewUpdateCatalogDeploymentOptions successfully`, func() {
 				// Construct an instance of the UpdateCatalogDeploymentOptions model
 				productID := "testString"

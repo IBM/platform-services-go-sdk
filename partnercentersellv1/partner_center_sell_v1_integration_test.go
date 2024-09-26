@@ -1654,23 +1654,23 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(productBadge).ToNot(BeNil())
 		})
 	})
-	Describe(`DeleteCatalogProduct - Delete a global catalog product`, func() {
+	Describe(`DeleteCatalogDeployment - Delete a global catalog deployment`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteCatalogProduct(deleteCatalogProductOptions *DeleteCatalogProductOptions)`, func() {
-			deleteCatalogProductOptions := &partnercentersellv1.DeleteCatalogProductOptions{
-				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
-				CatalogProductID: &catalogProductIdLink,
-				Env:              core.StringPtr(env),
+		It(`DeleteCatalogDeployment(deleteCatalogDeploymentOptions *DeleteCatalogDeploymentOptions)`, func() {
+			deleteCatalogDeploymentOptions := &partnercentersellv1.DeleteCatalogDeploymentOptions{
+				ProductID:           core.StringPtr(productIdWithApprovedProgrammaticName),
+				CatalogProductID:    &catalogProductIdLink,
+				CatalogPlanID:       &catalogPlanIdLink,
+				CatalogDeploymentID: &catalogDeploymentIdLink,
+				Env:                 core.StringPtr(env),
 			}
-
-			response, err := partnerCenterSellService.DeleteCatalogProduct(deleteCatalogProductOptions)
+			response, err := partnerCenterSellService.DeleteCatalogDeployment(deleteCatalogDeploymentOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
-
 	Describe(`DeleteCatalogPlan - Delete a global catalog pricing plan`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1688,20 +1688,18 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
-
-	Describe(`DeleteCatalogDeployment - Delete a global catalog deployment`, func() {
+	Describe(`DeleteCatalogProduct - Delete a global catalog product`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteCatalogDeployment(deleteCatalogDeploymentOptions *DeleteCatalogDeploymentOptions)`, func() {
-			deleteCatalogDeploymentOptions := &partnercentersellv1.DeleteCatalogDeploymentOptions{
-				ProductID:           core.StringPtr(productIdWithApprovedProgrammaticName),
-				CatalogProductID:    &catalogProductIdLink,
-				CatalogPlanID:       &catalogPlanIdLink,
-				CatalogDeploymentID: &catalogDeploymentIdLink,
-				Env:                 core.StringPtr(env),
+		It(`DeleteCatalogProduct(deleteCatalogProductOptions *DeleteCatalogProductOptions)`, func() {
+			deleteCatalogProductOptions := &partnercentersellv1.DeleteCatalogProductOptions{
+				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
+				CatalogProductID: &catalogProductIdLink,
+				Env:              core.StringPtr(env),
 			}
-			response, err := partnerCenterSellService.DeleteCatalogDeployment(deleteCatalogDeploymentOptions)
+
+			response, err := partnerCenterSellService.DeleteCatalogProduct(deleteCatalogProductOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})

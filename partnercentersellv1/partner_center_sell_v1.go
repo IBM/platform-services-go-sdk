@@ -895,7 +895,7 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogProductWithContext(ctx c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *getCatalogProductOptions.ProductID,
+		"product_id":         *getCatalogProductOptions.ProductID,
 		"catalog_product_id": *getCatalogProductOptions.CatalogProductID,
 	}
 
@@ -969,7 +969,7 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogProductWithContext(ct
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *updateCatalogProductOptions.ProductID,
+		"product_id":         *updateCatalogProductOptions.ProductID,
 		"catalog_product_id": *updateCatalogProductOptions.CatalogProductID,
 	}
 
@@ -1050,7 +1050,7 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogProductWithContext(ct
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *deleteCatalogProductOptions.ProductID,
+		"product_id":         *deleteCatalogProductOptions.ProductID,
 		"catalog_product_id": *deleteCatalogProductOptions.CatalogProductID,
 	}
 
@@ -1114,7 +1114,7 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogPlanWithContext(ctx c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *createCatalogPlanOptions.ProductID,
+		"product_id":         *createCatalogPlanOptions.ProductID,
 		"catalog_product_id": *createCatalogPlanOptions.CatalogProductID,
 	}
 
@@ -1223,9 +1223,9 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogPlanWithContext(ctx cont
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *getCatalogPlanOptions.ProductID,
+		"product_id":         *getCatalogPlanOptions.ProductID,
 		"catalog_product_id": *getCatalogPlanOptions.CatalogProductID,
-		"catalog_plan_id": *getCatalogPlanOptions.CatalogPlanID,
+		"catalog_plan_id":    *getCatalogPlanOptions.CatalogPlanID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1298,9 +1298,9 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogPlanWithContext(ctx c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *updateCatalogPlanOptions.ProductID,
+		"product_id":         *updateCatalogPlanOptions.ProductID,
 		"catalog_product_id": *updateCatalogPlanOptions.CatalogProductID,
-		"catalog_plan_id": *updateCatalogPlanOptions.CatalogPlanID,
+		"catalog_plan_id":    *updateCatalogPlanOptions.CatalogPlanID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1380,9 +1380,9 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogPlanWithContext(ctx c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *deleteCatalogPlanOptions.ProductID,
+		"product_id":         *deleteCatalogPlanOptions.ProductID,
 		"catalog_product_id": *deleteCatalogPlanOptions.CatalogProductID,
-		"catalog_plan_id": *deleteCatalogPlanOptions.CatalogPlanID,
+		"catalog_plan_id":    *deleteCatalogPlanOptions.CatalogPlanID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1446,9 +1446,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogDeploymentWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *createCatalogDeploymentOptions.ProductID,
+		"product_id":         *createCatalogDeploymentOptions.ProductID,
 		"catalog_product_id": *createCatalogDeploymentOptions.CatalogProductID,
-		"catalog_plan_id": *createCatalogDeploymentOptions.CatalogPlanID,
+		"catalog_plan_id":    *createCatalogDeploymentOptions.CatalogPlanID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -1556,9 +1556,9 @@ func (partnerCenterSell *PartnerCenterSellV1) GetCatalogDeploymentWithContext(ct
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *getCatalogDeploymentOptions.ProductID,
-		"catalog_product_id": *getCatalogDeploymentOptions.CatalogProductID,
-		"catalog_plan_id": *getCatalogDeploymentOptions.CatalogPlanID,
+		"product_id":            *getCatalogDeploymentOptions.ProductID,
+		"catalog_product_id":    *getCatalogDeploymentOptions.CatalogProductID,
+		"catalog_plan_id":       *getCatalogDeploymentOptions.CatalogPlanID,
 		"catalog_deployment_id": *getCatalogDeploymentOptions.CatalogDeploymentID,
 	}
 
@@ -1632,9 +1632,9 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateCatalogDeploymentWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *updateCatalogDeploymentOptions.ProductID,
-		"catalog_product_id": *updateCatalogDeploymentOptions.CatalogProductID,
-		"catalog_plan_id": *updateCatalogDeploymentOptions.CatalogPlanID,
+		"product_id":            *updateCatalogDeploymentOptions.ProductID,
+		"catalog_product_id":    *updateCatalogDeploymentOptions.CatalogProductID,
+		"catalog_plan_id":       *updateCatalogDeploymentOptions.CatalogPlanID,
 		"catalog_deployment_id": *updateCatalogDeploymentOptions.CatalogDeploymentID,
 	}
 
@@ -1715,9 +1715,9 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteCatalogDeploymentWithContext
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *deleteCatalogDeploymentOptions.ProductID,
-		"catalog_product_id": *deleteCatalogDeploymentOptions.CatalogProductID,
-		"catalog_plan_id": *deleteCatalogDeploymentOptions.CatalogPlanID,
+		"product_id":            *deleteCatalogDeploymentOptions.ProductID,
+		"catalog_product_id":    *deleteCatalogDeploymentOptions.CatalogProductID,
+		"catalog_plan_id":       *deleteCatalogDeploymentOptions.CatalogPlanID,
 		"catalog_deployment_id": *deleteCatalogDeploymentOptions.CatalogDeploymentID,
 	}
 
@@ -1901,7 +1901,7 @@ func (partnerCenterSell *PartnerCenterSellV1) UpdateIamRegistrationWithContext(c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *updateIamRegistrationOptions.ProductID,
+		"product_id":        *updateIamRegistrationOptions.ProductID,
 		"programmatic_name": *updateIamRegistrationOptions.ProgrammaticName,
 	}
 
@@ -1982,7 +1982,7 @@ func (partnerCenterSell *PartnerCenterSellV1) DeleteIamRegistrationWithContext(c
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *deleteIamRegistrationOptions.ProductID,
+		"product_id":        *deleteIamRegistrationOptions.ProductID,
 		"programmatic_name": *deleteIamRegistrationOptions.ProgrammaticName,
 	}
 
@@ -2046,7 +2046,7 @@ func (partnerCenterSell *PartnerCenterSellV1) GetIamRegistrationWithContext(ctx 
 	}
 
 	pathParamsMap := map[string]string{
-		"product_id": *getIamRegistrationOptions.ProductID,
+		"product_id":        *getIamRegistrationOptions.ProductID,
 		"programmatic_name": *getIamRegistrationOptions.ProgrammaticName,
 	}
 
@@ -2671,21 +2671,21 @@ const (
 // Constants associated with the Broker.AuthScheme property.
 // The supported authentication scheme for the broker.
 const (
-	Broker_AuthScheme_Bearer = "bearer"
+	Broker_AuthScheme_Bearer    = "bearer"
 	Broker_AuthScheme_BearerCrn = "bearer-crn"
 )
 
 // Constants associated with the Broker.State property.
 // The state of the broker.
 const (
-	Broker_State_Active = "active"
+	Broker_State_Active  = "active"
 	Broker_State_Removed = "removed"
 )
 
 // Constants associated with the Broker.Type property.
 // The type of the provisioning model.
 const (
-	Broker_Type_ProvisionBehind = "provision_behind"
+	Broker_Type_ProvisionBehind  = "provision_behind"
 	Broker_Type_ProvisionThrough = "provision_through"
 )
 
@@ -2927,21 +2927,21 @@ const (
 // Constants associated with the BrokerPatch.AuthScheme property.
 // The supported authentication scheme for the broker.
 const (
-	BrokerPatch_AuthScheme_Bearer = "bearer"
+	BrokerPatch_AuthScheme_Bearer    = "bearer"
 	BrokerPatch_AuthScheme_BearerCrn = "bearer-crn"
 )
 
 // Constants associated with the BrokerPatch.State property.
 // The state of the broker.
 const (
-	BrokerPatch_State_Active = "active"
+	BrokerPatch_State_Active  = "active"
 	BrokerPatch_State_Removed = "removed"
 )
 
 // Constants associated with the BrokerPatch.Type property.
 // The type of the provisioning model.
 const (
-	BrokerPatch_Type_ProvisionBehind = "provision_behind"
+	BrokerPatch_Type_ProvisionBehind  = "provision_behind"
 	BrokerPatch_Type_ProvisionThrough = "provision_through"
 )
 
@@ -3121,18 +3121,18 @@ type CatalogProductMediaItem struct {
 // Constants associated with the CatalogProductMediaItem.Type property.
 // The type of the media.
 const (
-	CatalogProductMediaItem_Type_Image = "image"
-	CatalogProductMediaItem_Type_VideoMp4 = "video_mp_4"
+	CatalogProductMediaItem_Type_Image     = "image"
+	CatalogProductMediaItem_Type_VideoMp4  = "video_mp_4"
 	CatalogProductMediaItem_Type_VideoWebm = "video_webm"
-	CatalogProductMediaItem_Type_Youtube = "youtube"
+	CatalogProductMediaItem_Type_Youtube   = "youtube"
 )
 
 // NewCatalogProductMediaItem : Instantiate CatalogProductMediaItem (Generic Model Constructor)
 func (*PartnerCenterSellV1) NewCatalogProductMediaItem(caption string, typeVar string, url string) (_model *CatalogProductMediaItem, err error) {
 	_model = &CatalogProductMediaItem{
 		Caption: core.StringPtr(caption),
-		Type: core.StringPtr(typeVar),
-		URL: core.StringPtr(url),
+		Type:    core.StringPtr(typeVar),
+		URL:     core.StringPtr(url),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	if err != nil {
@@ -3290,15 +3290,15 @@ const (
 // NewCreateCatalogDeploymentOptions : Instantiate CreateCatalogDeploymentOptions
 func (*PartnerCenterSellV1) NewCreateCatalogDeploymentOptions(productID string, catalogProductID string, catalogPlanID string, name string, active bool, disabled bool, kind string, tags []string, objectProvider *CatalogProductProvider) *CreateCatalogDeploymentOptions {
 	return &CreateCatalogDeploymentOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
-		Name: core.StringPtr(name),
-		Active: core.BoolPtr(active),
-		Disabled: core.BoolPtr(disabled),
-		Kind: core.StringPtr(kind),
-		Tags: tags,
-		ObjectProvider: objectProvider,
+		CatalogPlanID:    core.StringPtr(catalogPlanID),
+		Name:             core.StringPtr(name),
+		Active:           core.BoolPtr(active),
+		Disabled:         core.BoolPtr(disabled),
+		Kind:             core.StringPtr(kind),
+		Tags:             tags,
+		ObjectProvider:   objectProvider,
 	}
 }
 
@@ -3439,14 +3439,14 @@ const (
 // NewCreateCatalogPlanOptions : Instantiate CreateCatalogPlanOptions
 func (*PartnerCenterSellV1) NewCreateCatalogPlanOptions(productID string, catalogProductID string, name string, active bool, disabled bool, kind string, tags []string, objectProvider *CatalogProductProvider) *CreateCatalogPlanOptions {
 	return &CreateCatalogPlanOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
-		Name: core.StringPtr(name),
-		Active: core.BoolPtr(active),
-		Disabled: core.BoolPtr(disabled),
-		Kind: core.StringPtr(kind),
-		Tags: tags,
-		ObjectProvider: objectProvider,
+		Name:             core.StringPtr(name),
+		Active:           core.BoolPtr(active),
+		Disabled:         core.BoolPtr(disabled),
+		Kind:             core.StringPtr(kind),
+		Tags:             tags,
+		ObjectProvider:   objectProvider,
 	}
 }
 
@@ -3576,18 +3576,18 @@ type CreateCatalogProductOptions struct {
 // The kind of the global catalog object.
 const (
 	CreateCatalogProductOptions_Kind_PlatformService = "platform_service"
-	CreateCatalogProductOptions_Kind_Service = "service"
+	CreateCatalogProductOptions_Kind_Service         = "service"
 )
 
 // NewCreateCatalogProductOptions : Instantiate CreateCatalogProductOptions
 func (*PartnerCenterSellV1) NewCreateCatalogProductOptions(productID string, name string, active bool, disabled bool, kind string, tags []string, objectProvider *CatalogProductProvider) *CreateCatalogProductOptions {
 	return &CreateCatalogProductOptions{
-		ProductID: core.StringPtr(productID),
-		Name: core.StringPtr(name),
-		Active: core.BoolPtr(active),
-		Disabled: core.BoolPtr(disabled),
-		Kind: core.StringPtr(kind),
-		Tags: tags,
+		ProductID:      core.StringPtr(productID),
+		Name:           core.StringPtr(name),
+		Active:         core.BoolPtr(active),
+		Disabled:       core.BoolPtr(disabled),
+		Kind:           core.StringPtr(kind),
+		Tags:           tags,
 		ObjectProvider: objectProvider,
 	}
 }
@@ -3727,14 +3727,14 @@ type CreateIamRegistrationOptions struct {
 // The type of the service.
 const (
 	CreateIamRegistrationOptions_ServiceType_PlatformService = "platform_service"
-	CreateIamRegistrationOptions_ServiceType_Service = "service"
+	CreateIamRegistrationOptions_ServiceType_Service         = "service"
 )
 
 // NewCreateIamRegistrationOptions : Instantiate CreateIamRegistrationOptions
 func (*PartnerCenterSellV1) NewCreateIamRegistrationOptions(productID string, name string) *CreateIamRegistrationOptions {
 	return &CreateIamRegistrationOptions{
 		ProductID: core.StringPtr(productID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -3865,14 +3865,14 @@ type CreateOnboardingProductOptions struct {
 // The type of the product.
 const (
 	CreateOnboardingProductOptions_Type_ProfessionalService = "professional_service"
-	CreateOnboardingProductOptions_Type_Service = "service"
-	CreateOnboardingProductOptions_Type_Software = "software"
+	CreateOnboardingProductOptions_Type_Service             = "service"
+	CreateOnboardingProductOptions_Type_Software            = "software"
 )
 
 // NewCreateOnboardingProductOptions : Instantiate CreateOnboardingProductOptions
 func (*PartnerCenterSellV1) NewCreateOnboardingProductOptions(typeVar string, primaryContact *PrimaryContact) *CreateOnboardingProductOptions {
 	return &CreateOnboardingProductOptions{
-		Type: core.StringPtr(typeVar),
+		Type:           core.StringPtr(typeVar),
 		PrimaryContact: primaryContact,
 	}
 }
@@ -3949,8 +3949,8 @@ type CreateRegistrationOptions struct {
 // NewCreateRegistrationOptions : Instantiate CreateRegistrationOptions
 func (*PartnerCenterSellV1) NewCreateRegistrationOptions(accountID string, companyName string, primaryContact *PrimaryContact) *CreateRegistrationOptions {
 	return &CreateRegistrationOptions{
-		AccountID: core.StringPtr(accountID),
-		CompanyName: core.StringPtr(companyName),
+		AccountID:      core.StringPtr(accountID),
+		CompanyName:    core.StringPtr(companyName),
 		PrimaryContact: primaryContact,
 	}
 }
@@ -4037,14 +4037,14 @@ type CreateResourceBrokerOptions struct {
 // Constants associated with the CreateResourceBrokerOptions.AuthScheme property.
 // The supported authentication scheme for the broker.
 const (
-	CreateResourceBrokerOptions_AuthScheme_Bearer = "bearer"
+	CreateResourceBrokerOptions_AuthScheme_Bearer    = "bearer"
 	CreateResourceBrokerOptions_AuthScheme_BearerCrn = "bearer-crn"
 )
 
 // Constants associated with the CreateResourceBrokerOptions.Type property.
 // The type of the provisioning model.
 const (
-	CreateResourceBrokerOptions_Type_ProvisionBehind = "provision_behind"
+	CreateResourceBrokerOptions_Type_ProvisionBehind  = "provision_behind"
 	CreateResourceBrokerOptions_Type_ProvisionThrough = "provision_through"
 )
 
@@ -4057,7 +4057,7 @@ const (
 // Constants associated with the CreateResourceBrokerOptions.State property.
 // The state of the broker.
 const (
-	CreateResourceBrokerOptions_State_Active = "active"
+	CreateResourceBrokerOptions_State_Active  = "active"
 	CreateResourceBrokerOptions_State_Removed = "removed"
 )
 
@@ -4065,9 +4065,9 @@ const (
 func (*PartnerCenterSellV1) NewCreateResourceBrokerOptions(authScheme string, name string, brokerURL string, typeVar string) *CreateResourceBrokerOptions {
 	return &CreateResourceBrokerOptions{
 		AuthScheme: core.StringPtr(authScheme),
-		Name: core.StringPtr(name),
-		BrokerURL: core.StringPtr(brokerURL),
-		Type: core.StringPtr(typeVar),
+		Name:       core.StringPtr(name),
+		BrokerURL:  core.StringPtr(brokerURL),
+		Type:       core.StringPtr(typeVar),
 	}
 }
 
@@ -4173,9 +4173,9 @@ type DeleteCatalogDeploymentOptions struct {
 // NewDeleteCatalogDeploymentOptions : Instantiate DeleteCatalogDeploymentOptions
 func (*PartnerCenterSellV1) NewDeleteCatalogDeploymentOptions(productID string, catalogProductID string, catalogPlanID string, catalogDeploymentID string) *DeleteCatalogDeploymentOptions {
 	return &DeleteCatalogDeploymentOptions{
-		ProductID: core.StringPtr(productID),
-		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
+		ProductID:           core.StringPtr(productID),
+		CatalogProductID:    core.StringPtr(catalogProductID),
+		CatalogPlanID:       core.StringPtr(catalogPlanID),
 		CatalogDeploymentID: core.StringPtr(catalogDeploymentID),
 	}
 }
@@ -4237,9 +4237,9 @@ type DeleteCatalogPlanOptions struct {
 // NewDeleteCatalogPlanOptions : Instantiate DeleteCatalogPlanOptions
 func (*PartnerCenterSellV1) NewDeleteCatalogPlanOptions(productID string, catalogProductID string, catalogPlanID string) *DeleteCatalogPlanOptions {
 	return &DeleteCatalogPlanOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
+		CatalogPlanID:    core.StringPtr(catalogPlanID),
 	}
 }
 
@@ -4291,7 +4291,7 @@ type DeleteCatalogProductOptions struct {
 // NewDeleteCatalogProductOptions : Instantiate DeleteCatalogProductOptions
 func (*PartnerCenterSellV1) NewDeleteCatalogProductOptions(productID string, catalogProductID string) *DeleteCatalogProductOptions {
 	return &DeleteCatalogProductOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
 	}
 }
@@ -4338,7 +4338,7 @@ type DeleteIamRegistrationOptions struct {
 // NewDeleteIamRegistrationOptions : Instantiate DeleteIamRegistrationOptions
 func (*PartnerCenterSellV1) NewDeleteIamRegistrationOptions(productID string, programmaticName string) *DeleteIamRegistrationOptions {
 	return &DeleteIamRegistrationOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		ProgrammaticName: core.StringPtr(programmaticName),
 	}
 }
@@ -4571,9 +4571,9 @@ type GetCatalogDeploymentOptions struct {
 // NewGetCatalogDeploymentOptions : Instantiate GetCatalogDeploymentOptions
 func (*PartnerCenterSellV1) NewGetCatalogDeploymentOptions(productID string, catalogProductID string, catalogPlanID string, catalogDeploymentID string) *GetCatalogDeploymentOptions {
 	return &GetCatalogDeploymentOptions{
-		ProductID: core.StringPtr(productID),
-		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
+		ProductID:           core.StringPtr(productID),
+		CatalogProductID:    core.StringPtr(catalogProductID),
+		CatalogPlanID:       core.StringPtr(catalogPlanID),
 		CatalogDeploymentID: core.StringPtr(catalogDeploymentID),
 	}
 }
@@ -4635,9 +4635,9 @@ type GetCatalogPlanOptions struct {
 // NewGetCatalogPlanOptions : Instantiate GetCatalogPlanOptions
 func (*PartnerCenterSellV1) NewGetCatalogPlanOptions(productID string, catalogProductID string, catalogPlanID string) *GetCatalogPlanOptions {
 	return &GetCatalogPlanOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
+		CatalogPlanID:    core.StringPtr(catalogPlanID),
 	}
 }
 
@@ -4689,7 +4689,7 @@ type GetCatalogProductOptions struct {
 // NewGetCatalogProductOptions : Instantiate GetCatalogProductOptions
 func (*PartnerCenterSellV1) NewGetCatalogProductOptions(productID string, catalogProductID string) *GetCatalogProductOptions {
 	return &GetCatalogProductOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		CatalogProductID: core.StringPtr(catalogProductID),
 	}
 }
@@ -4736,7 +4736,7 @@ type GetIamRegistrationOptions struct {
 // NewGetIamRegistrationOptions : Instantiate GetIamRegistrationOptions
 func (*PartnerCenterSellV1) NewGetIamRegistrationOptions(productID string, programmaticName string) *GetIamRegistrationOptions {
 	return &GetIamRegistrationOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:        core.StringPtr(productID),
 		ProgrammaticName: core.StringPtr(programmaticName),
 	}
 }
@@ -5242,7 +5242,7 @@ type GlobalCatalogMetadataPricing struct {
 // Constants associated with the GlobalCatalogMetadataPricing.Origin property.
 // The source of the pricing information: global_catalog or pricing_catalog.
 const (
-	GlobalCatalogMetadataPricing_Origin_GlobalCatalog = "global_catalog"
+	GlobalCatalogMetadataPricing_Origin_GlobalCatalog  = "global_catalog"
 	GlobalCatalogMetadataPricing_Origin_PricingCatalog = "pricing_catalog"
 )
 
@@ -6005,7 +6005,7 @@ type GlobalCatalogProduct struct {
 // The kind of the global catalog object.
 const (
 	GlobalCatalogProduct_Kind_PlatformService = "platform_service"
-	GlobalCatalogProduct_Kind_Service = "service"
+	GlobalCatalogProduct_Kind_Service         = "service"
 )
 
 // UnmarshalGlobalCatalogProduct unmarshals an instance of GlobalCatalogProduct from the specified map of raw messages.
@@ -6248,9 +6248,9 @@ type GlobalCatalogProductMetadataOtherPCSupport struct {
 // Constants associated with the GlobalCatalogProductMetadataOtherPCSupport.SupportType property.
 // The type of support provided.
 const (
-	GlobalCatalogProductMetadataOtherPCSupport_SupportType_Community = "community"
-	GlobalCatalogProductMetadataOtherPCSupport_SupportType_Ibm = "ibm"
-	GlobalCatalogProductMetadataOtherPCSupport_SupportType_IbmCloud = "ibm_cloud"
+	GlobalCatalogProductMetadataOtherPCSupport_SupportType_Community  = "community"
+	GlobalCatalogProductMetadataOtherPCSupport_SupportType_Ibm        = "ibm"
+	GlobalCatalogProductMetadataOtherPCSupport_SupportType_IbmCloud   = "ibm_cloud"
 	GlobalCatalogProductMetadataOtherPCSupport_SupportType_ThirdParty = "third_party"
 )
 
@@ -6488,7 +6488,7 @@ type IamServiceRegistration struct {
 // The type of the service.
 const (
 	IamServiceRegistration_ServiceType_PlatformService = "platform_service"
-	IamServiceRegistration_ServiceType_Service = "service"
+	IamServiceRegistration_ServiceType_Service         = "service"
 )
 
 // UnmarshalIamServiceRegistration unmarshals an instance of IamServiceRegistration from the specified map of raw messages.
@@ -6984,7 +6984,7 @@ type IamServiceRegistrationPatch struct {
 // The type of the service.
 const (
 	IamServiceRegistrationPatch_ServiceType_PlatformService = "platform_service"
-	IamServiceRegistrationPatch_ServiceType_Service = "service"
+	IamServiceRegistrationPatch_ServiceType_Service         = "service"
 )
 
 // UnmarshalIamServiceRegistrationPatch unmarshals an instance of IamServiceRegistrationPatch from the specified map of raw messages.
@@ -7621,8 +7621,8 @@ type OnboardingProduct struct {
 // The type of the product.
 const (
 	OnboardingProduct_Type_ProfessionalService = "professional_service"
-	OnboardingProduct_Type_Service = "service"
-	OnboardingProduct_Type_Software = "software"
+	OnboardingProduct_Type_Service             = "service"
+	OnboardingProduct_Type_Software            = "software"
 )
 
 // UnmarshalOnboardingProduct unmarshals an instance of OnboardingProduct from the specified map of raw messages.
@@ -7884,7 +7884,7 @@ type PrimaryContact struct {
 // NewPrimaryContact : Instantiate PrimaryContact (Generic Model Constructor)
 func (*PartnerCenterSellV1) NewPrimaryContact(name string, email string) (_model *PrimaryContact, err error) {
 	_model = &PrimaryContact{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Email: core.StringPtr(email),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -8256,11 +8256,11 @@ type SupportDetailsItem struct {
 // Constants associated with the SupportDetailsItem.Type property.
 // The type of support for this support channel.
 const (
-	SupportDetailsItem_Type_Chat = "chat"
-	SupportDetailsItem_Type_Email = "email"
-	SupportDetailsItem_Type_Other = "other"
-	SupportDetailsItem_Type_Phone = "phone"
-	SupportDetailsItem_Type_Slack = "slack"
+	SupportDetailsItem_Type_Chat        = "chat"
+	SupportDetailsItem_Type_Email       = "email"
+	SupportDetailsItem_Type_Other       = "other"
+	SupportDetailsItem_Type_Phone       = "phone"
+	SupportDetailsItem_Type_Slack       = "slack"
 	SupportDetailsItem_Type_SupportSite = "support_site"
 )
 
@@ -8776,15 +8776,15 @@ type SupportedAttributesOptions struct {
 // Constants associated with the SupportedAttributesOptions.Operators property.
 // The list of multiple option values.
 const (
-	SupportedAttributesOptions_Operators_Stringequals = "stringEquals"
+	SupportedAttributesOptions_Operators_Stringequals      = "stringEquals"
 	SupportedAttributesOptions_Operators_Stringequalsanyof = "stringEqualsAnyOf"
-	SupportedAttributesOptions_Operators_Stringmatch = "stringMatch"
-	SupportedAttributesOptions_Operators_Stringmatchanyof = "stringMatchAnyOf"
+	SupportedAttributesOptions_Operators_Stringmatch       = "stringMatch"
+	SupportedAttributesOptions_Operators_Stringmatchanyof  = "stringMatchAnyOf"
 )
 
 // Constants associated with the SupportedAttributesOptions.PolicyTypes property.
 const (
-	SupportedAttributesOptions_PolicyTypes_Access = "access"
+	SupportedAttributesOptions_PolicyTypes_Access        = "access"
 	SupportedAttributesOptions_PolicyTypes_Authorization = "authorization"
 )
 
@@ -8975,7 +8975,7 @@ func (supportedAttributesOptionsResourceHierarchyValue *SupportedAttributesOptio
 // SupportedRoleOptions : The supported role options.
 type SupportedRoleOptions struct {
 	// Optional opt-in to require access control on the role.
-	AccessPolicy *bool `json:"access_policy,omitempty"`
+	AccessPolicy *bool `json:"access_policy" validate:"required"`
 
 	// Optional opt-in to require checking policy type when applying the role.
 	PolicyType []string `json:"policy_type,omitempty"`
@@ -8987,8 +8987,8 @@ type SupportedRoleOptions struct {
 // Constants associated with the SupportedRoleOptions.PolicyType property.
 // Policy type.
 const (
-	SupportedRoleOptions_PolicyType_Access = "access"
-	SupportedRoleOptions_PolicyType_Authorization = "authorization"
+	SupportedRoleOptions_PolicyType_Access                 = "access"
+	SupportedRoleOptions_PolicyType_Authorization          = "authorization"
 	SupportedRoleOptions_PolicyType_AuthorizationDelegated = "authorization-delegated"
 )
 
@@ -8997,6 +8997,18 @@ const (
 const (
 	SupportedRoleOptions_AccountType_Enterprise = "enterprise"
 )
+
+// NewSupportedRoleOptions : Instantiate SupportedRoleOptions (Generic Model Constructor)
+func (*PartnerCenterSellV1) NewSupportedRoleOptions(accessPolicy bool) (_model *SupportedRoleOptions, err error) {
+	_model = &SupportedRoleOptions{
+		AccessPolicy: core.BoolPtr(accessPolicy),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
+}
 
 // UnmarshalSupportedRoleOptions unmarshals an instance of SupportedRoleOptions from the specified map of raw messages.
 func UnmarshalSupportedRoleOptions(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -9063,10 +9075,10 @@ type UpdateCatalogDeploymentOptions struct {
 // NewUpdateCatalogDeploymentOptions : Instantiate UpdateCatalogDeploymentOptions
 func (*PartnerCenterSellV1) NewUpdateCatalogDeploymentOptions(productID string, catalogProductID string, catalogPlanID string, catalogDeploymentID string, globalCatalogDeploymentPatch map[string]interface{}) *UpdateCatalogDeploymentOptions {
 	return &UpdateCatalogDeploymentOptions{
-		ProductID: core.StringPtr(productID),
-		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
-		CatalogDeploymentID: core.StringPtr(catalogDeploymentID),
+		ProductID:                    core.StringPtr(productID),
+		CatalogProductID:             core.StringPtr(catalogProductID),
+		CatalogPlanID:                core.StringPtr(catalogPlanID),
+		CatalogDeploymentID:          core.StringPtr(catalogDeploymentID),
 		GlobalCatalogDeploymentPatch: globalCatalogDeploymentPatch,
 	}
 }
@@ -9137,9 +9149,9 @@ type UpdateCatalogPlanOptions struct {
 // NewUpdateCatalogPlanOptions : Instantiate UpdateCatalogPlanOptions
 func (*PartnerCenterSellV1) NewUpdateCatalogPlanOptions(productID string, catalogProductID string, catalogPlanID string, globalCatalogPlanPatch map[string]interface{}) *UpdateCatalogPlanOptions {
 	return &UpdateCatalogPlanOptions{
-		ProductID: core.StringPtr(productID),
-		CatalogProductID: core.StringPtr(catalogProductID),
-		CatalogPlanID: core.StringPtr(catalogPlanID),
+		ProductID:              core.StringPtr(productID),
+		CatalogProductID:       core.StringPtr(catalogProductID),
+		CatalogPlanID:          core.StringPtr(catalogPlanID),
 		GlobalCatalogPlanPatch: globalCatalogPlanPatch,
 	}
 }
@@ -9201,8 +9213,8 @@ type UpdateCatalogProductOptions struct {
 // NewUpdateCatalogProductOptions : Instantiate UpdateCatalogProductOptions
 func (*PartnerCenterSellV1) NewUpdateCatalogProductOptions(productID string, catalogProductID string, globalCatalogProductPatch map[string]interface{}) *UpdateCatalogProductOptions {
 	return &UpdateCatalogProductOptions{
-		ProductID: core.StringPtr(productID),
-		CatalogProductID: core.StringPtr(catalogProductID),
+		ProductID:                 core.StringPtr(productID),
+		CatalogProductID:          core.StringPtr(catalogProductID),
 		GlobalCatalogProductPatch: globalCatalogProductPatch,
 	}
 }
@@ -9258,8 +9270,8 @@ type UpdateIamRegistrationOptions struct {
 // NewUpdateIamRegistrationOptions : Instantiate UpdateIamRegistrationOptions
 func (*PartnerCenterSellV1) NewUpdateIamRegistrationOptions(productID string, programmaticName string, iamRegistrationPatch map[string]interface{}) *UpdateIamRegistrationOptions {
 	return &UpdateIamRegistrationOptions{
-		ProductID: core.StringPtr(productID),
-		ProgrammaticName: core.StringPtr(programmaticName),
+		ProductID:            core.StringPtr(productID),
+		ProgrammaticName:     core.StringPtr(programmaticName),
 		IamRegistrationPatch: iamRegistrationPatch,
 	}
 }
@@ -9309,7 +9321,7 @@ type UpdateOnboardingProductOptions struct {
 // NewUpdateOnboardingProductOptions : Instantiate UpdateOnboardingProductOptions
 func (*PartnerCenterSellV1) NewUpdateOnboardingProductOptions(productID string, onboardingProductPatch map[string]interface{}) *UpdateOnboardingProductOptions {
 	return &UpdateOnboardingProductOptions{
-		ProductID: core.StringPtr(productID),
+		ProductID:              core.StringPtr(productID),
 		OnboardingProductPatch: onboardingProductPatch,
 	}
 }
@@ -9347,7 +9359,7 @@ type UpdateRegistrationOptions struct {
 // NewUpdateRegistrationOptions : Instantiate UpdateRegistrationOptions
 func (*PartnerCenterSellV1) NewUpdateRegistrationOptions(registrationID string, registrationPatch map[string]interface{}) *UpdateRegistrationOptions {
 	return &UpdateRegistrationOptions{
-		RegistrationID: core.StringPtr(registrationID),
+		RegistrationID:    core.StringPtr(registrationID),
 		RegistrationPatch: registrationPatch,
 	}
 }
@@ -9388,7 +9400,7 @@ type UpdateResourceBrokerOptions struct {
 // NewUpdateResourceBrokerOptions : Instantiate UpdateResourceBrokerOptions
 func (*PartnerCenterSellV1) NewUpdateResourceBrokerOptions(brokerID string, brokerPatch map[string]interface{}) *UpdateResourceBrokerOptions {
 	return &UpdateResourceBrokerOptions{
-		BrokerID: core.StringPtr(brokerID),
+		BrokerID:    core.StringPtr(brokerID),
 		BrokerPatch: brokerPatch,
 	}
 }
