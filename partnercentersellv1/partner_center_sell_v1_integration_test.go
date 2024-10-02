@@ -375,12 +375,12 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
 				Kind: core.StringPtr("service"),
-				Name: core.StringPtr("testString"),
+				Name: core.StringPtr("test.string"),
 			}
 
 			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
 				CompositeKind: core.StringPtr("service"),
-				CompositeTag:  core.StringPtr("testString"),
+				CompositeTag:  core.StringPtr("test.string"),
 				Children:      []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel},
 			}
 
