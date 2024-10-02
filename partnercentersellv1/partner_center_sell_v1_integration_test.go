@@ -373,8 +373,20 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Support: globalCatalogProductMetadataOtherPcSupportModel,
 			}
 
+			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
+				Kind: core.StringPtr("service"),
+				Name: core.StringPtr("testString"),
+			}
+
+			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
+				CompositeKind: core.StringPtr("service"),
+				CompositeTag:  core.StringPtr("testString"),
+				Children:      []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel},
+			}
+
 			globalCatalogProductMetadataOtherModel := &partnercentersellv1.GlobalCatalogProductMetadataOther{
-				PC: globalCatalogProductMetadataOtherPcModel,
+				PC:        globalCatalogProductMetadataOtherPcModel,
+				Composite: globalCatalogProductMetadataOtherCompositeModel,
 			}
 
 			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{

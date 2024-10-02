@@ -3575,6 +3575,7 @@ type CreateCatalogProductOptions struct {
 // Constants associated with the CreateCatalogProductOptions.Kind property.
 // The kind of the global catalog object.
 const (
+	CreateCatalogProductOptions_Kind_Composite       = "composite"
 	CreateCatalogProductOptions_Kind_PlatformService = "platform_service"
 	CreateCatalogProductOptions_Kind_Service         = "service"
 )
@@ -6004,6 +6005,7 @@ type GlobalCatalogProduct struct {
 // Constants associated with the GlobalCatalogProduct.Kind property.
 // The kind of the global catalog object.
 const (
+	GlobalCatalogProduct_Kind_Composite       = "composite"
 	GlobalCatalogProduct_Kind_PlatformService = "platform_service"
 	GlobalCatalogProduct_Kind_Service         = "service"
 )
@@ -6163,6 +6165,9 @@ func (globalCatalogProductMetadata *GlobalCatalogProductMetadata) asPatch() (_pa
 type GlobalCatalogProductMetadataOther struct {
 	// The metadata of the service owned and managed by Partner Center - Sell.
 	PC *GlobalCatalogProductMetadataOtherPC `json:"PC,omitempty"`
+
+	// Optional metadata of the service defining it as a composite.
+	Composite *GlobalCatalogProductMetadataOtherComposite `json:"composite,omitempty"`
 }
 
 // UnmarshalGlobalCatalogProductMetadataOther unmarshals an instance of GlobalCatalogProductMetadataOther from the specified map of raw messages.
@@ -6171,6 +6176,11 @@ func UnmarshalGlobalCatalogProductMetadataOther(m map[string]json.RawMessage, re
 	err = core.UnmarshalModel(m, "PC", &obj.PC, UnmarshalGlobalCatalogProductMetadataOtherPC)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "PC-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "composite", &obj.Composite, UnmarshalGlobalCatalogProductMetadataOtherComposite)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "composite-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -6182,6 +6192,115 @@ func (globalCatalogProductMetadataOther *GlobalCatalogProductMetadataOther) asPa
 	_patch = map[string]interface{}{}
 	if !core.IsNil(globalCatalogProductMetadataOther.PC) {
 		_patch["PC"] = globalCatalogProductMetadataOther.PC.asPatch()
+	}
+	if !core.IsNil(globalCatalogProductMetadataOther.Composite) {
+		_patch["composite"] = globalCatalogProductMetadataOther.Composite.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogProductMetadataOtherComposite : Optional metadata of the service defining it as a composite.
+type GlobalCatalogProductMetadataOtherComposite struct {
+	// The type of the composite service.
+	CompositeKind *string `json:"composite_kind,omitempty"`
+
+	// The tag used for the composite parent and its children.
+	CompositeTag *string `json:"composite_tag,omitempty"`
+
+	Children []GlobalCatalogProductMetadataOtherCompositeChild `json:"children,omitempty"`
+}
+
+// Constants associated with the GlobalCatalogProductMetadataOtherComposite.CompositeKind property.
+// The type of the composite service.
+const (
+	GlobalCatalogProductMetadataOtherComposite_CompositeKind_PlatformService = "platform_service"
+	GlobalCatalogProductMetadataOtherComposite_CompositeKind_Service         = "service"
+)
+
+// UnmarshalGlobalCatalogProductMetadataOtherComposite unmarshals an instance of GlobalCatalogProductMetadataOtherComposite from the specified map of raw messages.
+func UnmarshalGlobalCatalogProductMetadataOtherComposite(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogProductMetadataOtherComposite)
+	err = core.UnmarshalPrimitive(m, "composite_kind", &obj.CompositeKind)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "composite_kind-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "composite_tag", &obj.CompositeTag)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "composite_tag-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "children", &obj.Children, UnmarshalGlobalCatalogProductMetadataOtherCompositeChild)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "children-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogProductMetadataOtherComposite
+func (globalCatalogProductMetadataOtherComposite *GlobalCatalogProductMetadataOtherComposite) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogProductMetadataOtherComposite.CompositeKind) {
+		_patch["composite_kind"] = globalCatalogProductMetadataOtherComposite.CompositeKind
+	}
+	if !core.IsNil(globalCatalogProductMetadataOtherComposite.CompositeTag) {
+		_patch["composite_tag"] = globalCatalogProductMetadataOtherComposite.CompositeTag
+	}
+	if !core.IsNil(globalCatalogProductMetadataOtherComposite.Children) {
+		var childrenPatches []map[string]interface{}
+		for _, children := range globalCatalogProductMetadataOtherComposite.Children {
+			childrenPatches = append(childrenPatches, children.asPatch())
+		}
+		_patch["children"] = childrenPatches
+	}
+
+	return
+}
+
+// GlobalCatalogProductMetadataOtherCompositeChild : Object defining a composite child of a composite parent.
+type GlobalCatalogProductMetadataOtherCompositeChild struct {
+	// The type of the composite child.
+	Kind *string `json:"kind,omitempty"`
+
+	// The name of the composite child.
+	Name *string `json:"name,omitempty"`
+}
+
+// Constants associated with the GlobalCatalogProductMetadataOtherCompositeChild.Kind property.
+// The type of the composite child.
+const (
+	GlobalCatalogProductMetadataOtherCompositeChild_Kind_PlatformService = "platform_service"
+	GlobalCatalogProductMetadataOtherCompositeChild_Kind_Service         = "service"
+)
+
+// UnmarshalGlobalCatalogProductMetadataOtherCompositeChild unmarshals an instance of GlobalCatalogProductMetadataOtherCompositeChild from the specified map of raw messages.
+func UnmarshalGlobalCatalogProductMetadataOtherCompositeChild(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogProductMetadataOtherCompositeChild)
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "kind-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogProductMetadataOtherCompositeChild
+func (globalCatalogProductMetadataOtherCompositeChild *GlobalCatalogProductMetadataOtherCompositeChild) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogProductMetadataOtherCompositeChild.Kind) {
+		_patch["kind"] = globalCatalogProductMetadataOtherCompositeChild.Kind
+	}
+	if !core.IsNil(globalCatalogProductMetadataOtherCompositeChild.Name) {
+		_patch["name"] = globalCatalogProductMetadataOtherCompositeChild.Name
 	}
 
 	return
@@ -7598,7 +7717,7 @@ type OnboardingProduct struct {
 	// The ID of the approval workflow of your product.
 	ApproverResourceID *string `json:"approver_resource_id,omitempty"`
 
-	// Iam registration identifier.
+	// IAM registration identifier.
 	IamRegistrationID *string `json:"iam_registration_id,omitempty"`
 
 	// The Export Control Classification Number of your product.

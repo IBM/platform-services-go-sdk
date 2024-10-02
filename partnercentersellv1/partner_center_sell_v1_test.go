@@ -68,14 +68,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-			})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2200,9 +2197,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -2278,7 +2287,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2405,9 +2414,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -2486,7 +2507,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2618,9 +2639,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -2775,9 +2808,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -2953,9 +2998,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -3059,7 +3116,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3116,7 +3173,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3357,9 +3414,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -3439,7 +3508,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3566,9 +3635,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -3651,7 +3732,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -3783,9 +3864,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -3944,9 +4037,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -4126,9 +4231,21 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherPC)
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -12228,11 +12345,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcModel.Support = globalCatalogProductMetadataOtherPcSupportModel
 				Expect(globalCatalogProductMetadataOtherPcModel.Support).To(Equal(globalCatalogProductMetadataOtherPcSupportModel))
 
+				// Construct an instance of the GlobalCatalogProductMetadataOtherCompositeChild model
+				globalCatalogProductMetadataOtherCompositeChildModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+				Expect(globalCatalogProductMetadataOtherCompositeChildModel).ToNot(BeNil())
+				globalCatalogProductMetadataOtherCompositeChildModel.Kind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeChildModel.Name = core.StringPtr("testString")
+				Expect(globalCatalogProductMetadataOtherCompositeChildModel.Kind).To(Equal(core.StringPtr("service")))
+				Expect(globalCatalogProductMetadataOtherCompositeChildModel.Name).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the GlobalCatalogProductMetadataOtherComposite model
+				globalCatalogProductMetadataOtherCompositeModel := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+				Expect(globalCatalogProductMetadataOtherCompositeModel).ToNot(BeNil())
+				globalCatalogProductMetadataOtherCompositeModel.CompositeKind = core.StringPtr("service")
+				globalCatalogProductMetadataOtherCompositeModel.CompositeTag = core.StringPtr("testString")
+				globalCatalogProductMetadataOtherCompositeModel.Children = []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}
+				Expect(globalCatalogProductMetadataOtherCompositeModel.CompositeKind).To(Equal(core.StringPtr("service")))
+				Expect(globalCatalogProductMetadataOtherCompositeModel.CompositeTag).To(Equal(core.StringPtr("testString")))
+				Expect(globalCatalogProductMetadataOtherCompositeModel.Children).To(Equal([]partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel}))
+
 				// Construct an instance of the GlobalCatalogProductMetadataOther model
 				globalCatalogProductMetadataOtherModel := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 				Expect(globalCatalogProductMetadataOtherModel).ToNot(BeNil())
 				globalCatalogProductMetadataOtherModel.PC = globalCatalogProductMetadataOtherPcModel
+				globalCatalogProductMetadataOtherModel.Composite = globalCatalogProductMetadataOtherCompositeModel
 				Expect(globalCatalogProductMetadataOtherModel.PC).To(Equal(globalCatalogProductMetadataOtherPcModel))
+				Expect(globalCatalogProductMetadataOtherModel.Composite).To(Equal(globalCatalogProductMetadataOtherCompositeModel))
 
 				// Construct an instance of the GlobalCatalogProductMetadata model
 				globalCatalogProductMetadataModel := new(partnercentersellv1.GlobalCatalogProductMetadata)
@@ -13547,6 +13684,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.GlobalCatalogProductMetadataOther)
 			model.PC = nil
+			model.Composite = nil
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -13557,6 +13695,45 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 			var result *partnercentersellv1.GlobalCatalogProductMetadataOther
 			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataOther(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogProductMetadataOtherComposite successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogProductMetadataOtherComposite)
+			model.CompositeKind = core.StringPtr("service")
+			model.CompositeTag = core.StringPtr("testString")
+			model.Children = nil
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogProductMetadataOtherComposite
+			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataOtherComposite(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalGlobalCatalogProductMetadataOtherCompositeChild successfully`, func() {
+			// Construct an instance of the model.
+			model := new(partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild)
+			model.Kind = core.StringPtr("service")
+			model.Name = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild
+			err = partnercentersellv1.UnmarshalGlobalCatalogProductMetadataOtherCompositeChild(raw, &result)
 			Expect(err).To(BeNil())
 			Expect(result).ToNot(BeNil())
 			Expect(result).To(Equal(model))
