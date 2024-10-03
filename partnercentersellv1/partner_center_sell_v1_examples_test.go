@@ -35,14 +35,16 @@ import (
 //
 // The following configuration properties are assumed to be defined:
 // PARTNER_CENTER_SELL_URL=<service base url>
-// PARTNER_CENTER_SELL_ALT_URL=<service base url>
 // PARTNER_CENTER_SELL_AUTH_TYPE=iam
-// PARTNER_CENTER_SELL_ALT_AUTH_TYPE=iam
 // PARTNER_CENTER_SELL_APIKEY=<IAM apikey>
-// PARTNER_CENTER_SELL_ALT_APIKEY=<IAM apikey>
 // PARTNER_CENTER_SELL_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 // PRODUCT_ID_APPROVED=<product id>
 // BADGE_ID=<badge id>
+
+// PARTNER_CENTER_SELL_ALT_AUTH_TYPE=iam
+// PARTNER_CENTER_SELL_ALT_APIKEY=<IAM apikey>
+// PARTNER_CENTER_SELL_ALT_URL=<service base url>
+
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
