@@ -41,7 +41,7 @@ import (
 // PARTNER_CENTER_SELL_APIKEY=<IAM apikey>
 // PARTNER_CENTER_SELL_ALT_APIKEY=<IAM apikey>
 // PARTNER_CENTER_SELL_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
-// PRODUCT_ID_APPROVED
+// PRODUCT_ID_APPROVED=<product id>
 // BADGE_ID
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
