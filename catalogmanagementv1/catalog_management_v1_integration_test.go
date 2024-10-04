@@ -737,9 +737,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			supportTimeModel := &catalogmanagementv1.SupportTime{
-				Day:       core.Int64Ptr(int64(38)),
-				StartTime: core.StringPtr("testString"),
-				EndTime:   core.StringPtr("testString"),
+				Day:       core.Int64Ptr(int64(30)),
+				StartTime: core.StringPtr("10:00"),
+				EndTime:   core.StringPtr("18:00"),
 			}
 
 			supportAvailabilityModel := &catalogmanagementv1.SupportAvailability{
@@ -1865,8 +1865,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			supportTimeModel := &catalogmanagementv1.SupportTime{
 				Day:       core.Int64Ptr(int64(38)),
-				StartTime: core.StringPtr("testString"),
-				EndTime:   core.StringPtr("testString"),
+				StartTime: core.StringPtr("10:00"),
+				EndTime:   core.StringPtr("10:00"),
 			}
 
 			supportAvailabilityModel := &catalogmanagementv1.SupportAvailability{

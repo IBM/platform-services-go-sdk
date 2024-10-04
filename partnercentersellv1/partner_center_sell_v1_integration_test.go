@@ -340,8 +340,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			supportDetailsItemAvailabilityTimeModel := &partnercentersellv1.SupportDetailsItemAvailabilityTime{
 				Day:       core.Float64Ptr(float64(72)),
-				StartTime: core.StringPtr("testString"),
-				EndTime:   core.StringPtr("testString"),
+				StartTime: core.StringPtr("10:00"),
+				EndTime:   core.StringPtr("18:00"),
 			}
 
 			supportDetailsItemAvailabilityModel := &partnercentersellv1.SupportDetailsItemAvailability{
@@ -507,8 +507,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			supportDetailsItemAvailabilityTimeModel := &partnercentersellv1.SupportDetailsItemAvailabilityTime{
 				Day:       core.Float64Ptr(float64(72)),
-				StartTime: core.StringPtr("testString"),
-				EndTime:   core.StringPtr("testString"),
+				StartTime: core.StringPtr("10:00"),
+				EndTime:   core.StringPtr("10:00"),
 			}
 
 			supportDetailsItemAvailabilityModel := &partnercentersellv1.SupportDetailsItemAvailability{
