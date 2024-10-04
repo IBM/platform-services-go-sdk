@@ -42,7 +42,7 @@ type PartnerCenterSellV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://product-lifecycle.api.test.cloud.ibm.com/openapi/v1"
+const DefaultServiceURL = "http://localhost:5005/openapi/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "partner_center_sell"
@@ -3045,13 +3045,13 @@ type CatalogHighlightItem struct {
 	Description *string `json:"description,omitempty"`
 
 	// The description about the features of the product in translation.
-	DescriptionI18n map[string]interface{} `json:"description_i18n,omitempty"`
+	DescriptionI18n map[string]string `json:"description_i18n,omitempty"`
 
 	// The descriptive title for the feature.
 	Title *string `json:"title,omitempty"`
 
 	// The descriptive title for the feature in translation.
-	TitleI18n map[string]interface{} `json:"title_i18n,omitempty"`
+	TitleI18n map[string]string `json:"title_i18n,omitempty"`
 }
 
 // UnmarshalCatalogHighlightItem unmarshals an instance of CatalogHighlightItem from the specified map of raw messages.
@@ -3106,7 +3106,7 @@ type CatalogProductMediaItem struct {
 	Caption *string `json:"caption" validate:"required"`
 
 	// The brief explanation for your images and videos in translation.
-	CaptionI18n map[string]interface{} `json:"caption_i18n,omitempty"`
+	CaptionI18n map[string]string `json:"caption_i18n,omitempty"`
 
 	// The reduced-size version of your images and videos.
 	Thumbnail *string `json:"thumbnail,omitempty"`
@@ -6352,7 +6352,7 @@ type GlobalCatalogProductMetadataOtherPCSupport struct {
 	Process *string `json:"process,omitempty"`
 
 	// The description of your support process.
-	ProcessI18n map[string]interface{} `json:"process_i18n,omitempty"`
+	ProcessI18n map[string]string `json:"process_i18n,omitempty"`
 
 	// The type of support provided.
 	SupportType *string `json:"support_type,omitempty"`
@@ -7316,7 +7316,7 @@ func (iamServiceRegistrationSupportedAnonymousAccess *IamServiceRegistrationSupp
 }
 
 // IamServiceRegistrationSupportedAnonymousAccessAttributes : The attributes for anonymous accesses.
-// This type supports additional properties of type interface{}.
+// This type supports additional properties of type *string.
 type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 	// An account id.
 	AccountID *string `json:"account_id,omitempty"`
@@ -7324,33 +7324,33 @@ type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 	// The name of the service.
 	ServiceName *string `json:"service_name,omitempty"`
 
-	// Allows users to set arbitrary properties of type interface{}.
-	additionalProperties map[string]interface{}
+	// Allows users to set arbitrary properties of type *string.
+	additionalProperties map[string]*string
 }
 
 // SetProperty allows the user to set an arbitrary property on an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperty(key string, value interface{}) {
+func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperty(key string, value *string) {
 	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]interface{})
+		o.additionalProperties = make(map[string]*string)
 	}
 	o.additionalProperties[key] = value
 }
 
 // SetProperties allows the user to set a map of arbitrary properties on an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperties(m map[string]interface{}) {
-	o.additionalProperties = make(map[string]interface{})
+func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperties(m map[string]*string) {
+	o.additionalProperties = make(map[string]*string)
 	for k, v := range m {
 		o.additionalProperties[k] = v
 	}
 }
 
 // GetProperty allows the user to retrieve an arbitrary property from an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperty(key string) interface{} {
+func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperty(key string) *string {
 	return o.additionalProperties[key]
 }
 
 // GetProperties allows the user to retrieve the map of arbitrary properties from an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperties() map[string]interface{} {
+func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperties() map[string]*string {
 	return o.additionalProperties
 }
 
@@ -7391,7 +7391,7 @@ func UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes(m map[str
 	}
 	delete(m, "service_name")
 	for k := range m {
-		var v interface{}
+		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
 			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())

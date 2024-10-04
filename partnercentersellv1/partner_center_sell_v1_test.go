@@ -2104,14 +2104,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -2188,7 +2188,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -2287,7 +2287,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2321,14 +2321,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -2405,7 +2405,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -2507,7 +2507,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2546,14 +2546,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -2630,7 +2630,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -2715,14 +2715,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -2799,7 +2799,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -2905,14 +2905,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -2989,7 +2989,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -3116,7 +3116,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3173,7 +3173,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3321,14 +3321,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -3405,7 +3405,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -3508,7 +3508,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3542,14 +3542,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -3626,7 +3626,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -3732,7 +3732,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"anyKey": "anyValue"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -3771,14 +3771,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -3855,7 +3855,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -3944,14 +3944,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4028,7 +4028,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -4138,14 +4138,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4222,7 +4222,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -4402,14 +4402,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4534,7 +4534,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully with retries`, func() {
@@ -4564,14 +4564,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4699,7 +4699,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully`, func() {
@@ -4734,14 +4734,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4848,14 +4848,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -4983,14 +4983,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -5144,7 +5144,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully with retries`, func() {
@@ -5202,7 +5202,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully`, func() {
@@ -5349,14 +5349,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -5485,7 +5485,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully with retries`, func() {
@@ -5515,14 +5515,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -5654,7 +5654,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully`, func() {
@@ -5689,14 +5689,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -5807,14 +5807,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -5946,14 +5946,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6161,14 +6161,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6295,7 +6295,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully with retries`, func() {
@@ -6325,14 +6325,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6462,7 +6462,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully`, func() {
@@ -6497,14 +6497,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6613,14 +6613,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6750,14 +6750,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -6914,7 +6914,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully with retries`, func() {
@@ -6973,7 +6973,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully`, func() {
@@ -7123,14 +7123,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -7261,7 +7261,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully with retries`, func() {
@@ -7291,14 +7291,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -7432,7 +7432,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"anyKey": "anyValue"}, "title": "Title", "title_i18n": {"anyKey": "anyValue"}}], "media": [{"caption": "Caption", "caption_i18n": {"anyKey": "anyValue"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully`, func() {
@@ -7467,14 +7467,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -7587,14 +7587,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -7728,14 +7728,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CatalogHighlightItem model
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
@@ -7978,7 +7978,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -8215,7 +8215,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -8460,7 +8460,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -8649,7 +8649,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -8859,7 +8859,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -9070,7 +9070,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -9313,7 +9313,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -9564,7 +9564,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -9759,7 +9759,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -9975,7 +9975,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
@@ -11816,24 +11816,24 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				Expect(catalogHighlightItemModel).ToNot(BeNil())
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				Expect(catalogProductMediaItemModel).ToNot(BeNil())
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
@@ -12000,24 +12000,24 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				Expect(catalogHighlightItemModel).ToNot(BeNil())
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				Expect(catalogProductMediaItemModel).ToNot(BeNil())
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
@@ -12185,24 +12185,24 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				catalogHighlightItemModel := new(partnercentersellv1.CatalogHighlightItem)
 				Expect(catalogHighlightItemModel).ToNot(BeNil())
 				catalogHighlightItemModel.Description = core.StringPtr("testString")
-				catalogHighlightItemModel.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.DescriptionI18n = map[string]string{"key1": "testString"}
 				catalogHighlightItemModel.Title = core.StringPtr("testString")
-				catalogHighlightItemModel.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogHighlightItemModel.TitleI18n = map[string]string{"key1": "testString"}
 				Expect(catalogHighlightItemModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.DescriptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogHighlightItemModel.Title).To(Equal(core.StringPtr("testString")))
-				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogHighlightItemModel.TitleI18n).To(Equal(map[string]string{"key1": "testString"}))
 
 				// Construct an instance of the CatalogProductMediaItem model
 				catalogProductMediaItemModel := new(partnercentersellv1.CatalogProductMediaItem)
 				Expect(catalogProductMediaItemModel).ToNot(BeNil())
 				catalogProductMediaItemModel.Caption = core.StringPtr("testString")
-				catalogProductMediaItemModel.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+				catalogProductMediaItemModel.CaptionI18n = map[string]string{"key1": "testString"}
 				catalogProductMediaItemModel.Thumbnail = core.StringPtr("testString")
 				catalogProductMediaItemModel.Type = core.StringPtr("image")
 				catalogProductMediaItemModel.URL = core.StringPtr("testString")
 				Expect(catalogProductMediaItemModel.Caption).To(Equal(core.StringPtr("testString")))
-				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(catalogProductMediaItemModel.CaptionI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(catalogProductMediaItemModel.Thumbnail).To(Equal(core.StringPtr("testString")))
 				Expect(catalogProductMediaItemModel.Type).To(Equal(core.StringPtr("image")))
 				Expect(catalogProductMediaItemModel.URL).To(Equal(core.StringPtr("testString")))
@@ -12325,7 +12325,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				globalCatalogProductMetadataOtherPcSupportModel.Locations = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Languages = []string{"testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.Process = core.StringPtr("testString")
-				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+				globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n = map[string]string{"key1": "testString"}
 				globalCatalogProductMetadataOtherPcSupportModel.SupportType = core.StringPtr("community")
 				globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation = supportEscalationModel
 				globalCatalogProductMetadataOtherPcSupportModel.SupportDetails = []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}
@@ -12334,7 +12334,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.Locations).To(Equal([]string{"testString"}))
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.Languages).To(Equal([]string{"testString"}))
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.Process).To(Equal(core.StringPtr("testString")))
-				Expect(globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(globalCatalogProductMetadataOtherPcSupportModel.ProcessI18n).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.SupportType).To(Equal(core.StringPtr("community")))
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.SupportEscalation).To(Equal(supportEscalationModel))
 				Expect(globalCatalogProductMetadataOtherPcSupportModel.SupportDetails).To(Equal([]partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel}))
@@ -12506,17 +12506,17 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", "testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()).ToNot(BeEmpty())
-				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("foo")).To(Equal("testString"))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperties(nil)
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()).To(BeEmpty())
 
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap := make(map[string]interface{})
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["foo"] = "testString"
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap := make(map[string]*string)
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["foo"] = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperties(iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModelActualMap := iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModelActualMap).To(Equal(iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap))
@@ -13235,9 +13235,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.CatalogHighlightItem)
 			model.Description = core.StringPtr("testString")
-			model.DescriptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+			model.DescriptionI18n = map[string]string{"key1": "testString"}
 			model.Title = core.StringPtr("testString")
-			model.TitleI18n = map[string]interface{}{"anyKey": "anyValue"}
+			model.TitleI18n = map[string]string{"key1": "testString"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -13256,7 +13256,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.CatalogProductMediaItem)
 			model.Caption = core.StringPtr("testString")
-			model.CaptionI18n = map[string]interface{}{"anyKey": "anyValue"}
+			model.CaptionI18n = map[string]string{"key1": "testString"}
 			model.Thumbnail = core.StringPtr("testString")
 			model.Type = core.StringPtr("image")
 			model.URL = core.StringPtr("testString")
@@ -13764,7 +13764,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model.Locations = []string{"testString"}
 			model.Languages = []string{"testString"}
 			model.Process = core.StringPtr("testString")
-			model.ProcessI18n = map[string]interface{}{"anyKey": "anyValue"}
+			model.ProcessI18n = map[string]string{"key1": "testString"}
 			model.SupportType = core.StringPtr("community")
 			model.SupportEscalation = nil
 			model.SupportDetails = nil

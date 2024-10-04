@@ -279,14 +279,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("highlight desc"),
-				DescriptionI18n: map[string]interface{}{"key1": "testString"},
+				DescriptionI18n: map[string]string{"key1": "testString"},
 				Title:           core.StringPtr("Title"),
-				TitleI18n:       map[string]interface{}{"key1": "testString"},
+				TitleI18n:       map[string]string{"key1": "testString"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"key1": "testString"},
+				CaptionI18n: map[string]string{"key1": "testString"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("https://http.cat/images/100.jpg"),
@@ -363,7 +363,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Locations:         []string{"hu"},
 				Languages:         []string{"hu"},
 				Process:           core.StringPtr("testString"),
-				ProcessI18n:       map[string]interface{}{"anyKey": "anyValue"},
+				ProcessI18n:       map[string]string{"anyKey": "anyValue"},
 				SupportType:       core.StringPtr("community"),
 				SupportEscalation: supportEscalationModel,
 				SupportDetails:    []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel},
@@ -446,14 +446,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]interface{}{"key1": "testString"},
+				DescriptionI18n: map[string]string{"key1": "testString"},
 				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]interface{}{"key1": "testString"},
+				TitleI18n:       map[string]string{"key1": "testString"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"key1": "testString"},
+				CaptionI18n: map[string]string{"key1": "testString"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
@@ -530,7 +530,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Locations:         []string{"hu"},
 				Languages:         []string{"hu"},
 				Process:           core.StringPtr("testString"),
-				ProcessI18n:       map[string]interface{}{"anyKey": "anyValue"},
+				ProcessI18n:       map[string]string{"anyKey": "anyValue"},
 				SupportType:       core.StringPtr("community"),
 				SupportEscalation: supportEscalationModel,
 				SupportDetails:    []partnercentersellv1.SupportDetailsItem{*supportDetailsItemModel},
@@ -602,14 +602,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]interface{}{"anyKey": "anyValue"},
+				DescriptionI18n: map[string]string{"anyKey": "anyValue"},
 				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]interface{}{"anyKey": "anyValue"},
+				TitleI18n:       map[string]string{"anyKey": "anyValue"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"anyKey": "anyValue"},
+				CaptionI18n: map[string]string{"anyKey": "anyValue"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("testString"),
@@ -714,14 +714,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]interface{}{"key1": "testString"},
+				DescriptionI18n: map[string]string{"key1": "testString"},
 				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]interface{}{"key1": "testString"},
+				TitleI18n:       map[string]string{"key1": "testString"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"key1": "testString"},
+				CaptionI18n: map[string]string{"key1": "testString"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
@@ -831,14 +831,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]interface{}{"anyKey": "anyValue"},
+				DescriptionI18n: map[string]string{"anyKey": "anyValue"},
 				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]interface{}{"anyKey": "anyValue"},
+				TitleI18n:       map[string]string{"anyKey": "anyValue"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"key1": "testString"},
+				CaptionI18n: map[string]string{"key1": "testString"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
@@ -945,14 +945,14 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			catalogHighlightItemModel := &partnercentersellv1.CatalogHighlightItem{
 				Description:     core.StringPtr("testString"),
-				DescriptionI18n: map[string]interface{}{"key1": "testString"},
+				DescriptionI18n: map[string]string{"key1": "testString"},
 				Title:           core.StringPtr("testString"),
-				TitleI18n:       map[string]interface{}{"key1": "testString"},
+				TitleI18n:       map[string]string{"key1": "testString"},
 			}
 
 			catalogProductMediaItemModel := &partnercentersellv1.CatalogProductMediaItem{
 				Caption:     core.StringPtr("testString"),
-				CaptionI18n: map[string]interface{}{"key1": "testString"},
+				CaptionI18n: map[string]string{"key1": "testString"},
 				Thumbnail:   core.StringPtr("testString"),
 				Type:        core.StringPtr("image"),
 				URL:         core.StringPtr("https://http.cat/images/200.jpg"),
@@ -1094,7 +1094,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				AccountID:   core.StringPtr("testString"),
 				ServiceName: core.StringPtr(iamServiceRegistrationId),
 			}
-			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", "testString")
+			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", core.StringPtr("foo"))
 
 			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
 				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
@@ -1268,7 +1268,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				AccountID:   core.StringPtr("testString"),
 				ServiceName: core.StringPtr(iamServiceRegistrationId),
 			}
-			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", "testString")
+			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", core.StringPtr("foo"))
 
 			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
 				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
