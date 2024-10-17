@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package partnerusagereportsv1_test
+package partnermanagementapisv1_test
 
 import (
 	"fmt"
@@ -25,27 +25,27 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/partnerusagereportsv1"
+	"github.com/IBM/platform-services-go-sdk/partnermanagementapisv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 /**
- * This file contains an integration test for the partnerusagereportsv1 package.
+ * This file contains an integration test for the partnermanagementapisv1 package.
  *
  * Notes:
  *
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
-	const externalConfigFile = "../partner_usage_reports_v1.env"
+var _ = Describe(`PartnerManagementAPIsV1 Integration Tests`, func() {
+	const externalConfigFile = "../partner_management_apis_v1.env"
 
 	var (
-		err                        error
-		partnerUsageReportsService *partnerusagereportsv1.PartnerUsageReportsV1
-		serviceURL                 string
-		config                     map[string]string
+		err                          error
+		partnerManagementAPIsService *partnermanagementapisv1.PartnerManagementAPIsV1
+		serviceURL                   string
+		config                       map[string]string
 
 		partnerId    string
 		resellerId   string
@@ -66,7 +66,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(partnerusagereportsv1.DefaultServiceName)
+			config, err = core.GetServiceProperties(partnermanagementapisv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -101,24 +101,24 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			partnerUsageReportsServiceOptions := &partnerusagereportsv1.PartnerUsageReportsV1Options{}
+			partnerManagementAPIsServiceOptions := &partnermanagementapisv1.PartnerManagementAPIsV1Options{}
 
-			partnerUsageReportsService, err = partnerusagereportsv1.NewPartnerUsageReportsV1UsingExternalConfig(partnerUsageReportsServiceOptions)
+			partnerManagementAPIsService, err = partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(partnerManagementAPIsServiceOptions)
 			Expect(err).To(BeNil())
-			Expect(partnerUsageReportsService).ToNot(BeNil())
-			Expect(partnerUsageReportsService.Service.Options.URL).To(Equal(serviceURL))
+			Expect(partnerManagementAPIsService).ToNot(BeNil())
+			Expect(partnerManagementAPIsService.Service.Options.URL).To(Equal(serviceURL))
 
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
-			partnerUsageReportsService.EnableRetries(4, 30*time.Second)
+			partnerManagementAPIsService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
-	Describe(`GetResourceUsageReport - Get rolled up usage report across all end customers and resellers`, func() {
+	Describe(`GetResourceUsageReport -  Get rolled up usage report across all end customers and resellers`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Limit:     core.Int64Ptr(int64(30)),
@@ -127,9 +127,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -145,18 +145,18 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Limit:     core.Int64Ptr(int64(30)),
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -165,7 +165,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -177,12 +177,13 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
-	Describe(`GetResourceUsageReport - Get rolled up usage reports by reseller for partner`, func() {
+
+	Describe(`GetResourceUsageReport -  Get rolled up usage reports by reseller for partner`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Children:  core.BoolPtr(true),
@@ -192,9 +193,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -210,7 +211,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Children:  core.BoolPtr(true),
@@ -218,11 +219,11 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -231,7 +232,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -243,12 +244,13 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
-	Describe(`GetResourceUsageReport - Get usage report of a specific reseller for partner`, func() {
+
+	Describe(`GetResourceUsageReport -  Get usage report of a specific reseller for partner`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID:  &partnerId,
 				ResellerID: &resellerId,
 				Month:      &billingMonth,
@@ -258,9 +260,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -276,7 +278,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID:  &partnerId,
 				ResellerID: &resellerId,
 				Month:      &billingMonth,
@@ -284,11 +286,11 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -297,7 +299,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -309,12 +311,13 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
-	Describe(`GetResourceUsageReport - Get usage reports of a specific end_customer for partner`, func() {
+
+	Describe(`GetResourceUsageReport -  Get usage reports of a specific end_customer for partner`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID:  &partnerId,
 				CustomerID: &customerId,
 				Month:      &billingMonth,
@@ -324,9 +327,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -342,7 +345,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID:  &partnerId,
 				CustomerID: &customerId,
 				Month:      &billingMonth,
@@ -350,11 +353,11 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -363,7 +366,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -375,12 +378,13 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
-	Describe(`GetResourceUsageReport - Recursively GET usage reports for all end customers of a partner`, func() {
+
+	Describe(`GetResourceUsageReport -  Recursively GET usage reports for all end customers of a partner`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Recurse:   core.BoolPtr(true),
@@ -390,9 +394,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -408,7 +412,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Recurse:   core.BoolPtr(true),
@@ -416,11 +420,11 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -429,7 +433,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -441,12 +445,13 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
 		})
 	})
-	Describe(`GetResourceUsageReport - Get rolled up usage reports for partner by specified viewpoint`, func() {
+
+	Describe(`GetResourceUsageReport -  Get rolled up usage reports for partner by specified viewpoint`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) with pagination`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Children:  core.BoolPtr(true),
@@ -457,9 +462,9 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			getResourceUsageReportOptions.Offset = nil
 			getResourceUsageReportOptions.Limit = core.Int64Ptr(1)
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for {
-				partnerUsageReportSummary, response, err := partnerUsageReportsService.GetResourceUsageReport(getResourceUsageReportOptions)
+				partnerUsageReportSummary, response, err := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(partnerUsageReportSummary).ToNot(BeNil())
@@ -475,7 +480,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "Retrieved a total of %d item(s) with pagination.\n", len(allResults))
 		})
 		It(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) using GetResourceUsageReportPager`, func() {
-			getResourceUsageReportOptions := &partnerusagereportsv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Children:  core.BoolPtr(true),
@@ -484,11 +489,11 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetNext().
-			pager, err := partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
-			var allResults []partnerusagereportsv1.PartnerUsageReport
+			var allResults []partnermanagementapisv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				Expect(err).To(BeNil())
@@ -497,7 +502,7 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 			}
 
 			// Test GetAll().
-			pager, err = partnerUsageReportsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err = partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			Expect(err).To(BeNil())
 			Expect(pager).ToNot(BeNil())
 
@@ -507,6 +512,118 @@ var _ = Describe(`PartnerUsageReportsV1 Integration Tests`, func() {
 
 			Expect(len(allItems)).To(Equal(len(allResults)))
 			fmt.Fprintf(GinkgoWriter, "GetResourceUsageReport() returned a total of %d item(s) using GetResourceUsageReportPager.\n", len(allResults))
+		})
+	})
+
+	Describe(`GetBillingOptions - Get customers billing options of a partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBillingOptions(getBillingOptionsOptions *GetBillingOptionsOptions)`, func() {
+			getBillingOptionsOptions := &partnermanagementapisv1.GetBillingOptionsOptions{
+				PartnerID: &partnerId,
+				Date:      &billingMonth,
+				Limit:     core.Int64Ptr(int64(30)),
+			}
+
+			billingOptionsSummary, response, err := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(billingOptionsSummary).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetBillingOptions - Get customers billing options of a Reseller for a specific partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBillingOptions(getBillingOptionsOptions *GetBillingOptionsOptions)`, func() {
+			getBillingOptionsOptions := &partnermanagementapisv1.GetBillingOptionsOptions{
+				PartnerID:  &partnerId,
+				ResellerID: &resellerId,
+				Date:       &billingMonth,
+				Limit:      core.Int64Ptr(int64(30)),
+			}
+
+			billingOptionsSummary, response, err := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(billingOptionsSummary).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetBillingOptions - Get customers billing options of an end customer for a specific partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetBillingOptions(getBillingOptionsOptions *GetBillingOptionsOptions)`, func() {
+			getBillingOptionsOptions := &partnermanagementapisv1.GetBillingOptionsOptions{
+				PartnerID:  &partnerId,
+				CustomerID: &customerId,
+				Date:       &billingMonth,
+				Limit:      core.Int64Ptr(int64(30)),
+			}
+
+			billingOptionsSummary, response, err := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(billingOptionsSummary).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetCreditPoolsReport - Get subscription burn-down report of a partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCreditPoolsReport(getCreditPoolsReportOptions *GetCreditPoolsReportOptions)`, func() {
+			getCreditPoolsReportOptions := &partnermanagementapisv1.GetCreditPoolsReportOptions{
+				PartnerID: &partnerId,
+				Date:      &billingMonth,
+				Limit:     core.Int64Ptr(int64(30)),
+			}
+
+			creditPoolsReportSummary, response, err := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsReportSummary).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetCreditPoolsReport - Get subscription burn-down report of a Reseller for a specific partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCreditPoolsReport(getCreditPoolsReportOptions *GetCreditPoolsReportOptions)`, func() {
+			getCreditPoolsReportOptions := &partnermanagementapisv1.GetCreditPoolsReportOptions{
+				PartnerID:  &partnerId,
+				ResellerID: &resellerId,
+				Date:       &billingMonth,
+				Limit:      core.Int64Ptr(int64(30)),
+			}
+
+			creditPoolsReportSummary, response, err := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsReportSummary).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetCreditPoolsReport - Get subscription burn-down report of a partner`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetCreditPoolsReport(getCreditPoolsReportOptions *GetCreditPoolsReportOptions)`, func() {
+			getCreditPoolsReportOptions := &partnermanagementapisv1.GetCreditPoolsReportOptions{
+				PartnerID:  &partnerId,
+				CustomerID: &customerId,
+				Date:       &billingMonth,
+				Limit:      core.Int64Ptr(int64(30)),
+			}
+
+			creditPoolsReportSummary, response, err := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(creditPoolsReportSummary).ToNot(BeNil())
 		})
 	})
 })
