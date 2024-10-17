@@ -1,3 +1,17 @@
+## [0.69.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.1...v0.69.2) (2024-10-07)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** re-gen service after recent API definition changes ([#358](https://github.com/IBM/platform-services-go-sdk/issues/358)) ([36d86ae](https://github.com/IBM/platform-services-go-sdk/commit/36d86ae24e37244303dc0c87a5e48947ae96979b))
+
+## [0.69.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.0...v0.69.1) (2024-09-18)
+
+
+### Bug Fixes
+
+* **build:** bump core to 5.17.5 ([#357](https://github.com/IBM/platform-services-go-sdk/issues/357)) ([8d77a4b](https://github.com/IBM/platform-services-go-sdk/commit/8d77a4bc5ed69ec94fb67f73ef3e1fcb407baed2))
+
 # [0.69.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.68.1...v0.69.0) (2024-09-06)
 
 
