@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.95.2-120e65bc-20240924-152329
+ * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -833,6 +833,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogProductWithContext(ct
 	if createCatalogProductOptions.ID != nil {
 		body["id"] = createCatalogProductOptions.ID
 	}
+	if createCatalogProductOptions.ObjectID != nil {
+		body["object_id"] = createCatalogProductOptions.ObjectID
+	}
 	if createCatalogProductOptions.OverviewUi != nil {
 		body["overview_ui"] = createCatalogProductOptions.OverviewUi
 	}
@@ -1163,6 +1166,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogPlanWithContext(ctx c
 	}
 	if createCatalogPlanOptions.ID != nil {
 		body["id"] = createCatalogPlanOptions.ID
+	}
+	if createCatalogPlanOptions.ObjectID != nil {
+		body["object_id"] = createCatalogPlanOptions.ObjectID
 	}
 	if createCatalogPlanOptions.OverviewUi != nil {
 		body["overview_ui"] = createCatalogPlanOptions.OverviewUi
@@ -1496,6 +1502,9 @@ func (partnerCenterSell *PartnerCenterSellV1) CreateCatalogDeploymentWithContext
 	}
 	if createCatalogDeploymentOptions.ID != nil {
 		body["id"] = createCatalogDeploymentOptions.ID
+	}
+	if createCatalogDeploymentOptions.ObjectID != nil {
+		body["object_id"] = createCatalogDeploymentOptions.ObjectID
 	}
 	if createCatalogDeploymentOptions.OverviewUi != nil {
 		body["overview_ui"] = createCatalogDeploymentOptions.OverviewUi
@@ -3268,6 +3277,9 @@ type CreateCatalogDeploymentOptions struct {
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
 
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
+
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
 
@@ -3362,6 +3374,12 @@ func (_options *CreateCatalogDeploymentOptions) SetID(id string) *CreateCatalogD
 	return _options
 }
 
+// SetObjectID : Allow user to set ObjectID
+func (_options *CreateCatalogDeploymentOptions) SetObjectID(objectID string) *CreateCatalogDeploymentOptions {
+	_options.ObjectID = core.StringPtr(objectID)
+	return _options
+}
+
 // SetOverviewUi : Allow user to set OverviewUi
 func (_options *CreateCatalogDeploymentOptions) SetOverviewUi(overviewUi *GlobalCatalogOverviewUI) *CreateCatalogDeploymentOptions {
 	_options.OverviewUi = overviewUi
@@ -3416,6 +3434,9 @@ type CreateCatalogPlanOptions struct {
 
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
+
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
 
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
@@ -3504,6 +3525,12 @@ func (_options *CreateCatalogPlanOptions) SetID(id string) *CreateCatalogPlanOpt
 	return _options
 }
 
+// SetObjectID : Allow user to set ObjectID
+func (_options *CreateCatalogPlanOptions) SetObjectID(objectID string) *CreateCatalogPlanOptions {
+	_options.ObjectID = core.StringPtr(objectID)
+	return _options
+}
+
 // SetOverviewUi : Allow user to set OverviewUi
 func (_options *CreateCatalogPlanOptions) SetOverviewUi(overviewUi *GlobalCatalogOverviewUI) *CreateCatalogPlanOptions {
 	_options.OverviewUi = overviewUi
@@ -3555,6 +3582,9 @@ type CreateCatalogProductOptions struct {
 
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
+
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
 
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
@@ -3638,6 +3668,12 @@ func (_options *CreateCatalogProductOptions) SetObjectProvider(objectProvider *C
 // SetID : Allow user to set ID
 func (_options *CreateCatalogProductOptions) SetID(id string) *CreateCatalogProductOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetObjectID : Allow user to set ObjectID
+func (_options *CreateCatalogProductOptions) SetObjectID(objectID string) *CreateCatalogProductOptions {
+	_options.ObjectID = core.StringPtr(objectID)
 	return _options
 }
 
@@ -4892,6 +4928,9 @@ type GlobalCatalogDeployment struct {
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
 
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
+
 	// The programmatic name of this deployment.
 	Name *string `json:"name,omitempty"`
 
@@ -4934,6 +4973,11 @@ func UnmarshalGlobalCatalogDeployment(m map[string]json.RawMessage, result inter
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "object_id", &obj.ObjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "object_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
@@ -5239,6 +5283,14 @@ type GlobalCatalogMetadataPricing struct {
 	// The source of the pricing information: global_catalog or pricing_catalog.
 	Origin *string `json:"origin,omitempty"`
 }
+
+// Constants associated with the GlobalCatalogMetadataPricing.Type property.
+// The type of the pricing plan.
+const (
+	GlobalCatalogMetadataPricing_Type_Free         = "free"
+	GlobalCatalogMetadataPricing_Type_Paid         = "paid"
+	GlobalCatalogMetadataPricing_Type_Subscription = "subscription"
+)
 
 // Constants associated with the GlobalCatalogMetadataPricing.Origin property.
 // The source of the pricing information: global_catalog or pricing_catalog.
@@ -5675,6 +5727,9 @@ type GlobalCatalogPlan struct {
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
 
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
+
 	// The programmatic name of this plan.
 	Name *string `json:"name,omitempty"`
 
@@ -5717,6 +5772,11 @@ func UnmarshalGlobalCatalogPlan(m map[string]json.RawMessage, result interface{}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "object_id", &obj.ObjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "object_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
@@ -5969,6 +6029,9 @@ type GlobalCatalogProduct struct {
 	// The ID of a global catalog object.
 	ID *string `json:"id,omitempty"`
 
+	// The desired ID of the global catalog object.
+	ObjectID *string `json:"object_id,omitempty"`
+
 	// The programmatic name of this product.
 	Name *string `json:"name,omitempty"`
 
@@ -6016,6 +6079,11 @@ func UnmarshalGlobalCatalogProduct(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "id-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "object_id", &obj.ObjectID)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "object_id-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
@@ -7324,6 +7392,9 @@ type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 	// The name of the service.
 	ServiceName *string `json:"service_name,omitempty"`
 
+	// Additional properties the key must come from supported attributes.
+	AdditionalProperties map[string]string `json:"additional_properties,omitempty"`
+
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
 }
@@ -7368,6 +7439,9 @@ func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) MarshalJSON()
 	if o.ServiceName != nil {
 		m["service_name"] = o.ServiceName
 	}
+	if o.AdditionalProperties != nil {
+		m["additional_properties"] = o.AdditionalProperties
+	}
 	buffer, err = json.Marshal(m)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
@@ -7390,6 +7464,12 @@ func UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes(m map[str
 		return
 	}
 	delete(m, "service_name")
+	err = core.UnmarshalPrimitive(m, "additional_properties", &obj.AdditionalProperties)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "additional_properties-error", common.GetComponentInfo())
+		return
+	}
+	delete(m, "additional_properties")
 	for k := range m {
 		var v *string
 		e := core.UnmarshalPrimitive(m, k, &v)
@@ -7416,6 +7496,9 @@ func (iamServiceRegistrationSupportedAnonymousAccessAttributes *IamServiceRegist
 	}
 	if !core.IsNil(iamServiceRegistrationSupportedAnonymousAccessAttributes.ServiceName) {
 		_patch["service_name"] = iamServiceRegistrationSupportedAnonymousAccessAttributes.ServiceName
+	}
+	if !core.IsNil(iamServiceRegistrationSupportedAnonymousAccessAttributes.AdditionalProperties) {
+		_patch["additional_properties"] = iamServiceRegistrationSupportedAnonymousAccessAttributes.AdditionalProperties
 	}
 
 	return
@@ -9096,6 +9179,9 @@ type SupportedRoleOptions struct {
 	// Optional opt-in to require access control on the role.
 	AccessPolicy *bool `json:"access_policy" validate:"required"`
 
+	// Additional properties for access policy.
+	AdditionalPropertiesForAccessPolicy map[string]string `json:"additional_properties_for_access_policy,omitempty"`
+
 	// Optional opt-in to require checking policy type when applying the role.
 	PolicyType []string `json:"policy_type,omitempty"`
 
@@ -9137,6 +9223,11 @@ func UnmarshalSupportedRoleOptions(m map[string]json.RawMessage, result interfac
 		err = core.SDKErrorf(err, "", "access_policy-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "additional_properties_for_access_policy", &obj.AdditionalPropertiesForAccessPolicy)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "additional_properties_for_access_policy-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "policy_type", &obj.PolicyType)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policy_type-error", common.GetComponentInfo())
@@ -9156,6 +9247,9 @@ func (supportedRoleOptions *SupportedRoleOptions) asPatch() (_patch map[string]i
 	_patch = map[string]interface{}{}
 	if !core.IsNil(supportedRoleOptions.AccessPolicy) {
 		_patch["access_policy"] = supportedRoleOptions.AccessPolicy
+	}
+	if !core.IsNil(supportedRoleOptions.AdditionalPropertiesForAccessPolicy) {
+		_patch["additional_properties_for_access_policy"] = supportedRoleOptions.AdditionalPropertiesForAccessPolicy
 	}
 	if !core.IsNil(supportedRoleOptions.PolicyType) {
 		_patch["policy_type"] = supportedRoleOptions.PolicyType

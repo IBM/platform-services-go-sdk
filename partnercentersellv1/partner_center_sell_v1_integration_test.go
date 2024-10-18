@@ -21,7 +21,6 @@ package partnercentersellv1_test
 import (
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -30,6 +29,7 @@ import (
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"golang.org/x/exp/rand"
 )
 
 /**
@@ -173,8 +173,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 		It(`CreateOnboardingProduct(createOnboardingProductOptions *CreateOnboardingProductOptions)`, func() {
 			primaryContactModel := &partnercentersellv1.PrimaryContact{
-				Name:  core.StringPtr("Petra"),
-				Email: core.StringPtr("petra@ibm.com"),
+				Name:  core.StringPtr("name"),
+				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
 			onboardingProductSupportEscalationContactItemsModel := &partnercentersellv1.OnboardingProductSupportEscalationContactItems{
@@ -404,10 +404,12 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:           core.StringPtr("service"),
 				Tags:           []string{"keyword", "support_ibm"},
 				ObjectProvider: catalogProductProviderModel,
-				OverviewUi:     globalCatalogOverviewUiModel,
-				Images:         globalCatalogProductImagesModel,
-				Metadata:       globalCatalogProductMetadataModel,
-				Env:            core.StringPtr(env),
+				// check this Petya
+				ObjectID:   core.StringPtr("testString"),
+				OverviewUi: globalCatalogOverviewUiModel,
+				Images:     globalCatalogProductImagesModel,
+				Metadata:   globalCatalogProductMetadataModel,
+				Env:        core.StringPtr(env),
 			}
 
 			globalCatalogProduct, response, err := partnerCenterSellService.CreateCatalogProduct(createCatalogProductOptions)
@@ -539,9 +541,21 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			globalCatalogProductMetadataOtherPcModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherPC{
 				Support: globalCatalogProductMetadataOtherPcSupportModel,
 			}
+			// check this Petya
+			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
+				Kind: core.StringPtr("service"),
+				Name: core.StringPtr("testString"),
+			}
+
+			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
+				CompositeKind: core.StringPtr("service"),
+				CompositeTag:  core.StringPtr("testString"),
+				Children:      []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel},
+			}
 
 			globalCatalogProductMetadataOtherModel := &partnercentersellv1.GlobalCatalogProductMetadataOther{
-				PC: globalCatalogProductMetadataOtherPcModel,
+				PC:        globalCatalogProductMetadataOtherPcModel,
+				Composite: globalCatalogProductMetadataOtherCompositeModel,
 			}
 
 			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
@@ -677,9 +691,11 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("plan"),
 				Tags:             []string{"ibm_created"},
 				ObjectProvider:   catalogProductProviderModel,
-				OverviewUi:       globalCatalogOverviewUiModel,
-				Metadata:         globalCatalogPlanMetadataModel,
-				Env:              core.StringPtr(env),
+				// check this Petya
+				ObjectID:   core.StringPtr("testString"),
+				OverviewUi: globalCatalogOverviewUiModel,
+				Metadata:   globalCatalogPlanMetadataModel,
+				Env:        core.StringPtr(env),
 			}
 
 			globalCatalogPlan, response, err := partnerCenterSellService.CreateCatalogPlan(createCatalogPlanOptions)
@@ -908,9 +924,11 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("deployment"),
 				Tags:             []string{"eu-gb"},
 				ObjectProvider:   catalogProductProviderModel,
-				OverviewUi:       globalCatalogOverviewUiModel,
-				Metadata:         globalCatalogDeploymentMetadataModel,
-				Env:              core.StringPtr(env),
+				// check this
+				ObjectID:   core.StringPtr("testString"),
+				OverviewUi: globalCatalogOverviewUiModel,
+				Metadata:   globalCatalogDeploymentMetadataModel,
+				Env:        core.StringPtr("testString"),
 			}
 
 			globalCatalogDeployment, response, err := partnerCenterSellService.CreateCatalogDeployment(createCatalogDeploymentOptions)
@@ -1091,10 +1109,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
-				AccountID:   core.StringPtr("testString"),
-				ServiceName: core.StringPtr(iamServiceRegistrationId),
+				AccountID:            core.StringPtr("testString"),
+				ServiceName:          core.StringPtr(iamServiceRegistrationId),
+				AdditionalProperties: map[string]string{"testString": "dsgdsfgsd576456"},
 			}
-			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", core.StringPtr("foo"))
 
 			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
 				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
@@ -1130,8 +1148,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
-				Query:             core.StringPtr("testString"),
-				ValuePropertyName: core.StringPtr("testString"),
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
 				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
 			}
 
@@ -1257,8 +1275,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
-				ID:          core.StringPtr("testString"),
-				Roles:       []string{fmt.Sprintf("crn:v1:bluemix:public:%s::::serviceRole:%s", iamServiceRegistrationId, roleDisplayName)},
+				ID:          core.StringPtr("pet-store.dashboard.view"),
+				Roles:       []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"},
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Options:     iamServiceRegistrationActionOptionsModel,
@@ -1304,8 +1322,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
-				Query:             core.StringPtr("query"),
-				ValuePropertyName: core.StringPtr("teststring"),
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
 				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
 			}
 
@@ -1321,7 +1339,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationSupportedAttributeModel := &partnercentersellv1.IamServiceRegistrationSupportedAttribute{
-				Key:         core.StringPtr("testString"),
+				Key:         core.StringPtr("testAttribute"),
 				Options:     supportedAttributesOptionsModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Description: iamServiceRegistrationDescriptionObjectModel,
@@ -1440,7 +1458,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				RegistrationID: &registrationIdLink,
 			}
 
-			registration, response, err := partnerCenterSellServiceAlt.GetRegistration(getRegistrationOptions)
+			registration, response, err := partnerCenterSellService.GetRegistration(getRegistrationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(registration).ToNot(BeNil())
@@ -1683,6 +1701,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
 	Describe(`DeleteCatalogPlan - Delete a global catalog pricing plan`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1700,6 +1719,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
 	Describe(`DeleteCatalogProduct - Delete a global catalog product`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1743,7 +1763,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ProductID: &productIdLink,
 			}
 
-			response, err := partnerCenterSellServiceAlt.DeleteOnboardingProduct(deleteOnboardingProductOptions)
+			response, err := partnerCenterSellService.DeleteOnboardingProduct(deleteOnboardingProductOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})

@@ -21,7 +21,6 @@ package partnercentersellv1_test
 import (
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"os"
 	"strconv"
 
@@ -29,8 +28,10 @@ import (
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"golang.org/x/exp/rand"
 )
 
+//
 // This file provides an example of how to use the Partner Center Sell service.
 //
 // The following configuration properties are assumed to be defined:
