@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package partnermanagementapisv1_test
+package partnermanagementv1_test
 
 import (
 	"bytes"
@@ -27,38 +27,38 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/partnermanagementapisv1"
+	"github.com/IBM/platform-services-go-sdk/partnermanagementv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe(`PartnerManagementAPIsV1`, func() {
+var _ = Describe(`PartnerManagementV1`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+			partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(partnerManagementAPIsService).ToNot(BeNil())
+			Expect(partnerManagementService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+			partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(partnerManagementAPIsService).To(BeNil())
+			Expect(partnerManagementService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
-				URL: "https://partnermanagementapisv1/api",
+			partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
+				URL: "https://partnermanagementv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(partnerManagementAPIsService).To(BeNil())
+			Expect(partnerManagementService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
@@ -66,68 +66,68 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_MANAGEMENT_APIS_URL":       "https://partnermanagementapisv1/api",
-				"PARTNER_MANAGEMENT_APIS_AUTH_TYPE": "noauth",
+				"PARTNER_MANAGEMENT_URL":       "https://partnermanagementv1/api",
+				"PARTNER_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(&partnermanagementapisv1.PartnerManagementAPIsV1Options{})
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(&partnermanagementv1.PartnerManagementV1Options{})
+				Expect(partnerManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 
-				clone := partnerManagementAPIsService.Clone()
+				clone := partnerManagementService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != partnerManagementAPIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(partnerManagementAPIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementAPIsService.Service.Options.Authenticator))
+				Expect(clone.Service != partnerManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(partnerManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(&partnermanagementv1.PartnerManagementV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(partnerManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := partnerManagementAPIsService.Clone()
+				clone := partnerManagementService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != partnerManagementAPIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(partnerManagementAPIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementAPIsService.Service.Options.Authenticator))
+				Expect(clone.Service != partnerManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(partnerManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(&partnermanagementapisv1.PartnerManagementAPIsV1Options{})
-				err := partnerManagementAPIsService.SetServiceURL("https://testService/api")
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(&partnermanagementv1.PartnerManagementV1Options{})
+				err := partnerManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(partnerManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 
-				clone := partnerManagementAPIsService.Clone()
+				clone := partnerManagementService.Clone()
 				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != partnerManagementAPIsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(partnerManagementAPIsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementAPIsService.Service.Options.Authenticator))
+				Expect(clone.Service != partnerManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(partnerManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(partnerManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_MANAGEMENT_APIS_URL":       "https://partnermanagementapisv1/api",
-				"PARTNER_MANAGEMENT_APIS_AUTH_TYPE": "someOtherAuth",
+				"PARTNER_MANAGEMENT_URL":       "https://partnermanagementv1/api",
+				"PARTNER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(&partnermanagementapisv1.PartnerManagementAPIsV1Options{})
+			partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(&partnermanagementv1.PartnerManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(partnerManagementAPIsService).To(BeNil())
+				Expect(partnerManagementService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -135,16 +135,16 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_MANAGEMENT_APIS_AUTH_TYPE": "NOAuth",
+				"PARTNER_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+			partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(&partnermanagementv1.PartnerManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(partnerManagementAPIsService).To(BeNil())
+				Expect(partnerManagementService).To(BeNil())
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
@@ -154,7 +154,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 		It(`GetServiceURLForRegion(region string)`, func() {
 			var url string
 			var err error
-			url, err = partnermanagementapisv1.GetServiceURLForRegion("INVALID_REGION")
+			url, err = partnermanagementv1.GetServiceURLForRegion("INVALID_REGION")
 			Expect(url).To(BeEmpty())
 			Expect(err).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
@@ -185,15 +185,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetResourceUsageReport with error: Operation response processing error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceUsageReportOptions model
-				getResourceUsageReportOptionsModel := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel := new(partnermanagementv1.GetResourceUsageReportOptions)
 				getResourceUsageReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
@@ -205,14 +205,14 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getResourceUsageReportOptionsModel.Offset = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				partnerManagementAPIsService.EnableRetries(0, 0)
-				result, response, operationErr = partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				partnerManagementService.EnableRetries(0, 0)
+				result, response, operationErr = partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -252,16 +252,16 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetResourceUsageReport successfully with retries`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
-				partnerManagementAPIsService.EnableRetries(0, 0)
+				Expect(partnerManagementService).ToNot(BeNil())
+				partnerManagementService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetResourceUsageReportOptions model
-				getResourceUsageReportOptionsModel := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel := new(partnermanagementv1.GetResourceUsageReportOptions)
 				getResourceUsageReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
@@ -276,13 +276,13 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := partnerManagementAPIsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
+				_, _, operationErr := partnerManagementService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				partnerManagementAPIsService.DisableRetries()
-				result, response, operationErr := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				partnerManagementService.DisableRetries()
+				result, response, operationErr := partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -290,7 +290,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = partnerManagementAPIsService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
+				_, _, operationErr = partnerManagementService.GetResourceUsageReportWithContext(ctx, getResourceUsageReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -323,21 +323,21 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetResourceUsageReport successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := partnerManagementAPIsService.GetResourceUsageReport(nil)
+				result, response, operationErr := partnerManagementService.GetResourceUsageReport(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetResourceUsageReportOptions model
-				getResourceUsageReportOptionsModel := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel := new(partnermanagementv1.GetResourceUsageReportOptions)
 				getResourceUsageReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
@@ -350,22 +350,22 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				result, response, operationErr = partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetResourceUsageReport with error: Operation validation and request error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceUsageReportOptions model
-				getResourceUsageReportOptionsModel := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel := new(partnermanagementv1.GetResourceUsageReportOptions)
 				getResourceUsageReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
@@ -377,17 +377,17 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getResourceUsageReportOptionsModel.Offset = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := partnerManagementAPIsService.SetServiceURL("")
+				err := partnerManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetResourceUsageReportOptions model with no property values
-				getResourceUsageReportOptionsModelNew := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModelNew := new(partnermanagementv1.GetResourceUsageReportOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModelNew)
+				result, response, operationErr = partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -406,15 +406,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetResourceUsageReport successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceUsageReportOptions model
-				getResourceUsageReportOptionsModel := new(partnermanagementapisv1.GetResourceUsageReportOptions)
+				getResourceUsageReportOptionsModel := new(partnermanagementv1.GetResourceUsageReportOptions)
 				getResourceUsageReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.ResellerID = core.StringPtr("testString")
 				getResourceUsageReportOptionsModel.CustomerID = core.StringPtr("testString")
@@ -427,7 +427,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getResourceUsageReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := partnerManagementAPIsService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetResourceUsageReport(getResourceUsageReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -440,8 +440,8 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 		})
 		Context(`Test pagination helper method on response`, func() {
 			It(`Invoke GetNextOffset successfully`, func() {
-				responseObject := new(partnermanagementapisv1.PartnerUsageReportSummary)
-				nextObject := new(partnermanagementapisv1.PartnerUsageReportSummaryNext)
+				responseObject := new(partnermanagementv1.PartnerUsageReportSummary)
+				nextObject := new(partnermanagementv1.PartnerUsageReportSummaryNext)
 				nextObject.Offset = core.StringPtr("abc-123")
 				responseObject.Next = nextObject
 
@@ -450,7 +450,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				Expect(value).To(Equal(core.StringPtr("abc-123")))
 			})
 			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-				responseObject := new(partnermanagementapisv1.PartnerUsageReportSummary)
+				responseObject := new(partnermanagementv1.PartnerUsageReportSummary)
 
 				value, err := responseObject.GetNextOffset()
 				Expect(err).To(BeNil())
@@ -481,14 +481,14 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Use GetResourceUsageReportPager.GetNext successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
-				getResourceUsageReportOptionsModel := &partnermanagementapisv1.GetResourceUsageReportOptions{
+				getResourceUsageReportOptionsModel := &partnermanagementv1.GetResourceUsageReportOptions{
 					PartnerID:  core.StringPtr("testString"),
 					ResellerID: core.StringPtr("testString"),
 					CustomerID: core.StringPtr("testString"),
@@ -499,11 +499,11 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					Limit:      core.Int64Ptr(int64(10)),
 				}
 
-				pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
+				pager, err := partnerManagementService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []partnermanagementapisv1.PartnerUsageReport
+				var allResults []partnermanagementv1.PartnerUsageReport
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -513,14 +513,14 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				Expect(len(allResults)).To(Equal(2))
 			})
 			It(`Use GetResourceUsageReportPager.GetAll successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
-				getResourceUsageReportOptionsModel := &partnermanagementapisv1.GetResourceUsageReportOptions{
+				getResourceUsageReportOptionsModel := &partnermanagementv1.GetResourceUsageReportOptions{
 					PartnerID:  core.StringPtr("testString"),
 					ResellerID: core.StringPtr("testString"),
 					CustomerID: core.StringPtr("testString"),
@@ -531,7 +531,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					Limit:      core.Int64Ptr(int64(10)),
 				}
 
-				pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
+				pager, err := partnerManagementService.NewGetResourceUsageReportPager(getResourceUsageReportOptionsModel)
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
@@ -563,15 +563,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetBillingOptions with error: Operation response processing error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetBillingOptionsOptions model
-				getBillingOptionsOptionsModel := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModel := new(partnermanagementv1.GetBillingOptionsOptions)
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
@@ -579,14 +579,14 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(200))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				result, response, operationErr := partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				partnerManagementAPIsService.EnableRetries(0, 0)
-				result, response, operationErr = partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				partnerManagementService.EnableRetries(0, 0)
+				result, response, operationErr = partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -618,20 +618,20 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
 				}))
 			})
 			It(`Invoke GetBillingOptions successfully with retries`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
-				partnerManagementAPIsService.EnableRetries(0, 0)
+				Expect(partnerManagementService).ToNot(BeNil())
+				partnerManagementService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetBillingOptionsOptions model
-				getBillingOptionsOptionsModel := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModel := new(partnermanagementv1.GetBillingOptionsOptions)
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
@@ -642,13 +642,13 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := partnerManagementAPIsService.GetBillingOptionsWithContext(ctx, getBillingOptionsOptionsModel)
+				_, _, operationErr := partnerManagementService.GetBillingOptionsWithContext(ctx, getBillingOptionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				partnerManagementAPIsService.DisableRetries()
-				result, response, operationErr := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				partnerManagementService.DisableRetries()
+				result, response, operationErr := partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -656,7 +656,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = partnerManagementAPIsService.GetBillingOptionsWithContext(ctx, getBillingOptionsOptionsModel)
+				_, _, operationErr = partnerManagementService.GetBillingOptionsWithContext(ctx, getBillingOptionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -681,25 +681,25 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": {"href": "Href", "offset": "Offset"}, "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "CFL_JJKLVZ2I0JE-_MGU", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "errors": [{"anyKey": "anyValue"}], "type": "SUBSCRIPTION", "start_date": "2019-05-01T00:00:00.000Z", "end_date": "2020-05-01T00:00:00.000Z", "state": "ACTIVE", "category": "PLATFORM", "payment_instrument": {"anyKey": "anyValue"}, "part_number": "<PART_NUMBER_1>", "catalog_id": "ibmcloud-platform-payg-commit", "order_id": "23wzpnpmh8", "po_number": "<PO_NUMBER_1>", "subscription_model": "4.0", "duration_in_months": 11, "monthly_amount": 8333.333333333334, "billing_system": {"anyKey": "anyValue"}, "country_code": "USA", "currency_code": "USD"}]}`)
 				}))
 			})
 			It(`Invoke GetBillingOptions successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := partnerManagementAPIsService.GetBillingOptions(nil)
+				result, response, operationErr := partnerManagementService.GetBillingOptions(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetBillingOptionsOptions model
-				getBillingOptionsOptionsModel := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModel := new(partnermanagementv1.GetBillingOptionsOptions)
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
@@ -708,22 +708,22 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				result, response, operationErr = partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetBillingOptions with error: Operation validation and request error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetBillingOptionsOptions model
-				getBillingOptionsOptionsModel := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModel := new(partnermanagementv1.GetBillingOptionsOptions)
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
@@ -731,17 +731,17 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getBillingOptionsOptionsModel.Limit = core.Int64Ptr(int64(200))
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := partnerManagementAPIsService.SetServiceURL("")
+				err := partnerManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				result, response, operationErr := partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetBillingOptionsOptions model with no property values
-				getBillingOptionsOptionsModelNew := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModelNew := new(partnermanagementv1.GetBillingOptionsOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModelNew)
+				result, response, operationErr = partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -760,15 +760,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetBillingOptions successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetBillingOptionsOptions model
-				getBillingOptionsOptionsModel := new(partnermanagementapisv1.GetBillingOptionsOptions)
+				getBillingOptionsOptionsModel := new(partnermanagementv1.GetBillingOptionsOptions)
 				getBillingOptionsOptionsModel.PartnerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.CustomerID = core.StringPtr("testString")
 				getBillingOptionsOptionsModel.ResellerID = core.StringPtr("testString")
@@ -777,7 +777,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getBillingOptionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptionsModel)
+				result, response, operationErr := partnerManagementService.GetBillingOptions(getBillingOptionsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -810,15 +810,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport with error: Operation response processing error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetCreditPoolsReportOptions model
-				getCreditPoolsReportOptionsModel := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModel := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
@@ -826,14 +826,14 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
-				partnerManagementAPIsService.EnableRetries(0, 0)
-				result, response, operationErr = partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				partnerManagementService.EnableRetries(0, 0)
+				result, response, operationErr = partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -865,20 +865,20 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport successfully with retries`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
-				partnerManagementAPIsService.EnableRetries(0, 0)
+				Expect(partnerManagementService).ToNot(BeNil())
+				partnerManagementService.EnableRetries(0, 0)
 
 				// Construct an instance of the GetCreditPoolsReportOptions model
-				getCreditPoolsReportOptionsModel := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModel := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
@@ -889,13 +889,13 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := partnerManagementAPIsService.GetCreditPoolsReportWithContext(ctx, getCreditPoolsReportOptionsModel)
+				_, _, operationErr := partnerManagementService.GetCreditPoolsReportWithContext(ctx, getCreditPoolsReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
-				partnerManagementAPIsService.DisableRetries()
-				result, response, operationErr := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				partnerManagementService.DisableRetries()
+				result, response, operationErr := partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -903,7 +903,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = partnerManagementAPIsService.GetCreditPoolsReportWithContext(ctx, getCreditPoolsReportOptionsModel)
+				_, _, operationErr = partnerManagementService.GetCreditPoolsReportWithContext(ctx, getCreditPoolsReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -928,25 +928,25 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": {"href": "Href", "offset": "Offset"}, "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"type": "PLATFORM", "billing_unit_id": "e19fa97c9bb34963a31a2008044d8b59", "customer_id": "<ford_account_id>", "customer_type": "ACCOUNT", "customer_name": "Ford", "reseller_id": "<techdata_enterprise_id>", "reseller_name": "TechData", "month": "2024-01", "currency_code": "USD", "term_credits": [{"billing_option_id": "JWX986YRGFSHACQUEFOI", "billing_option_model": "4.0", "category": "PLATFORM", "start_date": "2019-07-01T00:00:00.000Z", "end_date": "2019-08-31T23:59:59.999Z", "total_credits": 100000, "starting_balance": 100000, "used_credits": 0, "current_balance": 100000, "resources": [{"anyKey": "anyValue"}]}], "overage": {"cost": 500, "resources": [{"anyKey": "anyValue"}]}}]}`)
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := partnerManagementAPIsService.GetCreditPoolsReport(nil)
+				result, response, operationErr := partnerManagementService.GetCreditPoolsReport(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetCreditPoolsReportOptions model
-				getCreditPoolsReportOptionsModel := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModel := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
@@ -955,22 +955,22 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				result, response, operationErr = partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
 			It(`Invoke GetCreditPoolsReport with error: Operation validation and request error`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetCreditPoolsReportOptions model
-				getCreditPoolsReportOptionsModel := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModel := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
@@ -978,17 +978,17 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getCreditPoolsReportOptionsModel.Limit = core.Int64Ptr(int64(30))
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := partnerManagementAPIsService.SetServiceURL("")
+				err := partnerManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 				// Construct a second instance of the GetCreditPoolsReportOptions model with no property values
-				getCreditPoolsReportOptionsModelNew := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModelNew := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModelNew)
+				result, response, operationErr = partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1007,15 +1007,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				}))
 			})
 			It(`Invoke GetCreditPoolsReport successfully`, func() {
-				partnerManagementAPIsService, serviceErr := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
+				partnerManagementService, serviceErr := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
 				Expect(serviceErr).To(BeNil())
-				Expect(partnerManagementAPIsService).ToNot(BeNil())
+				Expect(partnerManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetCreditPoolsReportOptions model
-				getCreditPoolsReportOptionsModel := new(partnermanagementapisv1.GetCreditPoolsReportOptions)
+				getCreditPoolsReportOptionsModel := new(partnermanagementv1.GetCreditPoolsReportOptions)
 				getCreditPoolsReportOptionsModel.PartnerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.CustomerID = core.StringPtr("testString")
 				getCreditPoolsReportOptionsModel.ResellerID = core.StringPtr("testString")
@@ -1024,7 +1024,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				getCreditPoolsReportOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
+				result, response, operationErr := partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -1038,15 +1038,15 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			partnerManagementAPIsService, _ := partnermanagementapisv1.NewPartnerManagementAPIsV1(&partnermanagementapisv1.PartnerManagementAPIsV1Options{
-				URL:           "http://partnermanagementapisv1modelgenerator.com",
+			partnerManagementService, _ := partnermanagementv1.NewPartnerManagementV1(&partnermanagementv1.PartnerManagementV1Options{
+				URL:           "http://partnermanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewGetBillingOptionsOptions successfully`, func() {
 				// Construct an instance of the GetBillingOptionsOptions model
 				partnerID := "testString"
 				billingMonth := "testString"
-				getBillingOptionsOptionsModel := partnerManagementAPIsService.NewGetBillingOptionsOptions(partnerID, billingMonth)
+				getBillingOptionsOptionsModel := partnerManagementService.NewGetBillingOptionsOptions(partnerID, billingMonth)
 				getBillingOptionsOptionsModel.SetPartnerID("testString")
 				getBillingOptionsOptionsModel.SetCustomerID("testString")
 				getBillingOptionsOptionsModel.SetResellerID("testString")
@@ -1065,7 +1065,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 				// Construct an instance of the GetCreditPoolsReportOptions model
 				partnerID := "testString"
 				billingMonth := "testString"
-				getCreditPoolsReportOptionsModel := partnerManagementAPIsService.NewGetCreditPoolsReportOptions(partnerID, billingMonth)
+				getCreditPoolsReportOptionsModel := partnerManagementService.NewGetCreditPoolsReportOptions(partnerID, billingMonth)
 				getCreditPoolsReportOptionsModel.SetPartnerID("testString")
 				getCreditPoolsReportOptionsModel.SetCustomerID("testString")
 				getCreditPoolsReportOptionsModel.SetResellerID("testString")
@@ -1083,7 +1083,7 @@ var _ = Describe(`PartnerManagementAPIsV1`, func() {
 			It(`Invoke NewGetResourceUsageReportOptions successfully`, func() {
 				// Construct an instance of the GetResourceUsageReportOptions model
 				partnerID := "testString"
-				getResourceUsageReportOptionsModel := partnerManagementAPIsService.NewGetResourceUsageReportOptions(partnerID)
+				getResourceUsageReportOptionsModel := partnerManagementService.NewGetResourceUsageReportOptions(partnerID)
 				getResourceUsageReportOptionsModel.SetPartnerID("testString")
 				getResourceUsageReportOptionsModel.SetResellerID("testString")
 				getResourceUsageReportOptionsModel.SetCustomerID("testString")

@@ -18,8 +18,8 @@
  * IBM OpenAPI SDK Code Generator Version: 3.87.0-91c7c775-20240320-213027
  */
 
-// Package partnermanagementapisv1 : Operations and models for the PartnerManagementAPIsV1 service
-package partnermanagementapisv1
+// Package partnermanagementv1 : Operations and models for the PartnerManagementV1 service
+package partnermanagementv1
 
 import (
 	"context"
@@ -34,11 +34,11 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// PartnerManagementAPIsV1 : The Partner Management APIs enable you to manage the IBM Cloud partner entities and fetch
+// PartnerManagementV1 : The Partner Management APIs enable you to manage the IBM Cloud partner entities and fetch
 // multiple reports in different formats.
 //
 // API Version: 1.0.0
-type PartnerManagementAPIsV1 struct {
+type PartnerManagementV1 struct {
 	Service *core.BaseService
 }
 
@@ -46,17 +46,17 @@ type PartnerManagementAPIsV1 struct {
 const DefaultServiceURL = "https://partner.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
-const DefaultServiceName = "partner_management_APIs"
+const DefaultServiceName = "partner_management"
 
-// PartnerManagementAPIsV1Options : Service options
-type PartnerManagementAPIsV1Options struct {
+// PartnerManagementV1Options : Service options
+type PartnerManagementV1Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewPartnerManagementAPIsV1UsingExternalConfig : constructs an instance of PartnerManagementAPIsV1 with passed in options and external configuration.
-func NewPartnerManagementAPIsV1UsingExternalConfig(options *PartnerManagementAPIsV1Options) (partnerManagementAPIs *PartnerManagementAPIsV1, err error) {
+// NewPartnerManagementV1UsingExternalConfig : constructs an instance of PartnerManagementV1 with passed in options and external configuration.
+func NewPartnerManagementV1UsingExternalConfig(options *PartnerManagementV1Options) (partnerManagement *PartnerManagementV1, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -69,27 +69,27 @@ func NewPartnerManagementAPIsV1UsingExternalConfig(options *PartnerManagementAPI
 		}
 	}
 
-	partnerManagementAPIs, err = NewPartnerManagementAPIsV1(options)
+	partnerManagement, err = NewPartnerManagementV1(options)
 	err = core.RepurposeSDKProblem(err, "new-client-error")
 	if err != nil {
 		return
 	}
 
-	err = partnerManagementAPIs.Service.ConfigureService(options.ServiceName)
+	err = partnerManagement.Service.ConfigureService(options.ServiceName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "client-config-error", common.GetComponentInfo())
 		return
 	}
 
 	if options.URL != "" {
-		err = partnerManagementAPIs.Service.SetServiceURL(options.URL)
+		err = partnerManagement.Service.SetServiceURL(options.URL)
 		err = core.RepurposeSDKProblem(err, "url-set-error")
 	}
 	return
 }
 
-// NewPartnerManagementAPIsV1 : constructs an instance of PartnerManagementAPIsV1 with passed in options.
-func NewPartnerManagementAPIsV1(options *PartnerManagementAPIsV1Options) (service *PartnerManagementAPIsV1, err error) {
+// NewPartnerManagementV1 : constructs an instance of PartnerManagementV1 with passed in options.
+func NewPartnerManagementV1(options *PartnerManagementV1Options) (service *PartnerManagementV1, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -109,7 +109,7 @@ func NewPartnerManagementAPIsV1(options *PartnerManagementAPIsV1Options) (servic
 		}
 	}
 
-	service = &PartnerManagementAPIsV1{
+	service = &PartnerManagementV1{
 		Service: baseService,
 	}
 
@@ -121,19 +121,19 @@ func GetServiceURLForRegion(region string) (string, error) {
 	return "", core.SDKErrorf(nil, "service does not support regional URLs", "no-regional-support", common.GetComponentInfo())
 }
 
-// Clone makes a copy of "partnerManagementAPIs" suitable for processing requests.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) Clone() *PartnerManagementAPIsV1 {
-	if core.IsNil(partnerManagementAPIs) {
+// Clone makes a copy of "partnerManagement" suitable for processing requests.
+func (partnerManagement *PartnerManagementV1) Clone() *PartnerManagementV1 {
+	if core.IsNil(partnerManagement) {
 		return nil
 	}
-	clone := *partnerManagementAPIs
-	clone.Service = partnerManagementAPIs.Service.Clone()
+	clone := *partnerManagement
+	clone.Service = partnerManagement.Service.Clone()
 	return &clone
 }
 
 // SetServiceURL sets the service URL
-func (partnerManagementAPIs *PartnerManagementAPIsV1) SetServiceURL(url string) error {
-	err := partnerManagementAPIs.Service.SetServiceURL(url)
+func (partnerManagement *PartnerManagementV1) SetServiceURL(url string) error {
+	err := partnerManagement.Service.SetServiceURL(url)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-set-error", common.GetComponentInfo())
 	}
@@ -141,46 +141,46 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) SetServiceURL(url string) 
 }
 
 // GetServiceURL returns the service URL
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetServiceURL() string {
-	return partnerManagementAPIs.Service.GetServiceURL()
+func (partnerManagement *PartnerManagementV1) GetServiceURL() string {
+	return partnerManagement.Service.GetServiceURL()
 }
 
 // SetDefaultHeaders sets HTTP headers to be sent in every request
-func (partnerManagementAPIs *PartnerManagementAPIsV1) SetDefaultHeaders(headers http.Header) {
-	partnerManagementAPIs.Service.SetDefaultHeaders(headers)
+func (partnerManagement *PartnerManagementV1) SetDefaultHeaders(headers http.Header) {
+	partnerManagement.Service.SetDefaultHeaders(headers)
 }
 
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
-func (partnerManagementAPIs *PartnerManagementAPIsV1) SetEnableGzipCompression(enableGzip bool) {
-	partnerManagementAPIs.Service.SetEnableGzipCompression(enableGzip)
+func (partnerManagement *PartnerManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	partnerManagement.Service.SetEnableGzipCompression(enableGzip)
 }
 
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetEnableGzipCompression() bool {
-	return partnerManagementAPIs.Service.GetEnableGzipCompression()
+func (partnerManagement *PartnerManagementV1) GetEnableGzipCompression() bool {
+	return partnerManagement.Service.GetEnableGzipCompression()
 }
 
 // EnableRetries enables automatic retries for requests invoked for this service instance.
 // If either parameter is specified as 0, then a default value is used instead.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
-	partnerManagementAPIs.Service.EnableRetries(maxRetries, maxRetryInterval)
+func (partnerManagement *PartnerManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	partnerManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
 }
 
 // DisableRetries disables automatic retries for requests invoked for this service instance.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) DisableRetries() {
-	partnerManagementAPIs.Service.DisableRetries()
+func (partnerManagement *PartnerManagementV1) DisableRetries() {
+	partnerManagement.Service.DisableRetries()
 }
 
 // GetResourceUsageReport : Get partner resource usage report
 // Returns the summary for the partner for a given month. Partner billing managers are authorized to access this report.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) (result *PartnerUsageReportSummary, response *core.DetailedResponse, err error) {
-	result, response, err = partnerManagementAPIs.GetResourceUsageReportWithContext(context.Background(), getResourceUsageReportOptions)
+func (partnerManagement *PartnerManagementV1) GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) (result *PartnerUsageReportSummary, response *core.DetailedResponse, err error) {
+	result, response, err = partnerManagement.GetResourceUsageReportWithContext(context.Background(), getResourceUsageReportOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetResourceUsageReportWithContext is an alternate form of the GetResourceUsageReport method which supports a Context parameter
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReportWithContext(ctx context.Context, getResourceUsageReportOptions *GetResourceUsageReportOptions) (result *PartnerUsageReportSummary, response *core.DetailedResponse, err error) {
+func (partnerManagement *PartnerManagementV1) GetResourceUsageReportWithContext(ctx context.Context, getResourceUsageReportOptions *GetResourceUsageReportOptions) (result *PartnerUsageReportSummary, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceUsageReportOptions, "getResourceUsageReportOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -194,8 +194,8 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReportWith
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = partnerManagementAPIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(partnerManagementAPIs.Service.Options.URL, `/v1/resource-usage-reports`, nil)
+	builder.EnableGzipCompression = partnerManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(partnerManagement.Service.Options.URL, `/v1/resource-usage-reports`, nil)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -205,7 +205,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReportWith
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_management_APIs", "V1", "GetResourceUsageReport")
+	sdkHeaders := common.GetSdkHeaders("partner_management", "V1", "GetResourceUsageReport")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -244,7 +244,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReportWith
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = partnerManagementAPIs.Service.Request(request, &rawResponse)
+	response, err = partnerManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_resource_usage_report", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -264,14 +264,14 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetResourceUsageReportWith
 
 // GetBillingOptions : Get customers billing options
 // Returns the billing options for the requested customer for a given month.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptions(getBillingOptionsOptions *GetBillingOptionsOptions) (result *BillingOptionsSummary, response *core.DetailedResponse, err error) {
-	result, response, err = partnerManagementAPIs.GetBillingOptionsWithContext(context.Background(), getBillingOptionsOptions)
+func (partnerManagement *PartnerManagementV1) GetBillingOptions(getBillingOptionsOptions *GetBillingOptionsOptions) (result *BillingOptionsSummary, response *core.DetailedResponse, err error) {
+	result, response, err = partnerManagement.GetBillingOptionsWithContext(context.Background(), getBillingOptionsOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetBillingOptionsWithContext is an alternate form of the GetBillingOptions method which supports a Context parameter
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptionsWithContext(ctx context.Context, getBillingOptionsOptions *GetBillingOptionsOptions) (result *BillingOptionsSummary, response *core.DetailedResponse, err error) {
+func (partnerManagement *PartnerManagementV1) GetBillingOptionsWithContext(ctx context.Context, getBillingOptionsOptions *GetBillingOptionsOptions) (result *BillingOptionsSummary, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getBillingOptionsOptions, "getBillingOptionsOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -285,8 +285,8 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptionsWithConte
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = partnerManagementAPIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(partnerManagementAPIs.Service.Options.URL, `/v1/billing-options`, nil)
+	builder.EnableGzipCompression = partnerManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(partnerManagement.Service.Options.URL, `/v1/billing-options`, nil)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -296,7 +296,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptionsWithConte
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_management_APIs", "V1", "GetBillingOptions")
+	sdkHeaders := common.GetSdkHeaders("partner_management", "V1", "GetBillingOptions")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -323,7 +323,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptionsWithConte
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = partnerManagementAPIs.Service.Request(request, &rawResponse)
+	response, err = partnerManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_billing_options", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -343,14 +343,14 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetBillingOptionsWithConte
 
 // GetCreditPoolsReport : Get credit pools report
 // Returns the subscription or commitment burn-down reports for the end customers for a given month.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReport(getCreditPoolsReportOptions *GetCreditPoolsReportOptions) (result *CreditPoolsReportSummary, response *core.DetailedResponse, err error) {
-	result, response, err = partnerManagementAPIs.GetCreditPoolsReportWithContext(context.Background(), getCreditPoolsReportOptions)
+func (partnerManagement *PartnerManagementV1) GetCreditPoolsReport(getCreditPoolsReportOptions *GetCreditPoolsReportOptions) (result *CreditPoolsReportSummary, response *core.DetailedResponse, err error) {
+	result, response, err = partnerManagement.GetCreditPoolsReportWithContext(context.Background(), getCreditPoolsReportOptions)
 	err = core.RepurposeSDKProblem(err, "")
 	return
 }
 
 // GetCreditPoolsReportWithContext is an alternate form of the GetCreditPoolsReport method which supports a Context parameter
-func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReportWithContext(ctx context.Context, getCreditPoolsReportOptions *GetCreditPoolsReportOptions) (result *CreditPoolsReportSummary, response *core.DetailedResponse, err error) {
+func (partnerManagement *PartnerManagementV1) GetCreditPoolsReportWithContext(ctx context.Context, getCreditPoolsReportOptions *GetCreditPoolsReportOptions) (result *CreditPoolsReportSummary, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCreditPoolsReportOptions, "getCreditPoolsReportOptions cannot be nil")
 	if err != nil {
 		err = core.SDKErrorf(err, "", "unexpected-nil-param", common.GetComponentInfo())
@@ -364,8 +364,8 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReportWithCo
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = partnerManagementAPIs.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(partnerManagementAPIs.Service.Options.URL, `/v1/credit-pools`, nil)
+	builder.EnableGzipCompression = partnerManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(partnerManagement.Service.Options.URL, `/v1/credit-pools`, nil)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "url-resolve-error", common.GetComponentInfo())
 		return
@@ -375,7 +375,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReportWithCo
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("partner_management_APIs", "V1", "GetCreditPoolsReport")
+	sdkHeaders := common.GetSdkHeaders("partner_management", "V1", "GetCreditPoolsReport")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -402,7 +402,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReportWithCo
 	}
 
 	var rawResponse map[string]json.RawMessage
-	response, err = partnerManagementAPIs.Service.Request(request, &rawResponse)
+	response, err = partnerManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		core.EnrichHTTPProblem(err, "get_credit_pools_report", getServiceComponentInfo())
 		err = core.SDKErrorf(err, "", "http-request-err", common.GetComponentInfo())
@@ -421,32 +421,6 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) GetCreditPoolsReportWithCo
 }
 func getServiceComponentInfo() *core.ProblemComponent {
 	return core.NewProblemComponent(DefaultServiceName, "1.0.0")
-}
-
-// BillingOptionsSummaryNextURL : The link to the next page of the search query.
-type BillingOptionsSummaryNextURL struct {
-	// A link to a page of query results.
-	Href *string `json:"href,omitempty"`
-
-	// The value of the `_start` query parameter to fetch the next page.
-	Offset *string `json:"offset,omitempty"`
-}
-
-// UnmarshalBillingOptionsSummaryNextURL unmarshals an instance of BillingOptionsSummaryNextURL from the specified map of raw messages.
-func UnmarshalBillingOptionsSummaryNextURL(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(BillingOptionsSummaryNextURL)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "offset-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // BillingOption : Billing options report for the end customers.
@@ -696,7 +670,7 @@ type BillingOptionsSummary struct {
 	RowsCount *int64 `json:"rows_count,omitempty"`
 
 	// The link to the next page of the search query.
-	NextURL *BillingOptionsSummaryNextURL `json:"next_url,omitempty"`
+	NextURL *string `json:"next_url,omitempty"`
 
 	// Aggregated usage report of all requested partners.
 	Resources []BillingOption `json:"resources,omitempty"`
@@ -710,7 +684,7 @@ func UnmarshalBillingOptionsSummary(m map[string]json.RawMessage, result interfa
 		err = core.SDKErrorf(err, "", "rows_count-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "next_url", &obj.NextURL, UnmarshalBillingOptionsSummaryNextURL)
+	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "next_url-error", common.GetComponentInfo())
 		return
@@ -718,32 +692,6 @@ func UnmarshalBillingOptionsSummary(m map[string]json.RawMessage, result interfa
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalBillingOption)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "resources-error", common.GetComponentInfo())
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// CreditPoolsReportSummaryNextURL : The link to the next page of the search query.
-type CreditPoolsReportSummaryNextURL struct {
-	// A link to a page of query results.
-	Href *string `json:"href,omitempty"`
-
-	// The value of the `_start` query parameter to fetch the next page.
-	Offset *string `json:"offset,omitempty"`
-}
-
-// UnmarshalCreditPoolsReportSummaryNextURL unmarshals an instance of CreditPoolsReportSummaryNextURL from the specified map of raw messages.
-func UnmarshalCreditPoolsReportSummaryNextURL(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CreditPoolsReportSummaryNextURL)
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "href-error", common.GetComponentInfo())
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "offset-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
@@ -870,7 +818,7 @@ type CreditPoolsReportSummary struct {
 	RowsCount *int64 `json:"rows_count,omitempty"`
 
 	// The link to the next page of the search query.
-	NextURL *CreditPoolsReportSummaryNextURL `json:"next_url,omitempty"`
+	NextURL *string `json:"next_url,omitempty"`
 
 	// Aggregated usage report of all requested partners.
 	Resources []CreditPoolsReport `json:"resources,omitempty"`
@@ -884,7 +832,7 @@ func UnmarshalCreditPoolsReportSummary(m map[string]json.RawMessage, result inte
 		err = core.SDKErrorf(err, "", "rows_count-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "next_url", &obj.NextURL, UnmarshalCreditPoolsReportSummaryNextURL)
+	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "next_url-error", common.GetComponentInfo())
 		return
@@ -922,7 +870,7 @@ type GetBillingOptionsOptions struct {
 }
 
 // NewGetBillingOptionsOptions : Instantiate GetBillingOptionsOptions
-func (*PartnerManagementAPIsV1) NewGetBillingOptionsOptions(partnerID string, billingMonth string) *GetBillingOptionsOptions {
+func (*PartnerManagementV1) NewGetBillingOptionsOptions(partnerID string, billingMonth string) *GetBillingOptionsOptions {
 	return &GetBillingOptionsOptions{
 		PartnerID: core.StringPtr(partnerID),
 		Date:      core.StringPtr(billingMonth),
@@ -989,7 +937,7 @@ type GetCreditPoolsReportOptions struct {
 }
 
 // NewGetCreditPoolsReportOptions : Instantiate GetCreditPoolsReportOptions
-func (*PartnerManagementAPIsV1) NewGetCreditPoolsReportOptions(partnerID string, billingMonth string) *GetCreditPoolsReportOptions {
+func (*PartnerManagementV1) NewGetCreditPoolsReportOptions(partnerID string, billingMonth string) *GetCreditPoolsReportOptions {
 	return &GetCreditPoolsReportOptions{
 		PartnerID: core.StringPtr(partnerID),
 		Date:      core.StringPtr(billingMonth),
@@ -1082,7 +1030,7 @@ const (
 )
 
 // NewGetResourceUsageReportOptions : Instantiate GetResourceUsageReportOptions
-func (*PartnerManagementAPIsV1) NewGetResourceUsageReportOptions(partnerID string) *GetResourceUsageReportOptions {
+func (*PartnerManagementV1) NewGetResourceUsageReportOptions(partnerID string) *GetResourceUsageReportOptions {
 	return &GetResourceUsageReportOptions{
 		PartnerID: core.StringPtr(partnerID),
 	}
@@ -1689,14 +1637,14 @@ func UnmarshalTermCredits(m map[string]json.RawMessage, result interface{}) (err
 type GetResourceUsageReportPager struct {
 	hasNext     bool
 	options     *GetResourceUsageReportOptions
-	client      *PartnerManagementAPIsV1
+	client      *PartnerManagementV1
 	pageContext struct {
 		next *string
 	}
 }
 
 // NewGetResourceUsageReportPager returns a new GetResourceUsageReportPager instance.
-func (partnerManagementAPIs *PartnerManagementAPIsV1) NewGetResourceUsageReportPager(options *GetResourceUsageReportOptions) (pager *GetResourceUsageReportPager, err error) {
+func (partnerManagement *PartnerManagementV1) NewGetResourceUsageReportPager(options *GetResourceUsageReportOptions) (pager *GetResourceUsageReportPager, err error) {
 	if options.Offset != nil && *options.Offset != "" {
 		err = core.SDKErrorf(nil, "the 'options.Offset' field should not be set", "no-query-setting", common.GetComponentInfo())
 		return
@@ -1706,7 +1654,7 @@ func (partnerManagementAPIs *PartnerManagementAPIsV1) NewGetResourceUsageReportP
 	pager = &GetResourceUsageReportPager{
 		hasNext: true,
 		options: &optionsCopy,
-		client:  partnerManagementAPIs,
+		client:  partnerManagement,
 	}
 	return
 }

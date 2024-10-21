@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package partnermanagementapisv1_test
+package partnermanagementv1_test
 
 import (
 	"encoding/json"
@@ -24,34 +24,34 @@ import (
 	"os"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/partnermanagementapisv1"
+	"github.com/IBM/platform-services-go-sdk/partnermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-// This file provides an example of how to use the Partner Management APIs service.
+// This file provides an example of how to use the Partner Management  service.
 //
 // The following configuration properties are assumed to be defined:
-// PARTNER_MANAGEMENT_APIS_URL=<service base url>
-// PARTNER_MANAGEMENT_APIS_AUTH_TYPE=iam
-// PARTNER_MANAGEMENT_APIS_APIKEY=<IAM apikey>
-// PARTNER_MANAGEMENT_APIS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
-// PARTNER_MANAGEMENT_APIS_PARTNER_ID=<Enterprise ID of the distributor or reseller for which the report is requested>
-// PARTNER_MANAGEMENT_APIS_CUSTOMER_ID=<Enterprise ID of the child customer for which the report is requested>
-// PARTNER_MANAGEMENT_APIS_RESELLER_ID=<Enterprise ID of the reseller for which the report is requested>
-// PARTNER_MANAGEMENT_APIS_BILLING_MONTH=<The billing month for which the usage report is requested. Format is `yyyy-mm`>
-// PARTNER_MANAGEMENT_APIS_VIEWPOINT=<Enables partner to view the cost of provisioned services as applicable at each level of the hierarchy>
+// PARTNER_MANAGEMENT_URL=<service base url>
+// PARTNER_MANAGEMENT_AUTH_TYPE=iam
+// PARTNER_MANAGEMENT_APIKEY=<IAM apikey>
+// PARTNER_MANAGEMENT_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// PARTNER_MANAGEMENT_PARTNER_ID=<Enterprise ID of the distributor or reseller for which the report is requested>
+// PARTNER_MANAGEMENT_CUSTOMER_ID=<Enterprise ID of the child customer for which the report is requested>
+// PARTNER_MANAGEMENT_RESELLER_ID=<Enterprise ID of the reseller for which the report is requested>
+// PARTNER_MANAGEMENT_BILLING_MONTH=<The billing month for which the usage report is requested. Format is `yyyy-mm`>
+// PARTNER_MANAGEMENT_VIEWPOINT=<Enables partner to view the cost of provisioned services as applicable at each level of the hierarchy>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
-var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
+var _ = Describe(`PartnerManagementV1 Examples Tests`, func() {
 
-	const externalConfigFile = "../partner_management_apis_v1.env"
+	const externalConfigFile = "../partner_management_v1.env"
 
 	var (
-		partnerManagementAPIsService *partnermanagementapisv1.PartnerManagementAPIsV1
-		config                       map[string]string
+		partnerManagementService *partnermanagementv1.PartnerManagementV1
+		config                   map[string]string
 
 		partnerId    string
 		customerId   string
@@ -72,7 +72,7 @@ var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(partnermanagementapisv1.DefaultServiceName)
+			config, err = core.GetServiceProperties(partnermanagementv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping examples: " + err.Error())
 			} else if len(config) == 0 {
@@ -104,9 +104,9 @@ var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
 
 			// begin-common
 
-			partnerManagementAPIsServiceOptions := &partnermanagementapisv1.PartnerManagementAPIsV1Options{}
+			partnerManagementServiceOptions := &partnermanagementv1.PartnerManagementV1Options{}
 
-			partnerManagementAPIsService, err = partnermanagementapisv1.NewPartnerManagementAPIsV1UsingExternalConfig(partnerManagementAPIsServiceOptions)
+			partnerManagementService, err = partnermanagementv1.NewPartnerManagementV1UsingExternalConfig(partnerManagementServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -114,29 +114,29 @@ var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
 
 			// end-common
 
-			Expect(partnerManagementAPIsService).ToNot(BeNil())
+			Expect(partnerManagementService).ToNot(BeNil())
 		})
 	})
 
-	Describe(`PartnerManagementAPIsV1 request examples`, func() {
+	Describe(`PartnerManagementV1 request examples`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport request example`, func() {
 			fmt.Println("\nGetResourceUsageReport() result:")
 			// begin-get_resource_usage_report
-			getResourceUsageReportOptions := &partnermanagementapisv1.GetResourceUsageReportOptions{
+			getResourceUsageReportOptions := &partnermanagementv1.GetResourceUsageReportOptions{
 				PartnerID: &partnerId,
 				Month:     &billingMonth,
 				Limit:     core.Int64Ptr(int64(30)),
 			}
 
-			pager, err := partnerManagementAPIsService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
+			pager, err := partnerManagementService.NewGetResourceUsageReportPager(getResourceUsageReportOptions)
 			if err != nil {
 				panic(err)
 			}
 
-			var allResults []partnermanagementapisv1.PartnerUsageReport
+			var allResults []partnermanagementv1.PartnerUsageReport
 			for pager.HasNext() {
 				nextPage, err := pager.GetNext()
 				if err != nil {
@@ -152,12 +152,12 @@ var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
 			fmt.Println("\nGetBillingOptions() result:")
 			// begin-get_billing_options
 
-			getBillingOptionsOptions := partnerManagementAPIsService.NewGetBillingOptionsOptions(
+			getBillingOptionsOptions := partnerManagementService.NewGetBillingOptionsOptions(
 				partnerId,
 				billingMonth,
 			)
 
-			billingOptionsSummary, response, err := partnerManagementAPIsService.GetBillingOptions(getBillingOptionsOptions)
+			billingOptionsSummary, response, err := partnerManagementService.GetBillingOptions(getBillingOptionsOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -174,12 +174,12 @@ var _ = Describe(`PartnerManagementAPIsV1 Examples Tests`, func() {
 			fmt.Println("\nGetCreditPoolsReport() result:")
 			// begin-get_credit_pools_report
 
-			getCreditPoolsReportOptions := partnerManagementAPIsService.NewGetCreditPoolsReportOptions(
+			getCreditPoolsReportOptions := partnerManagementService.NewGetCreditPoolsReportOptions(
 				partnerId,
 				billingMonth,
 			)
 
-			creditPoolsReportSummary, response, err := partnerManagementAPIsService.GetCreditPoolsReport(getCreditPoolsReportOptions)
+			creditPoolsReportSummary, response, err := partnerManagementService.GetCreditPoolsReport(getCreditPoolsReportOptions)
 			if err != nil {
 				panic(err)
 			}
