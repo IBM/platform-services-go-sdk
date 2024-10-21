@@ -1276,7 +1276,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
 				ID:          core.StringPtr("pet-store.dashboard.view"),
-				Roles:       []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"},
+				Roles:       []string{fmt.Sprintf("crn:v1:bluemix:public:%s::::serviceRole:%s", iamServiceRegistrationId, roleDisplayName)},
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Options:     iamServiceRegistrationActionOptionsModel,
