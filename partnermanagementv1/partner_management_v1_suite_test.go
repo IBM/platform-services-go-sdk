@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package partnermanagementapisv1_test
+package partnermanagementv1_test
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestPartnerManagementAPIsV1(t *testing.T) {
+func TestPartnerManagementV1(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "PartnerManagementAPIsV1 Suite")
+	RunSpecs(t, "PartnerManagementV1 Suite")
 }
