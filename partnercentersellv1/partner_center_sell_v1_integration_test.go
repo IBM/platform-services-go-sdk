@@ -396,6 +396,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Other:        globalCatalogProductMetadataOtherModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogProductOptions := &partnercentersellv1.CreateCatalogProductOptions{
 				ProductID:      core.StringPtr(productIdWithApprovedProgrammaticName),
 				Name:           core.StringPtr(iamServiceRegistrationId),
@@ -404,12 +407,11 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:           core.StringPtr("service"),
 				Tags:           []string{"keyword", "support_ibm"},
 				ObjectProvider: catalogProductProviderModel,
-				// check this Petya
-				ObjectID:   core.StringPtr("testString"),
-				OverviewUi: globalCatalogOverviewUiModel,
-				Images:     globalCatalogProductImagesModel,
-				Metadata:   globalCatalogProductMetadataModel,
-				Env:        core.StringPtr(env),
+				ObjectID:       core.StringPtr(objectId),
+				OverviewUi:     globalCatalogOverviewUiModel,
+				Images:         globalCatalogProductImagesModel,
+				Metadata:       globalCatalogProductMetadataModel,
+				Env:            core.StringPtr(env),
 			}
 
 			globalCatalogProduct, response, err := partnerCenterSellService.CreateCatalogProduct(createCatalogProductOptions)
@@ -682,6 +684,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Plan:         globalCatalogPlanMetadataPlanModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogPlanOptions := &partnercentersellv1.CreateCatalogPlanOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
 				CatalogProductID: &catalogProductIdLink,
@@ -691,11 +696,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("plan"),
 				Tags:             []string{"ibm_created"},
 				ObjectProvider:   catalogProductProviderModel,
-				// check this Petya
-				ObjectID:   core.StringPtr("testString"),
-				OverviewUi: globalCatalogOverviewUiModel,
-				Metadata:   globalCatalogPlanMetadataModel,
-				Env:        core.StringPtr(env),
+				ObjectID:         core.StringPtr(objectId),
+				OverviewUi:       globalCatalogOverviewUiModel,
+				Metadata:         globalCatalogPlanMetadataModel,
+				Env:              core.StringPtr(env),
 			}
 
 			globalCatalogPlan, response, err := partnerCenterSellService.CreateCatalogPlan(createCatalogPlanOptions)
@@ -914,6 +918,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogDeploymentOptions := &partnercentersellv1.CreateCatalogDeploymentOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
 				CatalogProductID: &catalogProductIdLink,
@@ -924,11 +931,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("deployment"),
 				Tags:             []string{"eu-gb"},
 				ObjectProvider:   catalogProductProviderModel,
-				// check this Petya
-				ObjectID:   core.StringPtr("testString"),
-				OverviewUi: globalCatalogOverviewUiModel,
-				Metadata:   globalCatalogDeploymentMetadataModel,
-				Env:        core.StringPtr("testString"),
+				ObjectID:         core.StringPtr(objectId),
+				OverviewUi:       globalCatalogOverviewUiModel,
+				Metadata:         globalCatalogDeploymentMetadataModel,
+				Env:              core.StringPtr("testString"),
 			}
 
 			globalCatalogDeployment, response, err := partnerCenterSellService.CreateCatalogDeployment(createCatalogDeploymentOptions)
@@ -1339,7 +1345,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationSupportedAttributeModel := &partnercentersellv1.IamServiceRegistrationSupportedAttribute{
-				Key:         core.StringPtr("testAttribute"),
+				Key:         core.StringPtr("testString"),
 				Options:     supportedAttributesOptionsModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
 				Description: iamServiceRegistrationDescriptionObjectModel,
