@@ -41,6 +41,7 @@ import (
 // PARTNER_CENTER_SELL_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 // PRODUCT_ID_APPROVED=<product id>
 // PARTNER_CENTER_SELL_BADGE_ID=<badge id>
+// PARTNER_CENTER_SELL_IAM_REGISTRATION_ID=<iam registration id>
 
 // PARTNER_CENTER_SELL_ALT_AUTH_TYPE=iam
 // PARTNER_CENTER_SELL_ALT_APIKEY=<IAM apikey>

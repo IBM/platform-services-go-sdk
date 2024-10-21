@@ -13129,6 +13129,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(getResourceBrokerOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceBrokerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewIamServiceRegistrationSupportedAnonymousAccessAttributes successfully`, func() {
+				accountID := "testString"
+				serviceName := "testString"
+				additionalProperties := map[string]string{"key1": "testString"}
+				_model, err := partnerCenterSellService.NewIamServiceRegistrationSupportedAnonymousAccessAttributes(accountID, serviceName, additionalProperties)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewListProductBadgesOptions successfully`, func() {
 				// Construct an instance of the ListProductBadgesOptions model
 				listProductBadgesOptionsModel := partnerCenterSellService.NewListProductBadgesOptions()

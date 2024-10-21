@@ -7387,16 +7387,30 @@ func (iamServiceRegistrationSupportedAnonymousAccess *IamServiceRegistrationSupp
 // This type supports additional properties of type *string.
 type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 	// An account id.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// The name of the service.
-	ServiceName *string `json:"service_name,omitempty"`
+	ServiceName *string `json:"service_name" validate:"required"`
 
 	// Additional properties the key must come from supported attributes.
-	AdditionalProperties map[string]string `json:"additional_properties,omitempty"`
+	AdditionalProperties map[string]string `json:"additional_properties" validate:"required"`
 
 	// Allows users to set arbitrary properties of type *string.
 	additionalProperties map[string]*string
+}
+
+// NewIamServiceRegistrationSupportedAnonymousAccessAttributes : Instantiate IamServiceRegistrationSupportedAnonymousAccessAttributes (Generic Model Constructor)
+func (*PartnerCenterSellV1) NewIamServiceRegistrationSupportedAnonymousAccessAttributes(accountID string, serviceName string, additionalProperties map[string]string) (_model *IamServiceRegistrationSupportedAnonymousAccessAttributes, err error) {
+	_model = &IamServiceRegistrationSupportedAnonymousAccessAttributes{
+		AccountID:            core.StringPtr(accountID),
+		ServiceName:          core.StringPtr(serviceName),
+		AdditionalProperties: additionalProperties,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	if err != nil {
+		err = core.SDKErrorf(err, "", "model-missing-required", common.GetComponentInfo())
+	}
+	return
 }
 
 // SetProperty allows the user to set an arbitrary property on an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.

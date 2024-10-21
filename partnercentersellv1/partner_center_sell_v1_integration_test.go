@@ -924,7 +924,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("deployment"),
 				Tags:             []string{"eu-gb"},
 				ObjectProvider:   catalogProductProviderModel,
-				// check this
+				// check this Petya
 				ObjectID:   core.StringPtr("testString"),
 				OverviewUi: globalCatalogOverviewUiModel,
 				Metadata:   globalCatalogDeploymentMetadataModel,
@@ -1069,17 +1069,17 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
-				Default: core.StringPtr("testString"),
-				En:      core.StringPtr("testString"),
-				De:      core.StringPtr("testString"),
-				Es:      core.StringPtr("testString"),
-				Fr:      core.StringPtr("testString"),
-				It:      core.StringPtr("testString"),
-				Ja:      core.StringPtr("testString"),
-				Ko:      core.StringPtr("testString"),
-				PtBr:    core.StringPtr("testString"),
-				ZhTw:    core.StringPtr("testString"),
-				ZhCn:    core.StringPtr("testString"),
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
 			}
 
 			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
@@ -1243,17 +1243,17 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
-				Default: core.StringPtr("testString"),
-				En:      core.StringPtr("testString"),
-				De:      core.StringPtr("testString"),
-				Es:      core.StringPtr("testString"),
-				Fr:      core.StringPtr("testString"),
-				It:      core.StringPtr("testString"),
-				Ja:      core.StringPtr("testString"),
-				Ko:      core.StringPtr("testString"),
-				PtBr:    core.StringPtr("testString"),
-				ZhTw:    core.StringPtr("testString"),
-				ZhCn:    core.StringPtr("testString"),
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
 			}
 
 			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
