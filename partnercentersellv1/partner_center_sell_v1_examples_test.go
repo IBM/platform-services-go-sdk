@@ -21,6 +21,7 @@ package partnercentersellv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"os"
 	"strconv"
 
@@ -28,7 +29,6 @@ import (
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"golang.org/x/exp/rand"
 )
 
 //
