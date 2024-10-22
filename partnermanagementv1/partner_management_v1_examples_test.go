@@ -29,7 +29,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-// This file provides an example of how to use the Partner Management  service.
+// This file provides an example of how to use the Partner Management service.
 //
 // The following configuration properties are assumed to be defined:
 // PARTNER_MANAGEMENT_URL=<service base url>

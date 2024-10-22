@@ -19,6 +19,7 @@ package partnermanagementv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"fmt"
 	"io"
 	"net/http"
@@ -1108,10 +1109,9 @@ var _ = Describe(`PartnerManagementV1`, func() {
 			})
 		})
 	})
-
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -1137,8 +1137,11 @@ var _ = Describe(`PartnerManagementV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := []byte(mockData)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
