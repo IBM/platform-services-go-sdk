@@ -173,8 +173,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 		It(`CreateOnboardingProduct(createOnboardingProductOptions *CreateOnboardingProductOptions)`, func() {
 			primaryContactModel := &partnercentersellv1.PrimaryContact{
-				Name:  core.StringPtr("Petra"),
-				Email: core.StringPtr("petra@ibm.com"),
+				Name:  core.StringPtr("name"),
+				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
 			onboardingProductSupportEscalationContactItemsModel := &partnercentersellv1.OnboardingProductSupportEscalationContactItems{
@@ -396,6 +396,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Other:        globalCatalogProductMetadataOtherModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogProductOptions := &partnercentersellv1.CreateCatalogProductOptions{
 				ProductID:      core.StringPtr(productIdWithApprovedProgrammaticName),
 				Name:           core.StringPtr(iamServiceRegistrationId),
@@ -404,6 +407,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:           core.StringPtr("service"),
 				Tags:           []string{"keyword", "support_ibm"},
 				ObjectProvider: catalogProductProviderModel,
+				ObjectID:       core.StringPtr(objectId),
 				OverviewUi:     globalCatalogOverviewUiModel,
 				Images:         globalCatalogProductImagesModel,
 				Metadata:       globalCatalogProductMetadataModel,
@@ -539,9 +543,21 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			globalCatalogProductMetadataOtherPcModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherPC{
 				Support: globalCatalogProductMetadataOtherPcSupportModel,
 			}
+			// check this Petya
+			globalCatalogProductMetadataOtherCompositeChildModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{
+				Kind: core.StringPtr("service"),
+				Name: core.StringPtr("testString"),
+			}
+
+			globalCatalogProductMetadataOtherCompositeModel := &partnercentersellv1.GlobalCatalogProductMetadataOtherComposite{
+				CompositeKind: core.StringPtr("service"),
+				CompositeTag:  core.StringPtr("testString"),
+				Children:      []partnercentersellv1.GlobalCatalogProductMetadataOtherCompositeChild{*globalCatalogProductMetadataOtherCompositeChildModel},
+			}
 
 			globalCatalogProductMetadataOtherModel := &partnercentersellv1.GlobalCatalogProductMetadataOther{
-				PC: globalCatalogProductMetadataOtherPcModel,
+				PC:        globalCatalogProductMetadataOtherPcModel,
+				Composite: globalCatalogProductMetadataOtherCompositeModel,
 			}
 
 			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
@@ -668,6 +684,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Plan:         globalCatalogPlanMetadataPlanModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogPlanOptions := &partnercentersellv1.CreateCatalogPlanOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
 				CatalogProductID: &catalogProductIdLink,
@@ -677,6 +696,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("plan"),
 				Tags:             []string{"ibm_created"},
 				ObjectProvider:   catalogProductProviderModel,
+				ObjectID:         core.StringPtr(objectId),
 				OverviewUi:       globalCatalogOverviewUiModel,
 				Metadata:         globalCatalogPlanMetadataModel,
 				Env:              core.StringPtr(env),
@@ -898,6 +918,9 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+
 			createCatalogDeploymentOptions := &partnercentersellv1.CreateCatalogDeploymentOptions{
 				ProductID:        core.StringPtr(productIdWithApprovedProgrammaticName),
 				CatalogProductID: &catalogProductIdLink,
@@ -908,9 +931,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Kind:             core.StringPtr("deployment"),
 				Tags:             []string{"eu-gb"},
 				ObjectProvider:   catalogProductProviderModel,
+				ObjectID:         core.StringPtr(objectId),
 				OverviewUi:       globalCatalogOverviewUiModel,
 				Metadata:         globalCatalogDeploymentMetadataModel,
-				Env:              core.StringPtr(env),
+				Env:              core.StringPtr("testString"),
 			}
 
 			globalCatalogDeployment, response, err := partnerCenterSellService.CreateCatalogDeployment(createCatalogDeploymentOptions)
@@ -1051,17 +1075,17 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 		It(`CreateIamRegistration(createIamRegistrationOptions *CreateIamRegistrationOptions)`, func() {
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
-				Default: core.StringPtr("testString"),
-				En:      core.StringPtr("testString"),
-				De:      core.StringPtr("testString"),
-				Es:      core.StringPtr("testString"),
-				Fr:      core.StringPtr("testString"),
-				It:      core.StringPtr("testString"),
-				Ja:      core.StringPtr("testString"),
-				Ko:      core.StringPtr("testString"),
-				PtBr:    core.StringPtr("testString"),
-				ZhTw:    core.StringPtr("testString"),
-				ZhCn:    core.StringPtr("testString"),
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
 			}
 
 			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
@@ -1091,10 +1115,10 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
-				AccountID:   core.StringPtr("testString"),
-				ServiceName: core.StringPtr(iamServiceRegistrationId),
+				AccountID:            core.StringPtr("testString"),
+				ServiceName:          core.StringPtr(iamServiceRegistrationId),
+				AdditionalProperties: map[string]string{"testString": "dsgdsfgsd576456"},
 			}
-			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", core.StringPtr("foo"))
 
 			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
 				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
@@ -1130,8 +1154,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
-				Query:             core.StringPtr("testString"),
-				ValuePropertyName: core.StringPtr("testString"),
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
 				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
 			}
 
@@ -1225,17 +1249,17 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			roleDisplayName := fmt.Sprintf("random-%s", randomInteger)
 
 			iamServiceRegistrationDescriptionObjectModel := &partnercentersellv1.IamServiceRegistrationDescriptionObject{
-				Default: core.StringPtr("testString"),
-				En:      core.StringPtr("testString"),
-				De:      core.StringPtr("testString"),
-				Es:      core.StringPtr("testString"),
-				Fr:      core.StringPtr("testString"),
-				It:      core.StringPtr("testString"),
-				Ja:      core.StringPtr("testString"),
-				Ko:      core.StringPtr("testString"),
-				PtBr:    core.StringPtr("testString"),
-				ZhTw:    core.StringPtr("testString"),
-				ZhCn:    core.StringPtr("testString"),
+				Default: core.StringPtr("View dashboard"),
+				En:      core.StringPtr("View dashboard"),
+				De:      core.StringPtr("View dashboard"),
+				Es:      core.StringPtr("View dashboard"),
+				Fr:      core.StringPtr("View dashboard"),
+				It:      core.StringPtr("View dashboard"),
+				Ja:      core.StringPtr("View dashboard"),
+				Ko:      core.StringPtr("View dashboard"),
+				PtBr:    core.StringPtr("View dashboard"),
+				ZhTw:    core.StringPtr("View dashboard"),
+				ZhCn:    core.StringPtr("View dashboard"),
 			}
 
 			iamServiceRegistrationDisplayNameObjectModel := &partnercentersellv1.IamServiceRegistrationDisplayNameObject{
@@ -1257,7 +1281,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			iamServiceRegistrationActionModel := &partnercentersellv1.IamServiceRegistrationAction{
-				ID:          core.StringPtr("testString"),
+				ID:          core.StringPtr("pet-store.dashboard.view"),
 				Roles:       []string{fmt.Sprintf("crn:v1:bluemix:public:%s::::serviceRole:%s", iamServiceRegistrationId, roleDisplayName)},
 				Description: iamServiceRegistrationDescriptionObjectModel,
 				DisplayName: iamServiceRegistrationDisplayNameObjectModel,
@@ -1304,8 +1328,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			supportedAttributeUiInputGstModel := &partnercentersellv1.SupportedAttributeUiInputGst{
-				Query:             core.StringPtr("query"),
-				ValuePropertyName: core.StringPtr("teststring"),
+				Query:             core.StringPtr("ghost query"),
+				ValuePropertyName: core.StringPtr("instance"),
 				InputOptionLabel:  core.StringPtr("{name} - {instance_id}"),
 			}
 
@@ -1440,7 +1464,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				RegistrationID: &registrationIdLink,
 			}
 
-			registration, response, err := partnerCenterSellServiceAlt.GetRegistration(getRegistrationOptions)
+			registration, response, err := partnerCenterSellService.GetRegistration(getRegistrationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(registration).ToNot(BeNil())
@@ -1683,6 +1707,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
 	Describe(`DeleteCatalogPlan - Delete a global catalog pricing plan`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1700,6 +1725,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
 	Describe(`DeleteCatalogProduct - Delete a global catalog product`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
