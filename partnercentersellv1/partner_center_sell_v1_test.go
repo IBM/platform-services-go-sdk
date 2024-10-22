@@ -68,13 +68,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,7 +104,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+				})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -121,12 +123,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -137,7 +140,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2230,6 +2233,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.Tags = []string{"keyword", "support_ibm"}
 				createCatalogProductOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogProductOptionsModel.ID = core.StringPtr("testString")
+				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
 				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
@@ -2287,7 +2291,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully with retries`, func() {
@@ -2447,6 +2451,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.Tags = []string{"keyword", "support_ibm"}
 				createCatalogProductOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogProductOptionsModel.ID = core.StringPtr("testString")
+				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
 				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
@@ -2507,7 +2512,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogProduct successfully`, func() {
@@ -2672,6 +2677,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.Tags = []string{"keyword", "support_ibm"}
 				createCatalogProductOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogProductOptionsModel.ID = core.StringPtr("testString")
+				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
 				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
@@ -2841,6 +2847,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.Tags = []string{"keyword", "support_ibm"}
 				createCatalogProductOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogProductOptionsModel.ID = core.StringPtr("testString")
+				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
 				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
@@ -3031,6 +3038,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.Tags = []string{"keyword", "support_ibm"}
 				createCatalogProductOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogProductOptionsModel.ID = core.StringPtr("testString")
+				createCatalogProductOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogProductOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogProductOptionsModel.Images = globalCatalogProductImagesModel
 				createCatalogProductOptionsModel.Metadata = globalCatalogProductMetadataModel
@@ -3116,7 +3124,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully with retries`, func() {
@@ -3173,7 +3181,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogProduct successfully`, func() {
@@ -3508,7 +3516,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully with retries`, func() {
@@ -3732,7 +3740,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "service", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "images": {"image": "Image"}, "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "other": {"PC": {"support": {"url": "URL", "status_url": "StatusURL", "locations": ["Locations"], "languages": ["Languages"], "process": "Process", "process_i18n": {"mapKey": "Inner"}, "support_type": "community", "support_escalation": {"contact": "Contact", "escalation_wait_time": {"value": 5, "type": "Type"}, "response_wait_time": {"value": 5, "type": "Type"}}, "support_details": [{"type": "support_site", "contact": "Contact", "response_wait_time": {"value": 5, "type": "Type"}, "availability": {"times": [{"day": 3, "start_time": "StartTime", "end_time": "EndTime"}], "timezone": "Timezone", "always_available": false}}]}}, "composite": {"composite_kind": "service", "composite_tag": "CompositeTag", "children": [{"kind": "service", "name": "Name"}]}}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogProduct successfully`, func() {
@@ -4478,6 +4486,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
+				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -4534,7 +4543,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully with retries`, func() {
@@ -4640,6 +4649,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
+				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -4699,7 +4709,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogPlan successfully`, func() {
@@ -4810,6 +4820,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
+				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -4924,6 +4935,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
+				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5059,6 +5071,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.Tags = []string{"ibm_created"}
 				createCatalogPlanOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogPlanOptionsModel.ID = core.StringPtr("testString")
+				createCatalogPlanOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogPlanOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogPlanOptionsModel.Metadata = globalCatalogPlanMetadataModel
 				createCatalogPlanOptionsModel.Env = core.StringPtr("testString")
@@ -5144,7 +5157,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully with retries`, func() {
@@ -5202,7 +5215,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogPlan successfully`, func() {
@@ -5485,7 +5498,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully with retries`, func() {
@@ -5654,7 +5667,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "plan", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "pricing": {"type": "free", "origin": "global_catalog"}, "plan": {"allow_internal_users": true, "bindable": true}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogPlan successfully`, func() {
@@ -6239,6 +6252,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
+				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
@@ -6295,7 +6309,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully with retries`, func() {
@@ -6403,6 +6417,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
+				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
@@ -6462,7 +6477,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalogDeployment successfully`, func() {
@@ -6575,6 +6590,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
+				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
@@ -6691,6 +6707,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
+				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
@@ -6828,6 +6845,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.Tags = []string{"eu-gb"}
 				createCatalogDeploymentOptionsModel.ObjectProvider = catalogProductProviderModel
 				createCatalogDeploymentOptionsModel.ID = core.StringPtr("testString")
+				createCatalogDeploymentOptionsModel.ObjectID = core.StringPtr("testString")
 				createCatalogDeploymentOptionsModel.OverviewUi = globalCatalogOverviewUiModel
 				createCatalogDeploymentOptionsModel.Metadata = globalCatalogDeploymentMetadataModel
 				createCatalogDeploymentOptionsModel.Env = core.StringPtr("testString")
@@ -6914,7 +6932,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully with retries`, func() {
@@ -6973,7 +6991,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalogDeployment successfully`, func() {
@@ -7261,7 +7279,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully with retries`, func() {
@@ -7432,7 +7450,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "object_id": "ObjectID", "name": "Name", "active": true, "disabled": true, "kind": "deployment", "overview_ui": {"en": {"display_name": "DisplayName", "description": "Description", "long_description": "LongDescription"}}, "tags": ["Tags"], "url": "URL", "object_provider": {"name": "Name", "email": "Email"}, "metadata": {"rc_compatible": true, "ui": {"strings": {"en": {"bullets": [{"description": "Description", "description_i18n": {"mapKey": "Inner"}, "title": "Title", "title_i18n": {"mapKey": "Inner"}}], "media": [{"caption": "Caption", "caption_i18n": {"mapKey": "Inner"}, "thumbnail": "Thumbnail", "type": "image", "url": "URL"}], "embeddable_dashboard": "EmbeddableDashboard"}}, "urls": {"doc_url": "DocURL", "apidocs_url": "ApidocsURL", "terms_url": "TermsURL", "instructions_url": "InstructionsURL", "catalog_details_url": "CatalogDetailsURL", "custom_create_page_url": "CustomCreatePageURL", "dashboard": "Dashboard"}, "hidden": true, "side_by_side_index": 15}, "service": {"rc_provisionable": false, "iam_compatible": false, "bindable": true, "plan_updateable": true, "service_key_supported": false}, "deployment": {"broker": {"name": "Name", "guid": "Guid"}, "location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn"}}}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogDeployment successfully`, func() {
@@ -7931,31 +7949,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -7963,8 +7981,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -7978,12 +7996,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -8001,7 +8022,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -8012,15 +8033,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -8029,19 +8050,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -8055,17 +8076,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -8076,8 +8098,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -8087,13 +8109,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
 				createIamRegistrationOptionsModel.ProductID = core.StringPtr("testString")
-				createIamRegistrationOptionsModel.Name = core.StringPtr("testString")
+				createIamRegistrationOptionsModel.Name = core.StringPtr("pet-store")
 				createIamRegistrationOptionsModel.Enabled = core.BoolPtr(true)
 				createIamRegistrationOptionsModel.ServiceType = core.StringPtr("service")
 				createIamRegistrationOptionsModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"testString"}
+				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"pet-store"}
 				createIamRegistrationOptionsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				createIamRegistrationOptionsModel.ParentIds = []string{"testString"}
+				createIamRegistrationOptionsModel.ParentIds = []string{}
 				createIamRegistrationOptionsModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				createIamRegistrationOptionsModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				createIamRegistrationOptionsModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -8154,7 +8176,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully with retries`, func() {
@@ -8168,31 +8190,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -8200,8 +8222,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -8215,12 +8237,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -8238,7 +8263,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -8249,15 +8274,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -8266,19 +8291,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -8292,17 +8317,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -8313,8 +8339,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -8324,13 +8350,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
 				createIamRegistrationOptionsModel.ProductID = core.StringPtr("testString")
-				createIamRegistrationOptionsModel.Name = core.StringPtr("testString")
+				createIamRegistrationOptionsModel.Name = core.StringPtr("pet-store")
 				createIamRegistrationOptionsModel.Enabled = core.BoolPtr(true)
 				createIamRegistrationOptionsModel.ServiceType = core.StringPtr("service")
 				createIamRegistrationOptionsModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"testString"}
+				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"pet-store"}
 				createIamRegistrationOptionsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				createIamRegistrationOptionsModel.ParentIds = []string{"testString"}
+				createIamRegistrationOptionsModel.ParentIds = []string{}
 				createIamRegistrationOptionsModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				createIamRegistrationOptionsModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				createIamRegistrationOptionsModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -8394,7 +8420,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully`, func() {
@@ -8413,31 +8439,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -8445,8 +8471,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -8460,12 +8486,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -8483,7 +8512,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -8494,15 +8523,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -8511,19 +8540,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -8537,17 +8566,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -8558,8 +8588,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -8569,13 +8599,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
 				createIamRegistrationOptionsModel.ProductID = core.StringPtr("testString")
-				createIamRegistrationOptionsModel.Name = core.StringPtr("testString")
+				createIamRegistrationOptionsModel.Name = core.StringPtr("pet-store")
 				createIamRegistrationOptionsModel.Enabled = core.BoolPtr(true)
 				createIamRegistrationOptionsModel.ServiceType = core.StringPtr("service")
 				createIamRegistrationOptionsModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"testString"}
+				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"pet-store"}
 				createIamRegistrationOptionsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				createIamRegistrationOptionsModel.ParentIds = []string{"testString"}
+				createIamRegistrationOptionsModel.ParentIds = []string{}
 				createIamRegistrationOptionsModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				createIamRegistrationOptionsModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				createIamRegistrationOptionsModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -8602,31 +8632,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -8634,8 +8664,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -8649,12 +8679,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -8672,7 +8705,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -8683,15 +8716,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -8700,19 +8733,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -8726,17 +8759,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -8747,8 +8781,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -8758,13 +8792,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
 				createIamRegistrationOptionsModel.ProductID = core.StringPtr("testString")
-				createIamRegistrationOptionsModel.Name = core.StringPtr("testString")
+				createIamRegistrationOptionsModel.Name = core.StringPtr("pet-store")
 				createIamRegistrationOptionsModel.Enabled = core.BoolPtr(true)
 				createIamRegistrationOptionsModel.ServiceType = core.StringPtr("service")
 				createIamRegistrationOptionsModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"testString"}
+				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"pet-store"}
 				createIamRegistrationOptionsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				createIamRegistrationOptionsModel.ParentIds = []string{"testString"}
+				createIamRegistrationOptionsModel.ParentIds = []string{}
 				createIamRegistrationOptionsModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				createIamRegistrationOptionsModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				createIamRegistrationOptionsModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -8812,31 +8846,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -8844,8 +8878,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -8859,12 +8893,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -8882,7 +8919,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -8893,15 +8930,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -8910,19 +8947,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -8936,17 +8973,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -8957,8 +8995,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -8968,13 +9006,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the CreateIamRegistrationOptions model
 				createIamRegistrationOptionsModel := new(partnercentersellv1.CreateIamRegistrationOptions)
 				createIamRegistrationOptionsModel.ProductID = core.StringPtr("testString")
-				createIamRegistrationOptionsModel.Name = core.StringPtr("testString")
+				createIamRegistrationOptionsModel.Name = core.StringPtr("pet-store")
 				createIamRegistrationOptionsModel.Enabled = core.BoolPtr(true)
 				createIamRegistrationOptionsModel.ServiceType = core.StringPtr("service")
 				createIamRegistrationOptionsModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"testString"}
+				createIamRegistrationOptionsModel.AdditionalPolicyScopes = []string{"pet-store"}
 				createIamRegistrationOptionsModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				createIamRegistrationOptionsModel.ParentIds = []string{"testString"}
+				createIamRegistrationOptionsModel.ParentIds = []string{}
 				createIamRegistrationOptionsModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				createIamRegistrationOptionsModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				createIamRegistrationOptionsModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -9023,31 +9061,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -9055,8 +9093,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -9070,12 +9108,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -9093,7 +9134,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -9104,15 +9145,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -9121,19 +9162,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -9147,17 +9188,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -9168,8 +9210,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -9181,9 +9223,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.Enabled = core.BoolPtr(true)
 				iamServiceRegistrationPatchModel.ServiceType = core.StringPtr("service")
 				iamServiceRegistrationPatchModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"testString"}
+				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"pet-store"}
 				iamServiceRegistrationPatchModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				iamServiceRegistrationPatchModel.ParentIds = []string{"testString"}
+				iamServiceRegistrationPatchModel.ParentIds = []string{}
 				iamServiceRegistrationPatchModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				iamServiceRegistrationPatchModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				iamServiceRegistrationPatchModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -9252,7 +9294,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully with retries`, func() {
@@ -9266,31 +9308,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -9298,8 +9340,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -9313,12 +9355,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -9336,7 +9381,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -9347,15 +9392,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -9364,19 +9409,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -9390,17 +9435,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -9411,8 +9457,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -9424,9 +9470,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.Enabled = core.BoolPtr(true)
 				iamServiceRegistrationPatchModel.ServiceType = core.StringPtr("service")
 				iamServiceRegistrationPatchModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"testString"}
+				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"pet-store"}
 				iamServiceRegistrationPatchModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				iamServiceRegistrationPatchModel.ParentIds = []string{"testString"}
+				iamServiceRegistrationPatchModel.ParentIds = []string{}
 				iamServiceRegistrationPatchModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				iamServiceRegistrationPatchModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				iamServiceRegistrationPatchModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -9498,7 +9544,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully`, func() {
@@ -9517,31 +9563,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -9549,8 +9595,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -9564,12 +9610,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -9587,7 +9636,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -9598,15 +9647,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -9615,19 +9664,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -9641,17 +9690,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -9662,8 +9712,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -9675,9 +9725,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.Enabled = core.BoolPtr(true)
 				iamServiceRegistrationPatchModel.ServiceType = core.StringPtr("service")
 				iamServiceRegistrationPatchModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"testString"}
+				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"pet-store"}
 				iamServiceRegistrationPatchModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				iamServiceRegistrationPatchModel.ParentIds = []string{"testString"}
+				iamServiceRegistrationPatchModel.ParentIds = []string{}
 				iamServiceRegistrationPatchModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				iamServiceRegistrationPatchModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				iamServiceRegistrationPatchModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -9712,31 +9762,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -9744,8 +9794,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -9759,12 +9809,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -9782,7 +9835,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -9793,15 +9846,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -9810,19 +9863,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -9836,17 +9889,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -9857,8 +9911,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -9870,9 +9924,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.Enabled = core.BoolPtr(true)
 				iamServiceRegistrationPatchModel.ServiceType = core.StringPtr("service")
 				iamServiceRegistrationPatchModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"testString"}
+				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"pet-store"}
 				iamServiceRegistrationPatchModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				iamServiceRegistrationPatchModel.ParentIds = []string{"testString"}
+				iamServiceRegistrationPatchModel.ParentIds = []string{}
 				iamServiceRegistrationPatchModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				iamServiceRegistrationPatchModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				iamServiceRegistrationPatchModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -9928,31 +9982,31 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -9960,8 +10014,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
@@ -9975,12 +10029,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAnonymousAccess model
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -9998,7 +10055,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -10009,15 +10066,15 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -10026,19 +10083,19 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
 
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
@@ -10052,17 +10109,18 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationSupportedAuthorizationSubject model
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
@@ -10073,8 +10131,8 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -10086,9 +10144,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationPatchModel.Enabled = core.BoolPtr(true)
 				iamServiceRegistrationPatchModel.ServiceType = core.StringPtr("service")
 				iamServiceRegistrationPatchModel.Actions = []partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}
-				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"testString"}
+				iamServiceRegistrationPatchModel.AdditionalPolicyScopes = []string{"pet-store"}
 				iamServiceRegistrationPatchModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				iamServiceRegistrationPatchModel.ParentIds = []string{"testString"}
+				iamServiceRegistrationPatchModel.ParentIds = []string{}
 				iamServiceRegistrationPatchModel.ResourceHierarchyAttribute = iamServiceRegistrationResourceHierarchyAttributeModel
 				iamServiceRegistrationPatchModel.SupportedAnonymousAccesses = []partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}
 				iamServiceRegistrationPatchModel.SupportedAttributes = []partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}
@@ -10258,7 +10316,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully with retries`, func() {
@@ -10315,7 +10373,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName"}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully`, func() {
@@ -11951,6 +12009,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogDeploymentOptionsModel.SetTags([]string{"eu-gb"})
 				createCatalogDeploymentOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogDeploymentOptionsModel.SetID("testString")
+				createCatalogDeploymentOptionsModel.SetObjectID("testString")
 				createCatalogDeploymentOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
 				createCatalogDeploymentOptionsModel.SetMetadata(globalCatalogDeploymentMetadataModel)
 				createCatalogDeploymentOptionsModel.SetEnv("testString")
@@ -11966,6 +12025,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogDeploymentOptionsModel.Tags).To(Equal([]string{"eu-gb"}))
 				Expect(createCatalogDeploymentOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogDeploymentOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogDeploymentOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogDeploymentOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
 				Expect(createCatalogDeploymentOptionsModel.Metadata).To(Equal(globalCatalogDeploymentMetadataModel))
 				Expect(createCatalogDeploymentOptionsModel.Env).To(Equal(core.StringPtr("testString")))
@@ -12131,6 +12191,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogPlanOptionsModel.SetTags([]string{"ibm_created"})
 				createCatalogPlanOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogPlanOptionsModel.SetID("testString")
+				createCatalogPlanOptionsModel.SetObjectID("testString")
 				createCatalogPlanOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
 				createCatalogPlanOptionsModel.SetMetadata(globalCatalogPlanMetadataModel)
 				createCatalogPlanOptionsModel.SetEnv("testString")
@@ -12145,6 +12206,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogPlanOptionsModel.Tags).To(Equal([]string{"ibm_created"}))
 				Expect(createCatalogPlanOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogPlanOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogPlanOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogPlanOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
 				Expect(createCatalogPlanOptionsModel.Metadata).To(Equal(globalCatalogPlanMetadataModel))
 				Expect(createCatalogPlanOptionsModel.Env).To(Equal(core.StringPtr("testString")))
@@ -12400,6 +12462,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createCatalogProductOptionsModel.SetTags([]string{"keyword", "support_ibm"})
 				createCatalogProductOptionsModel.SetObjectProvider(catalogProductProviderModel)
 				createCatalogProductOptionsModel.SetID("testString")
+				createCatalogProductOptionsModel.SetObjectID("testString")
 				createCatalogProductOptionsModel.SetOverviewUi(globalCatalogOverviewUiModel)
 				createCatalogProductOptionsModel.SetImages(globalCatalogProductImagesModel)
 				createCatalogProductOptionsModel.SetMetadata(globalCatalogProductMetadataModel)
@@ -12414,6 +12477,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(createCatalogProductOptionsModel.Tags).To(Equal([]string{"keyword", "support_ibm"}))
 				Expect(createCatalogProductOptionsModel.ObjectProvider).To(Equal(catalogProductProviderModel))
 				Expect(createCatalogProductOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogProductOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogProductOptionsModel.OverviewUi).To(Equal(globalCatalogOverviewUiModel))
 				Expect(createCatalogProductOptionsModel.Images).To(Equal(globalCatalogProductImagesModel))
 				Expect(createCatalogProductOptionsModel.Metadata).To(Equal(globalCatalogProductMetadataModel))
@@ -12424,54 +12488,54 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationDescriptionObject model
 				iamServiceRegistrationDescriptionObjectModel := new(partnercentersellv1.IamServiceRegistrationDescriptionObject)
 				Expect(iamServiceRegistrationDescriptionObjectModel).ToNot(BeNil())
-				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("testString")
-				Expect(iamServiceRegistrationDescriptionObjectModel.Default).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.En).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.De).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.Es).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.Fr).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.It).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.Ja).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.Ko).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.PtBr).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.ZhTw).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDescriptionObjectModel.ZhCn).To(Equal(core.StringPtr("testString")))
+				iamServiceRegistrationDescriptionObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDescriptionObjectModel.ZhCn = core.StringPtr("View dashboard")
+				Expect(iamServiceRegistrationDescriptionObjectModel.Default).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.En).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.De).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.Es).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.Fr).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.It).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.Ja).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.Ko).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.PtBr).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.ZhTw).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDescriptionObjectModel.ZhCn).To(Equal(core.StringPtr("View dashboard")))
 
 				// Construct an instance of the IamServiceRegistrationDisplayNameObject model
 				iamServiceRegistrationDisplayNameObjectModel := new(partnercentersellv1.IamServiceRegistrationDisplayNameObject)
 				Expect(iamServiceRegistrationDisplayNameObjectModel).ToNot(BeNil())
-				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("testString")
-				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("testString")
-				Expect(iamServiceRegistrationDisplayNameObjectModel.Default).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.En).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.De).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.Es).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.Fr).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.It).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.Ja).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.Ko).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.PtBr).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.ZhTw).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationDisplayNameObjectModel.ZhCn).To(Equal(core.StringPtr("testString")))
+				iamServiceRegistrationDisplayNameObjectModel.Default = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.En = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.De = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Es = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Fr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.It = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ja = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.Ko = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.PtBr = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhTw = core.StringPtr("View dashboard")
+				iamServiceRegistrationDisplayNameObjectModel.ZhCn = core.StringPtr("View dashboard")
+				Expect(iamServiceRegistrationDisplayNameObjectModel.Default).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.En).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.De).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.Es).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.Fr).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.It).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.Ja).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.Ko).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.PtBr).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.ZhTw).To(Equal(core.StringPtr("View dashboard")))
+				Expect(iamServiceRegistrationDisplayNameObjectModel.ZhCn).To(Equal(core.StringPtr("View dashboard")))
 
 				// Construct an instance of the IamServiceRegistrationActionOptions model
 				iamServiceRegistrationActionOptionsModel := new(partnercentersellv1.IamServiceRegistrationActionOptions)
@@ -12482,13 +12546,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the IamServiceRegistrationAction model
 				iamServiceRegistrationActionModel := new(partnercentersellv1.IamServiceRegistrationAction)
 				Expect(iamServiceRegistrationActionModel).ToNot(BeNil())
-				iamServiceRegistrationActionModel.ID = core.StringPtr("testString")
-				iamServiceRegistrationActionModel.Roles = []string{"testString"}
+				iamServiceRegistrationActionModel.ID = core.StringPtr("pet-store.dashboard.view")
+				iamServiceRegistrationActionModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}
 				iamServiceRegistrationActionModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationActionModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationActionModel.Options = iamServiceRegistrationActionOptionsModel
-				Expect(iamServiceRegistrationActionModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(iamServiceRegistrationActionModel.Roles).To(Equal([]string{"testString"}))
+				Expect(iamServiceRegistrationActionModel.ID).To(Equal(core.StringPtr("pet-store.dashboard.view")))
+				Expect(iamServiceRegistrationActionModel.Roles).To(Equal([]string{"crn:v1:bluemix:public:iam::::serviceRole:Reader", "crn:v1:bluemix:public:iam::::serviceRole:Manager", "crn:v1:bluemix:public:iam::::serviceRole:Writer", "crn:v1:bluemix:public:iam::::role:Operator"}))
 				Expect(iamServiceRegistrationActionModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
 				Expect(iamServiceRegistrationActionModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 				Expect(iamServiceRegistrationActionModel.Options).To(Equal(iamServiceRegistrationActionOptionsModel))
@@ -12506,17 +12570,25 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID = core.StringPtr("testString")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName = core.StringPtr("testString")
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("foo", core.StringPtr("testString"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties = map[string]string{"key1": "testString"}
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("serviceName", core.StringPtr("pet-store"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("accountId", core.StringPtr("25543245345"))
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testAttribute", core.StringPtr("dsgdsfgsd576456"))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.ServiceName).To(Equal(core.StringPtr("testString")))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.AdditionalProperties).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()).ToNot(BeEmpty())
-				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("serviceName")).To(Equal(core.StringPtr("pet-store")))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("accountId")).To(Equal(core.StringPtr("25543245345")))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperty("testAttribute")).To(Equal(core.StringPtr("dsgdsfgsd576456")))
 
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperties(nil)
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()).To(BeEmpty())
 
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap := make(map[string]*string)
-				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["foo"] = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["serviceName"] = core.StringPtr("pet-store")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["accountId"] = core.StringPtr("25543245345")
+				iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap["testAttribute"] = core.StringPtr("dsgdsfgsd576456")
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperties(iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap)
 				iamServiceRegistrationSupportedAnonymousAccessAttributesModelActualMap := iamServiceRegistrationSupportedAnonymousAccessAttributesModel.GetProperties()
 				Expect(iamServiceRegistrationSupportedAnonymousAccessAttributesModelActualMap).To(Equal(iamServiceRegistrationSupportedAnonymousAccessAttributesModelExpectedMap))
@@ -12525,9 +12597,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAnonymousAccessModel := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess)
 				Expect(iamServiceRegistrationSupportedAnonymousAccessModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedAnonymousAccessModel.Attributes = iamServiceRegistrationSupportedAnonymousAccessAttributesModel
-				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAnonymousAccessModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}
 				Expect(iamServiceRegistrationSupportedAnonymousAccessModel.Attributes).To(Equal(iamServiceRegistrationSupportedAnonymousAccessAttributesModel))
-				Expect(iamServiceRegistrationSupportedAnonymousAccessModel.Roles).To(Equal([]string{"testString"}))
+				Expect(iamServiceRegistrationSupportedAnonymousAccessModel.Roles).To(Equal([]string{"crn:v1:bluemix:public:iam::::serviceRole:Reader"}))
 
 				// Construct an instance of the SupportedAttributesOptionsResourceHierarchyKey model
 				supportedAttributesOptionsResourceHierarchyKeyModel := new(partnercentersellv1.SupportedAttributesOptionsResourceHierarchyKey)
@@ -12554,7 +12626,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedAttributesOptions model
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				Expect(supportedAttributesOptionsModel).ToNot(BeNil())
-				supportedAttributesOptionsModel.Operators = []string{"stringEquals"}
+				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
 				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
@@ -12562,7 +12634,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.Key = core.StringPtr("testString")
 				supportedAttributesOptionsModel.ResourceHierarchy = supportedAttributesOptionsResourceHierarchyModel
-				Expect(supportedAttributesOptionsModel.Operators).To(Equal([]string{"stringEquals"}))
+				Expect(supportedAttributesOptionsModel.Operators).To(Equal([]string{"stringMatch", "stringEquals"}))
 				Expect(supportedAttributesOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
 				Expect(supportedAttributesOptionsModel.SupportedAttributes).To(Equal([]string{"testString"}))
 				Expect(supportedAttributesOptionsModel.PolicyTypes).To(Equal([]string{"access"}))
@@ -12574,22 +12646,22 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedAttributeUiInputValue model
 				supportedAttributeUiInputValueModel := new(partnercentersellv1.SupportedAttributeUiInputValue)
 				Expect(supportedAttributeUiInputValueModel).ToNot(BeNil())
-				supportedAttributeUiInputValueModel.Value = core.StringPtr("testString")
+				supportedAttributeUiInputValueModel.Value = core.StringPtr("staticValue")
 				supportedAttributeUiInputValueModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
-				Expect(supportedAttributeUiInputValueModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(supportedAttributeUiInputValueModel.Value).To(Equal(core.StringPtr("staticValue")))
 				Expect(supportedAttributeUiInputValueModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 
 				// Construct an instance of the SupportedAttributeUiInputGst model
 				supportedAttributeUiInputGstModel := new(partnercentersellv1.SupportedAttributeUiInputGst)
 				Expect(supportedAttributeUiInputGstModel).ToNot(BeNil())
-				supportedAttributeUiInputGstModel.Query = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("testString")
+				supportedAttributeUiInputGstModel.Query = core.StringPtr("ghost query")
+				supportedAttributeUiInputGstModel.ValuePropertyName = core.StringPtr("instance")
 				supportedAttributeUiInputGstModel.LabelPropertyName = core.StringPtr("testString")
-				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("testString")
-				Expect(supportedAttributeUiInputGstModel.Query).To(Equal(core.StringPtr("testString")))
-				Expect(supportedAttributeUiInputGstModel.ValuePropertyName).To(Equal(core.StringPtr("testString")))
+				supportedAttributeUiInputGstModel.InputOptionLabel = core.StringPtr("{name} - {instance_id}")
+				Expect(supportedAttributeUiInputGstModel.Query).To(Equal(core.StringPtr("ghost query")))
+				Expect(supportedAttributeUiInputGstModel.ValuePropertyName).To(Equal(core.StringPtr("instance")))
 				Expect(supportedAttributeUiInputGstModel.LabelPropertyName).To(Equal(core.StringPtr("testString")))
-				Expect(supportedAttributeUiInputGstModel.InputOptionLabel).To(Equal(core.StringPtr("testString")))
+				Expect(supportedAttributeUiInputGstModel.InputOptionLabel).To(Equal(core.StringPtr("{name} - {instance_id}")))
 
 				// Construct an instance of the SupportedAttributeUiInputURL model
 				supportedAttributeUiInputUrlModel := new(partnercentersellv1.SupportedAttributeUiInputURL)
@@ -12602,11 +12674,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedAttributeUiInputDetails model
 				supportedAttributeUiInputDetailsModel := new(partnercentersellv1.SupportedAttributeUiInputDetails)
 				Expect(supportedAttributeUiInputDetailsModel).ToNot(BeNil())
-				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("testString")
+				supportedAttributeUiInputDetailsModel.Type = core.StringPtr("gst")
 				supportedAttributeUiInputDetailsModel.Values = []partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}
 				supportedAttributeUiInputDetailsModel.Gst = supportedAttributeUiInputGstModel
 				supportedAttributeUiInputDetailsModel.URL = supportedAttributeUiInputUrlModel
-				Expect(supportedAttributeUiInputDetailsModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(supportedAttributeUiInputDetailsModel.Type).To(Equal(core.StringPtr("gst")))
 				Expect(supportedAttributeUiInputDetailsModel.Values).To(Equal([]partnercentersellv1.SupportedAttributeUiInputValue{*supportedAttributeUiInputValueModel}))
 				Expect(supportedAttributeUiInputDetailsModel.Gst).To(Equal(supportedAttributeUiInputGstModel))
 				Expect(supportedAttributeUiInputDetailsModel.URL).To(Equal(supportedAttributeUiInputUrlModel))
@@ -12614,20 +12686,20 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedAttributeUi model
 				supportedAttributeUiModel := new(partnercentersellv1.SupportedAttributeUi)
 				Expect(supportedAttributeUiModel).ToNot(BeNil())
-				supportedAttributeUiModel.InputType = core.StringPtr("testString")
+				supportedAttributeUiModel.InputType = core.StringPtr("selector")
 				supportedAttributeUiModel.InputDetails = supportedAttributeUiInputDetailsModel
-				Expect(supportedAttributeUiModel.InputType).To(Equal(core.StringPtr("testString")))
+				Expect(supportedAttributeUiModel.InputType).To(Equal(core.StringPtr("selector")))
 				Expect(supportedAttributeUiModel.InputDetails).To(Equal(supportedAttributeUiInputDetailsModel))
 
 				// Construct an instance of the IamServiceRegistrationSupportedAttribute model
 				iamServiceRegistrationSupportedAttributeModel := new(partnercentersellv1.IamServiceRegistrationSupportedAttribute)
 				Expect(iamServiceRegistrationSupportedAttributeModel).ToNot(BeNil())
-				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testString")
+				iamServiceRegistrationSupportedAttributeModel.Key = core.StringPtr("testAttribute")
 				iamServiceRegistrationSupportedAttributeModel.Options = supportedAttributesOptionsModel
 				iamServiceRegistrationSupportedAttributeModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedAttributeModel.Ui = supportedAttributeUiModel
-				Expect(iamServiceRegistrationSupportedAttributeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(iamServiceRegistrationSupportedAttributeModel.Key).To(Equal(core.StringPtr("testAttribute")))
 				Expect(iamServiceRegistrationSupportedAttributeModel.Options).To(Equal(supportedAttributesOptionsModel))
 				Expect(iamServiceRegistrationSupportedAttributeModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 				Expect(iamServiceRegistrationSupportedAttributeModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
@@ -12645,28 +12717,30 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				iamServiceRegistrationSupportedAuthorizationSubjectModel := new(partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject)
 				Expect(iamServiceRegistrationSupportedAuthorizationSubjectModel).ToNot(BeNil())
 				iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes = supportAuthorizationSubjectAttributeModel
-				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"testString"}
+				iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles = []string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}
 				Expect(iamServiceRegistrationSupportedAuthorizationSubjectModel.Attributes).To(Equal(supportAuthorizationSubjectAttributeModel))
-				Expect(iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles).To(Equal([]string{"testString"}))
+				Expect(iamServiceRegistrationSupportedAuthorizationSubjectModel.Roles).To(Equal([]string{"crn:v1:bluemix:public:iam::::serviceRole:Writer"}))
 
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				Expect(supportedRoleOptionsModel).ToNot(BeNil())
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
+				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 				Expect(supportedRoleOptionsModel.AccessPolicy).To(Equal(core.BoolPtr(true)))
+				Expect(supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(supportedRoleOptionsModel.PolicyType).To(Equal([]string{"access"}))
 				Expect(supportedRoleOptionsModel.AccountType).To(Equal(core.StringPtr("enterprise")))
 
 				// Construct an instance of the IamServiceRegistrationSupportedRole model
 				iamServiceRegistrationSupportedRoleModel := new(partnercentersellv1.IamServiceRegistrationSupportedRole)
 				Expect(iamServiceRegistrationSupportedRoleModel).ToNot(BeNil())
-				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("testString")
+				iamServiceRegistrationSupportedRoleModel.ID = core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")
 				iamServiceRegistrationSupportedRoleModel.Description = iamServiceRegistrationDescriptionObjectModel
 				iamServiceRegistrationSupportedRoleModel.DisplayName = iamServiceRegistrationDisplayNameObjectModel
 				iamServiceRegistrationSupportedRoleModel.Options = supportedRoleOptionsModel
-				Expect(iamServiceRegistrationSupportedRoleModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(iamServiceRegistrationSupportedRoleModel.ID).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam::::serviceRole:Reader")))
 				Expect(iamServiceRegistrationSupportedRoleModel.Description).To(Equal(iamServiceRegistrationDescriptionObjectModel))
 				Expect(iamServiceRegistrationSupportedRoleModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
 				Expect(iamServiceRegistrationSupportedRoleModel.Options).To(Equal(supportedRoleOptionsModel))
@@ -12680,11 +12754,11 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the EnvironmentAttribute model
 				environmentAttributeModel := new(partnercentersellv1.EnvironmentAttribute)
 				Expect(environmentAttributeModel).ToNot(BeNil())
-				environmentAttributeModel.Key = core.StringPtr("testString")
-				environmentAttributeModel.Values = []string{"testString"}
+				environmentAttributeModel.Key = core.StringPtr("networkType")
+				environmentAttributeModel.Values = []string{"public"}
 				environmentAttributeModel.Options = environmentAttributeOptionsModel
-				Expect(environmentAttributeModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(environmentAttributeModel.Values).To(Equal([]string{"testString"}))
+				Expect(environmentAttributeModel.Key).To(Equal(core.StringPtr("networkType")))
+				Expect(environmentAttributeModel.Values).To(Equal([]string{"public"}))
 				Expect(environmentAttributeModel.Options).To(Equal(environmentAttributeOptionsModel))
 
 				// Construct an instance of the IamServiceRegistrationSupportedNetwork model
@@ -12695,16 +12769,16 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 
 				// Construct an instance of the CreateIamRegistrationOptions model
 				productID := "testString"
-				createIamRegistrationOptionsName := "testString"
+				createIamRegistrationOptionsName := "pet-store"
 				createIamRegistrationOptionsModel := partnerCenterSellService.NewCreateIamRegistrationOptions(productID, createIamRegistrationOptionsName)
 				createIamRegistrationOptionsModel.SetProductID("testString")
-				createIamRegistrationOptionsModel.SetName("testString")
+				createIamRegistrationOptionsModel.SetName("pet-store")
 				createIamRegistrationOptionsModel.SetEnabled(true)
 				createIamRegistrationOptionsModel.SetServiceType("service")
 				createIamRegistrationOptionsModel.SetActions([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel})
-				createIamRegistrationOptionsModel.SetAdditionalPolicyScopes([]string{"testString"})
+				createIamRegistrationOptionsModel.SetAdditionalPolicyScopes([]string{"pet-store"})
 				createIamRegistrationOptionsModel.SetDisplayName(iamServiceRegistrationDisplayNameObjectModel)
-				createIamRegistrationOptionsModel.SetParentIds([]string{"testString"})
+				createIamRegistrationOptionsModel.SetParentIds([]string{})
 				createIamRegistrationOptionsModel.SetResourceHierarchyAttribute(iamServiceRegistrationResourceHierarchyAttributeModel)
 				createIamRegistrationOptionsModel.SetSupportedAnonymousAccesses([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel})
 				createIamRegistrationOptionsModel.SetSupportedAttributes([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel})
@@ -12715,13 +12789,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				createIamRegistrationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createIamRegistrationOptionsModel).ToNot(BeNil())
 				Expect(createIamRegistrationOptionsModel.ProductID).To(Equal(core.StringPtr("testString")))
-				Expect(createIamRegistrationOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createIamRegistrationOptionsModel.Name).To(Equal(core.StringPtr("pet-store")))
 				Expect(createIamRegistrationOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
 				Expect(createIamRegistrationOptionsModel.ServiceType).To(Equal(core.StringPtr("service")))
 				Expect(createIamRegistrationOptionsModel.Actions).To(Equal([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel}))
-				Expect(createIamRegistrationOptionsModel.AdditionalPolicyScopes).To(Equal([]string{"testString"}))
+				Expect(createIamRegistrationOptionsModel.AdditionalPolicyScopes).To(Equal([]string{"pet-store"}))
 				Expect(createIamRegistrationOptionsModel.DisplayName).To(Equal(iamServiceRegistrationDisplayNameObjectModel))
-				Expect(createIamRegistrationOptionsModel.ParentIds).To(Equal([]string{"testString"}))
+				Expect(createIamRegistrationOptionsModel.ParentIds).To(Equal([]string{}))
 				Expect(createIamRegistrationOptionsModel.ResourceHierarchyAttribute).To(Equal(iamServiceRegistrationResourceHierarchyAttributeModel))
 				Expect(createIamRegistrationOptionsModel.SupportedAnonymousAccesses).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel}))
 				Expect(createIamRegistrationOptionsModel.SupportedAttributes).To(Equal([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel}))
@@ -13054,6 +13128,14 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(getResourceBrokerOptionsModel.BrokerID).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceBrokerOptionsModel.Env).To(Equal(core.StringPtr("testString")))
 				Expect(getResourceBrokerOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewIamServiceRegistrationSupportedAnonymousAccessAttributes successfully`, func() {
+				accountID := "testString"
+				serviceName := "testString"
+				additionalProperties := map[string]string{"key1": "testString"}
+				_model, err := partnerCenterSellService.NewIamServiceRegistrationSupportedAnonymousAccessAttributes(accountID, serviceName, additionalProperties)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewListProductBadgesOptions successfully`, func() {
 				// Construct an instance of the ListProductBadgesOptions model
@@ -13974,6 +14056,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes)
 			model.AccountID = core.StringPtr("testString")
 			model.ServiceName = core.StringPtr("testString")
+			model.AdditionalProperties = map[string]string{"key1": "testString"}
 
 			b, err := json.Marshal(model)
 			Expect(err).To(BeNil())
@@ -14472,6 +14555,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.SupportedRoleOptions)
 			model.AccessPolicy = core.BoolPtr(true)
+			model.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 			model.PolicyType = []string{"access"}
 			model.AccountType = core.StringPtr("enterprise")
 
