@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.87.0-91c7c775-20240320-213027
+ * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
  */
 
 // Package partnermanagementv1 : Operations and models for the PartnerManagementV1 service
@@ -865,7 +865,7 @@ type GetBillingOptionsOptions struct {
 	// Number of billing option reports returned. The default value is 200. Maximum value is 200.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -932,7 +932,7 @@ type GetCreditPoolsReportOptions struct {
 	// Number of billing units fetched to get the credit pools report. The default value is 30. Maximum value is 30.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
@@ -1016,7 +1016,7 @@ type GetResourceUsageReportOptions struct {
 	// value within the 'next.href' URL found within a prior search query response.
 	Offset *string `json:"offset,omitempty"`
 
-	// Allows users to set headers on API requests
+	// Allows users to set headers on API requests.
 	Headers map[string]string
 }
 
