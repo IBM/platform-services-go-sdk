@@ -1769,7 +1769,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ProductID: &productIdLink,
 			}
 
-			response, err := partnerCenterSellService.DeleteOnboardingProduct(deleteOnboardingProductOptions)
+			response, err := partnerCenterSellServiceAlt.DeleteOnboardingProduct(deleteOnboardingProductOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
