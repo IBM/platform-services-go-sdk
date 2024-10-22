@@ -87,11 +87,7 @@ Service Name | Package name
 * Go version 1.21 or above.
 
 ## Installation
-<<<<<<< HEAD
-The current version of this SDK: 0.69.3
-=======
 The current version of this SDK: 0.69.4
->>>>>>> 3db93612d078e39e2c4f6e418b1124fc33ecf99d
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
