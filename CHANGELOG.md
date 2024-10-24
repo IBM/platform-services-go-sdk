@@ -1,3 +1,24 @@
+# [0.70.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.4...v0.70.0) (2024-10-24)
+
+
+### Features
+
+* **Partner Management APIs:** add new service to project ([#360](https://github.com/IBM/platform-services-go-sdk/issues/360)) ([dd6152a](https://github.com/IBM/platform-services-go-sdk/commit/dd6152a6e8bafe17c0986cc94eb76b1e06e7c53a))
+
+## [0.69.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.3...v0.69.4) (2024-10-22)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** re-gen SDK  code after recent API changes ([#361](https://github.com/IBM/platform-services-go-sdk/issues/361)) ([654e5ca](https://github.com/IBM/platform-services-go-sdk/commit/654e5ca27258b4936a5607cfd53d930ae51e8852))
+
+## [0.69.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.2...v0.69.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* **build:** bump go core to 5.18.0 ([#359](https://github.com/IBM/platform-services-go-sdk/issues/359)) ([5d1ad83](https://github.com/IBM/platform-services-go-sdk/commit/5d1ad83ae8a0f2ab348e2f4bcbe65ceb01bb4fe6))
+
 ## [0.69.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.1...v0.69.2) (2024-10-07)
 
 
