@@ -1,3 +1,10 @@
+# [0.70.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.4...v0.70.0) (2024-10-24)
+
+
+### Features
+
+* **Partner Management APIs:** add new service to project ([#360](https://github.com/IBM/platform-services-go-sdk/issues/360)) ([dd6152a](https://github.com/IBM/platform-services-go-sdk/commit/dd6152a6e8bafe17c0986cc94eb76b1e06e7c53a))
+
 ## [0.69.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.3...v0.69.4) (2024-10-22)
 
 
