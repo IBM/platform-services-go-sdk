@@ -1,3 +1,10 @@
+# [0.71.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.70.0...v0.71.0) (2024-10-28)
+
+
+### Features
+
+* **Usage Reports:** add "created_by_email_id" to Offer schema ([#355](https://github.com/IBM/platform-services-go-sdk/issues/355)) ([b57da5a](https://github.com/IBM/platform-services-go-sdk/commit/b57da5aa81ab19bee569581f3553a385ed0c420f))
+
 # [0.70.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.69.4...v0.70.0) (2024-10-24)
 
 
