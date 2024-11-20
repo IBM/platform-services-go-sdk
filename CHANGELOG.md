@@ -1,3 +1,10 @@
+## [0.71.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.0...v0.71.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* **Partner Center Sell:** bug fix ([#362](https://github.com/IBM/platform-services-go-sdk/issues/362)) ([edc97bd](https://github.com/IBM/platform-services-go-sdk/commit/edc97bd5eb8b2d7eee700590ecc0a8e03551753f))
+
 # [0.71.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.70.0...v0.71.0) (2024-10-28)
 
 
