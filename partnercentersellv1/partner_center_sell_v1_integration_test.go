@@ -398,10 +398,11 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			objectId := fmt.Sprintf("random-id-%s", randomInteger)
+			randomName := fmt.Sprintf("random-name-%s", randomInteger)
 
 			createCatalogProductOptions := &partnercentersellv1.CreateCatalogProductOptions{
 				ProductID:      core.StringPtr(productIdWithApprovedProgrammaticName),
-				Name:           core.StringPtr(iamServiceRegistrationId),
+				Name:           core.StringPtr(randomName),
 				Active:         core.BoolPtr(true),
 				Disabled:       core.BoolPtr(false),
 				Kind:           core.StringPtr("service"),
@@ -934,7 +935,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				ObjectID:         core.StringPtr(objectId),
 				OverviewUi:       globalCatalogOverviewUiModel,
 				Metadata:         globalCatalogDeploymentMetadataModel,
-				Env:              core.StringPtr("testString"),
+				Env:              core.StringPtr(env),
 			}
 
 			globalCatalogDeployment, response, err := partnerCenterSellService.CreateCatalogDeployment(createCatalogDeploymentOptions)
@@ -1464,7 +1465,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				RegistrationID: &registrationIdLink,
 			}
 
-			registration, response, err := partnerCenterSellService.GetRegistration(getRegistrationOptions)
+			registration, response, err := partnerCenterSellServiceAlt.GetRegistration(getRegistrationOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(registration).ToNot(BeNil())
@@ -1681,7 +1682,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		})
 		It(`GetProductBadge(getProductBadgeOptions *GetProductBadgeOptions)`, func() {
 			getProductBadgeOptions := &partnercentersellv1.GetProductBadgeOptions{
-				BadgeID: CreateMockUUID("9fab83da-98cb-4f18-a7ba-b6f0435c9673"),
+				BadgeID: CreateMockUUID(badgeId),
 			}
 
 			productBadge, response, err := partnerCenterSellService.GetProductBadge(getProductBadgeOptions)
