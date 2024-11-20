@@ -68,14 +68,13 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				Expect(partnerCenterSellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -104,8 +103,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-				})
+				partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 				err := partnerCenterSellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(partnerCenterSellService).ToNot(BeNil())
@@ -123,13 +121,12 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_URL": "https://partnercentersellv1/api",
+				"PARTNER_CENTER_SELL_URL":       "https://partnercentersellv1/api",
 				"PARTNER_CENTER_SELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{
-			})
+			partnerCenterSellService, serviceErr := partnercentersellv1.NewPartnerCenterSellV1UsingExternalConfig(&partnercentersellv1.PartnerCenterSellV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(partnerCenterSellService).To(BeNil())
@@ -140,7 +137,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"PARTNER_CENTER_SELL_AUTH_TYPE":   "NOAuth",
+				"PARTNER_CENTER_SELL_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -8024,7 +8021,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -8081,7 +8078,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -8176,7 +8172,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully with retries`, func() {
@@ -8265,7 +8261,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -8322,7 +8318,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -8420,7 +8415,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke CreateIamRegistration successfully`, func() {
@@ -8514,7 +8509,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -8571,7 +8566,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -8707,7 +8701,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -8764,7 +8758,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -8921,7 +8914,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -8978,7 +8971,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -9136,7 +9128,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -9193,7 +9185,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -9294,7 +9285,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully with retries`, func() {
@@ -9383,7 +9374,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -9440,7 +9431,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -9544,7 +9534,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke UpdateIamRegistration successfully`, func() {
@@ -9638,7 +9628,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -9695,7 +9685,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -9837,7 +9826,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -9894,7 +9883,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -10057,7 +10045,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel := new(partnercentersellv1.SupportedAttributesOptions)
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -10114,7 +10102,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				// Construct an instance of the SupportedRoleOptions model
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 
@@ -10316,7 +10303,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully with retries`, func() {
@@ -10373,7 +10360,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_attributes": ["SupportedAttributes"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "additional_properties_for_access_policy": {"mapKey": "Inner"}, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "enabled": false, "service_type": "service", "actions": [{"id": "ID", "roles": ["Roles"], "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"hidden": true}}], "additional_policy_scopes": ["AdditionalPolicyScopes"], "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "parent_ids": ["ParentIds"], "resource_hierarchy_attribute": {"key": "Key", "value": "Value"}, "supported_anonymous_accesses": [{"attributes": {"account_id": "AccountID", "service_name": "ServiceName", "additional_properties": {"mapKey": "Inner"}}, "roles": ["Roles"]}], "supported_attributes": [{"key": "Key", "options": {"operators": ["stringEquals"], "hidden": true, "supported_patterns": ["SupportedPatterns"], "policy_types": ["access"], "is_empty_value_supported": false, "is_string_exists_false_value_supported": false, "key": "Key", "resource_hierarchy": {"key": {"key": "Key", "value": "Value"}, "value": {"key": "Key"}}}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "ui": {"input_type": "InputType", "input_details": {"type": "Type", "values": [{"value": "Value", "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}}], "gst": {"query": "Query", "value_property_name": "ValuePropertyName", "label_property_name": "LabelPropertyName", "input_option_label": "InputOptionLabel"}, "url": {"url_endpoint": "UrlEndpoint", "input_option_label": "InputOptionLabel"}}}}], "supported_authorization_subjects": [{"attributes": {"service_name": "ServiceName", "resource_type": "ResourceType"}, "roles": ["Roles"]}], "supported_roles": [{"id": "ID", "description": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "display_name": {"default": "Default", "en": "En", "de": "De", "es": "Es", "fr": "Fr", "it": "It", "ja": "Ja", "ko": "Ko", "pt_br": "PtBr", "zh_tw": "ZhTw", "zh_cn": "ZhCn"}, "options": {"access_policy": true, "policy_type": ["access"], "account_type": "enterprise"}}], "supported_network": {"environment_attributes": [{"key": "Key", "values": ["Values"], "options": {"hidden": true}}]}}`)
 				}))
 			})
 			It(`Invoke GetIamRegistration successfully`, func() {
@@ -12628,7 +12615,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				Expect(supportedAttributesOptionsModel).ToNot(BeNil())
 				supportedAttributesOptionsModel.Operators = []string{"stringMatch", "stringEquals"}
 				supportedAttributesOptionsModel.Hidden = core.BoolPtr(true)
-				supportedAttributesOptionsModel.SupportedAttributes = []string{"testString"}
+				supportedAttributesOptionsModel.SupportedPatterns = []string{"testString"}
 				supportedAttributesOptionsModel.PolicyTypes = []string{"access"}
 				supportedAttributesOptionsModel.IsEmptyValueSupported = core.BoolPtr(true)
 				supportedAttributesOptionsModel.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -12636,7 +12623,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedAttributesOptionsModel.ResourceHierarchy = supportedAttributesOptionsResourceHierarchyModel
 				Expect(supportedAttributesOptionsModel.Operators).To(Equal([]string{"stringMatch", "stringEquals"}))
 				Expect(supportedAttributesOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
-				Expect(supportedAttributesOptionsModel.SupportedAttributes).To(Equal([]string{"testString"}))
+				Expect(supportedAttributesOptionsModel.SupportedPatterns).To(Equal([]string{"testString"}))
 				Expect(supportedAttributesOptionsModel.PolicyTypes).To(Equal([]string{"access"}))
 				Expect(supportedAttributesOptionsModel.IsEmptyValueSupported).To(Equal(core.BoolPtr(true)))
 				Expect(supportedAttributesOptionsModel.IsStringExistsFalseValueSupported).To(Equal(core.BoolPtr(true)))
@@ -12725,11 +12712,9 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 				supportedRoleOptionsModel := new(partnercentersellv1.SupportedRoleOptions)
 				Expect(supportedRoleOptionsModel).ToNot(BeNil())
 				supportedRoleOptionsModel.AccessPolicy = core.BoolPtr(true)
-				supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 				supportedRoleOptionsModel.PolicyType = []string{"access"}
 				supportedRoleOptionsModel.AccountType = core.StringPtr("enterprise")
 				Expect(supportedRoleOptionsModel.AccessPolicy).To(Equal(core.BoolPtr(true)))
-				Expect(supportedRoleOptionsModel.AdditionalPropertiesForAccessPolicy).To(Equal(map[string]string{"key1": "testString"}))
 				Expect(supportedRoleOptionsModel.PolicyType).To(Equal([]string{"access"}))
 				Expect(supportedRoleOptionsModel.AccountType).To(Equal(core.StringPtr("enterprise")))
 
@@ -14475,7 +14460,7 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			model := new(partnercentersellv1.SupportedAttributesOptions)
 			model.Operators = []string{"stringEquals"}
 			model.Hidden = core.BoolPtr(true)
-			model.SupportedAttributes = []string{"testString"}
+			model.SupportedPatterns = []string{"testString"}
 			model.PolicyTypes = []string{"access"}
 			model.IsEmptyValueSupported = core.BoolPtr(true)
 			model.IsStringExistsFalseValueSupported = core.BoolPtr(true)
@@ -14555,7 +14540,6 @@ var _ = Describe(`PartnerCenterSellV1`, func() {
 			// Construct an instance of the model.
 			model := new(partnercentersellv1.SupportedRoleOptions)
 			model.AccessPolicy = core.BoolPtr(true)
-			model.AdditionalPropertiesForAccessPolicy = map[string]string{"key1": "testString"}
 			model.PolicyType = []string{"access"}
 			model.AccountType = core.StringPtr("enterprise")
 

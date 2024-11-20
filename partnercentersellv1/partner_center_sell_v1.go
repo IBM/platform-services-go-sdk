@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
+ * IBM OpenAPI SDK Code Generator Version: 3.96.1-5136e54a-20241108-203028
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -8971,7 +8971,7 @@ type SupportedAttributesOptions struct {
 	Hidden *bool `json:"hidden,omitempty"`
 
 	// The list of supported patterns.
-	SupportedAttributes []string `json:"supported_attributes,omitempty"`
+	SupportedPatterns []string `json:"supported_patterns,omitempty"`
 
 	// The list of policy types.
 	PolicyTypes []string `json:"policy_types,omitempty"`
@@ -9017,9 +9017,9 @@ func UnmarshalSupportedAttributesOptions(m map[string]json.RawMessage, result in
 		err = core.SDKErrorf(err, "", "hidden-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "supported_attributes", &obj.SupportedAttributes)
+	err = core.UnmarshalPrimitive(m, "supported_patterns", &obj.SupportedPatterns)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "supported_attributes-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "supported_patterns-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "policy_types", &obj.PolicyTypes)
@@ -9060,8 +9060,8 @@ func (supportedAttributesOptions *SupportedAttributesOptions) asPatch() (_patch 
 	if !core.IsNil(supportedAttributesOptions.Hidden) {
 		_patch["hidden"] = supportedAttributesOptions.Hidden
 	}
-	if !core.IsNil(supportedAttributesOptions.SupportedAttributes) {
-		_patch["supported_attributes"] = supportedAttributesOptions.SupportedAttributes
+	if !core.IsNil(supportedAttributesOptions.SupportedPatterns) {
+		_patch["supported_patterns"] = supportedAttributesOptions.SupportedPatterns
 	}
 	if !core.IsNil(supportedAttributesOptions.PolicyTypes) {
 		_patch["policy_types"] = supportedAttributesOptions.PolicyTypes
@@ -9193,9 +9193,6 @@ type SupportedRoleOptions struct {
 	// Optional opt-in to require access control on the role.
 	AccessPolicy *bool `json:"access_policy" validate:"required"`
 
-	// Additional properties for access policy.
-	AdditionalPropertiesForAccessPolicy map[string]string `json:"additional_properties_for_access_policy,omitempty"`
-
 	// Optional opt-in to require checking policy type when applying the role.
 	PolicyType []string `json:"policy_type,omitempty"`
 
@@ -9237,11 +9234,6 @@ func UnmarshalSupportedRoleOptions(m map[string]json.RawMessage, result interfac
 		err = core.SDKErrorf(err, "", "access_policy-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "additional_properties_for_access_policy", &obj.AdditionalPropertiesForAccessPolicy)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "additional_properties_for_access_policy-error", common.GetComponentInfo())
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "policy_type", &obj.PolicyType)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "policy_type-error", common.GetComponentInfo())
@@ -9261,9 +9253,6 @@ func (supportedRoleOptions *SupportedRoleOptions) asPatch() (_patch map[string]i
 	_patch = map[string]interface{}{}
 	if !core.IsNil(supportedRoleOptions.AccessPolicy) {
 		_patch["access_policy"] = supportedRoleOptions.AccessPolicy
-	}
-	if !core.IsNil(supportedRoleOptions.AdditionalPropertiesForAccessPolicy) {
-		_patch["additional_properties_for_access_policy"] = supportedRoleOptions.AdditionalPropertiesForAccessPolicy
 	}
 	if !core.IsNil(supportedRoleOptions.PolicyType) {
 		_patch["policy_type"] = supportedRoleOptions.PolicyType
