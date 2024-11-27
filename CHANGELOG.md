@@ -1,3 +1,10 @@
+## [0.71.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.1...v0.71.2) (2024-11-27)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** enable error toolchain ([#363](https://github.com/IBM/platform-services-go-sdk/issues/363)) ([398c392](https://github.com/IBM/platform-services-go-sdk/commit/398c392c74c4474b31ff7594040b39eedbc69579))
+
 ## [0.71.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.0...v0.71.1) (2024-11-20)
 
 
