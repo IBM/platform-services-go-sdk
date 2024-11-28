@@ -154,10 +154,6 @@ var _ = Describe(`IBMCloudShellV1 Integration Tests`, func() {
 				},
 				{
 					Enabled: core.BoolPtr(false),
-					Key:     core.StringPtr("jp-tok"),
-				},
-				{
-					Enabled: core.BoolPtr(false),
 					Key:     core.StringPtr("us-south"),
 				},
 			}
