@@ -1,3 +1,10 @@
+# [0.72.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.2...v0.72.0) (2024-11-29)
+
+
+### Features
+
+* **IBM Cloud Shell:** re-gen service for adopting the new error toolchain ([#365](https://github.com/IBM/platform-services-go-sdk/issues/365)) ([19271ad](https://github.com/IBM/platform-services-go-sdk/commit/19271adfc5403d3d593db20246d7bc218c9234c2))
+
 ## [0.71.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.1...v0.71.2) (2024-11-27)
 
 
