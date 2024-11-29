@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ package ibmcloudshellv1_test
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -66,13 +68,14 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_URL":       "https://ibmcloudshellv1/api",
+				"IBM_CLOUD_SHELL_URL": "https://ibmcloudshellv1/api",
 				"IBM_CLOUD_SHELL_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
+				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
+				})
 				Expect(ibmCloudShellService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +104,8 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
+				ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
+				})
 				err := ibmCloudShellService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(ibmCloudShellService).ToNot(BeNil())
@@ -119,12 +123,13 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_URL":       "https://ibmcloudshellv1/api",
+				"IBM_CLOUD_SHELL_URL": "https://ibmcloudshellv1/api",
 				"IBM_CLOUD_SHELL_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{})
+			ibmCloudShellService, serviceErr := ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(&ibmcloudshellv1.IBMCloudShellV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(ibmCloudShellService).To(BeNil())
@@ -135,7 +140,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IBM_CLOUD_SHELL_AUTH_TYPE": "NOAuth",
+				"IBM_CLOUD_SHELL_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -161,7 +166,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		})
 	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
-		getAccountSettingsPath := "/api/v1/user/accounts/12345678-abcd-1a2b-a1b2-1234567890ab/settings"
+		getAccountSettingsPath := "/api/v1/user/accounts/testString/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -172,7 +177,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
@@ -185,7 +190,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(ibmcloudshellv1.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := ibmCloudShellService.GetAccountSettings(getAccountSettingsOptionsModel)
@@ -206,7 +211,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		})
 	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
-		getAccountSettingsPath := "/api/v1/user/accounts/12345678-abcd-1a2b-a1b2-1234567890ab/settings"
+		getAccountSettingsPath := "/api/v1/user/accounts/testString/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -236,7 +241,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(ibmcloudshellv1.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -295,7 +300,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(ibmcloudshellv1.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -315,7 +320,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(ibmcloudshellv1.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := ibmCloudShellService.SetServiceURL("")
@@ -356,7 +361,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(ibmcloudshellv1.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -373,7 +378,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
-		updateAccountSettingsPath := "/api/v1/user/accounts/12345678-abcd-1a2b-a1b2-1234567890ab/settings"
+		updateAccountSettingsPath := "/api/v1/user/accounts/testString/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -384,7 +389,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings with error: Operation response processing error`, func() {
@@ -395,41 +400,25 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(ibmCloudShellService).ToNot(BeNil())
 
-				featureModel := []ibmcloudshellv1.Feature{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.file_manager"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.web_preview"),
-					},
-				}
+				// Construct an instance of the Feature model
+				featureModel := new(ibmcloudshellv1.Feature)
+				featureModel.Enabled = core.BoolPtr(true)
+				featureModel.Key = core.StringPtr("testString")
 
-				regionSettingModel := []ibmcloudshellv1.RegionSetting{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("eu-de"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("jp-tok"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("us-south"),
-					},
-				}
+				// Construct an instance of the RegionSetting model
+				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
+				regionSettingModel.Enabled = core.BoolPtr(true)
+				regionSettingModel.Key = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(ibmcloudshellv1.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.Rev = core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Rev = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.DefaultEnableNewFeatures = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.DefaultEnableNewRegions = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.Enabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.Features = featureModel
-				updateAccountSettingsOptionsModel.Regions = regionSettingModel
+				updateAccountSettingsOptionsModel.Features = []ibmcloudshellv1.Feature{*featureModel}
+				updateAccountSettingsOptionsModel.Regions = []ibmcloudshellv1.RegionSetting{*regionSettingModel}
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := ibmCloudShellService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
@@ -450,7 +439,7 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
-		updateAccountSettingsPath := "/api/v1/user/accounts/12345678-abcd-1a2b-a1b2-1234567890ab/settings"
+		updateAccountSettingsPath := "/api/v1/user/accounts/testString/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -494,41 +483,25 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				Expect(ibmCloudShellService).ToNot(BeNil())
 				ibmCloudShellService.EnableRetries(0, 0)
 
-				featureModel := []ibmcloudshellv1.Feature{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.file_manager"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.web_preview"),
-					},
-				}
+				// Construct an instance of the Feature model
+				featureModel := new(ibmcloudshellv1.Feature)
+				featureModel.Enabled = core.BoolPtr(true)
+				featureModel.Key = core.StringPtr("testString")
 
-				regionSettingModel := []ibmcloudshellv1.RegionSetting{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("eu-de"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("jp-tok"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("us-south"),
-					},
-				}
+				// Construct an instance of the RegionSetting model
+				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
+				regionSettingModel.Enabled = core.BoolPtr(true)
+				regionSettingModel.Key = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(ibmcloudshellv1.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.Rev = core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Rev = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.DefaultEnableNewFeatures = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.DefaultEnableNewRegions = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.Enabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.Features = featureModel
-				updateAccountSettingsOptionsModel.Regions = regionSettingModel
+				updateAccountSettingsOptionsModel.Features = []ibmcloudshellv1.Feature{*featureModel}
+				updateAccountSettingsOptionsModel.Regions = []ibmcloudshellv1.RegionSetting{*regionSettingModel}
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -601,41 +574,25 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				featureModel := []ibmcloudshellv1.Feature{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.file_manager"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.web_preview"),
-					},
-				}
+				// Construct an instance of the Feature model
+				featureModel := new(ibmcloudshellv1.Feature)
+				featureModel.Enabled = core.BoolPtr(true)
+				featureModel.Key = core.StringPtr("testString")
 
-				regionSettingModel := []ibmcloudshellv1.RegionSetting{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("eu-de"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("jp-tok"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("us-south"),
-					},
-				}
+				// Construct an instance of the RegionSetting model
+				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
+				regionSettingModel.Enabled = core.BoolPtr(true)
+				regionSettingModel.Key = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(ibmcloudshellv1.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.Rev = core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Rev = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.DefaultEnableNewFeatures = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.DefaultEnableNewRegions = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.Enabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.Features = featureModel
-				updateAccountSettingsOptionsModel.Regions = regionSettingModel
+				updateAccountSettingsOptionsModel.Features = []ibmcloudshellv1.Feature{*featureModel}
+				updateAccountSettingsOptionsModel.Regions = []ibmcloudshellv1.RegionSetting{*regionSettingModel}
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -653,41 +610,25 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(ibmCloudShellService).ToNot(BeNil())
 
-				featureModel := []ibmcloudshellv1.Feature{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.file_manager"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.web_preview"),
-					},
-				}
+				// Construct an instance of the Feature model
+				featureModel := new(ibmcloudshellv1.Feature)
+				featureModel.Enabled = core.BoolPtr(true)
+				featureModel.Key = core.StringPtr("testString")
 
-				regionSettingModel := []ibmcloudshellv1.RegionSetting{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("eu-de"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("jp-tok"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("us-south"),
-					},
-				}
+				// Construct an instance of the RegionSetting model
+				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
+				regionSettingModel.Enabled = core.BoolPtr(true)
+				regionSettingModel.Key = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(ibmcloudshellv1.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.Rev = core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Rev = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.DefaultEnableNewFeatures = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.DefaultEnableNewRegions = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.Enabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.Features = featureModel
-				updateAccountSettingsOptionsModel.Regions = regionSettingModel
+				updateAccountSettingsOptionsModel.Features = []ibmcloudshellv1.Feature{*featureModel}
+				updateAccountSettingsOptionsModel.Regions = []ibmcloudshellv1.RegionSetting{*regionSettingModel}
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := ibmCloudShellService.SetServiceURL("")
@@ -726,41 +667,25 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(ibmCloudShellService).ToNot(BeNil())
 
-				featureModel := []ibmcloudshellv1.Feature{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.file_manager"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("server.web_preview"),
-					},
-				}
+				// Construct an instance of the Feature model
+				featureModel := new(ibmcloudshellv1.Feature)
+				featureModel.Enabled = core.BoolPtr(true)
+				featureModel.Key = core.StringPtr("testString")
 
-				regionSettingModel := []ibmcloudshellv1.RegionSetting{
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("eu-de"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("jp-tok"),
-					},
-					{
-						Enabled: core.BoolPtr(true),
-						Key:     core.StringPtr("us-south"),
-					},
-				}
+				// Construct an instance of the RegionSetting model
+				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
+				regionSettingModel.Enabled = core.BoolPtr(true)
+				regionSettingModel.Key = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
 				updateAccountSettingsOptionsModel := new(ibmcloudshellv1.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.Rev = core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Rev = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.DefaultEnableNewFeatures = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.DefaultEnableNewRegions = core.BoolPtr(true)
 				updateAccountSettingsOptionsModel.Enabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.Features = featureModel
-				updateAccountSettingsOptionsModel.Regions = regionSettingModel
+				updateAccountSettingsOptionsModel.Features = []ibmcloudshellv1.Feature{*featureModel}
+				updateAccountSettingsOptionsModel.Regions = []ibmcloudshellv1.RegionSetting{*regionSettingModel}
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -784,12 +709,12 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 			})
 			It(`Invoke NewGetAccountSettingsOptions successfully`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
-				accountID := "12345678-abcd-1a2b-a1b2-1234567890ab"
+				accountID := "testString"
 				getAccountSettingsOptionsModel := ibmCloudShellService.NewGetAccountSettingsOptions(accountID)
-				getAccountSettingsOptionsModel.SetAccountID("12345678-abcd-1a2b-a1b2-1234567890ab")
+				getAccountSettingsOptionsModel.SetAccountID("testString")
 				getAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccountSettingsOptionsModel).ToNot(BeNil())
-				Expect(getAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")))
+				Expect(getAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAccountSettingsOptions successfully`, func() {
@@ -797,23 +722,23 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				featureModel := new(ibmcloudshellv1.Feature)
 				Expect(featureModel).ToNot(BeNil())
 				featureModel.Enabled = core.BoolPtr(true)
-				featureModel.Key = core.StringPtr("server.file_manager")
+				featureModel.Key = core.StringPtr("testString")
 				Expect(featureModel.Enabled).To(Equal(core.BoolPtr(true)))
-				Expect(featureModel.Key).To(Equal(core.StringPtr("server.file_manager")))
+				Expect(featureModel.Key).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the RegionSetting model
 				regionSettingModel := new(ibmcloudshellv1.RegionSetting)
 				Expect(regionSettingModel).ToNot(BeNil())
 				regionSettingModel.Enabled = core.BoolPtr(true)
-				regionSettingModel.Key = core.StringPtr("eu-de")
+				regionSettingModel.Key = core.StringPtr("testString")
 				Expect(regionSettingModel.Enabled).To(Equal(core.BoolPtr(true)))
-				Expect(regionSettingModel.Key).To(Equal(core.StringPtr("eu-de")))
+				Expect(regionSettingModel.Key).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the UpdateAccountSettingsOptions model
-				accountID := "12345678-abcd-1a2b-a1b2-1234567890ab"
+				accountID := "testString"
 				updateAccountSettingsOptionsModel := ibmCloudShellService.NewUpdateAccountSettingsOptions(accountID)
-				updateAccountSettingsOptionsModel.SetAccountID("12345678-abcd-1a2b-a1b2-1234567890ab")
-				updateAccountSettingsOptionsModel.SetRev("130-12345678-abcd-1a2b-a1b2-1234567890ab")
+				updateAccountSettingsOptionsModel.SetAccountID("testString")
+				updateAccountSettingsOptionsModel.SetRev("testString")
 				updateAccountSettingsOptionsModel.SetDefaultEnableNewFeatures(true)
 				updateAccountSettingsOptionsModel.SetDefaultEnableNewRegions(true)
 				updateAccountSettingsOptionsModel.SetEnabled(true)
@@ -821,8 +746,8 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 				updateAccountSettingsOptionsModel.SetRegions([]ibmcloudshellv1.RegionSetting{*regionSettingModel})
 				updateAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAccountSettingsOptionsModel).ToNot(BeNil())
-				Expect(updateAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab")))
-				Expect(updateAccountSettingsOptionsModel.Rev).To(Equal(core.StringPtr("130-12345678-abcd-1a2b-a1b2-1234567890ab")))
+				Expect(updateAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.DefaultEnableNewFeatures).To(Equal(core.BoolPtr(true)))
 				Expect(updateAccountSettingsOptionsModel.DefaultEnableNewRegions).To(Equal(core.BoolPtr(true)))
 				Expect(updateAccountSettingsOptionsModel.Enabled).To(Equal(core.BoolPtr(true)))
@@ -832,9 +757,79 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 			})
 		})
 	})
+	Describe(`Model unmarshaling tests`, func() {
+		It(`Invoke UnmarshalAccountSettings successfully`, func() {
+			// Construct an instance of the model.
+			model := new(ibmcloudshellv1.AccountSettings)
+			model.ID = core.StringPtr("testString")
+			model.Rev = core.StringPtr("testString")
+			model.AccountID = core.StringPtr("testString")
+			model.CreatedAt = core.Int64Ptr(int64(38))
+			model.CreatedBy = core.StringPtr("testString")
+			model.DefaultEnableNewFeatures = core.BoolPtr(true)
+			model.DefaultEnableNewRegions = core.BoolPtr(true)
+			model.Enabled = core.BoolPtr(true)
+			model.Features = nil
+			model.Regions = nil
+			model.Type = core.StringPtr("testString")
+			model.UpdatedAt = core.Int64Ptr(int64(38))
+			model.UpdatedBy = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *ibmcloudshellv1.AccountSettings
+			err = ibmcloudshellv1.UnmarshalAccountSettings(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalFeature successfully`, func() {
+			// Construct an instance of the model.
+			model := new(ibmcloudshellv1.Feature)
+			model.Enabled = core.BoolPtr(true)
+			model.Key = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *ibmcloudshellv1.Feature
+			err = ibmcloudshellv1.UnmarshalFeature(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+		It(`Invoke UnmarshalRegionSetting successfully`, func() {
+			// Construct an instance of the model.
+			model := new(ibmcloudshellv1.RegionSetting)
+			model.Enabled = core.BoolPtr(true)
+			model.Key = core.StringPtr("testString")
+
+			b, err := json.Marshal(model)
+			Expect(err).To(BeNil())
+
+			var raw map[string]json.RawMessage
+			err = json.Unmarshal(b, &raw)
+			Expect(err).To(BeNil())
+
+			var result *ibmcloudshellv1.RegionSetting
+			err = ibmcloudshellv1.UnmarshalRegionSetting(raw, &result)
+			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			Expect(result).To(Equal(model))
+		})
+	})
 	Describe(`Utility function tests`, func() {
 		It(`Invoke CreateMockByteArray() successfully`, func() {
-			mockByteArray := CreateMockByteArray("This is a test")
+			mockByteArray := CreateMockByteArray("VGhpcyBpcyBhIHRlc3Qgb2YgdGhlIGVtZXJnZW5jeSBicm9hZGNhc3Qgc3lzdGVt")
 			Expect(mockByteArray).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockUUID() successfully`, func() {
@@ -860,9 +855,11 @@ var _ = Describe(`IBMCloudShellV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, 0)
-	ba = append(ba, mockData...)
+func CreateMockByteArray(encodedString string) *[]byte {
+	ba, err := base64.StdEncoding.DecodeString(encodedString)
+	if err != nil {
+		panic(err)
+	}
 	return &ba
 }
 
