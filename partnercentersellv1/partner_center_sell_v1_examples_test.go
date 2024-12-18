@@ -603,7 +603,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
-				productIdLink,
+				productIdWithApprovedProgrammaticName,
 				programmaticNameLink,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
@@ -629,9 +629,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-create_resource_broker
 
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
-				"bearer",
-				"brokername",
-				"https://broker-url-for-my-service.com",
+				"bearer-crn",
+				brokerName,
+				brokerLink,
 				"provision_through",
 			)
 			createResourceBrokerOptions.SetAuthUsername("apikey")

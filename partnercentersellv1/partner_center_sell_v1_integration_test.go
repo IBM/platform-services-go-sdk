@@ -1801,7 +1801,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 
 			brokerPatchModel := &partnercentersellv1.BrokerPatch{
 				AuthUsername:        core.StringPtr("apikey"),
-				AuthPassword:        core.StringPtr("testString"),
+				AuthPassword:        core.StringPtr("0GANZzXiTurnXTF_000-FVk500800sdkrTHAt000y00y"),
 				AuthScheme:          core.StringPtr("bearer"),
 				BrokerURL:           core.StringPtr(brokerUrl),
 				ResourceGroupCrn:    core.StringPtr("crn:v1:staging:public:resource-controller::a/f15038e9046e4b9587db0ae76c4cbc26::resource-group:3a3a8ae311d0486c86b0a8c09e56883d"),
