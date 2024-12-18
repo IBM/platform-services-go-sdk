@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.1-5136e54a-20241108-203028
+ * IBM OpenAPI SDK Code Generator Version: 3.98.0-8be2046a-20241205-162752
  */
 
 // Package partnercentersellv1 : Operations and models for the PartnerCenterSellV1 service
@@ -42,7 +42,7 @@ type PartnerCenterSellV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://product-lifecycle.cloud.ibm.com/openapi/v1"
+const DefaultServiceURL = "http://localhost:5005/openapi/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "partner_center_sell"
@@ -4944,6 +4944,8 @@ type GlobalCatalogDeployment struct {
 	// The kind of the global catalog object.
 	Kind *string `json:"kind,omitempty"`
 
+	GeoTags []string `json:"geo_tags,omitempty"`
+
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
 
@@ -5000,6 +5002,11 @@ func UnmarshalGlobalCatalogDeployment(m map[string]json.RawMessage, result inter
 		err = core.SDKErrorf(err, "", "kind-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "geo_tags", &obj.GeoTags)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "geo_tags-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalGlobalCatalogOverviewUI)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "overview_ui-error", common.GetComponentInfo())
@@ -5038,7 +5045,7 @@ type GlobalCatalogDeploymentMetadata struct {
 	Ui *GlobalCatalogMetadataUI `json:"ui,omitempty"`
 
 	// The global catalog metadata of the service.
-	Service *GlobalCatalogMetadataService `json:"service,omitempty"`
+	Service *GlobalCatalogDeploymentMetadataService `json:"service,omitempty"`
 
 	// The global catalog metadata of the deployment.
 	Deployment *GlobalCatalogMetadataDeployment `json:"deployment,omitempty"`
@@ -5057,7 +5064,7 @@ func UnmarshalGlobalCatalogDeploymentMetadata(m map[string]json.RawMessage, resu
 		err = core.SDKErrorf(err, "", "ui-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogMetadataService)
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogDeploymentMetadataService)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "service-error", common.GetComponentInfo())
 		return
@@ -5085,6 +5092,92 @@ func (globalCatalogDeploymentMetadata *GlobalCatalogDeploymentMetadata) asPatch(
 	}
 	if !core.IsNil(globalCatalogDeploymentMetadata.Deployment) {
 		_patch["deployment"] = globalCatalogDeploymentMetadata.Deployment.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogDeploymentMetadataService : The global catalog metadata of the service.
+type GlobalCatalogDeploymentMetadataService struct {
+	// Whether the service is provisionable by the resource controller service.
+	RcProvisionable *bool `json:"rc_provisionable,omitempty"`
+
+	// Whether the service is compatible with the IAM service.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// Deprecated. Controls the Connections tab on the Resource Details page.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// Indicates plan update support and controls the Plan tab on the Resource Details page.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
+	// Indicates service credentials support and controls the Service Credential tab on Resource Details page.
+	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
+
+	Parameters []GlobalCatalogMetadataServiceCustomParameters `json:"parameters,omitempty"`
+}
+
+// UnmarshalGlobalCatalogDeploymentMetadataService unmarshals an instance of GlobalCatalogDeploymentMetadataService from the specified map of raw messages.
+func UnmarshalGlobalCatalogDeploymentMetadataService(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogDeploymentMetadataService)
+	err = core.UnmarshalPrimitive(m, "rc_provisionable", &obj.RcProvisionable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "rc_provisionable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_compatible-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bindable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_updateable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_key_supported-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "parameters", &obj.Parameters, UnmarshalGlobalCatalogMetadataServiceCustomParameters)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogDeploymentMetadataService
+func (globalCatalogDeploymentMetadataService *GlobalCatalogDeploymentMetadataService) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.RcProvisionable) {
+		_patch["rc_provisionable"] = globalCatalogDeploymentMetadataService.RcProvisionable
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.IamCompatible) {
+		_patch["iam_compatible"] = globalCatalogDeploymentMetadataService.IamCompatible
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.Bindable) {
+		_patch["bindable"] = globalCatalogDeploymentMetadataService.Bindable
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.PlanUpdateable) {
+		_patch["plan_updateable"] = globalCatalogDeploymentMetadataService.PlanUpdateable
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.ServiceKeySupported) {
+		_patch["service_key_supported"] = globalCatalogDeploymentMetadataService.ServiceKeySupported
+	}
+	if !core.IsNil(globalCatalogDeploymentMetadataService.Parameters) {
+		var parametersPatches []map[string]interface{}
+		for _, parameters := range globalCatalogDeploymentMetadataService.Parameters {
+			parametersPatches = append(parametersPatches, parameters.asPatch())
+		}
+		_patch["parameters"] = parametersPatches
 	}
 
 	return
@@ -5329,73 +5422,443 @@ func (globalCatalogMetadataPricing *GlobalCatalogMetadataPricing) asPatch() (_pa
 	return
 }
 
-// GlobalCatalogMetadataService : The global catalog metadata of the service.
-type GlobalCatalogMetadataService struct {
-	// Whether the service is provisionable by the resource controller service.
-	RcProvisionable *bool `json:"rc_provisionable,omitempty"`
+// GlobalCatalogMetadataServiceCustomParameters : The global catalog service/deployment custom parameters.
+type GlobalCatalogMetadataServiceCustomParameters struct {
+	// The display name for custom service parameters.
+	Displayname *string `json:"displayname,omitempty"`
 
-	// Whether the service is compatible with the IAM service.
-	IamCompatible *bool `json:"iam_compatible,omitempty"`
+	// The key of the parameter.
+	Name *string `json:"name,omitempty"`
 
-	// Deprecated. Controls the Connections tab on the Resource Details page.
-	Bindable *bool `json:"bindable,omitempty"`
+	// The type of custom service parameters.
+	Type *string `json:"type,omitempty"`
 
-	// Indicates plan update support and controls the Plan tab on the Resource Details page.
-	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+	Options []GlobalCatalogMetadataServiceCustomParametersOptions `json:"options,omitempty"`
 
-	// Indicates service credentials support and controls the Service Credential tab on Resource Details page.
-	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
+	Value []string `json:"value,omitempty"`
+
+	// Specifies the layout of check box or radio input types. When unspecified, the default layout is horizontal.
+	Layout *string `json:"layout,omitempty"`
+
+	// A JSON structure to describe the interactions with pricing plans and/or other custom parameters.
+	Associations map[string]interface{} `json:"associations,omitempty"`
+
+	// The validation URL for custom service parameters.
+	ValidationURL *string `json:"validation_url,omitempty"`
+
+	// The options URL for custom service parameters.
+	OptionsURL *string `json:"options_url,omitempty"`
+
+	// The message that appears when the content of the text box is invalid.
+	Invalidmessage *string `json:"invalidmessage,omitempty"`
+
+	// The description of the parameter that is displayed to help users with the value of the parameter.
+	Description *string `json:"description,omitempty"`
+
+	// A boolean value that indicates whether the parameter must be entered in the IBM Cloud user interface.
+	Required *bool `json:"required,omitempty"`
+
+	// A regular expression that the value is checked against.
+	Pattern *string `json:"pattern,omitempty"`
+
+	// The placeholder text for custom parameters.
+	Placeholder *string `json:"placeholder,omitempty"`
+
+	// A boolean value that indicates whether the value of the parameter is displayed only and cannot be changed by users.
+	// The default value is false.
+	Readonly *bool `json:"readonly,omitempty"`
+
+	// Indicates whether the custom parameters is hidden required or not.
+	Hidden *bool `json:"hidden,omitempty"`
+
+	// The description for the object.
+	I18n *GlobalCatalogMetadataServiceCustomParametersI18n `json:"i18n,omitempty"`
 }
 
-// UnmarshalGlobalCatalogMetadataService unmarshals an instance of GlobalCatalogMetadataService from the specified map of raw messages.
-func UnmarshalGlobalCatalogMetadataService(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(GlobalCatalogMetadataService)
-	err = core.UnmarshalPrimitive(m, "rc_provisionable", &obj.RcProvisionable)
+// Constants associated with the GlobalCatalogMetadataServiceCustomParameters.Type property.
+// The type of custom service parameters.
+const (
+	GlobalCatalogMetadataServiceCustomParameters_Type_Checkbox         = "checkbox"
+	GlobalCatalogMetadataServiceCustomParameters_Type_ClusterNamespace = "cluster_namespace"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Combo            = "combo"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Dropdown         = "dropdown"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Multiselect      = "multiselect"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Number           = "number"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Password         = "password"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Radio            = "radio"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Region           = "region"
+	GlobalCatalogMetadataServiceCustomParameters_Type_ResourceGroup    = "resource_group"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Secret           = "secret"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Text             = "text"
+	GlobalCatalogMetadataServiceCustomParameters_Type_Textarea         = "textarea"
+	GlobalCatalogMetadataServiceCustomParameters_Type_VcenterDatastore = "vcenter_datastore"
+)
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParameters unmarshals an instance of GlobalCatalogMetadataServiceCustomParameters from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParameters(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParameters)
+	err = core.UnmarshalPrimitive(m, "displayname", &obj.Displayname)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "rc_provisionable-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "displayname-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "iam_compatible-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "name-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "bindable-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "type-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	err = core.UnmarshalModel(m, "options", &obj.Options, UnmarshalGlobalCatalogMetadataServiceCustomParametersOptions)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "plan_updateable-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "options-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
-		err = core.SDKErrorf(err, "", "service_key_supported-error", common.GetComponentInfo())
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "layout", &obj.Layout)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "layout-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "associations", &obj.Associations)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "associations-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "validation_url", &obj.ValidationURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "validation_url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "options_url", &obj.OptionsURL)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "options_url-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "invalidmessage", &obj.Invalidmessage)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "invalidmessage-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "required", &obj.Required)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "required-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "pattern", &obj.Pattern)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "pattern-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "placeholder", &obj.Placeholder)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "placeholder-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "readonly", &obj.Readonly)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "readonly-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "hidden", &obj.Hidden)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "hidden-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "i18n", &obj.I18n, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18n)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "i18n-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// asPatch returns a generic map representation of the GlobalCatalogMetadataService
-func (globalCatalogMetadataService *GlobalCatalogMetadataService) asPatch() (_patch map[string]interface{}) {
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParameters
+func (globalCatalogMetadataServiceCustomParameters *GlobalCatalogMetadataServiceCustomParameters) asPatch() (_patch map[string]interface{}) {
 	_patch = map[string]interface{}{}
-	if !core.IsNil(globalCatalogMetadataService.RcProvisionable) {
-		_patch["rc_provisionable"] = globalCatalogMetadataService.RcProvisionable
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Displayname) {
+		_patch["displayname"] = globalCatalogMetadataServiceCustomParameters.Displayname
 	}
-	if !core.IsNil(globalCatalogMetadataService.IamCompatible) {
-		_patch["iam_compatible"] = globalCatalogMetadataService.IamCompatible
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Name) {
+		_patch["name"] = globalCatalogMetadataServiceCustomParameters.Name
 	}
-	if !core.IsNil(globalCatalogMetadataService.Bindable) {
-		_patch["bindable"] = globalCatalogMetadataService.Bindable
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Type) {
+		_patch["type"] = globalCatalogMetadataServiceCustomParameters.Type
 	}
-	if !core.IsNil(globalCatalogMetadataService.PlanUpdateable) {
-		_patch["plan_updateable"] = globalCatalogMetadataService.PlanUpdateable
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Options) {
+		var optionsPatches []map[string]interface{}
+		for _, options := range globalCatalogMetadataServiceCustomParameters.Options {
+			optionsPatches = append(optionsPatches, options.asPatch())
+		}
+		_patch["options"] = optionsPatches
 	}
-	if !core.IsNil(globalCatalogMetadataService.ServiceKeySupported) {
-		_patch["service_key_supported"] = globalCatalogMetadataService.ServiceKeySupported
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Value) {
+		_patch["value"] = globalCatalogMetadataServiceCustomParameters.Value
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Layout) {
+		_patch["layout"] = globalCatalogMetadataServiceCustomParameters.Layout
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Associations) {
+		_patch["associations"] = globalCatalogMetadataServiceCustomParameters.Associations
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.ValidationURL) {
+		_patch["validation_url"] = globalCatalogMetadataServiceCustomParameters.ValidationURL
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.OptionsURL) {
+		_patch["options_url"] = globalCatalogMetadataServiceCustomParameters.OptionsURL
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Invalidmessage) {
+		_patch["invalidmessage"] = globalCatalogMetadataServiceCustomParameters.Invalidmessage
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Description) {
+		_patch["description"] = globalCatalogMetadataServiceCustomParameters.Description
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Required) {
+		_patch["required"] = globalCatalogMetadataServiceCustomParameters.Required
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Pattern) {
+		_patch["pattern"] = globalCatalogMetadataServiceCustomParameters.Pattern
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Placeholder) {
+		_patch["placeholder"] = globalCatalogMetadataServiceCustomParameters.Placeholder
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Readonly) {
+		_patch["readonly"] = globalCatalogMetadataServiceCustomParameters.Readonly
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.Hidden) {
+		_patch["hidden"] = globalCatalogMetadataServiceCustomParameters.Hidden
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParameters.I18n) {
+		_patch["i18n"] = globalCatalogMetadataServiceCustomParameters.I18n.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersI18n : The description for the object.
+type GlobalCatalogMetadataServiceCustomParametersI18n struct {
+	// The translations for custom service parameter display name and description.
+	En *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"en,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	De *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"de,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	Es *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"es,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	Fr *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"fr,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	It *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"it,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	Ja *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"ja,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	Ko *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"ko,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	PtBr *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"pt_br,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	ZhTw *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"zh_tw,omitempty"`
+
+	// The translations for custom service parameter display name and description.
+	ZhCn *GlobalCatalogMetadataServiceCustomParametersI18nFields `json:"zh_cn,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersI18n unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersI18n from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersI18n(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersI18n)
+	err = core.UnmarshalModel(m, "en", &obj.En, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "en-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "de", &obj.De, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "de-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "es", &obj.Es, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "es-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "fr", &obj.Fr, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "fr-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "it", &obj.It, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "it-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "ja", &obj.Ja, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ja-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "ko", &obj.Ko, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "ko-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "pt_br", &obj.PtBr, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "pt_br-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "zh_tw", &obj.ZhTw, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "zh_tw-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "zh_cn", &obj.ZhCn, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "zh_cn-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersI18n
+func (globalCatalogMetadataServiceCustomParametersI18n *GlobalCatalogMetadataServiceCustomParametersI18n) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.En) {
+		_patch["en"] = globalCatalogMetadataServiceCustomParametersI18n.En.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.De) {
+		_patch["de"] = globalCatalogMetadataServiceCustomParametersI18n.De.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.Es) {
+		_patch["es"] = globalCatalogMetadataServiceCustomParametersI18n.Es.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.Fr) {
+		_patch["fr"] = globalCatalogMetadataServiceCustomParametersI18n.Fr.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.It) {
+		_patch["it"] = globalCatalogMetadataServiceCustomParametersI18n.It.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.Ja) {
+		_patch["ja"] = globalCatalogMetadataServiceCustomParametersI18n.Ja.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.Ko) {
+		_patch["ko"] = globalCatalogMetadataServiceCustomParametersI18n.Ko.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.PtBr) {
+		_patch["pt_br"] = globalCatalogMetadataServiceCustomParametersI18n.PtBr.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.ZhTw) {
+		_patch["zh_tw"] = globalCatalogMetadataServiceCustomParametersI18n.ZhTw.asPatch()
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18n.ZhCn) {
+		_patch["zh_cn"] = globalCatalogMetadataServiceCustomParametersI18n.ZhCn.asPatch()
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersI18nFields : The translations for custom service parameter display name and description.
+type GlobalCatalogMetadataServiceCustomParametersI18nFields struct {
+	// The translations for custom service parameter display name.
+	Displayname *string `json:"displayname,omitempty"`
+
+	// The translations for custom service parameter description.
+	Description *string `json:"description,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersI18nFields from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersI18nFields(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersI18nFields)
+	err = core.UnmarshalPrimitive(m, "displayname", &obj.Displayname)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "displayname-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "description-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersI18nFields
+func (globalCatalogMetadataServiceCustomParametersI18nFields *GlobalCatalogMetadataServiceCustomParametersI18nFields) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18nFields.Displayname) {
+		_patch["displayname"] = globalCatalogMetadataServiceCustomParametersI18nFields.Displayname
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersI18nFields.Description) {
+		_patch["description"] = globalCatalogMetadataServiceCustomParametersI18nFields.Description
+	}
+
+	return
+}
+
+// GlobalCatalogMetadataServiceCustomParametersOptions : A JSON structure to specify available values for the dropdown, check box, and radio input types.
+type GlobalCatalogMetadataServiceCustomParametersOptions struct {
+	// The display name for custom service parameters.
+	Displayname *string `json:"displayname,omitempty"`
+
+	// The value for custom service parameters.
+	Value *string `json:"value,omitempty"`
+
+	// The description for the object.
+	I18n *GlobalCatalogMetadataServiceCustomParametersI18n `json:"i18n,omitempty"`
+}
+
+// UnmarshalGlobalCatalogMetadataServiceCustomParametersOptions unmarshals an instance of GlobalCatalogMetadataServiceCustomParametersOptions from the specified map of raw messages.
+func UnmarshalGlobalCatalogMetadataServiceCustomParametersOptions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogMetadataServiceCustomParametersOptions)
+	err = core.UnmarshalPrimitive(m, "displayname", &obj.Displayname)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "displayname-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "value-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "i18n", &obj.I18n, UnmarshalGlobalCatalogMetadataServiceCustomParametersI18n)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "i18n-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogMetadataServiceCustomParametersOptions
+func (globalCatalogMetadataServiceCustomParametersOptions *GlobalCatalogMetadataServiceCustomParametersOptions) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersOptions.Displayname) {
+		_patch["displayname"] = globalCatalogMetadataServiceCustomParametersOptions.Displayname
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersOptions.Value) {
+		_patch["value"] = globalCatalogMetadataServiceCustomParametersOptions.Value
+	}
+	if !core.IsNil(globalCatalogMetadataServiceCustomParametersOptions.I18n) {
+		_patch["i18n"] = globalCatalogMetadataServiceCustomParametersOptions.I18n.asPatch()
 	}
 
 	return
@@ -5743,6 +6206,8 @@ type GlobalCatalogPlan struct {
 	// The kind of the global catalog object.
 	Kind *string `json:"kind,omitempty"`
 
+	GeoTags []string `json:"geo_tags,omitempty"`
+
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
 
@@ -5799,6 +6264,11 @@ func UnmarshalGlobalCatalogPlan(m map[string]json.RawMessage, result interface{}
 		err = core.SDKErrorf(err, "", "kind-error", common.GetComponentInfo())
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "geo_tags", &obj.GeoTags)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "geo_tags-error", common.GetComponentInfo())
+		return
+	}
 	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalGlobalCatalogOverviewUI)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "overview_ui-error", common.GetComponentInfo())
@@ -5837,7 +6307,7 @@ type GlobalCatalogPlanMetadata struct {
 	Ui *GlobalCatalogMetadataUI `json:"ui,omitempty"`
 
 	// The global catalog metadata of the service.
-	Service *GlobalCatalogMetadataService `json:"service,omitempty"`
+	Service *GlobalCatalogPlanMetadataService `json:"service,omitempty"`
 
 	// The pricing metadata of this object.
 	Pricing *GlobalCatalogMetadataPricing `json:"pricing,omitempty"`
@@ -5859,7 +6329,7 @@ func UnmarshalGlobalCatalogPlanMetadata(m map[string]json.RawMessage, result int
 		err = core.SDKErrorf(err, "", "ui-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogMetadataService)
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogPlanMetadataService)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "service-error", common.GetComponentInfo())
 		return
@@ -5934,6 +6404,78 @@ func (globalCatalogPlanMetadataPlan *GlobalCatalogPlanMetadataPlan) asPatch() (_
 	}
 	if !core.IsNil(globalCatalogPlanMetadataPlan.Bindable) {
 		_patch["bindable"] = globalCatalogPlanMetadataPlan.Bindable
+	}
+
+	return
+}
+
+// GlobalCatalogPlanMetadataService : The global catalog metadata of the service.
+type GlobalCatalogPlanMetadataService struct {
+	// Whether the service is provisionable by the resource controller service.
+	RcProvisionable *bool `json:"rc_provisionable,omitempty"`
+
+	// Whether the service is compatible with the IAM service.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// Deprecated. Controls the Connections tab on the Resource Details page.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// Indicates plan update support and controls the Plan tab on the Resource Details page.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
+	// Indicates service credentials support and controls the Service Credential tab on Resource Details page.
+	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
+}
+
+// UnmarshalGlobalCatalogPlanMetadataService unmarshals an instance of GlobalCatalogPlanMetadataService from the specified map of raw messages.
+func UnmarshalGlobalCatalogPlanMetadataService(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogPlanMetadataService)
+	err = core.UnmarshalPrimitive(m, "rc_provisionable", &obj.RcProvisionable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "rc_provisionable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_compatible-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bindable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_updateable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_key_supported-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogPlanMetadataService
+func (globalCatalogPlanMetadataService *GlobalCatalogPlanMetadataService) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogPlanMetadataService.RcProvisionable) {
+		_patch["rc_provisionable"] = globalCatalogPlanMetadataService.RcProvisionable
+	}
+	if !core.IsNil(globalCatalogPlanMetadataService.IamCompatible) {
+		_patch["iam_compatible"] = globalCatalogPlanMetadataService.IamCompatible
+	}
+	if !core.IsNil(globalCatalogPlanMetadataService.Bindable) {
+		_patch["bindable"] = globalCatalogPlanMetadataService.Bindable
+	}
+	if !core.IsNil(globalCatalogPlanMetadataService.PlanUpdateable) {
+		_patch["plan_updateable"] = globalCatalogPlanMetadataService.PlanUpdateable
+	}
+	if !core.IsNil(globalCatalogPlanMetadataService.ServiceKeySupported) {
+		_patch["service_key_supported"] = globalCatalogPlanMetadataService.ServiceKeySupported
 	}
 
 	return
@@ -6045,6 +6587,8 @@ type GlobalCatalogProduct struct {
 	// The kind of the global catalog object.
 	Kind *string `json:"kind,omitempty"`
 
+	GeoTags []string `json:"geo_tags,omitempty"`
+
 	// The object that contains the service details from the Overview page in global catalog.
 	OverviewUi *GlobalCatalogOverviewUI `json:"overview_ui,omitempty"`
 
@@ -6104,6 +6648,11 @@ func UnmarshalGlobalCatalogProduct(m map[string]json.RawMessage, result interfac
 	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "kind-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "geo_tags", &obj.GeoTags)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "geo_tags-error", common.GetComponentInfo())
 		return
 	}
 	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalGlobalCatalogOverviewUI)
@@ -6177,7 +6726,7 @@ type GlobalCatalogProductMetadata struct {
 	Ui *GlobalCatalogMetadataUI `json:"ui,omitempty"`
 
 	// The global catalog metadata of the service.
-	Service *GlobalCatalogMetadataService `json:"service,omitempty"`
+	Service *GlobalCatalogProductMetadataService `json:"service,omitempty"`
 
 	// The additional metadata of the service in global catalog.
 	Other *GlobalCatalogProductMetadataOther `json:"other,omitempty"`
@@ -6196,7 +6745,7 @@ func UnmarshalGlobalCatalogProductMetadata(m map[string]json.RawMessage, result 
 		err = core.SDKErrorf(err, "", "ui-error", common.GetComponentInfo())
 		return
 	}
-	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogMetadataService)
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalGlobalCatalogProductMetadataService)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "service-error", common.GetComponentInfo())
 		return
@@ -6526,6 +7075,103 @@ func (globalCatalogProductMetadataOtherPCSupport *GlobalCatalogProductMetadataOt
 			supportDetailsPatches = append(supportDetailsPatches, supportDetails.asPatch())
 		}
 		_patch["support_details"] = supportDetailsPatches
+	}
+
+	return
+}
+
+// GlobalCatalogProductMetadataService : The global catalog metadata of the service.
+type GlobalCatalogProductMetadataService struct {
+	// Whether the service is provisionable by the resource controller service.
+	RcProvisionable *bool `json:"rc_provisionable,omitempty"`
+
+	// Whether the service is compatible with the IAM service.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// Deprecated. Controls the Connections tab on the Resource Details page.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// Indicates plan update support and controls the Plan tab on the Resource Details page.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
+	// Indicates service credentials support and controls the Service Credential tab on Resource Details page.
+	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
+
+	// Indicates that the deployment uses an unique api key or not.
+	UniqueApiKey *bool `json:"unique_api_key,omitempty"`
+
+	Parameters []GlobalCatalogMetadataServiceCustomParameters `json:"parameters,omitempty"`
+}
+
+// UnmarshalGlobalCatalogProductMetadataService unmarshals an instance of GlobalCatalogProductMetadataService from the specified map of raw messages.
+func UnmarshalGlobalCatalogProductMetadataService(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GlobalCatalogProductMetadataService)
+	err = core.UnmarshalPrimitive(m, "rc_provisionable", &obj.RcProvisionable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "rc_provisionable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "iam_compatible-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "bindable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "plan_updateable-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "service_key_supported-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unique_api_key", &obj.UniqueApiKey)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "unique_api_key-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalModel(m, "parameters", &obj.Parameters, UnmarshalGlobalCatalogMetadataServiceCustomParameters)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "parameters-error", common.GetComponentInfo())
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// asPatch returns a generic map representation of the GlobalCatalogProductMetadataService
+func (globalCatalogProductMetadataService *GlobalCatalogProductMetadataService) asPatch() (_patch map[string]interface{}) {
+	_patch = map[string]interface{}{}
+	if !core.IsNil(globalCatalogProductMetadataService.RcProvisionable) {
+		_patch["rc_provisionable"] = globalCatalogProductMetadataService.RcProvisionable
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.IamCompatible) {
+		_patch["iam_compatible"] = globalCatalogProductMetadataService.IamCompatible
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.Bindable) {
+		_patch["bindable"] = globalCatalogProductMetadataService.Bindable
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.PlanUpdateable) {
+		_patch["plan_updateable"] = globalCatalogProductMetadataService.PlanUpdateable
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.ServiceKeySupported) {
+		_patch["service_key_supported"] = globalCatalogProductMetadataService.ServiceKeySupported
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.UniqueApiKey) {
+		_patch["unique_api_key"] = globalCatalogProductMetadataService.UniqueApiKey
+	}
+	if !core.IsNil(globalCatalogProductMetadataService.Parameters) {
+		var parametersPatches []map[string]interface{}
+		for _, parameters := range globalCatalogProductMetadataService.Parameters {
+			parametersPatches = append(parametersPatches, parameters.asPatch())
+		}
+		_patch["parameters"] = parametersPatches
 	}
 
 	return
@@ -7384,7 +8030,6 @@ func (iamServiceRegistrationSupportedAnonymousAccess *IamServiceRegistrationSupp
 }
 
 // IamServiceRegistrationSupportedAnonymousAccessAttributes : The attributes for anonymous accesses.
-// This type supports additional properties of type *string.
 type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 	// An account id.
 	AccountID *string `json:"account_id" validate:"required"`
@@ -7394,9 +8039,6 @@ type IamServiceRegistrationSupportedAnonymousAccessAttributes struct {
 
 	// Additional properties the key must come from supported attributes.
 	AdditionalProperties map[string]string `json:"additional_properties" validate:"required"`
-
-	// Allows users to set arbitrary properties of type *string.
-	additionalProperties map[string]*string
 }
 
 // NewIamServiceRegistrationSupportedAnonymousAccessAttributes : Instantiate IamServiceRegistrationSupportedAnonymousAccessAttributes (Generic Model Constructor)
@@ -7413,56 +8055,6 @@ func (*PartnerCenterSellV1) NewIamServiceRegistrationSupportedAnonymousAccessAtt
 	return
 }
 
-// SetProperty allows the user to set an arbitrary property on an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperty(key string, value *string) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]*string)
-	}
-	o.additionalProperties[key] = value
-}
-
-// SetProperties allows the user to set a map of arbitrary properties on an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) SetProperties(m map[string]*string) {
-	o.additionalProperties = make(map[string]*string)
-	for k, v := range m {
-		o.additionalProperties[k] = v
-	}
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperty(key string) *string {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes.
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) GetProperties() map[string]*string {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of IamServiceRegistrationSupportedAnonymousAccessAttributes
-func (o *IamServiceRegistrationSupportedAnonymousAccessAttributes) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	if o.AccountID != nil {
-		m["account_id"] = o.AccountID
-	}
-	if o.ServiceName != nil {
-		m["service_name"] = o.ServiceName
-	}
-	if o.AdditionalProperties != nil {
-		m["additional_properties"] = o.AdditionalProperties
-	}
-	buffer, err = json.Marshal(m)
-	if err != nil {
-		err = core.SDKErrorf(err, "", "model-marshal", common.GetComponentInfo())
-	}
-	return
-}
-
 // UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes unmarshals an instance of IamServiceRegistrationSupportedAnonymousAccessAttributes from the specified map of raw messages.
 func UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(IamServiceRegistrationSupportedAnonymousAccessAttributes)
@@ -7471,27 +8063,15 @@ func UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes(m map[str
 		err = core.SDKErrorf(err, "", "account_id-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "account_id")
 	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "service_name-error", common.GetComponentInfo())
 		return
 	}
-	delete(m, "service_name")
 	err = core.UnmarshalPrimitive(m, "additional_properties", &obj.AdditionalProperties)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "additional_properties-error", common.GetComponentInfo())
 		return
-	}
-	delete(m, "additional_properties")
-	for k := range m {
-		var v *string
-		e := core.UnmarshalPrimitive(m, k, &v)
-		if e != nil {
-			err = core.SDKErrorf(e, "", "additional-properties-error", common.GetComponentInfo())
-			return
-		}
-		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -7500,11 +8080,6 @@ func UnmarshalIamServiceRegistrationSupportedAnonymousAccessAttributes(m map[str
 // asPatch returns a generic map representation of the IamServiceRegistrationSupportedAnonymousAccessAttributes
 func (iamServiceRegistrationSupportedAnonymousAccessAttributes *IamServiceRegistrationSupportedAnonymousAccessAttributes) asPatch() (_patch map[string]interface{}) {
 	_patch = map[string]interface{}{}
-	if !core.IsNil(iamServiceRegistrationSupportedAnonymousAccessAttributes.additionalProperties) {
-		for k, v := range iamServiceRegistrationSupportedAnonymousAccessAttributes.additionalProperties {
-			_patch[k] = v
-		}
-	}
 	if !core.IsNil(iamServiceRegistrationSupportedAnonymousAccessAttributes.AccountID) {
 		_patch["account_id"] = iamServiceRegistrationSupportedAnonymousAccessAttributes.AccountID
 	}

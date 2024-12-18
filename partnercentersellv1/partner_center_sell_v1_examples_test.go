@@ -260,14 +260,14 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogProductMetadataServiceModel := &partnercentersellv1.GlobalCatalogProductMetadataService{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
 
 			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogProductMetadataServiceModel,
 			}
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -360,7 +360,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogPlanMetadataServiceModel := &partnercentersellv1.GlobalCatalogPlanMetadataService{
 				RcProvisionable: core.BoolPtr(false),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -372,7 +372,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogPlanMetadataServiceModel,
 				Pricing:      globalCatalogMetadataPricingModel,
 			}
 
@@ -457,7 +457,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogDeploymentMetadataServiceModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataService{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -476,7 +476,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogDeploymentMetadataServiceModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
@@ -564,9 +564,19 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-create_iam_registration
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
-				"sample-name",
+				productIdLink,
+				"pet-store",
 			)
+			createIamRegistrationOptions.SetEnabled(true)
+			createIamRegistrationOptions.SetActions([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel})
+			createIamRegistrationOptions.SetAdditionalPolicyScopes([]string{"pet-store"})
+			createIamRegistrationOptions.SetDisplayName(iamServiceRegistrationDisplayNameObjectModel)
+			createIamRegistrationOptions.SetParentIds([]string{})
+			createIamRegistrationOptions.SetSupportedAnonymousAccesses([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel})
+			createIamRegistrationOptions.SetSupportedAttributes([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel})
+			createIamRegistrationOptions.SetSupportedAuthorizationSubjects([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel})
+			createIamRegistrationOptions.SetSupportedRoles([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel})
+			createIamRegistrationOptions.SetSupportedNetwork(iamServiceRegistrationSupportedNetworkModel)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
 			if err != nil {
@@ -593,7 +603,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			Expect(asPatchErr).To(BeNil())
 
 			updateIamRegistrationOptions := partnerCenterSellService.NewUpdateIamRegistrationOptions(
-				productIdWithApprovedProgrammaticName,
+				productIdLink,
 				programmaticNameLink,
 				iamServiceRegistrationPatchModelAsPatch,
 			)
@@ -617,16 +627,15 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`CreateResourceBroker request example`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
-			var randomInteger = strconv.Itoa(rand.Intn(1000))
-			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
-			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
 
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
-				"bearer-crn",
-				brokerName,
-				brokerLink,
+				"bearer",
+				"brokername",
+				"https://broker-url-for-my-service.com",
 				"provision_through",
 			)
+			createResourceBrokerOptions.SetAuthUsername("apikey")
+			createResourceBrokerOptions.SetResourceGroupCrn("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
