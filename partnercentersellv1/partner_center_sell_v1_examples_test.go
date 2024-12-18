@@ -564,19 +564,9 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			// begin-create_iam_registration
 
 			createIamRegistrationOptions := partnerCenterSellService.NewCreateIamRegistrationOptions(
-				productIdLink,
-				"pet-store",
+				productIdWithApprovedProgrammaticName,
+				"sample-name",
 			)
-			createIamRegistrationOptions.SetEnabled(true)
-			createIamRegistrationOptions.SetActions([]partnercentersellv1.IamServiceRegistrationAction{*iamServiceRegistrationActionModel})
-			createIamRegistrationOptions.SetAdditionalPolicyScopes([]string{"pet-store"})
-			createIamRegistrationOptions.SetDisplayName(iamServiceRegistrationDisplayNameObjectModel)
-			createIamRegistrationOptions.SetParentIds([]string{})
-			createIamRegistrationOptions.SetSupportedAnonymousAccesses([]partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{*iamServiceRegistrationSupportedAnonymousAccessModel})
-			createIamRegistrationOptions.SetSupportedAttributes([]partnercentersellv1.IamServiceRegistrationSupportedAttribute{*iamServiceRegistrationSupportedAttributeModel})
-			createIamRegistrationOptions.SetSupportedAuthorizationSubjects([]partnercentersellv1.IamServiceRegistrationSupportedAuthorizationSubject{*iamServiceRegistrationSupportedAuthorizationSubjectModel})
-			createIamRegistrationOptions.SetSupportedRoles([]partnercentersellv1.IamServiceRegistrationSupportedRole{*iamServiceRegistrationSupportedRoleModel})
-			createIamRegistrationOptions.SetSupportedNetwork(iamServiceRegistrationSupportedNetworkModel)
 
 			iamServiceRegistration, response, err := partnerCenterSellService.CreateIamRegistration(createIamRegistrationOptions)
 			if err != nil {
@@ -628,14 +618,16 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
 
+			var randomInteger = strconv.Itoa(rand.Intn(1000))
+			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
+			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
+
 			createResourceBrokerOptions := partnerCenterSellService.NewCreateResourceBrokerOptions(
 				"bearer-crn",
 				brokerName,
 				brokerLink,
 				"provision_through",
 			)
-			createResourceBrokerOptions.SetAuthUsername("apikey")
-			createResourceBrokerOptions.SetResourceGroupCrn("crn:v1:bluemix:public:resource-controller::a/4a5c3c51b97a446fbb1d0e1ef089823b::resource-group:4fae20bd538a4a738475350dfdc1596f")
 			createResourceBrokerOptions.SetState("active")
 			createResourceBrokerOptions.SetAllowContextUpdates(false)
 			createResourceBrokerOptions.SetCatalogType("service")
