@@ -21,6 +21,7 @@ package partnercentersellv1_test
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strconv"
 	"time"
@@ -344,22 +345,22 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
-				Displayname:    core.StringPtr("testString"),
-				Name:           core.StringPtr("testString"),
+				Displayname:    core.StringPtr("Display_name"),
+				Name:           core.StringPtr("Sample_name"),
 				Type:           core.StringPtr("text"),
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
-				Value:          []string{"testString"},
-				Layout:         core.StringPtr("testString"),
+				Value:          []string{"sample_value"},
+				Layout:         core.StringPtr("sample_layout"),
 				Associations:   map[string]interface{}{"anyKey": "anyValue"},
-				ValidationURL:  core.StringPtr("testString"),
-				OptionsURL:     core.StringPtr("testString"),
-				Invalidmessage: core.StringPtr("testString"),
-				Description:    core.StringPtr("testString"),
+				ValidationURL:  core.StringPtr("https://http.cat/valid"),
+				OptionsURL:     core.StringPtr("https://http.cat/option"),
+				Invalidmessage: core.StringPtr("Invalid message"),
+				Description:    core.StringPtr("Sample description"),
 				Required:       core.BoolPtr(true),
-				Pattern:        core.StringPtr("testString"),
-				Placeholder:    core.StringPtr("testString"),
-				Readonly:       core.BoolPtr(true),
-				Hidden:         core.BoolPtr(true),
+				Pattern:        core.StringPtr("."),
+				Placeholder:    core.StringPtr("Placeholder"),
+				Readonly:       core.BoolPtr(false),
+				Hidden:         core.BoolPtr(false),
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
@@ -562,22 +563,22 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
-				Displayname:    core.StringPtr("testString"),
-				Name:           core.StringPtr("testString"),
+				Displayname:    core.StringPtr("Display_name"),
+				Name:           core.StringPtr("Sample_name"),
 				Type:           core.StringPtr("text"),
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
-				Value:          []string{"testString"},
-				Layout:         core.StringPtr("testString"),
+				Value:          []string{"sample_value"},
+				Layout:         core.StringPtr("sample_layout"),
 				Associations:   map[string]interface{}{"anyKey": "anyValue"},
-				ValidationURL:  core.StringPtr("testString"),
-				OptionsURL:     core.StringPtr("testString"),
-				Invalidmessage: core.StringPtr("testString"),
-				Description:    core.StringPtr("testString"),
+				ValidationURL:  core.StringPtr("https://http.cat/valid"),
+				OptionsURL:     core.StringPtr("https://http.cat/option"),
+				Invalidmessage: core.StringPtr("Invalid message"),
+				Description:    core.StringPtr("Sample description"),
 				Required:       core.BoolPtr(true),
-				Pattern:        core.StringPtr("testString"),
-				Placeholder:    core.StringPtr("testString"),
-				Readonly:       core.BoolPtr(true),
-				Hidden:         core.BoolPtr(true),
+				Pattern:        core.StringPtr("."),
+				Placeholder:    core.StringPtr("Placeholder"),
+				Readonly:       core.BoolPtr(false),
+				Hidden:         core.BoolPtr(false),
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
@@ -1009,22 +1010,22 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
-				Displayname:    core.StringPtr("testString"),
-				Name:           core.StringPtr("testString"),
+				Displayname:    core.StringPtr("Display_name"),
+				Name:           core.StringPtr("Sample_name"),
 				Type:           core.StringPtr("text"),
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
-				Value:          []string{"testString"},
-				Layout:         core.StringPtr("testString"),
+				Value:          []string{"sample_value"},
+				Layout:         core.StringPtr("sample_layout"),
 				Associations:   map[string]interface{}{"anyKey": "anyValue"},
-				ValidationURL:  core.StringPtr("testString"),
-				OptionsURL:     core.StringPtr("testString"),
-				Invalidmessage: core.StringPtr("testString"),
-				Description:    core.StringPtr("testString"),
+				ValidationURL:  core.StringPtr("https://http.cat/valid"),
+				OptionsURL:     core.StringPtr("https://http.cat/option"),
+				Invalidmessage: core.StringPtr("Invalid message"),
+				Description:    core.StringPtr("Sample description"),
 				Required:       core.BoolPtr(true),
-				Pattern:        core.StringPtr("testString"),
-				Placeholder:    core.StringPtr("testString"),
-				Readonly:       core.BoolPtr(true),
-				Hidden:         core.BoolPtr(true),
+				Pattern:        core.StringPtr("."),
+				Placeholder:    core.StringPtr("Placeholder"),
+				Readonly:       core.BoolPtr(false),
+				Hidden:         core.BoolPtr(false),
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
@@ -1172,22 +1173,22 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			}
 
 			globalCatalogMetadataServiceCustomParametersModel := &partnercentersellv1.GlobalCatalogMetadataServiceCustomParameters{
-				Displayname:    core.StringPtr("testString"),
-				Name:           core.StringPtr("testString"),
+				Displayname:    core.StringPtr("Display_name"),
+				Name:           core.StringPtr("Sample_name"),
 				Type:           core.StringPtr("text"),
 				Options:        []partnercentersellv1.GlobalCatalogMetadataServiceCustomParametersOptions{*globalCatalogMetadataServiceCustomParametersOptionsModel},
-				Value:          []string{"testString"},
-				Layout:         core.StringPtr("testString"),
+				Value:          []string{"sample_value"},
+				Layout:         core.StringPtr("sample_layout"),
 				Associations:   map[string]interface{}{"anyKey": "anyValue"},
-				ValidationURL:  core.StringPtr("testString"),
-				OptionsURL:     core.StringPtr("testString"),
-				Invalidmessage: core.StringPtr("testString"),
-				Description:    core.StringPtr("testString"),
+				ValidationURL:  core.StringPtr("https://http.cat/valid"),
+				OptionsURL:     core.StringPtr("https://http.cat/option"),
+				Invalidmessage: core.StringPtr("Invalid message"),
+				Description:    core.StringPtr("Sample description"),
 				Required:       core.BoolPtr(true),
-				Pattern:        core.StringPtr("testString"),
-				Placeholder:    core.StringPtr("testString"),
-				Readonly:       core.BoolPtr(true),
-				Hidden:         core.BoolPtr(true),
+				Pattern:        core.StringPtr("."),
+				Placeholder:    core.StringPtr("Placeholder"),
+				Readonly:       core.BoolPtr(false),
+				Hidden:         core.BoolPtr(false),
 				I18n:           globalCatalogMetadataServiceCustomParametersI18nModel,
 			}
 
@@ -1325,7 +1326,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			supportedAttributesOptionsModel := &partnercentersellv1.SupportedAttributesOptions{
 				Operators:                         []string{"stringEquals"},
 				Hidden:                            core.BoolPtr(false),
-				SupportedPatterns:                 []string{"testString"},
+				SupportedPatterns:                 []string{"attribute-based-condition:resource:literal-and-wildcard"},
 				PolicyTypes:                       []string{"access"},
 				IsEmptyValueSupported:             core.BoolPtr(true),
 				IsStringExistsFalseValueSupported: core.BoolPtr(true),
@@ -1475,9 +1476,8 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 			iamServiceRegistrationSupportedAnonymousAccessAttributesModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccessAttributes{
 				AccountID:            core.StringPtr("testString"),
 				ServiceName:          core.StringPtr(iamServiceRegistrationId),
-				AdditionalProperties: map[string]string{"key1": "testString"},
+				AdditionalProperties: map[string]string{"testString": "fakeAccount"},
 			}
-			iamServiceRegistrationSupportedAnonymousAccessAttributesModel.SetProperty("testString", core.StringPtr("foo"))
 
 			iamServiceRegistrationSupportedAnonymousAccessModel := &partnercentersellv1.IamServiceRegistrationSupportedAnonymousAccess{
 				Attributes: iamServiceRegistrationSupportedAnonymousAccessAttributesModel,
@@ -1613,7 +1613,7 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 		It(`CreateResourceBroker(createResourceBrokerOptions *CreateResourceBrokerOptions)`, func() {
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			brokerUrl := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
-			brokerName := fmt.Sprintf("petra_test_%s", randomInteger)
+			brokerName := fmt.Sprintf("petya_test_%s", randomInteger)
 
 			createResourceBrokerOptions := &partnercentersellv1.CreateResourceBrokerOptions{
 				AuthUsername:        core.StringPtr("apikey"),
@@ -1622,7 +1622,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				Name:                core.StringPtr(brokerName),
 				BrokerURL:           core.StringPtr(brokerUrl),
 				Type:                core.StringPtr("provision_through"),
-				ResourceGroupCrn:    core.StringPtr("crn:v1:staging:public:resource-controller::a/f15038e9046e4b9587db0ae76c4cbc26::resource-group:3a3a8ae311d0486c86b0a8c09e56883d"),
 				State:               core.StringPtr("active"),
 				AllowContextUpdates: core.BoolPtr(true),
 				CatalogType:         core.StringPtr("service"),
@@ -1804,7 +1803,6 @@ var _ = Describe(`PartnerCenterSellV1 Integration Tests`, func() {
 				AuthPassword:        core.StringPtr("0GANZzXiTurnXTF_000-FVk500800sdkrTHAt000y00y"),
 				AuthScheme:          core.StringPtr("bearer"),
 				BrokerURL:           core.StringPtr(brokerUrl),
-				ResourceGroupCrn:    core.StringPtr("crn:v1:staging:public:resource-controller::a/f15038e9046e4b9587db0ae76c4cbc26::resource-group:3a3a8ae311d0486c86b0a8c09e56883d"),
 				State:               core.StringPtr("active"),
 				AllowContextUpdates: core.BoolPtr(true),
 				CatalogType:         core.StringPtr("service"),

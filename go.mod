@@ -1,6 +1,8 @@
 module github.com/IBM/platform-services-go-sdk
 
-go 1.21
+go 1.22.0
+
+toolchain go1.22.6
 
 require (
 	github.com/IBM/go-sdk-core/v5 v5.18.0
@@ -9,6 +11,7 @@ require (
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.31.1
 	github.com/stretchr/testify v1.9.0
+	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67
 )
 
 require (
