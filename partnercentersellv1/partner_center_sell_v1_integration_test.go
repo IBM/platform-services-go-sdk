@@ -30,7 +30,6 @@ import (
 	"github.com/IBM/platform-services-go-sdk/partnercentersellv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"golang.org/x/exp/rand"
 )
 
 /**
