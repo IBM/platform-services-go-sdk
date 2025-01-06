@@ -1,17 +1,14 @@
 module github.com/IBM/platform-services-go-sdk
 
-go 1.22.0
-
-toolchain go1.22.6
+go 1.21
 
 require (
-	github.com/IBM/go-sdk-core/v5 v5.18.0
+	github.com/IBM/go-sdk-core/v5 v5.18.3
 	github.com/go-openapi/strfmt v0.23.0
 	github.com/google/uuid v1.6.0
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.31.1
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/exp v0.0.0-20241217172543-b2144cdd0a67
 )
 
 require (
@@ -32,10 +29,10 @@ require (
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
-	golang.org/x/crypto v0.21.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/net v0.23.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
