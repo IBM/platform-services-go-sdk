@@ -260,14 +260,14 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogProductMetadataServiceModel := &partnercentersellv1.GlobalCatalogProductMetadataService{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
 
 			globalCatalogProductMetadataModel := &partnercentersellv1.GlobalCatalogProductMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogProductMetadataServiceModel,
 			}
 
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
@@ -360,7 +360,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				En: globalCatalogOverviewUiTranslatedContentModel,
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogPlanMetadataServiceModel := &partnercentersellv1.GlobalCatalogPlanMetadataService{
 				RcProvisionable: core.BoolPtr(false),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -372,7 +372,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			globalCatalogPlanMetadataModel := &partnercentersellv1.GlobalCatalogPlanMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogPlanMetadataServiceModel,
 				Pricing:      globalCatalogMetadataPricingModel,
 			}
 
@@ -457,7 +457,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 				Email: core.StringPtr("name.name@ibm.com"),
 			}
 
-			globalCatalogMetadataServiceModel := &partnercentersellv1.GlobalCatalogMetadataService{
+			globalCatalogDeploymentMetadataServiceModel := &partnercentersellv1.GlobalCatalogDeploymentMetadataService{
 				RcProvisionable: core.BoolPtr(true),
 				IamCompatible:   core.BoolPtr(true),
 			}
@@ -476,7 +476,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 
 			globalCatalogDeploymentMetadataModel := &partnercentersellv1.GlobalCatalogDeploymentMetadata{
 				RcCompatible: core.BoolPtr(true),
-				Service:      globalCatalogMetadataServiceModel,
+				Service:      globalCatalogDeploymentMetadataServiceModel,
 				Deployment:   globalCatalogMetadataDeploymentModel,
 			}
 
@@ -617,6 +617,7 @@ var _ = Describe(`PartnerCenterSellV1 Examples Tests`, func() {
 		It(`CreateResourceBroker request example`, func() {
 			fmt.Println("\nCreateResourceBroker() result:")
 			// begin-create_resource_broker
+
 			var randomInteger = strconv.Itoa(rand.Intn(1000))
 			brokerName := fmt.Sprintf("broker-example-%s", randomInteger)
 			brokerLink := fmt.Sprintf("https://broker-url-for-my-service.com/%s", randomInteger)
