@@ -1,3 +1,10 @@
+# [0.73.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.72.0...v0.73.0) (2025-01-07)
+
+
+### Features
+
+* **Partner Center Sell:** add custom service parameters and other gc metadata service flags ([#366](https://github.com/IBM/platform-services-go-sdk/issues/366)) ([fba2608](https://github.com/IBM/platform-services-go-sdk/commit/fba26084d40baf3a29619ae1d2d24b7d66d200f8))
+
 # [0.72.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.71.2...v0.72.0) (2024-11-29)
 
 
