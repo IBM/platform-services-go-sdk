@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/IBM/platform-services-go-sdk.svg?branch=main)](https://app.travis-ci.com/IBM/platform-services-go-sdk)
+[![Build Status](https://github.com/IBM/platform-services-go-sdk/actions/workflows/build.yaml/badge.svg)](https://github.com/IBM/platform-services-go-sdk/actions/workflows/build.yaml)
 [![Release](https://img.shields.io/github/v/release/IBM/platform-services-go-sdk)](https://github.com/IBM/platform-services-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/platform-services-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/platform-services-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/platform-services-go-sdk)
