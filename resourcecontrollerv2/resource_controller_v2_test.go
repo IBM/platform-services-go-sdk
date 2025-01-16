@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -179,6 +179,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["subscription_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
@@ -206,6 +207,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubscriptionID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
@@ -248,6 +250,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["subscription_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
@@ -259,7 +262,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully with retries`, func() {
@@ -280,6 +283,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubscriptionID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
@@ -328,6 +332,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["subscription_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
@@ -336,7 +341,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully`, func() {
@@ -362,6 +367,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubscriptionID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
@@ -393,6 +399,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubscriptionID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
@@ -438,6 +445,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubscriptionID = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(10))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
@@ -497,9 +505,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","scheduled_reclaim_at":"2019-01-01T12:00:00.000Z","restored_at":"2019-01-01T12:00:00.000Z","restored_by":"RestoredBy","scheduled_reclaim_by":"ScheduledReclaimBy","name":"Name","region_id":"RegionID","account_id":"AccountID","reseller_channel_id":"ResellerChannelID","resource_plan_id":"ResourcePlanID","resource_group_id":"ResourceGroupID","resource_group_crn":"ResourceGroupCRN","target_crn":"TargetCRN","onetime_credentials":true,"parameters":{"anyKey":"anyValue"},"allow_cleanup":true,"crn":"CRN","state":"active","type":"Type","sub_type":"SubType","resource_id":"ResourceID","dashboard_url":"DashboardURL","last_operation":{"type":"Type","state":"in progress","sub_type":"SubType","async":false,"description":"Description","reason_code":"ReasonCode","poll_after":9,"cancelable":true,"poll":true},"resource_aliases_url":"ResourceAliasesURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL","plan_history":[{"resource_plan_id":"ResourcePlanID","start_date":"2019-01-01T12:00:00.000Z","requestor_id":"RequestorID"}],"migrated":true,"extensions":{"anyKey":"anyValue"},"controlled_by":"ControlledBy","locked":true}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","scheduled_reclaim_at":"2019-01-01T12:00:00.000Z","restored_at":"2019-01-01T12:00:00.000Z","restored_by":"RestoredBy","scheduled_reclaim_by":"ScheduledReclaimBy","name":"Name","region_id":"RegionID","account_id":"AccountID","reseller_channel_id":"ResellerChannelID","resource_plan_id":"ResourcePlanID","resource_group_id":"ResourceGroupID","resource_group_crn":"ResourceGroupCRN","target_crn":"TargetCRN","onetime_credentials":true,"parameters":{"anyKey":"anyValue"},"allow_cleanup":true,"crn":"CRN","state":"active","type":"Type","sub_type":"SubType","resource_id":"ResourceID","dashboard_url":"DashboardURL","last_operation":{"type":"Type","state":"in progress","sub_type":"SubType","async":false,"description":"Description","reason_code":"ReasonCode","poll_after":9,"cancelable":true,"poll":true},"resource_keys_url":"ResourceKeysURL","plan_history":[{"resource_plan_id":"ResourcePlanID","start_date":"2019-01-01T12:00:00.000Z","requestor_id":"RequestorID"}],"migrated":true,"extensions":{"anyKey":"anyValue"},"controlled_by":"ControlledBy","locked":true,"subscription_id":"SubscriptionID"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","scheduled_reclaim_at":"2019-01-01T12:00:00.000Z","restored_at":"2019-01-01T12:00:00.000Z","restored_by":"RestoredBy","scheduled_reclaim_by":"ScheduledReclaimBy","name":"Name","region_id":"RegionID","account_id":"AccountID","reseller_channel_id":"ResellerChannelID","resource_plan_id":"ResourcePlanID","resource_group_id":"ResourceGroupID","resource_group_crn":"ResourceGroupCRN","target_crn":"TargetCRN","onetime_credentials":true,"parameters":{"anyKey":"anyValue"},"allow_cleanup":true,"crn":"CRN","state":"active","type":"Type","sub_type":"SubType","resource_id":"ResourceID","dashboard_url":"DashboardURL","last_operation":{"type":"Type","state":"in progress","sub_type":"SubType","async":false,"description":"Description","reason_code":"ReasonCode","poll_after":9,"cancelable":true,"poll":true},"resource_aliases_url":"ResourceAliasesURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL","plan_history":[{"resource_plan_id":"ResourcePlanID","start_date":"2019-01-01T12:00:00.000Z","requestor_id":"RequestorID"}],"migrated":true,"extensions":{"anyKey":"anyValue"},"controlled_by":"ControlledBy","locked":true}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","scheduled_reclaim_at":"2019-01-01T12:00:00.000Z","restored_at":"2019-01-01T12:00:00.000Z","restored_by":"RestoredBy","scheduled_reclaim_by":"ScheduledReclaimBy","name":"Name","region_id":"RegionID","account_id":"AccountID","reseller_channel_id":"ResellerChannelID","resource_plan_id":"ResourcePlanID","resource_group_id":"ResourceGroupID","resource_group_crn":"ResourceGroupCRN","target_crn":"TargetCRN","onetime_credentials":true,"parameters":{"anyKey":"anyValue"},"allow_cleanup":true,"crn":"CRN","state":"active","type":"Type","sub_type":"SubType","resource_id":"ResourceID","dashboard_url":"DashboardURL","last_operation":{"type":"Type","state":"in progress","sub_type":"SubType","async":false,"description":"Description","reason_code":"ReasonCode","poll_after":9,"cancelable":true,"poll":true},"resource_keys_url":"ResourceKeysURL","plan_history":[{"resource_plan_id":"ResourcePlanID","start_date":"2019-01-01T12:00:00.000Z","requestor_id":"RequestorID"}],"migrated":true,"extensions":{"anyKey":"anyValue"},"controlled_by":"ControlledBy","locked":true,"subscription_id":"SubscriptionID"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -521,6 +529,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					ResourcePlanID:  core.StringPtr("testString"),
 					Type:            core.StringPtr("testString"),
 					SubType:         core.StringPtr("testString"),
+					SubscriptionID:  core.StringPtr("testString"),
 					Limit:           core.Int64Ptr(int64(10)),
 					State:           core.StringPtr("active"),
 					UpdatedFrom:     core.StringPtr("2021-01-01"),
@@ -556,6 +565,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					ResourcePlanID:  core.StringPtr("testString"),
 					Type:            core.StringPtr("testString"),
 					SubType:         core.StringPtr("testString"),
+					SubscriptionID:  core.StringPtr("testString"),
 					Limit:           core.Int64Ptr(int64(10)),
 					State:           core.StringPtr("active"),
 					UpdatedFrom:     core.StringPtr("2021-01-01"),
@@ -662,7 +672,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully with retries`, func() {
@@ -741,7 +751,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully`, func() {
@@ -920,7 +930,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully with retries`, func() {
@@ -974,7 +984,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully`, func() {
@@ -1223,7 +1233,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully with retries`, func() {
@@ -1297,7 +1307,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully`, func() {
@@ -1405,331 +1415,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) - Operation response error`, func() {
-		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListResourceAliasesForInstance with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions)`, func() {
-		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceAliasesForInstance successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.ListResourceAliasesForInstanceWithContext(ctx, listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.ListResourceAliasesForInstanceWithContext(ctx, listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceAliasesForInstance successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListResourceAliasesForInstance with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListResourceAliasesForInstanceOptions model with no property values
-				listResourceAliasesForInstanceOptionsModelNew := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListResourceAliasesForInstance successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
-				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-				responseObject.NextURL = core.StringPtr("ibm.com")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","name":"Name","resource_instance_id":"ResourceInstanceID","target_crn":"TargetCRN","account_id":"AccountID","resource_id":"ResourceID","resource_group_id":"ResourceGroupID","crn":"CRN","region_instance_id":"RegionInstanceID","region_instance_crn":"RegionInstanceCRN","state":"State","migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","name":"Name","resource_instance_id":"ResourceInstanceID","target_crn":"TargetCRN","account_id":"AccountID","resource_id":"ResourceID","resource_group_id":"ResourceGroupID","crn":"CRN","region_instance_id":"RegionInstanceID","region_instance_crn":"RegionInstanceCRN","state":"State","migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use ResourceAliasesForInstancePager.GetNext successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceAliasesForInstanceOptionsModel := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-					ID:    core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []resourcecontrollerv2.ResourceAlias
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use ResourceAliasesForInstancePager.GetAll successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceAliasesForInstanceOptionsModel := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-					ID:    core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := resourceControllerService.NewResourceAliasesForInstancePager(listResourceAliasesForInstanceOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
 	Describe(`ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) - Operation response error`, func() {
 		listResourceKeysForInstancePath := "/v2/resource_instances/testString/resource_keys"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1798,7 +1483,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceKeysForInstance successfully with retries`, func() {
@@ -1856,7 +1541,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceKeysForInstance successfully`, func() {
@@ -1997,9 +1682,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_alias_url":"ResourceAliasURL"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_alias_url":"ResourceAliasURL"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -2117,7 +1802,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully with retries`, func() {
@@ -2171,7 +1856,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully`, func() {
@@ -2329,7 +2014,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully with retries`, func() {
@@ -2383,7 +2068,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully`, func() {
@@ -2541,7 +2226,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke CancelLastopResourceInstance successfully with retries`, func() {
@@ -2595,7 +2280,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "onetime_credentials": true, "parameters": {"anyKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"anyKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true, "subscription_id": "SubscriptionID"}`)
 				}))
 			})
 			It(`Invoke CancelLastopResourceInstance successfully`, func() {
@@ -2776,7 +2461,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceKeys successfully with retries`, func() {
@@ -2845,7 +2530,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceKeys successfully`, func() {
@@ -2994,9 +2679,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_alias_url":"ResourceAliasURL"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL"}]}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_alias_url":"ResourceAliasURL"}]}`)
+						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","name":"Name","crn":"CRN","state":"State","account_id":"AccountID","resource_group_id":"ResourceGroupID","resource_id":"ResourceID","onetime_credentials":true,"credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"migrated":true,"resource_instance_url":"ResourceInstanceURL"}]}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -3148,7 +2833,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke CreateResourceKey successfully with retries`, func() {
@@ -3226,7 +2911,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke CreateResourceKey successfully`, func() {
@@ -3408,7 +3093,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke GetResourceKey successfully with retries`, func() {
@@ -3462,7 +3147,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke GetResourceKey successfully`, func() {
@@ -3705,7 +3390,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceKey successfully with retries`, func() {
@@ -3776,7 +3461,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_alias_url": "ResourceAliasURL"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "name": "Name", "crn": "CRN", "state": "State", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_id": "ResourceID", "onetime_credentials": true, "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "migrated": true, "resource_instance_url": "ResourceInstanceURL"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceKey successfully`, func() {
@@ -3872,2707 +3557,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			AfterEach(func() {
 				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions) - Operation response error`, func() {
-		listResourceBindingsPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListResourceBindings with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
-				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions)`, func() {
-		listResourceBindingsPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceBindings successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
-				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceBindings successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.ListResourceBindings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
-				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListResourceBindings with error: Operation request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
-				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListResourceBindings successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
-				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-				responseObject.NextURL = core.StringPtr("ibm.com")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","target_crn":"TargetCRN","crn":"CRN","region_binding_id":"RegionBindingID","region_binding_crn":"RegionBindingCRN","name":"Name","account_id":"AccountID","resource_group_id":"ResourceGroupID","state":"State","credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"resource_id":"ResourceID","migrated":true,"resource_alias_url":"ResourceAliasURL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","target_crn":"TargetCRN","crn":"CRN","region_binding_id":"RegionBindingID","region_binding_crn":"RegionBindingCRN","name":"Name","account_id":"AccountID","resource_group_id":"ResourceGroupID","state":"State","credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"resource_id":"ResourceID","migrated":true,"resource_alias_url":"ResourceAliasURL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use ResourceBindingsPager.GetNext successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceBindingsOptionsModel := &resourcecontrollerv2.ListResourceBindingsOptions{
-					GUID:            core.StringPtr("testString"),
-					Name:            core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID:      core.StringPtr("testString"),
-					RegionBindingID: core.StringPtr("testString"),
-					Limit:           core.Int64Ptr(int64(10)),
-					UpdatedFrom:     core.StringPtr("2021-01-01"),
-					UpdatedTo:       core.StringPtr("2021-01-01"),
-				}
-
-				pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []resourcecontrollerv2.ResourceBinding
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use ResourceBindingsPager.GetAll successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceBindingsOptionsModel := &resourcecontrollerv2.ListResourceBindingsOptions{
-					GUID:            core.StringPtr("testString"),
-					Name:            core.StringPtr("testString"),
-					ResourceGroupID: core.StringPtr("testString"),
-					ResourceID:      core.StringPtr("testString"),
-					RegionBindingID: core.StringPtr("testString"),
-					Limit:           core.Int64Ptr(int64(10)),
-					UpdatedFrom:     core.StringPtr("2021-01-01"),
-					UpdatedTo:       core.StringPtr("2021-01-01"),
-				}
-
-				pager, err := resourceControllerService.NewResourceBindingsPager(listResourceBindingsOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions) - Operation response error`, func() {
-		createResourceBindingPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateResourceBinding with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
-				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
-				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions)`, func() {
-		createResourceBindingPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke CreateResourceBinding successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
-				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
-				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke CreateResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.CreateResourceBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
-				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
-				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateResourceBinding with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
-				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
-				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateResourceBindingOptions model with no property values
-				createResourceBindingOptionsModelNew := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
-				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
-				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions) - Operation response error`, func() {
-		getResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetResourceBinding with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceBindingOptions model
-				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
-				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions)`, func() {
-		getResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke GetResourceBinding successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetResourceBindingOptions model
-				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
-				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke GetResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.GetResourceBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetResourceBindingOptions model
-				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
-				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetResourceBinding with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceBindingOptions model
-				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
-				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetResourceBindingOptions model with no property values
-				getResourceBindingOptionsModelNew := new(resourcecontrollerv2.GetResourceBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceBindingOptions model
-				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
-				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteResourceBinding(deleteResourceBindingOptions *DeleteResourceBindingOptions)`, func() {
-		deleteResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceBindingPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke DeleteResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := resourceControllerService.DeleteResourceBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteResourceBindingOptions model
-				deleteResourceBindingOptionsModel := new(resourcecontrollerv2.DeleteResourceBindingOptions)
-				deleteResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteResourceBinding with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteResourceBindingOptions model
-				deleteResourceBindingOptionsModel := new(resourcecontrollerv2.DeleteResourceBindingOptions)
-				deleteResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteResourceBindingOptions model with no property values
-				deleteResourceBindingOptionsModelNew := new(resourcecontrollerv2.DeleteResourceBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions) - Operation response error`, func() {
-		updateResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateResourceBinding with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceBindingOptions model
-				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions)`, func() {
-		updateResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke UpdateResourceBinding successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateResourceBindingOptions model
-				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}`)
-				}))
-			})
-			It(`Invoke UpdateResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.UpdateResourceBinding(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateResourceBindingOptions model
-				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateResourceBinding with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceBindingOptions model
-				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateResourceBindingOptions model with no property values
-				updateResourceBindingOptionsModelNew := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateResourceBinding successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceBindingOptions model
-				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
-				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions) - Operation response error`, func() {
-		listResourceAliasesPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListResourceAliases with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
-				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions)`, func() {
-		listResourceAliasesPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceAliases successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
-				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceAliases successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.ListResourceAliases(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
-				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListResourceAliases with error: Operation request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
-				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListResourceAliases successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
-				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
-				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceAliasesList)
-				responseObject.NextURL = core.StringPtr("ibm.com")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","name":"Name","resource_instance_id":"ResourceInstanceID","target_crn":"TargetCRN","account_id":"AccountID","resource_id":"ResourceID","resource_group_id":"ResourceGroupID","crn":"CRN","region_instance_id":"RegionInstanceID","region_instance_crn":"RegionInstanceCRN","state":"State","migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","name":"Name","resource_instance_id":"ResourceInstanceID","target_crn":"TargetCRN","account_id":"AccountID","resource_id":"ResourceID","resource_group_id":"ResourceGroupID","crn":"CRN","region_instance_id":"RegionInstanceID","region_instance_crn":"RegionInstanceCRN","state":"State","migrated":true,"resource_instance_url":"ResourceInstanceURL","resource_bindings_url":"ResourceBindingsURL","resource_keys_url":"ResourceKeysURL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use ResourceAliasesPager.GetNext successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceAliasesOptionsModel := &resourcecontrollerv2.ListResourceAliasesOptions{
-					GUID:               core.StringPtr("testString"),
-					Name:               core.StringPtr("testString"),
-					ResourceInstanceID: core.StringPtr("testString"),
-					RegionInstanceID:   core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					ResourceGroupID:    core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(10)),
-					UpdatedFrom:        core.StringPtr("2021-01-01"),
-					UpdatedTo:          core.StringPtr("2021-01-01"),
-				}
-
-				pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []resourcecontrollerv2.ResourceAlias
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use ResourceAliasesPager.GetAll successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceAliasesOptionsModel := &resourcecontrollerv2.ListResourceAliasesOptions{
-					GUID:               core.StringPtr("testString"),
-					Name:               core.StringPtr("testString"),
-					ResourceInstanceID: core.StringPtr("testString"),
-					RegionInstanceID:   core.StringPtr("testString"),
-					ResourceID:         core.StringPtr("testString"),
-					ResourceGroupID:    core.StringPtr("testString"),
-					Limit:              core.Int64Ptr(int64(10)),
-					UpdatedFrom:        core.StringPtr("2021-01-01"),
-					UpdatedTo:          core.StringPtr("2021-01-01"),
-				}
-
-				pager, err := resourceControllerService.NewResourceAliasesPager(listResourceAliasesOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
-			})
-		})
-	})
-	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions) - Operation response error`, func() {
-		createResourceAliasPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
-					Expect(req.Method).To(Equal("POST"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateResourceAlias with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions)`, func() {
-		createResourceAliasPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke CreateResourceAlias successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
-					Expect(req.Method).To(Equal("POST"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke CreateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke CreateResourceAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateResourceAliasOptions model with no property values
-				createResourceAliasOptionsModelNew := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(201)
-				}))
-			})
-			It(`Invoke CreateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions) - Operation response error`, func() {
-		getResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetResourceAlias with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceAliasOptions model
-				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
-				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions)`, func() {
-		getResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke GetResourceAlias successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the GetResourceAliasOptions model
-				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
-				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke GetResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.GetResourceAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetResourceAliasOptions model
-				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
-				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke GetResourceAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceAliasOptions model
-				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
-				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetResourceAliasOptions model with no property values
-				getResourceAliasOptionsModelNew := new(resourcecontrollerv2.GetResourceAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke GetResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the GetResourceAliasOptions model
-				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
-				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`DeleteResourceAlias(deleteResourceAliasOptions *DeleteResourceAliasOptions)`, func() {
-		deleteResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceAliasPath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					// TODO: Add check for recursive query parameter
-					res.WriteHeader(204)
-				}))
-			})
-			It(`Invoke DeleteResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := resourceControllerService.DeleteResourceAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteResourceAliasOptions model
-				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
-				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceAliasOptionsModel.Recursive = core.BoolPtr(false)
-				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteResourceAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteResourceAliasOptions model
-				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
-				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceAliasOptionsModel.Recursive = core.BoolPtr(false)
-				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteResourceAliasOptions model with no property values
-				deleteResourceAliasOptionsModelNew := new(resourcecontrollerv2.DeleteResourceAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions) - Operation response error`, func() {
-		updateResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateResourceAlias with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceAliasOptions model
-				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions)`, func() {
-		updateResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke UpdateResourceAlias successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the UpdateResourceAliasOptions model
-				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "name": "Name", "resource_instance_id": "ResourceInstanceID", "target_crn": "TargetCRN", "account_id": "AccountID", "resource_id": "ResourceID", "resource_group_id": "ResourceGroupID", "crn": "CRN", "region_instance_id": "RegionInstanceID", "region_instance_crn": "RegionInstanceCRN", "state": "State", "migrated": true, "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL"}`)
-				}))
-			})
-			It(`Invoke UpdateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.UpdateResourceAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateResourceAliasOptions model
-				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke UpdateResourceAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceAliasOptions model
-				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateResourceAliasOptions model with no property values
-				updateResourceAliasOptionsModelNew := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke UpdateResourceAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateResourceAliasOptions model
-				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
-				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) - Operation response error`, func() {
-		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
-		Context(`Using mock server endpoint with invalid JSON response`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprint(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListResourceBindingsForAlias with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions)`, func() {
-		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceBindingsForAlias successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.ListResourceBindingsForAliasWithContext(ctx, listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.ListResourceBindingsForAliasWithContext(ctx, listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(10))}))
-					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "crn": "CRN", "region_binding_id": "RegionBindingID", "region_binding_crn": "RegionBindingCRN", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "state": "State", "credentials": {"REDACTED": "REDACTED", "apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_id": "ResourceID", "migrated": true, "resource_alias_url": "ResourceAliasURL"}]}`)
-				}))
-			})
-			It(`Invoke ListResourceBindingsForAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-			})
-			It(`Invoke ListResourceBindingsForAlias with error: Operation validation and request error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := resourceControllerService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListResourceBindingsForAliasOptions model with no property values
-				listResourceBindingsForAliasOptionsModelNew := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Using mock server endpoint with missing response body`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Set success status code with no respoonse body
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke ListResourceBindingsForAlias successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
-				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(10))
-				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation
-				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Verify a nil result
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-		Context(`Test pagination helper method on response`, func() {
-			It(`Invoke GetNextStart successfully`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-				responseObject.NextURL = core.StringPtr("ibm.com?start=abc-123")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(Equal(core.StringPtr("abc-123")))
-			})
-			It(`Invoke GetNextStart without a "NextURL" property in the response`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-			It(`Invoke GetNextStart without any query params in the "NextURL" URL`, func() {
-				responseObject := new(resourcecontrollerv2.ResourceBindingsList)
-				responseObject.NextURL = core.StringPtr("ibm.com")
-
-				value, err := responseObject.GetNextStart()
-				Expect(err).To(BeNil())
-				Expect(value).To(BeNil())
-			})
-		})
-		Context(`Using mock server endpoint - paginated response`, func() {
-			BeforeEach(func() {
-				var requestNumber int = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					requestNumber++
-					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"next_url":"https://myhost.com/somePath?start=1","resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","target_crn":"TargetCRN","crn":"CRN","region_binding_id":"RegionBindingID","region_binding_crn":"RegionBindingCRN","name":"Name","account_id":"AccountID","resource_group_id":"ResourceGroupID","state":"State","credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"resource_id":"ResourceID","migrated":true,"resource_alias_url":"ResourceAliasURL"}]}`)
-					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"total_count":2,"limit":1,"resources":[{"id":"ID","guid":"GUID","url":"URL","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","deleted_at":"2019-01-01T12:00:00.000Z","created_by":"CreatedBy","updated_by":"UpdatedBy","deleted_by":"DeletedBy","source_crn":"SourceCRN","target_crn":"TargetCRN","crn":"CRN","region_binding_id":"RegionBindingID","region_binding_crn":"RegionBindingCRN","name":"Name","account_id":"AccountID","resource_group_id":"ResourceGroupID","state":"State","credentials":{"REDACTED":"REDACTED","apikey":"Apikey","iam_apikey_description":"IamApikeyDescription","iam_apikey_name":"IamApikeyName","iam_role_crn":"IamRoleCRN","iam_serviceid_crn":"IamServiceidCRN"},"iam_compatible":false,"resource_id":"ResourceID","migrated":true,"resource_alias_url":"ResourceAliasURL"}]}`)
-					} else {
-						res.WriteHeader(400)
-					}
-				}))
-			})
-			It(`Use ResourceBindingsForAliasPager.GetNext successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceBindingsForAliasOptionsModel := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID:    core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				var allResults []resourcecontrollerv2.ResourceBinding
-				for pager.HasNext() {
-					nextPage, err := pager.GetNext()
-					Expect(err).To(BeNil())
-					Expect(nextPage).ToNot(BeNil())
-					allResults = append(allResults, nextPage...)
-				}
-				Expect(len(allResults)).To(Equal(2))
-			})
-			It(`Use ResourceBindingsForAliasPager.GetAll successfully`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				listResourceBindingsForAliasOptionsModel := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID:    core.StringPtr("testString"),
-					Limit: core.Int64Ptr(int64(10)),
-				}
-
-				pager, err := resourceControllerService.NewResourceBindingsForAliasPager(listResourceBindingsForAliasOptionsModel)
-				Expect(err).To(BeNil())
-				Expect(pager).ToNot(BeNil())
-
-				allResults, err := pager.GetAll()
-				Expect(err).To(BeNil())
-				Expect(allResults).ToNot(BeNil())
-				Expect(len(allResults)).To(Equal(2))
 			})
 		})
 	})
@@ -7075,59 +4059,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(cancelLastopResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(cancelLastopResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateResourceAliasOptions successfully`, func() {
-				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsName := "ExampleResourceAlias"
-				createResourceAliasOptionsSource := "381fd51a-f251-4f95-aff4-2b03fa8caa63"
-				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7"
-				createResourceAliasOptionsModel := resourceControllerService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
-				createResourceAliasOptionsModel.SetName("ExampleResourceAlias")
-				createResourceAliasOptionsModel.SetSource("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
-				createResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceAlias")))
-				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")))
-				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")))
-				Expect(createResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewCreateResourceBindingOptions successfully`, func() {
-				// Construct an instance of the ResourceBindingPostParameters model
-				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
-				Expect(resourceBindingPostParametersModel).ToNot(BeNil())
-				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("exampleParameter", "exampleValue")
-				Expect(resourceBindingPostParametersModel.ServiceidCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")))
-				Expect(resourceBindingPostParametersModel.GetProperties()).ToNot(BeEmpty())
-				Expect(resourceBindingPostParametersModel.GetProperty("exampleParameter")).To(Equal("exampleValue"))
-
-				resourceBindingPostParametersModel.SetProperties(nil)
-				Expect(resourceBindingPostParametersModel.GetProperties()).To(BeEmpty())
-
-				resourceBindingPostParametersModelExpectedMap := make(map[string]interface{})
-				resourceBindingPostParametersModelExpectedMap["exampleParameter"] = "exampleValue"
-				resourceBindingPostParametersModel.SetProperties(resourceBindingPostParametersModelExpectedMap)
-				resourceBindingPostParametersModelActualMap := resourceBindingPostParametersModel.GetProperties()
-				Expect(resourceBindingPostParametersModelActualMap).To(Equal(resourceBindingPostParametersModelExpectedMap))
-
-				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsSource := "faaec9d8-ec64-44d8-ab83-868632fac6a2"
-				createResourceBindingOptionsTarget := "crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205"
-				createResourceBindingOptionsModel := resourceControllerService.NewCreateResourceBindingOptions(createResourceBindingOptionsSource, createResourceBindingOptionsTarget)
-				createResourceBindingOptionsModel.SetSource("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.SetTarget("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.SetName("ExampleResourceBinding")
-				createResourceBindingOptionsModel.SetParameters(resourceBindingPostParametersModel)
-				createResourceBindingOptionsModel.SetRole("Writer")
-				createResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(createResourceBindingOptionsModel.Source).To(Equal(core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")))
-				Expect(createResourceBindingOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")))
-				Expect(createResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceBinding")))
-				Expect(createResourceBindingOptionsModel.Parameters).To(Equal(resourceBindingPostParametersModel))
-				Expect(createResourceBindingOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
-				Expect(createResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewCreateResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsName := "ExampleResourceInstance"
@@ -7190,28 +4121,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(createResourceKeyOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
 				Expect(createResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewDeleteResourceAliasOptions successfully`, func() {
-				// Construct an instance of the DeleteResourceAliasOptions model
-				id := "testString"
-				deleteResourceAliasOptionsModel := resourceControllerService.NewDeleteResourceAliasOptions(id)
-				deleteResourceAliasOptionsModel.SetID("testString")
-				deleteResourceAliasOptionsModel.SetRecursive(false)
-				deleteResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(deleteResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteResourceAliasOptionsModel.Recursive).To(Equal(core.BoolPtr(false)))
-				Expect(deleteResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewDeleteResourceBindingOptions successfully`, func() {
-				// Construct an instance of the DeleteResourceBindingOptions model
-				id := "testString"
-				deleteResourceBindingOptionsModel := resourceControllerService.NewDeleteResourceBindingOptions(id)
-				deleteResourceBindingOptionsModel.SetID("testString")
-				deleteResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(deleteResourceBindingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewDeleteResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				id := "testString"
@@ -7233,26 +4142,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(deleteResourceKeyOptionsModel).ToNot(BeNil())
 				Expect(deleteResourceKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetResourceAliasOptions successfully`, func() {
-				// Construct an instance of the GetResourceAliasOptions model
-				id := "testString"
-				getResourceAliasOptionsModel := resourceControllerService.NewGetResourceAliasOptions(id)
-				getResourceAliasOptionsModel.SetID("testString")
-				getResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(getResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(getResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetResourceBindingOptions successfully`, func() {
-				// Construct an instance of the GetResourceBindingOptions model
-				id := "testString"
-				getResourceBindingOptionsModel := resourceControllerService.NewGetResourceBindingOptions(id)
-				getResourceBindingOptionsModel.SetID("testString")
-				getResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(getResourceBindingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(getResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the GetResourceInstanceOptions model
@@ -7287,86 +4176,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listReclamationsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listReclamationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListResourceAliasesForInstanceOptions successfully`, func() {
-				// Construct an instance of the ListResourceAliasesForInstanceOptions model
-				id := "testString"
-				listResourceAliasesForInstanceOptionsModel := resourceControllerService.NewListResourceAliasesForInstanceOptions(id)
-				listResourceAliasesForInstanceOptionsModel.SetID("testString")
-				listResourceAliasesForInstanceOptionsModel.SetLimit(int64(10))
-				listResourceAliasesForInstanceOptionsModel.SetStart("testString")
-				listResourceAliasesForInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listResourceAliasesForInstanceOptionsModel).ToNot(BeNil())
-				Expect(listResourceAliasesForInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesForInstanceOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listResourceAliasesForInstanceOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesForInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListResourceAliasesOptions successfully`, func() {
-				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := resourceControllerService.NewListResourceAliasesOptions()
-				listResourceAliasesOptionsModel.SetGUID("testString")
-				listResourceAliasesOptionsModel.SetName("testString")
-				listResourceAliasesOptionsModel.SetResourceInstanceID("testString")
-				listResourceAliasesOptionsModel.SetRegionInstanceID("testString")
-				listResourceAliasesOptionsModel.SetResourceID("testString")
-				listResourceAliasesOptionsModel.SetResourceGroupID("testString")
-				listResourceAliasesOptionsModel.SetLimit(int64(10))
-				listResourceAliasesOptionsModel.SetStart("testString")
-				listResourceAliasesOptionsModel.SetUpdatedFrom("2021-01-01")
-				listResourceAliasesOptionsModel.SetUpdatedTo("2021-01-01")
-				listResourceAliasesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listResourceAliasesOptionsModel).ToNot(BeNil())
-				Expect(listResourceAliasesOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.ResourceInstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.RegionInstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listResourceAliasesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
-				Expect(listResourceAliasesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
-				Expect(listResourceAliasesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListResourceBindingsForAliasOptions successfully`, func() {
-				// Construct an instance of the ListResourceBindingsForAliasOptions model
-				id := "testString"
-				listResourceBindingsForAliasOptionsModel := resourceControllerService.NewListResourceBindingsForAliasOptions(id)
-				listResourceBindingsForAliasOptionsModel.SetID("testString")
-				listResourceBindingsForAliasOptionsModel.SetLimit(int64(10))
-				listResourceBindingsForAliasOptionsModel.SetStart("testString")
-				listResourceBindingsForAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listResourceBindingsForAliasOptionsModel).ToNot(BeNil())
-				Expect(listResourceBindingsForAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsForAliasOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listResourceBindingsForAliasOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsForAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListResourceBindingsOptions successfully`, func() {
-				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := resourceControllerService.NewListResourceBindingsOptions()
-				listResourceBindingsOptionsModel.SetGUID("testString")
-				listResourceBindingsOptionsModel.SetName("testString")
-				listResourceBindingsOptionsModel.SetResourceGroupID("testString")
-				listResourceBindingsOptionsModel.SetResourceID("testString")
-				listResourceBindingsOptionsModel.SetRegionBindingID("testString")
-				listResourceBindingsOptionsModel.SetLimit(int64(10))
-				listResourceBindingsOptionsModel.SetStart("testString")
-				listResourceBindingsOptionsModel.SetUpdatedFrom("2021-01-01")
-				listResourceBindingsOptionsModel.SetUpdatedTo("2021-01-01")
-				listResourceBindingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listResourceBindingsOptionsModel).ToNot(BeNil())
-				Expect(listResourceBindingsOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.RegionBindingID).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
-				Expect(listResourceBindingsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
-				Expect(listResourceBindingsOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
-				Expect(listResourceBindingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewListResourceInstancesOptions successfully`, func() {
 				// Construct an instance of the ListResourceInstancesOptions model
 				listResourceInstancesOptionsModel := resourceControllerService.NewListResourceInstancesOptions()
@@ -7377,6 +4186,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.SetResourcePlanID("testString")
 				listResourceInstancesOptionsModel.SetType("testString")
 				listResourceInstancesOptionsModel.SetSubType("testString")
+				listResourceInstancesOptionsModel.SetSubscriptionID("testString")
 				listResourceInstancesOptionsModel.SetLimit(int64(10))
 				listResourceInstancesOptionsModel.SetStart("testString")
 				listResourceInstancesOptionsModel.SetState("active")
@@ -7391,6 +4201,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceInstancesOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.SubType).To(Equal(core.StringPtr("testString")))
+				Expect(listResourceInstancesOptionsModel.SubscriptionID).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listResourceInstancesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.State).To(Equal(core.StringPtr("active")))
@@ -7472,32 +4283,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(unlockResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(unlockResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateResourceAliasOptions successfully`, func() {
-				// Construct an instance of the UpdateResourceAliasOptions model
-				id := "testString"
-				updateResourceAliasOptionsName := "UpdatedExampleResourceAlias"
-				updateResourceAliasOptionsModel := resourceControllerService.NewUpdateResourceAliasOptions(id, updateResourceAliasOptionsName)
-				updateResourceAliasOptionsModel.SetID("testString")
-				updateResourceAliasOptionsModel.SetName("UpdatedExampleResourceAlias")
-				updateResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(updateResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceAlias")))
-				Expect(updateResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewUpdateResourceBindingOptions successfully`, func() {
-				// Construct an instance of the UpdateResourceBindingOptions model
-				id := "testString"
-				updateResourceBindingOptionsName := "UpdatedExampleResourceBinding"
-				updateResourceBindingOptionsModel := resourceControllerService.NewUpdateResourceBindingOptions(id, updateResourceBindingOptionsName)
-				updateResourceBindingOptionsModel.SetID("testString")
-				updateResourceBindingOptionsModel.SetName("UpdatedExampleResourceBinding")
-				updateResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(updateResourceBindingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceBinding")))
-				Expect(updateResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewUpdateResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				id := "testString"
@@ -7532,24 +4317,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`Model unmarshaling tests`, func() {
-		It(`Invoke UnmarshalResourceBindingPostParameters successfully`, func() {
-			// Construct an instance of the model.
-			model := new(resourcecontrollerv2.ResourceBindingPostParameters)
-			model.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-
-			b, err := json.Marshal(model)
-			Expect(err).To(BeNil())
-
-			var raw map[string]json.RawMessage
-			err = json.Unmarshal(b, &raw)
-			Expect(err).To(BeNil())
-
-			var result *resourcecontrollerv2.ResourceBindingPostParameters
-			err = resourcecontrollerv2.UnmarshalResourceBindingPostParameters(raw, &result)
-			Expect(err).To(BeNil())
-			Expect(result).ToNot(BeNil())
-			Expect(result).To(Equal(model))
-		})
 		It(`Invoke UnmarshalResourceKeyPostParameters successfully`, func() {
 			// Construct an instance of the model.
 			model := new(resourcecontrollerv2.ResourceKeyPostParameters)
