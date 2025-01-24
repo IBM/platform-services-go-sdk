@@ -62,15 +62,10 @@ var (
 	testInstanceCRN         string
 	testInstanceGUID        string
 	testAliasCRN            string
-	testAliasGUID           string
-	testBindingCRN          string
-	testBindingGUID         string
 	testInstanceKeyCRN      string
 	testInstanceKeyGUID     string
 	testAliasKeyCRN         string
 	testAliasKeyGUID        string
-	aliasTargetCRN          string
-	bindTargetCRN           string
 	testReclaimInstanceCRN  string
 	testReclaimInstanceGUID string
 	testReclamationID1      string
