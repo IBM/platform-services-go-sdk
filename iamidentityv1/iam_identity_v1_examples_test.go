@@ -98,6 +98,11 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		accountSettingsTemplateEtag           string
 		accountSettingsTemplateAssignmentId   string
 		accountSettingsTemplateAssignmentEtag string
+
+		service             string = "console"
+		valueString         string = "/billing"
+		preferenceID1       string = "landing_page"
+		iamIDForPreferences string
 	)
 
 	var shouldSkipTest = func() {
@@ -142,6 +147,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(enterpriseAccountID).ToNot(BeEmpty())
 
 			enterpriseSubAccountID = config["ENTERPRISE_SUBACCOUNT_ID"]
+			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
+
+			iamIDForPreferences = config["IAM_ID_FOR_PREFERENCES"]
 			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
 
 			fmt.Printf("Service URL: %s\n", serviceURL)
@@ -1818,6 +1826,78 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`UpdatePreferenceOnScopeAccount request example`, func() {
+
+			// begin-update_preference_on_scope_account
+
+			updatePreferenceOnScopeAccountOptions := &iamidentityv1.UpdatePreferenceOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+				ValueString:  &valueString,
+			}
+
+			preference, response, err := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions)
+
+			// end-update_preference_on_scope_account
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+		})
+		It(`GetPreferencesOnScopeAccount request example`, func() {
+
+			// begin-get_preferences_on_scope_account
+
+			getPreferencesOnScopeAccountOptions := &iamidentityv1.GetPreferencesOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+			}
+
+			preference, response, err := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+
+			// end-get_preferences_on_scope_account
+		})
+		It(`GetAllPreferencesOnScopeAccount request example`, func() {
+
+			// begin-get_all_preferences_on_scope_account
+
+			getAllPreferencesOnScopeAccountOptions := &iamidentityv1.GetAllPreferencesOnScopeAccountOptions{
+				AccountID: &accountID,
+				IamID:     &iamIDForPreferences,
+			}
+
+			preference, response, err := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+
+			// end-get_all_preferences_on_scope_account
+		})
+		It(`DeletePreferencesOnScopeAccount request example`, func() {
+
+			// begin-delete_preferences_on_scope_account
+
+			deletePreferencesOnScopeAccountOptions := &iamidentityv1.DeletePreferencesOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+			}
+
+			response, err := iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			// end-delete_preferences_on_scope_account
 		})
 	})
 })

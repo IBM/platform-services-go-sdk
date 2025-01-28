@@ -102,6 +102,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		accountSettingsTemplateEtag           string
 		accountSettingsTemplateAssignmentId   string
 		accountSettingsTemplateAssignmentEtag string
+
+		service             string = "console"
+		valueString         string = "/billing"
+		preferenceID1       string = "landing_page"
+		iamIDForPreferences string
 	)
 
 	var shouldSkipTest = func() {
@@ -145,6 +150,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			enterpriseSubAccountID = config["ENTERPRISE_SUBACCOUNT_ID"]
 			Expect(enterpriseSubAccountID).ToNot(BeEmpty())
+
+			iamIDForPreferences = config["IAM_ID_FOR_PREFERENCES"]
+			Expect(iamIDForPreferences).ToNot(BeEmpty())
+
 		})
 	})
 
@@ -2352,6 +2361,90 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			response, err := iamIdentityService.DeleteAllVersionsOfAccountSettingsTemplate(deleteOptions)
 			Expect(response.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
+		})
+	})
+
+	Describe(`UpdatePreferenceOnScopeAccount`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions *UpdatePreferenceOnScopeAccountOptions)`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamIDForPreferences).ToNot(BeEmpty())
+
+			updatePreferenceOnScopeAccountOptions := &iamidentityv1.UpdatePreferenceOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+				ValueString:  &valueString,
+			}
+
+			preference, response, err := iamIdentityService.UpdatePreferenceOnScopeAccount(updatePreferenceOnScopeAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdatePreferenceOnScopeAccount response:\n%s\n", common.ToJSON(preference))
+		})
+	})
+
+	Describe(`GetPreferencesOnScopeAccount`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions *GetPreferencesOnScopeAccountOptions)`, func() {
+
+			getPreferencesOnScopeAccountOptions := &iamidentityv1.GetPreferencesOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+			}
+
+			preference, response, err := iamIdentityService.GetPreferencesOnScopeAccount(getPreferencesOnScopeAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "getPreferencesOnScopeAccount response:\n%s\n", common.ToJSON(preference))
+		})
+	})
+
+	Describe(`GetAllPreferencesOnScopeAccount`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions *GetAllPreferencesOnScopeAccount)`, func() {
+
+			getAllPreferencesOnScopeAccountOptions := &iamidentityv1.GetAllPreferencesOnScopeAccountOptions{
+				AccountID: &accountID,
+				IamID:     &iamIDForPreferences,
+			}
+
+			preference, response, err := iamIdentityService.GetAllPreferencesOnScopeAccount(getAllPreferencesOnScopeAccountOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(preference).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "getAllPreferencesOnScopeAccount response:\n%s\n", common.ToJSON(preference))
+		})
+	})
+
+	Describe(`DeletePreferencesOnScopeAccount`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptions *DeletePreferencesOnScopeAccount)`, func() {
+
+			deletePreferencesOnScopeAccountOptions := &iamidentityv1.DeletePreferencesOnScopeAccountOptions{
+				AccountID:    &accountID,
+				IamID:        &iamIDForPreferences,
+				Service:      &service,
+				PreferenceID: &preferenceID1,
+			}
+
+			response, err := iamIdentityService.DeletePreferencesOnScopeAccount(deletePreferencesOnScopeAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
